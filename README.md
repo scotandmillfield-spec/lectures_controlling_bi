@@ -1,4 +1,4 @@
-# Sofia's Coffee World — Lehrmaterial BI & Controlling
+# Sofia's Coffee Dream — Lehrmaterial BI & Controlling
 
 Interaktive Lehrmodule für die Vorlesungen zu Business Intelligence und Controlling.
 Ein durchgehender Fall — ein Wiener Kaffeehausbetrieb — trägt alle Themen.
