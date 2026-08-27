@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slowly Changing Dimensions · Sofia's Coffee World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD;
+  --teal-dk:#166980;
+  --teal-xl:#E6F4F8;
+  --orange:#FF922B;
+  --orange-xl:#FFF1E0;
+  --sand:#F0E0C3;
+  --sand-xl:#FAF4E9;
+  --ink:#1D1D1F;
+  --grey:#8A8A89;
+  --grey-xl:#EDEDEC;
+  --paper:#FFFFFF;
+  --shell:#FBF8F2;
+
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--shell);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.5;
+  font-weight:400;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+
+/* ---------- masthead ---------- */
+.masthead{padding:52px 0 28px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--teal-dk);
+  display:flex;align-items:center;gap:10px;margin:0 0 18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{
+  font-size:clamp(2.1rem,5vw,3.4rem);font-weight:700;letter-spacing:-.026em;
+  line-height:1.04;margin:0 0 14px;max-width:16ch;
+}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:clamp(1.02rem,1.7vw,1.22rem);font-weight:300;color:#3d3d40;max-width:60ch;margin:0}
+
+/* ---------- timeline ---------- */
+.timeline{margin:30px 0 0;padding:20px 22px;background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r)}
+.tl-head{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--grey);margin-bottom:0}
+.tl-track{display:flex;align-items:stretch;gap:4px;height:44px;margin-top:30px}
+.tl-seg{
+  flex:1;border-radius:6px;display:flex;flex-direction:column;justify-content:center;
+  padding:0 14px;color:#fff;position:relative;
+}
+.tl-seg.past{background:var(--teal);flex:2.2}
+.tl-seg.now{background:var(--teal-dk);flex:1}
+.tl-name{font-size:.86rem;font-weight:600;line-height:1.15}
+.tl-dates{font-family:var(--mono);font-size:.68rem;opacity:.82}
+.tl-pin{
+  align-self:stretch;width:3px;background:var(--orange);position:relative;
+  border-radius:2px;margin:0 7px;z-index:3;
+}
+.tl-pin span{
+  position:absolute;left:50%;bottom:calc(100% + 9px);transform:translateX(-50%);
+  white-space:nowrap;font-family:var(--mono);font-size:.66rem;font-weight:600;
+  color:#fff;background:var(--orange);padding:3px 8px;border-radius:4px;
+}
+.tl-pin span::after{
+  content:"";position:absolute;left:50%;top:100%;transform:translateX(-50%);
+  border:4px solid transparent;border-top-color:var(--orange);
+}
+.tl-actor{margin-top:26px;font-size:.9rem;color:var(--grey)}
+.tl-actor b{color:var(--ink);font-weight:600}
+
+/* ---------- tabs ---------- */
+.tabs{display:flex;gap:8px;margin:36px 0 0;flex-wrap:wrap}
+.tab{
+  appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;
+  display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease);
+}
+.tab .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab[aria-selected="true"] .num{opacity:.75}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+.panel{padding-top:26px}
+.panel[hidden]{display:none}
+
+/* ---------- summary line ---------- */
+.claim{
+  font-size:clamp(1.15rem,2.3vw,1.5rem);font-weight:300;line-height:1.35;
+  margin:0 0 26px;max-width:52ch;color:#2c2c2f;
+}
+.claim b{font-weight:600;color:var(--teal-dk)}
+
+/* ---------- grid ---------- */
+.split{display:grid;grid-template-columns:1.35fr .85fr;gap:22px;align-items:start}
+.split>*,.pc>*,.verdict>*{min-width:0}
+.card{min-width:0;background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);box-shadow:var(--shadow)}
+.card-h{
+  padding:15px 20px;border-bottom:1px solid var(--grey-xl);
+  display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.card-t{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--teal-dk);font-weight:600}
+.card-b{padding:20px;min-width:0}
+
+/* ---------- dimension table ---------- */
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tscroll:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+table.dim{width:100%;min-width:520px;border-collapse:collapse;font-family:var(--mono);font-size:.78rem}
+table.dim th{
+  text-align:left;font-weight:600;color:#fff;background:var(--teal);
+  padding:8px 9px;white-space:nowrap;letter-spacing:.02em;position:relative;cursor:help;
+}
+table.dim th:first-child{border-radius:5px 0 0 0}
+table.dim th:last-child{border-radius:0 5px 0 0}
+table.dim td{padding:8px 9px;border-bottom:1px solid var(--grey-xl);white-space:nowrap}
+table.dim tr.closed td{color:var(--grey)}
+table.dim tr.fresh td{background:var(--orange-xl);font-weight:600;color:var(--teal-dk)}
+table.dim td.chg{background:var(--orange-xl);color:var(--teal-dk);font-weight:600}
+.strike{text-decoration:line-through;color:var(--grey);font-weight:400;margin-right:6px}
+.dim-note{margin:14px 0 0;font-size:.84rem;color:var(--grey);line-height:1.45}
+.dim-note b{color:var(--ink);font-weight:600}
+
+/* ---------- till slip ---------- */
+.slip-shell{padding:20px;background:var(--sand-xl);border-radius:var(--r)}
+.slip{
+  background:var(--paper);font-family:var(--mono);font-size:.79rem;line-height:1.75;
+  padding:22px 20px 26px;position:relative;
+  box-shadow:0 2px 10px rgba(29,29,31,.09);
+  --tear:6px;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - var(--tear)),
+    95% 100%,90% calc(100% - var(--tear)),85% 100%,80% calc(100% - var(--tear)),
+    75% 100%,70% calc(100% - var(--tear)),65% 100%,60% calc(100% - var(--tear)),
+    55% 100%,50% calc(100% - var(--tear)),45% 100%,40% calc(100% - var(--tear)),
+    35% 100%,30% calc(100% - var(--tear)),25% 100%,20% calc(100% - var(--tear)),
+    15% 100%,10% calc(100% - var(--tear)),5% 100%,0 calc(100% - var(--tear)));
+}
+.slip-brand{text-align:center;font-weight:600;letter-spacing:.18em;font-size:.72rem;margin-bottom:2px}
+.slip-sub{text-align:center;font-size:.68rem;color:var(--grey);letter-spacing:.06em;margin-bottom:14px}
+.rule{border-top:1px dashed #cfcfcd;margin:11px 0}
+.slip-grp{font-size:.7rem;letter-spacing:.11em;color:var(--teal-dk);font-weight:600;margin-top:9px}
+.ln{display:flex;justify-content:space-between;gap:12px;padding-left:12px;padding-right:18px;position:relative}
+.ln .v{font-variant-numeric:tabular-nums;text-align:right}
+.ln.diff .v{color:var(--orange);font-weight:600}
+.ln.diff::after{content:"←";color:var(--orange);position:absolute;right:0;top:0}
+.ln.total{padding-left:0;font-weight:600;letter-spacing:.04em}
+.slip-foot{font-size:.68rem;color:var(--grey);line-height:1.6;margin-top:12px}
+.flash{animation:flash .9s var(--ease)}
+@keyframes flash{0%{background:var(--orange-xl)}100%{background:var(--paper)}}
+
+/* ---------- segmented control ---------- */
+.seg{display:inline-flex;background:var(--grey-xl);padding:3px;border-radius:8px;gap:2px}
+.seg button{
+  appearance:none;border:0;background:transparent;cursor:pointer;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;font-weight:500;
+  padding:6px 12px;border-radius:6px;color:var(--grey);transition:background .16s,color .16s;
+}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--teal-dk);box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
+
+/* ---------- chart ---------- */
+.chart-card{margin-top:22px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.8rem;color:#4a4a4d}
+.key{display:inline-flex;align-items:center;gap:7px}
+.sw{width:13px;height:13px;border-radius:3px;display:inline-block}
+.sw.ghost{background:transparent;border:1.5px dashed var(--grey)}
+svg.chart{width:100%;height:auto;display:block;overflow:visible}
+.bar{cursor:pointer;transition:y .5s var(--ease),height .5s var(--ease),opacity .18s}
+.bar:hover{opacity:.82}
+.ghost{fill:none;stroke:var(--grey);stroke-width:1.5;stroke-dasharray:4 3;transition:y .5s var(--ease),height .5s var(--ease)}
+.gl{stroke:var(--grey-xl);stroke-width:1}
+.axl{font-family:var(--mono);font-size:10px;fill:var(--grey)}
+.mlab{font-family:var(--sans);font-size:13px;font-weight:600;fill:#4a4a4d}
+.delta{font-family:var(--mono);font-size:10.5px;font-weight:600;fill:var(--orange)}
+.tip{
+  position:fixed;z-index:50;pointer-events:none;opacity:0;transform:translateY(4px);
+  transition:opacity .14s,transform .14s;
+  background:var(--ink);color:#fff;border-radius:8px;padding:11px 13px;
+  font-size:.78rem;line-height:1.5;max-width:270px;box-shadow:0 10px 30px -8px rgba(0,0,0,.45);
+}
+.tip.on{opacity:1;transform:translateY(0)}
+.tip .th{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#8fd4e6;margin-bottom:5px}
+.tip .row{display:flex;justify-content:space-between;gap:16px;font-variant-numeric:tabular-nums}
+.tip .row.d{color:var(--orange);font-weight:600}
+.tip .exp{margin-top:7px;padding-top:7px;border-top:1px solid rgba(255,255,255,.18);color:#d8d8d6}
+
+/* ---------- verdict ---------- */
+.verdict{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+.stat{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:17px 18px}
+.stat .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);margin-bottom:9px}
+.stat .v{font-size:1.85rem;font-weight:700;letter-spacing:-.02em;line-height:1;color:var(--teal-dk)}
+.stat .v.warn{color:var(--orange)}
+.stat .u{font-size:.8rem;color:var(--grey);margin-top:6px;line-height:1.4}
+.meter{height:6px;border-radius:3px;background:var(--grey-xl);margin-top:11px;overflow:hidden}
+.meter i{display:block;height:100%;border-radius:3px;background:var(--teal);transition:width .55s var(--ease)}
+.meter i.warn{background:var(--orange)}
+
+/* ---------- pros / cons ---------- */
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.pc h3{
+  font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  margin:0 0 12px;color:#fff;padding:9px 14px;border-radius:7px;
+}
+.pc .up h3{background:var(--teal)}
+.pc .down h3{background:var(--orange)}
+.pc ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.pc li{
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:9px;
+  padding:12px 14px;font-size:.92rem;cursor:default;
+  transition:border-color .18s,box-shadow .18s,transform .18s var(--ease);
+}
+.pc li:hover,.pc li:focus-visible{border-color:var(--teal);box-shadow:var(--shadow);transform:translateY(-1px);outline:none}
+.pc li .why{
+  display:grid;grid-template-rows:0fr;opacity:0;
+  transition:grid-template-rows .3s var(--ease),opacity .22s;
+}
+.pc li:hover .why,.pc li:focus-visible .why{grid-template-rows:1fr;opacity:1}
+.pc li .why>span{overflow:hidden;display:block;font-size:.84rem;color:var(--grey);line-height:1.5}
+.pc li .why>span>i{display:block;padding-top:7px;font-style:normal}
+.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:12px 0 0}
+
+/* ---------- compare ---------- */
+.compare{margin-top:44px;border-top:1px solid var(--grey-xl);padding-top:30px}
+.compare h2{font-size:1.35rem;font-weight:600;letter-spacing:-.015em;margin:0 0 4px}
+.compare p.sub{margin:0 0 18px;color:var(--grey);font-size:.94rem}
+table.cmp{width:100%;min-width:660px;border-collapse:separate;border-spacing:0;background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);overflow:hidden}
+table.cmp th,table.cmp td{padding:13px 16px;text-align:left;font-size:.88rem;border-bottom:1px solid var(--grey-xl);vertical-align:top}
+table.cmp thead th{background:var(--teal-dk);color:#fff;font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;border-bottom:0}
+table.cmp tbody th{font-weight:600;color:#4a4a4d;width:23%}
+table.cmp tr:last-child th,table.cmp tr:last-child td{border-bottom:0}
+table.cmp td.act{background:var(--teal-xl);color:var(--teal-dk);font-weight:600}
+table.cmp thead th.act{background:var(--teal)}
+
+.closing{
+  margin-top:26px;background:var(--orange);color:#fff;border-radius:var(--r);
+  padding:20px 24px;font-size:1.02rem;line-height:1.5;
+}
+.closing b{font-weight:700}
+footer{margin-top:34px;font-size:.8rem;color:var(--grey);line-height:1.6}
+
+@media (max-width:900px){
+  .split,.pc{grid-template-columns:1fr}
+  .verdict{grid-template-columns:1fr}
+  .wrap{padding:0 16px 56px}
+  table.cmp thead th:first-child{width:auto}
+}
+@media (max-width:640px){
+  .tl-track{flex-direction:column;height:auto;gap:28px;margin-top:16px}
+  .tl-seg{padding:11px 14px}
+  .tl-seg.past,.tl-seg.now{flex:none}
+  .tl-pin{align-self:stretch;width:auto;height:3px;margin:0}
+  .tl-pin span{bottom:auto;top:50%;left:50%;transform:translate(-50%,-50%)}
+  .tl-pin span::after{display:none}
+  .tl-actor{margin-top:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Sofia's Coffee World · Business Intelligence</p>
+  <h1>Anna moves to the other house. <em>Who keeps her January?</em></h1>
+  <p class="lede">One barista moves between Sofia's two coffee houses on 1&nbsp;March 2026. The sales facts never move — but depending on how the employee dimension handles the change, the Q1 report tells three different stories. Switch between the three Slowly Changing Dimension types and watch the same quarter get re-attributed.</p>
+
+  <div class="timeline">
+    <p class="tl-head">Anna · Employee E-042</p>
+    <div class="tl-track">
+      <div class="tl-seg past">
+        <span class="tl-name">Ringstraße coffee house</span>
+        <span class="tl-dates">01 Sep 2024 → 28 Feb 2026</span>
+      </div>
+      <div class="tl-pin"><span>1 Mar 2026 · transfer</span></div>
+      <div class="tl-seg now">
+        <span class="tl-name">Alsergrund coffee house</span>
+        <span class="tl-dates">01 Mar 2026 → today</span>
+      </div>
+    </div>
+    <p class="tl-actor">She earned <b>€8,400</b> in January, <b>€7,900</b> in February and <b>€9,200</b> in March. Every one of those receipts is already booked in <b>FACT_SALES</b> and will never change again.</p>
+  </div>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Slowly Changing Dimension types">
+  <button class="tab" role="tab" id="tab-t1" aria-controls="p-t1" aria-selected="true"><span class="num">TYPE 1</span> Overwrite</button>
+  <button class="tab" role="tab" id="tab-t2" aria-controls="p-t2" aria-selected="false" tabindex="-1"><span class="num">TYPE 2</span> Add a new row</button>
+  <button class="tab" role="tab" id="tab-t3" aria-controls="p-t3" aria-selected="false" tabindex="-1"><span class="num">TYPE 3</span> Add a new column</button>
+</div>
+
+<section class="panel" id="p-t1" role="tabpanel" aria-labelledby="tab-t1"></section>
+<section class="panel" id="p-t2" role="tabpanel" aria-labelledby="tab-t2" hidden></section>
+<section class="panel" id="p-t3" role="tabpanel" aria-labelledby="tab-t3" hidden></section>
+
+<section class="compare">
+  <h2>Weigh it up</h2>
+  <p class="sub">The highlighted column follows the tab you are on.</p>
+  <div class="tscroll" tabindex="0">
+  <table class="cmp">
+    <thead><tr><th>Criterion</th><th data-col="t1">Type 1 · Overwrite</th><th data-col="t2">Type 2 · New row</th><th data-col="t3">Type 3 · New column</th></tr></thead>
+    <tbody>
+      <tr><th>History kept</th><td data-col="t1">None — the old value is gone</td><td data-col="t2">Complete, with valid-from and valid-to dates</td><td data-col="t3">One previous value per tracked attribute</td></tr>
+      <tr><th>Rows per barista</th><td data-col="t1">Always one</td><td data-col="t2">One per period of validity</td><td data-col="t3">Always one</td></tr>
+      <tr><th>ETL work</th><td data-col="t1">A single UPDATE</td><td data-col="t2">Close the old row, insert a new one, issue a surrogate key</td><td data-col="t3">Copy the old value across, then update</td></tr>
+      <tr><th>Query work</th><td data-col="t1">None — the join is unchanged</td><td data-col="t2">Pick the right version: current flag or date range</td><td data-col="t3">Choose which column the report reads</td></tr>
+      <tr><th>Reach for it when</th><td data-col="t1">The old value was simply wrong: a typo in a cake name, a mistyped postcode</td><td data-col="t2">The old value was right at the time: transfers, price lists, category changes</td><td data-col="t3">You need the whole period restated under one structure, old or new</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p class="closing"><b>Hint to go:</b> the type is chosen per attribute, not per table. A single <code>DIM_PRODUCT</code> row can carry a Type&nbsp;1 product name, a Type&nbsp;2 category and a Type&nbsp;3 price band at the same time.</p>
+
+  <footer>
+    Teaching material · Sofia's Coffee World is a Viennese business with two coffee houses — Ringstraße and Alsergrund — plus a roastery, a coffee bike and a wholesale line supplying bakeries with roasted beans. Figures in this dashboard are illustrative.
+  </footer>
+</section>
+
+</div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+const MONTHS = ["Jan","Feb","Mar"];
+const ANNA   = [8400, 7900, 9200];          // Anna's own revenue per month
+const RING_R = [22000, 21000, 23000];       // Ringstraße without Anna
+const SCHO_R = [18000, 17500, 18500];       // Alsergrund without Anna
+
+// Where the money was really earned: Anna counts for Ringstraße in Jan+Feb.
+const TRUTH = {
+  "Ringstraße": [RING_R[0]+ANNA[0], RING_R[1]+ANNA[1], RING_R[2]],
+  "Alsergrund": [SCHO_R[0], SCHO_R[1], SCHO_R[2]+ANNA[2]]
+};
+// Anna attributed to Alsergrund for the whole quarter.
+const ALL_NEW = {
+  "Ringstraße": [RING_R[0], RING_R[1], RING_R[2]],
+  "Alsergrund": [SCHO_R[0]+ANNA[0], SCHO_R[1]+ANNA[1], SCHO_R[2]+ANNA[2]]
+};
+// Anna attributed to Ringstraße for the whole quarter.
+const ALL_OLD = {
+  "Ringstraße": [RING_R[0]+ANNA[0], RING_R[1]+ANNA[1], RING_R[2]+ANNA[2]],
+  "Alsergrund": [SCHO_R[0], SCHO_R[1], SCHO_R[2]]
+};
+
+const COL_HELP = {
+  EmpKey:"Surrogate key. Meaningless on purpose — it identifies one version of a row, and every fact row stores this value.",
+  EmpID:"Natural key from the source system. It identifies the person and never changes, however often she moves.",
+  Name:"A descriptive attribute. Nothing in this scenario touches it.",
+  Location:"The attribute that changes. How the dimension handles this column is the whole question.",
+  ValidFrom:"First day this version describes reality.",
+  ValidTo:"Last day this version describes reality. The open row carries a far-future date so date filters never miss it.",
+  IsCurrent:"Redundant but convenient: a flag so dashboards can grab today's version without comparing dates.",
+  CurrentLocation:"Where she works now. Overwritten on every move.",
+  PreviousLocation:"Where she worked before the last move. Only one step back fits here.",
+  ChangedOn:"When the last move happened. Without it the previous value has no timeframe."
+};
+
+const SCENARIOS = {
+  t1:{
+    label:"Type 1 · Overwrite",
+    claim:"The update touches one cell. <b>Two thirds of the quarter</b> silently changes hands.",
+    cols:["EmpKey","EmpID","Name","Location"],
+    rows:[{cells:["17","E-042","Anna",{was:"Ringstraße",now:"Alsergrund"}]}],
+    note:"One row, one truth — and it is always today's truth. The February report you printed last month can no longer be reproduced from this dimension.",
+    report:ALL_NEW,
+    slipFoot:"Reprinted 31 Mar 2026 after Anna's move.<br>Ringstraße lost €16,300 it had already earned.",
+    stats:[
+      {k:"Quarter reported correctly",v:"2 / 6",u:"month-and-house figures match what actually happened",pct:33,warn:true},
+      {k:"Rows for Anna",v:"1",u:"the dimension never grows",pct:100},
+      {k:"Extra columns",v:"0",u:"the table stays exactly as wide as it was",pct:100}
+    ],
+    pros:[
+      ["Cheapest thing you can do","A single UPDATE in the load job. No key generation, no extra columns, no change to any existing query."],
+      ["The dimension never grows","One row per barista for ever, so joins stay small and fast whatever happens in the business."],
+      ["Right answer for real errors","If the old value was never true — a misspelt cake name — then keeping it would preserve a mistake, not history."]
+    ],
+    cons:[
+      ["History is rewritten in place","Reports covering closed periods change retroactively. In a controlling review that is the end of the conversation."],
+      ["No audit trail","Nothing in the warehouse records that Anna was ever at Ringstraße, so nobody can prove the earlier figure was not an error."],
+      ["Restatements go unnoticed","The totals still add up, so the report looks healthy. Only someone who kept the old printout will spot it."]
+    ]
+  },
+
+  t2:{
+    label:"Type 2 · Add a new row",
+    claim:"A second row costs one surrogate key — and buys back <b>the entire quarter</b>.",
+    cols:["EmpKey","EmpID","Name","Location","ValidFrom","ValidTo","IsCurrent"],
+    rows:[
+      {closed:true,cells:["17","E-042","Anna","Ringstraße","2024-09-01","2026-02-28","N"]},
+      {fresh:true, cells:["63","E-042","Anna","Alsergrund","2026-03-01","9999-12-31","Y"]}
+    ],
+    note:"January facts still point at EmpKey&nbsp;17, March facts point at EmpKey&nbsp;63. The natural key E-042 never changed, so Anna is still one person — she is just two versions of herself.",
+    report:TRUTH,
+    slipFoot:"Reprinted 31 Mar 2026 after Anna's move.<br>Identical to the report printed in February.",
+    stats:[
+      {k:"Quarter reported correctly",v:"6 / 6",u:"every figure matches what actually happened",pct:100},
+      {k:"Rows for Anna",v:"2",u:"and one more for every future move",pct:50,warn:true},
+      {k:"Extra columns",v:"3",u:"valid-from, valid-to and a current flag",pct:50,warn:true}
+    ],
+    pros:[
+      ["Closed periods stay closed","A report for January returns the same numbers next year. That is what makes the warehouse auditable."],
+      ["Point-in-time questions become answerable","How much did the Ringstraße team earn while Anna was still there? Only Type 2 can answer that at all."],
+      ["The natural key still ties it together","Group by EmpID and Anna is one person again — you keep both views without duplicating the human."]
+    ],
+    cons:[
+      ["The dimension grows without limit","Every attribute change adds a row. A volatile attribute on a large dimension can multiply it several times over."],
+      ["Every query has to pick a version","Forget the current flag and you count Anna twice. This is the single most common bug in a Type 2 model."],
+      ["More moving parts in the load","Detect the change, close the old row, generate a key, insert the new row — in the right order, every night."]
+    ]
+  },
+
+  t3:{
+    label:"Type 3 · Add a new column",
+    claim:"Both structures on one row. Neither of them is <b>the actual history</b>.",
+    cols:["EmpKey","EmpID","Name","CurrentLocation","PreviousLocation","ChangedOn"],
+    rows:[{cells:["17","E-042","Anna",{was:"Ringstraße",now:"Alsergrund"},{was:"—",now:"Ringstraße"},{was:"—",now:"2026-03-01"}]}],
+    note:"Type 3 does not store when each receipt happened — it stores which structure you want to read the whole quarter through. That is a different question, and for a reorganisation it is often the right one.",
+    report:ALL_NEW,
+    reportAlt:ALL_OLD,
+    toggle:{a:"Report by CurrentLocation",b:"Report by PreviousLocation"},
+    slipFoot:"Reprinted 31 Mar 2026 after Anna's move.<br>The whole quarter is restated under one house structure.",
+    stats:[
+      {k:"Quarter reported correctly",v:"2 / 6",u:"reading CurrentLocation — switch the toggle and it becomes 4 / 6",pct:33,warn:true},
+      {k:"Rows for Anna",v:"1",u:"the dimension stays flat",pct:100},
+      {k:"Extra columns",v:"2",u:"per attribute you decide to track this way",pct:60,warn:true}
+    ],
+    pros:[
+      ["Both structures, side by side","Restate the whole period under the old assignment and the new one, and compare them without touching the fact table."],
+      ["No row explosion","One row per barista, so joins and row counts stay exactly where they were."],
+      ["Simple to query","Two plain columns. No validity dates, no current flag, no risk of double counting."]
+    ],
+    cons:[
+      ["Only one step of history","When Anna moves again, Ringstraße is overwritten by Alsergrund and disappears for good."],
+      ["It is not a timeline","Neither column knows which receipt was written where. The quarter gets attributed as a block, not per day."],
+      ["Every attribute costs a column","Track location, role and pay band this way and the dimension is three columns wider, each one half empty."]
+    ]
+  }
+};
+
+const STATS_ALT_T3 = [
+  {k:"Quarter reported correctly",v:"4 / 6",u:"reading PreviousLocation — March is now misattributed instead",pct:67,warn:true},
+  {k:"Rows for Anna",v:"1",u:"the dimension stays flat",pct:100},
+  {k:"Extra columns",v:"2",u:"per attribute you decide to track this way",pct:60,warn:true}
+];
+
+const OUTLETS = ["Ringstraße","Alsergrund"];
+const OUT_COLOR = {"Ringstraße":"var(--teal)","Alsergrund":"var(--teal-dk)"};
+const eur = n => "€" + n.toLocaleString("en-US");
+
+/* ---------------- markup ---------------- */
+function dimTable(sc){
+  const th = sc.cols.map(c =>
+    `<th tabindex="0" data-help="${c}">${c}</th>`).join("");
+  const tr = sc.rows.map(r=>{
+    const cls = r.closed ? "closed" : (r.fresh ? "fresh" : "");
+    const td = r.cells.map(c=>{
+      if(typeof c === "object")
+        return `<td class="chg"><span class="strike">${c.was}</span>${c.now}</td>`;
+      return `<td>${c}</td>`;
+    }).join("");
+    return `<tr class="${cls}">${td}</tr>`;
+  }).join("");
+  return `<div class="tscroll" tabindex="0"><table class="dim"><thead><tr>${th}</tr></thead><tbody>${tr}</tbody></table></div>
+          <p class="dim-note">${sc.note}</p>
+          <p class="hint">Hover a column header for what it does</p>`;
+}
+
+function slip(rep){
+  let total = 0, body = "";
+  OUTLETS.forEach(o=>{
+    body += `<p class="slip-grp">${o.toUpperCase()}</p>`;
+    MONTHS.forEach((m,i)=>{
+      const v = rep[o][i], t = TRUTH[o][i];
+      total += v;
+      body += `<div class="ln ${v!==t?"diff":""}"><span>${m}</span><span class="v">${eur(v)}</span></div>`;
+    });
+  });
+  return `<p class="slip-brand">SOFIA'S COFFEE WORLD</p>
+    <p class="slip-sub">Q1 2026 · REVENUE BY HOUSE</p>
+    <div class="rule"></div>${body}<div class="rule"></div>
+    <div class="ln total"><span>QUARTER TOTAL</span><span class="v">${eur(total)}</span></div>
+    <div class="rule"></div>`;
+}
+
+function statBlock(stats){
+  return stats.map(s=>`
+    <div class="stat">
+      <p class="k">${s.k}</p>
+      <p class="v ${s.warn?"warn":""}">${s.v}</p>
+      <div class="meter"><i class="${s.warn?"warn":""}" style="width:${s.pct}%"></i></div>
+      <p class="u">${s.u}</p>
+    </div>`).join("");
+}
+
+function list(items){
+  return items.map(([t,w])=>`<li tabindex="0"><span>${t}</span>
+    <span class="why"><span><i>${w}</i></span></span></li>`).join("");
+}
+
+function panelHTML(key){
+  const sc = SCENARIOS[key];
+  const seg = sc.toggle ? `<div class="seg" data-seg="${key}">
+      <button type="button" data-alt="0" aria-pressed="true">${sc.toggle.a}</button>
+      <button type="button" data-alt="1" aria-pressed="false">${sc.toggle.b}</button>
+    </div>` : "";
+  return `
+  <p class="claim">${sc.claim}</p>
+  <div class="split">
+    <div class="card">
+      <div class="card-h"><span class="card-t">DIM_EMPLOYEE after 1 March 2026</span></div>
+      <div class="card-b">${dimTable(sc)}</div>
+    </div>
+    <div class="card">
+      <div class="card-h"><span class="card-t">The report Sofia reads</span></div>
+      <div class="slip-shell">
+        <div class="slip" data-slip="${key}">${slip(sc.report)}</div>
+        <p class="slip-foot" data-foot="${key}">${sc.slipFoot}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card chart-card">
+    <div class="card-h">
+      <span class="card-t">Q1 revenue by coffee house — reported against reality</span>
+      <div class="legend">
+        <span class="key"><i class="sw" style="background:var(--teal)"></i>Ringstraße</span>
+        <span class="key"><i class="sw" style="background:var(--teal-dk)"></i>Alsergrund</span>
+        <span class="key"><i class="sw ghost"></i>What actually happened</span>
+      </div>
+      ${seg}
+    </div>
+    <div class="card-b"><div data-chart="${key}"></div>
+      <p class="hint">Hover a bar for the figure, the truth and the gap</p>
+    </div>
+  </div>
+
+  <div class="verdict" data-stats="${key}">${statBlock(sc.stats)}</div>
+
+  <div class="pc">
+    <div class="up"><h3>Speaks for it</h3><ul>${list(sc.pros)}</ul></div>
+    <div class="down"><h3>Speaks against it</h3><ul>${list(sc.cons)}</ul></div>
+  </div>`;
+}
+
+/* ---------------- chart ---------------- */
+const W = 780, H = 330, ML = 62, MR = 14, MT = 26, MB = 52;
+const PW = W - ML - MR, PH = H - MT - MB, MAX = 35000;
+const yOf = v => MT + PH - (v / MAX) * PH;
+
+function chart(rep){
+  const gw = PW / 3, bw = 74, gap = 18, pair = bw * 2 + gap;
+  let s = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img"
+    aria-label="Grouped bar chart of quarterly revenue by coffee house, reported figures against actual figures">`;
+
+  for(let v = 0; v <= MAX; v += 5000){
+    const y = yOf(v);
+    s += `<line class="gl" x1="${ML}" y1="${y}" x2="${ML+PW}" y2="${y}"/>`;
+    if(v % 10000 === 0)
+      s += `<text class="axl" x="${ML-10}" y="${y+3.5}" text-anchor="end">${v/1000}k</text>`;
+  }
+
+  MONTHS.forEach((m,i)=>{
+    const gx = ML + gw*i + (gw - pair)/2;
+    OUTLETS.forEach((o,j)=>{
+      const x = gx + j*(bw+gap);
+      const v = rep[o][i], t = TRUTH[o][i], d = v - t;
+      const yv = yOf(v), yt = yOf(t);
+      s += `<rect class="bar" x="${x}" y="${yv}" width="${bw}" height="${MT+PH-yv}"
+              rx="3" fill="${OUT_COLOR[o]}"
+              data-o="${o}" data-m="${m}" data-v="${v}" data-t="${t}" tabindex="0"/>`;
+      if(d !== 0){
+        s += `<rect class="ghost" x="${x-3}" y="${yt}" width="${bw+6}" height="${MT+PH-yt}" rx="3"/>`;
+        s += `<text class="delta" x="${x+bw/2}" y="${Math.min(yv,yt)-8}" text-anchor="middle">${d>0?"+":"−"}${Math.abs(d).toLocaleString("en-US")}</text>`;
+      }
+    });
+    s += `<text class="mlab" x="${ML+gw*i+gw/2}" y="${MT+PH+26}" text-anchor="middle">${m} 2026</text>`;
+  });
+
+  s += `<line class="gl" x1="${ML}" y1="${MT+PH}" x2="${ML+PW}" y2="${MT+PH}" stroke="#c9c9c7"/></svg>`;
+  return s;
+}
+
+/* ---------------- tooltip ---------------- */
+const tip = document.getElementById("tip");
+function showTip(el, ev){
+  const v = +el.dataset.v, t = +el.dataset.t, d = v - t;
+  const same = d === 0;
+  tip.innerHTML = `<p class="th">${el.dataset.o} · ${el.dataset.m} 2026</p>
+    <div class="row"><span>Reported</span><span>${eur(v)}</span></div>
+    <div class="row"><span>Actually earned</span><span>${eur(t)}</span></div>
+    ${same ? "" : `<div class="row d"><span>Gap</span><span>${d>0?"+":"−"}${eur(Math.abs(d))}</span></div>`}
+    <p class="exp">${same
+      ? "This figure survives the change untouched."
+      : (d > 0
+        ? "Revenue that landed here on paper only — Anna's receipts were written at the other house."
+        : "Revenue this house really earned, now credited elsewhere.")}</p>`;
+  tip.classList.add("on");
+  moveTip(ev, el);
+}
+function moveTip(ev, el){
+  let x, y;
+  if(ev && ev.clientX !== undefined && ev.clientX !== 0){ x = ev.clientX + 16; y = ev.clientY + 16; }
+  else { const r = el.getBoundingClientRect(); x = r.left + r.width/2; y = r.top - 8; }
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  if(x + w > innerWidth - 12) x = innerWidth - w - 12;
+  if(y + h > innerHeight - 12) y = y - h - 32;
+  if(y < 8) y = 8;
+  tip.style.left = x + "px";
+  tip.style.top = y + "px";
+}
+const hideTip = () => tip.classList.remove("on");
+
+function headerTip(el, ev){
+  const k = el.dataset.help;
+  tip.innerHTML = `<p class="th">${k}</p><p style="margin:0">${COL_HELP[k] || ""}</p>`;
+  tip.classList.add("on");
+  moveTip(ev, el);
+}
+
+/* ---------------- wiring ---------------- */
+function bindPanel(panel, key){
+  panel.querySelector("[data-chart]").innerHTML = chart(SCENARIOS[key].report);
+
+  panel.addEventListener("pointermove", e=>{
+    const b = e.target.closest(".bar"), h = e.target.closest("th[data-help]");
+    if(b || h) moveTip(e, b || h);
+  });
+  panel.addEventListener("pointerover", e=>{
+    const b = e.target.closest(".bar");
+    if(b){ showTip(b, e); return; }
+    const h = e.target.closest("th[data-help]");
+    if(h) headerTip(h, e);
+  });
+  panel.addEventListener("pointerout", e=>{
+    if(e.target.closest(".bar") || e.target.closest("th[data-help]")) hideTip();
+  });
+  panel.addEventListener("focusin", e=>{
+    const b = e.target.closest(".bar");
+    if(b){ showTip(b, null); return; }
+    const h = e.target.closest("th[data-help]");
+    if(h) headerTip(h, null);
+  });
+  panel.addEventListener("focusout", e=>{
+    if(e.target.closest(".bar") || e.target.closest("th[data-help]")) hideTip();
+  });
+
+  const seg = panel.querySelector(".seg");
+  if(seg) seg.addEventListener("click", e=>{
+    const btn = e.target.closest("button");
+    if(!btn) return;
+    const alt = btn.dataset.alt === "1";
+    seg.querySelectorAll("button").forEach(b =>
+      b.setAttribute("aria-pressed", String(b === btn)));
+    const sc = SCENARIOS[key];
+    const rep = alt ? sc.reportAlt : sc.report;
+    panel.querySelector("[data-chart]").innerHTML = chart(rep);
+    const sl = panel.querySelector("[data-slip]");
+    sl.innerHTML = slip(rep);
+    sl.classList.remove("flash"); void sl.offsetWidth; sl.classList.add("flash");
+    panel.querySelector("[data-foot]").innerHTML = alt
+      ? "Reprinted 31 Mar 2026 reading PreviousLocation.<br>March now lands at Ringstraße, where Anna no longer works."
+      : sc.slipFoot;
+    panel.querySelector("[data-stats]").innerHTML =
+      statBlock(alt ? STATS_ALT_T3 : sc.stats);
+    hideTip();
+  });
+}
+
+const tabs = [...document.querySelectorAll('[role="tab"]')];
+const keys = ["t1","t2","t3"];
+
+keys.forEach(k=>{
+  const p = document.getElementById("p-"+k);
+  p.innerHTML = panelHTML(k);
+  bindPanel(p, k);
+});
+
+function select(i){
+  tabs.forEach((t,j)=>{
+    const on = i === j;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    document.getElementById("p-"+keys[j]).hidden = !on;
+  });
+  document.querySelectorAll("[data-col]").forEach(c=>
+    c.classList.toggle("act", c.dataset.col === keys[i]));
+  hideTip();
+}
+
+tabs.forEach((t,i)=>{
+  t.addEventListener("click", ()=>select(i));
+  t.addEventListener("keydown", e=>{
+    const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if(!d) return;
+    e.preventDefault();
+    const n = (i + d + tabs.length) % tabs.length;
+    tabs[n].focus(); select(n);
+  });
+});
+
+select(0);
+addEventListener("scroll", hideTip, {passive:true});
+</script>
+</body>
+</html>

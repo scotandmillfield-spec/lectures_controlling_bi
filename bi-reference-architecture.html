@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BI Reference Architecture · Sofia's Coffee World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 64px}
+
+.masthead{padding:52px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.1rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:18ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:clamp(1rem,1.6vw,1.18rem);font-weight:300;color:#3d3d40;max-width:62ch;margin:0}
+
+.bar{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center;justify-content:space-between;margin:26px 0 14px}
+.legend{display:flex;gap:20px;flex-wrap:wrap;font-size:.84rem;color:#4a4a4d}
+.key{display:inline-flex;align-items:center;gap:8px}
+.sw{width:14px;height:14px;border-radius:3px;display:inline-block;flex:none}
+.sw.core{background:var(--teal)}
+.sw.derived{background:#F1F1EF;border:1px solid var(--grey-mid)}
+.sw.scd{background:var(--orange)}
+
+.toggle{
+  appearance:none;border:1px solid var(--teal-dk);background:var(--paper);color:var(--teal-dk);
+  font-family:var(--sans);font-size:.92rem;font-weight:600;padding:11px 18px;border-radius:var(--r);
+  cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  transition:background .18s,color .18s,transform .18s var(--ease);
+}
+.toggle .dot{width:9px;height:9px;border-radius:50%;background:var(--orange);flex:none}
+.toggle.t-olap{border-color:var(--teal)}
+.toggle.t-olap .dot{background:var(--teal-dk)}
+.toggle.t-olap[aria-pressed="true"]{background:var(--teal-dk);border-color:var(--teal-dk)}
+.toggle.t-olap[aria-pressed="true"] .dot{background:#fff}
+.toggles{display:flex;gap:10px;flex-wrap:wrap}
+.toggle:hover{transform:translateY(-1px)}
+.toggle[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);color:#fff}
+.toggle:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+.stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:14px 10px 6px;overflow-x:auto}
+svg#arch{width:100%;min-width:720px;height:auto;display:block}
+
+.node{cursor:help}
+.node .hit{fill:transparent}
+.shape{transition:opacity .3s var(--ease),filter .2s}
+.node:hover .shape,.node:focus-visible .shape{filter:brightness(1.06)}
+.node:focus-visible{outline:none}
+.node:focus-visible .ring,.node:hover .ring{opacity:1}
+.ring{fill:none;stroke:var(--teal-dk);stroke-width:2.5;opacity:0;transition:opacity .18s;pointer-events:none}
+
+text{font-family:var(--sans);fill:var(--ink);pointer-events:none;dominant-baseline:middle}
+.t-light{fill:#fff}
+.t-band{font-size:14px}
+.t-node{font-size:13px}
+.t-layer{font-size:14px}
+.t-big{font-size:22px;font-weight:400}
+.t-meta{font-size:14px}
+.t-cap{font-size:12.5px;fill:#3d3d40}
+.t-tag{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.09em;fill:#fff}
+
+.flow{stroke:#6E6E6D;stroke-width:1.6;fill:none;transition:opacity .3s var(--ease)}
+.frame{fill:none;stroke:#8A8A89;stroke-width:1.2;transition:opacity .3s var(--ease)}
+
+.mtag{opacity:0;transition:opacity .3s var(--ease)}
+svg#arch.scd .mtag.m-scd{opacity:1}
+svg#arch.olap .mtag.m-olap{opacity:1}
+svg#arch.scd .dim,svg#arch.olap .dim{opacity:.16}
+svg#arch.scd .node:not([data-scd]),
+svg#arch.olap .node:not([data-olap]){opacity:.16}
+svg#arch .node{transition:opacity .3s var(--ease)}
+svg#arch.scd .node[data-scd] .shape{stroke:var(--orange);stroke-width:3}
+svg#arch.olap .node[data-olap] .shape{stroke:var(--teal-dk);stroke-width:3}
+.pulse{fill:none;stroke-width:2.5;opacity:0}
+.pulse.p-scd{stroke:var(--orange)}
+.pulse.p-olap{stroke:var(--teal-dk)}
+svg#arch.scd .pulse.p-scd,
+svg#arch.olap .pulse.p-olap{opacity:1;animation:pulse 2.4s var(--ease) infinite}
+@keyframes pulse{0%{opacity:.85;stroke-width:2.5}55%{opacity:.12;stroke-width:7}100%{opacity:.12;stroke-width:7}}
+
+.note{
+  margin-top:18px;background:var(--orange);color:#fff;border-radius:var(--r);padding:18px 22px;
+  font-size:1rem;line-height:1.55;display:none;
+}
+.note.on{display:block}
+.note.olap{background:var(--teal-dk)}
+.note b{font-weight:700}
+.note code{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.22);padding:1px 5px;border-radius:4px}
+
+.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:14px 0 0}
+
+.tip{position:fixed;z-index:50;pointer-events:none;opacity:0;transform:translateY(4px);
+  transition:opacity .14s,transform .14s;background:var(--ink);color:#fff;border-radius:9px;
+  padding:12px 14px;font-size:.82rem;line-height:1.52;max-width:310px;
+  box-shadow:0 10px 30px -8px rgba(0,0,0,.45)}
+.tip.on{opacity:1;transform:translateY(0)}
+.tip .th{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  color:#8FD4E6;margin:0 0 5px}
+.tip p{margin:0}
+.tip .scdline,.tip .olapline{margin-top:8px;padding-top:8px;
+  border-top:1px solid rgba(255,255,255,.18);font-weight:600}
+.tip .scdline{color:var(--orange)}
+.tip .olapline{color:#8FD4E6}
+
+footer{margin-top:34px;font-size:.82rem;color:var(--grey);line-height:1.6;border-top:1px solid var(--grey-xl);padding-top:20px}
+
+.scrollhint{display:none}
+@media (max-width:820px){ .scrollhint{display:block;color:var(--teal-dk)} }
+@media (max-width:640px){ .wrap{padding:0 16px 48px} .bar{gap:12px} }
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Sofia's Coffee World · Business Intelligence</p>
+  <h1>From the till roll to the <em>management cockpit</em></h1>
+  <p class="lede">Every receipt Anna writes at the Ringstraße counter travels the same road before it becomes a figure Sofia can act on. Hover any box, cylinder or band to see what it does and why it exists — then use the two markers to locate where Slowly Changing Dimensions are decided, and where the choice between MOLAP, ROLAP and HOLAP is actually made.</p>
+</header>
+
+<div class="bar">
+  <div class="legend">
+    <span class="key"><i class="sw core"></i>Carries the integrated data</span>
+    <span class="key"><i class="sw derived"></i>Derived or adjacent store</span>
+  </div>
+  <div class="toggles">
+    <button class="toggle t-scd" id="scdBtn" type="button" aria-pressed="false">
+      <span class="dot"></span><span class="lbl">Show where SCD lives</span>
+    </button>
+    <button class="toggle t-olap" id="olapBtn" type="button" aria-pressed="false">
+      <span class="dot"></span><span class="lbl">Show where MOLAP / ROLAP / HOLAP live</span>
+    </button>
+  </div>
+</div>
+
+<div class="stage">
+  <svg id="arch" viewBox="368 44 708 762" role="img"
+       aria-label="Layered reference architecture for business intelligence, from source systems through the integration layer, data storage layer and output layer to the frontend, with metadata management spanning all layers">
+    <defs>
+      <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+        <path d="M0,1 L9,5 L0,9 z" fill="#6E6E6D"/>
+      </marker>
+    </defs>
+  </svg>
+</div>
+
+<div class="note" id="scdNote">
+  <b>Two places, one decision.</b> The SCD type is chosen and implemented in <b>Transform</b>: the load job compares the incoming attribute against the version already stored and decides whether to overwrite it, close it and open a new row, or move it into a previous-value column. The result is materialised in the <b>Core data warehouse</b>, which is the only layer that keeps history at all. Everything above it — marts, cubes, dashboards — simply inherits whatever the core decided. That is why a Type 1 mistake cannot be repaired in the frontend: by the time the report is built, <code>Ringstraße</code> no longer exists anywhere.
+</div>
+
+<div class="note olap" id="olapNote">
+  <b>One question, three answers: where do the aggregates live?</b> The star schema in the <b>evaluation database</b> is the relational answer — <b>ROLAP</b> computes every sum with SQL the moment it is asked, so figures are always current and volume is limited only by the database. The <b>OLAP cube</b> is the multidimensional answer — <b>MOLAP</b> copies facts and pre-computed aggregates into its own store: fastest to read, but only as fresh as the last processing run. <b>HOLAP</b> sits on the link between them: the <b>pre-computed levels</b> stay in the cube, the detail stays relational, and the engine routes each query to whichever layer can answer it. Note what stays dark: the whole decision lives in the output layer. Sofia can switch storage mode without touching a single row in the core warehouse.
+</div>
+
+<p class="hint scrollhint">Scroll the diagram sideways to see all five layers</p>
+<p class="hint">Hover or tab through any element for its role in the architecture</p>
+
+<footer>
+  Teaching material · Sofia's Coffee World is a Viennese business with two coffee houses, its own roastery, a coffee bike and a wholesale line supplying bakeries with roasted beans. Green coffee is imported from Peru. Layout after the simplified BI reference architecture used in the lecture; adapted for interactive use.
+</footer>
+
+</div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* ---------------------------------------------------------------- content */
+const INFO = {
+  cockpit:["Mgmt. Cockpit","Highly condensed key figures for the top floor. Few numbers, no drilling: revenue per coffee house, roasting yield, staff cost ratio. If Sofia needs more than one screen, it is not a cockpit."],
+  planningF:["Planning | extrapolation","The forward-looking band: budgets, forecasts, what-if. The only part of the frontend that writes data back instead of only reading it."],
+  reporting:["Reporting | analysis","Standard reports, ad-hoc analysis and OLAP navigation. It is the widest band because this is where almost every user actually works."],
+  frontend:["Frontend","Everything a user touches. It holds no data of its own — every figure on screen is fetched from a layer below."],
+
+  areadata:["Area data (data mart)","A subject-specific extract for one department: a sales mart for the two coffee houses, a staffing mart for the student rota. Small, pre-filtered, quick to query — and quick to contradict its neighbour if the marts drift apart."],
+  aggregations:["Aggregations","Sums held ready in advance so the dashboard does not re-add five years of receipts on every click. Fast to read, stale the moment the underlying data changes.",null,"In HOLAP, these pre-aggregated levels are the part that is materialised."],
+  planningDB:["Planning database","Storage for planned and budgeted values. The one store in the whole architecture that users change directly, which is why it needs its own versioning and approval rules."],
+  evaldb:["Evaluation database","The analysis-ready copy, modelled as a star schema and tuned for reading rather than writing. This is what reports actually query — never the core warehouse itself.",null,"ROLAP queries this star schema directly with SQL — nothing is pre-computed."],
+  olap:["OLAP cube","A multidimensional view over the evaluation data: dimensions, hierarchies, measures. Whether the aggregates are materialised here, computed in SQL or split between both is the MOLAP / ROLAP / HOLAP decision.",null,"MOLAP materialises facts and aggregates in this multidimensional store."],
+  outputLayer:["Output layer","Everything shaped for consumption. Nothing in this layer is a source of truth; it is all derived and can be rebuilt from the layer below."],
+
+  coredwh:["Core data warehouse","The single integrated source of truth: cleansed, harmonised across all sources, subject-oriented and non-volatile. Nothing is deleted here, only added — which is exactly what makes historisation possible.","Slowly Changing Dimensions are materialised here."],
+  ods:["ODS · operational data store","A near-real-time image of operational data with little or no history. It answers the questions that cannot wait for the nightly load: how many covers are open right now, is the coffee bike's card reader still online."],
+  storageLayer:["Data storage layer","Where the integrated truth is kept. Written once by the load job, read many times by everything above it."],
+
+  staging:["Staging area","Landing zone for raw extracts, structured like the source and stored unchanged. If a load fails at three in the morning, it can be replayed from here without touching the operational systems again."],
+  extract:["Extract","Read from the source systems — ideally only the records that changed since the last run, which is why change data capture matters more than raw throughput."],
+  transform:["Transform","Cleansing, harmonising, key mapping, business rules. Also where the historisation decision is executed: compare the incoming attribute with the stored version and apply the SCD type chosen for that attribute.","The SCD type is decided and applied here."],
+  load:["Load","Write into the core warehouse: insert new rows, close old versions with a valid-to date, flip the current flag. Order matters — a half-finished load leaves two current rows for the same person."],
+  integrationLayer:["Integration layer","The ETL process. Unglamorous, invisible to users, and typically the largest share of effort in a BI project."],
+
+  erp:["ERP","Bookings, invoices, stock movements. It also carries the Peru imports: green coffee lots, customs papers and the exchange rate on the day of purchase."],
+  ppc:["PPS · production planning and control","For Sofia, the roastery: roast batches, roast profiles, green coffee weighed in and roasted coffee weighed out. The gap between the two — around 16 % — is the roasting loss, and it is the reason a kilogram means two different things on either side of this system."],
+  crm:["CRM","Two customer segments in one system: guests with a loyalty card in the coffee houses, and the bakeries that buy roasted beans by the sack."],
+  more:["Further source systems","Whatever else feeds the warehouse: the shift planner for the ten student staff, the till software in both houses and on the coffee bike, the wholesale order portal. Each one arrives with its own keys and its own idea of what a 'product' is."],
+  external:["External data","Bought or public data that no internal system holds: weather for the coffee bike, the university semester calendar that drives the Alsergrund house, event listings, green coffee prices. Usually the messiest input and often the most explanatory."],
+  sourceLayer:["Source systems","Operational systems built to write single transactions quickly. Asking them analytical questions is possible, slow, and unkind to the people trying to take orders."],
+
+  metadata:["Metadata management","Technical and business metadata across every layer: where a figure comes from, how it was calculated, who owns it, when it was last loaded. Every lineage question — 'why did this number change?' — is answered from here."]
+};
+
+/* ---------------------------------------------------------------- geometry */
+const TEAL="#209CBD", TEAL_DK="#166980", TEAL_LT="#5FBBD3", TEAL_TOP="#7FC9DC";
+const GREY_F="#F1F1EF", GREY_TOP="#FBFBFA", GREY_S="#B9B9B7";
+
+const svg=document.getElementById("arch");
+const NS="http://www.w3.org/2000/svg";
+const el=(n,a={})=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+const add=(p,n,a)=>{const e=el(n,a);p.appendChild(e);return e;};
+
+function txt(p,x,y,s,cls){const t=add(p,"text",{x,y,"text-anchor":"middle",class:cls});t.textContent=s;return t;}
+function lines(p,x,y,arr,cls,lh=16){
+  const y0=y-((arr.length-1)*lh)/2;
+  arr.forEach((s,i)=>txt(p,x,y0+i*lh,s,cls));
+}
+
+/* a node group: shape + invisible hit area + focus ring */
+function node(id,...modes){
+  const g=add(svg,"g",{class:"node",tabindex:"0",role:"button","data-k":id,
+                        "aria-label":INFO[id][0]});
+  modes.forEach(m=>g.setAttribute("data-"+m,"1"));
+  return g;
+}
+
+function cylinder(g,x,y,w,h,ry,tone){
+  const rx=w/2, fill = tone==="teal"?TEAL:GREY_F, top = tone==="teal"?TEAL_TOP:GREY_TOP;
+  const stroke = tone==="teal"?TEAL_DK:GREY_S;
+  add(g,"path",{class:"shape",
+    d:`M ${x} ${y+ry} V ${y+h-ry} A ${rx} ${ry} 0 0 0 ${x+w} ${y+h-ry} V ${y+ry} Z`,
+    fill,stroke,"stroke-width":1.4});
+  add(g,"ellipse",{class:"shape",cx:x+rx,cy:y+ry,rx,ry,fill:top,stroke,"stroke-width":1.4});
+  add(g,"rect",{class:"ring",x:x-5,y:y-5,width:w+10,height:h+10,rx:8});
+  add(g,"rect",{class:"hit",x:x-4,y:y-4,width:w+8,height:h+8});
+}
+
+function boxShape(g,x,y,w,h,tone,rx=3){
+  const fill = tone==="teal"?TEAL:(tone==="plain"?"#FFFFFF":GREY_F);
+  const stroke = tone==="teal"?TEAL_DK:(tone==="plain"?TEAL:GREY_S);
+  add(g,"rect",{class:"shape",x,y,width:w,height:h,rx,fill,stroke,"stroke-width":tone==="plain"?1.6:1.4});
+  add(g,"rect",{class:"ring",x:x-5,y:y-5,width:w+10,height:h+10,rx:8});
+  add(g,"rect",{class:"hit",x,y,width:w,height:h});
+}
+
+function arrow(x1,y1,x2,y2,cls="flow dim"){
+  add(svg,"line",{class:cls,x1,y1,x2,y2,"marker-end":"url(#ah)"});
+}
+
+/* ---------------------------------------------------------------- pyramid */
+const APEX_X=640, APEX_Y=60, BASE_Y=240, BASE_HW=255;
+const hw=y=>BASE_HW*(y-APEX_Y)/(BASE_Y-APEX_Y);
+function band(id,yTop,yBot,fill,label){
+  const g=node(id);
+  const a=hw(yTop), b=hw(yBot);
+  const d = yTop<=APEX_Y+1
+    ? `M ${APEX_X} ${APEX_Y} L ${APEX_X+b} ${yBot} L ${APEX_X-b} ${yBot} Z`
+    : `M ${APEX_X-a} ${yTop} L ${APEX_X+a} ${yTop} L ${APEX_X+b} ${yBot} L ${APEX_X-b} ${yBot} Z`;
+  add(g,"path",{class:"shape",d,fill,stroke:TEAL_DK,"stroke-width":1.2});
+  add(g,"path",{class:"ring",d});
+  add(g,"path",{class:"hit",d});
+  txt(g,APEX_X,(yTop+yBot)/2+(yTop<=APEX_Y+1?18:1),label,"t-band t-light");
+}
+band("cockpit",   APEX_Y, 148, TEAL_DK, "Mgmt. Cockpit");
+band("planningF", 152,    192, TEAL,    "Planning | extrapolation");
+band("reporting", 196,    240, TEAL_LT, "Reporting | analysis");
+
+/* ---------------------------------------------------------------- layer frames */
+add(svg,"rect",{class:"frame dim",x:382,y:250,width:516,height:196});
+add(svg,"rect",{class:"frame dim",x:382,y:458,width:516,height:114});
+add(svg,"rect",{class:"frame dim",x:382,y:586,width:516,height:74});
+add(svg,"rect",{class:"frame dim",x:382,y:672,width:344,height:116});
+add(svg,"rect",{class:"frame dim",x:736,y:672,width:162,height:116});
+
+/* ---------------------------------------------------------------- output layer */
+let g=node("planningDB"); cylinder(g,398,350,108,78,12,"grey"); lines(g,452,392,["Planning"],"t-node");
+g=node("areadata");       cylinder(g,500,268,104,60,11,"grey"); lines(g,552,302,["Area data"],"t-node");
+g=node("aggregations","olap"); cylinder(g,688,266,104,64,11,"grey"); lines(g,740,302,["Aggregations"],"t-node");
+g=node("evaldb","olap");  cylinder(g,566,350,168,80,14,"teal");
+                          lines(g,650,394,["Evaluation","database"],"t-node t-light");
+
+/* OLAP cube */
+g=node("olap","olap");
+add(g,"path",{class:"shape",d:"M 802 340 L 824 322 L 886 322 L 864 340 Z",fill:GREY_TOP,stroke:GREY_S,"stroke-width":1.4});
+add(g,"path",{class:"shape",d:"M 864 340 L 886 322 L 886 372 L 864 390 Z",fill:"#E4E4E2",stroke:GREY_S,"stroke-width":1.4});
+add(g,"rect",{class:"shape",x:802,y:340,width:62,height:50,fill:GREY_F,stroke:GREY_S,"stroke-width":1.4});
+txt(g,833,366,"OLAP","t-node");
+add(g,"rect",{class:"ring",x:797,y:317,width:94,height:78,rx:8});
+add(g,"rect",{class:"hit",x:797,y:317,width:94,height:78});
+
+/* ---------------------------------------------------------------- storage layer */
+g=node("coredwh","scd"); cylinder(g,562,478,172,78,14,"teal");
+                        lines(g,648,522,["Core data","warehouse"],"t-node t-light");
+add(svg,"rect",{class:"pulse p-scd",x:554,y:470,width:188,height:94,rx:14});
+
+g=node("ods"); cylinder(g,766,478,108,74,13,"teal"); lines(g,820,520,["ODS"],"t-node t-light");
+
+/* ---------------------------------------------------------------- integration layer */
+g=node("staging");
+add(g,"rect",{class:"hit",x:384,y:588,width:274,height:70});
+add(g,"rect",{class:"ring",x:386,y:590,width:270,height:66,rx:6});
+const st=add(g,"text",{x:398,y:623,class:"t-big"}); st.textContent="Staging Area";
+
+const ETL=[["load","Load",574],["transform","Transform",606],["extract","Extract",638]];
+ETL.forEach(([id,label,y])=>{
+  const n=node(id,...(id==="transform"?["scd"]:[]));
+  boxShape(n,666,y,122,27,"plain",2);
+  txt(n,727,y+14,label,"t-node");
+});
+add(svg,"rect",{class:"pulse p-scd",x:659,y:599,width:136,height:41,rx:8});
+
+/* ---------------------------------------------------------------- source systems */
+[["erp","ERP",396],["ppc","PPS",476],["crm","CRM",556],["more","…",636]].forEach(([id,label,x])=>{
+  const n=node(id);
+  cylinder(n,x,686,72,58,10,"teal");
+  txt(n,x+36,719,label,"t-node t-light");
+});
+const opLabel=add(svg,"text",{x:554,y:770,"text-anchor":"middle",class:"t-cap dim"});
+opLabel.textContent="Operational Application Systems";
+
+g=node("external");
+add(g,"circle",{class:"shape",cx:817,cy:716,r:27,fill:TEAL,stroke:TEAL_DK,"stroke-width":1.4});
+add(g,"path",{class:"shape",d:"M 790 716 H 844 M 817 689 V 743 M 817 689 a 15 27 0 0 1 0 54 M 817 689 a 15 27 0 0 0 0 54",
+              fill:"none",stroke:"#fff","stroke-width":1.5});
+add(g,"rect",{class:"ring",x:786,y:685,width:62,height:62,rx:31});
+add(g,"rect",{class:"hit",x:786,y:685,width:62,height:62});
+const exLabel=add(svg,"text",{x:817,y:770,"text-anchor":"middle",class:"t-cap dim"});
+exLabel.textContent="External Data";
+
+/* ---------------------------------------------------------------- metadata bar */
+g=node("metadata");
+boxShape(g,906,60,38,728,"grey",3);
+const mt=add(g,"text",{x:925,y:424,class:"t-meta","text-anchor":"middle",
+  transform:"rotate(-90 925 424)"});
+mt.textContent="Metadata management";
+
+/* ---------------------------------------------------------------- layer labels */
+[["frontend","Frontend",60,178],["outputLayer",["Output","layer"],250,196],
+ ["storageLayer",["Data storage","layer"],458,114],["integrationLayer",["Integration","layer"],586,74],
+ ["sourceLayer",["Source","systems"],672,116]].forEach(([id,label,y,h])=>{
+  const n=node(id);
+  boxShape(n,954,y,110,h,"grey",3);
+  lines(n,1009,y+h/2,Array.isArray(label)?label:[label],"t-layer");
+});
+
+/* ---------------------------------------------------------------- flows */
+arrow(430,348,430,256);              // planning db -> frontend
+arrow(458,256,458,348);              // frontend -> planning db
+arrow(740,348,740,334);              // evaluation db -> aggregations
+arrow(752,378,796,360);              // evaluation db -> OLAP
+arrow(650,474,650,436);              // core dwh -> evaluation db
+arrow(560,516,458,516);              // core dwh -> area/planning side
+arrow(762,516,740,516);              // ODS -> core dwh
+arrow(500,424,562,494);              // planning db -> core dwh
+arrow(455,432,455,684);              // planned values written back to operations
+arrow(616,668,616,562);              // staging -> core dwh
+arrow(648,668,648,562);              // staging -> core dwh
+arrow(840,668,840,558);              // sources -> ODS
+arrow(432,682,432,662);              // ERP -> staging
+arrow(512,682,512,662);              // PPS -> staging
+arrow(592,682,592,662);              // CRM -> staging
+
+/* ---------------------------------------------------------------- SCD tags */
+function tag(x,y,label,mode,w=42){
+  const t=add(svg,"g",{class:"mtag m-"+mode});
+  add(t,"rect",{x,y,width:w,height:16,rx:8,
+                fill:mode==="scd"?"#FF922B":"#166980"});
+  const s=add(t,"text",{x:x+w/2,y:y+8,"text-anchor":"middle",class:"t-tag"});
+  s.textContent=label;
+}
+tag(796,604,"SCD","scd");          // next to Transform
+tag(566,464,"SCD","scd");          // above Core data warehouse
+
+add(svg,"rect",{class:"pulse p-olap",x:558,y:342,width:184,height:96,rx:14});   // evaluation db
+add(svg,"rect",{class:"pulse p-olap",x:680,y:258,width:120,height:80,rx:14});   // aggregations
+add(svg,"rect",{class:"pulse p-olap",x:794,y:314,width:100,height:84,rx:12});   // OLAP cube
+tag(566,330,"ROLAP","olap",54);    // on the evaluation database
+tag(806,300,"MOLAP","olap",56);    // on the OLAP cube
+tag(747,361,"HOLAP","olap",54);    // on the link between the two
+
+/* ---------------------------------------------------------------- tooltip */
+const tip=document.getElementById("tip");
+function show(n,ev){
+  const d=INFO[n.dataset.k];
+  if(!d) return;
+  tip.innerHTML=`<p class="th">${d[0]}</p><p>${d[1]}</p>`+
+                (d[2]?`<p class="scdline">${d[2]}</p>`:"")+
+                (d[3]?`<p class="olapline">${d[3]}</p>`:"");
+  tip.classList.add("on");
+  move(n,ev);
+}
+function move(n,ev){
+  let x,y;
+  if(ev&&ev.clientX){x=ev.clientX+16;y=ev.clientY+16;}
+  else{const r=n.getBoundingClientRect();x=r.left+r.width/2;y=r.top-8;}
+  const w=tip.offsetWidth,h=tip.offsetHeight;
+  if(x+w>innerWidth-12)x=innerWidth-w-12;
+  if(y+h>innerHeight-12)y=y-h-32;
+  if(y<8)y=8;
+  if(x<8)x=8;
+  tip.style.left=x+"px";tip.style.top=y+"px";
+}
+const hide=()=>tip.classList.remove("on");
+
+svg.addEventListener("pointerover",e=>{const n=e.target.closest(".node");if(n)show(n,e);});
+svg.addEventListener("pointermove",e=>{const n=e.target.closest(".node");if(n)move(n,e);});
+svg.addEventListener("pointerout",e=>{
+  const from=e.target.closest(".node"); if(!from) return;
+  const to=e.relatedTarget&&e.relatedTarget.closest?e.relatedTarget.closest(".node"):null;
+  if(to!==from) hide();
+});
+svg.addEventListener("focusin",e=>{const n=e.target.closest(".node");if(n)show(n,null);});
+svg.addEventListener("focusout",e=>{if(e.target.closest(".node"))hide();});
+addEventListener("scroll",hide,{passive:true});
+
+/* ---------------------------------------------------------------- SCD toggle */
+const MODES={
+  scd:{btn:document.getElementById("scdBtn"), note:document.getElementById("scdNote"),
+       off:"Show where SCD lives"},
+  olap:{btn:document.getElementById("olapBtn"), note:document.getElementById("olapNote"),
+        off:"Show where MOLAP / ROLAP / HOLAP live"}
+};
+let active=null;
+function setMode(m){
+  active = active===m ? null : m;
+  for(const k in MODES){
+    const on = active===k, o=MODES[k];
+    o.btn.setAttribute("aria-pressed",String(on));
+    o.btn.querySelector(".lbl").textContent = on ? "Show the whole architecture" : o.off;
+    o.note.classList.toggle("on",on);
+    svg.classList.toggle(k,on);
+  }
+  hide();
+}
+for(const k in MODES) MODES[k].btn.addEventListener("click",()=>setMode(k));
+</script>
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sofia's Coffee World · BI &amp; Controlling teaching materials</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2;
+  --r:12px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --lift:0 2px 4px rgba(29,29,31,.05), 0 22px 44px -20px rgba(22,105,128,.45);
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 80px}
+
+/* ---------- masthead ---------- */
+.masthead{padding:60px 0 30px}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 20px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2.2rem,5.4vw,3.7rem);font-weight:700;letter-spacing:-.03em;line-height:1.02;margin:0 0 16px;max-width:15ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:clamp(1rem,1.6vw,1.2rem);font-weight:300;color:#3d3d40;max-width:62ch;margin:0}
+
+/* ---------- toolbar ---------- */
+.toolbar{display:flex;gap:14px 20px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  margin:34px 0 8px;padding-top:26px;border-top:1px solid var(--grey-xl)}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);cursor:pointer;
+  font-family:var(--sans);font-size:.86rem;font-weight:600;color:var(--grey);
+  padding:9px 15px;border-radius:20px;transition:.18s var(--ease)}
+.chip:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.chip[aria-pressed="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.chip:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.search{position:relative}
+.search input{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);border-radius:20px;
+  padding:10px 16px 10px 38px;font-family:var(--sans);font-size:.9rem;color:var(--ink);width:246px;
+  transition:border-color .18s,width .25s var(--ease)}
+.search input:focus{outline:none;border-color:var(--teal);width:280px}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:14px;height:14px;
+  stroke:var(--grey);fill:none;stroke-width:2}
+.count{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--grey);margin:16px 0 20px}
+
+/* ---------- tiles ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
+.tile{position:relative;background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:24px 24px 20px;overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .28s var(--ease),box-shadow .28s var(--ease),border-color .2s}
+.tile::before{content:"";position:absolute;top:0;left:0;height:3px;width:100%;
+  background:var(--accent,var(--teal));transform:scaleX(0);transform-origin:left;
+  transition:transform .4s var(--ease)}
+.tile:hover,.tile:focus-within{transform:translateY(-4px);box-shadow:var(--lift);border-color:transparent}
+.tile:hover::before,.tile:focus-within::before{transform:scaleX(1)}
+.tile.planned{background:transparent;border-style:dashed;border-color:var(--grey-mid)}
+.tile.planned:hover{transform:none;box-shadow:none;border-color:var(--grey-mid)}
+.tile[hidden]{display:none}
+
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:18px}
+.glyph{width:60px;height:60px;flex:none;color:var(--accent,var(--teal))}
+.badges{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;
+  padding:4px 9px;border-radius:20px;white-space:nowrap;font-weight:600}
+.b-track{background:var(--teal-xl);color:var(--teal-dk)}
+.b-track.ctrl{background:var(--sand-xl);color:#8A6417}
+.b-plan{background:var(--grey-xl);color:var(--grey)}
+
+.tile h2{font-size:1.24rem;font-weight:700;letter-spacing:-.018em;line-height:1.2;margin:0 0 7px}
+.tile .sub{font-size:.93rem;font-weight:300;color:#4a4a4d;margin:0 0 16px;line-height:1.45}
+
+.feat{list-style:none;margin:0 0 18px;padding:0;display:grid;grid-template-rows:0fr;
+  opacity:0;transition:grid-template-rows .38s var(--ease),opacity .28s,margin .38s var(--ease)}
+.feat>div{overflow:hidden}
+.tile:hover .feat,.tile:focus-within .feat{grid-template-rows:1fr;opacity:1}
+.feat li{font-size:.85rem;color:#4a4a4d;padding-left:16px;position:relative;margin-bottom:5px;line-height:1.4}
+.feat li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:2px;background:var(--accent,var(--teal))}
+
+.links{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap;padding-top:4px}
+.lnk{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:.86rem;font-weight:600;
+  padding:9px 15px;border-radius:8px;transition:.18s var(--ease)}
+.lnk.primary{background:var(--teal-dk);color:#fff}
+.lnk.primary:hover{background:var(--teal);transform:translateY(-1px)}
+.lnk.ghost{background:var(--paper);color:var(--teal-dk);border:1px solid var(--grey-xl)}
+.lnk.ghost:hover{border-color:var(--teal);transform:translateY(-1px)}
+.lnk:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.lnk .ic{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;flex:none}
+.soon{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  padding:9px 0}
+
+.empty{display:none;padding:44px 24px;text-align:center;color:var(--grey);
+  border:1px dashed var(--grey-mid);border-radius:var(--r)}
+.empty.on{display:block}
+
+/* ---------- how to extend ---------- */
+.howto{margin-top:52px;border-top:1px solid var(--grey-xl);padding-top:34px}
+.howto h3{font-size:1.3rem;font-weight:600;letter-spacing:-.015em;margin:0 0 6px}
+.howto p{margin:0 0 16px;color:#3d3d40;font-size:.96rem;max-width:72ch}
+.howto ol{margin:0 0 18px;padding-left:20px;color:#3d3d40;font-size:.94rem;max-width:72ch}
+.howto li{margin-bottom:7px}
+pre{background:var(--ink);color:#E8E8E6;border-radius:var(--r);padding:20px 22px;overflow-x:auto;
+  font-family:var(--mono);font-size:.78rem;line-height:1.65;margin:0}
+pre .k{color:#8FD4E6}
+pre .s{color:#FFC895}
+pre .c{color:#7F7F7E}
+.tree{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:18px 22px;font-family:var(--mono);font-size:.8rem;line-height:1.85;color:#3d3d40;
+  margin:0 0 20px;white-space:pre;overflow-x:auto}
+.tree b{color:var(--teal-dk);font-weight:600}
+
+footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+
+@media (max-width:640px){
+  .wrap{padding:0 16px 56px}
+  .grid{grid-template-columns:1fr}
+  .search input,.search input:focus{width:100%}
+  .search{flex:1 1 100%}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Teaching library · IU</p>
+  <h1>Sofia's <em>Coffee World</em></h1>
+  <p class="lede">Two Viennese coffee houses, a roastery, a coffee bike and green coffee shipped in from Peru — used across the Business Intelligence and Controlling lectures as a single running case. Every module below is self-contained: take one for a session, or follow the whole chain from the till roll to the management cockpit.</p>
+</header>
+
+<div class="toolbar">
+  <div class="chips" id="chips">
+    <button class="chip" data-f="all" aria-pressed="true" type="button">All</button>
+    <button class="chip" data-f="bi" aria-pressed="false" type="button">Business Intelligence</button>
+    <button class="chip" data-f="ctrl" aria-pressed="false" type="button">Controlling</button>
+    <button class="chip" data-f="planned" aria-pressed="false" type="button">Planned</button>
+  </div>
+  <div class="search">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+    <input id="q" type="search" placeholder="Search topics…" aria-label="Search topics">
+  </div>
+</div>
+
+<p class="count" id="count"></p>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty">Nothing matches that filter yet.</div>
+
+<section class="howto">
+  <h3>Adding a new module</h3>
+  <p>This page is driven by one list inside its own <code>&lt;script&gt;</code> block — no build step, no server needed. To add a topic, drop the new file next to this one and paste one entry into that list.</p>
+
+  <div class="tree">
+<b>sofia-bi/</b>
+├── index.html          <span style="color:#8A8A89">← this page</span>
+├── PROJECT-CANON.md    <span style="color:#8A8A89">← names, figures, conventions</span>
+├── scd-dashboard.html
+├── bi-reference-architecture.html
+├── balanced-scorecard.html
+└── <b>decks/</b>
+    ├── SCD_Sofias_Coffee_World.pptx
+    └── OLAP_Storage_Sofias_Coffee_World.pptx
+  </div>
+
+  <ol>
+    <li>Put the new file in the folder (HTML next to <code>index.html</code>, slide decks in <code>decks/</code>).</li>
+    <li>Open <code>index.html</code> in a text editor and find the line <code>const TOPICS = [</code>.</li>
+    <li>Paste a block like the one below. Order in the list is the order on the page.</li>
+    <li><code>accent</code> tints the tile: use <code>teal</code>, <code>navy</code>, <code>orange</code> or <code>ochre</code>. <code>glyph</code> picks the drawing: <code>rows</code>, <code>cube</code>, <code>layers</code>, <code>quadrants</code> or <code>tree</code>.</li>
+  </ol>
+
+<pre><span class="c">// paste inside const TOPICS = [ ... ]</span>
+{
+  <span class="k">id</span>:      <span class="s">"etl"</span>,
+  <span class="k">title</span>:   <span class="s">"ETL and data quality"</span>,
+  <span class="k">sub</span>:     <span class="s">"How three sales points become one truth — and what breaks on the way."</span>,
+  <span class="k">track</span>:   <span class="s">"bi"</span>,          <span class="c">// "bi" or "ctrl"</span>
+  <span class="k">status</span>:  <span class="s">"ready"</span>,       <span class="c">// "ready" or "planned"</span>
+  <span class="k">accent</span>:  <span class="s">"orange"</span>,
+  <span class="k">glyph</span>:   <span class="s">"layers"</span>,
+  <span class="k">features</span>: [
+    <span class="s">"Extract, transform, load walked through step by step"</span>,
+    <span class="s">"Six data quality dimensions on Sofia's receipts"</span>
+  ],
+  <span class="k">links</span>: [
+    { <span class="k">kind</span>:<span class="s">"html"</span>, <span class="k">file</span>:<span class="s">"etl-dashboard.html"</span>,               <span class="k">label</span>:<span class="s">"Open interactive"</span> },
+    { <span class="k">kind</span>:<span class="s">"deck"</span>, <span class="k">file</span>:<span class="s">"decks/ETL_Sofias_Coffee_World.pptx"</span>, <span class="k">label</span>:<span class="s">"Slide deck"</span> }
+  ]
+},</pre>
+</section>
+
+<footer>
+  Teaching material · IU corporate identity. All figures in the modules are illustrative.
+  Keep <code>PROJECT-CANON.md</code> with this folder — it holds the names, numbers and design
+  conventions that keep the modules consistent with one another.
+</footer>
+
+</div>
+
+<script>
+"use strict";
+
+/* =====================================================================
+   THE ONLY THING YOU NEED TO EDIT — see "Adding a new module" below.
+   ===================================================================== */
+const TOPICS = [
+  {
+    id:"scd",
+    title:"Slowly Changing Dimensions",
+    sub:"Anna moves to the other coffee house on 1 March. Who keeps her January revenue — and can the old report still be reproduced?",
+    track:"bi",
+    status:"ready",
+    accent:"teal",
+    glyph:"rows",
+    features:[
+      "Five slides with speaker notes on Types 1, 2 and 3",
+      "Three tabs, one per type, on a single worked example",
+      "A till slip that reprints itself when the type changes",
+      "Reported figures against what actually happened"
+    ],
+    links:[
+      {kind:"html",file:"scd-dashboard.html",label:"Open interactive"},
+      {kind:"deck",file:"decks/SCD_Sofias_Coffee_World.pptx",label:"Slide deck"}
+    ]
+  },
+  {
+    id:"olap",
+    title:"MOLAP, ROLAP and HOLAP",
+    sub:"The monthly chart opens instantly, the receipt drill-through takes half a minute. Same data — where do the aggregates live?",
+    track:"bi",
+    status:"ready",
+    accent:"navy",
+    glyph:"cube",
+    features:[
+      "Five slides with speaker notes and a comparison matrix",
+      "Advantages and limitations per storage model",
+      "Bridge to Power BI: Import, DirectQuery, Composite",
+      "Interactive version still to come"
+    ],
+    links:[
+      {kind:"deck",file:"decks/OLAP_Storage_Sofias_Coffee_World.pptx",label:"Slide deck"}
+    ]
+  },
+  {
+    id:"arch",
+    title:"BI reference architecture",
+    sub:"The whole road from the till roll to the management cockpit, with every layer explained where you point at it.",
+    track:"bi",
+    status:"ready",
+    accent:"teal",
+    glyph:"layers",
+    features:[
+      "The full architecture rebuilt as an interactive drawing",
+      "Hover any cylinder, box or band for its role",
+      "Marker: where Slowly Changing Dimensions are decided",
+      "Marker: where MOLAP, ROLAP and HOLAP live"
+    ],
+    links:[
+      {kind:"html",file:"bi-reference-architecture.html",label:"Open interactive"}
+    ]
+  },
+  {
+    id:"bsc",
+    title:"Balanced Scorecard",
+    sub:"The textbook case of a concept-oriented analysis system: the management concept prescribes the structure, not the data.",
+    track:"ctrl",
+    status:"ready",
+    accent:"ochre",
+    glyph:"quadrants",
+    features:[
+      "The four perspectives with hover detail and the usual traps",
+      "Sofia's strategy map: eight objectives, causal chains lit on hover",
+      "Why one objective should touch several perspectives",
+      "A Power BI style scorecard with slicer, data bars and status"
+    ],
+    links:[
+      {kind:"html",file:"balanced-scorecard.html",label:"Open interactive"}
+    ]
+  },
+  {
+    id:"kpi",
+    title:"Key figure systems",
+    sub:"From a single ratio to a driver tree: how ROI decomposes into things Sofia can actually move on a Tuesday morning.",
+    track:"ctrl",
+    status:"planned",
+    accent:"ochre",
+    glyph:"tree",
+    features:[
+      "DuPont scheme on Sofia's numbers",
+      "Driver trees and where they stop being useful"
+    ],
+    links:[]
+  },
+  {
+    id:"etl",
+    title:"ETL and data quality",
+    sub:"Two houses, a bike and a wholesale ledger, each with its own spelling of the same product. What integration has to fix before anything can be reported.",
+    track:"bi",
+    status:"planned",
+    accent:"orange",
+    glyph:"layers",
+    features:[
+      "Extract, transform and load on the receipt stream",
+      "Data quality dimensions with real failure cases"
+    ],
+    links:[]
+  }
+];
+/* ===================== end of the editable list ====================== */
+
+const ACCENT={teal:"#209CBD",navy:"#0F4C5C",orange:"#FF922B",ochre:"#B5852C"};
+const TRACK={bi:["Business Intelligence",""],ctrl:["Controlling","ctrl"]};
+
+const GLYPH={
+  rows:`<rect x="8" y="10" width="44" height="10" rx="2" fill="currentColor" opacity=".9"/>
+        <rect x="8" y="25" width="44" height="10" rx="2" fill="currentColor" opacity=".35"/>
+        <rect class="g-move" x="8" y="40" width="44" height="10" rx="2" fill="currentColor" opacity=".6"/>
+        <path class="g-fade" d="M56 45 L56 22" stroke="#FF922B" stroke-width="2.4" fill="none" marker-end="url(#gm)"/>`,
+  cube:`<path d="M14 24 L30 15 L50 24 L34 33 Z" fill="currentColor" opacity=".35"/>
+        <path d="M14 24 L34 33 L34 51 L14 42 Z" fill="currentColor" opacity=".9"/>
+        <path class="g-move" d="M50 24 L34 33 L34 51 L50 42 Z" fill="currentColor" opacity=".6"/>`,
+  layers:`<rect x="10" y="42" width="40" height="9" rx="2" fill="currentColor" opacity=".9"/>
+          <rect x="14" y="30" width="32" height="9" rx="2" fill="currentColor" opacity=".65"/>
+          <rect x="18" y="18" width="24" height="9" rx="2" fill="currentColor" opacity=".45"/>
+          <path class="g-fade" d="M30 46 L30 12" stroke="#FF922B" stroke-width="2.4" fill="none" marker-end="url(#gm)"/>`,
+  quadrants:`<rect x="9" y="9" width="20" height="20" rx="3" fill="currentColor" opacity=".85"/>
+             <rect x="33" y="9" width="20" height="20" rx="3" fill="currentColor" opacity=".45"/>
+             <rect x="9" y="33" width="20" height="20" rx="3" fill="currentColor" opacity=".45"/>
+             <rect x="33" y="33" width="20" height="20" rx="3" fill="currentColor" opacity=".85"/>
+             <circle class="g-pulse" cx="31" cy="31" r="6" fill="#FF922B"/>`,
+  tree:`<rect x="22" y="8" width="18" height="10" rx="2" fill="currentColor" opacity=".9"/>
+        <rect x="8" y="30" width="18" height="10" rx="2" fill="currentColor" opacity=".6"/>
+        <rect x="36" y="30" width="18" height="10" rx="2" fill="currentColor" opacity=".6"/>
+        <rect class="g-move" x="36" y="48" width="18" height="9" rx="2" fill="currentColor" opacity=".4"/>
+        <path d="M31 18 L31 25 M17 30 L17 25 L45 25 L45 30 M45 40 L45 48" stroke="currentColor"
+              stroke-width="2" fill="none" opacity=".55"/>`
+};
+
+const ICON={
+  html:`<path d="M4 12h16M14 6l6 6-6 6"/>`,
+  deck:`<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v3M8 20h8"/>`
+};
+
+const grid=document.getElementById("grid");
+
+grid.innerHTML=TOPICS.map(t=>{
+  const planned=t.status==="planned";
+  const [trackName,trackCls]=TRACK[t.track];
+  const links=t.links.length
+    ? t.links.map((l,i)=>`<a class="lnk ${i===0?"primary":"ghost"}" href="${l.file}"
+         ${l.kind==="deck"?"download":""}>
+         <svg class="ic" viewBox="0 0 24 24">${ICON[l.kind]}</svg>${l.label}</a>`).join("")
+    : `<span class="soon">In preparation</span>`;
+  return `<article class="tile ${planned?"planned":""}" data-track="${t.track}" data-status="${t.status}"
+      data-search="${(t.title+" "+t.sub+" "+t.features.join(" ")+" "+trackName).toLowerCase().replace(/"/g,"")}"
+      style="--accent:${ACCENT[t.accent]||ACCENT.teal}">
+    <div class="top">
+      <svg class="glyph" viewBox="0 0 62 62" aria-hidden="true">
+        <defs><marker id="gm" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5"
+          orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="#FF922B"/></marker></defs>
+        ${GLYPH[t.glyph]||GLYPH.rows}
+      </svg>
+      <div class="badges">
+        <span class="badge b-track ${trackCls}">${trackName}</span>
+        ${planned?`<span class="badge b-plan">Planned</span>`:``}
+      </div>
+    </div>
+    <h2>${t.title}</h2>
+    <p class="sub">${t.sub}</p>
+    <ul class="feat"><div>${t.features.map(f=>`<li>${f}</li>`).join("")}</div></ul>
+    <div class="links">${links}</div>
+  </article>`;
+}).join("");
+
+/* glyph motion, hover only */
+const style=document.createElement("style");
+style.textContent=`
+  .g-move,.g-fade,.g-pulse{transition:transform .45s var(--ease),opacity .35s;transform-box:fill-box;transform-origin:center}
+  .g-fade{opacity:0}
+  .g-pulse{opacity:.35}
+  .tile:hover .g-move,.tile:focus-within .g-move{transform:translateY(-5px)}
+  .tile:hover .g-fade,.tile:focus-within .g-fade{opacity:1}
+  .tile:hover .g-pulse,.tile:focus-within .g-pulse{opacity:1;transform:scale(1.25)}
+  @media (prefers-reduced-motion:reduce){.g-move,.g-fade,.g-pulse{transition:none}}`;
+document.head.appendChild(style);
+
+/* filtering */
+let filter="all", query="";
+const countEl=document.getElementById("count"), emptyEl=document.getElementById("empty");
+
+function apply(){
+  let shown=0;
+  [...grid.children].forEach(tile=>{
+    const okF = filter==="all"
+      || (filter==="planned" ? tile.dataset.status==="planned" : tile.dataset.track===filter);
+    const okQ = !query || tile.dataset.search.includes(query);
+    const on = okF && okQ;
+    tile.hidden=!on;
+    if(on) shown++;
+  });
+  const res=TOPICS.reduce((s,t)=>s+t.links.length,0);
+  countEl.textContent = shown===TOPICS.length
+    ? `${TOPICS.length} topics · ${res} downloadable resources`
+    : `${shown} of ${TOPICS.length} topics shown`;
+  emptyEl.classList.toggle("on",shown===0);
+}
+
+document.getElementById("chips").addEventListener("click",e=>{
+  const b=e.target.closest(".chip"); if(!b) return;
+  filter=b.dataset.f;
+  document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",String(c===b)));
+  apply();
+});
+document.getElementById("q").addEventListener("input",e=>{
+  query=e.target.value.trim().toLowerCase(); apply();
+});
+apply();
+</script>
+</body>
+</html>

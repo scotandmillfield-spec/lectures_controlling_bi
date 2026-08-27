@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Balanced Scorecard · Sofia's Coffee World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2; --canvas:#F4F3F0;
+  --green:#2E9E6B; --red:#D9534F;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.2rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:19ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:clamp(1rem,1.6vw,1.18rem);font-weight:300;color:#3d3d40;max-width:64ch;margin:0}
+
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+
+.claim{font-size:clamp(1.12rem,2.2vw,1.45rem);font-weight:300;line-height:1.36;margin:0 0 24px;max-width:56ch;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--teal-dk)}
+h2.sec{font-size:1.2rem;font-weight:600;letter-spacing:-.012em;margin:34px 0 4px}
+p.sub{margin:0 0 16px;color:var(--grey);font-size:.92rem}
+.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:14px 0 0}
+
+/* ---------- classification strip ---------- */
+.types{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:30px}
+.type{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:14px 15px;
+  cursor:help;transition:border-color .18s,transform .18s var(--ease),box-shadow .18s}
+.type:hover,.type:focus-visible{border-color:var(--teal);transform:translateY(-2px);box-shadow:var(--shadow);outline:none}
+.type.on{background:var(--teal-dk);border-color:var(--teal-dk)}
+.type .tk{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);margin-bottom:6px}
+.type.on .tk{color:#8FD4E6}
+.type .tn{font-size:.92rem;font-weight:600;line-height:1.25}
+.type.on .tn{color:#fff}
+
+/* ---------- BSC cross ---------- */
+.cross{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto auto auto;
+  gap:14px;align-items:stretch}
+.persp{border-radius:var(--r);padding:18px 19px;cursor:help;border:1px solid transparent;
+  transition:transform .2s var(--ease),box-shadow .2s,filter .2s;position:relative;overflow:hidden}
+.persp::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:currentColor;opacity:.9}
+.persp:hover,.persp:focus-visible{transform:translateY(-3px);box-shadow:var(--shadow);outline:none}
+.persp .pk{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-bottom:7px}
+.persp h3{font-size:1.12rem;font-weight:700;letter-spacing:-.01em;margin:0 0 7px;color:var(--ink)}
+.persp .q{font-size:.9rem;font-weight:300;color:#3d3d40;margin:0 0 12px;line-height:1.4}
+.persp .omti{display:flex;gap:5px;flex-wrap:wrap}
+.persp .omti span{font-family:var(--mono);font-size:9px;letter-spacing:.07em;text-transform:uppercase;
+  background:rgba(255,255,255,.72);border-radius:4px;padding:3px 6px;color:#4a4a4d}
+.p-fin{background:var(--navy-xl);color:var(--navy);grid-column:2;grid-row:1}
+.p-cus{background:var(--teal-xl);color:var(--teal-dk);grid-column:1;grid-row:2}
+.p-pro{background:var(--orange-xl);color:#B25E00;grid-column:3;grid-row:2}
+.p-lea{background:var(--ochre-xl);color:var(--ochre);grid-column:2;grid-row:3}
+.centre{grid-column:2;grid-row:2;background:var(--teal-dk);color:#fff;border-radius:var(--r);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18px}
+.centre .ck{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#8FD4E6;margin-bottom:8px}
+.centre p{margin:0;font-size:.98rem;font-weight:300;line-height:1.4}
+.centre b{font-weight:700;display:block;font-size:1.15rem;margin-bottom:6px;letter-spacing:-.01em}
+
+/* ---------- detail panel ---------- */
+.detail{margin-top:16px;background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:22px 24px;min-height:168px}
+.detail .dk{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--teal-dk);margin:0 0 8px}
+.detail h4{margin:0 0 10px;font-size:1.18rem;font-weight:700;letter-spacing:-.015em}
+.detail p{margin:0 0 10px;font-size:.96rem;color:#3d3d40;max-width:80ch}
+.detail p:last-child{margin-bottom:0}
+.detail .warn{color:#B25E00;font-weight:600}
+.detail .kpis{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.detail .kpis span{font-family:var(--mono);font-size:.72rem;background:var(--teal-xl);color:var(--teal-dk);
+  border-radius:5px;padding:5px 9px}
+
+/* ---------- strategy map ---------- */
+.mapwrap{position:relative;background:var(--paper);border:1px solid var(--grey-xl);
+  border-radius:var(--r);box-shadow:var(--shadow);padding:18px;overflow:hidden}
+svg.links{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+svg.links line{stroke:#A7A7A5;stroke-width:1.7;transition:stroke .25s,stroke-width .25s,opacity .25s}
+svg.links line.hot{stroke:var(--orange);stroke-width:2.6}
+.mapwrap.focus svg.links line:not(.hot){opacity:.18}
+.band{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center;
+  padding:21px 0;position:relative;z-index:1;border-bottom:1px dashed var(--grey-xl)}
+.band:last-child{border-bottom:0}
+.band .bl{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  padding:8px 10px;border-radius:6px;text-align:center;font-weight:600}
+.bl-fin{background:var(--navy-xl);color:var(--navy)}
+.bl-cus{background:var(--teal-xl);color:var(--teal-dk)}
+.bl-pro{background:var(--orange-xl);color:#B25E00}
+.bl-lea{background:var(--ochre-xl);color:var(--ochre)}
+.goals{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.goal{background:var(--paper);border:1.5px solid var(--grey-xl);border-radius:9px;padding:12px 14px;
+  cursor:help;transition:border-color .2s,box-shadow .2s,transform .2s var(--ease),opacity .25s}
+.goal:hover,.goal:focus-visible{transform:translateY(-2px);box-shadow:var(--shadow);outline:none}
+.goal .gid{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--grey);margin-bottom:4px}
+.goal .gt{font-size:.9rem;font-weight:600;line-height:1.3}
+.goal .gm{font-family:var(--mono);font-size:.72rem;color:var(--grey);margin-top:5px}
+.mapwrap.focus .goal:not(.hot){opacity:.28}
+.goal.hot{border-color:var(--orange)}
+.goal.origin{border-color:var(--orange);background:var(--orange-xl)}
+.mapwrap.focus .band .bl{opacity:.3}
+.mapwrap.focus .band.hot .bl{opacity:1}
+
+.synergy{margin-top:18px;background:var(--orange);color:#fff;border-radius:var(--r);padding:20px 24px;
+  font-size:1rem;line-height:1.55}
+.synergy b{font-weight:700}
+.synergy .count{font-family:var(--mono);font-size:.78rem;background:rgba(255,255,255,.24);
+  padding:3px 8px;border-radius:5px;margin-left:6px}
+
+/* ---------- architecture locator ---------- */
+.locator{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:14px}
+.loc{background:var(--paper);border:1px solid var(--grey-xl);border-radius:8px;padding:12px 13px;
+  font-size:.82rem;color:var(--grey);transition:.2s}
+.loc .lk{font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;margin-bottom:5px;display:block}
+.loc.on{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.loc.on .lk{color:#8FD4E6}
+.loc b{font-weight:600;display:block;font-size:.88rem;color:inherit}
+
+/* ---------- Power BI report ---------- */
+.report{background:var(--canvas);border:1px solid var(--grey-mid);border-radius:var(--r);padding:0;overflow:hidden}
+.rbar{background:var(--teal-dk);color:#fff;padding:13px 18px;display:flex;justify-content:space-between;
+  align-items:center;gap:14px;flex-wrap:wrap}
+.rbar .rt{font-size:1rem;font-weight:600;letter-spacing:-.01em}
+.rbar .rm{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:#9FDCEC}
+.rbody{padding:16px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.tile{background:var(--paper);border:1px solid var(--grey-mid);border-radius:6px;padding:14px 16px}
+.tile .tl{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--grey);margin-bottom:8px}
+.tile .tv{font-size:1.9rem;font-weight:700;line-height:1;letter-spacing:-.02em;color:var(--teal-dk)}
+.tile .tv.amber{color:var(--orange)}
+.tile .tv.green{color:var(--green)}
+.tile .ts{font-size:.78rem;color:var(--grey);margin-top:6px}
+.rgrid{display:grid;grid-template-columns:212px 1fr;gap:12px;align-items:start}
+.slicer{background:var(--paper);border:1px solid var(--grey-mid);border-radius:6px;padding:13px}
+.slicer .tl{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--grey);margin-bottom:10px}
+.slicer button{display:flex;width:100%;align-items:center;gap:9px;appearance:none;background:transparent;
+  border:0;padding:7px 8px;border-radius:5px;cursor:pointer;font-family:var(--sans);font-size:.86rem;
+  color:var(--ink);text-align:left;transition:background .16s}
+.slicer button:hover{background:var(--grey-xl)}
+.slicer button[aria-pressed="true"]{background:var(--teal-xl);font-weight:600;color:var(--teal-dk)}
+.slicer button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.slicer .chip{width:11px;height:11px;border-radius:3px;flex:none}
+.panelcard{background:var(--paper);border:1px solid var(--grey-mid);border-radius:6px;padding:13px 14px;margin-top:12px}
+.panelcard .tl{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--grey);margin-bottom:11px}
+.pbar{display:grid;grid-template-columns:70px 1fr 34px;gap:8px;align-items:center;margin-bottom:9px;font-size:.78rem}
+.pbar .track{height:12px;background:var(--grey-xl);border-radius:3px;overflow:hidden}
+.pbar .track i{display:block;height:100%;border-radius:3px;transition:width .5s var(--ease)}
+.pbar .pv{font-family:var(--mono);font-size:.72rem;text-align:right;color:var(--grey)}
+
+.matrix{background:var(--paper);border:1px solid var(--grey-mid);border-radius:6px;overflow-x:auto}
+table.mx{width:100%;min-width:820px;border-collapse:collapse;font-size:.84rem;table-layout:fixed}
+table.mx col.c-obj{width:26%} table.mx col.c-per{width:15%} table.mx col.c-own{width:11%}
+table.mx col.c-due{width:7.5%} table.mx col.c-bud{width:9%} table.mx col.c-spe{width:9%}
+table.mx col.c-pro{width:12%} table.mx col.c-sta{width:10.5%}
+table.mx th{background:#F7F7F5;text-align:left;padding:10px 10px;font-family:var(--mono);
+  font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid);white-space:nowrap}
+table.mx td{padding:11px 10px;border-bottom:1px solid var(--grey-xl);vertical-align:middle}
+table.mx tr:last-child td{border-bottom:0}
+table.mx tr:hover td{background:var(--sand-xl)}
+.objcell b{display:block;font-weight:600;line-height:1.3}
+.objcell span{font-family:var(--mono);font-size:.68rem;color:var(--grey);display:block;margin-top:3px}
+.pchip{display:inline-flex;align-items:flex-start;gap:6px;font-size:.76rem;line-height:1.25;padding-right:8px}
+.pchip i{margin-top:2px}
+.pchip i{width:10px;height:10px;border-radius:3px;flex:none}
+.num{font-family:var(--mono);font-size:.78rem;text-align:right;white-space:nowrap}
+.databar{display:grid;grid-template-columns:1fr 32px;gap:6px;align-items:center;min-width:0}
+.databar .dt{height:15px;background:var(--grey-xl);border-radius:3px;overflow:hidden}
+.databar .dt i{display:block;height:100%;border-radius:3px}
+.databar .dl{font-family:var(--mono);font-size:.7rem;color:#2c2c2f;text-align:right}
+.status{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;
+  padding:4px 8px;border-radius:20px;white-space:nowrap;font-weight:600}
+.s-on{background:#E4F4EC;color:var(--green)}
+.s-risk{background:var(--orange-xl);color:#B25E00}
+.s-off{background:#FBE8E7;color:var(--red)}
+.rfoot{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--grey);padding:12px 4px 2px}
+
+.readme{margin-top:20px;background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:20px 24px;font-size:1rem;line-height:1.55}
+.readme b{font-weight:700}
+.readme code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.2);padding:1px 5px;border-radius:4px}
+
+footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;border-top:1px solid var(--grey-xl);padding-top:20px}
+
+.tip{position:fixed;z-index:60;pointer-events:none;opacity:0;transform:translateY(4px);
+  transition:opacity .14s,transform .14s;background:var(--ink);color:#fff;border-radius:9px;
+  padding:12px 14px;font-size:.82rem;line-height:1.5;max-width:300px;box-shadow:0 10px 30px -8px rgba(0,0,0,.45)}
+.tip.on{opacity:1;transform:translateY(0)}
+.tip .th{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#8FD4E6;margin:0 0 5px}
+.tip p{margin:0}
+
+@media (max-width:980px){
+  .types{grid-template-columns:1fr 1fr}
+  .cross{grid-template-columns:1fr}
+  .p-fin,.p-cus,.p-pro,.p-lea,.centre{grid-column:1;grid-row:auto}
+  .centre{order:-1}
+  .band{grid-template-columns:1fr}
+  .tiles{grid-template-columns:1fr 1fr}
+  .rgrid{grid-template-columns:1fr}
+  .locator{grid-template-columns:1fr 1fr}
+  svg.links{display:none}
+}
+@media (max-width:620px){ .goals{grid-template-columns:1fr} .wrap{padding:0 16px 56px} }
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Sofia's Coffee World · Business Intelligence</p>
+  <h1>Four perspectives, <em>one strategy</em></h1>
+  <p class="lede">The Balanced Scorecard is the textbook example of a concept-oriented analysis system: a BI application whose structure does not come from the shape of the data but from a management concept. Kaplan and Norton supply the frame; Sofia supplies the coffee, the cake and the queue at the counter.</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Balanced Scorecard">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> The concept</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Sofia's strategy map</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> The Power BI view</button>
+</div>
+
+<!-- ============================ TAB A ============================ -->
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <p class="claim">Analysis systems are usually sorted by <b>how the user gets to an answer</b>. The Balanced Scorecard sits in the last group: the concept comes first, and the system is built to fit it.</p>
+
+  <div class="types" id="types"></div>
+
+  <div class="cross" id="cross">
+    <div class="centre">
+      <p class="ck">At the centre</p>
+      <p><b>Vision &amp; Strategy</b>Sofia’s is not modest: sell coffee from the bike on Piazza San Marco. Every perspective answers the same question from its own angle — what does that require of us here?</p>
+    </div>
+  </div>
+
+  <div class="detail" id="detA">
+    <p class="dk">Why this frame at all</p>
+    <h4>A scorecard is a theory, written down as numbers</h4>
+    <p>Financial figures report what already happened. They are lagging indicators, and by the time they move, the decision that caused them is months old. The Balanced Scorecard adds three leading perspectives in front of the money, and connects them with an explicit assumption: better skills enable better processes, better processes produce happier guests, happier guests produce cash.</p>
+    <p>That chain is the whole point. It makes the strategy falsifiable — if waiting times fall and satisfaction does not, the assumption was wrong and the scorecard tells you so.</p>
+    <p class="warn">Hover a perspective above to see what belongs in it — and the mistake students make most often.</p>
+  </div>
+  <p class="hint">Hover or tab through the four perspectives and the four system types</p>
+</section>
+
+<!-- ============================ TAB B ============================ -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
+  <p class="claim">Two objectives per perspective, read from the bottom up. The arrows are not decoration — they are <b>Sofia's assumptions</b> about what causes what.</p>
+
+  <div class="mapwrap" id="mapwrap">
+    <svg class="links" id="links" aria-hidden="true">
+      <defs>
+        <marker id="au" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#A7A7A5"/></marker>
+        <marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#FF922B"/></marker>
+      </defs>
+    </svg>
+    <div id="bands"></div>
+  </div>
+
+  <div class="detail" id="detB">
+    <p class="dk">Reading the map</p>
+    <h4>Start at the bottom, not at the top</h4>
+    <p>Learning and growth objectives are the only ones Sofia can act on directly — she can send a barista on a course tomorrow morning. Everything above is a consequence she has to wait for. That is why a scorecard is read upwards even though it is usually drawn with the money on top.</p>
+    <p class="warn">Hover any objective to light up its causal chain in both directions.</p>
+  </div>
+
+  <div class="synergy" id="synergy">
+    <b>The objective worth arguing about.</b> Hover <b>P1 — cut waiting time at the counter</b>. It needs trained staff and a dashboard to measure it, it drives both customer objectives, and through them it reaches revenue per guest. One initiative, four perspectives touched. That is what an objective should look like: if a goal only ever lights up its own band, it is an operational task, not a strategic objective.
+  </div>
+
+  <h2 class="sec">Where does this run in the reference architecture?</h2>
+  <p class="sub">A scorecard is not a new system. It is a layer of interpretation over data the warehouse already holds.</p>
+  <div class="locator" id="locator"></div>
+
+  <div class="readme">
+    <b>The scorecard lives in the frontend, not in the database.</b> Every figure on the map — waiting time, satisfaction, roasting loss, revenue per guest — comes from the evaluation database as an ordinary measure. What the Balanced Scorecard adds is the <code>objective</code>, the <code>target value</code>, the <code>owner</code> and the causal link between them. In the reference architecture that means: reporting and analysis compute the measures, the management cockpit condenses them to the eight objectives, and the metadata layer records where each figure came from — which is exactly the question Sofia and Alex will ask the first time a number moves the wrong way.
+  </div>
+  <p class="hint">Hover an objective to trace its chain · hover a layer to see its role</p>
+</section>
+
+<!-- ============================ TAB C ============================ -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
+  <p class="claim">The same eight objectives, delivered the way a BI tool actually delivers them: <b>tiles, a slicer, a matrix with data bars</b>. Click a perspective on the left to cross-filter the page.</p>
+
+  <div class="report">
+    <div class="rbar">
+      <span class="rt">Sofia's Coffee World · Balanced Scorecard FY 2026</span>
+      <span class="rm">Last refresh 26 Aug 2026, 06:12 · Import mode · next scheduled 27 Aug 06:00</span>
+    </div>
+    <div class="rbody">
+      <div class="tiles" id="tiles"></div>
+      <div class="rgrid">
+        <div>
+          <div class="slicer">
+            <p class="tl">Perspective</p>
+            <div id="slicer"></div>
+          </div>
+          <div class="panelcard">
+            <p class="tl">Progress by perspective</p>
+            <div id="pbars"></div>
+          </div>
+        </div>
+        <div>
+          <div class="matrix">
+            <table class="mx">
+              <colgroup>
+                <col class="c-obj"><col class="c-per"><col class="c-own"><col class="c-due">
+                <col class="c-bud"><col class="c-spe"><col class="c-pro"><col class="c-sta">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Objective</th><th>Perspective</th><th>Owner</th><th>Due</th>
+                  <th style="text-align:right">Budget</th><th style="text-align:right">Spent</th>
+                  <th>Progress</th><th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="mxBody"></tbody>
+            </table>
+          </div>
+          <p class="rfoot" id="rfoot"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="readme">
+    <b>What to criticise in this report.</b> It looks finished, and that is the danger. Progress is self-reported by the owner, so <b>L1</b> at 88&nbsp;% means someone ticked a box, while <b>P1</b> at 58&nbsp;% is measured automatically from till timestamps — the same bar, two completely different levels of evidence. Budget spent tells you nothing about whether the money bought the outcome: <b>P1</b> has burnt 62&nbsp;% of its budget for 58&nbsp;% progress, which looks healthy, but the second grinder was bought up front and the rest is training that has not started. Ask the students which of the eight rows they would actually trust, and why the report gives no way to tell.
+  </div>
+  <p class="hint">Click a perspective in the slicer to filter · click again to clear</p>
+</section>
+
+<footer>
+  Teaching material · Sofia's Coffee World is a Viennese business with two coffee houses, its own roastery, a coffee bike and a wholesale line supplying bakeries with roasted beans. Objectives, budgets, owners and progress figures are illustrative. Perspective structure after Kaplan &amp; Norton; classification of analysis systems after the course text.
+</footer>
+
+</div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* ======================================================= data */
+const TYPES=[
+  ["free","Free data research","The user navigates the data themselves: OLAP slicing, dicing, drill-down. No question is prescribed, and no interpretation is offered — powerful for an analyst, overwhelming for anyone else."],
+  ["report","Report-oriented systems","Predefined reports on a fixed schedule with a fixed structure. Efficient and comparable, but only ever answers the question somebody asked when the report was built."],
+  ["model","Model-driven systems","A calculation model sits between the user and the data: planning, forecasting, simulation, what-if. The system computes consequences rather than showing history."],
+  ["concept","Concept-oriented systems","The structure of the system is taken from a management concept — Balanced Scorecard, value driver trees, activity-based costing. The concept prescribes which figures exist and how they relate, so the system carries an interpretation, not just data."]
+];
+
+const PERSP={
+  fin:{name:"Financial",cls:"p-fin",key:"Lagging",
+    q:"How do we have to look to Sofia and the bank?",
+    lead:"Where the strategy has to end up",
+    body:"The perspective that pays for the other three. It holds the outcome measures: revenue, contribution margin, cash. Nothing here can be managed directly — every figure is the delayed result of a decision taken somewhere below.",
+    warn:"The mistake: filling this perspective with twenty ratios because the data is easy to get. Three or four outcome measures are enough; the work happens in the perspectives underneath.",
+    kpis:["Revenue per guest","Contribution margin","Cost per cover","Cash conversion"]},
+  cus:{name:"Customer",cls:"p-cus",key:"Outside view",
+    q:"How do we have to look to our guests?",
+    lead:"The market's verdict on the processes",
+    body:"How the guest experiences the business: satisfaction, loyalty, share of repeat visits, willingness to recommend. It translates internal effort into something the market rewards, and it is the first place where an internal improvement becomes visible from outside.",
+    warn:"The mistake: measuring only what the till records. Satisfaction and return rate need their own collection — a loyalty card, a two-tap survey — and that collection has to be designed, not hoped for.",
+    kpis:["Guest satisfaction","14-day return rate","Net promoter score","Complaint rate"]},
+  pro:{name:"Internal processes",cls:"p-pro",key:"Doing",
+    q:"Which processes must we be excellent at?",
+    lead:"Where the work actually happens",
+    body:"The chain of activities that produces the guest experience: roasting the beans, taking the order, pulling the shot, serving, cleaning down. This is the perspective with the most direct levers, and the one where improvements are cheapest to test.",
+    warn:"The mistake: listing every process the business has. Only the few that the strategy depends on belong here — for Sofia, the counter queue and the roasting yield, not the accounting close.",
+    kpis:["Waiting time at the counter","Roasting loss","Order-to-serve time","Rework rate"]},
+  lea:{name:"Learning &amp; growth",cls:"p-lea",key:"Enabling",
+    q:"How do we stay able to improve?",
+    lead:"The only perspective Sofia can act on tomorrow",
+    body:"People, systems and culture: skills, training, staff retention, information supply, data literacy. Nothing in this perspective produces money by itself, which is exactly why it is the first thing cut and the reason so many scorecards quietly stop working after two years.",
+    warn:"The mistake: treating it as an HR appendix. If the process perspective needs a skill that nobody has, the objective belongs here — and it has to have a budget like any other.",
+    kpis:["Certified baristas","Staff retention","Dashboard adoption","Training days per head"]}
+};
+
+const GOALS={
+  F1:{p:"fin",t:"Raise revenue per guest",m:"€7.20 → €8.50",owner:"Sofia",due:"Q4 2026",budget:4000,spent:1800,prog:42},
+  F2:{p:"fin",t:"Lift the margin on wholesale beans",m:"62 % → 68 %",owner:"Alex",due:"Q3 2026",budget:6500,spent:3900,prog:61},
+  C1:{p:"cus",t:"Increase the 14-day return rate",m:"38 % → 50 %",owner:"Klara",due:"Q4 2026",budget:12000,spent:4100,prog:35},
+  C2:{p:"cus",t:"Lift guest satisfaction",m:"4.1 → 4.5 of 5",owner:"Elif",due:"Q3 2026",budget:3500,spent:2900,prog:74},
+  P1:{p:"pro",t:"Cut waiting time at the counter",m:"4:10 → under 3:00 min",owner:"Elif",due:"Q3 2026",budget:18000,spent:11200,prog:58},
+  P2:{p:"pro",t:"Cut the roasting loss",m:"16 % → 14 % of green weight",owner:"Jonas",due:"Q4 2026",budget:9000,spent:1500,prog:22},
+  L1:{p:"lea",t:"Certify every barista on the new machine",m:"0 → 100 % of staff",owner:"Anna",due:"Q3 2026",budget:7500,spent:6900,prog:88},
+  L2:{p:"lea",t:"Self-service dashboards for every sales point",m:"1 → 3 points live",owner:"Nguyen",due:"Q4 2026",budget:14000,spent:8400,prog:65}
+};
+
+const LINKS=[["L1","P1"],["L1","P2"],["L2","P1"],["L2","P2"],
+             ["P1","C1"],["P1","C2"],["P2","C2"],["P2","F2"],
+             ["C1","F1"],["C2","F1"]];
+
+const BANDS=[["fin","Financial","bl-fin",["F1","F2"]],
+             ["cus","Customer","bl-cus",["C1","C2"]],
+             ["pro","Internal processes","bl-pro",["P1","P2"]],
+             ["lea","Learning & growth","bl-lea",["L1","L2"]]];
+
+const PCOLOR={fin:"#0F4C5C",cus:"#209CBD",pro:"#FF922B",lea:"#B5852C"};
+const PNAME={fin:"Financial",cus:"Customer",pro:"Internal processes",lea:"Learning & growth"};
+
+const LAYERS=[
+  ["Source systems",false,"Till, loyalty card, shift planner, roast log. Every scorecard figure starts as a transaction here."],
+  ["Integration layer",false,"ETL harmonises both houses and the coffee bike so 'waiting time' means the same thing everywhere."],
+  ["Data storage layer",false,"The core warehouse keeps the history that makes a target line meaningful — you cannot show a trend without it."],
+  ["Output layer",true,"The evaluation database and its marts supply the measures. The scorecard reads them; it does not store its own copies."],
+  ["Frontend",true,"Reporting and analysis compute the measures; the management cockpit condenses them into eight objectives with targets, owners and status."]
+];
+
+const eur=n=>"€"+n.toLocaleString("en-US");
+
+/* ======================================================= tooltip */
+const tip=document.getElementById("tip");
+function showTip(html,el,ev){
+  tip.innerHTML=html; tip.classList.add("on"); moveTip(el,ev);
+}
+function moveTip(el,ev){
+  let x,y;
+  if(ev&&ev.clientX){x=ev.clientX+16;y=ev.clientY+16;}
+  else{const r=el.getBoundingClientRect();x=r.left+r.width/2;y=r.top-8;}
+  const w=tip.offsetWidth,h=tip.offsetHeight;
+  if(x+w>innerWidth-12)x=innerWidth-w-12;
+  if(y+h>innerHeight-12)y=y-h-32;
+  if(y<8)y=8; if(x<8)x=8;
+  tip.style.left=x+"px"; tip.style.top=y+"px";
+}
+const hideTip=()=>tip.classList.remove("on");
+addEventListener("scroll",hideTip,{passive:true});
+
+/* ======================================================= TAB A */
+const typesEl=document.getElementById("types");
+TYPES.forEach(([k,name,body],i)=>{
+  const d=document.createElement("div");
+  d.className="type"+(k==="concept"?" on":"");
+  d.tabIndex=0;
+  d.innerHTML=`<p class="tk">Type ${i+1}</p><p class="tn">${name}</p>`;
+  const html=`<p class="th">${name}</p><p>${body}</p>`;
+  d.addEventListener("pointerenter",e=>showTip(html,d,e));
+  d.addEventListener("pointermove",e=>moveTip(d,e));
+  d.addEventListener("pointerleave",hideTip);
+  d.addEventListener("focus",()=>showTip(html,d,null));
+  d.addEventListener("blur",hideTip);
+  typesEl.appendChild(d);
+});
+
+const cross=document.getElementById("cross"), detA=document.getElementById("detA");
+const DET_A_DEFAULT=detA.innerHTML;
+Object.entries(PERSP).forEach(([k,p])=>{
+  const d=document.createElement("div");
+  d.className="persp "+p.cls; d.tabIndex=0;
+  d.innerHTML=`<p class="pk">${p.key}</p><h3>${p.name}</h3><p class="q">${p.q}</p>
+    <div class="omti"><span>Objectives</span><span>Measures</span><span>Targets</span><span>Initiatives</span></div>`;
+  const fill=()=>{
+    detA.innerHTML=`<p class="dk">${p.lead}</p><h4>${p.name} — ${p.q}</h4>
+      <p>${p.body}</p><p class="warn">${p.warn}</p>
+      <div class="kpis">${p.kpis.map(x=>`<span>${x}</span>`).join("")}</div>`;
+  };
+  d.addEventListener("pointerenter",fill);
+  d.addEventListener("focus",fill);
+  cross.appendChild(d);
+});
+cross.addEventListener("pointerleave",()=>{detA.innerHTML=DET_A_DEFAULT;});
+
+/* ======================================================= TAB B */
+const bandsEl=document.getElementById("bands");
+BANDS.forEach(([k,label,cls,ids])=>{
+  const b=document.createElement("div");
+  b.className="band"; b.dataset.p=k;
+  b.innerHTML=`<div class="bl ${cls}">${label}</div><div class="goals">`+
+    ids.map(id=>{
+      const g=GOALS[id];
+      return `<div class="goal" data-g="${id}" tabindex="0">
+        <p class="gid">${id}</p><p class="gt">${g.t}</p><p class="gm">${g.m}</p></div>`;
+    }).join("")+`</div>`;
+  bandsEl.appendChild(b);
+});
+
+const mapwrap=document.getElementById("mapwrap"), linksSvg=document.getElementById("links");
+const detB=document.getElementById("detB"); const DET_B_DEFAULT=detB.innerHTML;
+
+function drawLinks(){
+  const wr=mapwrap.getBoundingClientRect();
+  linksSvg.setAttribute("viewBox",`0 0 ${wr.width} ${wr.height}`);
+  [...linksSvg.querySelectorAll("line")].forEach(l=>l.remove());
+  LINKS.forEach(([a,b])=>{
+    const ea=mapwrap.querySelector(`[data-g="${a}"]`), eb=mapwrap.querySelector(`[data-g="${b}"]`);
+    if(!ea||!eb) return;
+    const ra=ea.getBoundingClientRect(), rb=eb.getBoundingClientRect();
+    const l=document.createElementNS("http://www.w3.org/2000/svg","line");
+    l.setAttribute("x1",ra.left-wr.left+ra.width/2);
+    l.setAttribute("y1",ra.top-wr.top);
+    l.setAttribute("x2",rb.left-wr.left+rb.width/2);
+    l.setAttribute("y2",rb.top-wr.top+rb.height);
+    l.dataset.a=a; l.dataset.b=b;
+    l.setAttribute("marker-end","url(#au)");
+    linksSvg.appendChild(l);
+  });
+}
+
+function chainOf(id){
+  const set=new Set([id]);
+  const up=n=>LINKS.filter(([a,b])=>b===n).forEach(([a])=>{if(!set.has(a)){set.add(a);up(a);}});
+  const down=n=>LINKS.filter(([a,b])=>a===n).forEach(([,b])=>{if(!set.has(b)){set.add(b);down(b);}});
+  up(id); down(id);
+  return set;
+}
+
+function focusGoal(id){
+  const set=chainOf(id);
+  mapwrap.classList.add("focus");
+  mapwrap.querySelectorAll(".goal").forEach(g=>{
+    g.classList.toggle("hot",set.has(g.dataset.g));
+    g.classList.toggle("origin",g.dataset.g===id);
+  });
+  const bandsHot=new Set([...set].map(x=>GOALS[x].p));
+  mapwrap.querySelectorAll(".band").forEach(b=>b.classList.toggle("hot",bandsHot.has(b.dataset.p)));
+  linksSvg.querySelectorAll("line").forEach(l=>{
+    const hot=set.has(l.dataset.a)&&set.has(l.dataset.b);
+    l.classList.toggle("hot",hot);
+    l.setAttribute("marker-end",hot?"url(#ah)":"url(#au)");
+  });
+
+  const g=GOALS[id];
+  const names=[...bandsHot].map(p=>PNAME[p]);
+  const others=[...set].filter(x=>x!==id);
+  detB.innerHTML=`<p class="dk">${PNAME[g.p]} · objective ${id}</p>
+    <h4>${g.t} <span style="font-family:var(--mono);font-size:.7em;color:var(--grey)">${g.m}</span></h4>
+    <p>Owned by ${g.owner}, due ${g.due}, budget ${eur(g.budget)}.</p>
+    <p>This objective is connected to <b>${others.length}</b> other objective${others.length===1?"":"s"}
+       and touches <b>${names.length} of 4</b> perspectives: ${names.join(" · ")}.</p>
+    <p class="warn">${names.length>=3
+      ? "A genuinely strategic objective: improving it moves the scorecard in several places at once."
+      : "A narrow objective. Useful, but ask what would have to change for it to reach the perspectives above."}</p>`;
+}
+function clearFocus(){
+  mapwrap.classList.remove("focus");
+  mapwrap.querySelectorAll(".goal").forEach(g=>g.classList.remove("hot","origin"));
+  mapwrap.querySelectorAll(".band").forEach(b=>b.classList.remove("hot"));
+  linksSvg.querySelectorAll("line").forEach(l=>{
+    l.classList.remove("hot"); l.setAttribute("marker-end","url(#au)");
+  });
+  detB.innerHTML=DET_B_DEFAULT;
+}
+mapwrap.addEventListener("pointerover",e=>{const g=e.target.closest(".goal");if(g)focusGoal(g.dataset.g);});
+mapwrap.addEventListener("pointerleave",clearFocus);
+mapwrap.addEventListener("focusin",e=>{const g=e.target.closest(".goal");if(g)focusGoal(g.dataset.g);});
+mapwrap.addEventListener("focusout",e=>{if(!mapwrap.contains(e.relatedTarget))clearFocus();});
+
+/* locator */
+const locEl=document.getElementById("locator");
+LAYERS.forEach(([name,on,body])=>{
+  const d=document.createElement("div");
+  d.className="loc"+(on?" on":""); d.tabIndex=0;
+  d.innerHTML=`<span class="lk">${on?"Scorecard runs here":"Supplies the figures"}</span><b>${name}</b>`;
+  const html=`<p class="th">${name}</p><p>${body}</p>`;
+  d.addEventListener("pointerenter",e=>showTip(html,d,e));
+  d.addEventListener("pointermove",e=>moveTip(d,e));
+  d.addEventListener("pointerleave",hideTip);
+  d.addEventListener("focus",()=>showTip(html,d,null));
+  d.addEventListener("blur",hideTip);
+  locEl.appendChild(d);
+});
+
+/* ======================================================= TAB C */
+let filter=null;
+const statusOf=p=>p>=60?["s-on","On track"]:p>=35?["s-risk","At risk"]:["s-off","Off track"];
+const barColor=p=>p>=60?"#2E9E6B":p>=35?"#FF922B":"#D9534F";
+
+function rows(){return Object.entries(GOALS).filter(([,g])=>!filter||g.p===filter);}
+
+function renderTiles(){
+  const r=rows(); const n=r.length;
+  const prog=Math.round(r.reduce((s,[,g])=>s+g.prog,0)/n);
+  const bud=r.reduce((s,[,g])=>s+g.budget,0), sp=r.reduce((s,[,g])=>s+g.spent,0);
+  const on=r.filter(([,g])=>g.prog>=60).length, risk=n-on;
+  document.getElementById("tiles").innerHTML=`
+    <div class="tile"><p class="tl">Average progress</p><p class="tv">${prog}&nbsp;%</p>
+      <p class="ts">across ${n} objective${n===1?"":"s"}</p></div>
+    <div class="tile"><p class="tl">Budget committed</p><p class="tv">${Math.round(sp/bud*100)}&nbsp;%</p>
+      <p class="ts">${eur(sp)} of ${eur(bud)}</p></div>
+    <div class="tile"><p class="tl">On track</p><p class="tv green">${on}</p>
+      <p class="ts">progress at or above 60 %</p></div>
+    <div class="tile"><p class="tl">Needs attention</p><p class="tv amber">${risk}</p>
+      <p class="ts">at risk or off track</p></div>`;
+}
+
+function renderBars(){
+  const box=document.getElementById("pbars"); box.innerHTML="";
+  BANDS.forEach(([k,label])=>{
+    const gs=Object.values(GOALS).filter(g=>g.p===k);
+    const v=Math.round(gs.reduce((s,g)=>s+g.prog,0)/gs.length);
+    const dim=filter&&filter!==k;
+    box.insertAdjacentHTML("beforeend",
+      `<div class="pbar" style="opacity:${dim?.35:1}">
+        <span style="font-size:.74rem;color:#4a4a4d">${label}</span>
+        <span class="track"><i style="width:${v}%;background:${PCOLOR[k]}"></i></span>
+        <span class="pv">${v}%</span></div>`);
+  });
+}
+
+function renderMatrix(){
+  const body=document.getElementById("mxBody");
+  body.innerHTML=rows().map(([id,g])=>{
+    const [sc,sl]=statusOf(g.prog);
+    return `<tr>
+      <td class="objcell"><b>${g.t}</b><span>${id} · ${g.m}</span></td>
+      <td><span class="pchip"><i style="background:${PCOLOR[g.p]}"></i>${PNAME[g.p]}</span></td>
+      <td>${g.owner}</td>
+      <td class="num">${g.due}</td>
+      <td class="num">${eur(g.budget)}</td>
+      <td class="num">${eur(g.spent)}</td>
+      <td><div class="databar"><div class="dt"><i style="width:${g.prog}%;background:${barColor(g.prog)}"></i></div>
+        <span class="dl">${g.prog}%</span></div></td>
+      <td><span class="status ${sc}">${sl}</span></td></tr>`;
+  }).join("");
+  document.getElementById("rfoot").textContent =
+    filter ? `Filtered: ${PNAME[filter]} · ${rows().length} of 8 objectives`
+           : "All 8 objectives · no filter applied";
+}
+
+const slicer=document.getElementById("slicer");
+BANDS.forEach(([k,label])=>{
+  const b=document.createElement("button");
+  b.type="button"; b.dataset.p=k; b.setAttribute("aria-pressed","false");
+  b.innerHTML=`<span class="chip" style="background:${PCOLOR[k]}"></span>${label}`;
+  b.addEventListener("click",()=>{
+    filter = filter===k ? null : k;
+    slicer.querySelectorAll("button").forEach(x=>
+      x.setAttribute("aria-pressed",String(x.dataset.p===filter)));
+    renderTiles(); renderBars(); renderMatrix();
+  });
+  slicer.appendChild(b);
+});
+renderTiles(); renderBars(); renderMatrix();
+
+/* ======================================================= tabs */
+const tabs=[...document.querySelectorAll('[role="tab"]')], keys=["a","b","c"];
+function select(i){
+  tabs.forEach((t,j)=>{
+    const on=i===j;
+    t.setAttribute("aria-selected",String(on));
+    t.tabIndex=on?0:-1;
+    document.getElementById("p-"+keys[j]).hidden=!on;
+  });
+  hideTip();
+  if(keys[i]==="b") requestAnimationFrame(drawLinks);
+}
+tabs.forEach((t,i)=>{
+  t.addEventListener("click",()=>select(i));
+  t.addEventListener("keydown",e=>{
+    const d=e.key==="ArrowRight"?1:e.key==="ArrowLeft"?-1:0;
+    if(!d) return; e.preventDefault();
+    const n=(i+d+tabs.length)%tabs.length; tabs[n].focus(); select(n);
+  });
+});
+select(0);
+addEventListener("resize",()=>{if(!document.getElementById("p-b").hidden)drawLinks();});
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>{
+  if(!document.getElementById("p-b").hidden)drawLinks();
+});
+</script>
+</body>
+</html>
