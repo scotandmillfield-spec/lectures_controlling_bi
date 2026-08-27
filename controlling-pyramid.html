@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Controlling Pyramid · Sofia's Coffee World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2; --canvas:#F4F3F0;
+  --green:#2E9E6B; --red:#D9534F;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.2rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:19ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:clamp(1rem,1.6vw,1.18rem);font-weight:300;color:#3d3d40;max-width:64ch;margin:0}
+
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+
+.claim{font-size:clamp(1.12rem,2.2vw,1.45rem);font-weight:300;line-height:1.36;margin:0 0 24px;max-width:58ch;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--teal-dk)}
+h2.sec{font-size:1.2rem;font-weight:600;letter-spacing:-.012em;margin:34px 0 4px}
+p.sub{margin:0 0 16px;color:var(--grey);font-size:.92rem;max-width:76ch}
+.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:14px 0 0}
+
+/* ---------- controls ---------- */
+.bar{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;margin:0 0 16px}
+.toggles{display:flex;gap:10px;flex-wrap:wrap;min-width:0}
+.toggle{appearance:none;border:1px solid var(--teal-dk);background:var(--paper);color:var(--teal-dk);
+  font-family:var(--sans);font-size:.9rem;font-weight:600;padding:11px 17px;border-radius:var(--r);
+  cursor:pointer;display:inline-flex;align-items:center;gap:9px;
+  transition:background .18s,color .18s,transform .18s var(--ease)}
+.toggle .dot{width:9px;height:9px;border-radius:50%;background:var(--teal-dk);flex:none}
+.toggle:hover{transform:translateY(-1px)}
+.toggle[aria-pressed="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.toggle[aria-pressed="true"] .dot{background:#fff}
+.toggle.t-line{border-color:var(--orange);color:#A85B00}
+.toggle.t-line .dot{background:var(--orange)}
+.toggle.t-line[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);color:#fff}
+.toggle:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+.seg{display:inline-flex;border:1px solid var(--grey-xl);background:var(--paper);border-radius:var(--r);
+  padding:4px;gap:4px}
+.seg button{appearance:none;border:0;background:transparent;cursor:pointer;font-family:var(--sans);
+  font-size:.88rem;font-weight:600;color:var(--grey);padding:9px 16px;border-radius:7px;transition:.16s}
+.seg button:hover{color:var(--teal-dk)}
+.seg button[aria-pressed="true"]{background:var(--teal-dk);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+
+/* ---------- pyramid stage ---------- */
+.stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:12px 8px 4px;overflow-x:auto}
+svg#pyr{width:100%;min-width:780px;height:auto;display:block}
+
+.node{cursor:help}
+.node .hit{fill:transparent}
+.shape{transition:fill .3s var(--ease),stroke .3s var(--ease),opacity .3s var(--ease)}
+.node:focus-visible{outline:none}
+.node:hover .ring,.node:focus-visible .ring,.node.lit .ring{opacity:1}
+.ring{fill:none;stroke:var(--teal-dk);stroke-width:2.5;opacity:0;transition:opacity .18s;pointer-events:none}
+
+svg#pyr text{font-family:var(--sans);fill:var(--ink);pointer-events:none;dominant-baseline:middle}
+#pyr .t-light{fill:#fff}
+#pyr .t-box{font-size:12px}
+#pyr .t-box.sm{font-size:10.5px}
+#pyr .t-abbr{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.04em}
+#pyr .t-slice{font-size:10px;fill:#4a4a4d}
+#pyr .t-band{font-size:11.5px;fill:#5a5a5c;font-style:italic}
+#pyr .t-roof{font-size:30px;font-weight:700;letter-spacing:.02em;fill:#fff}
+#pyr .t-lvl{font-size:12.5px;font-weight:600;fill:var(--teal-dk)}
+
+.frame{fill:none;stroke:#9A9A98;stroke-width:1.3}
+.hair{fill:none;stroke:#BFBFBD;stroke-width:1}
+
+/* controlling-boundary mode */
+svg#pyr .lvlgroup,svg#pyr .node{transition:opacity .35s var(--ease)}
+svg#pyr.edge .lvlgroup:not(.isctrl),svg#pyr.edge .node.dimlbl{opacity:.2}
+.edgeline{stroke:var(--orange);stroke-width:3;stroke-linecap:round;opacity:0;
+  transition:opacity .35s var(--ease)}
+svg#pyr.edge .edgeline{opacity:1}
+.edgetag{opacity:0;transition:opacity .35s var(--ease)}
+svg#pyr.edge .edgetag{opacity:1}
+#pyr .t-tag{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.09em;fill:#fff}
+
+/* ---------- legend ---------- */
+.legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:8px;margin-top:14px}
+.lg{display:flex;gap:10px;align-items:baseline;min-width:0;background:var(--paper);
+  border:1px solid var(--grey-xl);border-radius:8px;padding:9px 11px;cursor:help;
+  transition:border-color .18s,transform .18s var(--ease),box-shadow .18s}
+.lg:hover,.lg:focus-visible{border-color:var(--teal);transform:translateY(-2px);box-shadow:var(--shadow);outline:none}
+.lg b{font-family:var(--mono);font-size:.76rem;font-weight:600;color:var(--teal-dk);flex:none}
+.lg span{font-size:.82rem;color:#4a4a4d;min-width:0;line-height:1.3}
+
+/* ---------- detail panel ---------- */
+.detail{margin-top:16px;background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:22px 24px;min-height:150px}
+.detail .dk{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--teal-dk);margin:0 0 8px}
+.detail h4{margin:0 0 10px;font-size:1.16rem;font-weight:700;letter-spacing:-.015em}
+.detail p{margin:0 0 10px;font-size:.96rem;color:#3d3d40;max-width:82ch}
+.detail p:last-child{margin-bottom:0}
+.detail .warn{color:#B25E00;font-weight:600}
+.detail .fig{font-family:var(--mono);font-size:.86rem;background:var(--teal-xl);color:var(--teal-dk);
+  border-radius:5px;padding:5px 9px;display:inline-block;margin-top:4px}
+
+/* ---------- dimension grid ---------- */
+.axes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px}
+.axis{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:14px 16px;min-width:0}
+.axis .ak{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);margin-bottom:6px}
+.axis b{display:block;font-size:1rem;font-weight:700;letter-spacing:-.01em;margin-bottom:4px}
+.axis p{margin:0;font-size:.85rem;color:#4a4a4d;line-height:1.4}
+
+.dimwrap{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px;overflow-x:auto}
+.dimgrid{display:grid;grid-template-columns:132px repeat(4,minmax(150px,1fr));gap:7px;min-width:760px}
+.dimgrid>*{min-width:0}
+.ch{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--grey);
+  padding:6px 8px;align-self:end;line-height:1.4}
+.rh{display:flex;align-items:center;font-size:.86rem;font-weight:600;color:var(--teal-dk);
+  background:var(--teal-xl);border-radius:7px;padding:10px 11px;cursor:help;
+  transition:background .18s,transform .18s var(--ease)}
+.rh:hover,.rh:focus-visible{background:var(--teal-dk);color:#fff;transform:translateY(-1px);outline:none}
+.cell{background:var(--canvas);border:1px solid var(--grey-xl);border-radius:7px;padding:10px 11px;
+  cursor:help;transition:border-color .18s,transform .18s var(--ease),box-shadow .18s,background .18s;
+  display:flex;flex-direction:column;gap:4px;min-width:0}
+.cell:hover,.cell:focus-visible{background:var(--paper);border-color:var(--teal);transform:translateY(-2px);
+  box-shadow:var(--shadow);outline:none}
+.cell .cv{font-family:var(--mono);font-size:.82rem;font-weight:600;color:var(--ink);
+  font-variant-numeric:tabular-nums;line-height:1.3}
+.cell .cn{font-size:.76rem;color:var(--grey);line-height:1.3}
+.cell.st{background:var(--ochre-xl);border-color:#E8DAB8}
+.cell.st:hover,.cell.st:focus-visible{border-color:var(--ochre)}
+
+/* ---------- RL system ---------- */
+.rl{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.rl>*{min-width:0}
+.rlcol{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px 18px 16px;min-width:0}
+.rlcol .rk{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 4px}
+.rlcol h3{margin:0 0 3px;font-size:1.1rem;font-weight:700;letter-spacing:-.015em}
+.rlcol .rq{margin:0 0 14px;font-size:.86rem;color:#4a4a4d;line-height:1.4}
+.top{border-radius:8px;padding:13px 14px;margin-bottom:12px;color:#fff;cursor:help;
+  transition:transform .2s var(--ease),box-shadow .2s}
+.top:hover,.top:focus-visible{transform:translateY(-2px);box-shadow:var(--shadow);outline:none}
+.top.r{background:var(--navy)} .top.l{background:var(--teal-dk)}
+.top .tk{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;opacity:.72;margin-bottom:5px}
+.top .tn{font-size:.94rem;font-weight:600;line-height:1.25}
+.top .tv{font-family:var(--mono);font-size:1.5rem;font-weight:600;font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em;margin-top:5px}
+.rrow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:baseline;padding:9px 11px;
+  border-radius:7px;cursor:help;transition:background .16s,transform .16s var(--ease);min-width:0}
+.rrow:hover,.rrow:focus-visible{background:var(--sand-xl);transform:translateX(2px);outline:none}
+.rrow .rn{font-size:.87rem;color:#3d3d40;min-width:0;line-height:1.3}
+.rrow .rv{font-family:var(--mono);font-size:.86rem;font-variant-numeric:tabular-nums;
+  color:var(--ink);white-space:nowrap}
+.rrow.ind .rn{padding-left:15px;color:var(--grey);font-size:.83rem}
+.rrow.sum{border-top:1px solid var(--grey-xl);border-radius:0 0 7px 7px;margin-top:2px}
+.rrow.sum .rn{font-weight:600;color:var(--ink)}
+.rrow.sum .rv{font-weight:600}
+.rrow .neg{color:var(--red)}
+
+.special{margin-top:14px;background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px}
+.special .rk{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 4px}
+.special h3{margin:0 0 3px;font-size:1.1rem;font-weight:700;letter-spacing:-.015em}
+.special .rq{margin:0 0 14px;font-size:.86rem;color:#4a4a4d;line-height:1.4;max-width:80ch}
+.spgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:9px}
+.sp{background:var(--sand-xl);border:1px solid #E8DDC6;border-radius:8px;padding:12px 13px;cursor:help;
+  min-width:0;transition:border-color .18s,transform .18s var(--ease),box-shadow .18s}
+.sp:hover,.sp:focus-visible{border-color:var(--ochre);transform:translateY(-2px);box-shadow:var(--shadow);outline:none}
+.sp .sk{font-size:.78rem;color:#6a6a68;margin-bottom:5px;line-height:1.3}
+.sp .sv{font-family:var(--mono);font-size:1.02rem;font-weight:600;font-variant-numeric:tabular-nums;
+  color:var(--ochre);letter-spacing:-.01em}
+
+/* ---------- conceptions ---------- */
+.conc{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.cc{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:16px 17px;
+  cursor:help;min-width:0;position:relative;overflow:hidden;
+  transition:border-color .18s,transform .2s var(--ease),box-shadow .2s}
+.cc::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--cc,var(--grey-mid))}
+.cc:hover,.cc:focus-visible{transform:translateY(-3px);box-shadow:var(--shadow);border-color:transparent;outline:none}
+.cc .ck{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);margin-bottom:6px}
+.cc h3{margin:0 0 5px;font-size:1rem;font-weight:700;letter-spacing:-.012em;line-height:1.2}
+.cc p{margin:0;font-size:.83rem;color:#4a4a4d;line-height:1.4}
+.cc.on{border-color:transparent;box-shadow:var(--shadow)}
+
+.bridge{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:14px}
+.br{background:var(--paper);border:1px solid var(--grey-xl);border-radius:8px;padding:12px 12px;
+  font-size:.8rem;color:var(--grey);min-width:0;cursor:help;transition:.2s}
+.br .bk{font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;
+  display:block;margin-bottom:5px}
+.br b{display:block;font-size:.86rem;font-weight:600;color:var(--ink);line-height:1.25}
+.br:hover,.br:focus-visible{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff;outline:none}
+.br:hover b,.br:focus-visible b{color:#fff}
+.br:hover .bk,.br:focus-visible .bk{color:#8FD4E6}
+
+.readme{margin-top:20px;background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:20px 24px;
+  font-size:1rem;line-height:1.55}
+.readme.warn{background:var(--orange)}
+.readme b{font-weight:700}
+.readme code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.2);padding:1px 5px;border-radius:4px}
+.readme a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+.pointe{margin-top:34px;background:var(--orange);color:#fff;border-radius:var(--r);padding:26px 28px}
+.pointe .pk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin:0 0 10px}
+.pointe p{margin:0;font-size:clamp(1.05rem,2vw,1.3rem);font-weight:300;line-height:1.42;max-width:66ch}
+.pointe p b{font-weight:700}
+
+footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+footer a{color:var(--teal-dk)}
+
+.tip{position:fixed;z-index:60;pointer-events:none;opacity:0;transform:translateY(4px);
+  transition:opacity .14s,transform .14s;background:var(--ink);color:#fff;border-radius:9px;
+  padding:12px 14px;font-size:.82rem;line-height:1.5;max-width:310px;box-shadow:0 10px 30px -8px rgba(0,0,0,.45)}
+.tip.on{opacity:1;transform:translateY(0)}
+.tip .th{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#8FD4E6;margin:0 0 5px}
+.tip p{margin:0}
+.tip .sofia{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.18);
+  color:var(--orange);font-weight:600}
+
+.scrollhint{display:none}
+@media (max-width:900px){
+  .scrollhint{display:block;color:var(--teal-dk)}
+  .axes{grid-template-columns:1fr}
+  .conc{grid-template-columns:1fr 1fr}
+  .bridge{grid-template-columns:1fr 1fr}
+  .rl{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px 56px}
+  .conc{grid-template-columns:1fr}
+  .bridge{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Sofia's Coffee World · Controlling</p>
+  <h1>Five floors, three directions, <em>one pyramid</em></h1>
+  <p class="lede">Thomas Reichmann drew controlling as a building. Five levels of systems stacked on top of each other, the business functions running backwards into the depth, and time — operational against strategic — cutting through both. The uncomfortable part is where he put the front door: controlling only begins on the top two floors. Everything below is bookkeeping with a network cable.</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Reichmann's controlling conception">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> The pyramid</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> The three dimensions</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> The RL key figure system</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Reichmann in context</button>
+</div>
+
+<!-- ============================ TAB A ============================ -->
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <p class="claim">Reichmann's controlling conception is <b>system-supported</b>: it does not start from what a controller should do, it starts from <b>which systems hold which figures</b>. Hover any floor, box or slice.</p>
+
+  <div class="bar">
+    <div class="toggles">
+      <button class="toggle t-line" id="edgeBtn" type="button" aria-pressed="false">
+        <span class="dot"></span><span class="lbl">Show where controlling begins</span>
+      </button>
+      <button class="toggle t-sofia" id="sofiaBtn" type="button" aria-pressed="false">
+        <span class="dot"></span><span class="lbl">Show Sofia's systems</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="stage">
+    <svg id="pyr" viewBox="-10 2 822 804" role="img"
+      aria-label="Reichmann's controlling pyramid: five levels from technical data capture systems through administration and disposition systems, accounting systems and analysis and reporting systems up to management information systems, with the business functions running into the depth and the split between operational and strategic across the front">
+    </svg>
+  </div>
+
+  <div class="legend" id="legend"></div>
+
+  <div class="detail" id="detA">
+    <p class="dk">How to read the building</p>
+    <h4>The floors are systems, the depth is functions, the diagonal is time</h4>
+    <p>Read it bottom-up and it is an information supply chain. A sensor in the roasting drum records a bean temperature; the roast schedule decides which batch runs next; the cost accounting turns kilograms into euros; the analysis systems compare that against plan; the management information system condenses the lot into the handful of figures Sofia looks at before she opens the door.</p>
+    <p>Read it front-to-back and every floor exists once <b>per function</b> — sourcing, production, logistics, marketing, research and development. Read it along the diagonal and every floor splits into an <b>operational</b> and a <b>strategic</b> half. That is what makes the model multidimensional rather than merely layered.</p>
+    <p class="warn">Hover an element for its role. The two buttons above change what the drawing emphasises.</p>
+  </div>
+
+  <div class="readme" id="edgeNote" hidden>
+    <b>Controlling starts on the fourth floor.</b> In Reichmann's conception the lower three levels are <b>operative Systeme</b>: they capture, dispose and account. They produce data as a by-product of running the business, and none of it is controlling. Controlling begins where figures are <b>analysed against a plan and condensed for a decision</b> — the analysis and reporting systems and the management information system above them. This is the sentence students most often get wrong: the roast log is not controlling, the cost accounting is not controlling. They are the floors controlling stands on. Note what follows for a BI project: the orange line is exactly the boundary between the data warehouse and the reporting layer.
+  </div>
+
+  <p class="hint scrollhint">Scroll the drawing sideways to see the depth dimension</p>
+  <p class="hint">Hover or tab through any floor, box or slice · the legend items highlight their box</p>
+</section>
+
+<!-- ============================ TAB B ============================ -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
+  <p class="claim">Reichmann's three dimensions are not decoration. Every controlling figure is <b>addressed by all three</b> at once: which function it belongs to, what kind of quantity it is, and whether it looks at this quarter or at 2029.</p>
+
+  <div class="axes">
+    <div class="axis">
+      <p class="ak">Dimension 1</p>
+      <b>Function</b>
+      <p>The functional split of an industrial business: research and development, sourcing, production, logistics, marketing. In the drawing this is the depth.</p>
+    </div>
+    <div class="axis">
+      <p class="ak">Dimension 2</p>
+      <b>Category of figure</b>
+      <p>Cost and output figures · income and expenses · payment figures · quantity and time figures. Four different ways of measuring the same event.</p>
+    </div>
+    <div class="axis">
+      <p class="ak">Dimension 3</p>
+      <b>Time horizon</b>
+      <p>Operational against strategic. In the drawing this is the diagonal that cuts across every floor.</p>
+    </div>
+  </div>
+
+  <div class="bar">
+    <p class="sub" style="margin:0">Same grid, two horizons. Switch and watch which figures survive — and which ones stop existing in any ledger.</p>
+    <div class="seg" id="seg" role="group" aria-label="Time horizon">
+      <button type="button" data-h="op" aria-pressed="true">Operational</button>
+      <button type="button" data-h="st" aria-pressed="false">Strategic</button>
+    </div>
+  </div>
+
+  <div class="dimwrap">
+    <div class="dimgrid" id="dimgrid"></div>
+  </div>
+
+  <div class="detail" id="detB">
+    <p class="dk">Twenty cells, one business</p>
+    <h4>Pick a cell — it is an address, not a number</h4>
+    <p>The grid is one horizontal slice through the pyramid. Each cell says: <em>this function, measured this way, on this horizon</em>. The same real event shows up in several cells with different values, and that is the point rather than a flaw — a sack of green coffee is a payment in January, a material cost in March when it is roasted, an expense in the quarter it is sold, and 60&nbsp;kg the whole time.</p>
+    <p class="warn">Hover any cell to see why that figure belongs where it does.</p>
+  </div>
+
+  <div class="readme">
+    <b>The strategic column is the one worth arguing about.</b> Switch the horizon and look at what happens to the evidence: operational figures come out of a system — the till, the ledger, the roast log. Strategic figures mostly do not exist yet. <code>Landed cost corridor 2027–2029</code> is not in any database; it is an assumption with a number attached. Reichmann's model puts both in the same building on purpose, because the strategic figure is only trustworthy if somebody can trace it back down to the floors where the operational one is measured. A strategy without that staircase is a wish.
+  </div>
+  <p class="hint">Hover any row label or cell · switch the horizon above</p>
+</section>
+
+<!-- ============================ TAB C ============================ -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
+  <p class="claim">Reichmann and Lachnit built the key figure system that fills the top floor. Its trick: <b>two top figures of equal rank</b> — profitability and liquidity — because a business can die of either.</p>
+
+  <div class="rl">
+    <div class="rlcol">
+      <p class="rk">R · Rentabilität</p>
+      <h3>Profitability</h3>
+      <p class="rq">Did the quarter earn anything? Built up from the P&amp;L, general part — every business has these lines, which is what makes them comparable across companies.</p>
+      <div class="top r" tabindex="0" data-k="rtop" role="button">
+        <p class="tk">Top figure</p>
+        <p class="tn">Ordinary result · Q1 2026</p>
+        <p class="tv">10 500 €</p>
+      </div>
+      <div id="rrows"></div>
+    </div>
+
+    <div class="rlcol">
+      <p class="rk">L · Liquidität</p>
+      <h3>Liquidity</h3>
+      <p class="rq">Could she pay? Built up from payments, not from the P&amp;L — the two never move together, and the gap between them is where small businesses fail.</p>
+      <div class="top l" tabindex="0" data-k="ltop" role="button">
+        <p class="tk">Top figure</p>
+        <p class="tn">Liquid funds · 31 March 2026</p>
+        <p class="tv">20 600 €</p>
+      </div>
+      <div id="lrows"></div>
+    </div>
+  </div>
+
+  <div class="special">
+    <p class="rk">Sonderteil · special part</p>
+    <h3>The part that only exists for Sofia</h3>
+    <p class="rq">The general part above compares Sofia with a hairdresser. The special part is company-specific: figures nobody else's chart of accounts contains, chosen because they are the ones that actually move the two top figures.</p>
+    <div class="spgrid" id="spgrid"></div>
+  </div>
+
+  <div class="detail" id="detC">
+    <p class="dk">Reading the system</p>
+    <h4>Two peaks, not one</h4>
+    <p>Most key figure systems have a single apex — DuPont drives everything into return on investment. Reichmann and Lachnit refused that in 1976 and gave the system two, because a firm pursues several goals at once and a profitable quarter with an empty account is still a crisis. The system is split a second time, into a general part that is industry-neutral and a special part that is not.</p>
+    <p class="warn">Hover any line or tile for what it is and where it comes from.</p>
+  </div>
+
+  <div class="readme warn">
+    <b>Watch the roasting loss.</b> It sits in the special part, and in the general part it is invisible — no line of the P&amp;L is called <code>roasting loss</code>. Yet it is the single figure with the most leverage on the top figure: cutting it from 16&nbsp;% to 14&nbsp;% on roughly 6 000&nbsp;kg of green coffee a year releases around 120&nbsp;kg of sellable roasted coffee that Sofia has already paid for. That is why Reichmann split the system in two. A key figure system built only from the ledger will produce perfectly correct numbers and never once point at the thing worth fixing.
+  </div>
+  <p class="hint">Figures are illustrative and derived from the case · hover any line for its source</p>
+</section>
+
+<!-- ============================ TAB D ============================ -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
+  <p class="claim">Reichmann is one of four answers German controlling research gave to the same question: <b>what is controlling actually for?</b> His answer is the narrowest — and the one that maps straight onto a BI architecture.</p>
+
+  <div class="conc" id="conc"></div>
+
+  <div class="detail" id="detD">
+    <p class="dk">Four conceptions</p>
+    <h4>The argument, in one line each</h4>
+    <p>Reichmann says controlling supplies information. Horváth says it coordinates planning and control. Küpper widens that to coordinating the entire management system. Weber and Schäffer move it again, to securing the rationality of management. Each later position accuses the earlier one of being too narrow; each earlier one can accuse the later one of being too vague to build anything from.</p>
+    <p class="warn">Hover a card for what it claims and what it is criticised for.</p>
+  </div>
+
+  <h2 class="sec">The same building, drawn by a BI architect</h2>
+  <p class="sub">Reichmann's five floors and the BI reference architecture describe the same road with different vocabulary. He names the systems; the architecture names the layers the data passes through.</p>
+  <div class="bridge" id="bridge"></div>
+
+  <div class="readme">
+    <b>Why this concept aged well.</b> Reichmann's pyramid was drawn for mainframes and has since been redrawn as a <em>House of Controlling</em>, with an integrated management information system at the top and the analysis and reporting floor implemented as IT-supported reporting cubes. Change the labels and it is a modern BI stack: capture, operational systems, accounting, data warehouse and reporting, cockpit. What has not moved is the floor where controlling starts — which is exactly the line a BI project has to defend when someone asks for "a dashboard on the raw data". You can see the same road drawn the other way round in the <a href="bi-reference-architecture.html">BI reference architecture</a> module.
+  </div>
+  <p class="hint">Hover a conception card or a bridge step</p>
+</section>
+
+<div class="pointe">
+  <p class="pk">The one sentence</p>
+  <p><b>Controlling does not start where the data starts. It starts two floors up.</b> Sofia's till, her roasting drum and her ledger produce figures all day, and not one of them is controlling. Only where a figure is measured against a plan and condensed for a decision does the building become a controlling system — everything below is the staircase.</p>
+</div>
+
+<footer>
+  Teaching material · Sofia's Coffee World is a Viennese business with two coffee houses, its own roastery, a coffee bike and a wholesale line supplying bakeries with roasted beans. Green coffee is imported from Peru. Structure after Thomas Reichmann's system-supported controlling conception (controlling pyramid / House of Controlling) and the RL key figure system developed with Laurenz Lachnit in 1976. Quarterly revenue, roasting loss, wait time and return rate are the case figures; the profit and liquidity lines are derived from them and illustrative.
+</footer>
+
+</div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* =====================================================================
+   1 · CONTENT FOR THE PYRAMID
+   ===================================================================== */
+const INFO = {
+  /* ---- roof ---- */
+  fis:["FIS · management information system",
+    "The top floor. A small, consistent set of figures for the person who decides — planning, control support, coordination and monitoring pulled together into one view. Reichmann's test is brutal and useful: if it does not fit on one screen, it is not a management information system, it is a report.",
+    "Sofia's cockpit: revenue per location, roasting yield, staff cost ratio, cash. Four figures, read before she unlocks the door."],
+  kpi:["KPI · key performance indicators",
+    "The figures the top floor is built from. Reichmann's own contribution here is the RL key figure system: two top figures of equal rank rather than one, split into a general part that compares across companies and a special part that does not. Tab 03 walks through it on Sofia's quarter.",
+    "Six of them, and the awkward one is the roasting loss — the figure with the most leverage and no line in the ledger."],
+
+  /* ---- level frames ---- */
+  lvlFis:["Management information systems · controlling",
+    "Level five. Condensed, cross-functional, decision-oriented. This floor and the one below it are the two Reichmann calls controlling; the three underneath supply them."],
+  lvlAna:["Analysis and reporting systems · controlling",
+    "Level four. Where figures stop being records and start being judgements: actual against plan, deviation, cause, forecast. Split across the front into an operational and a strategic half, and across the width into the eleven controlling domains."],
+  lvlAcc:["Accounting systems",
+    "Level three. The systems that turn business events into euros: financial accounting, cost accounting, asset accounting, payroll. Complete, auditable, and structured for the tax office rather than for a decision.",
+    "Sofia's quarter closes here — and this is the floor where 145 500 € of revenue becomes a result of 10 500 €."],
+  lvlAdm:["Administration and disposition systems",
+    "Level two. The systems that run the business day to day: what to buy, what to make next, what is in stock, which order ships. They dispose — they commit the company to something.",
+    "Green coffee orders, the roast schedule, the stock of green and roasted beans, and the wholesale orders for the seven bakeries."],
+  lvlTec:["Technical capture and control systems",
+    "Level one. Sensors and controllers at the machine: shop-floor data capture, time capture, quality assurance, machine control. They produce the most data in the building and the least meaning — a temperature curve is not a figure anyone can decide on.",
+    "The probe in the roasting drum, the tablet the ten students clock in on, the moisture check on every Peru lot."],
+
+  /* ---- level 1 boxes ---- */
+  bde:["BDE · shop-floor data capture",
+    "Betriebsdatenerfassung. Machine and order data captured where the work happens: run times, quantities, interruptions, who was on the machine.",
+    "The roasting drum's probe writes a bean temperature every second — around 700 readings for one 12 kg batch."],
+  zde:["ZDE · time data capture",
+    "Zeitdatenerfassung. Attendance and job times. The rawest input into any labour cost figure, and the one most often wrong.",
+    "Ten students clock in on a tablet. High turnover, split shifts, and a personnel number range that has already run to E-042."],
+  caq:["CAQ · computer-aided quality assurance",
+    "Test results, tolerances, defect counts. It decides whether a batch is allowed to proceed — a control system, not just a recording one.",
+    "Moisture and defect count on every green coffee lot from Peru, taken at intake before the sacks go into the store."],
+  dnc:["DNC · direct numerical control",
+    "The machine's own control programme. It does not report what happened, it determines what happens.",
+    "The roast profile: the temperature curve that drives the drum. Change it and the yield, the cup and the loss all move together."],
+
+  /* ---- level 2 boxes ---- */
+  pur:["Purchasing",
+    "Einkaufswesen. Requisitions, orders, supplier data, goods receipt. The first system that commits money.",
+    "Green coffee ordered from the Peruvian cooperative — and cake bought from the same bakeries that buy her beans. One partner, two ledgers."],
+  psc:["Production control",
+    "Produktionssteuerung. Which order runs on which machine in which sequence. Short horizon, high consequence.",
+    "The roast schedule: which lot, which profile, which 12 kg batch, in what order — because the drum keeps its heat between batches."],
+  stk:["Stock control",
+    "Lagerwirtschaft. Quantities, locations, movements, valuation. The system that knows what exists.",
+    "Two stocks that must never be added together: green coffee in kilograms in, roasted coffee in kilograms out. Sixteen per cent of the first never becomes the second."],
+  ord:["Order processing",
+    "Auftragsabwicklung. From order to delivery note to invoice. The system the customer actually feels.",
+    "Wholesale orders from the seven bakeries: order, roast, deliver, invoice — a completely different rhythm from a receipt at the counter."],
+
+  /* ---- level 3 boxes ---- */
+  fib:["Financial accounting",
+    "Finanzbuchhaltung. The legally required record: every transaction, double-entry, external addressees. Complete and backward-looking.",
+    "Where the Peru import lands with its customs papers and the exchange rate on the day of purchase."],
+  cos:["Cost accounting",
+    "Kostenrechnung. The internal counterpart: cost types, cost centres, cost objects, contribution margins. Free of legal form, built for decisions.",
+    "Contribution margin per cup, per bag and per kilogram wholesale — 62 % overall, which is the only figure in the building that survives into the scorecard unchanged."],
+  ast:["Asset accounting",
+    "Anlagenbuchhaltung. Fixed assets, depreciation, book values. Slow-moving and easy to forget until an investment decision needs it.",
+    "The roaster, the coffee bike and the second grinder. Together they are most of what Sofia owns."],
+  pay:["Payroll",
+    "Personalabrechnung. Wages, social contributions, absences. Feeds both the ledger and every staff cost ratio above it.",
+    "Ten students on shifts that follow the semester. The staff cost ratio moves twice a year whether or not anything is managed."],
+
+  /* ---- level 4 boxes ---- */
+  jac:["JA-C · financial statement controlling",
+    "Jahresabschluss-Controlling. Reads the annual accounts as a management instrument rather than a legal duty: structure of the balance sheet, result composition, comparison over time and against the industry.",
+    "The one view a bank asks for before extending the roaster loan."],
+  kuec:["KuE-C · cost and profit controlling",
+    "Kosten- und Erfolgs-Controlling. The workhorse: contribution margin accounting, cost centre variances, product profitability. Most day-to-day controlling questions land here.",
+    "Which of the two coffee houses actually earns money once the roastery is charged out to both of them."],
+  fc:["F-C · finance controlling",
+    "Finanz-Controlling. Liquidity planning, cash flow, financing structure. Reichmann puts this on the same rank as profitability — hence the second top figure in the RL system.",
+    "The Peru payment leaves the account four months before the coffee is sold. That gap is Sofia's whole liquidity problem."],
+  ic:["I-C · investment controlling",
+    "Investitions-Controlling. Appraisal before, and a post-audit after: did the machine deliver what the business case promised?",
+    "Roaster number two at 38 000 €. The business case says unit cost falls from 8.10 € to 6.90 € per kilogram — nobody has yet checked what the first grinder actually delivered."],
+  rc:["R-C · risk controlling",
+    "Risiko-Controlling. Identifying, measuring and reporting risks with an early-warning function. The youngest of the domains and the one most often reduced to a spreadsheet nobody reads.",
+    "Two risks that are really one: the Peruvian harvest and the euro-dollar rate. Both hit the same sack of coffee."],
+  bc:["B-C · procurement controlling",
+    "Beschaffungs-Controlling. Supplier performance, price development, purchasing volumes, delivery reliability.",
+    "Green coffee at 6.40 € per kilogram, up 9 % year on year — and only one cooperative supplying it."],
+  pc:["P-C · production controlling",
+    "Produktions-Controlling. Capacity, yield, scrap, unit cost. Where quantity figures and cost figures have to be reconciled.",
+    "The roasting loss: 16 % today, 14 % as the target. Two points is roughly 120 kg of sellable coffee a year, already paid for."],
+  lc:["L-C · logistics controlling",
+    "Logistik-Controlling. Delivery cost, service level, stock turns, route economics.",
+    "Seven bakeries on two delivery days, and a coffee bike whose location changes daily — which makes the route the only meaningful unit of analysis."],
+  mc:["M-C · marketing controlling",
+    "Marketing-Controlling. Campaign effect, customer value, price and discount policy. The domain where attribution is hardest and confidence is highest.",
+    "Loyalty card sign-ups against the 14-day return rate: 38 % today, 50 % as the target."],
+  prc:["PR-C · project controlling",
+    "Projekt-Controlling. Cuts across all the others: budget, progress and outcome for one time-boxed undertaking rather than for a permanent function.",
+    "A third coffee house would be a project — and the reason project controlling exists is that no functional domain would own it."],
+  mgmt:["S-C · strategic controlling · the management area",
+    "The depth of the fourth floor is not a function but the Führungsbereich: the management area itself. This is where the strategic half of controlling sits — long horizon, external orientation, figures that no operational system produces.",
+    "Sofia's question here is not what the quarter earned. It is whether a business built on one Peruvian cooperative and one university term is a business she can still run in 2029."],
+
+  /* ---- depth slices ---- */
+  fRd:["Research & development",
+    "The functions run backwards into the depth: every floor exists once for each of them. That is what makes the model three-dimensional rather than a stack.",
+    "New blends and roast profiles. Fourteen trial roasts in the quarter, each one 12 kg of green coffee that is never sold."],
+  fSo:["Sourcing",
+    "Every floor exists once for this function too — capture, disposition, accounting, analysis and cockpit, all with a sourcing view.",
+    "Green coffee from Peru, and cake from the bakeries. The same bakeries buy her beans, which puts one partner on both sides of the ledger."],
+  fPr:["Production",
+    "In Reichmann's original this is an industrial production function. Read every floor through it and you get the production view of the same business.",
+    "The roastery. Around 6 000 kg of green coffee a year in 12 kg batches — Sofia's only real production stage, and the only place a kilogram changes meaning."],
+  fLo:["Logistics",
+    "The function that connects the others. Its figures are almost all quantity and time figures, which is why it sits so awkwardly in a ledger.",
+    "Deliveries to seven bakeries, and the coffee bike — a sales point with no fixed location at all."],
+  fMa:["Marketing",
+    "The customer-facing function. Its floors hold the figures that lead the money rather than follow it.",
+    "The loyalty card in both houses, and the semester rhythm that drives Alsergrund whether anyone markets to it or not."],
+
+  /* ---- bands ---- */
+  bandOp:["Operational",
+    "The near horizon: this month, this quarter, this year. Figures that come out of a system and can be checked against a record."],
+  bandSt:["Strategic",
+    "The far horizon. Figures that mostly do not exist in any system yet — they are assumptions with numbers attached, and they are only trustworthy if they can be traced down to the operational floors."]
+};
+
+/* labels: main state and Sofia state */
+const LABELS = {};
+
+/* =====================================================================
+   2 · BUILD THE PYRAMID
+   ===================================================================== */
+const NS="http://www.w3.org/2000/svg";
+const svg=document.getElementById("pyr");
+const tip=document.getElementById("tip");
+const el=(n,a={})=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+const add=(p,n,a)=>{const e=el(n,a);p.appendChild(e);return e;};
+function txt(p,x,y,s,cls,extra){const a={x,y,"text-anchor":"middle",class:cls};
+  if(extra) Object.assign(a,extra); const t=add(p,"text",a); t.textContent=s; return t;}
+function lines(p,x,y,arr,cls,lh){
+  lh=lh||14; const y0=y-((arr.length-1)*lh)/2;
+  arr.forEach((s,i)=>txt(p,x,y0+i*lh,s,cls));
+}
+
+const FX=205, FR=625, BX=785, DY=-88;
+const LV={ana:{t:180,H:170}, acc:{t:370,H:128}, adm:{t:518,H:128}, tec:{t:666,H:128}};
+const ROOF_T=160, APEX=[470,14];
+const GREY_F="#F4F4F2", GREY_S="#A9A9A7";
+const ANG = Math.atan2(DY, BX-FR)*180/Math.PI;   /* ≈ -28.8° */
+
+function node(parent,id,cls){
+  const g=add(parent||svg,"g",{class:"node"+(cls?" "+cls:""),tabindex:"0",role:"button",
+    "data-k":id,"aria-label":INFO[id][0]});
+  return g;
+}
+function ringrect(g,x,y,w,h,rx){
+  add(g,"rect",{class:"ring",x:x-4,y:y-4,width:w+8,height:h+8,rx:rx||6});
+  add(g,"rect",{class:"hit",x:x-2,y:y-2,width:w+4,height:h+4});
+}
+function ringpoly(g,pts){
+  add(g,"polygon",{class:"ring",points:pts});
+  add(g,"polygon",{class:"hit",points:pts});
+}
+
+/* ---- a labelled box on a floor ---- */
+function boxNode(parent,id,x,y,w,h,main,sofia,cls,scls){
+  const g=node(parent,id);
+  add(g,"rect",{class:"shape",x,y,width:w,height:h,rx:2,fill:"#fff",stroke:"#6E6E6D","stroke-width":1.2});
+  const lg=add(g,"g",{class:"lbl"});
+  LABELS[id]={main,sofia,cls:cls||"t-box",scls:scls||"t-box sm",cx:x+w/2,cy:y+h/2};
+  lines(lg,x+w/2,y+h/2,main,cls||"t-box",13);
+  ringrect(g,x,y,w,h,4);
+  return g;
+}
+
+/* ---- one floor: frame, side quad, diagonal band, depth slices ---- */
+const FUNCS=[["fRd","R & D"],["fSo","Sourcing"],["fPr","Production"],["fLo","Logistics"],["fMa","Marketing"]];
+
+function floor(key,isCtrl){
+  const {t,H}=LV[key];
+  const g=add(svg,"g",{class:"lvlgroup"+(isCtrl?" isctrl":"")});
+  add(g,"rect",{class:"frame",x:FX,y:t,width:FR-FX,height:H});
+  add(g,"polygon",{class:"frame",points:`${FR},${t} ${BX},${t+DY} ${BX},${t+DY+H} ${FR},${t+H}`});
+  return g;
+}
+function slices(g,t,H){
+  const step=H/5;
+  FUNCS.forEach(([id,label],i)=>{
+    const lt=t+i*step, lb=t+(i+1)*step;
+    const pts=`${FR},${lt} ${BX},${lt+DY} ${BX},${lb+DY} ${FR},${lb}`;
+    const n=node(g,id);
+    add(n,"polygon",{class:"shape",points:pts,fill:i%2?"#FAFAF8":GREY_F,stroke:GREY_S,"stroke-width":.9});
+    const cx=(FR+BX)/2, cy=(lt+lb)/2+DY/2;
+    txt(n,cx,cy,label,"t-slice",{transform:`rotate(${ANG.toFixed(2)} ${cx} ${cy})`});
+    ringpoly(n,pts);
+  });
+}
+function band(g,t,x1,y1,x2,y2,labels){
+  add(g,"polygon",{points:`${x1},${y1} ${x2},${y2} ${x2},${t+2} ${x1},${t+2}`,
+    fill:"#FCFCFB",stroke:"none"});
+  add(g,"line",{class:"hair",x1,y1,x2,y2});
+  labels.forEach(([id,lx,ly,label])=>{
+    const n=node(g,id);
+    txt(n,lx,ly,label,"t-band");
+    const w=label.length*6.4+16;
+    ringrect(n,lx-w/2,ly-9,w,18,9);
+  });
+}
+
+/* ---------- roof ---------- */
+(function roof(){
+  const g=add(svg,"g",{class:"lvlgroup isctrl"});
+  const nF=node(g,"fis");
+  add(nF,"polygon",{class:"shape",points:`${FX},${ROOF_T} ${FR},${ROOF_T} ${APEX[0]},${APEX[1]}`,
+    fill:"#166980",stroke:"#0F4C5C","stroke-width":1.2});
+  txt(nF,410,ROOF_T-52,"FIS","t-roof");
+  ringpoly(nF,`${FX},${ROOF_T} ${FR},${ROOF_T} ${APEX[0]},${APEX[1]}`);
+
+  const nK=node(g,"kpi");
+  add(nK,"polygon",{class:"shape",points:`${FR},${ROOF_T} ${BX},${ROOF_T+DY} ${APEX[0]},${APEX[1]}`,
+    fill:"#209CBD",stroke:"#0F4C5C","stroke-width":1.2});
+  txt(nK,632,ROOF_T-72,"KPI","t-roof",{transform:`rotate(${ANG.toFixed(2)} 632 ${ROOF_T-72})`});
+  ringpoly(nK,`${FR},${ROOF_T} ${BX},${ROOF_T+DY} ${APEX[0]},${APEX[1]}`);
+})();
+
+/* ---------- level 4 · analysis and reporting ---------- */
+(function analysis(){
+  const {t,H}=LV.ana;
+  const g=floor("ana",true);
+  band(g,t,211,t+70,623,t+8,[["bandOp",320,t+30,"operational"],["bandSt",530,t+15,"strategic"]]);
+  add(g,"line",{class:"hair",x1:437,y1:t+36,x2:462,y2:t+2});
+  const R1=[["jac","JA-C","Year-end"],["kuec","KuE-C","DB per cup"],["fc","F-C","Cash & FX"],
+            ["ic","I-C","Roaster no. 2"],["rc","R-C","Harvest & FX"]];
+  const R2=[["bc","B-C","Peru sourcing"],["pc","P-C","Roasting loss"],["lc","L-C","Bakery route"],
+            ["mc","M-C","Loyalty card"],["prc","PR-C","Third house"]];
+  [[R1,t+76],[R2,t+120]].forEach(([row,y])=>{
+    row.forEach(([id,ab,so],i)=>{
+      boxNode(g,id,211+i*83,y,80,42,[ab],[so],"t-abbr","t-box sm");
+    });
+  });
+  /* depth of this floor is the management area, not a function */
+  const pts=`${FR},${t} ${BX},${t+DY} ${BX},${t+DY+H} ${FR},${t+H}`;
+  const n=node(g,"mgmt");
+  add(n,"polygon",{class:"shape",points:pts,fill:"#E6F4F8",stroke:"#5FBBD3","stroke-width":1});
+  const cx=(FR+BX)/2, cy=t+H/2+DY/2;
+  txt(n,cx,cy,"Management area · S-C","t-slice",{transform:`rotate(${ANG.toFixed(2)} ${cx} ${cy})`});
+  ringpoly(n,pts);
+})();
+
+/* ---------- levels 3, 2, 1 ---------- */
+[["acc",[["fib","Financial","accounting","Ledger"],["cos","Cost","accounting","DB per product"],
+         ["ast","Asset","accounting","Roaster & bike"],["pay","Payroll","","Ten students"]]],
+ ["adm",[["pur","Purchasing","","Green coffee orders"],["psc","Production","control","Roast schedule"],
+         ["stk","Stock","control","Green & roasted"],["ord","Order","processing","Wholesale orders"]]],
+ ["tec",[["bde","BDE","","Roast log"],["zde","ZDE","","Shift clock"],
+         ["caq","CAQ","","Intake check"],["dnc","DNC","","Profile control"]]]
+].forEach(([key,boxes])=>{
+  const {t,H}=LV[key];
+  const g=floor(key,false);
+  band(g,t,211,t+58,623,t+8,[["bandOp",330,t+26,"operational"]]);
+  boxes.forEach(([id,l1,l2,so],i)=>{
+    const main=l2?[l1,l2]:[l1];
+    boxNode(g,id,211+i*104,t+64,100,56,main,[so],
+      key==="tec"?"t-abbr":"t-box","t-box sm");
+  });
+  slices(g,t,H);
+});
+
+/* ---------- level labels on the left ---------- */
+[["lvlFis",["Management","information systems","(controlling)"],95,1],
+ ["lvlAna",["Analysis and","reporting systems","(controlling)"],265,1],
+ ["lvlAcc",["Accounting","systems"],434,0],
+ ["lvlAdm",["Administration and","disposition systems"],582,0],
+ ["lvlTec",["Technical capture and","control systems"],730,0]
+].forEach(([id,arr,cy,isCtrl])=>{
+  const n=node(svg,id,isCtrl?null:"dimlbl");
+  lines(n,100,cy,arr,"t-lvl",16);
+  ringrect(n,10,cy-arr.length*8-6,180,arr.length*16+12,8);
+});
+
+/* ---------- the controlling boundary ---------- */
+(function boundary(){
+  const y=(LV.ana.t+LV.ana.H+LV.acc.t)/2;
+  add(svg,"path",{class:"edgeline",d:`M ${FX} ${y} H ${FR} L ${BX} ${y+DY}`,fill:"none"});
+  const g=add(svg,"g",{class:"edgetag"});
+  add(g,"rect",{x:414,y:y-8.5,width:172,height:17,rx:8.5,fill:"#FF922B"});
+  const s=add(g,"text",{x:500,y:y+.5,"text-anchor":"middle",class:"t-tag"});
+  s.textContent="CONTROLLING BEGINS";
+})();
+
+/* =====================================================================
+   3 · LEGEND
+   ===================================================================== */
+const LEG=[["sc","S-C","Strategic controlling","mgmt"],
+  ["jac","JA-C","Financial statement controlling","jac"],
+  ["kuec","KuE-C","Cost and profit controlling","kuec"],
+  ["fc","F-C","Finance controlling","fc"],
+  ["ic","I-C","Investment controlling","ic"],
+  ["rc","R-C","Risk controlling","rc"],
+  ["bc","B-C","Procurement controlling","bc"],
+  ["pc","P-C","Production controlling","pc"],
+  ["lc","L-C","Logistics controlling","lc"],
+  ["mc","M-C","Marketing controlling","mc"],
+  ["prc","PR-C","Project controlling","prc"]];
+document.getElementById("legend").innerHTML=LEG.map(([,ab,name,target])=>
+  `<div class="lg" tabindex="0" data-k="${target}"><b>${ab}</b><span>${name}</span></div>`).join("");
+
+/* =====================================================================
+   4 · TAB B · the three dimensions
+   ===================================================================== */
+const CATS=[["kl","Cost &amp; output figures"],["ea","Income &amp; expenses"],
+            ["za","Payment figures"],["mz","Quantity &amp; time figures"]];
+const FUNROWS=[
+ ["rd","Research &amp; development","fRd"],["so","Sourcing","fSo"],["pr","Production · the roastery","fPr"],
+ ["lo","Logistics","fLo"],["ma","Marketing","fMa"]];
+
+/* [value, short note] per horizon */
+const DIM={
+ rd:{kl:{op:["78 € per trial roast","Development cost centre"],
+          st:["1.4 % of revenue","Development budget 2027–2029"]},
+     ea:{op:["2 340 € in Q1","Trial roast expense in the P&L"],
+          st:["+11 000 € per year","Planned contribution of the new blend"]},
+     za:{op:["640 € per quarter","Sample lots, paid in USD up front"],
+          st:["9 500 €","Cash tied up before a blend earns"]},
+     mz:{op:["14 trials · 3.2 h each","Counted from the roast log"],
+          st:["5 months","From first trial to a sellable profile"]}},
+ so:{kl:{op:["6.40 € per kg green","Valuation rate for every roast batch"],
+          st:["5.80 – 8.10 € per kg","Landed cost corridor 2027–2029"]},
+     ea:{op:["26 800 € in Q1","Cost of materials, booked on consumption"],
+          st:["−4 % average price","Effect of adding a second origin"]},
+     za:{op:["18 400 €","Paid to the cooperative on shipment"],
+          st:["4 months exposure","Payment to sale, in a foreign currency"]},
+     mz:{op:["1 480 kg · 3 lots","Weighed in at intake"],
+          st:["6 800 kg for 2027","Committed before the harvest is picked"]}},
+ pr:{kl:{op:["8.10 € per kg roasted","Green coffee, gas, labour and loss"],
+          st:["6.90 € per kg","Unit cost with a second roaster"]},
+     ea:{op:["3 120 € in Q1","Gas and power for the drum"],
+          st:["4 800 € per year","Depreciation of roaster no. 2"]},
+     za:{op:["1 150 €","Annual service and a new burner nozzle"],
+          st:["38 000 €","One outlay, eight years of consequence"]},
+     mz:{op:["16.0 % roasting loss","100 kg green become 84 kg roasted"],
+          st:["14.0 % target","≈120 kg of sellable coffee a year"]}},
+ lo:{kl:{op:["11.20 € per drop","Van, driver-hour and packaging"],
+          st:["9 600 € per year","Cost of a third delivery day"]},
+     ea:{op:["2 960 € in Q1","Freight and packaging expense"],
+          st:["+18 %","Own delivery against a courier"]},
+     za:{op:["780 €","Fuel and toll payments"],
+          st:["500 € × 60 months","Leasing an electric van"]},
+     mz:{op:["7 bakeries · 2 days","Drops per week"],
+          st:["25 min drive","Radius the wholesale line can still serve"]}},
+ ma:{kl:{op:["2.30 € per sign-up","Cost of one loyalty card"],
+          st:["21 000 €","Cost of entering a third district"]},
+     ea:{op:["1 870 € in Q1","Discounts and vouchers given away"],
+          st:["+6 % revenue","Planned effect of the semester campaign"]},
+     za:{op:["940 €","Payments for campus advertising"],
+          st:["14 months","Cash a new house needs before it earns"]},
+     mz:{op:["7.20 € per guest · 4:10 min wait","From the till timestamps"],
+          st:["38 % → 50 %","Return rate within 14 days"]}}
+};
+
+/* long-form explanations, one per cell, per horizon */
+const DIMWHY={
+ "rd.kl":["A trial roast consumes 12 kg of green coffee that will never be sold. Cost accounting books it to a development cost centre, so it never contaminates the cost per kilogram of saleable coffee.",
+          "Over three years the question is not what one trial cost but how much turnover Sofia is willing to spend on not yet knowing whether a blend works."],
+ "rd.ea":["The same trials, seen through the profit and loss account instead of the cost accounting — which is where the bank and the tax office see them.",
+          "A planned income figure. It exists in no ledger, which is precisely what makes it strategic rather than operational."],
+ "rd.za":["Sample sacks are paid before they ship, in dollars. The payment happens in a different quarter from the expense and in a different currency from the result.",
+          "Development spend leaves the account long before the first bag is sold — a liquidity question, not a profitability one."],
+ "rd.mz":["Counted, not valued: how many trials, how long each took. The rawest layer, and the one the cost figure above is calculated from.",
+          "Time as a strategic quantity. Five months is how long Sofia is blind between deciding to try something and finding out."],
+ "so.kl":["The rate every roast batch is valued at. It is the single biggest cost driver in the roastery, and it is set by a harvest and an exchange rate Sofia does not control.",
+          "Not a number but a band. Planning a corridor rather than a point is how a strategic figure admits what it does not know."],
+ "so.ea":["Note the timing: the sacks became an expense when they were consumed, not when they arrived. Payment, cost and expense are three different dates for one sack.",
+          "A second origin would cut the average price and change the cup. The figure is easy; the trade-off behind it is not."],
+ "so.za":["Paid in dollars on shipment, months before a single cup is sold. This is the payment figure that drives the whole liquidity side of the RL system.",
+          "Between payment and sale the exchange rate is the only thing that moves — and it moves the result, not the revenue."],
+ "so.mz":["Kilograms and lots, from the intake weighing. Every euro figure above is derived from this one, which is why an error here is expensive.",
+          "A planned quantity that has to be committed to before the harvest is picked. Getting it wrong costs either stock or supply."],
+ "pr.kl":["Green coffee, gas, labour and the roasting loss, divided by the roasted weight that actually comes out. The loss is inside this figure, which is why it is easy to miss.",
+          "What a second roaster would do to unit cost. A decision figure: it describes a business that does not exist yet."],
+ "pr.ea":["Gas and power for the drum, booked as expense in the quarter they are used. Straightforward — and almost useless for steering, because it says nothing per kilogram.",
+          "An expense Sofia would carry for eight years, decided once. Depreciation is the strategic decision arriving in the operational accounts."],
+ "pr.za":["Cash out for the annual service and a new burner nozzle. Small, predictable, and unrelated to how much coffee was roasted.",
+          "One payment, one decision, eight years of consequence. The investment controlling case for roaster number two."],
+ "pr.mz":["The figure the whole roastery is judged by: 100 kg of green coffee become 84 kg of roasted. The gap is paid for and never sold.",
+          "Two percentage points is roughly 120 kg of sellable coffee a year. It is reached by changing roast profiles, not by working faster."],
+ "lo.kl":["Van, driver-hour and packaging for one bakery run. A cost per unit of service — the only way logistics costs become comparable.",
+          "Adding Wednesday to the route is a fixed cost decision. It does not scale with the number of bags."],
+ "lo.ea":["Freight and packaging as they appear in the P&L. Aggregated across all seven bakeries, so it cannot tell you which drop is unprofitable.",
+          "Doing it herself costs more and keeps the customer contact. The number decides nothing on its own."],
+ "lo.za":["Fuel and tolls: cash out, roughly in step with the kilometres driven. One of the few places where payment and cost almost coincide.",
+          "Leasing turns one investment into a payment series — which changes the liquidity profile without changing the cost much."],
+ "lo.mz":["Seven bakeries served on two days a week. The quantity figure that all the logistics cost figures are divided by.",
+          "How far the wholesale line can grow before the route breaks. A capacity limit expressed in minutes, not in euros."],
+ "ma.kl":["What one loyalty card sign-up costs. Cheap to calculate, hard to interpret: it says nothing about whether that guest comes back.",
+          "Site, fit-out and the first six months of a house that does not yet pay for itself. The largest single figure in the strategic column."],
+ "ma.ea":["Revenue given away. It is invisible in the till figure and visible in the P&L, which is why marketing looks cheaper from the counter than from the ledger.",
+          "Planned, and only in Alsergrund, where the semester actually drives footfall. A campaign figure that only works for one location."],
+ "ma.za":["Payments for campus advertising, made before the semester starts and therefore before anything can be measured.",
+          "How long a new house burns cash before it earns. The figure that decides whether the third district is possible at all."],
+ "ma.mz":["Straight from the till timestamps: what a guest spends and how long they wait for it. Quantity and time figures, and the two leading indicators in the scorecard.",
+          "The return rate is the strategic version of the same question, and the only one that says whether the business is compounding."]
+};
+
+const REG={};                       /* one tooltip registry for the whole page */
+for(const k in INFO) REG[k]=INFO[k];
+
+(function buildDim(){
+  const grid=document.getElementById("dimgrid");
+  let html='<div></div>'+CATS.map(([,n])=>`<div class="ch">${n}</div>`).join("");
+  FUNROWS.forEach(([f,name,infoKey])=>{
+    html+=`<div class="rh" tabindex="0" data-k="${infoKey}">${name}</div>`;
+    CATS.forEach(([c])=>{
+      html+=`<div class="cell" tabindex="0" data-k="d.${f}.${c}"><span class="cv"></span><span class="cn"></span></div>`;
+    });
+  });
+  grid.innerHTML=html;
+  FUNROWS.forEach(([f])=>CATS.forEach(([c])=>{
+    REG[`d.${f}.${c}`]=null;         /* filled by setHorizon */
+  }));
+})();
+
+let horizon="op";
+function setHorizon(h){
+  horizon=h;
+  document.querySelectorAll("#seg button").forEach(b=>
+    b.setAttribute("aria-pressed",String(b.dataset.h===h)));
+  FUNROWS.forEach(([f,name])=>CATS.forEach(([c,cn])=>{
+    const cell=document.querySelector(`.cell[data-k="d.${f}.${c}"]`);
+    const d=DIM[f][c][h];
+    cell.querySelector(".cv").textContent=d[0];
+    cell.querySelector(".cn").textContent=d[1];
+    cell.classList.toggle("st",h==="st");
+    REG[`d.${f}.${c}`]=[`${name.replace(/&amp;/g,"&")} · ${cn.replace(/&amp;/g,"&")} · ${h==="op"?"operational":"strategic"}`,
+      DIMWHY[`${f}.${c}`][h==="op"?0:1], d[0]];
+  }));
+  hideTip();
+}
+document.getElementById("seg").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(b) setHorizon(b.dataset.h);
+});
+setHorizon("op");
+
+/* =====================================================================
+   5 · TAB C · the RL key figure system
+   ===================================================================== */
+const RROWS=[
+ ["Revenue","145 500 €","","Q1 2026 across both coffee houses, the coffee bike and the wholesale line. The case figure that every other line here is derived from."],
+ ["Variable costs","−55 290 €","ind neg","Green coffee, gas, bought-in cake, packaging — everything that stops when the door stays shut."],
+ ["Contribution margin · 62 %","90 210 €","sum","The rate comes straight from the scorecard. It is the one figure that appears unchanged in three of Sofia's modules."],
+ ["Fixed costs","−78 400 €","ind neg","Rent, the ten students, depreciation, insurance. Illustrative — the case does not fix them."],
+ ["Ordinary operating result","11 810 €","sum","What the business earned from doing business. Extraordinary items are deliberately excluded so the figure stays comparable across quarters."],
+ ["Ordinary financial result","−1 310 €","ind neg","Interest on the roaster loan. Small, and the reason the operating result and the ordinary result are not the same number."],
+ ["Ordinary result","10 500 €","sum","The top figure of the R side. Reichmann builds it from the P&L precisely so that any company can be compared with any other."],
+ ["Return on sales","7.2 %","","10 500 € on 145 500 €. Says how much of each euro of revenue survives to the bottom."],
+ ["Capital turnover","0.69","","145 500 € of revenue on 210 000 € of capital employed. Says how hard the assets are working."],
+ ["ROI · quarter","5.0 %","sum","7.2 % × 0.69. The same decomposition the key figure systems module will take further — and a reminder that a ratio is only ever two other ratios."]];
+
+const LROWS=[
+ ["Liquid funds · 1 January","18 400 €","","Opening balance. The liquidity side starts from an account statement, not from an accounting result."],
+ ["Cash flow from operations","+14 200 €","","Payments in minus payments out from trading. Note it is larger than the result: depreciation costs nothing in cash."],
+ ["Investing","−9 600 €","ind neg","The second grinder and a card reader for the coffee bike."],
+ ["Financing · repayment","−2 400 €","ind neg","Quarterly repayment on the roaster loan. Invisible in the P&L, unavoidable in the account."],
+ ["Liquid funds · 31 March","20 600 €","sum","The top figure of the L side. Equal in rank to the ordinary result, because a profitable quarter with an empty account is still a crisis."],
+ ["Cash conversion gap","4 months","","Between paying the Peruvian cooperative and selling the coffee. The single reason Sofia needs a liquidity top figure at all."]];
+
+const SPEC=[
+ ["Roasting loss","16.0 %","No line of the P&L is called roasting loss, and no other company's chart of accounts would carry it. It is also the figure with the most leverage on the result — which is the entire argument for a special part."],
+ ["Roasting loss · target","14.0 %","Two percentage points on roughly 6 000 kg of green coffee a year is around 120 kg of sellable roasted coffee Sofia has already paid for."],
+ ["Green coffee · per kg","6.40 €","Up 9 % year on year, driven as much by the exchange rate as by the harvest. Sourcing controlling reports this weekly; the ledger sees it once a quarter."],
+ ["Roast batches · Q1","123","Around 1 480 kg of green coffee in 12 kg batches. The quantity figure the whole roastery cost calculation divides by."],
+ ["Revenue per guest","7.20 €","Target 8.50 €. A special-part figure that a bakery or a bookshop would also recognise — but at completely different values."],
+ ["Wait at the counter","4:10 min","Target under 3:00. Measured from till timestamps, and the leading indicator for both the return rate and revenue per guest."],
+ ["Return rate · 14 days","38 %","Target 50 %. The closest thing Sofia has to a figure that says whether the business is compounding rather than just turning over."],
+ ["Coffee bike · selling days","34 of 90","Weather and event calendar decide this one. Illustrative, and the clearest case of a figure that no internal system produces."]];
+
+(function buildRL(){
+  const row=([n,v,cls,why],i,pre)=>{
+    const neg=/neg/.test(cls||"");
+    return `<div class="rrow ${cls||""}" tabindex="0" data-k="${pre}${i}">
+      <span class="rn">${n}</span><span class="rv${neg?" neg":""}">${v}</span></div>`;
+  };
+  document.getElementById("rrows").innerHTML=RROWS.map((r,i)=>row(r,i,"rr.")).join("");
+  document.getElementById("lrows").innerHTML=LROWS.map((r,i)=>row(r,i,"lr.")).join("");
+  document.getElementById("spgrid").innerHTML=SPEC.map(([k,v],i)=>
+    `<div class="sp" tabindex="0" data-k="sp.${i}"><p class="sk">${k}</p><p class="sv">${v}</p></div>`).join("");
+  RROWS.forEach(([n,v,,why],i)=>REG["rr."+i]=[n,why,v]);
+  LROWS.forEach(([n,v,,why],i)=>REG["lr."+i]=[n,why,v]);
+  SPEC.forEach(([k,v,why],i)=>REG["sp."+i]=[k+" · special part",why,v]);
+  REG.rtop=["Ordinary result · the R top figure",
+    "Built from the profit and loss account: ordinary operating result plus ordinary financial result, extraordinary items excluded. It belongs to the general part, which is why it can be compared with any other company in any industry.","10 500 €"];
+  REG.ltop=["Liquid funds · the L top figure",
+    "Built from payments, not from the accounts. Reichmann and Lachnit gave it equal rank to the result in 1976 — an unusual move then, because most key figure systems drove everything into a single apex.","20 600 €"];
+})();
+
+/* =====================================================================
+   6 · TAB D · conceptions and the bridge to the BI architecture
+   ===================================================================== */
+const CONC=[
+ ["reichmann","1976 onwards","Reichmann","Information-oriented","#209CBD",
+  "Controlling supplies management with decision-relevant information. Its object is the information supply itself, anchored on profitability and liquidity, and its instrument is a key figure system carried by the five levels of the pyramid.",
+  "Criticised as too narrow: if controlling is only information supply, it is hard to say where the controller stops and the reporting department starts. Its answer is that this is exactly the point — a definition you can build a system from."],
+ ["horvath","1979 onwards","Horváth","Coordination-oriented","#0F4C5C",
+  "Controlling coordinates the planning and control system with the information supply system. The emphasis moves from delivering figures to keeping two subsystems in step with each other.",
+  "Criticised for drawing its boundary at planning and control, leaving the rest of the management system outside. After the 1990s this became the dominant position in the German-language debate."],
+ ["kuepper","1987 onwards","Küpper","Management-system coordination","#B5852C",
+  "Widens coordination to the entire management system: planning, control, information, organisation and personnel management all fall within controlling's remit.",
+  "Criticised for growing so wide that almost any management activity qualifies. The more it explains, the less it distinguishes."],
+ ["weber","1999 onwards","Weber &amp; Schäffer","Rationality assurance","#FF922B",
+  "Controlling secures the rationality of management: it compensates for the fact that managers have limited ability and limited willingness to act rationally.",
+  "The most recent position and the hardest to operationalise. You cannot draw a pyramid from it — which is why Reichmann's model is still the one lectures use to show students where figures actually live."]];
+
+const BRIDGE=[
+ ["b0","Levels 1–3","Source systems",
+  "Capture, disposition and accounting are, from a BI point of view, one thing: operational systems built to write single transactions quickly. Reichmann gives them three floors because he is looking at controlling; a BI architecture gives them one band because it is looking at data."],
+ ["b1","Between 3 and 4","Integration layer · ETL",
+  "Reichmann draws no floor here at all — and this is the honest addition of the last thirty years. Extract, transform and load is where the historisation decision is made and where most of the effort in a BI project actually goes. In the pyramid it is a gap between two boxes."],
+ ["b2","Level 4 · operational half","Core warehouse and evaluation database",
+  "The integrated, historised truth and the star schema read from it. Reichmann's eleven controlling domains are, in a warehouse, eleven subject areas over the same facts."],
+ ["b3","Level 4 · strategic half","OLAP cube and planning database",
+  "The Führungsbereich is the half that plans rather than reports — and in an architecture it is the one store users write back to, which is why it needs its own versioning."],
+ ["b4","Level 5","Management cockpit",
+  "The frontend. It holds no data of its own; every figure on it was decided two floors down. Reichmann's one-screen test and the cockpit's design rule are the same rule."]];
+
+document.getElementById("conc").innerHTML=CONC.map(([id,era,name,kind,col])=>
+ `<div class="cc" tabindex="0" data-k="c.${id}" style="--cc:${col}">
+    <p class="ck">${era}</p><h3>${name}</h3><p>${kind}</p></div>`).join("");
+CONC.forEach(([id,era,name,kind,,claim,crit])=>
+  REG["c."+id]=[name.replace(/&amp;/g,"&")+" · "+kind,claim,null,crit]);
+
+document.getElementById("bridge").innerHTML=BRIDGE.map(([id,k,b])=>
+ `<div class="br" tabindex="0" data-k="${id}"><span class="bk">${k}</span><b>${b}</b></div>`).join("");
+BRIDGE.forEach(([id,k,b,why])=>REG[id]=[k+" → "+b,why]);
+
+/* =====================================================================
+   7 · TOOLTIP AND DETAIL PANELS
+   ===================================================================== */
+const LIVE={"p-b":"detB","p-c":"detC","p-d":"detD"};
+let sofiaMode=false;
+
+function entry(k){ return REG[k]; }
+
+function show(elem,ev){
+  const d=entry(elem.dataset.k); if(!d) return;
+  let html=`<p class="th">${d[0]}</p><p>${d[1]}</p>`;
+  if(d[2]) html+=`<p class="sofia">${d[2]}</p>`;
+  if(d[3]) html+=`<p class="sofia">${d[3]}</p>`;
+  tip.innerHTML=html;
+  tip.classList.add("on");
+  move(elem,ev);
+
+  const panel=elem.closest(".panel");
+  if(panel && LIVE[panel.id]){
+    const box=document.getElementById(LIVE[panel.id]);
+    box.innerHTML=`<p class="dk">${panel.id==="p-c"?"RL key figure system":panel.id==="p-b"?"One cell":"Conception"}</p>`+
+      `<h4>${d[0]}</h4><p>${d[1]}</p>`+
+      (d[2]?`<p><span class="fig">${d[2]}</span></p>`:"")+
+      (d[3]?`<p class="warn">${d[3]}</p>`:"");
+  }
+}
+function move(elem,ev){
+  let x,y;
+  if(ev&&ev.clientX){x=ev.clientX+16;y=ev.clientY+16;}
+  else{const r=elem.getBoundingClientRect();x=r.left+r.width/2;y=r.top-8;}
+  const w=tip.offsetWidth,h=tip.offsetHeight;
+  if(x+w>innerWidth-12)x=innerWidth-w-12;
+  if(y+h>innerHeight-12)y=y-h-32;
+  if(y<8)y=8;
+  if(x<8)x=8;
+  tip.style.left=x+"px";tip.style.top=y+"px";
+}
+function hideTip(){tip.classList.remove("on");}
+
+const SEL=".node,[data-k]";
+document.addEventListener("pointerover",e=>{
+  const n=e.target.closest&&e.target.closest(SEL); if(n&&n.dataset.k) show(n,e);
+});
+document.addEventListener("pointermove",e=>{
+  const n=e.target.closest&&e.target.closest(SEL); if(n&&n.dataset.k) move(n,e);
+});
+document.addEventListener("pointerout",e=>{
+  const from=e.target.closest&&e.target.closest(SEL); if(!from) return;
+  const to=e.relatedTarget&&e.relatedTarget.closest?e.relatedTarget.closest(SEL):null;
+  if(to!==from) hideTip();
+});
+document.addEventListener("focusin",e=>{
+  const n=e.target.closest&&e.target.closest(SEL); if(n&&n.dataset.k) show(n,null);
+});
+document.addEventListener("focusout",e=>{
+  const n=e.target.closest&&e.target.closest(SEL); if(n) hideTip();
+});
+addEventListener("scroll",hideTip,{passive:true});
+
+/* legend lights up its box in the drawing */
+document.getElementById("legend").addEventListener("pointerover",e=>{
+  const l=e.target.closest(".lg"); if(!l) return;
+  const n=svg.querySelector(`.node[data-k="${l.dataset.k}"]`); if(n) n.classList.add("lit");
+});
+document.getElementById("legend").addEventListener("pointerout",()=>
+  svg.querySelectorAll(".node.lit").forEach(n=>n.classList.remove("lit")));
+document.getElementById("legend").addEventListener("focusin",e=>{
+  const l=e.target.closest(".lg"); if(!l) return;
+  svg.querySelectorAll(".node.lit").forEach(n=>n.classList.remove("lit"));
+  const n=svg.querySelector(`.node[data-k="${l.dataset.k}"]`); if(n) n.classList.add("lit");
+});
+document.getElementById("legend").addEventListener("focusout",()=>
+  svg.querySelectorAll(".node.lit").forEach(n=>n.classList.remove("lit")));
+
+/* =====================================================================
+   8 · TAB A TOGGLES
+   ===================================================================== */
+const edgeBtn=document.getElementById("edgeBtn"), edgeNote=document.getElementById("edgeNote");
+edgeBtn.addEventListener("click",()=>{
+  const on=edgeBtn.getAttribute("aria-pressed")!=="true";
+  edgeBtn.setAttribute("aria-pressed",String(on));
+  edgeBtn.querySelector(".lbl").textContent=on?"Show the whole building":"Show where controlling begins";
+  svg.classList.toggle("edge",on);
+  edgeNote.hidden=!on;
+  hideTip();
+});
+
+const sofiaBtn=document.getElementById("sofiaBtn");
+function setLabels(sofia){
+  for(const k in LABELS){
+    const g=svg.querySelector(`.node[data-k="${k}"] g.lbl`); if(!g) continue;
+    const d=LABELS[k];
+    while(g.firstChild) g.removeChild(g.firstChild);
+    lines(g,d.cx,d.cy,sofia?d.sofia:d.main,sofia?d.scls:d.cls,13);
+  }
+}
+sofiaBtn.addEventListener("click",()=>{
+  sofiaMode=sofiaBtn.getAttribute("aria-pressed")!=="true";
+  sofiaBtn.setAttribute("aria-pressed",String(sofiaMode));
+  sofiaBtn.querySelector(".lbl").textContent=sofiaMode?"Show the model's labels":"Show Sofia's systems";
+  setLabels(sofiaMode);
+  hideTip();
+});
+
+/* =====================================================================
+   9 · TABS
+   ===================================================================== */
+const tabs=[...document.querySelectorAll('[role="tab"]')], keys=["a","b","c","d"];
+function select(i){
+  tabs.forEach((t,j)=>{
+    const on=i===j;
+    t.setAttribute("aria-selected",String(on));
+    t.tabIndex=on?0:-1;
+    document.getElementById("p-"+keys[j]).hidden=!on;
+  });
+  hideTip();
+}
+tabs.forEach((t,i)=>{
+  t.addEventListener("click",()=>select(i));
+  t.addEventListener("keydown",e=>{
+    const d=e.key==="ArrowRight"?1:e.key==="ArrowLeft"?-1:0;
+    if(!d) return; e.preventDefault();
+    const n=(i+d+tabs.length)%tabs.length; tabs[n].focus(); select(n);
+  });
+});
+select(0);
+</script>
+</body>
+</html>
