@@ -75,6 +75,7 @@ h1 em{font-style:normal;color:var(--teal)}
   padding:4px 9px;border-radius:20px;white-space:nowrap;font-weight:600}
 .b-track{background:var(--teal-xl);color:var(--teal-dk)}
 .b-track.ctrl{background:var(--sand-xl);color:#8A6417}
+.b-track.case{background:#EDF5E9;color:#3F7233}
 .b-plan{background:var(--grey-xl);color:var(--grey)}
 
 .tile h2{font-size:1.24rem;font-weight:700;letter-spacing:-.018em;line-height:1.2;margin:0 0 7px}
@@ -145,6 +146,7 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
     <button class="chip" data-f="all" aria-pressed="true" type="button">All</button>
     <button class="chip" data-f="bi" aria-pressed="false" type="button">Business Intelligence</button>
     <button class="chip" data-f="ctrl" aria-pressed="false" type="button">Controlling</button>
+    <button class="chip" data-f="case" aria-pressed="false" type="button">Case study</button>
     <button class="chip" data-f="planned" aria-pressed="false" type="button">Planned</button>
   </div>
   <div class="search">
@@ -165,6 +167,7 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
 <b>sofia-bi/</b>
 ├── index.html          <span style="color:#8A8A89">← this page</span>
 ├── PROJECT-CANON.md    <span style="color:#8A8A89">← names, figures, conventions</span>
+├── sofias-coffee-dream.html
 ├── scd-dashboard.html
 ├── bi-reference-architecture.html
 ├── balanced-scorecard.html
@@ -178,7 +181,7 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
     <li>Put the new file in the folder (HTML next to <code>index.html</code>, slide decks in <code>decks/</code>).</li>
     <li>Open <code>index.html</code> in a text editor and find the line <code>const TOPICS = [</code>.</li>
     <li>Paste a block like the one below. Order in the list is the order on the page.</li>
-    <li><code>accent</code> tints the tile: use <code>teal</code>, <code>navy</code>, <code>orange</code> or <code>ochre</code>. <code>glyph</code> picks the drawing: <code>rows</code>, <code>cube</code>, <code>layers</code>, <code>quadrants</code>, <code>pyramid</code> or <code>tree</code>.</li>
+    <li><code>accent</code> tints the tile: use <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> or <code>green</code>. <code>glyph</code> picks the drawing: <code>rows</code>, <code>cube</code>, <code>layers</code>, <code>quadrants</code>, <code>pyramid</code>, <code>loop</code> or <code>tree</code>.</li>
   </ol>
 
 <pre><span class="c">// paste inside const TOPICS = [ ... ]</span>
@@ -186,7 +189,7 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
   <span class="k">id</span>:      <span class="s">"etl"</span>,
   <span class="k">title</span>:   <span class="s">"ETL and data quality"</span>,
   <span class="k">sub</span>:     <span class="s">"How three sales points become one truth — and what breaks on the way."</span>,
-  <span class="k">track</span>:   <span class="s">"bi"</span>,          <span class="c">// "bi" or "ctrl"</span>
+  <span class="k">track</span>:   <span class="s">"bi"</span>,          <span class="c">// "bi", "ctrl" or "case"</span>
   <span class="k">status</span>:  <span class="s">"ready"</span>,       <span class="c">// "ready" or "planned"</span>
   <span class="k">accent</span>:  <span class="s">"orange"</span>,
   <span class="k">glyph</span>:   <span class="s">"layers"</span>,
@@ -216,6 +219,24 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
    THE ONLY THING YOU NEED TO EDIT — see "Adding a new module" below.
    ===================================================================== */
 const TOPICS = [
+  {
+    id:"case",
+    title:"Sofia's Coffee Dream — the case",
+    sub:"Before the star schemas: a person, a bicycle and an espresso machine. Who Sofia is, how the business grew, and the afternoon a chart cost her ten thousand euros.",
+    track:"case",
+    status:"ready",
+    accent:"green",
+    glyph:"loop",
+    features:[
+      "The dream as a loop — beans, roast, cup, return — with every station explained on hover",
+      "The value chain from Peru to the counter, each station linked to the module that covers it",
+      "Four pain points that turn a growing business into a BI problem",
+      "The ten thousand euro afternoon: two reports, one quarter, and the leader changes places"
+    ],
+    links:[
+      {kind:"html",file:"sofias-coffee-dream.html",label:"Open interactive"}
+    ]
+  },
   {
     id:"scd",
     title:"Slowly Changing Dimensions",
@@ -338,8 +359,8 @@ const TOPICS = [
 ];
 /* ===================== end of the editable list ====================== */
 
-const ACCENT={teal:"#209CBD",navy:"#0F4C5C",orange:"#FF922B",ochre:"#B5852C"};
-const TRACK={bi:["Business Intelligence",""],ctrl:["Controlling","ctrl"]};
+const ACCENT={teal:"#209CBD",navy:"#0F4C5C",orange:"#FF922B",ochre:"#B5852C",green:"#4C8B3F"};
+const TRACK={bi:["Business Intelligence",""],ctrl:["Controlling","ctrl"],case:["Case study","case"]};
 
 const GLYPH={
   rows:`<rect x="8" y="10" width="44" height="10" rx="2" fill="currentColor" opacity=".9"/>
@@ -358,6 +379,13 @@ const GLYPH={
              <rect x="9" y="33" width="20" height="20" rx="3" fill="currentColor" opacity=".45"/>
              <rect x="33" y="33" width="20" height="20" rx="3" fill="currentColor" opacity=".85"/>
              <circle class="g-pulse" cx="31" cy="31" r="6" fill="#FF922B"/>`,
+  loop:`<circle cx="31" cy="31" r="19" fill="none" stroke="currentColor" stroke-width="4" opacity=".26"/>
+        <path class="g-fade" d="M31 12 A19 19 0 0 1 50 31" fill="none" stroke="#FF922B"
+              stroke-width="4" stroke-linecap="round"/>
+        <circle cx="31" cy="12" r="5.5" fill="currentColor" opacity=".9"/>
+        <circle class="g-move" cx="50" cy="31" r="5.5" fill="currentColor" opacity=".6"/>
+        <circle cx="31" cy="50" r="5.5" fill="currentColor" opacity=".45"/>
+        <circle cx="12" cy="31" r="5.5" fill="currentColor" opacity=".6"/>`,
   pyramid:`<path d="M31 6 L48 24 L14 24 Z" fill="currentColor" opacity=".9"/>
            <path class="g-fade" d="M48 24 L57 15 L40 15 Z" fill="#FF922B"/>
            <rect x="12" y="28" width="38" height="8" rx="1.5" fill="currentColor" opacity=".55"/>

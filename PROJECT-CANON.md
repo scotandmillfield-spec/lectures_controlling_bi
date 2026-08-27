@@ -17,15 +17,25 @@ geändert werden · **[offen]** = braucht eine Entscheidung.
 - **zwei Kaffeehäuser**
 - eine **eigene Rösterei**
 - ein **Coffeebike**, mit dem sie unterwegs verkauft
-- **Import von Rohkaffee aus Peru**
-- **Großhandel:** Sie liefert geröstete Bohnen an Bäckereien
+- **Import von fair gehandeltem Rohkaffee aus Peru**
+- **Großhandel:** Sie liefert geröstete Bohnen an **Bäckereien** und an **andere Kaffeehäuser**
 - **keine eigene Bäckerei**
+
+**[gesetzt]** Angefangen hat alles mit dem **Coffeebike**. Es ist nicht der jüngste Zweig des
+Geschäfts, sondern der erste — Kaffeehäuser, Rösterei und Großhandel sind daraus gewachsen.
+Deshalb taucht das Rad in der Fallstudie zweimal auf: am Anfang als Keimzelle und am Ende als
+Traum.
 
 **[gesetzt]** Zehn Angestellte, allesamt Studierende.
 
 **Die Schleife:** Kuchen und Gebäck kauft sie bei Bäckereien zu — teils bei denselben, die
 von ihr Bohnen beziehen. Dieselbe Geschäftsbeziehung, einmal als Debitor und einmal als
 Kreditor. Für Stammdatenmodellierung und Konsolidierung ein dankbares Motiv.
+
+**Zwei B2B-Segmente, nicht eines:** Bäckereien (mit der Schleife) und andere Wiener
+Kaffeehäuser (ohne sie, dafür größere Gebinde und Preisdruck durch Wettbewerb). Für die
+Dimensionsmodellierung ein Gewinn: `DIM_CUSTOMER` trägt damit B2C mit Kundenkarte, B2B
+Bäckereien und B2B Kaffeehäuser.
 
 **Aus dem Master abgeleitet:** Das Geschäft liegt im Universitätsviertel — auf Folie 5 des
 Masters ist der Semesterbeginn ein Nachfragetreiber. Passt zur studentischen Belegschaft und
@@ -41,7 +51,7 @@ dürfen frei erfunden werden.
 | Name | Rolle | Status |
 |---|---|---|
 | **Sofia** | Inhaberin | [gesetzt] |
-| **Nguyen** | BI-Expertin | [gesetzt] |
+| **Nguyen** | Werkstudentin, studiert Controlling und BI | [gesetzt] |
 | **Alex** | Controller | [gesetzt] |
 | Anna | Baristin, Kennung E-042 | [Vorschlag] — bereits in den SCD-Modulen verwendet |
 | Jonas | Röstmeister | [Vorschlag] |
@@ -49,10 +59,23 @@ dürfen frei erfunden werden.
 | Elif | Schichtleitung Alsergrund | [Vorschlag] |
 | Tobias | Coffeebike | [Vorschlag] |
 
-**[offen]** Sind Nguyen und Alex ebenfalls Studierende, also Teil der zehn? Das wäre der
-schönere Fall: Sofias BI wird von zwei ihrer eigenen Studierenden gebaut, und es erklärt,
-warum ein Betrieb dieser Größe überhaupt eine BI-Expertin hat. Ich gehe bis auf Widerruf
-davon aus.
+**[gesetzt]** Nguyen ist Werkstudentin und damit Teil der zehn. Sofias BI wird von ihrer
+eigenen studentischen Hilfskraft gebaut — das erklärt, warum ein Betrieb dieser Größe
+überhaupt BI hat.
+
+### Das Zweigespann — die Regieanweisung des Falls
+
+**[gesetzt]** Sofia hat viele gute Ideen und ist in der Umsetzung tollpatschig. Sie liest eine
+Kennzahl, zieht sofort einen Schluss und handelt. Nguyen holt sie herunter: Sie fragt, was die
+Zahl eigentlich zählt, und gemeinsam wird daraus etwas Professionelles. Sofia lernt dabei
+jedes Mal etwas — sie ist nicht die Dumme, sondern die Ungeduldige.
+
+Dieses Muster trägt jedes Modul: **Sofia stellt die Frage falsch, Nguyen stellt sie richtig.**
+Alex, der Controller, bringt die Methode dazu — Plan gegen Ist, Abweichung, Ursache.
+
+**Nicht ausschreiben:** Das Vorbild sind Fernseh-Duos aus Enthusiast und Korrektiv. Die Namen
+gehören in die Vorlesung, nicht in die Module — sie altern schlecht und nicht jede Kohorte
+kennt sie.
 
 **Zu den Personalnummern:** Anna trägt E-042, obwohl es nur zehn Stellen gibt. Das ist kein
 Fehler, sondern Absicht — bei studentischer Belegschaft mit hoher Fluktuation sind
@@ -84,11 +107,33 @@ Dimensionsattribut ist — das Fahrrad oder der Platz, an dem es steht.
 **[gesetzt]** Sofia spart durch BI so viel Zeit, dass sie davon träumt, mit dem Coffeebike
 auf dem Markusplatz in Venedig zu verkaufen.
 
-**Verwendung:** als Pointe am Ende eines Moduls, nicht als Dauerwitz. Ein Modul, ein Auftritt
+**Verwendung:** als Pointe am Ende eines Moduls, nicht als Dauerwitz. **Ausnahme [gesetzt]:**
+In der Fallstudie *und* in der Balanced Scorecard darf er stehen — die Fallstudie ist
+optionales Beiwerk, das nicht jede Kohorte sieht, und dort ist der Traum das Thema und nicht
+nur die Pointe. Ein Modul, ein Auftritt
 — sonst nutzt er sich ab. Er eignet sich für den Abschlusskasten, wenn ein Modul zeigt, dass
 etwas automatisiert oder beschleunigt wurde. Beim Balanced-Scorecard-Modul ist er sogar
 inhaltlich anschlussfähig: Der Markusplatz ist Sofias Vision, und eine Vision gehört genau in
 die Mitte einer Scorecard.
+
+---
+
+## 4a. Die Storyline
+
+**[gesetzt]** Aus Maiks Foliensatz. Sie ist der Bogen, den die Fallstudie erzählt.
+
+| Station | Inhalt |
+|---|---|
+| **Once upon a time** | Sofia winkt: *„Hey there! I want my dream to come true."* Der Traum ist ein Kreislauf — Bohne, Röstung, Rad, Tasse — und das Bild dazu ist ein Coffeebike mit Espressomaschine und grünem Sonnenschirm |
+| **Business grows** | Fair gehandelte Bohnen aus Peru → Sofias Rösterei → Coffeebike und zwei Kaffeehäuser (B2C) → Bäckereien und andere Kaffeehäuser (B2B). Sofias Kommentar: *„Viel zu tun"* |
+| **Let's get pro** | Vier Schmerzpunkte: Zettelwirtschaft ist von gestern · der Steuerberater macht die Finanzen · der Umsatz sinkt langsam, aber stetig · die Beschwerden nehmen zu |
+
+**Der Steuerberater [gesetzt]:** Er macht die Finanzen — korrekt, vollständig und Wochen zu
+spät. Genau die Trennlinie, die Reichmanns Pyramide zieht: Rechnungswesen ist nicht
+Controlling. Das ist der stärkste Anschluss der Fallstudie an den Rest der Suite.
+
+**Der didaktische Kern des Falls:** Sofia arbeitet nicht zu wenig. Die Zahlen existieren
+bereits — sie liegen nur an vier Stellen und sind drei Wochen alt.
 
 ---
 
@@ -103,6 +148,21 @@ Alles illustrativ, aber modulübergreifend konsistent zu halten.
 - **Quartalssumme immer 145.500 €** — bleibt über alle SCD-Typen gleich. Das ist die Pointe:
   die Summe stimmt, nur die Zuordnung nicht.
 - Anna wechselt zum **01.03.2026** von Ringstraße nach Alsergrund
+
+### Die 10.000-Euro-Kampagne **[gesetzt]**
+
+Der Lehrfall des Zweigespanns, und er rechnet sich exakt aus den Zahlen oben:
+
+| | Ringstraße | Alsergrund | Summe |
+|---|---|---|---|
+| **Type 1** — Annas Q1 wandert komplett mit | 66.000 € | 79.500 € | 145.500 € |
+| **Type 2** — Jan/Feb bleiben, März wandert | 82.300 € | 63.200 € | 145.500 € |
+
+Sofia sieht den Type-1-Bericht, liest Alsergrund als das wachsende Haus und steckt **10.000 €**
+in eine Campus-Kampagne. Nguyen zeigt ihr denselben Bericht mit Type 2: Alsergrund ist nicht
+gewachsen, Anna ist umgezogen. Die Führung dreht sich um — Ringstraße liegt vorn.
+
+Die Summe stimmt in beiden Fassungen. Das ist die Pointe.
 
 ### Rösterei **[Vorschlag]**
 - Rohkaffee aus Peru, rund 6.000 kg im Jahr

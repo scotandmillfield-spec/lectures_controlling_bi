@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Once upon a time · Sofia's Coffee Dream</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2; --canvas:#F4F3F0;
+  --green:#2E9E6B; --red:#D9534F;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.2rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:20ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:clamp(1rem,1.6vw,1.18rem);font-weight:300;color:#3d3d40;max-width:64ch;margin:0}
+
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+
+.claim{font-size:clamp(1.12rem,2.2vw,1.45rem);font-weight:300;line-height:1.36;margin:0 0 24px;max-width:58ch;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--teal-dk)}
+h2.sec{font-size:1.2rem;font-weight:600;letter-spacing:-.012em;margin:34px 0 4px}
+p.sub{margin:0 0 16px;color:var(--grey);font-size:.92rem;max-width:76ch}
+.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:14px 0 0}
+
+/* ---------- Sofia speech ---------- */
+.say{display:grid;grid-template-columns:104px 1fr;gap:18px;align-items:center;margin-bottom:26px}
+.say>*{min-width:0}
+.sofia{width:104px;height:150px;flex:none}
+.bubble{position:relative;background:var(--paper);border:1.5px solid var(--grey-mid);
+  border-radius:22px;padding:22px 26px;box-shadow:var(--shadow)}
+.bubble::before,.bubble::after{content:"";position:absolute;left:-13px;top:50%;
+  width:0;height:0;border:11px solid transparent;border-right-color:var(--grey-mid);
+  transform:translateY(-50%)}
+.bubble::after{left:-10px;border-right-color:var(--paper)}
+.bubble .hey{font-size:1.05rem;font-weight:700;color:var(--orange);letter-spacing:.02em;margin:0 0 6px}
+.bubble p{margin:0;font-size:clamp(1.1rem,2.4vw,1.5rem);font-weight:300;line-height:1.28;color:var(--ink)}
+.bubble .who{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);margin-top:12px}
+
+/* ---------- the loop ---------- */
+.stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:14px 10px 6px;overflow-x:auto}
+svg#loop{width:100%;max-width:620px;margin:0 auto;height:auto;display:block}
+.node{cursor:help}
+.node .hit{fill:transparent}
+.node:focus-visible{outline:none}
+.node:hover .ring,.node:focus-visible .ring{opacity:1}
+.ring{fill:none;stroke:var(--teal-dk);stroke-width:2.5;opacity:0;transition:opacity .18s;pointer-events:none}
+svg#loop text{font-family:var(--sans);fill:var(--ink);pointer-events:none;dominant-baseline:middle}
+#loop .t-n{font-size:13.5px;font-weight:600}
+#loop .t-s{font-size:10.5px;fill:#5a5a5c}
+#loop .t-c{font-size:12px;fill:var(--grey);font-style:italic}
+.arc{fill:none;stroke:#B9B9B7;stroke-width:1.8}
+
+/* ---------- value chain ---------- */
+.chain{display:grid;grid-template-columns:repeat(4,1fr);gap:0;align-items:stretch}
+.chain>*{min-width:0}
+.stationwrap{display:flex;align-items:stretch;min-width:0}
+.station{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:16px 17px;cursor:help;flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;
+  position:relative;overflow:hidden;
+  transition:border-color .18s,transform .2s var(--ease),box-shadow .2s}
+.station::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--st,var(--teal))}
+.station:hover,.station:focus-visible{transform:translateY(-3px);box-shadow:var(--shadow);
+  border-color:transparent;outline:none}
+.station .sk{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+.station h3{margin:0;font-size:1rem;font-weight:700;letter-spacing:-.012em;line-height:1.2}
+.station p{margin:0;font-size:.82rem;color:#4a4a4d;line-height:1.4}
+.station .tagrow{display:flex;gap:5px;flex-wrap:wrap;margin-top:auto;padding-top:8px}
+.station .tagrow span{font-family:var(--mono);font-size:8.5px;letter-spacing:.07em;text-transform:uppercase;
+  background:var(--teal-xl);color:var(--teal-dk);border-radius:4px;padding:3px 6px}
+.arrow{display:flex;align-items:center;justify-content:center;width:26px;flex:none;color:var(--grey-mid)}
+.arrow svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4}
+
+/* ---------- pain cards ---------- */
+.pains{display:grid;gap:10px;max-width:900px}
+.pain{background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:16px 20px;cursor:help;
+  display:flex;align-items:baseline;gap:14px;min-width:0;
+  transition:transform .2s var(--ease),box-shadow .2s,background .2s}
+.pain:hover,.pain:focus-visible{transform:translateX(4px);box-shadow:var(--shadow);outline:none}
+.pain .pn{font-family:var(--mono);font-size:.7rem;opacity:.66;flex:none}
+.pain .pt{font-size:1.02rem;font-weight:600;line-height:1.3;min-width:0}
+.pain.p2{background:#2E9CBB} .pain.p3{background:#6EC0D4} .pain.p3 .pt,.pain.p3 .pn{color:#0F3D4A}
+.pain.p4{background:#9AD4E2} .pain.p4 .pt,.pain.p4 .pn{color:#0F3D4A}
+.pains .pain:nth-child(1){margin-right:0}
+.pains .pain:nth-child(2){margin-left:26px}
+.pains .pain:nth-child(3){margin-left:52px}
+.pains .pain:nth-child(4){margin-left:78px}
+
+/* ---------- people ---------- */
+.people{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.person{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:18px 19px;cursor:help;min-width:0;position:relative;overflow:hidden;
+  transition:border-color .18s,transform .2s var(--ease),box-shadow .2s}
+.person::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--pc,var(--teal))}
+.person:hover,.person:focus-visible{transform:translateY(-3px);box-shadow:var(--shadow);border-color:transparent;outline:none}
+.person .pk{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);margin-bottom:6px}
+.person h3{margin:0 0 5px;font-size:1.08rem;font-weight:700;letter-spacing:-.015em}
+.person .role{font-size:.84rem;color:var(--teal-dk);font-weight:600;margin:0 0 8px}
+.person p{margin:0;font-size:.85rem;color:#4a4a4d;line-height:1.45}
+
+/* ---------- the 10 000 case ---------- */
+.case{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:20px 22px;margin-top:14px}
+.casebar{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;margin-bottom:18px}
+.casebar .ct{font-size:1.05rem;font-weight:700;letter-spacing:-.015em;min-width:0}
+.seg{display:inline-flex;border:1px solid var(--grey-xl);background:var(--canvas);border-radius:var(--r);padding:4px;gap:4px}
+.seg button{appearance:none;border:0;background:transparent;cursor:pointer;font-family:var(--sans);
+  font-size:.86rem;font-weight:600;color:var(--grey);padding:9px 15px;border-radius:7px;transition:.16s}
+.seg button:hover{color:var(--teal-dk)}
+.seg button[aria-pressed="true"]{background:var(--teal-dk);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+
+.chart{display:grid;gap:14px;margin-bottom:16px}
+.brow{display:grid;grid-template-columns:130px 1fr 104px;gap:12px;align-items:center;min-width:0;cursor:help}
+.brow>*{min-width:0}
+.brow .bl{font-size:.9rem;font-weight:600;line-height:1.2}
+.brow .bl small{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--grey);font-weight:400;margin-top:2px}
+.brow .btrack{height:34px;background:var(--canvas);border-radius:4px;overflow:hidden;position:relative}
+.brow .btrack i{display:block;height:100%;border-radius:0 4px 4px 0;background:var(--teal);
+  transition:width .55s var(--ease),background .3s}
+.brow.lead .btrack i{background:var(--orange)}
+.brow .bv{font-family:var(--mono);font-size:1rem;font-weight:600;font-variant-numeric:tabular-nums;
+  text-align:right;color:var(--ink);white-space:nowrap}
+.brow:hover .btrack i{filter:brightness(1.05)}
+.brow .lead-flag{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:#A85B00;display:block;margin-top:3px;opacity:0}
+.brow.lead .lead-flag{opacity:1}
+
+.verdict{border-radius:8px;padding:14px 16px;font-size:.95rem;line-height:1.5;
+  background:var(--sand-xl);border:1px solid #E8DDC6}
+.verdict b{font-weight:700}
+.verdict .amt{font-family:var(--mono);font-weight:600;font-variant-numeric:tabular-nums}
+
+.tscroll{overflow-x:auto;margin-top:14px;border:1px solid var(--grey-xl);border-radius:8px}
+table.tbl{width:100%;min-width:520px;border-collapse:collapse;font-size:.85rem}
+table.tbl th{background:#F7F7F5;text-align:left;padding:9px 12px;font-family:var(--mono);
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid);white-space:nowrap}
+table.tbl td{padding:10px 12px;border-bottom:1px solid var(--grey-xl)}
+table.tbl tr:last-child td{border-bottom:0}
+table.tbl td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.tbl tr.sum td{font-weight:700;background:var(--teal-xl)}
+
+.learned{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.lc{background:var(--canvas);border:1px solid var(--grey-xl);border-radius:8px;padding:14px 15px;min-width:0}
+.lc .lk{font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--grey);margin-bottom:6px}
+.lc p{margin:0;font-size:.86rem;color:#3d3d40;line-height:1.45}
+
+/* ---------- detail panel & boxes ---------- */
+.detail{margin-top:16px;background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:22px 24px;min-height:150px}
+.detail .dk{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--teal-dk);margin:0 0 8px}
+.detail h4{margin:0 0 10px;font-size:1.16rem;font-weight:700;letter-spacing:-.015em}
+.detail p{margin:0 0 10px;font-size:.96rem;color:#3d3d40;max-width:82ch}
+.detail p:last-child{margin-bottom:0}
+.detail .warn{color:#B25E00;font-weight:600}
+.detail .fig{font-family:var(--mono);font-size:.86rem;background:var(--teal-xl);color:var(--teal-dk);
+  border-radius:5px;padding:5px 9px;display:inline-block}
+
+.readme{margin-top:20px;background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:20px 24px;
+  font-size:1rem;line-height:1.55}
+.readme.warn{background:var(--orange)}
+.readme b{font-weight:700}
+.readme code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.2);padding:1px 5px;border-radius:4px}
+.readme a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+.maprow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.mp{background:var(--paper);border:1px solid var(--grey-xl);border-radius:8px;padding:12px 13px;
+  min-width:0;text-decoration:none;display:block;transition:.2s}
+.mp .mk{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--grey);display:block;margin-bottom:5px}
+.mp b{display:block;font-size:.88rem;font-weight:600;color:var(--ink);line-height:1.25}
+.mp span.d{font-size:.78rem;color:var(--grey);display:block;margin-top:4px;line-height:1.35}
+.mp:hover,.mp:focus-visible{background:var(--teal-dk);border-color:var(--teal-dk);outline:none}
+.mp:hover b,.mp:focus-visible b,.mp:hover span.d,.mp:focus-visible span.d{color:#fff}
+.mp:hover .mk,.mp:focus-visible .mk{color:#8FD4E6}
+.mp.soon{cursor:default;opacity:.62}
+.mp.soon:hover{background:var(--paper);border-color:var(--grey-xl)}
+.mp.soon:hover b{color:var(--ink)} .mp.soon:hover span.d{color:var(--grey)} .mp.soon:hover .mk{color:var(--grey)}
+
+.pointe{margin-top:34px;background:var(--orange);color:#fff;border-radius:var(--r);padding:26px 28px}
+.pointe .pk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin:0 0 10px}
+.pointe p{margin:0;font-size:clamp(1.05rem,2vw,1.3rem);font-weight:300;line-height:1.42;max-width:66ch}
+.pointe p b{font-weight:700}
+
+footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+footer a{color:var(--teal-dk)}
+
+.tip{position:fixed;z-index:60;pointer-events:none;opacity:0;transform:translateY(4px);
+  transition:opacity .14s,transform .14s;background:var(--ink);color:#fff;border-radius:9px;
+  padding:12px 14px;font-size:.82rem;line-height:1.5;max-width:310px;box-shadow:0 10px 30px -8px rgba(0,0,0,.45)}
+.tip.on{opacity:1;transform:translateY(0)}
+.tip .th{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#8FD4E6;margin:0 0 5px}
+.tip p{margin:0}
+.tip .extra{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.18);
+  color:var(--orange);font-weight:600}
+
+@media (max-width:960px){
+  .chain{grid-template-columns:1fr 1fr}
+  .people,.learned,.maprow{grid-template-columns:1fr 1fr}
+  .pains .pain{margin-left:0!important}
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px 56px}
+  .chain,.people,.learned,.maprow{grid-template-columns:1fr}
+  .say{grid-template-columns:1fr}
+  .sofia{margin:0 auto}
+  .brow{grid-template-columns:1fr;gap:6px}
+  .brow .bv{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Sofia's Coffee Dream · Case study</p>
+  <h1>Once upon a time, <em>there was a bicycle</em></h1>
+  <p class="lede">Before the star schemas and the scorecards there is a person with an idea, a bicycle and an espresso machine strapped to it. This module tells that story — who Sofia is, how the business grew, why the way she runs it stopped working, and what happened the day she read a chart too quickly. Nothing else in the library depends on it: show it when the room needs a case, skip it when it does not.</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Sofia's Coffee Dream">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> The dream</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> The business</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Let's get pro</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Sofia &amp; Nguyen</button>
+</div>
+
+<!-- ============================ TAB A ============================ -->
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <div class="say">
+    <svg class="sofia" viewBox="0 0 104 150" aria-hidden="true">
+      <g fill="none" stroke="#1D1D1F" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="46" cy="34" r="20"/>
+        <path d="M31 20 q15 -12 30 0"/>
+        <path d="M64 20 q10 -4 9 8 q-1 8 -8 7"/>
+        <circle cx="39" cy="33" r="2.6" fill="#1D1D1F"/>
+        <circle cx="53" cy="33" r="2.6" fill="#1D1D1F"/>
+        <path d="M38 42 q8 7 16 0"/>
+        <path d="M46 54 L46 96"/>
+        <path d="M46 96 L36 130 M46 96 L58 130"/>
+        <ellipse cx="33" cy="136" rx="8" ry="5"/>
+        <ellipse cx="61" cy="136" rx="8" ry="5"/>
+        <path d="M46 62 L26 84" /><ellipse cx="23" cy="88" rx="5" ry="7"/>
+        <path d="M46 62 L72 44" /><ellipse cx="76" cy="40" rx="5" ry="7"/>
+      </g>
+      <path d="M46 58 L28 108 L64 108 Z" fill="#B7E8A6" stroke="#1D1D1F" stroke-width="2.1" stroke-linejoin="round"/>
+      <path d="M46 54 L46 58" stroke="#1D1D1F" stroke-width="2.1"/>
+    </svg>
+    <div class="bubble">
+      <p class="hey">Hey there!</p>
+      <p>I want my dream to come true.</p>
+      <p class="who">Sofia · owner</p>
+    </div>
+  </div>
+
+  <p class="claim">Most case studies open with a number. This one opens with a person who <b>wants something</b> — and the whole business is the machine she built to get it.</p>
+
+  <h2 class="sec">The dream is a loop, not a destination</h2>
+  <p class="sub">Sofia does not think in departments. She thinks in a circle that has to keep turning: buy well, roast well, serve well, and the guest comes back and pays for the next sack. Hover any station.</p>
+
+  <div class="stage">
+    <svg id="loop" viewBox="0 0 620 400" role="img"
+      aria-label="A four-station loop: green beans, roasting, the cup served to a guest, and the guest returning, which pays for the next beans">
+    </svg>
+  </div>
+
+  <div class="detail" id="detA">
+    <p class="dk">Why start here</p>
+    <h4>Every figure in this library measures one hop of this loop</h4>
+    <p>The roasting loss measures the second hop. Revenue per guest measures the third. The fourteen-day return rate measures the fourth. Waiting time at the counter measures whether the third hop damages the fourth. A key figure that cannot be placed on this circle is usually a figure nobody needed.</p>
+    <p class="warn">Hover a station to see what it costs, what it earns, and where it is measured.</p>
+  </div>
+
+  <h2 class="sec">Where it began</h2>
+  <p class="sub">Not with a shop. With a bicycle, an espresso machine and a green umbrella.</p>
+
+  <div class="readme">
+    <b>The coffee bike is the oldest part of the business, not the newest.</b> Everything else grew out of it: the first coffee house because the queue at the bike got too long, the roastery because buying roasted beans meant somebody else decided how they tasted, the wholesale line because the roastery had capacity left over. That order matters when you look at the data later — the bike is the only sales point with no fixed address, and it is in the location dimension because it was there first, not because someone wanted an edge case.
+  </div>
+  <p class="hint">Hover or tab through the four stations of the loop</p>
+</section>
+
+<!-- ============================ TAB B ============================ -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b">
+  <p class="claim">Four stations, one bean. <b>Every module in this library plugs in somewhere along this line</b> — hover a station to see what happens there and which session covers it.</p>
+
+  <div class="chain" id="chain"></div>
+
+  <div class="detail" id="detB">
+    <p class="dk">The value chain</p>
+    <h4>From a cooperative in Peru to a cup on the Ringstraße</h4>
+    <p>Read left to right and it is a supply chain. Read it as a data problem and it is four systems that do not know about each other: an import file, a roasting log, a till, and a wholesale order book. Every one of them calls a kilogram of coffee something different, and two of them are not even sure what a customer is.</p>
+    <p class="warn">Hover any station for its role, its figures and the module that covers it.</p>
+  </div>
+
+  <div class="readme warn">
+    <b>The loop worth pointing at.</b> Sofia sells roasted beans to seven bakeries — and buys her cake and pastry from bakeries, partly the same ones. The same business relationship appears once as a customer and once as a supplier, under two different numbers, in two different systems. Nobody planned this; it is what happens when a business grows by saying yes. It is also the cleanest example in the whole case of why master data is a discipline and not a spreadsheet.
+  </div>
+
+  <h2 class="sec">Which session covers which station</h2>
+  <p class="sub">The case is the map. These are the modules you can open from here.</p>
+  <div class="maprow" id="maprow"></div>
+  <p class="hint">Hover a station · the cards below are links into the other modules</p>
+</section>
+
+<!-- ============================ TAB C ============================ -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c">
+  <p class="claim">The business grew. The way it is run did not. Four sentences from Sofia's own stocktake — and they <b>escalate</b>, which is the part worth noticing.</p>
+
+  <div class="pains" id="pains"></div>
+
+  <div class="detail" id="detC">
+    <p class="dk">Reading the list</p>
+    <h4>These are not four problems. They are one problem and three symptoms.</h4>
+    <p>Pen and paper is the cause. The tax advisor owning the numbers is the consequence — if nobody inside the business can produce a figure, somebody outside will, on their own schedule. Falling revenue and rising complaints are what that looks like from the outside, months later, when it is expensive to fix.</p>
+    <p class="warn">Hover each line for what it actually means in Sofia's week.</p>
+  </div>
+
+  <div class="readme">
+    <b>The tax advisor is not the villain.</b> His figures are correct, complete and auditable — and they arrive ten weeks after the quarter ends. That is exactly right for the tax office and useless for a decision on a Tuesday morning. The line between the two is the line Reichmann draws through his pyramid: accounting systems are not controlling, they are the floor controlling stands on. If you want the theory behind Sofia's complaint, it is in the <a href="controlling-pyramid.html">Controlling Pyramid</a> module.
+  </div>
+
+  <h2 class="sec">The diagnosis</h2>
+  <p class="sub">Worth saying out loud before anyone proposes a tool.</p>
+
+  <div class="readme warn">
+    <b>Sofia does not work too little. She works more hours than she ever has.</b> The figures she needs already exist — the till writes every line, the roaster logs every batch, the ERP knows every sack from Peru. They are simply in four places, in four shapes, and three weeks old by the time anyone adds them up. That is not an effort problem and it is not a software problem. It is the problem this entire course is about.
+  </div>
+  <p class="hint">Hover any of the four lines</p>
+</section>
+
+<!-- ============================ TAB D ============================ -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d">
+  <p class="claim">Sofia has the ideas. Nguyen has the questions. <b>The business needs both</b>, and the interesting moments are where the two collide.</p>
+
+  <div class="people" id="people"></div>
+
+  <div class="detail" id="detD">
+    <p class="dk">The double act</p>
+    <h4>Sofia is not the fool — she is the impatient one</h4>
+    <p>She reads a figure, draws a conclusion and acts, often on the same afternoon. That instinct built the business: nobody cautious straps an espresso machine to a bicycle. It is also what makes her expensive when the figure means something other than what it looks like.</p>
+    <p>Nguyen does not have better ideas. She has one better habit: before believing a number, she asks what it counts. That question is worth ten thousand euros exactly once — after that, Sofia asks it herself.</p>
+    <p class="warn">Hover a person for their role in the case.</p>
+  </div>
+
+  <h2 class="sec">The ten thousand euro afternoon</h2>
+  <p class="sub">The worked example. Same quarter, same receipts, same total — one modelling decision apart. Switch between the two reports and watch the leader change places.</p>
+
+  <div class="case">
+    <div class="casebar">
+      <span class="ct">Revenue by coffee house · Q1 2026</span>
+      <div class="seg" id="seg" role="group" aria-label="Report version">
+        <button type="button" data-v="t1" aria-pressed="true">The report Sofia saw</button>
+        <button type="button" data-v="t2" aria-pressed="false">The report Nguyen built</button>
+      </div>
+    </div>
+
+    <div class="chart" id="chart"></div>
+    <div class="verdict" id="verdict"></div>
+
+    <div class="tscroll">
+      <table class="tbl">
+        <thead>
+          <tr><th>Coffee house</th><th style="text-align:right">Report Sofia saw</th>
+              <th style="text-align:right">Report Nguyen built</th><th style="text-align:right">Difference</th></tr>
+        </thead>
+        <tbody id="tblBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="readme">
+    <b>Nothing was broken.</b> No figure was wrong, no receipt was lost, and the quarter added up to 145 500 € in both reports. Anna simply moved from Ringstraße to Alsergrund on 1 March, and the first report quietly credited her whole quarter to wherever she happens to work today. Sofia read that as growth in Alsergrund and put 10 000 € into a campus campaign for the house that had not grown. The theory behind the two reports — and why the sum stays the same while the truth does not — is the <a href="scd-dashboard.html">Slowly Changing Dimensions</a> module.
+  </div>
+
+  <h2 class="sec">What Sofia took away</h2>
+  <div class="learned" id="learned"></div>
+  <p class="hint">Switch the report above · hover a bar or a person</p>
+</section>
+
+<div class="pointe">
+  <p class="pk">The one sentence</p>
+  <p><b>Sofia never wanted a dashboard. She wanted her afternoons back.</b> Every model, every star schema and every scorecard in this library exists for one reason: so that the answer takes a minute instead of a fortnight — and so that one day she can finally say it and mean it. <em>Right, then I'll cycle to Piazza San Marco.</em></p>
+</div>
+
+<footer>
+  Teaching material · Sofia's Coffee Dream is a Viennese business with two coffee houses, its own roastery, a coffee bike and a wholesale line supplying bakeries and other coffee houses with roasted beans. Fair-trade green coffee is imported from Peru. The storyline follows the course slides; the Q1 revenue figures, the roasting loss and the 10 000 € campaign are the case figures used across the other modules and are illustrative.
+</footer>
+
+</div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* =====================================================================
+   1 · TOOLTIP REGISTRY
+   ===================================================================== */
+const REG = {
+  /* ---- the loop ---- */
+  beans:["Green beans","Fair-trade lots from a cooperative in Peru, bought once or twice a year and paid in dollars on shipment. Everything downstream is priced off this sack — and Sofia controls neither the harvest nor the exchange rate.","≈ 6 000 kg a year · 6.40 € per kg"],
+  roast:["The roastery","Sofia's only real production stage, and the only place a kilogram changes meaning: 100 kg of green coffee leave the drum as 84 kg of roasted. The missing 16 % is paid for and never sold.","12 kg batches · 16 % roasting loss"],
+  cup:["The cup","Where the loop finally earns money — across the counter in two coffee houses, off the bike, or by the sack to a bakery. Four different ways of selling the same bean, four different figures.","7.20 € per guest · 4:10 min wait"],
+  back:["They come back","The hop nobody bills for and everything depends on. If the guest returns, the sack in Peru is already paid for. If they do not, no amount of roasting skill helps.","38 % return within 14 days · target 50 %"],
+
+  /* ---- value chain ---- */
+  st1:["Fair-trade green coffee · Peru","A cooperative, one or two shipments a year, customs papers, and an exchange rate fixed on the day of purchase. The money leaves the account roughly four months before the coffee is sold — which is why this business needs a liquidity figure and not just a profit figure.","Covered in: BI reference architecture (ERP), Controlling Pyramid (sourcing)"],
+  st2:["Sofia's roastery","Roast profiles, 12 kg batches, weighed in green and weighed out roasted. The gap between the two numbers is the single figure with the most leverage in the whole business, and no line of the profit and loss account is called by its name.","Covered in: Controlling Pyramid (production, the special part of the RL system)"],
+  st3:["B2C · two coffee houses and the bike","Ringstraße runs on tourists and commuters, evenly, with a bigger bill. Alsergrund runs on students and follows the semester. The coffee bike has no fixed address at all — its location changes daily, which is the awkward question at the heart of the location dimension.","Covered in: Slowly Changing Dimensions, Balanced Scorecard"],
+  st4:["B2B · bakeries and other coffee houses","Two wholesale segments that behave nothing alike. Seven bakeries take small regular deliveries — and sell Sofia her cake, so they sit on both sides of the ledger. Other Viennese coffee houses take larger sacks and negotiate harder on price.","Covered in: ETL and data quality (planned), master data modelling"],
+
+  /* ---- pains ---- */
+  pn1:["Pen and paper — business was yesterday","Orders on a pad, stock in Sofia's head, the roast log in a notebook by the drum. It worked for one bicycle. It does not work for two houses, a roastery and a wholesale round, and the failure is silent: nothing breaks, things just stop being knowable."],
+  pn2:["The tax advisor is in charge of the financials","Correct, complete, auditable — and ten weeks after the quarter ends. Sofia has outsourced not just the bookkeeping but the ability to answer a question about her own business. She finds out how March went in June."],
+  pn3:["Revenue decreases slowly but constantly","The dangerous shape of a problem: too small to notice in any single week, unmistakable across a year. By the time it is visible in the annual accounts, four quarters of causes have been mixed together and none of them can be separated any more."],
+  pn4:["Complaints are increasing","The only figure on this list that is actually a leading indicator — and the only one nobody is counting. Guests complain months before they stop coming, which makes this the cheapest warning in the business and the one being thrown away."],
+
+  /* ---- people ---- */
+  sofia:["Sofia · owner","Built the business out of a bicycle, which tells you everything about her appetite for risk and her patience for detail. She reads a figure, draws a conclusion and acts, often the same afternoon. That instinct is why the business exists — and why it occasionally costs ten thousand euros."],
+  nguyen:["Nguyen · working student","Studies controlling and business intelligence, one of the ten students on the payroll, and the person who actually builds Sofia's reports. She does not have better ideas than Sofia. She has one better habit: before believing a number, she asks what it counts."],
+  alex:["Alex · controller","Brings the method the other two lack: plan against actual, deviation, cause. Where Sofia asks whether the month was good and Nguyen asks what the figure counts, Alex asks what it was supposed to be — which is the question that turns a report into a decision."],
+
+  /* ---- bars ---- */
+  bRing:["Kaffeehaus Ringstraße","Central, steady, higher bill per guest. Tourists and commuters rather than a semester rhythm."],
+  bAlser:["Kaffeehaus Alsergrund","Next to the university. High footfall, smaller bill, and demand that follows the academic calendar whether anyone markets to it or not."]
+};
+
+const tip = document.getElementById("tip");
+const LIVE = {"p-a":["detA","Station of the loop"], "p-b":["detB","Value chain"],
+              "p-c":["detC","Pain point"],           "p-d":["detD","The cast"]};
+
+function show(elem, ev){
+  const d = REG[elem.dataset.k]; if(!d) return;
+  tip.innerHTML = `<p class="th">${d[0]}</p><p>${d[1]}</p>` + (d[2]?`<p class="extra">${d[2]}</p>`:"");
+  tip.classList.add("on");
+  move(elem, ev);
+  const panel = elem.closest(".panel");
+  if(panel && LIVE[panel.id]){
+    const [boxId, kicker] = LIVE[panel.id];
+    document.getElementById(boxId).innerHTML =
+      `<p class="dk">${kicker}</p><h4>${d[0]}</h4><p>${d[1]}</p>` +
+      (d[2]?`<p><span class="fig">${d[2]}</span></p>`:"");
+  }
+}
+function move(elem, ev){
+  let x,y;
+  if(ev && ev.clientX){ x = ev.clientX+16; y = ev.clientY+16; }
+  else { const r = elem.getBoundingClientRect(); x = r.left + r.width/2; y = r.top - 8; }
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  if(x+w > innerWidth-12) x = innerWidth-w-12;
+  if(y+h > innerHeight-12) y = y-h-32;
+  if(y < 8) y = 8;
+  if(x < 8) x = 8;
+  tip.style.left = x+"px"; tip.style.top = y+"px";
+}
+function hideTip(){ tip.classList.remove("on"); }
+
+const SEL = "[data-k]";
+document.addEventListener("pointerover", e=>{
+  const n = e.target.closest && e.target.closest(SEL); if(n) show(n,e);
+});
+document.addEventListener("pointermove", e=>{
+  const n = e.target.closest && e.target.closest(SEL); if(n) move(n,e);
+});
+document.addEventListener("pointerout", e=>{
+  const from = e.target.closest && e.target.closest(SEL); if(!from) return;
+  const to = e.relatedTarget && e.relatedTarget.closest ? e.relatedTarget.closest(SEL) : null;
+  if(to !== from) hideTip();
+});
+document.addEventListener("focusin", e=>{
+  const n = e.target.closest && e.target.closest(SEL); if(n) show(n,null);
+});
+document.addEventListener("focusout", e=>{
+  if(e.target.closest && e.target.closest(SEL)) hideTip();
+});
+addEventListener("scroll", hideTip, {passive:true});
+
+/* =====================================================================
+   2 · THE LOOP
+   ===================================================================== */
+(function buildLoop(){
+  const NS="http://www.w3.org/2000/svg";
+  const svg=document.getElementById("loop");
+  const el=(n,a={})=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+  const add=(p,n,a)=>{const e=el(n,a);p.appendChild(e);return e;};
+  const defs=add(svg,"defs");
+  const m=add(defs,"marker",{id:"la",viewBox:"0 0 10 10",refX:"8",refY:"5",
+    markerWidth:"5.5",markerHeight:"5.5",orient:"auto-start-reverse"});
+  add(m,"path",{d:"M0,1 L9,5 L0,9 z",fill:"#B9B9B7"});
+
+  const CX=310, CY=200, R=126, NR=58;
+  const NODES=[
+    ["beans", -90, "Green beans", "Peru · fair trade"],
+    ["roast",   0, "The roastery", "12 kg · −16 %"],
+    ["cup",    90, "The cup", "counter · bike · sack"],
+    ["back",  180, "They come back", "or they don't"]
+  ];
+  const rad = d => d*Math.PI/180;
+  const px = (a,r) => [CX + r*Math.cos(rad(a)), CY + r*Math.sin(rad(a))];
+
+  /* arcs first, so nodes sit on top */
+  NODES.forEach(([,a],i)=>{
+    const b = NODES[(i+1)%NODES.length][1];
+    const [x1,y1] = px(a+27, R);
+    const [x2,y2] = px((a===180 ? 270 : b)-27, R);
+    add(svg,"path",{class:"arc",d:`M ${x1.toFixed(1)} ${y1.toFixed(1)} A ${R} ${R} 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)}`,
+      "marker-end":"url(#la)"});
+  });
+
+  NODES.forEach(([id,a,name,sub])=>{
+    const [x,y] = px(a, R);
+    const g = add(svg,"g",{class:"node",tabindex:"0",role:"button","data-k":id,"aria-label":REG[id][0]});
+    add(g,"circle",{cx:x,cy:y,r:NR,fill:"#E6F4F8",stroke:"#209CBD","stroke-width":1.6});
+    const t1=add(g,"text",{x:x,y:y-8,"text-anchor":"middle",class:"t-n"});
+    const words=name.split(" ");
+    if(words.length>2){
+      t1.textContent=words.slice(0,2).join(" ");
+      const t1b=add(g,"text",{x:x,y:y+7,"text-anchor":"middle",class:"t-n"});
+      t1b.textContent=words.slice(2).join(" ");
+      const t2=add(g,"text",{x:x,y:y+24,"text-anchor":"middle",class:"t-s"}); t2.textContent=sub;
+    } else {
+      t1.textContent=name;
+      const t2=add(g,"text",{x:x,y:y+12,"text-anchor":"middle",class:"t-s"}); t2.textContent=sub;
+    }
+    add(g,"circle",{class:"ring",cx:x,cy:y,r:NR+5});
+    add(g,"circle",{class:"hit",cx:x,cy:y,r:NR+3});
+  });
+
+  const c1=add(svg,"text",{x:CX,y:CY-11,"text-anchor":"middle",class:"t-c"});
+  c1.textContent="keep the circle";
+  const c2=add(svg,"text",{x:CX,y:CY+9,"text-anchor":"middle",class:"t-c"});
+  c2.textContent="turning";
+})();
+
+/* =====================================================================
+   3 · VALUE CHAIN, MAP, PAINS, PEOPLE
+   ===================================================================== */
+const CHAIN=[
+ ["st1","Step 01","Fair-trade green coffee","A cooperative in Peru. Paid in dollars, months before it is sold.",
+  ["≈6 000 kg / yr","6.40 € / kg","USD"],"#0F4C5C"],
+ ["st2","Step 02","Sofia's roastery","The only production stage — and the only place a kilogram changes meaning.",
+  ["12 kg batches","−16 % loss","roast profiles"],"#209CBD"],
+ ["st3","Step 03","B2C · houses and bike","Ringstraße, Alsergrund and a bicycle with no fixed address.",
+  ["Ringstraße","Alsergrund","Coffeebike"],"#5FBBD3"],
+ ["st4","Step 04","B2B · wholesale","Seven bakeries — who also sell her the cake — and other coffee houses.",
+  ["7 bakeries","coffee houses","by the sack"],"#B5852C"]
+];
+const ARROW=`<span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>`;
+document.getElementById("chain").innerHTML = CHAIN.map(([id,step,name,txt,tags,col],i)=>
+ `<div class="stationwrap">
+    <div class="station" tabindex="0" data-k="${id}" style="--st:${col}">
+      <p class="sk">${step}</p><h3>${name}</h3><p>${txt}</p>
+      <div class="tagrow">${tags.map(t=>`<span>${t}</span>`).join("")}</div>
+    </div>${i<CHAIN.length-1?ARROW:""}
+  </div>`).join("");
+
+const MAP=[
+ ["scd-dashboard.html","Station 03","Slowly Changing Dimensions","Anna moves house on 1 March — and the ten thousand euro mistake in tab 04 happens right here."],
+ ["bi-reference-architecture.html","Stations 01–04","BI reference architecture","The whole road from the till roll to the management cockpit, layer by layer."],
+ ["controlling-pyramid.html","Stations 01–02","Controlling Pyramid","Why the tax advisor's figures are accounting and not controlling."],
+ ["balanced-scorecard.html","The loop","Balanced Scorecard","The dream, written down as objectives that can be measured."]
+];
+document.getElementById("maprow").innerHTML = MAP.map(([href,k,title,d])=>
+ `<a class="mp" href="${href}"><span class="mk">${k}</span><b>${title}</b><span class="d">${d}</span></a>`).join("");
+
+const PAINS=[
+ ["pn1","01","„Pen &amp; paper“ — business was yesterday",""],
+ ["pn2","02","The tax advisor is in charge of the financials","p2"],
+ ["pn3","03","…but the revenue decreases slowly and constantly","p3"],
+ ["pn4","04","…and the complaints are increasing","p4"]
+];
+document.getElementById("pains").innerHTML = PAINS.map(([id,n,t,cls])=>
+ `<div class="pain ${cls}" tabindex="0" data-k="${id}"><span class="pn">${n}</span><span class="pt">${t}</span></div>`).join("");
+
+const PEOPLE=[
+ ["sofia","The ideas","Sofia","Owner","Built a business out of a bicycle. Decides fast, checks later.","#B5852C"],
+ ["nguyen","The questions","Nguyen","Working student · controlling and BI","Builds the reports. Asks what a number actually counts.","#209CBD"],
+ ["alex","The method","Alex","Controller","Plan against actual, deviation, cause. Turns a report into a decision.","#0F4C5C"]
+];
+document.getElementById("people").innerHTML = PEOPLE.map(([id,k,name,role,txt,col])=>
+ `<div class="person" tabindex="0" data-k="${id}" style="--pc:${col}">
+    <p class="pk">${k}</p><h3>${name}</h3><p class="role">${role}</p><p>${txt}</p></div>`).join("");
+
+/* =====================================================================
+   4 · THE TEN THOUSAND EURO AFTERNOON
+   ===================================================================== */
+const HOUSES=[
+  {k:"bRing",  name:"Kaffeehaus Ringstraße",  sub:"central · commuters", t1:66000, t2:82300},
+  {k:"bAlser", name:"Kaffeehaus Alsergrund",  sub:"university · students", t1:79500, t2:63200}
+];
+const SCALE=90000;
+const eur = n => n.toLocaleString("de-DE").replace(/\./g," ") + " €";
+
+const VERDICT={
+ t1:`<b>Alsergrund leads by 13 500 €</b> — a fifth ahead of Ringstraße. Sofia's reading: the campus house is taking off, and the students are the future. Her decision that same afternoon: <span class="amt">10 000 €</span> into a semester campaign for Alsergrund.`,
+ t2:`<b>Ringstraße leads by 19 100 €</b> — thirty per cent ahead. Alsergrund never grew. Anna moved there on 1 March, and the first report handed her whole quarter to her new house. The <span class="amt">10 000 €</span> went to the wrong address.`
+};
+
+let version="t1";
+function renderCase(){
+  const vals = HOUSES.map(h=>h[version]);
+  const lead = vals[0] >= vals[1] ? 0 : 1;
+  document.getElementById("chart").innerHTML = HOUSES.map((h,i)=>{
+    const v = h[version], w = (v/SCALE*100).toFixed(1);
+    return `<div class="brow ${i===lead?"lead":""}" tabindex="0" data-k="${h.k}">
+      <span class="bl">${h.name.replace("Kaffeehaus ","")}<small>${h.sub}</small>
+        <span class="lead-flag">leads this report</span></span>
+      <span class="btrack"><i style="width:${w}%"></i></span>
+      <span class="bv">${eur(v)}</span>
+    </div>`;
+  }).join("");
+  document.getElementById("verdict").innerHTML = VERDICT[version];
+  document.querySelectorAll("#seg button").forEach(b=>
+    b.setAttribute("aria-pressed", String(b.dataset.v === version)));
+  hideTip();
+}
+document.getElementById("seg").addEventListener("click", e=>{
+  const b = e.target.closest("button"); if(!b) return;
+  version = b.dataset.v; renderCase();
+});
+
+document.getElementById("tblBody").innerHTML =
+  HOUSES.map(h=>{
+    const d = h.t2 - h.t1;
+    return `<tr><td>${h.name}</td><td class="n">${eur(h.t1)}</td><td class="n">${eur(h.t2)}</td>
+      <td class="n">${d>0?"+":"−"}${eur(Math.abs(d)).replace(" €","")} €</td></tr>`;
+  }).join("") +
+  `<tr class="sum"><td>Total Q1 2026</td>
+     <td class="n">${eur(HOUSES.reduce((s,h)=>s+h.t1,0))}</td>
+     <td class="n">${eur(HOUSES.reduce((s,h)=>s+h.t2,0))}</td>
+     <td class="n">0 €</td></tr>`;
+
+const LEARNED=[
+ ["Ask what it counts","Before believing a figure, ask which rows it summed and which version of the dimension it used. Nguyen's whole contribution is that one question, asked before the decision instead of after it."],
+ ["A correct total can hide a wrong split","Both reports add up to 145 500 €. Reconciliation catches data that went missing; it does not catch data that went to the wrong place. The sum agreeing proves less than it appears to."],
+ ["The fix is upstream","By the time the chart is on screen, the decision has already been made — in the load job, months earlier, by whoever chose how to record a change. No amount of care in the report can undo it."]
+];
+document.getElementById("learned").innerHTML = LEARNED.map(([k,t])=>
+ `<div class="lc"><p class="lk">${k}</p><p>${t}</p></div>`).join("");
+
+renderCase();
+
+/* =====================================================================
+   5 · TABS
+   ===================================================================== */
+const tabs=[...document.querySelectorAll('[role="tab"]')], keys=["a","b","c","d"];
+function select(i){
+  tabs.forEach((t,j)=>{
+    const on = i===j;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    document.getElementById("p-"+keys[j]).hidden = !on;
+  });
+  hideTip();
+}
+tabs.forEach((t,i)=>{
+  t.addEventListener("click", ()=>select(i));
+  t.addEventListener("keydown", e=>{
+    const d = e.key==="ArrowRight" ? 1 : e.key==="ArrowLeft" ? -1 : 0;
+    if(!d) return; e.preventDefault();
+    const n = (i+d+tabs.length)%tabs.length; tabs[n].focus(); select(n);
+  });
+});
+select(0);
+</script>
+</body>
+</html>
