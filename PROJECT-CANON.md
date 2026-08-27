@@ -1,4 +1,4 @@
-# Sofia's Coffee World — Projektkanon
+# Sofia's Coffee Dream — Projektkanon
 
 Grundlage für alle Lehrmodule. Zu Beginn einer neuen Sitzung mitgeben, dann bleiben die
 Module untereinander stimmig.
