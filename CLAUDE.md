@@ -3,8 +3,29 @@
 Interaktive Lehrmodule für Vorlesungen zu Business Intelligence und Controlling.
 Ein durchgehender Fall — ein Wiener Kaffeehausbetrieb — trägt alle Themen.
 
-**Sprache:** Inhalte und Oberflächen der Module auf Englisch. Commit-Nachrichten,
-Pull-Request-Beschreibungen und Kommunikation auf Deutsch.
+**Sprache:** Commit-Nachrichten, Pull-Request-Beschreibungen und Kommunikation immer auf
+Deutsch. Für die Module gilt:
+
+- **Englisch ist der Normalfall.** Ein neues Modul entsteht auf Englisch, solange nichts
+  anderes vereinbart ist.
+- **Deutsch ist zulässig, wo es die Sache trägt** — etwa bei einem Beispiel aus einem
+  deutschen Rechts- oder Praxisfeld, in dem die Fachbegriffe übersetzt schief würden
+  (Pflegesatz, Personalkostenquote, Jahresabschluss). Nicht aus Bequemlichkeit.
+- **Die Sprache muss sichtbar sein.** Ein deutscher Reiter trägt `DE` in der Beschriftung,
+  ein durchgehend deutsches Modul einen Hinweis in der Kachel auf der Startseite. Niemand
+  soll beim Klicken überrascht werden.
+- **Innerhalb eines Reiters wird nicht gemischt.** Der Reiter ist die kleinste Einheit, die
+  eine Sprache hat. Halbe Sätze in der einen und Tooltips in der anderen Sprache sind der
+  Fehler, den diese Regel verhindern soll.
+- **Namen und Zahlen des Kanons bleiben unverändert.** Sofia heißt in beiden Sprachen Sofia,
+  Ringstraße bleibt Ringstraße, 145.500 € bleiben 145.500 €. Übersetzt werden Fließtext und
+  Bedienelemente, nicht der Fall.
+
+**[offen]** Ob die Suite später vollständig zweisprachig wird und die Sprache über einen
+Schalter umgestellt werden kann, ist noch nicht entschieden. Technisch führt der Weg über
+einen URL-Parameter (`?lang=de`), weil `localStorage` in diesem Projekt ausgeschlossen ist
+und eine Sprachwahl sonst beim Seitenwechsel verloren geht. Bis zu einer Entscheidung gelten
+die Punkte oben.
 
 ---
 
