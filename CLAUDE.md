@@ -21,11 +21,28 @@ Deutsch. Für die Module gilt:
   Ringstraße bleibt Ringstraße, 145.500 € bleiben 145.500 €. Übersetzt werden Fließtext und
   Bedienelemente, nicht der Fall.
 
-**[offen]** Ob die Suite später vollständig zweisprachig wird und die Sprache über einen
-Schalter umgestellt werden kann, ist noch nicht entschieden. Technisch führt der Weg über
-einen URL-Parameter (`?lang=de`), weil `localStorage` in diesem Projekt ausgeschlossen ist
-und eine Sprachwahl sonst beim Seitenwechsel verloren geht. Bis zu einer Entscheidung gelten
-die Punkte oben.
+### Der Sprachschalter
+
+**[gesetzt]** Zweisprachig sind bisher `index.html` und `sofias-coffee-dream.html`. Die
+übrigen Module folgen den Punkten oben, bis sie umgestellt werden.
+
+- **Deutsch ist die Grundfassung.** Ohne Parameter erscheint Deutsch. `?lang=en` schaltet um.
+- **Die Wahl reist als URL-Parameter**, nicht im Speicher — `localStorage` bleibt
+  ausgeschlossen. Die Startseite hängt `?lang=en` an die Kachel-Links, jedes Modul liest
+  `location.search` und hängt den Parameter an seine eigenen Querverweise weiter.
+- **Ein Textfeld ist entweder ein String** — dann gilt er in beiden Sprachen, etwa ein Name
+  oder eine Zahl — **oder `{de:"…", en:"…"}`**. Fehlt `de`, erscheint `en`. Damit lässt sich
+  ein Modul schrittweise übersetzen, ohne dass je eine halbe Seite entsteht.
+- **Statischer Text im Markup trägt `data-t="schlüssel"`** und wird aus dem `UI`-Wörterbuch
+  gefüllt; `data-tp` setzt einen Platzhalter, `data-ta` ein `aria-label`.
+- **`$QS` in einem `href` innerhalb eines Textbausteins** wird beim Einsetzen durch den
+  aktuellen Parameter ersetzt, damit Querverweise die Sprache mitnehmen.
+- **`<html lang>` und `<title>` werden mitgesetzt.**
+- **Auf der Startseite markiert `langBadge`**, in welcher Sprache ein Modul selbst läuft.
+  In der Sprache, in der das Modul ohnehin ist, bleibt das Feld leer.
+
+**Nicht übersetzt** werden Namen und Zahlen des Kanons sowie der Codeblock in der Anleitung
+auf der Startseite — Bezeichner bleiben englisch, nur der erklärende Text daneben wechselt.
 
 ---
 

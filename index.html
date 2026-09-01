@@ -27,6 +27,16 @@ body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);f
 
 /* ---------- masthead ---------- */
 .masthead{padding:60px 0 30px}
+.topbar{display:flex;gap:18px;align-items:center;margin:0 0 20px}
+.topbar .eyebrow{margin:0;flex:1;min-width:0}
+.langsw{display:inline-flex;border:1px solid var(--grey-xl);background:var(--paper);
+  border-radius:20px;padding:3px;gap:3px;flex:none}
+.langsw a{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.1em;
+  color:var(--grey);text-decoration:none;padding:6px 12px;border-radius:20px;transition:.16s}
+.langsw a:hover{color:var(--teal-dk)}
+.langsw a[aria-current="true"]{background:var(--teal-dk);color:#fff}
+.langsw a:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.b-lang{background:var(--grey-xl);color:var(--grey)}
 .eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
   text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 20px}
 .eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
@@ -136,37 +146,42 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
 <div class="wrap">
 
 <header class="masthead">
-  <p class="eyebrow">Teaching library · IU</p>
+  <div class="topbar">
+    <p class="eyebrow" data-t="eyebrow"></p>
+    <nav class="langsw" id="langsw" aria-label="Sprache · Language">
+      <a href="?lang=de" data-lang="de">DE</a><a href="?lang=en" data-lang="en">EN</a>
+    </nav>
+  </div>
   <h1>Sofia's <em>Coffee Dream</em></h1>
-  <p class="lede">Two Viennese coffee houses, a roastery, a coffee bike and green coffee shipped in from Peru — used across the Business Intelligence and Controlling lectures as a single running case. Every module below is self-contained: take one for a session, or follow the whole chain from the till roll to the management cockpit.</p>
+  <p class="lede" data-t="lede"></p>
 </header>
 
 <div class="toolbar">
   <div class="chips" id="chips">
-    <button class="chip" data-f="all" aria-pressed="true" type="button">All</button>
-    <button class="chip" data-f="bi" aria-pressed="false" type="button">Business Intelligence</button>
-    <button class="chip" data-f="ctrl" aria-pressed="false" type="button">Controlling</button>
-    <button class="chip" data-f="case" aria-pressed="false" type="button">Case study</button>
-    <button class="chip" data-f="planned" aria-pressed="false" type="button">Planned</button>
+    <button class="chip" data-f="all" aria-pressed="true" type="button" data-t="chipAll"></button>
+    <button class="chip" data-f="bi" aria-pressed="false" type="button" data-t="chipBi"></button>
+    <button class="chip" data-f="ctrl" aria-pressed="false" type="button" data-t="chipCtrl"></button>
+    <button class="chip" data-f="case" aria-pressed="false" type="button" data-t="chipCase"></button>
+    <button class="chip" data-f="planned" aria-pressed="false" type="button" data-t="chipPlan"></button>
   </div>
   <div class="search">
     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
-    <input id="q" type="search" placeholder="Search topics…" aria-label="Search topics">
+    <input id="q" type="search" data-tp="search">
   </div>
 </div>
 
 <p class="count" id="count"></p>
 <div class="grid" id="grid"></div>
-<div class="empty" id="empty">Nothing matches that filter yet.</div>
+<div class="empty" id="empty" data-t="empty"></div>
 
 <section class="howto">
-  <h3>Adding a new module</h3>
-  <p>This page is driven by one list inside its own <code>&lt;script&gt;</code> block — no build step, no server needed. To add a topic, drop the new file next to this one and paste one entry into that list.</p>
+  <h3 data-t="howH"></h3>
+  <p data-t="howP"></p>
 
   <div class="tree">
 <b>sofia-bi/</b>
-├── index.html          <span style="color:#8A8A89">← this page</span>
-├── PROJECT-CANON.md    <span style="color:#8A8A89">← names, figures, conventions</span>
+├── index.html          <span style="color:#8A8A89" data-t="treeA"></span>
+├── PROJECT-CANON.md    <span style="color:#8A8A89" data-t="treeB"></span>
 ├── sofias-coffee-dream.html
 ├── scd-dashboard.html
 ├── bi-reference-architecture.html
@@ -178,10 +193,11 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
   </div>
 
   <ol>
-    <li>Put the new file in the folder (HTML next to <code>index.html</code>, slide decks in <code>decks/</code>).</li>
-    <li>Open <code>index.html</code> in a text editor and find the line <code>const TOPICS = [</code>.</li>
-    <li>Paste a block like the one below. Order in the list is the order on the page.</li>
-    <li><code>accent</code> tints the tile: use <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> or <code>green</code>. <code>glyph</code> picks the drawing: <code>rows</code>, <code>cube</code>, <code>layers</code>, <code>quadrants</code>, <code>pyramid</code>, <code>loop</code> or <code>tree</code>.</li>
+    <li data-t="step1"></li>
+    <li data-t="step2"></li>
+    <li data-t="step3"></li>
+    <li data-t="step4"></li>
+    <li data-t="step5"></li>
   </ol>
 
 <pre><span class="c">// paste inside const TOPICS = [ ... ]</span>
@@ -204,11 +220,7 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
 },</pre>
 </section>
 
-<footer>
-  Teaching material · IU corporate identity. All figures in the modules are illustrative.
-  Keep <code>PROJECT-CANON.md</code> with this folder — it holds the names, numbers and design
-  conventions that keep the modules consistent with one another.
-</footer>
+<footer data-t="footer"></footer>
 
 </div>
 
@@ -216,152 +228,206 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
 "use strict";
 
 /* =====================================================================
+   SPRACHE
+   Deutsch ist die Grundfassung. ?lang=en schaltet auf Englisch um.
+   Kein localStorage - die Wahl reist als URL-Parameter mit, auch von
+   dieser Seite in die Module hinein.
+   Ein Textfeld ist entweder ein String (in beiden Sprachen gleich) oder
+   {de:"...", en:"..."}. Fehlt de, wird en gezeigt.
+   ===================================================================== */
+const LANG = new URLSearchParams(location.search).get("lang")==="en" ? "en" : "de";
+document.documentElement.lang = LANG;
+const L = v => typeof v==="string" ? v : (v && (v[LANG] ?? v.en)) || "";
+
+const UI = {
+  title:{de:"Sofia's Coffee Dream \u00b7 Lehrmaterial BI und Controlling",
+         en:"Sofia's Coffee Dream \u00b7 BI & Controlling teaching materials"},
+  eyebrow:{de:"Lehrbibliothek \u00b7 IU", en:"Teaching library \u00b7 IU"},
+  lede:{de:"Zwei Wiener Kaffeeh\u00e4user, eine R\u00f6sterei, ein Coffeebike und Rohkaffee aus Peru \u2014 ein durchgehender Fall, der die Vorlesungen zu Business Intelligence und Controlling tr\u00e4gt. Jedes Modul unten steht f\u00fcr sich: eines f\u00fcr eine Sitzung herausgreifen, oder die ganze Kette verfolgen, vom Kassenbon bis zum Management-Cockpit.",
+        en:"Two Viennese coffee houses, a roastery, a coffee bike and green coffee shipped in from Peru \u2014 used across the Business Intelligence and Controlling lectures as a single running case. Every module below is self-contained: take one for a session, or follow the whole chain from the till roll to the management cockpit."},
+  chipAll:{de:"Alle", en:"All"},
+  chipBi:"Business Intelligence",
+  chipCtrl:"Controlling",
+  chipCase:{de:"Fallstudie", en:"Case study"},
+  chipPlan:{de:"Geplant", en:"Planned"},
+  search:{de:"Themen durchsuchen\u2026", en:"Search topics\u2026"},
+  empty:{de:"Dazu passt gerade nichts.", en:"Nothing matches that filter yet."},
+  soon:{de:"In Arbeit", en:"In preparation"},
+  howH:{de:"Ein neues Modul aufnehmen", en:"Adding a new module"},
+  howP:{de:"Diese Seite wird von einer einzigen Liste in ihrem eigenen <code>&lt;script&gt;</code>-Block getrieben \u2014 kein Build-Schritt, kein Server. F\u00fcr ein neues Thema die Datei danebenlegen und einen Eintrag in diese Liste einf\u00fcgen.",
+        en:"This page is driven by one list inside its own <code>&lt;script&gt;</code> block \u2014 no build step, no server needed. To add a topic, drop the new file next to this one and paste one entry into that list."},
+  treeA:{de:"\u2190 diese Seite", en:"\u2190 this page"},
+  treeB:{de:"\u2190 Namen, Zahlen, Festlegungen", en:"\u2190 names, figures, conventions"},
+  step1:{de:"Die neue Datei in den Ordner legen (HTML neben <code>index.html</code>, Foliens\u00e4tze nach <code>decks/</code>).",
+         en:"Put the new file in the folder (HTML next to <code>index.html</code>, slide decks in <code>decks/</code>)."},
+  step2:{de:"<code>index.html</code> im Texteditor \u00f6ffnen und die Themenliste suchen.",
+         en:"Open <code>index.html</code> in a text editor and find the topic list."},
+  step3:{de:"Einen Block wie unten einf\u00fcgen. Die Reihenfolge in der Liste ist die Reihenfolge auf der Seite.",
+         en:"Paste a block like the one below. Order in the list is the order on the page."},
+  step4:{de:"<code>accent</code> f\u00e4rbt die Kachel: <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> oder <code>green</code>. <code>glyph</code> w\u00e4hlt die Zeichnung: <code>rows</code>, <code>cube</code>, <code>layers</code>, <code>quadrants</code>, <code>pyramid</code>, <code>loop</code> oder <code>tree</code>.",
+         en:"<code>accent</code> tints the tile: use <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> or <code>green</code>. <code>glyph</code> picks the drawing: <code>rows</code>, <code>cube</code>, <code>layers</code>, <code>quadrants</code>, <code>pyramid</code>, <code>loop</code> or <code>tree</code>."},
+  step5:{de:"Jedes Textfeld darf ein einfacher String sein (dann gilt er in beiden Sprachen) oder ein Paar aus deutscher und englischer Fassung. Fehlt die deutsche, erscheint die englische. <code>langBadge</code> setzt den Hinweis auf die Sprache des Moduls selbst.",
+         en:"Every text field may be a plain string (used in both languages) or a pair of a German and an English version. If the German one is missing, the English one is shown. <code>langBadge</code> sets the note about the module's own language."},
+  footer:{de:"Lehrmaterial \u00b7 Corporate Design der IU. Alle Zahlen in den Modulen sind illustrativ. <code>PROJECT-CANON.md</code> geh\u00f6rt in denselben Ordner \u2014 dort stehen die Namen, Zahlen und Gestaltungsregeln, die die Module untereinander stimmig halten.",
+          en:"Teaching material \u00b7 IU corporate identity. All figures in the modules are illustrative. Keep <code>PROJECT-CANON.md</code> with this folder \u2014 it holds the names, numbers and design conventions that keep the modules consistent with one another."},
+  countAll:{de:(n,r)=>n+" Themen \u00b7 "+r+" Dateien zum Herunterladen",
+            en:(n,r)=>n+" topics \u00b7 "+r+" downloadable resources"},
+  countSome:{de:(k,n)=>k+" von "+n+" Themen angezeigt",
+             en:(k,n)=>k+" of "+n+" topics shown"}
+};
+
+/* =====================================================================
    THE ONLY THING YOU NEED TO EDIT — see "Adding a new module" below.
    ===================================================================== */
 const TOPICS = [
   {
     id:"case",
-    title:"Sofia's Coffee Dream — the case",
-    sub:"Before the star schemas: a person, a bicycle and an espresso machine. Who Sofia is, how the business grew, and the afternoon a chart cost her ten thousand euros.",
-    track:"case",
-    status:"ready",
-    accent:"green",
-    glyph:"loop",
+    title:{de:"Sofias Coffee Dream — der Fall", en:"Sofia's Coffee Dream — the case"},
+    sub:{de:"Vor den Sternschemata: ein Mensch, ein Fahrrad und eine Espressomaschine. Wer Sofia ist, wie das Geschäft gewachsen ist, und der Nachmittag, an dem ein Diagramm sie zehntausend Euro gekostet hat.",
+         en:"Before the star schemas: a person, a bicycle and an espresso machine. Who Sofia is, how the business grew, and the afternoon a chart cost her ten thousand euros."},
+    track:"case", status:"ready", accent:"green", glyph:"loop",
     features:[
-      "The dream as a loop — beans, roast, cup, return — with every station explained on hover",
-      "The value chain from Peru to the counter, each station linked to the module that covers it",
-      "Four pain points that turn a growing business into a BI problem",
-      "The ten thousand euro afternoon: two reports, one quarter, and the leader changes places"
+      {de:"Der Traum als Kreislauf — Bohne, Röstung, Tasse, Wiederkehr — mit Erklärung zu jeder Station",
+       en:"The dream as a loop — beans, roast, cup, return — with every station explained on hover"},
+      {de:"Die Wertschöpfungskette von Peru bis zur Theke, jede Station verlinkt auf das zuständige Modul",
+       en:"The value chain from Peru to the counter, each station linked to the module that covers it"},
+      {de:"Vier Schmerzpunkte, die aus einem wachsenden Betrieb ein BI-Problem machen",
+       en:"Four pain points that turn a growing business into a BI problem"},
+      {de:"Der Zehntausend-Euro-Nachmittag: zwei Berichte, ein Quartal, und die Führung wechselt die Seite",
+       en:"The ten thousand euro afternoon: two reports, one quarter, and the leader changes places"}
     ],
-    links:[
-      {kind:"html",file:"sofias-coffee-dream.html",label:"Open interactive"}
-    ]
+    links:[{kind:"html",file:"sofias-coffee-dream.html",
+            label:{de:"Interaktiv öffnen", en:"Open interactive"}}]
   },
   {
     id:"scd",
     title:"Slowly Changing Dimensions",
-    sub:"Anna moves to the other coffee house on 1 March. Who keeps her January revenue — and can the old report still be reproduced?",
-    track:"bi",
-    status:"ready",
-    accent:"teal",
-    glyph:"rows",
+    sub:{de:"Anna wechselt am 1. März ins andere Kaffeehaus. Wem gehört ihr Januarumsatz — und lässt sich der alte Bericht noch reproduzieren?",
+         en:"Anna moves to the other coffee house on 1 March. Who keeps her January revenue — and can the old report still be reproduced?"},
+    track:"bi", status:"ready", accent:"teal", glyph:"rows", langBadge:{de:"EN",en:""},
     features:[
-      "Five slides with speaker notes on Types 1, 2 and 3",
-      "Three tabs, one per type, on a single worked example",
-      "A till slip that reprints itself when the type changes",
-      "Reported figures against what actually happened"
+      {de:"Fünf Folien mit Sprechernotizen zu Typ 1, 2 und 3",
+       en:"Five slides with speaker notes on Types 1, 2 and 3"},
+      {de:"Drei Reiter, je einer pro Typ, an einem durchgerechneten Beispiel",
+       en:"Three tabs, one per type, on a single worked example"},
+      {de:"Ein Kassenbon, der sich beim Wechsel des Typs neu druckt",
+       en:"A till slip that reprints itself when the type changes"},
+      {de:"Berichtete Zahlen gegen das, was tatsächlich passiert ist",
+       en:"Reported figures against what actually happened"}
     ],
-    links:[
-      {kind:"html",file:"scd-dashboard.html",label:"Open interactive"},
-      {kind:"deck",file:"decks/SCD_Sofias_Coffee_World.pptx",label:"Slide deck"}
-    ]
+    links:[{kind:"html",file:"scd-dashboard.html",label:{de:"Interaktiv öffnen",en:"Open interactive"}},
+           {kind:"deck",file:"decks/SCD_Sofias_Coffee_World.pptx",label:{de:"Foliensatz",en:"Slide deck"}}]
   },
   {
     id:"olap",
-    title:"MOLAP, ROLAP and HOLAP",
-    sub:"The monthly chart opens instantly, the receipt drill-through takes half a minute. Same data — where do the aggregates live?",
-    track:"bi",
-    status:"ready",
-    accent:"navy",
-    glyph:"cube",
+    title:{de:"MOLAP, ROLAP und HOLAP", en:"MOLAP, ROLAP and HOLAP"},
+    sub:{de:"Das Monatsdiagramm öffnet sofort, der Absprung auf den einzelnen Bon dauert eine halbe Minute. Dieselben Daten — wo liegen die Aggregate?",
+         en:"The monthly chart opens instantly, the receipt drill-through takes half a minute. Same data — where do the aggregates live?"},
+    track:"bi", status:"ready", accent:"navy", glyph:"cube", langBadge:{de:"EN",en:""},
     features:[
-      "Five slides with speaker notes and a comparison matrix",
-      "Advantages and limitations per storage model",
-      "Bridge to Power BI: Import, DirectQuery, Composite",
-      "Interactive version still to come"
+      {de:"Fünf Folien mit Sprechernotizen und einer Vergleichsmatrix",
+       en:"Five slides with speaker notes and a comparison matrix"},
+      {de:"Vorteile und Grenzen je Speichermodell", en:"Advantages and limitations per storage model"},
+      {de:"Brücke zu Power BI: Import, DirectQuery, Composite",
+       en:"Bridge to Power BI: Import, DirectQuery, Composite"},
+      {de:"Die interaktive Fassung fehlt noch", en:"Interactive version still to come"}
     ],
-    links:[
-      {kind:"deck",file:"decks/OLAP_Storage_Sofias_Coffee_World.pptx",label:"Slide deck"}
-    ]
+    links:[{kind:"deck",file:"decks/OLAP_Storage_Sofias_Coffee_World.pptx",
+            label:{de:"Foliensatz",en:"Slide deck"}}]
   },
   {
     id:"arch",
-    title:"BI reference architecture",
-    sub:"The whole road from the till roll to the management cockpit, with every layer explained where you point at it.",
-    track:"bi",
-    status:"ready",
-    accent:"teal",
-    glyph:"layers",
+    title:{de:"BI-Referenzarchitektur", en:"BI reference architecture"},
+    sub:{de:"Der ganze Weg vom Kassenbon bis zum Management-Cockpit, jede Schicht dort erklärt, wo man hinzeigt.",
+         en:"The whole road from the till roll to the management cockpit, with every layer explained where you point at it."},
+    track:"bi", status:"ready", accent:"teal", glyph:"layers", langBadge:{de:"EN",en:""},
     features:[
-      "The full architecture rebuilt as an interactive drawing",
-      "Hover any cylinder, box or band for its role",
-      "Marker: where Slowly Changing Dimensions are decided",
-      "Marker: where MOLAP, ROLAP and HOLAP live"
+      {de:"Die vollständige Architektur als interaktive Zeichnung",
+       en:"The full architecture rebuilt as an interactive drawing"},
+      {de:"Jeder Zylinder, jeder Kasten und jedes Band beim Überfahren erklärt",
+       en:"Hover any cylinder, box or band for its role"},
+      {de:"Markierung: wo über Slowly Changing Dimensions entschieden wird",
+       en:"Marker: where Slowly Changing Dimensions are decided"},
+      {de:"Markierung: wo MOLAP, ROLAP und HOLAP wohnen",
+       en:"Marker: where MOLAP, ROLAP and HOLAP live"}
     ],
-    links:[
-      {kind:"html",file:"bi-reference-architecture.html",label:"Open interactive"}
-    ]
+    links:[{kind:"html",file:"bi-reference-architecture.html",
+            label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
   },
   {
     id:"bsc",
     title:"Balanced Scorecard",
-    sub:"The textbook case of a concept-oriented analysis system: the management concept prescribes the structure, not the data.",
-    track:"ctrl",
-    status:"ready",
-    accent:"ochre",
-    glyph:"quadrants",
+    sub:{de:"Der Musterfall eines konzeptorientierten Analysesystems: Die Struktur kommt aus dem Führungskonzept, nicht aus den Daten.",
+         en:"The textbook case of a concept-oriented analysis system: the management concept prescribes the structure, not the data."},
+    track:"ctrl", status:"ready", accent:"ochre", glyph:"quadrants",
+    langBadge:{de:"EN · Reiter 04 DE", en:"Tab 04 in German"},
     features:[
-      "The four perspectives with hover detail and the usual traps",
-      "Sofia's strategy map: eight objectives, causal chains lit on hover",
-      "Why one objective should touch several perspectives",
-      "A Power BI style scorecard with slicer, data bars and status",
-      "Zweites Beispiel auf Deutsch: Balanced Scorecard einer Pflegeeinrichtung mit eigener Strategy Map — dort steht die Finanzperspektive unten"
+      {de:"Die vier Perspektiven mit Hover-Erklärung und den üblichen Fallen",
+       en:"The four perspectives with hover detail and the usual traps"},
+      {de:"Sofias Strategy Map: acht Ziele, Wirkungsketten leuchten beim Überfahren auf",
+       en:"Sofia's strategy map: eight objectives, causal chains lit on hover"},
+      {de:"Warum ein Ziel mehrere Perspektiven berühren sollte",
+       en:"Why one objective should touch several perspectives"},
+      {de:"Eine Scorecard im Power-BI-Stil mit Filter, Datenbalken und Status",
+       en:"A Power BI style scorecard with slicer, data bars and status"},
+      {de:"Zweites Beispiel auf Deutsch: Balanced Scorecard einer Pflegeeinrichtung mit eigener Strategy Map — dort steht die Finanzperspektive unten",
+       en:"A second worked example in German: the scorecard of a care home, with its own strategy map — and the financial perspective at the bottom"}
     ],
-    links:[
-      {kind:"html",file:"balanced-scorecard.html",label:"Open interactive"}
-    ]
+    links:[{kind:"html",file:"balanced-scorecard.html",
+            label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
   },
   {
     id:"pyramid",
-    title:"Controlling Pyramid (Reichmann)",
-    sub:"Five floors of systems, the functions running into the depth, operational against strategic across the front — and controlling only starts on the top two floors.",
-    track:"ctrl",
-    status:"ready",
-    accent:"navy",
-    glyph:"pyramid",
+    title:{de:"Controlling-Pyramide (Reichmann)", en:"Controlling Pyramid (Reichmann)"},
+    sub:{de:"Fünf Ebenen von Systemen, die Funktionen in der Tiefe, operativ gegen strategisch quer über die Front — und Controlling beginnt erst auf den obersten zwei Etagen.",
+         en:"Five floors of systems, the functions running into the depth, operational against strategic across the front — and controlling only starts on the top two floors."},
+    track:"ctrl", status:"ready", accent:"navy", glyph:"pyramid", langBadge:{de:"EN",en:""},
     features:[
-      "Reichmann's pyramid rebuilt as an interactive drawing, every floor and slice explained on hover",
-      "One toggle marks where controlling begins, another swaps the model's labels for Sofia's systems",
-      "The three dimensions as a grid: function, category of figure, operational against strategic",
-      "The RL key figure system on Sofia's quarter — two top figures, general part and special part"
+      {de:"Reichmanns Pyramide als interaktive Zeichnung, jede Etage und jede Scheibe beim Überfahren erklärt",
+       en:"Reichmann's pyramid rebuilt as an interactive drawing, every floor and slice explained on hover"},
+      {de:"Ein Schalter markiert, wo Controlling beginnt, ein zweiter tauscht die Modellbeschriftung gegen Sofias Systeme",
+       en:"One toggle marks where controlling begins, another swaps the model's labels for Sofia's systems"},
+      {de:"Die drei Dimensionen als Raster: Funktion, Kategorie der Größe, operativ gegen strategisch",
+       en:"The three dimensions as a grid: function, category of figure, operational against strategic"},
+      {de:"Das RL-Kennzahlensystem auf Sofias Quartal — zwei Spitzenkennzahlen, allgemeiner Teil und Sonderteil",
+       en:"The RL key figure system on Sofia's quarter — two top figures, general part and special part"}
     ],
-    links:[
-      {kind:"html",file:"controlling-pyramid.html",label:"Open interactive"}
-    ]
+    links:[{kind:"html",file:"controlling-pyramid.html",
+            label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
   },
   {
     id:"kpi",
-    title:"Key figure systems",
-    sub:"From a single ratio to a driver tree: how ROI decomposes into things Sofia can actually move on a Tuesday morning.",
-    track:"ctrl",
-    status:"planned",
-    accent:"ochre",
-    glyph:"tree",
+    title:{de:"Kennzahlensysteme", en:"Key figure systems"},
+    sub:{de:"Von der einzelnen Verhältniszahl zum Treiberbaum: wie sich der ROI in Dinge zerlegt, die Sofia an einem Dienstagmorgen tatsächlich bewegen kann.",
+         en:"From a single ratio to a driver tree: how ROI decomposes into things Sofia can actually move on a Tuesday morning."},
+    track:"ctrl", status:"planned", accent:"ochre", glyph:"tree",
     features:[
-      "DuPont scheme on Sofia's numbers",
-      "Driver trees and where they stop being useful"
+      {de:"DuPont-Schema auf Sofias Zahlen", en:"DuPont scheme on Sofia's numbers"},
+      {de:"Treiberbäume und wo sie aufhören zu helfen", en:"Driver trees and where they stop being useful"}
     ],
     links:[]
   },
   {
     id:"etl",
-    title:"ETL and data quality",
-    sub:"Two houses, a bike and a wholesale ledger, each with its own spelling of the same product. What integration has to fix before anything can be reported.",
-    track:"bi",
-    status:"planned",
-    accent:"orange",
-    glyph:"layers",
+    title:{de:"ETL und Datenqualität", en:"ETL and data quality"},
+    sub:{de:"Zwei Häuser, ein Fahrrad und ein Großhandelsbuch, jedes mit einer eigenen Schreibweise desselben Produkts. Was die Integration reparieren muss, bevor irgendetwas berichtet werden kann.",
+         en:"Two houses, a bike and a wholesale ledger, each with its own spelling of the same product. What integration has to fix before anything can be reported."},
+    track:"bi", status:"planned", accent:"orange", glyph:"layers",
     features:[
-      "Extract, transform and load on the receipt stream",
-      "Data quality dimensions with real failure cases"
+      {de:"Extrahieren, Transformieren und Laden am Strom der Bonzeilen",
+       en:"Extract, transform and load on the receipt stream"},
+      {de:"Datenqualitätsdimensionen an echten Fehlerfällen",
+       en:"Data quality dimensions with real failure cases"}
     ],
     links:[]
   }
 ];
+
 /* ===================== end of the editable list ====================== */
 
 const ACCENT={teal:"#209CBD",navy:"#0F4C5C",orange:"#FF922B",ochre:"#B5852C",green:"#4C8B3F"};
-const TRACK={bi:["Business Intelligence",""],ctrl:["Controlling","ctrl"],case:["Case study","case"]};
+const TRACK={bi:["Business Intelligence",""],ctrl:["Controlling","ctrl"],
+             case:[{de:"Fallstudie",en:"Case study"},"case"]};
 
 const GLYPH={
   rows:`<rect x="8" y="10" width="44" height="10" rx="2" fill="currentColor" opacity=".9"/>
@@ -407,16 +473,24 @@ const ICON={
 
 const grid=document.getElementById("grid");
 
+/* Die Sprachwahl reist als Parameter in die Module mit */
+const qs = LANG==="de" ? "" : "?lang="+LANG;
+
 grid.innerHTML=TOPICS.map(t=>{
   const planned=t.status==="planned";
   const [trackName,trackCls]=TRACK[t.track];
+  const title=L(t.title), sub=L(t.sub), feats=t.features.map(L), lb=L(t.langBadge);
   const links=t.links.length
-    ? t.links.map((l,i)=>`<a class="lnk ${i===0?"primary":"ghost"}" href="${l.file}"
-         ${l.kind==="deck"?"download":""}>
-         <svg class="ic" viewBox="0 0 24 24">${ICON[l.kind]}</svg>${l.label}</a>`).join("")
-    : `<span class="soon">In preparation</span>`;
+    ? t.links.map((l,i)=>`<a class="lnk ${i===0?"primary":"ghost"}"
+         href="${l.file}${l.kind==="deck"?"":qs}" ${l.kind==="deck"?"download":""}>
+         <svg class="ic" viewBox="0 0 24 24">${ICON[l.kind]}</svg>${L(l.label)}</a>`).join("")
+    : `<span class="soon">${L(UI.soon)}</span>`;
+  /* Gesucht wird in der angezeigten Sprache und zusaetzlich in der englischen Fassung */
+  const alt=[t.title,t.sub,...t.features].map(v=>typeof v==="object"&&v?v.en:"").join(" ");
+  const hay=(title+" "+sub+" "+feats.join(" ")+" "+L(trackName)+" "+alt)
+            .toLowerCase().replace(/"/g,"");
   return `<article class="tile ${planned?"planned":""}" data-track="${t.track}" data-status="${t.status}"
-      data-search="${(t.title+" "+t.sub+" "+t.features.join(" ")+" "+trackName).toLowerCase().replace(/"/g,"")}"
+      data-search="${hay}"
       style="--accent:${ACCENT[t.accent]||ACCENT.teal}">
     <div class="top">
       <svg class="glyph" viewBox="0 0 62 62" aria-hidden="true">
@@ -425,13 +499,14 @@ grid.innerHTML=TOPICS.map(t=>{
         ${GLYPH[t.glyph]||GLYPH.rows}
       </svg>
       <div class="badges">
-        <span class="badge b-track ${trackCls}">${trackName}</span>
-        ${planned?`<span class="badge b-plan">Planned</span>`:``}
+        <span class="badge b-track ${trackCls}">${L(trackName)}</span>
+        ${planned?`<span class="badge b-plan">${L(UI.chipPlan)}</span>`:``}
+        ${lb?`<span class="badge b-lang">${lb}</span>`:``}
       </div>
     </div>
-    <h2>${t.title}</h2>
-    <p class="sub">${t.sub}</p>
-    <ul class="feat"><div>${t.features.map(f=>`<li>${f}</li>`).join("")}</div></ul>
+    <h2>${title}</h2>
+    <p class="sub">${sub}</p>
+    <ul class="feat"><div>${feats.map(f=>`<li>${f}</li>`).join("")}</div></ul>
     <div class="links">${links}</div>
   </article>`;
 }).join("");
@@ -464,8 +539,8 @@ function apply(){
   });
   const res=TOPICS.reduce((s,t)=>s+t.links.length,0);
   countEl.textContent = shown===TOPICS.length
-    ? `${TOPICS.length} topics · ${res} downloadable resources`
-    : `${shown} of ${TOPICS.length} topics shown`;
+    ? L(UI.countAll)(TOPICS.length,res)
+    : L(UI.countSome)(shown,TOPICS.length);
   emptyEl.classList.toggle("on",shown===0);
 }
 
@@ -478,6 +553,16 @@ document.getElementById("chips").addEventListener("click",e=>{
 document.getElementById("q").addEventListener("input",e=>{
   query=e.target.value.trim().toLowerCase(); apply();
 });
+/* statische Texte aus dem Woerterbuch fuellen */
+document.title = L(UI.title);
+document.querySelectorAll("[data-t]").forEach(el=>{ el.innerHTML = L(UI[el.dataset.t]); });
+document.querySelectorAll("[data-tp]").forEach(el=>{
+  const v=L(UI[el.dataset.tp]); el.placeholder=v; el.setAttribute("aria-label",v);
+});
+document.querySelectorAll("#langsw a").forEach(a=>{
+  a.setAttribute("aria-current", String(a.dataset.lang===LANG));
+});
+
 apply();
 </script>
 </body>
