@@ -3,8 +3,46 @@
 Interaktive Lehrmodule für Vorlesungen zu Business Intelligence und Controlling.
 Ein durchgehender Fall — ein Wiener Kaffeehausbetrieb — trägt alle Themen.
 
-**Sprache:** Inhalte und Oberflächen der Module auf Englisch. Commit-Nachrichten,
-Pull-Request-Beschreibungen und Kommunikation auf Deutsch.
+**Sprache:** Commit-Nachrichten, Pull-Request-Beschreibungen und Kommunikation immer auf
+Deutsch. Für die Module gilt:
+
+- **Englisch ist der Normalfall.** Ein neues Modul entsteht auf Englisch, solange nichts
+  anderes vereinbart ist.
+- **Deutsch ist zulässig, wo es die Sache trägt** — etwa bei einem Beispiel aus einem
+  deutschen Rechts- oder Praxisfeld, in dem die Fachbegriffe übersetzt schief würden
+  (Pflegesatz, Personalkostenquote, Jahresabschluss). Nicht aus Bequemlichkeit.
+- **Die Sprache muss sichtbar sein.** Ein deutscher Reiter trägt `DE` in der Beschriftung,
+  ein durchgehend deutsches Modul einen Hinweis in der Kachel auf der Startseite. Niemand
+  soll beim Klicken überrascht werden.
+- **Innerhalb eines Reiters wird nicht gemischt.** Der Reiter ist die kleinste Einheit, die
+  eine Sprache hat. Halbe Sätze in der einen und Tooltips in der anderen Sprache sind der
+  Fehler, den diese Regel verhindern soll.
+- **Namen und Zahlen des Kanons bleiben unverändert.** Sofia heißt in beiden Sprachen Sofia,
+  Ringstraße bleibt Ringstraße, 145.500 € bleiben 145.500 €. Übersetzt werden Fließtext und
+  Bedienelemente, nicht der Fall.
+
+### Der Sprachschalter
+
+**[gesetzt]** Zweisprachig sind bisher `index.html` und `sofias-coffee-dream.html`. Die
+übrigen Module folgen den Punkten oben, bis sie umgestellt werden.
+
+- **Deutsch ist die Grundfassung.** Ohne Parameter erscheint Deutsch. `?lang=en` schaltet um.
+- **Die Wahl reist als URL-Parameter**, nicht im Speicher — `localStorage` bleibt
+  ausgeschlossen. Die Startseite hängt `?lang=en` an die Kachel-Links, jedes Modul liest
+  `location.search` und hängt den Parameter an seine eigenen Querverweise weiter.
+- **Ein Textfeld ist entweder ein String** — dann gilt er in beiden Sprachen, etwa ein Name
+  oder eine Zahl — **oder `{de:"…", en:"…"}`**. Fehlt `de`, erscheint `en`. Damit lässt sich
+  ein Modul schrittweise übersetzen, ohne dass je eine halbe Seite entsteht.
+- **Statischer Text im Markup trägt `data-t="schlüssel"`** und wird aus dem `UI`-Wörterbuch
+  gefüllt; `data-tp` setzt einen Platzhalter, `data-ta` ein `aria-label`.
+- **`$QS` in einem `href` innerhalb eines Textbausteins** wird beim Einsetzen durch den
+  aktuellen Parameter ersetzt, damit Querverweise die Sprache mitnehmen.
+- **`<html lang>` und `<title>` werden mitgesetzt.**
+- **Auf der Startseite markiert `langBadge`**, in welcher Sprache ein Modul selbst läuft.
+  In der Sprache, in der das Modul ohnehin ist, bleibt das Feld leer.
+
+**Nicht übersetzt** werden Namen und Zahlen des Kanons sowie der Codeblock in der Anleitung
+auf der Startseite — Bezeichner bleiben englisch, nur der erklärende Text daneben wechselt.
 
 ---
 

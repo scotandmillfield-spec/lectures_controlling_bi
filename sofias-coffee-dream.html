@@ -28,6 +28,15 @@ body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);f
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
 
 .masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.topbar{display:flex;gap:18px;align-items:center;margin:0 0 18px}
+.topbar .eyebrow{margin:0;flex:1;min-width:0}
+.langsw{display:inline-flex;border:1px solid var(--grey-xl);background:var(--paper);
+  border-radius:20px;padding:3px;gap:3px;flex:none}
+.langsw a{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.1em;
+  color:var(--grey);text-decoration:none;padding:6px 12px;border-radius:20px;transition:.16s}
+.langsw a:hover{color:var(--teal-dk)}
+.langsw a[aria-current="true"]{background:var(--teal-dk);color:#fff}
+.langsw a:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 .eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
   text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
 .eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
@@ -251,16 +260,21 @@ footer a{color:var(--teal-dk)}
 <div class="wrap">
 
 <header class="masthead">
-  <p class="eyebrow">Sofia's Coffee Dream · Case study</p>
-  <h1>Once upon a time, <em>there was a bicycle</em></h1>
-  <p class="lede">Before the star schemas and the scorecards there is a person with an idea, a bicycle and an espresso machine strapped to it. This module tells that story — who Sofia is, how the business grew, why the way she runs it stopped working, and what happened the day she read a chart too quickly. Nothing else in the library depends on it: show it when the room needs a case, skip it when it does not.</p>
+  <div class="topbar">
+    <p class="eyebrow" data-t="eyebrow"></p>
+    <nav class="langsw" id="langsw" aria-label="Sprache · Language">
+      <a data-lang="de">DE</a><a data-lang="en">EN</a>
+    </nav>
+  </div>
+  <h1 data-t="h1"></h1>
+  <p class="lede" data-t="lede"></p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Sofia's Coffee Dream">
-  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> The dream</button>
-  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> The business</button>
-  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Let's get pro</button>
-  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Sofia &amp; Nguyen</button>
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> <span data-t="tabA"></span></button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> <span data-t="tabB"></span></button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> <span data-t="tabC"></span></button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> <span data-t="tabD"></span></button>
 </div>
 
 <!-- ============================ TAB A ============================ -->
@@ -285,145 +299,94 @@ footer a{color:var(--teal-dk)}
       <path d="M46 54 L46 58" stroke="#1D1D1F" stroke-width="2.1"/>
     </svg>
     <div class="bubble">
-      <p class="hey">Hey there!</p>
-      <p>I want my dream to come true.</p>
-      <p class="who">Sofia · owner</p>
+      <p class="hey" data-t="hey"></p>
+      <p data-t="wish"></p>
+      <p class="who" data-t="who"></p>
     </div>
   </div>
 
-  <p class="claim">Most case studies open with a number. This one opens with a person who <b>wants something</b> — and the whole business is the machine she built to get it.</p>
-
-  <h2 class="sec">The dream is a loop, not a destination</h2>
-  <p class="sub">Sofia does not think in departments. She thinks in a circle that has to keep turning: buy well, roast well, serve well, and the guest comes back and pays for the next sack. Hover any station.</p>
+  <p class="claim" data-t="claimA"></p>
+  <h2 class="sec" data-t="secLoop"></h2>
+  <p class="sub" data-t="subLoop"></p>
 
   <div class="stage">
-    <svg id="loop" viewBox="0 0 620 400" role="img"
-      aria-label="A four-station loop: green beans, roasting, the cup served to a guest, and the guest returning, which pays for the next beans">
-    </svg>
+    <svg id="loop" viewBox="0 0 620 400" role="img" data-ta="loopAria"></svg>
   </div>
 
-  <div class="detail" id="detA">
-    <p class="dk">Why start here</p>
-    <h4>Every figure in this library measures one hop of this loop</h4>
-    <p>The roasting loss measures the second hop. Revenue per guest measures the third. The fourteen-day return rate measures the fourth. Waiting time at the counter measures whether the third hop damages the fourth. A key figure that cannot be placed on this circle is usually a figure nobody needed.</p>
-    <p class="warn">Hover a station to see what it costs, what it earns, and where it is measured.</p>
-  </div>
+  <div class="detail" id="detA"></div>
 
-  <h2 class="sec">Where it began</h2>
-  <p class="sub">Not with a shop. With a bicycle, an espresso machine and a green umbrella.</p>
-
-  <div class="readme">
-    <b>The coffee bike is the oldest part of the business, not the newest.</b> Everything else grew out of it: the first coffee house because the queue at the bike got too long, the roastery because buying roasted beans meant somebody else decided how they tasted, the wholesale line because the roastery had capacity left over. That order matters when you look at the data later — the bike is the only sales point with no fixed address, and it is in the location dimension because it was there first, not because someone wanted an edge case.
-  </div>
-  <p class="hint">Hover or tab through the four stations of the loop</p>
+  <h2 class="sec" data-t="secBegin"></h2>
+  <p class="sub" data-t="subBegin"></p>
+  <div class="readme" data-t="boxBike"></div>
+  <p class="hint" data-t="hintA"></p>
 </section>
 
 <!-- ============================ TAB B ============================ -->
 <section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b">
-  <p class="claim">Four stations, one bean. <b>Every module in this library plugs in somewhere along this line</b> — hover a station to see what happens there and which session covers it.</p>
-
+  <p class="claim" data-t="claimB"></p>
   <div class="chain" id="chain"></div>
-
-  <div class="detail" id="detB">
-    <p class="dk">The value chain</p>
-    <h4>From a cooperative in Peru to a cup on the Ringstraße</h4>
-    <p>Read left to right and it is a supply chain. Read it as a data problem and it is four systems that do not know about each other: an import file, a roasting log, a till, and a wholesale order book. Every one of them calls a kilogram of coffee something different, and two of them are not even sure what a customer is.</p>
-    <p class="warn">Hover any station for its role, its figures and the module that covers it.</p>
-  </div>
-
-  <div class="readme warn">
-    <b>The loop worth pointing at.</b> Sofia sells roasted beans to seven bakeries — and buys her cake and pastry from bakeries, partly the same ones. The same business relationship appears once as a customer and once as a supplier, under two different numbers, in two different systems. Nobody planned this; it is what happens when a business grows by saying yes. It is also the cleanest example in the whole case of why master data is a discipline and not a spreadsheet.
-  </div>
-
-  <h2 class="sec">Which session covers which station</h2>
-  <p class="sub">The case is the map. These are the modules you can open from here.</p>
+  <div class="detail" id="detB"></div>
+  <div class="readme warn" data-t="boxLoopBiz"></div>
+  <h2 class="sec" data-t="secMap"></h2>
+  <p class="sub" data-t="subMap"></p>
   <div class="maprow" id="maprow"></div>
-  <p class="hint">Hover a station · the cards below are links into the other modules</p>
+  <p class="hint" data-t="hintB"></p>
 </section>
 
 <!-- ============================ TAB C ============================ -->
 <section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c">
-  <p class="claim">The business grew. The way it is run did not. Four sentences from Sofia's own stocktake — and they <b>escalate</b>, which is the part worth noticing.</p>
-
+  <p class="claim" data-t="claimC"></p>
   <div class="pains" id="pains"></div>
-
-  <div class="detail" id="detC">
-    <p class="dk">Reading the list</p>
-    <h4>These are not four problems. They are one problem and three symptoms.</h4>
-    <p>Pen and paper is the cause. The tax advisor owning the numbers is the consequence — if nobody inside the business can produce a figure, somebody outside will, on their own schedule. Falling revenue and rising complaints are what that looks like from the outside, months later, when it is expensive to fix.</p>
-    <p class="warn">Hover each line for what it actually means in Sofia's week.</p>
-  </div>
-
-  <div class="readme">
-    <b>The tax advisor is not the villain.</b> His figures are correct, complete and auditable — and they arrive ten weeks after the quarter ends. That is exactly right for the tax office and useless for a decision on a Tuesday morning. The line between the two is the line Reichmann draws through his pyramid: accounting systems are not controlling, they are the floor controlling stands on. If you want the theory behind Sofia's complaint, it is in the <a href="controlling-pyramid.html">Controlling Pyramid</a> module.
-  </div>
-
-  <h2 class="sec">The diagnosis</h2>
-  <p class="sub">Worth saying out loud before anyone proposes a tool.</p>
-
-  <div class="readme warn">
-    <b>Sofia does not work too little. She works more hours than she ever has.</b> The figures she needs already exist — the till writes every line, the roaster logs every batch, the ERP knows every sack from Peru. They are simply in four places, in four shapes, and three weeks old by the time anyone adds them up. That is not an effort problem and it is not a software problem. It is the problem this entire course is about.
-  </div>
-  <p class="hint">Hover any of the four lines</p>
+  <div class="detail" id="detC"></div>
+  <div class="readme" data-t="boxTax"></div>
+  <h2 class="sec" data-t="secDiag"></h2>
+  <p class="sub" data-t="subDiag"></p>
+  <div class="readme warn" data-t="boxDiag"></div>
+  <p class="hint" data-t="hintC"></p>
 </section>
 
 <!-- ============================ TAB D ============================ -->
 <section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d">
-  <p class="claim">Sofia has the ideas. Nguyen has the questions. <b>The business needs both</b>, and the interesting moments are where the two collide.</p>
-
+  <p class="claim" data-t="claimD"></p>
   <div class="people" id="people"></div>
+  <div class="detail" id="detD"></div>
 
-  <div class="detail" id="detD">
-    <p class="dk">The double act</p>
-    <h4>Sofia is not the fool — she is the impatient one</h4>
-    <p>She reads a figure, draws a conclusion and acts, often on the same afternoon. That instinct built the business: nobody cautious straps an espresso machine to a bicycle. It is also what makes her expensive when the figure means something other than what it looks like.</p>
-    <p>Nguyen does not have better ideas. She has one better habit: before believing a number, she asks what it counts. That question is worth ten thousand euros exactly once — after that, Sofia asks it herself.</p>
-    <p class="warn">Hover a person for their role in the case.</p>
-  </div>
-
-  <h2 class="sec">The ten thousand euro afternoon</h2>
-  <p class="sub">The worked example. Same quarter, same receipts, same total — one modelling decision apart. Switch between the two reports and watch the leader change places.</p>
+  <h2 class="sec" data-t="secCase"></h2>
+  <p class="sub" data-t="subCase"></p>
 
   <div class="case">
     <div class="casebar">
-      <span class="ct">Revenue by coffee house · Q1 2026</span>
-      <div class="seg" id="seg" role="group" aria-label="Report version">
-        <button type="button" data-v="t1" aria-pressed="true">The report Sofia saw</button>
-        <button type="button" data-v="t2" aria-pressed="false">The report Nguyen built</button>
+      <span class="ct" data-t="caseTitle"></span>
+      <div class="seg" id="seg" role="group" data-ta="segAria">
+        <button type="button" data-v="t1" aria-pressed="true" data-t="segT1"></button>
+        <button type="button" data-v="t2" aria-pressed="false" data-t="segT2"></button>
       </div>
     </div>
-
     <div class="chart" id="chart"></div>
     <div class="verdict" id="verdict"></div>
-
     <div class="tscroll">
       <table class="tbl">
         <thead>
-          <tr><th>Coffee house</th><th style="text-align:right">Report Sofia saw</th>
-              <th style="text-align:right">Report Nguyen built</th><th style="text-align:right">Difference</th></tr>
+          <tr><th data-t="thHouse"></th><th style="text-align:right" data-t="thT1"></th>
+              <th style="text-align:right" data-t="thT2"></th><th style="text-align:right" data-t="thDiff"></th></tr>
         </thead>
         <tbody id="tblBody"></tbody>
       </table>
     </div>
   </div>
 
-  <div class="readme">
-    <b>Nothing was broken.</b> No figure was wrong, no receipt was lost, and the quarter added up to 145 500 € in both reports. Anna simply moved from Ringstraße to Alsergrund on 1 March, and the first report quietly credited her whole quarter to wherever she happens to work today. Sofia read that as growth in Alsergrund and put 10 000 € into a campus campaign for the house that had not grown. The theory behind the two reports — and why the sum stays the same while the truth does not — is the <a href="scd-dashboard.html">Slowly Changing Dimensions</a> module.
-  </div>
-
-  <h2 class="sec">What Sofia took away</h2>
+  <div class="readme" data-t="boxNothing"></div>
+  <h2 class="sec" data-t="secLearn"></h2>
   <div class="learned" id="learned"></div>
-  <p class="hint">Switch the report above · hover a bar or a person</p>
+  <p class="hint" data-t="hintD"></p>
 </section>
 
 <div class="pointe">
-  <p class="pk">The one sentence</p>
-  <p><b>Sofia never wanted a dashboard. She wanted her afternoons back.</b> Every model, every star schema and every scorecard in this library exists for one reason: so that the answer takes a minute instead of a fortnight — and so that one day she can finally say it and mean it. <em>Right, then I'll cycle to Piazza San Marco.</em></p>
+  <p class="pk" data-t="pointeK"></p>
+  <p data-t="pointe"></p>
 </div>
 
-<footer>
-  Teaching material · Sofia's Coffee Dream is a Viennese business with two coffee houses, its own roastery, a coffee bike and a wholesale line supplying bakeries and other coffee houses with roasted beans. Fair-trade green coffee is imported from Peru. The storyline follows the course slides; the Q1 revenue figures, the roasting loss and the 10 000 € campaign are the case figures used across the other modules and are illustrative.
-</footer>
+<footer data-t="footer"></footer>
 
 </div>
 <div class="tip" id="tip" role="status" aria-live="polite"></div>
@@ -432,52 +395,210 @@ footer a{color:var(--teal-dk)}
 "use strict";
 
 /* =====================================================================
-   1 · TOOLTIP REGISTRY
+   SPRACHE — Deutsch ist die Grundfassung, ?lang=en schaltet um.
+   Kein localStorage: die Wahl reist als URL-Parameter mit.
+   Jedes Textfeld ist ein String (in beiden Sprachen gleich) oder
+   {de:"...", en:"..."}. Fehlt de, wird en gezeigt.
    ===================================================================== */
-const REG = {
-  /* ---- the loop ---- */
-  beans:["Green beans","Fair-trade lots from a cooperative in Peru, bought once or twice a year and paid in dollars on shipment. Everything downstream is priced off this sack — and Sofia controls neither the harvest nor the exchange rate.","≈ 6 000 kg a year · 6.40 € per kg"],
-  roast:["The roastery","Sofia's only real production stage, and the only place a kilogram changes meaning: 100 kg of green coffee leave the drum as 84 kg of roasted. The missing 16 % is paid for and never sold.","12 kg batches · 16 % roasting loss"],
-  cup:["The cup","Where the loop finally earns money — across the counter in two coffee houses, off the bike, or by the sack to a bakery. Four different ways of selling the same bean, four different figures.","7.20 € per guest · 4:10 min wait"],
-  back:["They come back","The hop nobody bills for and everything depends on. If the guest returns, the sack in Peru is already paid for. If they do not, no amount of roasting skill helps.","38 % return within 14 days · target 50 %"],
+const LANG = new URLSearchParams(location.search).get("lang")==="en" ? "en" : "de";
+document.documentElement.lang = LANG;
+const L = v => typeof v==="string" ? v : (v && (v[LANG] ?? v.en)) || "";
+const qs = LANG==="de" ? "" : "?lang="+LANG;
 
-  /* ---- value chain ---- */
-  st1:["Fair-trade green coffee · Peru","A cooperative, one or two shipments a year, customs papers, and an exchange rate fixed on the day of purchase. The money leaves the account roughly four months before the coffee is sold — which is why this business needs a liquidity figure and not just a profit figure.","Covered in: BI reference architecture (ERP), Controlling Pyramid (sourcing)"],
-  st2:["Sofia's roastery","Roast profiles, 12 kg batches, weighed in green and weighed out roasted. The gap between the two numbers is the single figure with the most leverage in the whole business, and no line of the profit and loss account is called by its name.","Covered in: Controlling Pyramid (production, the special part of the RL system)"],
-  st3:["B2C · two coffee houses and the bike","Ringstraße runs on tourists and commuters, evenly, with a bigger bill. Alsergrund runs on students and follows the semester. The coffee bike has no fixed address at all — its location changes daily, which is the awkward question at the heart of the location dimension.","Covered in: Slowly Changing Dimensions, Balanced Scorecard"],
-  st4:["B2B · bakeries and other coffee houses","Two wholesale segments that behave nothing alike. Seven bakeries take small regular deliveries — and sell Sofia her cake, so they sit on both sides of the ledger. Other Viennese coffee houses take larger sacks and negotiate harder on price.","Covered in: ETL and data quality (planned), master data modelling"],
+const UI = {
+ title:{de:"Es war einmal · Sofias Coffee Dream", en:"Once upon a time · Sofia's Coffee Dream"},
+ eyebrow:{de:"Sofias Coffee Dream · Fallstudie", en:"Sofia's Coffee Dream · Case study"},
+ h1:{de:"Es war einmal <em>ein Fahrrad</em>", en:"Once upon a time, <em>there was a bicycle</em>"},
+ lede:{de:"Vor den Sternschemata und den Scorecards steht ein Mensch mit einer Idee, einem Fahrrad und einer daraufgeschnallten Espressomaschine. Dieses Modul erzählt diese Geschichte — wer Sofia ist, wie das Geschäft gewachsen ist, warum die Art, es zu führen, nicht mehr trägt, und was an dem Tag geschah, an dem sie ein Diagramm zu schnell gelesen hat. Nichts anderes in der Bibliothek hängt davon ab: zeigen, wenn der Raum einen Fall braucht, sonst weglassen.",
+      en:"Before the star schemas and the scorecards there is a person with an idea, a bicycle and an espresso machine strapped to it. This module tells that story — who Sofia is, how the business grew, why the way she runs it stopped working, and what happened the day she read a chart too quickly. Nothing else in the library depends on it: show it when the room needs a case, skip it when it does not."},
+ tabA:{de:"Der Traum", en:"The dream"},
+ tabB:{de:"Das Geschäft", en:"The business"},
+ tabC:{de:"Jetzt wird es ernst", en:"Let's get pro"},
+ tabD:{de:"Sofia &amp; Nguyen", en:"Sofia &amp; Nguyen"},
 
-  /* ---- pains ---- */
-  pn1:["Pen and paper — business was yesterday","Orders on a pad, stock in Sofia's head, the roast log in a notebook by the drum. It worked for one bicycle. It does not work for two houses, a roastery and a wholesale round, and the failure is silent: nothing breaks, things just stop being knowable."],
-  pn2:["The tax advisor is in charge of the financials","Correct, complete, auditable — and ten weeks after the quarter ends. Sofia has outsourced not just the bookkeeping but the ability to answer a question about her own business. She finds out how March went in June."],
-  pn3:["Revenue decreases slowly but constantly","The dangerous shape of a problem: too small to notice in any single week, unmistakable across a year. By the time it is visible in the annual accounts, four quarters of causes have been mixed together and none of them can be separated any more."],
-  pn4:["Complaints are increasing","The only figure on this list that is actually a leading indicator — and the only one nobody is counting. Guests complain months before they stop coming, which makes this the cheapest warning in the business and the one being thrown away."],
+ hey:{de:"Hallo!", en:"Hey there!"},
+ wish:{de:"Ich will, dass mein Traum wahr wird.", en:"I want my dream to come true."},
+ who:{de:"Sofia · Inhaberin", en:"Sofia · owner"},
+ claimA:{de:"Die meisten Fallstudien beginnen mit einer Zahl. Diese beginnt mit einem Menschen, der <b>etwas will</b> — und das ganze Geschäft ist die Maschine, die sie gebaut hat, um es zu bekommen.",
+         en:"Most case studies open with a number. This one opens with a person who <b>wants something</b> — and the whole business is the machine she built to get it."},
+ secLoop:{de:"Der Traum ist ein Kreislauf, kein Ziel", en:"The dream is a loop, not a destination"},
+ subLoop:{de:"Sofia denkt nicht in Abteilungen. Sie denkt in einem Kreis, der sich weiterdrehen muss: gut einkaufen, gut rösten, gut ausschenken — und der Gast kommt wieder und bezahlt den nächsten Sack. Fahren Sie über eine Station.",
+          en:"Sofia does not think in departments. She thinks in a circle that has to keep turning: buy well, roast well, serve well, and the guest comes back and pays for the next sack. Hover any station."},
+ loopAria:{de:"Ein Kreislauf aus vier Stationen: grüne Bohnen, Rösten, die Tasse für den Gast und die Wiederkehr des Gastes, die den nächsten Einkauf bezahlt",
+           en:"A four-station loop: green beans, roasting, the cup served to a guest, and the guest returning, which pays for the next beans"},
+ detA:{de:['Warum hier anfangen','Jede Kennzahl dieser Bibliothek misst einen Sprung dieses Kreises',
+   'Der Röstverlust misst den zweiten Sprung. Der Umsatz je Gast den dritten. Die Wiederkehrrate über vierzehn Tage den vierten. Die Wartezeit an der Theke misst, ob der dritte Sprung den vierten beschädigt. Eine Kennzahl, die sich auf diesem Kreis nicht verorten lässt, ist meistens eine, die niemand gebraucht hat.',
+   'Fahren Sie über eine Station, um zu sehen, was sie kostet, was sie einbringt und wo sie gemessen wird.'],
+       en:['Why start here','Every figure in this library measures one hop of this loop',
+   'The roasting loss measures the second hop. Revenue per guest measures the third. The fourteen-day return rate measures the fourth. Waiting time at the counter measures whether the third hop damages the fourth. A key figure that cannot be placed on this circle is usually a figure nobody needed.',
+   'Hover a station to see what it costs, what it earns, and where it is measured.']},
+ secBegin:{de:"Wo es angefangen hat", en:"Where it began"},
+ subBegin:{de:"Nicht mit einem Laden. Mit einem Fahrrad, einer Espressomaschine und einem grünen Sonnenschirm.",
+           en:"Not with a shop. With a bicycle, an espresso machine and a green umbrella."},
+ boxBike:{de:"<b>Das Coffeebike ist der älteste Teil des Geschäfts, nicht der jüngste.</b> Alles andere ist daraus gewachsen: das erste Kaffeehaus, weil die Schlange am Rad zu lang wurde; die Rösterei, weil gekaufte Bohnen bedeuten, dass jemand anderes über den Geschmack entscheidet; der Großhandel, weil die Rösterei Kapazität übrig hatte. Diese Reihenfolge zählt, wenn man später auf die Daten schaut — das Rad ist der einzige Verkaufsort ohne feste Adresse, und es steht in der Standortdimension, weil es zuerst da war, nicht weil jemand einen Sonderfall gesucht hat.",
+          en:"<b>The coffee bike is the oldest part of the business, not the newest.</b> Everything else grew out of it: the first coffee house because the queue at the bike got too long, the roastery because buying roasted beans meant somebody else decided how they tasted, the wholesale line because the roastery had capacity left over. That order matters when you look at the data later — the bike is the only sales point with no fixed address, and it is in the location dimension because it was there first, not because someone wanted an edge case."},
+ hintA:{de:"Die vier Stationen des Kreislaufs überfahren oder antabben",
+        en:"Hover or tab through the four stations of the loop"},
 
-  /* ---- people ---- */
-  sofia:["Sofia · owner","Built the business out of a bicycle, which tells you everything about her appetite for risk and her patience for detail. She reads a figure, draws a conclusion and acts, often the same afternoon. That instinct is why the business exists — and why it occasionally costs ten thousand euros."],
-  nguyen:["Nguyen · working student","Studies controlling and business intelligence, one of the ten students on the payroll, and the person who actually builds Sofia's reports. She does not have better ideas than Sofia. She has one better habit: before believing a number, she asks what it counts."],
-  alex:["Alex · controller","Brings the method the other two lack: plan against actual, deviation, cause. Where Sofia asks whether the month was good and Nguyen asks what the figure counts, Alex asks what it was supposed to be — which is the question that turns a report into a decision."],
+ claimB:{de:"Vier Stationen, eine Bohne. <b>Jedes Modul dieser Bibliothek dockt irgendwo an dieser Linie an</b> — fahren Sie über eine Station, um zu sehen, was dort passiert und welche Sitzung sie behandelt.",
+         en:"Four stations, one bean. <b>Every module in this library plugs in somewhere along this line</b> — hover a station to see what happens there and which session covers it."},
+ detB:{de:['Die Wertschöpfungskette','Von einer Kooperative in Peru bis zur Tasse an der Ringstraße',
+   'Von links nach rechts gelesen ist es eine Lieferkette. Als Datenproblem gelesen sind es vier Systeme, die nichts voneinander wissen: eine Importdatei, ein Röstprotokoll, eine Kasse und ein Großhandels-Auftragsbuch. Jedes nennt ein Kilogramm Kaffee anders, und zwei von ihnen sind sich nicht einmal einig, was ein Kunde ist.',
+   'Fahren Sie über eine Station: Rolle, Zahlen und das Modul, das sie behandelt.'],
+       en:['The value chain','From a cooperative in Peru to a cup on the Ringstraße',
+   'Read left to right and it is a supply chain. Read it as a data problem and it is four systems that do not know about each other: an import file, a roasting log, a till, and a wholesale order book. Every one of them calls a kilogram of coffee something different, and two of them are not even sure what a customer is.',
+   'Hover any station for its role, its figures and the module that covers it.']},
+ boxLoopBiz:{de:"<b>Die Schleife, auf die es sich zu zeigen lohnt.</b> Sofia verkauft geröstete Bohnen an sieben Bäckereien — und kauft Kuchen und Gebäck bei Bäckereien, teils bei denselben. Dieselbe Geschäftsbeziehung erscheint einmal als Kunde und einmal als Lieferant, unter zwei verschiedenen Nummern, in zwei verschiedenen Systemen. Niemand hat das geplant; so sieht es aus, wenn ein Betrieb dadurch wächst, dass er ja sagt. Es ist zugleich das sauberste Beispiel des ganzen Falls dafür, warum Stammdaten eine Disziplin sind und keine Tabelle.",
+             en:"<b>The loop worth pointing at.</b> Sofia sells roasted beans to seven bakeries — and buys her cake and pastry from bakeries, partly the same ones. The same business relationship appears once as a customer and once as a supplier, under two different numbers, in two different systems. Nobody planned this; it is what happens when a business grows by saying yes. It is also the cleanest example in the whole case of why master data is a discipline and not a spreadsheet."},
+ secMap:{de:"Welche Sitzung welche Station behandelt", en:"Which session covers which station"},
+ subMap:{de:"Der Fall ist die Landkarte. Von hier aus lassen sich diese Module öffnen.",
+         en:"The case is the map. These are the modules you can open from here."},
+ hintB:{de:"Station überfahren · die Karten unten sind Verweise in die anderen Module",
+        en:"Hover a station · the cards below are links into the other modules"},
 
-  /* ---- bars ---- */
-  bRing:["Kaffeehaus Ringstraße","Central, steady, higher bill per guest. Tourists and commuters rather than a semester rhythm."],
-  bAlser:["Kaffeehaus Alsergrund","Next to the university. High footfall, smaller bill, and demand that follows the academic calendar whether anyone markets to it or not."]
+ claimC:{de:"Das Geschäft ist gewachsen. Die Art, es zu führen, nicht. Vier Sätze aus Sofias eigener Bestandsaufnahme — und sie <b>steigern sich</b>, das ist der Teil, den man bemerken sollte.",
+         en:"The business grew. The way it is run did not. Four sentences from Sofia's own stocktake — and they <b>escalate</b>, which is the part worth noticing."},
+ detC:{de:['Die Liste lesen','Das sind nicht vier Probleme. Das ist ein Problem und drei Symptome.',
+   'Zettelwirtschaft ist die Ursache. Dass der Steuerberater die Zahlen besitzt, ist die Folge — wenn niemand im Betrieb eine Zahl erzeugen kann, tut es jemand von außen, nach seinem eigenen Kalender. Sinkender Umsatz und steigende Beschwerden sind das, was man davon von außen sieht, Monate später, wenn es teuer wird.',
+   'Fahren Sie über jede Zeile, um zu sehen, was sie in Sofias Woche bedeutet.'],
+       en:['Reading the list','These are not four problems. They are one problem and three symptoms.',
+   'Pen and paper is the cause. The tax advisor owning the numbers is the consequence — if nobody inside the business can produce a figure, somebody outside will, on their own schedule. Falling revenue and rising complaints are what that looks like from the outside, months later, when it is expensive to fix.',
+   "Hover each line for what it actually means in Sofia's week."]},
+ boxTax:{de:"<b>Der Steuerberater ist nicht der Bösewicht.</b> Seine Zahlen sind korrekt, vollständig und prüfungsfest — und sie kommen zehn Wochen nach Quartalsende. Für das Finanzamt ist das genau richtig und für eine Entscheidung am Dienstagmorgen unbrauchbar. Die Trennlinie zwischen beidem ist die Linie, die Reichmann durch seine Pyramide zieht: Abrechnungssysteme sind kein Controlling, sie sind die Etage, auf der Controlling steht. Die Theorie zu Sofias Klage steht im Modul <a href='controlling-pyramid.html$QS'>Controlling-Pyramide</a>.",
+         en:"<b>The tax advisor is not the villain.</b> His figures are correct, complete and auditable — and they arrive ten weeks after the quarter ends. That is exactly right for the tax office and useless for a decision on a Tuesday morning. The line between the two is the line Reichmann draws through his pyramid: accounting systems are not controlling, they are the floor controlling stands on. If you want the theory behind Sofia's complaint, it is in the <a href='controlling-pyramid.html$QS'>Controlling Pyramid</a> module."},
+ secDiag:{de:"Die Diagnose", en:"The diagnosis"},
+ subDiag:{de:"Gehört ausgesprochen, bevor irgendjemand ein Werkzeug vorschlägt.",
+          en:"Worth saying out loud before anyone proposes a tool."},
+ boxDiag:{de:"<b>Sofia arbeitet nicht zu wenig. Sie arbeitet mehr Stunden als je zuvor.</b> Die Zahlen, die sie braucht, existieren bereits — die Kasse schreibt jede Zeile, der Röster protokolliert jede Charge, das ERP kennt jeden Sack aus Peru. Sie liegen nur an vier Stellen, in vier Formen, und sind drei Wochen alt, bis sie jemand zusammenzählt. Das ist kein Fleißproblem und kein Softwareproblem. Es ist das Problem, um das es in diesem ganzen Kurs geht.",
+          en:"<b>Sofia does not work too little. She works more hours than she ever has.</b> The figures she needs already exist — the till writes every line, the roaster logs every batch, the ERP knows every sack from Peru. They are simply in four places, in four shapes, and three weeks old by the time anyone adds them up. That is not an effort problem and it is not a software problem. It is the problem this entire course is about."},
+ hintC:{de:"Eine der vier Zeilen überfahren", en:"Hover any of the four lines"},
+
+ claimD:{de:"Sofia hat die Ideen. Nguyen hat die Fragen. <b>Das Geschäft braucht beides</b>, und die interessanten Momente sind die, in denen beide aufeinandertreffen.",
+         en:"Sofia has the ideas. Nguyen has the questions. <b>The business needs both</b>, and the interesting moments are where the two collide."},
+ detD:{de:['Das Zweigespann','Sofia ist nicht die Dumme — sie ist die Ungeduldige',
+   'Sie liest eine Zahl, zieht einen Schluss und handelt, oft am selben Nachmittag. Dieser Instinkt hat das Geschäft gebaut: Niemand Vorsichtiges schnallt eine Espressomaschine auf ein Fahrrad. Er macht sie auch teuer, wenn die Zahl etwas anderes bedeutet, als sie zu bedeuten scheint.',
+   'Nguyen hat keine besseren Ideen. Sie hat eine bessere Angewohnheit: Bevor sie einer Zahl glaubt, fragt sie, was diese zählt. Diese Frage ist genau einmal zehntausend Euro wert — danach stellt Sofia sie selbst.'],
+       en:['The double act','Sofia is not the fool — she is the impatient one',
+   'She reads a figure, draws a conclusion and acts, often on the same afternoon. That instinct built the business: nobody cautious straps an espresso machine to a bicycle. It is also what makes her expensive when the figure means something other than what it looks like.',
+   'Nguyen does not have better ideas. She has one better habit: before believing a number, she asks what it counts. That question is worth ten thousand euros exactly once — after that, Sofia asks it herself.']},
+ secCase:{de:"Der Zehntausend-Euro-Nachmittag", en:"The ten thousand euro afternoon"},
+ subCase:{de:"Das durchgerechnete Beispiel. Dasselbe Quartal, dieselben Bons, dieselbe Summe — eine Modellierungsentscheidung auseinander. Schalten Sie zwischen den beiden Berichten um und sehen Sie zu, wie die Führung die Seite wechselt.",
+          en:"The worked example. Same quarter, same receipts, same total — one modelling decision apart. Switch between the two reports and watch the leader change places."},
+ caseTitle:{de:"Umsatz je Kaffeehaus · Q1 2026", en:"Revenue by coffee house · Q1 2026"},
+ segAria:{de:"Fassung des Berichts", en:"Report version"},
+ segT1:{de:"Der Bericht, den Sofia sah", en:"The report Sofia saw"},
+ segT2:{de:"Der Bericht, den Nguyen baute", en:"The report Nguyen built"},
+ thHouse:{de:"Kaffeehaus", en:"Coffee house"},
+ thT1:{de:"Bericht Sofia", en:"Report Sofia saw"},
+ thT2:{de:"Bericht Nguyen", en:"Report Nguyen built"},
+ thDiff:{de:"Differenz", en:"Difference"},
+ boxNothing:{de:"<b>Nichts war kaputt.</b> Keine Zahl war falsch, kein Bon ging verloren, und das Quartal summierte sich in beiden Berichten auf 145 500 €. Anna ist am 1. März von der Ringstraße nach Alsergrund gewechselt, und der erste Bericht schrieb ihr ganzes Quartal stillschweigend dorthin, wo sie heute arbeitet. Sofia las das als Wachstum in Alsergrund und steckte 10 000 € in eine Campus-Kampagne für das Haus, das nicht gewachsen war. Die Theorie hinter den beiden Berichten — und warum die Summe gleich bleibt, die Wahrheit aber nicht — steht im Modul <a href='scd-dashboard.html$QS'>Slowly Changing Dimensions</a>.",
+             en:"<b>Nothing was broken.</b> No figure was wrong, no receipt was lost, and the quarter added up to 145 500 € in both reports. Anna simply moved from Ringstraße to Alsergrund on 1 March, and the first report quietly credited her whole quarter to wherever she happens to work today. Sofia read that as growth in Alsergrund and put 10 000 € into a campus campaign for the house that had not grown. The theory behind the two reports — and why the sum stays the same while the truth does not — is the <a href='scd-dashboard.html$QS'>Slowly Changing Dimensions</a> module."},
+ secLearn:{de:"Was Sofia mitgenommen hat", en:"What Sofia took away"},
+ hintD:{de:"Bericht oben umschalten · Balken oder Person überfahren",
+        en:"Switch the report above · hover a bar or a person"},
+
+ pointeK:{de:"Der eine Satz", en:"The one sentence"},
+ pointe:{de:"<b>Sofia wollte nie ein Dashboard. Sie wollte ihre Nachmittage zurück.</b> Jedes Modell, jedes Sternschema und jede Scorecard in dieser Bibliothek existiert aus einem Grund: damit die Antwort eine Minute dauert statt vierzehn Tage — und damit sie es eines Tages endlich sagen und auch so meinen kann. <em>Gut, dann radle ich jetzt zum Markusplatz.</em>",
+         en:"<b>Sofia never wanted a dashboard. She wanted her afternoons back.</b> Every model, every star schema and every scorecard in this library exists for one reason: so that the answer takes a minute instead of a fortnight — and so that one day she can finally say it and mean it. <em>Right, then I'll cycle to Piazza San Marco.</em>"},
+ footer:{de:"Lehrmaterial · Sofias Coffee Dream ist ein Wiener Betrieb mit zwei Kaffeehäusern, einer eigenen Rösterei, einem Coffeebike und einem Großhandel, der Bäckereien und andere Kaffeehäuser mit gerösteten Bohnen beliefert. Der fair gehandelte Rohkaffee kommt aus Peru. Die Storyline folgt den Vorlesungsfolien; die Quartalszahlen, der Röstverlust und die 10 000-Euro-Kampagne sind die Fallzahlen der übrigen Module und illustrativ.",
+         en:"Teaching material · Sofia's Coffee Dream is a Viennese business with two coffee houses, its own roastery, a coffee bike and a wholesale line supplying bakeries and other coffee houses with roasted beans. Fair-trade green coffee is imported from Peru. The storyline follows the course slides; the Q1 revenue figures, the roasting loss and the 10 000 € campaign are the case figures used across the other modules and are illustrative."}
 };
 
+/* =====================================================================
+   Inhalte der Hover-Erklärungen
+   ===================================================================== */
+const REG = {
+ beans:[{de:"Grüne Bohnen",en:"Green beans"},
+   {de:"Fair gehandelte Partien einer Kooperative in Peru, ein- bis zweimal im Jahr gekauft und bei Verschiffung in Dollar bezahlt. Alles danach wird über diesen Sack bepreist — und Sofia beherrscht weder die Ernte noch den Wechselkurs.",
+    en:"Fair-trade lots from a cooperative in Peru, bought once or twice a year and paid in dollars on shipment. Everything downstream is priced off this sack — and Sofia controls neither the harvest nor the exchange rate."},
+   {de:"≈ 6 000 kg im Jahr · 6,40 € je kg", en:"≈ 6 000 kg a year · 6.40 € per kg"}],
+ roast:[{de:"Die Rösterei",en:"The roastery"},
+   {de:"Sofias einzige echte Produktionsstufe und der einzige Ort, an dem ein Kilogramm seine Bedeutung ändert: 100 kg grüner Kaffee verlassen die Trommel als 84 kg gerösteter. Die fehlenden 16 % sind bezahlt und werden nie verkauft.",
+    en:"Sofia's only real production stage, and the only place a kilogram changes meaning: 100 kg of green coffee leave the drum as 84 kg of roasted. The missing 16 % is paid for and never sold."},
+   {de:"Chargen zu 12 kg · 16 % Röstverlust", en:"12 kg batches · 16 % roasting loss"}],
+ cup:[{de:"Die Tasse",en:"The cup"},
+   {de:"Hier verdient der Kreislauf endlich Geld — über die Theke in zwei Kaffeehäusern, vom Rad, oder sackweise an eine Bäckerei. Vier verschiedene Arten, dieselbe Bohne zu verkaufen, vier verschiedene Zahlen.",
+    en:"Where the loop finally earns money — across the counter in two coffee houses, off the bike, or by the sack to a bakery. Four different ways of selling the same bean, four different figures."},
+   {de:"7,20 € je Gast · 4:10 min Wartezeit", en:"7.20 € per guest · 4:10 min wait"}],
+ back:[{de:"Sie kommen wieder",en:"They come back"},
+   {de:"Der Sprung, den niemand in Rechnung stellt und von dem alles abhängt. Kommt der Gast wieder, ist der Sack in Peru schon bezahlt. Kommt er nicht, hilft alle Röstkunst nichts.",
+    en:"The hop nobody bills for and everything depends on. If the guest returns, the sack in Peru is already paid for. If they do not, no amount of roasting skill helps."},
+   {de:"38 % Wiederkehr in 14 Tagen · Ziel 50 %", en:"38 % return within 14 days · target 50 %"}],
+
+ st1:[{de:"Fair gehandelter Rohkaffee · Peru",en:"Fair-trade green coffee · Peru"},
+   {de:"Eine Kooperative, ein bis zwei Lieferungen im Jahr, Zollpapiere und ein Wechselkurs, der am Einkaufstag festgezurrt wird. Das Geld verlässt das Konto rund vier Monate, bevor der Kaffee verkauft ist — deshalb braucht dieser Betrieb eine Liquiditätskennzahl und nicht nur eine Ergebniskennzahl.",
+    en:"A cooperative, one or two shipments a year, customs papers, and an exchange rate fixed on the day of purchase. The money leaves the account roughly four months before the coffee is sold — which is why this business needs a liquidity figure and not just a profit figure."},
+   {de:"Behandelt in: BI-Referenzarchitektur (ERP), Controlling-Pyramide (Beschaffung)",
+    en:"Covered in: BI reference architecture (ERP), Controlling Pyramid (sourcing)"}],
+ st2:[{de:"Sofias Rösterei",en:"Sofia's roastery"},
+   {de:"Röstprofile, Chargen zu 12 kg, grün eingewogen und geröstet ausgewogen. Der Abstand zwischen beiden Zahlen ist die Größe mit der stärksten Hebelwirkung im ganzen Betrieb — und keine Zeile der Gewinn- und Verlustrechnung trägt ihren Namen.",
+    en:"Roast profiles, 12 kg batches, weighed in green and weighed out roasted. The gap between the two numbers is the single figure with the most leverage in the whole business, and no line of the profit and loss account is called by its name."},
+   {de:"Behandelt in: Controlling-Pyramide (Produktion, Sonderteil des RL-Systems)",
+    en:"Covered in: Controlling Pyramid (production, the special part of the RL system)"}],
+ st3:[{de:"B2C · zwei Kaffeehäuser und das Rad",en:"B2C · two coffee houses and the bike"},
+   {de:"Die Ringstraße lebt von Touristen und Pendlern, gleichmäßig, mit höherem Bon. Alsergrund lebt von Studierenden und folgt dem Semester. Das Coffeebike hat überhaupt keine feste Adresse — sein Standort wechselt täglich, und genau das ist die unbequeme Frage im Kern der Standortdimension.",
+    en:"Ringstraße runs on tourists and commuters, evenly, with a bigger bill. Alsergrund runs on students and follows the semester. The coffee bike has no fixed address at all — its location changes daily, which is the awkward question at the heart of the location dimension."},
+   {de:"Behandelt in: Slowly Changing Dimensions, Balanced Scorecard",
+    en:"Covered in: Slowly Changing Dimensions, Balanced Scorecard"}],
+ st4:[{de:"B2B · Bäckereien und andere Kaffeehäuser",en:"B2B · bakeries and other coffee houses"},
+   {de:"Zwei Großhandelssegmente, die sich überhaupt nicht gleich verhalten. Sieben Bäckereien nehmen kleine, regelmäßige Lieferungen — und verkaufen Sofia den Kuchen, sitzen also auf beiden Seiten des Hauptbuchs. Andere Wiener Kaffeehäuser nehmen größere Gebinde und verhandeln härter über den Preis.",
+    en:"Two wholesale segments that behave nothing alike. Seven bakeries take small regular deliveries — and sell Sofia her cake, so they sit on both sides of the ledger. Other Viennese coffee houses take larger sacks and negotiate harder on price."},
+   {de:"Behandelt in: ETL und Datenqualität (geplant), Stammdatenmodellierung",
+    en:"Covered in: ETL and data quality (planned), master data modelling"}],
+
+ pn1:[{de:"Zettelwirtschaft — von gestern",en:"Pen and paper — business was yesterday"},
+   {de:"Bestellungen auf einem Block, der Bestand in Sofias Kopf, das Röstprotokoll in einem Heft neben der Trommel. Für ein Fahrrad hat das funktioniert. Für zwei Häuser, eine Rösterei und eine Großhandelsrunde funktioniert es nicht, und das Scheitern ist lautlos: Nichts geht kaputt, die Dinge hören nur auf, wissbar zu sein.",
+    en:"Orders on a pad, stock in Sofia's head, the roast log in a notebook by the drum. It worked for one bicycle. It does not work for two houses, a roastery and a wholesale round, and the failure is silent: nothing breaks, things just stop being knowable."}],
+ pn2:[{de:"Der Steuerberater macht die Finanzen",en:"The tax advisor is in charge of the financials"},
+   {de:"Korrekt, vollständig, prüfungsfest — und zehn Wochen nach Quartalsende. Sofia hat nicht nur die Buchhaltung ausgelagert, sondern die Fähigkeit, eine Frage über den eigenen Betrieb zu beantworten. Wie der März gelaufen ist, erfährt sie im Juni.",
+    en:"Correct, complete, auditable — and ten weeks after the quarter ends. Sofia has outsourced not just the bookkeeping but the ability to answer a question about her own business. She finds out how March went in June."}],
+ pn3:[{de:"Der Umsatz sinkt langsam, aber stetig",en:"Revenue decreases slowly but constantly"},
+   {de:"Die gefährliche Form eines Problems: in keiner einzelnen Woche groß genug, um aufzufallen, über ein Jahr hinweg unübersehbar. Wenn es im Jahresabschluss sichtbar wird, sind vier Quartale voller Ursachen vermischt und keine davon lässt sich noch trennen.",
+    en:"The dangerous shape of a problem: too small to notice in any single week, unmistakable across a year. By the time it is visible in the annual accounts, four quarters of causes have been mixed together and none of them can be separated any more."}],
+ pn4:[{de:"Die Beschwerden nehmen zu",en:"Complaints are increasing"},
+   {de:"Die einzige Größe dieser Liste, die tatsächlich vorlaufend ist — und die einzige, die niemand zählt. Gäste beschweren sich Monate bevor sie wegbleiben, was dies zur billigsten Warnung im Betrieb macht und zu derjenigen, die weggeworfen wird.",
+    en:"The only figure on this list that is actually a leading indicator — and the only one nobody is counting. Guests complain months before they stop coming, which makes this the cheapest warning in the business and the one being thrown away."}],
+
+ sofia:[{de:"Sofia · Inhaberin",en:"Sofia · owner"},
+   {de:"Hat aus einem Fahrrad einen Betrieb gebaut, was alles über ihre Risikofreude und ihre Geduld für Details sagt. Sie liest eine Zahl, zieht einen Schluss und handelt, oft am selben Nachmittag. Dieser Instinkt ist der Grund, warum es das Geschäft gibt — und warum es gelegentlich zehntausend Euro kostet.",
+    en:"Built the business out of a bicycle, which tells you everything about her appetite for risk and her patience for detail. She reads a figure, draws a conclusion and acts, often the same afternoon. That instinct is why the business exists — and why it occasionally costs ten thousand euros."}],
+ nguyen:[{de:"Nguyen · Werkstudentin",en:"Nguyen · working student"},
+   {de:"Studiert Controlling und Business Intelligence, ist eine der zehn Studierenden auf der Gehaltsliste und diejenige, die Sofias Berichte tatsächlich baut. Sie hat keine besseren Ideen als Sofia. Sie hat eine bessere Angewohnheit: Bevor sie einer Zahl glaubt, fragt sie, was diese zählt.",
+    en:"Studies controlling and business intelligence, one of the ten students on the payroll, and the person who actually builds Sofia's reports. She does not have better ideas than Sofia. She has one better habit: before believing a number, she asks what it counts."}],
+ alex:[{de:"Alex · Controller",en:"Alex · controller"},
+   {de:"Bringt die Methode mit, die den beiden anderen fehlt: Plan gegen Ist, Abweichung, Ursache. Wo Sofia fragt, ob der Monat gut war, und Nguyen fragt, was die Zahl zählt, fragt Alex, was sie hätte sein sollen — und das ist die Frage, die aus einem Bericht eine Entscheidung macht.",
+    en:"Brings the method the other two lack: plan against actual, deviation, cause. Where Sofia asks whether the month was good and Nguyen asks what the figure counts, Alex asks what it was supposed to be — which is the question that turns a report into a decision."}],
+
+ bRing:[{de:"Kaffeehaus Ringstraße",en:"Kaffeehaus Ringstraße"},
+   {de:"Zentral, gleichmäßig, höherer Bon je Gast. Touristen und Pendler statt Semesterrhythmus.",
+    en:"Central, steady, higher bill per guest. Tourists and commuters rather than a semester rhythm."}],
+ bAlser:[{de:"Kaffeehaus Alsergrund",en:"Kaffeehaus Alsergrund"},
+   {de:"Neben der Universität. Hohe Frequenz, kleinerer Bon, und eine Nachfrage, die dem akademischen Kalender folgt, ob jemand dafür wirbt oder nicht.",
+    en:"Next to the university. High footfall, smaller bill, and demand that follows the academic calendar whether anyone markets to it or not."}]
+};
+
+/* =====================================================================
+   Tooltip und Detailkasten
+   ===================================================================== */
 const tip = document.getElementById("tip");
-const LIVE = {"p-a":["detA","Station of the loop"], "p-b":["detB","Value chain"],
-              "p-c":["detC","Pain point"],           "p-d":["detD","The cast"]};
+const LIVE = {"p-a":["detA","detA"], "p-b":["detB","detB"], "p-c":["detC","detC"], "p-d":["detD","detD"]};
+const KICK = {"p-a":{de:"Station des Kreislaufs",en:"Station of the loop"},
+              "p-b":{de:"Wertschöpfungskette",en:"Value chain"},
+              "p-c":{de:"Schmerzpunkt",en:"Pain point"},
+              "p-d":{de:"Die Beteiligten",en:"The cast"}};
 
 function show(elem, ev){
   const d = REG[elem.dataset.k]; if(!d) return;
-  tip.innerHTML = `<p class="th">${d[0]}</p><p>${d[1]}</p>` + (d[2]?`<p class="extra">${d[2]}</p>`:"");
+  const t0=L(d[0]), t1=L(d[1]), t2=d[2]?L(d[2]):"";
+  tip.innerHTML = `<p class="th">${t0}</p><p>${t1}</p>` + (t2?`<p class="extra">${t2}</p>`:"");
   tip.classList.add("on");
   move(elem, ev);
   const panel = elem.closest(".panel");
   if(panel && LIVE[panel.id]){
-    const [boxId, kicker] = LIVE[panel.id];
-    document.getElementById(boxId).innerHTML =
-      `<p class="dk">${kicker}</p><h4>${d[0]}</h4><p>${d[1]}</p>` +
-      (d[2]?`<p><span class="fig">${d[2]}</span></p>`:"");
+    document.getElementById(LIVE[panel.id][0]).innerHTML =
+      `<p class="dk">${L(KICK[panel.id])}</p><h4>${t0}</h4><p>${t1}</p>` +
+      (t2?`<p><span class="fig">${t2}</span></p>`:"");
   }
 }
 function move(elem, ev){
@@ -494,27 +615,19 @@ function move(elem, ev){
 function hideTip(){ tip.classList.remove("on"); }
 
 const SEL = "[data-k]";
-document.addEventListener("pointerover", e=>{
-  const n = e.target.closest && e.target.closest(SEL); if(n) show(n,e);
-});
-document.addEventListener("pointermove", e=>{
-  const n = e.target.closest && e.target.closest(SEL); if(n) move(n,e);
-});
+document.addEventListener("pointerover", e=>{const n=e.target.closest&&e.target.closest(SEL); if(n) show(n,e);});
+document.addEventListener("pointermove", e=>{const n=e.target.closest&&e.target.closest(SEL); if(n) move(n,e);});
 document.addEventListener("pointerout", e=>{
-  const from = e.target.closest && e.target.closest(SEL); if(!from) return;
-  const to = e.relatedTarget && e.relatedTarget.closest ? e.relatedTarget.closest(SEL) : null;
-  if(to !== from) hideTip();
+  const from=e.target.closest&&e.target.closest(SEL); if(!from) return;
+  const to=e.relatedTarget&&e.relatedTarget.closest?e.relatedTarget.closest(SEL):null;
+  if(to!==from) hideTip();
 });
-document.addEventListener("focusin", e=>{
-  const n = e.target.closest && e.target.closest(SEL); if(n) show(n,null);
-});
-document.addEventListener("focusout", e=>{
-  if(e.target.closest && e.target.closest(SEL)) hideTip();
-});
+document.addEventListener("focusin", e=>{const n=e.target.closest&&e.target.closest(SEL); if(n) show(n,null);});
+document.addEventListener("focusout", e=>{if(e.target.closest&&e.target.closest(SEL)) hideTip();});
 addEventListener("scroll", hideTip, {passive:true});
 
 /* =====================================================================
-   2 · THE LOOP
+   Der Kreislauf
    ===================================================================== */
 (function buildLoop(){
   const NS="http://www.w3.org/2000/svg";
@@ -528,15 +641,14 @@ addEventListener("scroll", hideTip, {passive:true});
 
   const CX=310, CY=200, R=126, NR=58;
   const NODES=[
-    ["beans", -90, "Green beans", "Peru · fair trade"],
-    ["roast",   0, "The roastery", "12 kg · −16 %"],
-    ["cup",    90, "The cup", "counter · bike · sack"],
-    ["back",  180, "They come back", "or they don't"]
+    ["beans", -90, {de:"Grüne Bohnen",en:"Green beans"}, {de:"Peru · fair gehandelt",en:"Peru · fair trade"}],
+    ["roast",   0, {de:"Die Rösterei",en:"The roastery"}, {de:"12 kg · −16 %",en:"12 kg · −16 %"}],
+    ["cup",    90, {de:"Die Tasse",en:"The cup"}, {de:"Theke · Rad · Sack",en:"counter · bike · sack"}],
+    ["back",  180, {de:"Sie kommen wieder",en:"They come back"}, {de:"oder eben nicht",en:"or they don't"}]
   ];
   const rad = d => d*Math.PI/180;
   const px = (a,r) => [CX + r*Math.cos(rad(a)), CY + r*Math.sin(rad(a))];
 
-  /* arcs first, so nodes sit on top */
   NODES.forEach(([,a],i)=>{
     const b = NODES[(i+1)%NODES.length][1];
     const [x1,y1] = px(a+27, R);
@@ -545,94 +657,122 @@ addEventListener("scroll", hideTip, {passive:true});
       "marker-end":"url(#la)"});
   });
 
-  NODES.forEach(([id,a,name,sub])=>{
+  NODES.forEach(([id,a,nameV,subV])=>{
     const [x,y] = px(a, R);
-    const g = add(svg,"g",{class:"node",tabindex:"0",role:"button","data-k":id,"aria-label":REG[id][0]});
+    const name=L(nameV), sub=L(subV);
+    const g = add(svg,"g",{class:"node",tabindex:"0",role:"button","data-k":id,"aria-label":L(REG[id][0])});
     add(g,"circle",{cx:x,cy:y,r:NR,fill:"#E6F4F8",stroke:"#209CBD","stroke-width":1.6});
-    const t1=add(g,"text",{x:x,y:y-8,"text-anchor":"middle",class:"t-n"});
     const words=name.split(" ");
     if(words.length>2){
+      const t1=add(g,"text",{x:x,y:y-8,"text-anchor":"middle",class:"t-n"});
       t1.textContent=words.slice(0,2).join(" ");
       const t1b=add(g,"text",{x:x,y:y+7,"text-anchor":"middle",class:"t-n"});
       t1b.textContent=words.slice(2).join(" ");
       const t2=add(g,"text",{x:x,y:y+24,"text-anchor":"middle",class:"t-s"}); t2.textContent=sub;
     } else {
-      t1.textContent=name;
+      const t1=add(g,"text",{x:x,y:y-8,"text-anchor":"middle",class:"t-n"}); t1.textContent=name;
       const t2=add(g,"text",{x:x,y:y+12,"text-anchor":"middle",class:"t-s"}); t2.textContent=sub;
     }
     add(g,"circle",{class:"ring",cx:x,cy:y,r:NR+5});
     add(g,"circle",{class:"hit",cx:x,cy:y,r:NR+3});
   });
 
-  const c1=add(svg,"text",{x:CX,y:CY-11,"text-anchor":"middle",class:"t-c"});
-  c1.textContent="keep the circle";
-  const c2=add(svg,"text",{x:CX,y:CY+9,"text-anchor":"middle",class:"t-c"});
-  c2.textContent="turning";
+  const mid=L({de:["den Kreis am","Laufen halten"],en:["keep the circle","turning"]});
+  const c1=add(svg,"text",{x:CX,y:CY-11,"text-anchor":"middle",class:"t-c"}); c1.textContent=mid[0];
+  const c2=add(svg,"text",{x:CX,y:CY+9,"text-anchor":"middle",class:"t-c"}); c2.textContent=mid[1];
 })();
 
 /* =====================================================================
-   3 · VALUE CHAIN, MAP, PAINS, PEOPLE
+   Kette, Landkarte, Schmerzpunkte, Personen
    ===================================================================== */
 const CHAIN=[
- ["st1","Step 01","Fair-trade green coffee","A cooperative in Peru. Paid in dollars, months before it is sold.",
-  ["≈6 000 kg / yr","6.40 € / kg","USD"],"#0F4C5C"],
- ["st2","Step 02","Sofia's roastery","The only production stage — and the only place a kilogram changes meaning.",
-  ["12 kg batches","−16 % loss","roast profiles"],"#209CBD"],
- ["st3","Step 03","B2C · houses and bike","Ringstraße, Alsergrund and a bicycle with no fixed address.",
-  ["Ringstraße","Alsergrund","Coffeebike"],"#5FBBD3"],
- ["st4","Step 04","B2B · wholesale","Seven bakeries — who also sell her the cake — and other coffee houses.",
-  ["7 bakeries","coffee houses","by the sack"],"#B5852C"]
+ ["st1",{de:"Schritt 01",en:"Step 01"},{de:"Fair gehandelter Rohkaffee",en:"Fair-trade green coffee"},
+  {de:"Eine Kooperative in Peru. In Dollar bezahlt, Monate bevor er verkauft ist.",
+   en:"A cooperative in Peru. Paid in dollars, months before it is sold."},
+  {de:["≈6 000 kg / Jahr","6,40 € / kg","USD"],en:["≈6 000 kg / yr","6.40 € / kg","USD"]},"#0F4C5C"],
+ ["st2",{de:"Schritt 02",en:"Step 02"},{de:"Sofias Rösterei",en:"Sofia's roastery"},
+  {de:"Die einzige Produktionsstufe — und der einzige Ort, an dem ein Kilogramm seine Bedeutung ändert.",
+   en:"The only production stage — and the only place a kilogram changes meaning."},
+  {de:["Chargen zu 12 kg","−16 % Verlust","Röstprofile"],en:["12 kg batches","−16 % loss","roast profiles"]},"#209CBD"],
+ ["st3",{de:"Schritt 03",en:"Step 03"},{de:"B2C · Häuser und Rad",en:"B2C · houses and bike"},
+  {de:"Ringstraße, Alsergrund und ein Fahrrad ohne feste Adresse.",
+   en:"Ringstraße, Alsergrund and a bicycle with no fixed address."},
+  {de:["Ringstraße","Alsergrund","Coffeebike"],en:["Ringstraße","Alsergrund","Coffeebike"]},"#5FBBD3"],
+ ["st4",{de:"Schritt 04",en:"Step 04"},{de:"B2B · Großhandel",en:"B2B · wholesale"},
+  {de:"Sieben Bäckereien — die ihr auch den Kuchen verkaufen — und andere Kaffeehäuser.",
+   en:"Seven bakeries — who also sell her the cake — and other coffee houses."},
+  {de:["7 Bäckereien","Kaffeehäuser","sackweise"],en:["7 bakeries","coffee houses","by the sack"]},"#B5852C"]
 ];
 const ARROW=`<span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>`;
 document.getElementById("chain").innerHTML = CHAIN.map(([id,step,name,txt,tags,col],i)=>
  `<div class="stationwrap">
     <div class="station" tabindex="0" data-k="${id}" style="--st:${col}">
-      <p class="sk">${step}</p><h3>${name}</h3><p>${txt}</p>
-      <div class="tagrow">${tags.map(t=>`<span>${t}</span>`).join("")}</div>
+      <p class="sk">${L(step)}</p><h3>${L(name)}</h3><p>${L(txt)}</p>
+      <div class="tagrow">${L(tags).map(t=>`<span>${t}</span>`).join("")}</div>
     </div>${i<CHAIN.length-1?ARROW:""}
   </div>`).join("");
 
 const MAP=[
- ["scd-dashboard.html","Station 03","Slowly Changing Dimensions","Anna moves house on 1 March — and the ten thousand euro mistake in tab 04 happens right here."],
- ["bi-reference-architecture.html","Stations 01–04","BI reference architecture","The whole road from the till roll to the management cockpit, layer by layer."],
- ["controlling-pyramid.html","Stations 01–02","Controlling Pyramid","Why the tax advisor's figures are accounting and not controlling."],
- ["balanced-scorecard.html","The loop","Balanced Scorecard","The dream, written down as objectives that can be measured."]
+ ["scd-dashboard.html",{de:"Station 03",en:"Station 03"},"Slowly Changing Dimensions",
+  {de:"Anna wechselt am 1. März das Haus — und der Zehntausend-Euro-Fehler aus Reiter 04 passiert genau hier.",
+   en:"Anna moves house on 1 March — and the ten thousand euro mistake in tab 04 happens right here."}],
+ ["bi-reference-architecture.html",{de:"Stationen 01–04",en:"Stations 01–04"},
+  {de:"BI-Referenzarchitektur",en:"BI reference architecture"},
+  {de:"Der ganze Weg vom Kassenbon bis zum Management-Cockpit, Schicht für Schicht.",
+   en:"The whole road from the till roll to the management cockpit, layer by layer."}],
+ ["controlling-pyramid.html",{de:"Stationen 01–02",en:"Stations 01–02"},
+  {de:"Controlling-Pyramide",en:"Controlling Pyramid"},
+  {de:"Warum die Zahlen des Steuerberaters Rechnungswesen sind und kein Controlling.",
+   en:"Why the tax advisor's figures are accounting and not controlling."}],
+ ["balanced-scorecard.html",{de:"Der Kreislauf",en:"The loop"},"Balanced Scorecard",
+  {de:"Der Traum, aufgeschrieben als Ziele, die sich messen lassen.",
+   en:"The dream, written down as objectives that can be measured."}]
 ];
 document.getElementById("maprow").innerHTML = MAP.map(([href,k,title,d])=>
- `<a class="mp" href="${href}"><span class="mk">${k}</span><b>${title}</b><span class="d">${d}</span></a>`).join("");
+ `<a class="mp" href="${href}${qs}"><span class="mk">${L(k)}</span><b>${L(title)}</b><span class="d">${L(d)}</span></a>`).join("");
 
 const PAINS=[
- ["pn1","01","„Pen &amp; paper“ — business was yesterday",""],
- ["pn2","02","The tax advisor is in charge of the financials","p2"],
- ["pn3","03","…but the revenue decreases slowly and constantly","p3"],
- ["pn4","04","…and the complaints are increasing","p4"]
+ ["pn1","01",{de:"„Zettelwirtschaft“ — das war gestern",en:"&ldquo;Pen &amp; paper&rdquo; — business was yesterday"},""],
+ ["pn2","02",{de:"Der Steuerberater macht die Finanzen",en:"The tax advisor is in charge of the financials"},"p2"],
+ ["pn3","03",{de:"…aber der Umsatz sinkt langsam und stetig",en:"…but the revenue decreases slowly and constantly"},"p3"],
+ ["pn4","04",{de:"…und die Beschwerden nehmen zu",en:"…and the complaints are increasing"},"p4"]
 ];
 document.getElementById("pains").innerHTML = PAINS.map(([id,n,t,cls])=>
- `<div class="pain ${cls}" tabindex="0" data-k="${id}"><span class="pn">${n}</span><span class="pt">${t}</span></div>`).join("");
+ `<div class="pain ${cls}" tabindex="0" data-k="${id}"><span class="pn">${n}</span><span class="pt">${L(t)}</span></div>`).join("");
 
 const PEOPLE=[
- ["sofia","The ideas","Sofia","Owner","Built a business out of a bicycle. Decides fast, checks later.","#B5852C"],
- ["nguyen","The questions","Nguyen","Working student · controlling and BI","Builds the reports. Asks what a number actually counts.","#209CBD"],
- ["alex","The method","Alex","Controller","Plan against actual, deviation, cause. Turns a report into a decision.","#0F4C5C"]
+ ["sofia",{de:"Die Ideen",en:"The ideas"},"Sofia",{de:"Inhaberin",en:"Owner"},
+  {de:"Hat aus einem Fahrrad einen Betrieb gebaut. Entscheidet schnell, prüft später.",
+   en:"Built a business out of a bicycle. Decides fast, checks later."},"#B5852C"],
+ ["nguyen",{de:"Die Fragen",en:"The questions"},"Nguyen",
+  {de:"Werkstudentin · Controlling und BI",en:"Working student · controlling and BI"},
+  {de:"Baut die Berichte. Fragt, was eine Zahl eigentlich zählt.",
+   en:"Builds the reports. Asks what a number actually counts."},"#209CBD"],
+ ["alex",{de:"Die Methode",en:"The method"},"Alex",{de:"Controller",en:"Controller"},
+  {de:"Plan gegen Ist, Abweichung, Ursache. Macht aus einem Bericht eine Entscheidung.",
+   en:"Plan against actual, deviation, cause. Turns a report into a decision."},"#0F4C5C"]
 ];
 document.getElementById("people").innerHTML = PEOPLE.map(([id,k,name,role,txt,col])=>
  `<div class="person" tabindex="0" data-k="${id}" style="--pc:${col}">
-    <p class="pk">${k}</p><h3>${name}</h3><p class="role">${role}</p><p>${txt}</p></div>`).join("");
+    <p class="pk">${L(k)}</p><h3>${name}</h3><p class="role">${L(role)}</p><p>${L(txt)}</p></div>`).join("");
 
 /* =====================================================================
-   4 · THE TEN THOUSAND EURO AFTERNOON
+   Der Zehntausend-Euro-Nachmittag
    ===================================================================== */
 const HOUSES=[
-  {k:"bRing",  name:"Kaffeehaus Ringstraße",  sub:"central · commuters", t1:66000, t2:82300},
-  {k:"bAlser", name:"Kaffeehaus Alsergrund",  sub:"university · students", t1:79500, t2:63200}
+  {k:"bRing", name:"Ringstraße", sub:{de:"zentral · Pendler",en:"central · commuters"}, t1:66000, t2:82300},
+  {k:"bAlser",name:"Alsergrund", sub:{de:"Universität · Studierende",en:"university · students"}, t1:79500, t2:63200}
 ];
 const SCALE=90000;
-const eur = n => n.toLocaleString("de-DE").replace(/\./g," ") + " €";
+const eur = n => n.toLocaleString(LANG==="de"?"de-DE":"en-US").replace(/[.,]/g," ") + " €";
 
 const VERDICT={
- t1:`<b>Alsergrund leads by 13 500 €</b> — a fifth ahead of Ringstraße. Sofia's reading: the campus house is taking off, and the students are the future. Her decision that same afternoon: <span class="amt">10 000 €</span> into a semester campaign for Alsergrund.`,
- t2:`<b>Ringstraße leads by 19 100 €</b> — thirty per cent ahead. Alsergrund never grew. Anna moved there on 1 March, and the first report handed her whole quarter to her new house. The <span class="amt">10 000 €</span> went to the wrong address.`
+ t1:{de:`<b>Alsergrund liegt mit 13 500 € vorn</b> — ein Fünftel vor der Ringstraße. Sofias Lesart: Das Campus-Haus hebt ab, und die Studierenden sind die Zukunft. Ihre Entscheidung noch am selben Nachmittag: <span class="amt">10 000 €</span> in eine Semesterkampagne für Alsergrund.`,
+     en:`<b>Alsergrund leads by 13 500 €</b> — a fifth ahead of Ringstraße. Sofia's reading: the campus house is taking off, and the students are the future. Her decision that same afternoon: <span class="amt">10 000 €</span> into a semester campaign for Alsergrund.`},
+ t2:{de:`<b>Die Ringstraße liegt mit 19 100 € vorn</b> — dreißig Prozent voraus. Alsergrund ist nie gewachsen. Anna ist am 1. März dorthin gewechselt, und der erste Bericht hat ihr ganzes Quartal dem neuen Haus zugeschlagen. Die <span class="amt">10 000 €</span> gingen an die falsche Adresse.`,
+     en:`<b>Ringstraße leads by 19 100 €</b> — thirty per cent ahead. Alsergrund never grew. Anna moved there on 1 March, and the first report handed her whole quarter to her new house. The <span class="amt">10 000 €</span> went to the wrong address.`}
 };
+const LEADFLAG={de:"führt in diesem Bericht",en:"leads this report"};
 
 let version="t1";
 function renderCase(){
@@ -641,13 +781,13 @@ function renderCase(){
   document.getElementById("chart").innerHTML = HOUSES.map((h,i)=>{
     const v = h[version], w = (v/SCALE*100).toFixed(1);
     return `<div class="brow ${i===lead?"lead":""}" tabindex="0" data-k="${h.k}">
-      <span class="bl">${h.name.replace("Kaffeehaus ","")}<small>${h.sub}</small>
-        <span class="lead-flag">leads this report</span></span>
+      <span class="bl">${h.name}<small>${L(h.sub)}</small>
+        <span class="lead-flag">${L(LEADFLAG)}</span></span>
       <span class="btrack"><i style="width:${w}%"></i></span>
       <span class="bv">${eur(v)}</span>
     </div>`;
   }).join("");
-  document.getElementById("verdict").innerHTML = VERDICT[version];
+  document.getElementById("verdict").innerHTML = L(VERDICT[version]);
   document.querySelectorAll("#seg button").forEach(b=>
     b.setAttribute("aria-pressed", String(b.dataset.v === version)));
   hideTip();
@@ -660,27 +800,51 @@ document.getElementById("seg").addEventListener("click", e=>{
 document.getElementById("tblBody").innerHTML =
   HOUSES.map(h=>{
     const d = h.t2 - h.t1;
-    return `<tr><td>${h.name}</td><td class="n">${eur(h.t1)}</td><td class="n">${eur(h.t2)}</td>
-      <td class="n">${d>0?"+":"−"}${eur(Math.abs(d)).replace(" €","")} €</td></tr>`;
+    return `<tr><td>Kaffeehaus ${h.name}</td><td class="n">${eur(h.t1)}</td><td class="n">${eur(h.t2)}</td>
+      <td class="n">${d>0?"+":"−"}${eur(Math.abs(d))}</td></tr>`;
   }).join("") +
-  `<tr class="sum"><td>Total Q1 2026</td>
+  `<tr class="sum"><td>${L({de:"Summe Q1 2026",en:"Total Q1 2026"})}</td>
      <td class="n">${eur(HOUSES.reduce((s,h)=>s+h.t1,0))}</td>
      <td class="n">${eur(HOUSES.reduce((s,h)=>s+h.t2,0))}</td>
      <td class="n">0 €</td></tr>`;
 
 const LEARNED=[
- ["Ask what it counts","Before believing a figure, ask which rows it summed and which version of the dimension it used. Nguyen's whole contribution is that one question, asked before the decision instead of after it."],
- ["A correct total can hide a wrong split","Both reports add up to 145 500 €. Reconciliation catches data that went missing; it does not catch data that went to the wrong place. The sum agreeing proves less than it appears to."],
- ["The fix is upstream","By the time the chart is on screen, the decision has already been made — in the load job, months earlier, by whoever chose how to record a change. No amount of care in the report can undo it."]
+ [{de:"Fragen, was sie zählt",en:"Ask what it counts"},
+  {de:"Bevor man einer Zahl glaubt, fragen, welche Zeilen sie summiert hat und welche Fassung der Dimension sie benutzt. Nguyens ganzer Beitrag ist diese eine Frage, gestellt vor der Entscheidung statt danach.",
+   en:"Before believing a figure, ask which rows it summed and which version of the dimension it used. Nguyen's whole contribution is that one question, asked before the decision instead of after it."}],
+ [{de:"Eine richtige Summe kann eine falsche Aufteilung verdecken",en:"A correct total can hide a wrong split"},
+  {de:"Beide Berichte summieren sich auf 145 500 €. Eine Abstimmung findet Daten, die fehlen; sie findet keine Daten, die an der falschen Stelle gelandet sind. Dass die Summe stimmt, beweist weniger, als es aussieht.",
+   en:"Both reports add up to 145 500 €. Reconciliation catches data that went missing; it does not catch data that went to the wrong place. The sum agreeing proves less than it appears to."}],
+ [{de:"Die Reparatur liegt weiter oben im Fluss",en:"The fix is upstream"},
+  {de:"Wenn das Diagramm auf dem Bildschirm steht, ist die Entscheidung längst gefallen — im Ladeprozess, Monate früher, von demjenigen, der festgelegt hat, wie eine Änderung aufgezeichnet wird. Keine Sorgfalt im Bericht macht das rückgängig.",
+   en:"By the time the chart is on screen, the decision has already been made — in the load job, months earlier, by whoever chose how to record a change. No amount of care in the report can undo it."}]
 ];
 document.getElementById("learned").innerHTML = LEARNED.map(([k,t])=>
- `<div class="lc"><p class="lk">${k}</p><p>${t}</p></div>`).join("");
+ `<div class="lc"><p class="lk">${L(k)}</p><p>${L(t)}</p></div>`).join("");
 
 renderCase();
 
 /* =====================================================================
-   5 · TABS
+   Statische Texte, Sprachschalter, Reiter
    ===================================================================== */
+document.title = L(UI.title);
+document.querySelectorAll("[data-t]").forEach(el=>{
+  el.innerHTML = L(UI[el.dataset.t]).split("$QS").join(qs);
+});
+document.querySelectorAll("[data-ta]").forEach(el=>{
+  el.setAttribute("aria-label", L(UI[el.dataset.ta]));
+});
+["a","b","c","d"].forEach(k=>{
+  const d=L(UI["det"+k.toUpperCase()]);
+  document.getElementById("det"+k.toUpperCase()).innerHTML =
+    `<p class="dk">${d[0]}</p><h4>${d[1]}</h4><p>${d[2]}</p>`+
+    (d[3]?`<p class="warn">${d[3]}</p>`:"");
+});
+document.querySelectorAll("#langsw a").forEach(a=>{
+  a.setAttribute("href", a.dataset.lang==="de" ? "?lang=de" : "?lang=en");
+  a.setAttribute("aria-current", String(a.dataset.lang===LANG));
+});
+
 const tabs=[...document.querySelectorAll('[role="tab"]')], keys=["a","b","c","d"];
 function select(i){
   tabs.forEach((t,j)=>{
