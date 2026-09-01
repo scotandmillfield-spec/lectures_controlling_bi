@@ -81,6 +81,20 @@ p.sub{margin:0 0 16px;color:var(--grey);font-size:.92rem}
 .p-cus{background:var(--teal-xl);color:var(--teal-dk);grid-column:1;grid-row:2}
 .p-pro{background:var(--orange-xl);color:#B25E00;grid-column:3;grid-row:2}
 .p-lea{background:var(--ochre-xl);color:var(--ochre);grid-column:2;grid-row:3}
+/* Pflegeeinrichtung: Bewohner oben, Finanzen unten — die Anordnung ist die Aussage */
+.p-res{background:var(--teal-xl);color:var(--teal-dk);grid-column:2;grid-row:1}
+.p-dpro{background:var(--orange-xl);color:#B25E00;grid-column:3;grid-row:2}
+.p-dlea{background:var(--ochre-xl);color:var(--ochre);grid-column:1;grid-row:2}
+.p-dfin{background:var(--navy-xl);color:var(--navy);grid-column:2;grid-row:3}
+
+.facts{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px}
+.fact{background:var(--paper);border:1px solid var(--grey-xl);border-radius:8px;padding:12px 13px;min-width:0}
+.fact .fk{font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--grey);display:block;margin-bottom:5px}
+.fact b{display:block;font-family:var(--mono);font-size:1.05rem;font-weight:600;
+  font-variant-numeric:tabular-nums;letter-spacing:-.01em;color:var(--teal-dk)}
+.fact span.fd{font-size:.76rem;color:var(--grey);display:block;margin-top:3px;line-height:1.3}
+
 .centre{grid-column:2;grid-row:2;background:var(--teal-dk);color:#fff;border-radius:var(--r);
   display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18px}
 .centre .ck{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#8FD4E6;margin-bottom:8px}
@@ -220,7 +234,8 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;border
 @media (max-width:980px){
   .types{grid-template-columns:1fr 1fr}
   .cross{grid-template-columns:1fr}
-  .p-fin,.p-cus,.p-pro,.p-lea,.centre{grid-column:1;grid-row:auto}
+  .p-fin,.p-cus,.p-pro,.p-lea,.p-res,.p-dpro,.p-dlea,.p-dfin,.centre{grid-column:1;grid-row:auto}
+  .facts{grid-template-columns:1fr 1fr 1fr}
   .centre{order:-1}
   .band{grid-template-columns:1fr}
   .tiles{grid-template-columns:1fr 1fr}
@@ -228,7 +243,8 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;border
   .locator{grid-template-columns:1fr 1fr}
   svg.links{display:none}
 }
-@media (max-width:620px){ .goals{grid-template-columns:1fr} .wrap{padding:0 16px 56px} }
+@media (max-width:620px){ .goals{grid-template-columns:1fr} .wrap{padding:0 16px 56px}
+  .facts{grid-template-columns:1fr 1fr} }
 @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
 </style>
 </head>
@@ -245,6 +261,7 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;border
   <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> The concept</button>
   <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Sofia's strategy map</button>
   <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> The Power BI view</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Pflegeeinrichtung <span class="num">DE</span></button>
 </div>
 
 <!-- ============================ TAB A ============================ -->
@@ -356,6 +373,61 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;border
     <b>What to criticise in this report.</b> It looks finished, and that is the danger. Progress is self-reported by the owner, so <b>L1</b> at 88&nbsp;% means someone ticked a box, while <b>P1</b> at 58&nbsp;% is measured automatically from till timestamps — the same bar, two completely different levels of evidence. Budget spent tells you nothing about whether the money bought the outcome: <b>P1</b> has burnt 62&nbsp;% of its budget for 58&nbsp;% progress, which looks healthy, but the second grinder was bought up front and the rest is training that has not started. Ask the students which of the eight rows they would actually trust, and why the report gives no way to tell.
   </div>
   <p class="hint">Click a perspective in the slicer to filter · click again to clear</p>
+</section>
+
+<!-- ============================ TAB D ============================ -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
+  <p class="claim">Dasselbe Werkzeug, ein anderer Betrieb — und <b>eine Perspektive wandert</b>. Im Pflegeheim steht das Geld nicht oben, weil es nicht der Zweck ist, sondern die Bedingung.</p>
+
+  <div class="facts" id="facts"></div>
+
+  <h2 class="sec">Die vier Perspektiven im Haus Lindenhof</h2>
+  <p class="sub">Fahren Sie über eine Perspektive. Beachten Sie die Anordnung: Die Bewohnerperspektive steht oben, die Finanzperspektive unten.</p>
+
+  <div class="cross" id="crossDe">
+    <div class="centre">
+      <p class="ck">In der Mitte</p>
+      <p><b>Auftrag &amp; Strategie</b>Ein Zuhause, in dem Menschen mit Würde alt werden — und das sich trägt. Jede Perspektive beantwortet dieselbe Frage aus ihrem Blickwinkel: Was verlangt das von uns?</p>
+    </div>
+  </div>
+
+  <div class="detail" id="detDe">
+    <p class="dk">Warum die Reihenfolge kippt</p>
+    <h4>Bei Sofia zahlt die Strategie auf das Ergebnis ein. Hier zahlt das Ergebnis auf den Auftrag ein.</h4>
+    <p>Kaplan und Norton haben das für Non-Profit- und Missionsorganisationen selbst nachgezogen: Steht nicht der Gewinn an der Spitze, sondern ein Auftrag, dann rutscht die Finanzperspektive nach unten — sie wird vom Ziel zur Ressource und zur Nebenbedingung. Ein Pflegeheim, das Geld verdient und in dem niemand mehr Zeit für ein Gespräch hat, hat seine Scorecard erfüllt und seinen Zweck verfehlt.</p>
+    <p class="warn">Das ist der eigentliche Lerninhalt dieses Beispiels: Die vier Perspektiven sind gesetzt, ihre Reihenfolge nicht. Wer sie ungeprüft aus dem Lehrbuch übernimmt, baut die Strategie eines Unternehmens, das er nicht führt.</p>
+  </div>
+
+  <h2 class="sec">Die Strategy Map</h2>
+  <p class="sub">Acht Ziele, von unten nach oben zu lesen. Die Pfeile sind die Annahmen der Heimleitung darüber, was was bewirkt — fahren Sie über ein Ziel, um seine Wirkungskette zu sehen.</p>
+
+  <div class="mapwrap" id="mapwrapDe">
+    <svg class="links" id="linksDe" aria-hidden="true">
+      <defs>
+        <marker id="au2" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#A7A7A5"/></marker>
+        <marker id="ah2" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#FF922B"/></marker>
+      </defs>
+    </svg>
+    <div id="bandsDe"></div>
+  </div>
+
+  <div class="detail" id="detMapDe">
+    <p class="dk">Die Karte lesen</p>
+    <h4>Unten beginnen — dort steht, was morgen früh entschieden werden kann</h4>
+    <p>Das Investitionsbudget und der Personalkostenkorridor sind Beschlüsse, die die Leitung fassen kann. Alles darüber ist Folge und braucht Zeit. Deshalb wird eine Strategy Map von unten gelesen, obwohl sie mit der Wirkung oben gezeichnet wird.</p>
+    <p class="warn">Fahren Sie über ein Ziel, um seine Kette in beide Richtungen aufzuhellen.</p>
+  </div>
+
+  <div class="synergy">
+    <b>Das Ziel, über das man streiten sollte.</b> Fahren Sie über <b>P2 — Doppeldokumentation abschaffen</b>. Es braucht Budget und Digitalkompetenz, es entlastet den Dienstplan, es schafft Zeit am Bewohner, und über die Zeit am Bewohner erreicht es die Angehörigen. Eine Maßnahme, vier Perspektiven berührt. 27 Minuten weniger Dokumentation je Schicht sind bei 95 Mitarbeitenden kein IT-Projekt, sondern die größte Personalmaßnahme des Hauses.
+  </div>
+
+  <div class="readme">
+    <b>Was an diesem Beispiel unbequem ist.</b> Zwei Kennzahlen der obersten Perspektive — <code>Zeit am Bewohner</code> und <code>Angehörigenzufriedenheit</code> — erzeugt kein System von selbst. Die Minuten müssen erhoben, die Zufriedenheit muss erfragt werden, und beides kostet genau die Zeit, die es zu messen vorgibt. Die unteren Perspektiven dagegen liefern ihre Zahlen frei Haus: Fluktuation steht im Personalsystem, die Personalkostenquote in der Buchhaltung, die Leasingquote im Dienstplan. Genau deshalb kippen Scorecards in der Praxis nach unten — nicht weil jemand die Bewohner vergisst, sondern weil die Zahlen unten billiger sind. Wer das nicht bewusst gegensteuert, hat nach zwei Jahren eine Kostenübersicht mit Deckblatt.
+  </div>
+  <p class="hint">Ziele überfahren · Perspektiven überfahren · Zahlen sind illustrativ</p>
 </section>
 
 <footer>
@@ -488,69 +560,97 @@ Object.entries(PERSP).forEach(([k,p])=>{
 });
 cross.addEventListener("pointerleave",()=>{detA.innerHTML=DET_A_DEFAULT;});
 
-/* ======================================================= TAB B */
-const bandsEl=document.getElementById("bands");
-BANDS.forEach(([k,label,cls,ids])=>{
-  const b=document.createElement("div");
-  b.className="band"; b.dataset.p=k;
-  b.innerHTML=`<div class="bl ${cls}">${label}</div><div class="goals">`+
-    ids.map(id=>{
-      const g=GOALS[id];
-      return `<div class="goal" data-g="${id}" tabindex="0">
-        <p class="gid">${id}</p><p class="gt">${g.t}</p><p class="gm">${g.m}</p></div>`;
-    }).join("")+`</div>`;
-  bandsEl.appendChild(b);
-});
+/* ======================================================= strategy map factory */
+/* Eine Mechanik, zwei Karten: Sofias Kaffeehaus und das Pflegeheim.
+   cfg liefert die Knoten, die Kanten, die Baender und den Text des Detailkastens. */
+function makeMap(cfg){
+  const wrap = document.getElementById(cfg.wrap);
+  const svg  = document.getElementById(cfg.svg);
+  const det  = document.getElementById(cfg.det);
+  const DEF  = det.innerHTML;
+  const box  = document.getElementById(cfg.bandsEl);
+  const {goals, links, bands, mk} = cfg;
 
-const mapwrap=document.getElementById("mapwrap"), linksSvg=document.getElementById("links");
-const detB=document.getElementById("detB"); const DET_B_DEFAULT=detB.innerHTML;
-
-function drawLinks(){
-  const wr=mapwrap.getBoundingClientRect();
-  linksSvg.setAttribute("viewBox",`0 0 ${wr.width} ${wr.height}`);
-  [...linksSvg.querySelectorAll("line")].forEach(l=>l.remove());
-  LINKS.forEach(([a,b])=>{
-    const ea=mapwrap.querySelector(`[data-g="${a}"]`), eb=mapwrap.querySelector(`[data-g="${b}"]`);
-    if(!ea||!eb) return;
-    const ra=ea.getBoundingClientRect(), rb=eb.getBoundingClientRect();
-    const l=document.createElementNS("http://www.w3.org/2000/svg","line");
-    l.setAttribute("x1",ra.left-wr.left+ra.width/2);
-    l.setAttribute("y1",ra.top-wr.top);
-    l.setAttribute("x2",rb.left-wr.left+rb.width/2);
-    l.setAttribute("y2",rb.top-wr.top+rb.height);
-    l.dataset.a=a; l.dataset.b=b;
-    l.setAttribute("marker-end","url(#au)");
-    linksSvg.appendChild(l);
+  bands.forEach(([k,label,cls,ids])=>{
+    const b=document.createElement("div");
+    b.className="band"; b.dataset.p=k;
+    b.innerHTML=`<div class="bl ${cls}">${label}</div><div class="goals">`+
+      ids.map(id=>{
+        const g=goals[id];
+        return `<div class="goal" data-g="${id}" tabindex="0">
+          <p class="gid">${id}</p><p class="gt">${g.t}</p><p class="gm">${g.m}</p></div>`;
+      }).join("")+`</div>`;
+    box.appendChild(b);
   });
+
+  function draw(){
+    const wr=wrap.getBoundingClientRect();
+    svg.setAttribute("viewBox",`0 0 ${wr.width} ${wr.height}`);
+    [...svg.querySelectorAll("line")].forEach(l=>l.remove());
+    links.forEach(([a,b])=>{
+      const ea=wrap.querySelector(`[data-g="${a}"]`), eb=wrap.querySelector(`[data-g="${b}"]`);
+      if(!ea||!eb) return;
+      const ra=ea.getBoundingClientRect(), rb=eb.getBoundingClientRect();
+      const l=document.createElementNS("http://www.w3.org/2000/svg","line");
+      l.setAttribute("x1",ra.left-wr.left+ra.width/2);
+      l.setAttribute("y1",ra.top-wr.top);
+      l.setAttribute("x2",rb.left-wr.left+rb.width/2);
+      l.setAttribute("y2",rb.top-wr.top+rb.height);
+      l.dataset.a=a; l.dataset.b=b;
+      l.setAttribute("marker-end",`url(#${mk.cold})`);
+      svg.appendChild(l);
+    });
+  }
+
+  function chainOf(id){
+    const set=new Set([id]);
+    const up=n=>links.filter(([a,b])=>b===n).forEach(([a])=>{if(!set.has(a)){set.add(a);up(a);}});
+    const down=n=>links.filter(([a,b])=>a===n).forEach(([,b])=>{if(!set.has(b)){set.add(b);down(b);}});
+    up(id); down(id);
+    return set;
+  }
+
+  function focus(id){
+    const set=chainOf(id);
+    wrap.classList.add("focus");
+    wrap.querySelectorAll(".goal").forEach(g=>{
+      g.classList.toggle("hot",set.has(g.dataset.g));
+      g.classList.toggle("origin",g.dataset.g===id);
+    });
+    const bandsHot=new Set([...set].map(x=>goals[x].p));
+    wrap.querySelectorAll(".band").forEach(b=>b.classList.toggle("hot",bandsHot.has(b.dataset.p)));
+    svg.querySelectorAll("line").forEach(l=>{
+      const hot=set.has(l.dataset.a)&&set.has(l.dataset.b);
+      l.classList.toggle("hot",hot);
+      l.setAttribute("marker-end",`url(#${hot?mk.hot:mk.cold})`);
+    });
+    det.innerHTML = cfg.detail(id, goals[id], [...set].filter(x=>x!==id), [...bandsHot]);
+  }
+
+  function clear(){
+    wrap.classList.remove("focus");
+    wrap.querySelectorAll(".goal").forEach(g=>g.classList.remove("hot","origin"));
+    wrap.querySelectorAll(".band").forEach(b=>b.classList.remove("hot"));
+    svg.querySelectorAll("line").forEach(l=>{
+      l.classList.remove("hot"); l.setAttribute("marker-end",`url(#${mk.cold})`);
+    });
+    det.innerHTML=DEF;
+  }
+
+  wrap.addEventListener("pointerover",e=>{const g=e.target.closest(".goal");if(g)focus(g.dataset.g);});
+  wrap.addEventListener("pointerleave",clear);
+  wrap.addEventListener("focusin",e=>{const g=e.target.closest(".goal");if(g)focus(g.dataset.g);});
+  wrap.addEventListener("focusout",e=>{if(!wrap.contains(e.relatedTarget))clear();});
+  return {draw};
 }
 
-function chainOf(id){
-  const set=new Set([id]);
-  const up=n=>LINKS.filter(([a,b])=>b===n).forEach(([a])=>{if(!set.has(a)){set.add(a);up(a);}});
-  const down=n=>LINKS.filter(([a,b])=>a===n).forEach(([,b])=>{if(!set.has(b)){set.add(b);down(b);}});
-  up(id); down(id);
-  return set;
-}
-
-function focusGoal(id){
-  const set=chainOf(id);
-  mapwrap.classList.add("focus");
-  mapwrap.querySelectorAll(".goal").forEach(g=>{
-    g.classList.toggle("hot",set.has(g.dataset.g));
-    g.classList.toggle("origin",g.dataset.g===id);
-  });
-  const bandsHot=new Set([...set].map(x=>GOALS[x].p));
-  mapwrap.querySelectorAll(".band").forEach(b=>b.classList.toggle("hot",bandsHot.has(b.dataset.p)));
-  linksSvg.querySelectorAll("line").forEach(l=>{
-    const hot=set.has(l.dataset.a)&&set.has(l.dataset.b);
-    l.classList.toggle("hot",hot);
-    l.setAttribute("marker-end",hot?"url(#ah)":"url(#au)");
-  });
-
-  const g=GOALS[id];
-  const names=[...bandsHot].map(p=>PNAME[p]);
-  const others=[...set].filter(x=>x!==id);
-  detB.innerHTML=`<p class="dk">${PNAME[g.p]} · objective ${id}</p>
+/* ======================================================= TAB B · Sofia */
+const sofiaMap = makeMap({
+  wrap:"mapwrap", svg:"links", det:"detB", bandsEl:"bands",
+  goals:GOALS, links:LINKS, bands:BANDS, mk:{cold:"au",hot:"ah"},
+  detail:(id,g,others,persp)=>{
+    const names=persp.map(p=>PNAME[p]);
+    return `<p class="dk">${PNAME[g.p]} · objective ${id}</p>
     <h4>${g.t} <span style="font-family:var(--mono);font-size:.7em;color:var(--grey)">${g.m}</span></h4>
     <p>Owned by ${g.owner}, due ${g.due}, budget ${eur(g.budget)}.</p>
     <p>This objective is connected to <b>${others.length}</b> other objective${others.length===1?"":"s"}
@@ -558,20 +658,9 @@ function focusGoal(id){
     <p class="warn">${names.length>=3
       ? "A genuinely strategic objective: improving it moves the scorecard in several places at once."
       : "A narrow objective. Useful, but ask what would have to change for it to reach the perspectives above."}</p>`;
-}
-function clearFocus(){
-  mapwrap.classList.remove("focus");
-  mapwrap.querySelectorAll(".goal").forEach(g=>g.classList.remove("hot","origin"));
-  mapwrap.querySelectorAll(".band").forEach(b=>b.classList.remove("hot"));
-  linksSvg.querySelectorAll("line").forEach(l=>{
-    l.classList.remove("hot"); l.setAttribute("marker-end","url(#au)");
-  });
-  detB.innerHTML=DET_B_DEFAULT;
-}
-mapwrap.addEventListener("pointerover",e=>{const g=e.target.closest(".goal");if(g)focusGoal(g.dataset.g);});
-mapwrap.addEventListener("pointerleave",clearFocus);
-mapwrap.addEventListener("focusin",e=>{const g=e.target.closest(".goal");if(g)focusGoal(g.dataset.g);});
-mapwrap.addEventListener("focusout",e=>{if(!mapwrap.contains(e.relatedTarget))clearFocus();});
+  }
+});
+const drawLinks = sofiaMap.draw;
 
 /* locator */
 const locEl=document.getElementById("locator");
@@ -660,8 +749,104 @@ BANDS.forEach(([k,label])=>{
 });
 renderTiles(); renderBars(); renderMatrix();
 
+/* ======================================================= TAB D · Pflegeeinrichtung */
+const FACTS=[
+  ["Plätze","84","stationäre Dauerpflege"],
+  ["Wohnbereiche","3","je 28 Plätze"],
+  ["Mitarbeitende","95","davon 41 Pflegefachkräfte"],
+  ["Auslastung","96 %","Jahresmittel 2026"],
+  ["Personalkostenquote","71 %","vom Umsatz"]
+];
+document.getElementById("facts").innerHTML = FACTS.map(([k,v,d])=>
+  `<div class="fact"><span class="fk">${k}</span><b>${v}</b><span class="fd">${d}</span></div>`).join("");
+
+const PERSP_DE={
+  res:{name:"Bewohnerinnen und Bewohner",cls:"p-res",key:"Wirkung · steht oben",
+    q:"Wie müssen wir für die Menschen sein, die hier leben?",
+    lead:"Der Zweck des Hauses",
+    body:"Lebensqualität im Alltag, Würde, Selbstbestimmung — und das Urteil der Angehörigen, die den Alltag nicht sehen und trotzdem entscheiden. Diese Perspektive steht bei einem Pflegeheim ganz oben, weil sie der Auftrag ist und nicht das Mittel.",
+    warn:"Der Fehler: Sie mit Kennzahlen der Pflegedokumentation zu füllen, weil die vorliegen. Sturzrate und Dekubitusquote sind Prozessqualität, nicht Lebensqualität — ein Haus kann in beidem tadellos sein und trotzdem ein Ort, an dem niemand alt werden möchte.",
+    kpis:["Zeit am Bewohner","Angehörigenzufriedenheit","Beschwerden je Quartal","Teilnahme an Angeboten"]},
+  dpro:{name:"Prozesse",cls:"p-dpro",key:"Tun",
+    q:"Worin müssen wir richtig gut sein?",
+    lead:"Wo die Arbeit tatsächlich passiert",
+    body:"Dienstplanung, Pflegeprozess, Dokumentation, Medikation, Übergaben. Die Perspektive mit den unmittelbarsten Hebeln — und die einzige, in der eine Verbesserung sich innerhalb weniger Wochen zeigt.",
+    warn:"Der Fehler: jeden Prozess aufzunehmen, den das Qualitätshandbuch kennt. Hier gehören nur die wenigen hinein, von denen die Strategie abhängt — im Haus Lindenhof der Dienstplan und die Dokumentation, nicht die Wäscheversorgung.",
+    kpis:["Ausfälle über Leasing","Dokumentationszeit je Schicht","Medikationsabweichungen","Übergabedauer"]},
+  dlea:{name:"Mitarbeitende und Lernen",cls:"p-dlea",key:"Befähigen",
+    q:"Wie bleiben wir handlungsfähig?",
+    lead:"Die Perspektive, die zuerst gestrichen wird",
+    body:"Qualifikation, Bindung, Ausbildung, Führung. In der Pflege ist sie nicht eine von vieren, sondern der Engpass schlechthin: Jede Maßnahme in den Prozessen setzt Menschen voraus, die im nächsten Jahr noch da sind.",
+    warn:"Der Fehler: sie als Anhang der Personalabteilung zu behandeln. Wenn der Prozess eine Kompetenz braucht, die niemand hat, gehört das Ziel hierher — mit Budget wie jedes andere auch.",
+    kpis:["Fluktuationsquote","Zertifizierte Fachkräfte","Ausbildungsquote","Krankheitsquote"]},
+  dfin:{name:"Finanzen und Ressourcen",cls:"p-dfin",key:"Nebenbedingung · steht unten",
+    q:"Was muss gelten, damit wir den Auftrag erfüllen können?",
+    lead:"Bedingung, nicht Ziel",
+    body:"Pflegesätze, Auslastung, Personalkostenquote, Investitionsbudget. Das Haus muss sich tragen — aber es existiert nicht, um sich zu tragen. Deshalb steht diese Perspektive hier unten und liefert nach oben, statt oben abzukassieren.",
+    warn:"Der Fehler: sie trotzdem an die Spitze zu setzen, weil das Lehrbuch es so zeichnet. Dann optimiert das Haus auf die Quote, und die Zeit am Bewohner wird zur Restgröße — messbar erst, wenn die Belegung einbricht.",
+    kpis:["Auslastung","Personalkostenquote","Investitionsbudget","Ergebnis je Pflegetag"]}
+};
+
+const crossDe=document.getElementById("crossDe"), detDe=document.getElementById("detDe");
+const DET_DE_DEFAULT=detDe.innerHTML;
+Object.entries(PERSP_DE).forEach(([k,pp])=>{
+  const d=document.createElement("div");
+  d.className="persp "+pp.cls; d.tabIndex=0;
+  d.innerHTML=`<p class="pk">${pp.key}</p><h3>${pp.name}</h3><p class="q">${pp.q}</p>
+    <div class="omti"><span>Ziele</span><span>Kennzahlen</span><span>Vorgaben</span><span>Maßnahmen</span></div>`;
+  const fill=()=>{
+    detDe.innerHTML=`<p class="dk">${pp.lead}</p><h4>${pp.name} — ${pp.q}</h4>
+      <p>${pp.body}</p><p class="warn">${pp.warn}</p>
+      <div class="kpis">${pp.kpis.map(x=>`<span>${x}</span>`).join("")}</div>`;
+  };
+  d.addEventListener("pointerenter",fill);
+  d.addEventListener("focus",fill);
+  crossDe.appendChild(d);
+});
+crossDe.addEventListener("pointerleave",()=>{detDe.innerHTML=DET_DE_DEFAULT;});
+
+const GOALS_DE={
+  B1:{p:"res", t:"Mehr Zeit am Bewohner",                      m:"21 → 28 min je Bewohner und Schicht", owner:"Pflegedienstleitung", due:"Q4 2026", budget:0},
+  B2:{p:"res", t:"Angehörigenzufriedenheit heben",             m:"3,6 → 4,3 von 5",                      owner:"Heimleitung",         due:"Q2 2027", budget:6000},
+  P1:{p:"dpro",t:"Dienstplan ohne Leasingkräfte stabilisieren", m:"34 % → 15 % der Ausfälle",            owner:"Pflegedienstleitung", due:"Q3 2026", budget:24000},
+  P2:{p:"dpro",t:"Doppeldokumentation abschaffen",             m:"47 → 20 min je Schicht",               owner:"Qualitätsbeauftragte",due:"Q1 2027", budget:180000},
+  M1:{p:"dlea",t:"Fluktuation senken",                          m:"24 % → 15 % im Jahr",                 owner:"Heimleitung",         due:"Q4 2027", budget:18000},
+  M2:{p:"dlea",t:"Demenzkompetenz in jedem Wohnbereich",        m:"6 → 18 zertifizierte Fachkräfte",     owner:"Praxisanleitung",     due:"Q3 2027", budget:32000},
+  F1:{p:"dfin",t:"Investitionsbudget Dokumentation sichern",    m:"0 → 180 000 € bewilligt",             owner:"Träger",              due:"Q4 2026", budget:180000},
+  F2:{p:"dfin",t:"Personalkostenquote im Korridor halten",      m:"71 % → 68 % vom Umsatz",              owner:"Verwaltungsleitung",  due:"Q4 2027", budget:0}
+};
+
+const LINKS_DE=[["F1","M2"],["F1","P2"],["F2","M1"],
+                ["M1","P1"],["M2","P1"],["M2","P2"],
+                ["P1","B1"],["P2","B1"],["P1","B2"],["P2","B2"]];
+
+const BANDS_DE=[["res", "Bewohnerinnen und Bewohner","bl-cus",["B1","B2"]],
+                ["dpro","Prozesse",                  "bl-pro",["P1","P2"]],
+                ["dlea","Mitarbeitende und Lernen",  "bl-lea",["M1","M2"]],
+                ["dfin","Finanzen · Nebenbedingung", "bl-fin",["F1","F2"]]];
+
+const PNAME_DE={res:"Bewohner",dpro:"Prozesse",dlea:"Mitarbeitende",dfin:"Finanzen"};
+const euroDe=n=>n.toLocaleString("de-DE").replace(/\./g," ")+" €";
+
+const pflegeMap = makeMap({
+  wrap:"mapwrapDe", svg:"linksDe", det:"detMapDe", bandsEl:"bandsDe",
+  goals:GOALS_DE, links:LINKS_DE, bands:BANDS_DE, mk:{cold:"au2",hot:"ah2"},
+  detail:(id,g,others,persp)=>{
+    const names=persp.map(x=>PNAME_DE[x]);
+    return `<p class="dk">${PNAME_DE[g.p]} · Ziel ${id}</p>
+    <h4>${g.t} <span style="font-family:var(--mono);font-size:.7em;color:var(--grey)">${g.m}</span></h4>
+    <p>Verantwortlich: ${g.owner} · Termin ${g.due}${g.budget?` · Budget ${euroDe(g.budget)}`:" · kein eigenes Budget"}.</p>
+    <p>Dieses Ziel hängt mit <b>${others.length}</b> weiteren Ziel${others.length===1?"":"en"} zusammen
+       und berührt <b>${names.length} von 4</b> Perspektiven: ${names.join(" · ")}.</p>
+    <p class="warn">${names.length>=3
+      ? "Ein wirklich strategisches Ziel: Wer es bewegt, bewegt die Scorecard an mehreren Stellen zugleich."
+      : "Ein enges Ziel. Nützlich — aber fragen Sie, was sich ändern müsste, damit es die Perspektiven darüber erreicht."}</p>`;
+  }
+});
+
 /* ======================================================= tabs */
-const tabs=[...document.querySelectorAll('[role="tab"]')], keys=["a","b","c"];
+const tabs=[...document.querySelectorAll('[role="tab"]')], keys=["a","b","c","d"];
+const MAPS={b:sofiaMap, d:pflegeMap};
 function select(i){
   tabs.forEach((t,j)=>{
     const on=i===j;
@@ -670,7 +855,11 @@ function select(i){
     document.getElementById("p-"+keys[j]).hidden=!on;
   });
   hideTip();
-  if(keys[i]==="b") requestAnimationFrame(drawLinks);
+  const m=MAPS[keys[i]];
+  if(m) requestAnimationFrame(m.draw);
+}
+function redrawVisibleMap(){
+  for(const k in MAPS) if(!document.getElementById("p-"+k).hidden) MAPS[k].draw();
 }
 tabs.forEach((t,i)=>{
   t.addEventListener("click",()=>select(i));
@@ -681,10 +870,8 @@ tabs.forEach((t,i)=>{
   });
 });
 select(0);
-addEventListener("resize",()=>{if(!document.getElementById("p-b").hidden)drawLinks();});
-if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>{
-  if(!document.getElementById("p-b").hidden)drawLinks();
-});
+addEventListener("resize",redrawVisibleMap);
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(redrawVisibleMap);
 </script>
 </body>
 </html>
