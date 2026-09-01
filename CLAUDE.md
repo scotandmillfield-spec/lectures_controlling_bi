@@ -74,6 +74,33 @@ Jede HTML-Datei läuft **ohne Build und ohne Server**. Einzige externe Abhängig
 Google Fonts mit Fallback-Stack. Diese Eigenschaft nicht aufgeben: kein npm, kein Bundler,
 keine Frameworks, keine geteilten CSS- oder JS-Dateien. Doppelklick muss genügen.
 
+## Lernpfade
+
+Ein Lernpfad ist eine Reihenfolge von Lerneinheiten, die zusammen Sinn ergeben. Er steht in
+`index.html` in `const PATHS = [ ... ]`, direkt unter `TOPICS`.
+
+- **Pfade verweisen auf Lerneinheiten, nie umgekehrt.** Ein Pfad kennt nur die `id` aus
+  `TOPICS` und die Reihenfolge in `steps`. Eine Einheit gehört zu mehreren Pfaden, indem sie
+  in mehreren `steps` steht — an der Kachel ist dafür nichts zu ändern. Deshalb kostet ein
+  neuer Pfad keine Änderung an einem einzigen Modul.
+- **Pfad und Spur sind zwei Sichten, nicht zwei Filter.** Wird ein Pfad gewählt, springt der
+  Spurfilter auf „Alle"; wird eine Spur gewählt, wird der Pfad verlassen. Alles andere wäre
+  eine Kreuztabelle, die niemand im Kopf behält. Die Suche grenzt weiter ein, in beiden Sichten.
+- **Die Reihenfolge schlägt die Listenreihenfolge.** Im Pfad werden die Kacheln über
+  CSS `order` sortiert und mit `01`, `02`, `03` nummeriert; der erste Schritt trägt die
+  Signalfarbe.
+- **Kein Fortschritt, keine Sperren.** Spätere Schritte bleiben klickbar. Ein „erst freischalten,
+  wenn Schritt 1 erledigt ist" bräuchte gespeicherten Zustand, und `localStorage` ist
+  ausgeschlossen. Der Pfad zeigt die Reihenfolge, er erzwingt sie nicht.
+- **`?path=<id>` verlinkt einen Pfad direkt** und lässt sich mit `?lang=` kombinieren.
+- **Eine unbekannte `id` in `steps`** meldet die Konsole beim Laden. Stillschweigend
+  verschwinden darf ein Tippfehler nicht.
+
+**Warum die Liste nicht in einer eigenen Datei liegt:** `fetch` auf eine `paths.json` scheitert
+über `file://`, und eine `paths.js` per `<script src>` würde zwar laufen, aber die Eigenschaft
+brechen, dass jede Datei für sich weitergegeben werden kann. Wächst die Liste stark, ist das
+Auslagern eine Zeile Arbeit — bis dahin bleibt sie in `index.html`.
+
 ## Harte Regeln
 
 **Neues Modul immer in `index.html` registrieren.** Die Startseite kennt nur, was in

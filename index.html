@@ -64,6 +64,40 @@ h1 em{font-style:normal;color:var(--teal)}
 .count{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
   color:var(--grey);margin:16px 0 20px}
 
+/* ---------- Lernpfade ---------- */
+.pathrow{display:flex;gap:10px 14px;flex-wrap:wrap;align-items:center;margin:18px 0 0}
+.pathrow .pl{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);flex:none}
+.pathchips{display:flex;gap:7px;flex-wrap:wrap;min-width:0}
+.pathchip{appearance:none;border:1px dashed var(--grey-mid);background:transparent;cursor:pointer;
+  font-family:var(--sans);font-size:.86rem;font-weight:600;color:var(--grey);
+  padding:9px 15px;border-radius:20px;display:inline-flex;align-items:center;gap:8px;
+  transition:.18s var(--ease)}
+.pathchip .n{font-family:var(--mono);font-size:.68rem;opacity:.8}
+.pathchip:hover{border-color:var(--teal);border-style:solid;color:var(--teal-dk);transform:translateY(-1px)}
+.pathchip[aria-pressed="true"]{background:var(--teal-dk);border-color:var(--teal-dk);
+  border-style:solid;color:#fff}
+.pathchip[aria-pressed="true"] .n{color:#8FD4E6;opacity:1}
+.pathchip:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+.pathbar{display:none;margin:20px 0 0;background:var(--teal-xl);border:1px solid #BFE2EC;
+  border-radius:var(--r);padding:18px 22px}
+.pathbar.on{display:block}
+.pathbar .pk{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--teal-dk);margin:0 0 6px}
+.pathbar h2{margin:0 0 6px;font-size:1.25rem;font-weight:700;letter-spacing:-.018em}
+.pathbar p{margin:0;font-size:.94rem;color:#3d3d40;max-width:74ch;line-height:1.45}
+.pathbar .clear{appearance:none;border:1px solid var(--teal-dk);background:transparent;
+  color:var(--teal-dk);font-family:var(--sans);font-size:.84rem;font-weight:600;cursor:pointer;
+  padding:8px 14px;border-radius:8px;margin-top:12px;transition:.16s}
+.pathbar .clear:hover{background:var(--teal-dk);color:#fff}
+.pathbar .clear:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+.stepno{position:absolute;top:0;left:0;background:var(--teal-dk);color:#fff;
+  font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
+  padding:5px 10px;border-radius:0 0 8px 0;z-index:2}
+.tile.first .stepno{background:var(--orange)}
+
 /* ---------- tiles ---------- */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
 .tile{position:relative;background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
@@ -170,6 +204,13 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
   </div>
 </div>
 
+<div class="pathrow">
+  <span class="pl" data-t="pathLabel"></span>
+  <div class="pathchips" id="pathchips"></div>
+</div>
+
+<section class="pathbar" id="pathbar" aria-live="polite"></section>
+
 <p class="count" id="count"></p>
 <div class="grid" id="grid"></div>
 <div class="empty" id="empty" data-t="empty"></div>
@@ -217,6 +258,16 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
     { <span class="k">kind</span>:<span class="s">"html"</span>, <span class="k">file</span>:<span class="s">"etl-dashboard.html"</span>,               <span class="k">label</span>:<span class="s">"Open interactive"</span> },
     { <span class="k">kind</span>:<span class="s">"deck"</span>, <span class="k">file</span>:<span class="s">"decks/ETL_Sofias_Coffee_World.pptx"</span>, <span class="k">label</span>:<span class="s">"Slide deck"</span> }
   ]
+},</pre>
+
+  <p data-t="howPaths"></p>
+
+<pre><span class="c">// paste inside const PATHS = [ ... ]</span>
+{
+  <span class="k">id</span>:    <span class="s">"bi-basics"</span>,
+  <span class="k">title</span>: { <span class="k">de</span>:<span class="s">"Grundlagen Business Intelligence"</span>, <span class="k">en</span>:<span class="s">"Business Intelligence foundations"</span> },
+  <span class="k">sub</span>:   { <span class="k">de</span>:<span class="s">"Der Einstieg …"</span>, <span class="k">en</span>:<span class="s">"The way in …"</span> },
+  <span class="k">steps</span>: [<span class="s">"arch"</span>, <span class="s">"scd"</span>, <span class="s">"olap"</span>]   <span class="c">// ids aus TOPICS, in dieser Reihenfolge</span>
 },</pre>
 </section>
 
@@ -268,8 +319,16 @@ const UI = {
          en:"<code>accent</code> tints the tile: use <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> or <code>green</code>. <code>glyph</code> picks the drawing: <code>rows</code>, <code>cube</code>, <code>layers</code>, <code>quadrants</code>, <code>pyramid</code>, <code>loop</code> or <code>tree</code>."},
   step5:{de:"Jedes Textfeld darf ein einfacher String sein (dann gilt er in beiden Sprachen) oder ein Paar aus deutscher und englischer Fassung. Fehlt die deutsche, erscheint die englische. <code>langBadge</code> setzt den Hinweis auf die Sprache des Moduls selbst.",
          en:"Every text field may be a plain string (used in both languages) or a pair of a German and an English version. If the German one is missing, the English one is shown. <code>langBadge</code> sets the note about the module's own language."},
+  howPaths:{de:"<b>Lernpfade</b> stehen in einer zweiten Liste, <code>const PATHS</code>, direkt darunter. Ein Pfad verweist nur auf die <code>id</code> einer Lerneinheit; die Reihenfolge in <code>steps</code> ist die Reihenfolge im Pfad. Eine Einheit geh\u00f6rt zu mehreren Pfaden, indem sie in mehreren <code>steps</code> steht \u2014 an der Kachel selbst ist daf\u00fcr nichts zu \u00e4ndern. Zeigt ein Pfad auf eine unbekannte <code>id</code>, meldet die Konsole das beim Laden. Mit <code>?path=bi-basics</code> l\u00e4sst sich ein Pfad direkt verlinken.",
+            en:"<b>Learning paths</b> live in a second list, <code>const PATHS</code>, right below. A path only refers to a unit's <code>id</code>; the order in <code>steps</code> is the order of the path. A unit belongs to several paths by appearing in several <code>steps</code> arrays \u2014 nothing on the tile itself has to change. If a path points at an unknown <code>id</code>, the console says so on load. Use <code>?path=bi-basics</code> to link straight to a path."},
   footer:{de:"Lehrmaterial \u00b7 Corporate Design der IU. Alle Zahlen in den Modulen sind illustrativ. <code>PROJECT-CANON.md</code> geh\u00f6rt in denselben Ordner \u2014 dort stehen die Namen, Zahlen und Gestaltungsregeln, die die Module untereinander stimmig halten.",
           en:"Teaching material \u00b7 IU corporate identity. All figures in the modules are illustrative. Keep <code>PROJECT-CANON.md</code> with this folder \u2014 it holds the names, numbers and design conventions that keep the modules consistent with one another."},
+  pathLabel:{de:"Lernpfade", en:"Learning paths"},
+  pathKicker:{de:"Lernpfad", en:"Learning path"},
+  pathClear:{de:"Pfad verlassen \u00b7 alle Themen zeigen", en:"Leave the path \u00b7 show all topics"},
+  pathSteps:{de:n=>n===1?"1 Lerneinheit":n+" Lerneinheiten", en:n=>n===1?"1 unit":n+" units"},
+  countPath:{de:(k,n)=>k+" von "+n+(n===1?" Lerneinheit":" Lerneinheiten")+" des Pfades",
+             en:(k,n)=>k+" of "+n+(n===1?" unit":" units")+" in this path"},
   countAll:{de:(n,r)=>n+" Themen \u00b7 "+r+" Dateien zum Herunterladen",
             en:(n,r)=>n+" topics \u00b7 "+r+" downloadable resources"},
   countSome:{de:(k,n)=>k+" von "+n+" Themen angezeigt",
@@ -423,7 +482,23 @@ const TOPICS = [
   }
 ];
 
-/* ===================== end of the editable list ====================== */
+/* =====================================================================
+   LERNPFADE - die zweite Liste, die du bearbeitest.
+   Ein Pfad verweist nur auf die ids aus TOPICS. Die Reihenfolge in
+   steps ist die Reihenfolge im Pfad. Eine Lerneinheit gehört zu
+   mehreren Pfaden, indem sie in mehreren steps steht — an der Kachel
+   selbst ist dafür nichts zu ändern.
+   ===================================================================== */
+const PATHS = [
+  {
+    id:"bi-basics",
+    title:{de:"Grundlagen Business Intelligence", en:"Business Intelligence foundations"},
+    sub:{de:"Der Einstieg: Wie aus Belegen im Vorsystem eine Zahl wird, auf die sich eine Entscheidung stützen lässt. Wer den Weg einmal ganz gegangen ist, kann jedes spätere Thema darauf verorten.",
+         en:"The way in: how a document in a source system becomes a figure a decision can rest on. Once you have walked the whole road, every later topic has a place on it."},
+    steps:["arch"]
+  }
+];
+/* ===================== end of the editable lists ===================== */
 
 const ACCENT={teal:"#209CBD",navy:"#0F4C5C",orange:"#FF922B",ochre:"#B5852C",green:"#4C8B3F"};
 const TRACK={bi:["Business Intelligence",""],ctrl:["Controlling","ctrl"],
@@ -489,9 +564,11 @@ grid.innerHTML=TOPICS.map(t=>{
   const alt=[t.title,t.sub,...t.features].map(v=>typeof v==="object"&&v?v.en:"").join(" ");
   const hay=(title+" "+sub+" "+feats.join(" ")+" "+L(trackName)+" "+alt)
             .toLowerCase().replace(/"/g,"");
-  return `<article class="tile ${planned?"planned":""}" data-track="${t.track}" data-status="${t.status}"
+  return `<article class="tile ${planned?"planned":""}" data-id="${t.id}"
+      data-track="${t.track}" data-status="${t.status}"
       data-search="${hay}"
       style="--accent:${ACCENT[t.accent]||ACCENT.teal}">
+    <span class="stepno" hidden></span>
     <div class="top">
       <svg class="glyph" viewBox="0 0 62 62" aria-hidden="true">
         <defs><marker id="gm" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5"
@@ -523,29 +600,82 @@ style.textContent=`
   @media (prefers-reduced-motion:reduce){.g-move,.g-fade,.g-pulse{transition:none}}`;
 document.head.appendChild(style);
 
+/* ---------------------------------------------------------------- Lernpfade */
+const pathchips=document.getElementById("pathchips"), pathbar=document.getElementById("pathbar");
+
+/* Ein Pfad, der auf eine unbekannte id zeigt, ist ein Tippfehler - laut sagen. */
+PATHS.forEach(p=>p.steps.forEach(id=>{
+  if(!TOPICS.some(t=>t.id===id)) console.warn(`Lernpfad "${p.id}": unbekannte Lerneinheit "${id}"`);
+}));
+
+let activePath = new URLSearchParams(location.search).get("path") || null;
+if(activePath && !PATHS.some(p=>p.id===activePath)) activePath=null;
+
+pathchips.innerHTML = PATHS.map(p=>
+  `<button class="pathchip" type="button" data-p="${p.id}" aria-pressed="false">
+     <span class="n">${p.steps.length}</span>${L(p.title)}</button>`).join("");
+
+function renderPathBar(){
+  const p = activePath ? PATHS.find(x=>x.id===activePath) : null;
+  pathbar.classList.toggle("on", !!p);
+  if(!p) return;
+  pathbar.innerHTML =
+    `<p class="pk">${L(UI.pathKicker)} \u00b7 ${L(UI.pathSteps)(p.steps.length)}</p>
+     <h2>${L(p.title)}</h2><p>${L(p.sub)}</p>
+     <button class="clear" type="button" id="pathClear">${L(UI.pathClear)}</button>`;
+  document.getElementById("pathClear").addEventListener("click",()=>setPath(null));
+}
+
+function setPath(id){
+  activePath = (id && id!==activePath) ? id : null;
+  if(activePath){                      /* ein Pfad ist seine eigene Sicht */
+    filter="all";
+    document.querySelectorAll(".chip").forEach(c=>
+      c.setAttribute("aria-pressed", String(c.dataset.f==="all")));
+  }
+  pathchips.querySelectorAll(".pathchip").forEach(c=>
+    c.setAttribute("aria-pressed", String(c.dataset.p===activePath)));
+  renderPathBar();
+  apply();
+}
+pathchips.addEventListener("click",e=>{
+  const b=e.target.closest(".pathchip"); if(b) setPath(b.dataset.p);
+});
+
 /* filtering */
 let filter="all", query="";
 const countEl=document.getElementById("count"), emptyEl=document.getElementById("empty");
 
 function apply(){
+  const path = activePath ? PATHS.find(p=>p.id===activePath) : null;
   let shown=0;
   [...grid.children].forEach(tile=>{
-    const okF = filter==="all"
-      || (filter==="planned" ? tile.dataset.status==="planned" : tile.dataset.track===filter);
+    const idx = path ? path.steps.indexOf(tile.dataset.id) : -1;
+    const okF = path ? idx>=0
+      : (filter==="all"
+         || (filter==="planned" ? tile.dataset.status==="planned" : tile.dataset.track===filter));
     const okQ = !query || tile.dataset.search.includes(query);
     const on = okF && okQ;
     tile.hidden=!on;
+    /* Die Reihenfolge im Pfad schlaegt die Reihenfolge der Liste */
+    tile.style.order = idx>=0 ? idx : 0;
+    tile.classList.toggle("first", idx===0);
+    const no=tile.querySelector(".stepno");
+    no.hidden = idx<0;
+    no.textContent = idx>=0 ? String(idx+1).padStart(2,"0") : "";
     if(on) shown++;
   });
   const res=TOPICS.reduce((s,t)=>s+t.links.length,0);
-  countEl.textContent = shown===TOPICS.length
-    ? L(UI.countAll)(TOPICS.length,res)
-    : L(UI.countSome)(shown,TOPICS.length);
+  countEl.textContent = path
+    ? L(UI.countPath)(shown,path.steps.length)
+    : (shown===TOPICS.length ? L(UI.countAll)(TOPICS.length,res)
+                             : L(UI.countSome)(shown,TOPICS.length));
   emptyEl.classList.toggle("on",shown===0);
 }
 
 document.getElementById("chips").addEventListener("click",e=>{
   const b=e.target.closest(".chip"); if(!b) return;
+  if(activePath) setPath(null);          /* Spur und Pfad sind zwei Sichten, nicht zwei Filter */
   filter=b.dataset.f;
   document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",String(c===b)));
   apply();
@@ -563,7 +693,8 @@ document.querySelectorAll("#langsw a").forEach(a=>{
   a.setAttribute("aria-current", String(a.dataset.lang===LANG));
 });
 
-apply();
+/* Beim Laden nicht umschalten, sondern setzen: erst leeren, dann anwenden */
+const deepLink = activePath; activePath = null; setPath(deepLink);
 </script>
 </body>
 </html>
