@@ -232,6 +232,39 @@ Gebäck und damit **Speisen 27.500 €** · Retail 11.200 €, Großgebinde 26.1
 Die Zahlen sind so gewählt, dass sie mit der Quartalssumme der SCD-Module zusammenfallen.
 Wer sie ändert, muss die Summe halten — sonst widersprechen sich zwei Module.
 
+### Der Würfel: Warengruppe × Monat × Filiale **[gesetzt]**
+
+Für das Modul „Der Cube". Die Zelle ist der Umsatz einer Warengruppe in einem Monat in einer
+Filiale. Der Würfel ist so gerechnet, dass er **beide** bereits gesetzten Randsummen trifft:
+die Filial- und Monatsaufteilung des SCD-Beispiels (Type 2, also die Wahrheit) und die
+Warengruppensummen der Produkthierarchie.
+
+| | Jan Ring | Feb Ring | Mär Ring | Jan Alser | Feb Alser | Mär Alser | Summe |
+|---|---|---|---|---|---|---|---|
+| **Getränke** | 14.600 | 13.900 | 11.600 | 11.400 | 11.100 | 18.100 | **80.700** |
+| **Speisen** | 5.200 | 4.900 | 3.700 | 4.000 | 3.900 | 5.800 | **27.500** |
+| **Bohnen** | 10.600 | 10.100 | 7.700 | 2.600 | 2.500 | 3.800 | **37.300** |
+| **Summe** | 30.400 | 28.900 | 23.000 | 18.000 | 17.500 | 27.700 | **145.500** |
+
+Die Spaltensummen sind exakt die Zahlen aus Abschnitt 5: Ringstraße 82.300 €, Alsergrund
+63.200 €. Die Zeilensummen sind exakt die Warengruppen der Produkthierarchie.
+
+**Eine Ebene feiner**, für den Drill-down im selben Modul:
+
+| | Jan Ring | Feb Ring | Mär Ring | Jan Alser | Feb Alser | Mär Alser | Summe |
+|---|---|---|---|---|---|---|---|
+| Heißgetränke | 12.000 | 11.400 | 8.800 | 9.400 | 9.100 | 13.700 | 64.400 |
+| Kaltgetränke | 2.600 | 2.500 | 2.800 | 2.000 | 2.000 | 4.400 | 16.300 |
+| Gebäck | 5.200 | 4.900 | 3.700 | 4.000 | 3.900 | 5.800 | 27.500 |
+| Retail | 2.100 | 2.000 | 1.500 | 1.700 | 1.600 | 2.300 | 11.200 |
+| Großgebinde | 8.500 | 8.100 | 6.200 | 900 | 900 | 1.500 | 26.100 |
+
+**Zur Reichweite der 145.500 €:** Die Zahl ist der Quartalsumsatz des Betriebs. Das
+SCD-Beispiel verteilt sie auf die beiden Kaffeehäuser, weil es von Annas Wechsel handelt und
+Coffeebike und Großhandel dort nicht vorkommen. Der Würfel übernimmt genau diese Aufteilung.
+Wer eine Lerneinheit mit dem Coffeebike als dritter Filiale bauen will, braucht dafür eine
+eigene, ausdrücklich gekennzeichnete Zahlenreihe — die 145.500 € sind bereits vergeben.
+
 ### Fakten
 `FACT_SALES` (Bonzeile) · `FACT_ROAST_BATCH` (Einwaage, Ausbeute, Verlust) ·
 `FACT_DELIVERY` (Großhandel) · `FACT_GREEN_INTAKE` (Import)
