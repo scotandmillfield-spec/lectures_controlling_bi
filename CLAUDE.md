@@ -61,6 +61,25 @@ Besonders leicht zu übersehen:
 - Die Quartalssumme von 145.500 € muss über alle SCD-Varianten hinweg gleich bleiben.
   Das ist der didaktische Kern, keine beliebige Zahl.
 
+### Wenn ein Modul einen eigenen Fall braucht
+
+**Sofia ist der Normalfall, ein eigener Fall die begründete Ausnahme.**
+`supply-chain-controlling.html` gehört zum Kurs MWCH02 und trägt vier Vorlieferanten eines
+Nutzfahrzeugherstellers. Der Grund: Sofias Betrieb hat keine benannten Lieferanten, und der
+Kanon soll nicht um welche erweitert werden, nur damit ein Portfolio vier Punkte bekommt —
+lieber ein sichtbar getrennter Fall als ein stillschweigend gedehnter Kanon. Wo das nötig ist,
+sagt es die Kachel im ersten Satz und der Fußtext des Moduls.
+
+### Herkunftskennzeichnung bei Kursbuchstoff
+
+Entsteht ein Modul aus einem Kursbuch, trägt **jeder Inhaltsblock ein Etikett**: `KURSBUCH S. xx`
+für das, was eng am Kursbuch steht und prüfungsrelevant ist, `ERGÄNZUNG` für die didaktische
+Operationalisierung, die dort nicht ausformuliert ist. Die Etiketten sind dauerhaft sichtbar und
+**gleichwertig gestaltet** — die Ergänzung wird nicht optisch zurückgenommen. Die Kante zwischen
+beiden ist der Punkt, an dem Studierende den Perspektivwechsel vollziehen, kein Kleingedrucktes.
+Abbildungen und Tabellen des Kursbuchs werden **nicht reproduziert**, sondern eigenständig neu
+aufgebaut; Definitionen im Wortlaut nur als ausgewiesenes Zitat mit Quellenangabe.
+
 ## Aufbau
 
 ```
