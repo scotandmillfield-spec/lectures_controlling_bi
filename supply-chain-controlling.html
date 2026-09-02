@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supply Chain Controlling · Beanspruchungs- und Belastbarkeitsportfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2; --canvas:#F4F3F0;
+  --green:#2E9E6B; --red:#D9534F;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.1rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:20ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:clamp(1rem,1.6vw,1.18rem);font-weight:300;color:#3d3d40;max-width:64ch;margin:0}
+
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+
+.claim{font-size:clamp(1.12rem,2.2vw,1.45rem);font-weight:300;line-height:1.36;margin:0 0 24px;max-width:58ch;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--teal-dk)}
+h2.sec{font-size:1.2rem;font-weight:600;letter-spacing:-.012em;margin:34px 0 4px;
+  display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+h2.sec:first-child{margin-top:0}
+p.sub{margin:0 0 16px;color:var(--grey);font-size:.92rem;max-width:78ch}
+.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:14px 0 0}
+
+/* ---------- Herkunftskennzeichnung: Kursbuch oder Ergaenzung ----------
+   Gleichwertig gestaltet, nicht als Warnhinweis. Die Kante zwischen
+   beiden ist der didaktische Kern, nicht ein Kleingedrucktes.          */
+.src{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:600;border-radius:4px;padding:4px 8px;white-space:nowrap}
+.src.kb{background:var(--teal-xl);color:var(--teal-dk)}
+.src.erg{background:var(--ochre-xl);color:#8A6417}
+
+/* ---------- Schaltflaechen ---------- */
+.bar{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;justify-content:space-between;margin:0 0 16px}
+.seg{display:inline-flex;border:1px solid var(--grey-xl);background:var(--paper);border-radius:var(--r);padding:4px;gap:4px;flex-wrap:wrap}
+.seg button{appearance:none;border:0;background:transparent;cursor:pointer;font-family:var(--sans);
+  font-size:.88rem;font-weight:600;color:var(--grey);padding:9px 16px;border-radius:7px;transition:.16s}
+.seg button:hover{color:var(--teal-dk)}
+.seg button[aria-pressed="true"]{background:var(--teal-dk);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.84rem;color:#4a4a4d}
+.key{display:inline-flex;align-items:center;gap:8px}
+.sw{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.06)}
+.sw.q1{background:#FDE8D3} .sw.q2{background:#E1F0F6}
+.sw.q3{background:#F2EBD8}   .sw.q4{background:#EAEAE8}
+
+.btn{appearance:none;border:1px solid var(--teal-dk);background:transparent;color:var(--teal-dk);
+  font-family:var(--sans);font-size:.88rem;font-weight:600;cursor:pointer;
+  padding:10px 16px;border-radius:8px;transition:.16s}
+.btn:hover{background:var(--teal-dk);color:#fff}
+.btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+/* ---------- Karten ---------- */
+.card{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px}
+.card .ck{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 4px}
+.card h3{margin:0 0 8px;font-size:1.06rem;font-weight:700;letter-spacing:-.015em}
+.card p{margin:0 0 10px;font-size:.9rem;color:#3d3d40;line-height:1.52}
+.card p:last-child{margin-bottom:0}
+.card ul{margin:10px 0 0;padding-left:18px;font-size:.88rem;color:#3d3d40;line-height:1.5}
+.card li{margin-bottom:5px}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.duo>*{min-width:0}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
+.trio>*{min-width:0}
+.quad{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:stretch}
+.quad>*{min-width:0}
+
+/* ---------- Aufdeckkarten: Wortherkunft, Aufgaben, Denkfehler ---------- */
+.flipgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.flipgrid>*{min-width:0}
+.flip{appearance:none;text-align:left;width:100%;cursor:pointer;font-family:var(--sans);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px 16px 14px;transition:.2s var(--ease);color:var(--ink)}
+.flip:hover{border-color:var(--teal);transform:translateY(-2px)}
+.flip:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.flip .lang{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+.flip .word{font-family:var(--mono);font-size:1.02rem;font-weight:600;color:var(--teal-dk);margin:5px 0 0}
+.flip .mean{font-size:.88rem;color:#3d3d40;margin:9px 0 0;line-height:1.45}
+.flip[aria-expanded="false"] .mean{display:none}
+.flip[aria-expanded="false"]::after{content:"umdrehen";display:block;margin-top:9px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal)}
+.flip[aria-expanded="true"]{border-color:var(--teal);background:var(--teal-xl)}
+
+.deck{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.deck>*{min-width:0}
+.task{appearance:none;text-align:left;width:100%;cursor:pointer;font-family:var(--sans);color:var(--ink);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px;transition:.2s var(--ease);display:flex;flex-direction:column;gap:7px}
+.task:hover{border-color:var(--ochre);transform:translateY(-2px)}
+.task:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.task .no{font-family:var(--mono);font-size:.72rem;font-weight:600;color:var(--ochre);letter-spacing:.08em}
+.task .hd{font-size:.95rem;font-weight:600;line-height:1.34}
+.task .bd{font-size:.86rem;color:#3d3d40;line-height:1.5}
+.task[aria-expanded="false"] .bd{display:none}
+.task[aria-expanded="true"]{border-color:var(--ochre);background:var(--ochre-xl)}
+.counter{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:12px 0 0}
+
+.acc{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.acc button{appearance:none;width:100%;text-align:left;cursor:pointer;font-family:var(--sans);
+  background:transparent;border:0;border-bottom:1px solid var(--grey-xl);padding:15px 18px;
+  font-size:.95rem;font-weight:600;color:var(--ink);display:flex;gap:12px;align-items:flex-start;transition:background .16s}
+.acc button:hover{background:var(--sand-xl)}
+.acc button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.acc button .mk{font-family:var(--mono);color:var(--red);flex:none;font-size:.9rem;line-height:1.5}
+.acc .ans{padding:0 18px 16px 42px;font-size:.9rem;color:#3d3d40;line-height:1.55;
+  border-bottom:1px solid var(--grey-xl);background:var(--sand-xl)}
+.acc .ans[hidden]{display:none}
+.acc .ans b{color:var(--green)}
+.acc>*:last-child{border-bottom:0}
+
+/* ---------- Tabellen ---------- */
+.tscroll{overflow-x:auto;border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper)}
+table.tbl{width:100%;min-width:560px;border-collapse:collapse;font-size:.85rem}
+table.tbl th{background:#F7F7F5;text-align:left;padding:9px 12px;font-family:var(--mono);
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid);white-space:nowrap}
+table.tbl td{padding:9px 12px;border-bottom:1px solid var(--grey-xl);vertical-align:top;line-height:1.45}
+table.tbl tr:last-child td{border-bottom:0}
+table.tbl td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.tbl td.m{font-family:var(--mono);font-size:.8rem}
+table.tbl td.crit{font-weight:600}
+table.tbl tr.dim td{color:var(--grey-mid);transition:color .3s var(--ease)}
+table.tbl tr.hi td{background:var(--teal-xl)}
+table.tbl tbody tr:hover td{background:var(--sand-xl)}
+.fmark{display:inline-block;width:22px;height:22px;line-height:20px;text-align:center;
+  border-radius:5px;font-family:var(--mono);font-size:.76rem;font-weight:600;border:1px solid rgba(0,0,0,.08)}
+.fmark.f1{background:var(--orange-xl);color:#A85B00}
+.fmark.f2{background:var(--teal-xl);color:var(--teal-dk)}
+.fmark.f3{background:var(--sand-xl);color:#8A6417}
+.fmark.f4{background:var(--grey-xl);color:#5a5a5c}
+
+/* ---------- Regelkreis ---------- */
+.stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:14px 10px 6px;overflow-x:auto}
+svg.loop{width:100%;min-width:600px;height:auto;display:block}
+svg.loop text{font-family:var(--sans);fill:var(--ink);pointer-events:none;dominant-baseline:middle}
+.loop .nbox{fill:var(--paper);stroke:var(--grey-mid);stroke-width:1.4}
+.loop .nk{font-family:var(--mono);font-size:9px;letter-spacing:.1em;fill:var(--grey);text-transform:uppercase}
+.loop .nt{font-size:14px;font-weight:600}
+.loop .nv{font-family:var(--mono);font-size:13px;fill:var(--teal-dk);font-variant-numeric:tabular-nums}
+.loop .arw{fill:none;stroke:var(--grey-mid);stroke-width:2.2;transition:stroke .3s var(--ease)}
+.loop .arw.on{stroke:var(--orange);stroke-width:3.2}
+.loop .arw.ok{stroke:var(--green);stroke-width:3.2}
+.loop .ctr{font-size:15px;font-weight:600;text-anchor:middle}
+.loop .ctrs{font-size:12px;text-anchor:middle;fill:var(--grey)}
+
+.slider{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 16px;
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:14px 18px}
+.slider>*{min-width:0}
+.slider label{font-size:.9rem;font-weight:600;flex:none}
+.slider input[type=range]{flex:1;min-width:180px;accent-color:var(--teal-dk)}
+.slider .out{font-family:var(--mono);font-size:1.05rem;font-weight:600;font-variant-numeric:tabular-nums;
+  color:var(--teal-dk);flex:none;min-width:5.5ch;text-align:right}
+.slider .soll{font-family:var(--mono);font-size:.78rem;color:var(--grey);flex:none}
+
+/* ---------- Portfolio ---------- */
+.pfwrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;align-items:start}
+.pfwrap>*{min-width:0}
+.pfstage:focus-visible,.stage:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.pfstage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:12px 10px 4px;overflow-x:auto}
+svg.pf{width:100%;min-width:420px;height:auto;display:block}
+svg.pf text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.pf .qz{stroke:#fff;stroke-width:2}
+.pf .qn{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;opacity:.75}
+.pf .ql{font-size:11.5px;font-weight:600;opacity:.85}
+.pf .ax{stroke:var(--grey-mid);stroke-width:1.4}
+.pf .gr{stroke:var(--grey-xl);stroke-width:1}
+.pf .diag{stroke:var(--grey);stroke-width:1.6;stroke-dasharray:7 6;fill:none}
+.pf .tick{font-family:var(--mono);font-size:10.5px;fill:var(--grey);text-anchor:middle}
+.pf .tickY{font-family:var(--mono);font-size:10.5px;fill:var(--grey);text-anchor:end}
+.pf .lgd{font-family:var(--mono);font-size:10.5px;fill:var(--grey);text-anchor:start}
+.pf .atitle{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;fill:var(--teal-dk);
+  text-transform:uppercase;font-weight:600}
+.pf .pt{cursor:pointer}
+.pf .pt .dot{fill:var(--navy);stroke:#fff;stroke-width:2.5;transition:r .22s var(--ease)}
+.pf .pt .lab{font-size:12.5px;font-weight:700}
+.pf .pt .sub{font-family:var(--mono);font-size:10px;fill:var(--grey)}
+.pf .pt:hover .dot,.pf .pt:focus-visible .dot{r:13}
+.pf .pt:focus-visible{outline:none}
+.pf .pt.sel .dot{fill:var(--orange);stroke:var(--orange-xl);stroke-width:4}
+.pf .pt.ghost .dot{fill:var(--grey-mid);opacity:.45}
+.pf .pt.ghost .lab,.pf .pt.ghost .sub{opacity:.45}
+.pf .bub{fill:var(--navy);opacity:.16;stroke:var(--navy);stroke-width:1.4;transition:r .35s var(--ease)}
+.pf .bub.zero{fill:none;stroke:var(--grey);stroke-width:1.6;stroke-dasharray:4 4;opacity:1}
+.pf .live .dot{fill:var(--orange);stroke:#fff;stroke-width:3}
+.pf .gap{stroke:var(--orange);stroke-width:2;stroke-dasharray:4 4}
+
+.detail{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:20px 22px;min-height:260px}
+.detail .dk{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--teal-dk);margin:0 0 8px}
+.detail h4{margin:0 0 10px;font-size:1.12rem;font-weight:700;letter-spacing:-.015em}
+.detail p{margin:0 0 10px;font-size:.9rem;color:#3d3d40;line-height:1.5}
+.detail p:last-child{margin-bottom:0}
+.detail .warn{color:#B25E00;font-weight:600}
+.detail code,code.f{font-family:var(--mono);font-size:.82rem;background:var(--canvas);
+  border-radius:5px;padding:3px 7px;display:inline-block;font-variant-numeric:tabular-nums}
+.detail .calc{font-family:var(--mono);font-size:.8rem;background:var(--canvas);border-radius:7px;
+  padding:11px 13px;line-height:1.75;color:#3d3d40;white-space:pre-wrap;
+  font-variant-numeric:tabular-nums;overflow-x:auto}
+.detail .verd{font-weight:700;font-size:.95rem}
+
+/* ---------- Selbstbewertung ---------- */
+.crit{display:grid;grid-template-columns:1fr 130px 62px;gap:10px 12px;align-items:center;
+  padding:9px 0;border-bottom:1px solid var(--grey-xl)}
+.crit>*{min-width:0}
+.crit:last-of-type{border-bottom:0}
+.crit .cl{font-size:.86rem;line-height:1.35}
+.crit .cl i{font-family:var(--mono);font-style:normal;color:var(--grey);font-size:.78rem;margin-right:6px}
+.crit input[type=range]{width:100%;accent-color:var(--teal-dk)}
+.crit .cv{font-family:var(--mono);font-size:.8rem;color:var(--grey);text-align:right;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.crit select{font-family:var(--mono);font-size:.8rem;padding:5px 6px;border-radius:6px;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--ink);width:100%}
+.crit select:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
+.chead{display:grid;grid-template-columns:1fr 130px 62px;gap:12px;font-family:var(--mono);
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);padding-bottom:6px;
+  border-bottom:1px solid var(--grey-mid)}
+.chead>*{min-width:0}
+.chead span:nth-child(2),.chead span:nth-child(3){text-align:right}
+
+/* ---------- Skalen-Check ---------- */
+.qz{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px}
+.qz .qq{font-size:.95rem;font-weight:600;margin:0 0 12px;line-height:1.4}
+.qz .opts{display:flex;gap:9px;flex-wrap:wrap}
+.qz .opt{appearance:none;cursor:pointer;font-family:var(--sans);font-size:.88rem;font-weight:600;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--grey);
+  padding:9px 15px;border-radius:8px;transition:.16s}
+.qz .opt:hover{border-color:var(--teal);color:var(--teal-dk)}
+.qz .opt:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.qz .opt.right{background:#E8F5EE;border-color:var(--green);color:#1E6B47}
+.qz .opt.wrong{background:#FBEAE9;border-color:var(--red);color:#9C2F2C}
+.qz .fb{margin:12px 0 0;font-size:.88rem;color:#3d3d40;line-height:1.5}
+.qz .fb[hidden]{display:none}
+
+/* ---------- BBAP-Rechner ---------- */
+table.calc{width:100%;min-width:720px;border-collapse:collapse;font-size:.86rem}
+table.calc th{background:#F7F7F5;text-align:left;padding:10px 12px;font-family:var(--mono);
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid);white-space:nowrap}
+table.calc th.r{text-align:right}
+table.calc td{padding:10px 12px;border-bottom:1px solid var(--grey-xl);vertical-align:middle}
+table.calc tr:last-child td{border-bottom:0}
+table.calc td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.calc input{font-family:var(--mono);font-size:.84rem;width:74px;text-align:right;
+  border:1px solid var(--grey-xl);border-radius:6px;padding:6px 8px;background:var(--paper);color:var(--ink);
+  font-variant-numeric:tabular-nums}
+table.calc input:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
+table.calc td.rank{font-family:var(--mono);font-weight:700;text-align:center;color:var(--teal-dk)}
+table.calc tr.best td{background:var(--teal-xl)}
+table.calc tr.best td.rank{color:var(--orange)}
+
+.chk{display:inline-flex;align-items:center;gap:9px;font-size:.88rem;font-weight:600;
+  color:#3d3d40;cursor:pointer;background:var(--paper);border:1px solid var(--grey-xl);
+  border-radius:var(--r);padding:10px 15px}
+.chk input{accent-color:var(--teal-dk);width:16px;height:16px}
+.chk:focus-within{border-color:var(--teal)}
+
+/* ---------- Kernaussagen ---------- */
+.says{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.says>*{min-width:0}
+.say{background:var(--paper);border:1px solid var(--grey-xl);border-left:3px solid var(--teal-dk);
+  border-radius:var(--r);box-shadow:var(--shadow);padding:18px 20px}
+.say .sn{font-family:var(--mono);font-size:.72rem;font-weight:600;color:var(--teal-dk);letter-spacing:.1em}
+.say h3{margin:7px 0 8px;font-size:1rem;font-weight:700;line-height:1.3;letter-spacing:-.012em}
+.say p{margin:0;font-size:.88rem;color:#3d3d40;line-height:1.52}
+
+.readme{margin-top:18px;background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:20px 24px;
+  font-size:1rem;line-height:1.55}
+.readme.warn{background:var(--orange)}
+.readme b{font-weight:700}
+.readme code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.2);padding:1px 5px;border-radius:4px}
+.readme a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+blockquote.q{margin:0 0 14px;background:var(--paper);border:1px solid var(--grey-xl);
+  border-left:3px solid var(--teal);border-radius:var(--r);padding:16px 20px;
+  font-size:.95rem;font-weight:300;line-height:1.55;color:#2c2c2f}
+blockquote.q cite{display:block;margin-top:9px;font-style:normal;font-family:var(--mono);
+  font-size:.74rem;letter-spacing:.06em;color:var(--grey)}
+
+.pointe{margin-top:34px;background:var(--orange);color:#fff;border-radius:var(--r);padding:26px 28px}
+.pointe .pk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin:0 0 10px}
+.pointe p{margin:0;font-size:clamp(1.05rem,2vw,1.3rem);font-weight:300;line-height:1.42;max-width:66ch}
+.pointe p b{font-weight:700}
+
+footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+footer a{color:var(--teal-dk)}
+
+.tip{position:fixed;z-index:60;pointer-events:none;opacity:0;transform:translateY(4px);
+  transition:opacity .14s,transform .14s;background:var(--ink);color:#fff;border-radius:9px;
+  padding:12px 14px;font-size:.82rem;line-height:1.5;max-width:320px;box-shadow:0 10px 30px -8px rgba(0,0,0,.45)}
+.tip.on{opacity:1;transform:translateY(0)}
+.tip .th{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#8FD4E6;margin:0 0 5px}
+.tip p{margin:0}
+.tip .extra{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.18);
+  color:var(--orange);font-weight:600;font-family:var(--mono);font-size:.76rem}
+
+.scrollhint{display:none}
+@media (max-width:980px){
+  .pfwrap{grid-template-columns:1fr}
+  .flipgrid{grid-template-columns:repeat(2,1fr)}
+  .quad{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:900px){
+  .scrollhint{display:block;color:var(--teal-dk)}
+  .duo,.trio{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px 56px}
+  .flipgrid,.quad{grid-template-columns:1fr}
+  .crit,.chead{grid-template-columns:1fr 92px 56px}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">MWCH02 · Controlling und Risikomanagement der Supply Chain</p>
+  <h1>Eine Kette steuern, die einem <em>nicht gehört</em></h1>
+  <p class="lede">Ein Bauteil für wenige Cent legt zwei Werke still. Kein Kostenbericht hat das gezeigt — und das ist kein Versäumnis der Buchhaltung, sondern eine Eigenschaft des Instruments. Dieses Modul baut das Supply Chain Controlling von seinem Begriff her auf und endet bei dem Werkzeug, das den Fall sichtbar gemacht hätte: dem <b>Beanspruchungs- und Belastbarkeitsportfolio</b>.</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Supply Chain Controlling">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Der Begriff</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Der Regelkreis</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Das Portfolio</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Was der Controller liest</button>
+</div>
+
+<!-- ============================ TAB A · DER BEGRIFF ============================ -->
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <p class="claim">Controlling heißt nicht Kontrolle. Es heißt <b>Gegenrolle</b> — und in einer Kette aus fremden Unternehmen ist die Gegenrolle schwerer zu spielen als im eigenen Haus.</p>
+
+  <h2 class="sec">Der Fall, der die Lektion trägt <span class="src kb">Kursbuch S. 70 f.</span></h2>
+  <p class="sub">Bevor ein Instrument erklärt wird, muss die Frage stehen, die es beantwortet.</p>
+
+  <div class="card" style="border-left:3px solid var(--orange)">
+    <p class="ck">Einstiegsvignette</p>
+    <h3>Eine Buchse von anderthalb Zentimetern</h3>
+    <p>Beim Weltmarktführer für Dieseleinspritzpumpen übersieht die Qualitätskontrolle eine defekte Teflonbeschichtung in einer 1,5 Zentimeter kleinen Buchse. Das Bauteil kostet wenige Cent. Der Defekt führt zu <b>Bandstillstand bei zwei führenden Automobilherstellern</b>, zu einer Rückrufaktion von mehreren tausend Fahrzeugen und zu einem materiellen Schaden in dreistelliger Millionenhöhe.</p>
+    <p style="margin-top:14px"><button class="btn" id="revealA" aria-expanded="false" aria-controls="answerA">Warum hat das kein Kostenbericht gezeigt?</button></p>
+    <div id="answerA" hidden style="margin-top:14px;padding-top:14px;border-top:1px solid var(--grey-xl)">
+      <p>Weil ein Kostenbericht nach dem <b>Wert</b> einer Position fragt, nicht nach ihrer <b>Kritikalität</b>. Die Buchse steht in jeder Auswertung ganz unten: minimaler Materialwert, minimaler Anteil am Einkaufsvolumen, kein auffälliger Preistrend. Ein rein monetäres Controlling hat kein Feld, in dem „ohne dieses Teil steht das Band still“ überhaupt vorkommt.</p>
+      <p>Genau hier setzt das Supply Chain Controlling an: Es ergänzt die monetäre Sicht um eine <b>prozessuale</b> und fragt nicht, was ein Partner kostet, sondern was die Kette ihm abverlangt und was er tragen kann. Diese beiden Größen sind die Achsen des Portfolios in Reiter 03.</p>
+    </div>
+  </div>
+
+  <h2 class="sec">Woher das Wort kommt <span class="src kb">Kursbuch S. 14</span></h2>
+  <p class="sub">Vier Wurzeln, und keine einzige davon heißt Überwachung. Karten anklicken.</p>
+
+  <div class="flipgrid" id="wordgrid"></div>
+
+  <div class="readme warn" style="margin-top:16px">
+    <b>Die Fehlvorstellung, die hier fällt.</b> Controlling wird im Deutschen wegen der Wortähnlichkeit häufig mit Kontrolle gleichgesetzt. Das ist falsch — auch wenn zur Unternehmensplanung eine gewisse Kontrolle gehört. Der Begriffskern ist die <b>Gegenrolle</b>: Das Controlling bildet auf Basis objektiv ermittelter Kennzahlen den Gegenpol zu einer Unternehmensführung, die visionär und teilweise risikobereit sein muss und Ergebnisse teils eher emotional als sachlich beurteilt.
+  </div>
+
+  <p class="hint">Erste Erwähnungen um 1890 in den USA als reine Beschreibung der Kostenrechnung · Verbreitung in Deutschland ab den 1960er Jahren · Vorreiterin war die Continental Gummi Werke AG in Hannover</p>
+
+  <h2 class="sec">Zwei Definitionen <span class="src kb">Kursbuch S. 14</span></h2>
+  <blockquote class="q">Controlling ist funktional gesehen dasjenige Subsystem der Führung, das Planung und Kontrolle sowie Informationsversorgung systembildend und systemkoppelnd ergebniszielorientiert koordiniert und so die Adaption und Koordination des Gesamtsystems unterstützt.
+    <cite>Horváth 2020, S. 129</cite></blockquote>
+  <blockquote class="q">Dem Supply Chain Controlling obliegt die Aufgabe, eine einheitliche Fachsprache und ein gemeinsames Prozessverständnis über alle Akteure in der Supply Chain zu entwickeln.
+    <cite>Otto/Stölzle 2003, S. 5</cite></blockquote>
+  <p class="sub">Nach Specht et al. (2002) besteht das Ziel darin, Entscheidungen des Managements zu unterstützen — durch kostenminimale Versorgung mit Informationen in der richtigen Qualität und Quantität, am richtigen Ort und zum richtigen Zeitpunkt.</p>
+
+  <h2 class="sec">Was hinzukommt, wenn die Kette den Betrieb verlässt <span class="src kb">Kursbuch S. 14 f.</span></h2>
+  <p class="sub">Innerbetrieblich kann weiter auf die klassischen Controllingelemente zurückgegriffen werden. Zur Optimierung der unternehmensübergreifenden Kette leisten sie jedoch nur noch einen untergeordneten Beitrag. Umschalten und beobachten, was passiert.</p>
+
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Sichtweise">
+      <button id="vKlass" aria-pressed="true">Klassisches Controlling</button>
+      <button id="vScc" aria-pressed="false">Supply Chain Controlling</button>
+    </div>
+    <p class="legend" id="vNote" style="margin:0"></p>
+  </div>
+
+  <div class="tscroll" tabindex="0">
+    <table class="tbl" style="min-width:520px">
+      <thead><tr><th>Blickrichtung</th><th>Klassisch, innerbetrieblich</th><th>Ergänzung in der Kette</th></tr></thead>
+      <tbody id="vBody"></tbody>
+    </table>
+  </div>
+
+  <div class="readme" style="margin-top:16px">
+    <b>Die Wirkung.</b> Das Supply Chain Controlling zeigt dezidiert auf, welche Ursache-Wirkungs-Beziehungen in der Wertschöpfungskette bestehen und wie diese gegebenenfalls zu modifizieren sind. Bei optimaler Ausrichtung verfügen alle Beteiligten über ein <b>Frühwarnsystem</b>, das rechtzeitiges Eingreifen bei Störungen ermöglicht.
+  </div>
+
+  <h2 class="sec">Die fünf Aufgaben <span class="src kb">Kursbuch S. 17</span></h2>
+  <p class="sub">Nach Weber/Bacher/Groll 2003. Jede Karte anklicken, um die Erläuterung zu sehen — die Abbildung des Kursbuchs wird hier nicht reproduziert, sondern eigenständig aufgebaut.</p>
+  <div class="deck" id="taskdeck"></div>
+  <p class="counter" id="taskcount"></p>
+
+  <div class="readme warn" style="margin-top:16px">
+    <b>Die Bedingung unter allen fünf.</b> Supply Chain Controlling wird nur dann sinnstiftend eingesetzt, wenn tatsächlich <b>vergleichbare</b> Informationen über die einzelnen Prozessschritte bei den beteiligten Unternehmen vorliegen. Ohne gemeinsame Kennzahlensprache misst jeder etwas anderes und nennt es gleich.
+  </div>
+</section>
+
+<!-- ============================ TAB B · DER REGELKREIS ============================ -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
+  <p class="claim">Ein Regelkreis ist ein System, in dem bestimmte Ereignisse bestimmte <b>Rückkopplungen</b> bedingen. Sie können positiv oder negativ ausfallen — und welche von beiden eintritt, entscheidet ein einziger Zahlenvergleich.</p>
+
+  <h2 class="sec">Der Regelkreis am Reklamationsbeispiel <span class="src kb">Kursbuch S. 18 ff.</span></h2>
+  <p class="sub">Regelgröße ist die Reklamationsquote, das festgelegte Maximum liegt bei 1,5 Prozent der Ausliefermenge. Den Regler bewegen und den Kreislauf beobachten.</p>
+
+  <div class="slider">
+    <label for="rekl">Reklamationsquote (Ist)</label>
+    <input type="range" id="rekl" min="0" max="5" step="0.1" value="3"
+           aria-describedby="reklOut" aria-label="Reklamationsquote in Prozent der Ausliefermenge">
+    <span class="out" id="reklOut">3,0 %</span>
+    <span class="soll">Soll ≤ 1,5 %</span>
+  </div>
+
+  <div class="stage" tabindex="0">
+    <svg class="loop" id="loopSvg" viewBox="0 0 660 360" role="img"
+         aria-label="Regelkreis mit den vier Stationen Regelgröße, Messung, Regler und Maßnahme">
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="context-stroke"/>
+        </marker>
+      </defs>
+
+      <path class="arw" id="a12" d="M300 82 H392" marker-end="url(#ah)"/>
+      <path class="arw" id="a23" d="M498 116 V222" marker-end="url(#ah)"/>
+      <path class="arw" id="a34" d="M392 256 H300" marker-end="url(#ah)"/>
+      <path class="arw" id="a41" d="M162 222 V116" marker-end="url(#ah)"/>
+
+      <g>
+        <rect class="nbox" x="62" y="48" width="200" height="68" rx="9"/>
+        <text class="nk" x="78" y="68">Regelgrösse</text>
+        <text class="nt" x="78" y="90">Reklamationsquote</text>
+        <text class="nv" x="78" y="108" id="n1v">Soll ≤ 1,5 %</text>
+      </g>
+      <g>
+        <rect class="nbox" x="398" y="48" width="200" height="68" rx="9"/>
+        <text class="nk" x="414" y="68">Messung</text>
+        <text class="nt" x="414" y="90">Istwert je Periode</text>
+        <text class="nv" x="414" y="108" id="n2v">Ist 3,0 %</text>
+      </g>
+      <g>
+        <rect class="nbox" x="398" y="222" width="200" height="68" rx="9"/>
+        <text class="nk" x="414" y="242">Regler</text>
+        <text class="nt" x="414" y="264">Supply-Chain-</text>
+        <text class="nt" x="414" y="282">Verantwortliche</text>
+      </g>
+      <g>
+        <rect class="nbox" x="62" y="222" width="200" height="68" rx="9"/>
+        <text class="nk" x="78" y="242">Massnahme</text>
+        <text class="nt" x="78" y="266" id="n4t">Eingriff</text>
+        <text class="nv" x="78" y="284" id="n4v"></text>
+      </g>
+
+      <text class="ctr"  x="330" y="158" id="loopType"></text>
+      <text class="ctrs" x="330" y="182" id="loopL1"></text>
+      <text class="ctrs" x="330" y="200" id="loopL2"></text>
+      <text class="ctrs" x="330" y="218" id="loopL3"></text>
+    </svg>
+  </div>
+  <p class="hint scrollhint">Diagramm seitlich scrollbar</p>
+
+  <div class="readme" id="loopBox" style="margin-top:16px"></div>
+
+  <h2 class="sec">Was überwacht wird <span class="src kb">Kursbuch S. 19 f.</span></h2>
+  <p class="sub">Regelgrößen, die sich unmittelbar in der Bilanz niederschlagen.</p>
+  <div class="duo">
+    <div class="card">
+      <p class="ck">Die sechs Klassiker</p>
+      <h3>Direkt bilanzwirksam</h3>
+      <ul>
+        <li>Lagerbestände</li><li>Frachtkosten</li><li>Rüstkosten</li>
+        <li>Durchlaufzeiten</li><li>Personalkosten</li><li>Materialkosten</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="ck">Besondere Beachtung</p>
+      <h3>Die Kapitalbindung im Lager</h3>
+      <p>Je niedriger die Bestände, desto höher in der Regel der Cashflow. Freies Kapital erwirtschaftet Zinsgewinne, hohe Bestände verursachen <b>Opportunitätskosten</b>.</p>
+      <p>Steigen Lagerreichweite und Lagerumschlagshäufigkeit, wirkt sich das über die Herstellungskosten direkt in der Gewinn- und Verlustrechnung aus. Das ist der Inhalt der positiven Rückkopplungsschleife.</p>
+    </div>
+  </div>
+
+  <h2 class="sec">Cost Tracking <span class="src kb">Kursbuch S. 20 f.</span></h2>
+  <p class="sub">Ein systematisches Kontrollinstrument des Berichtswesens, das misst, wie hoch der Anteil bestimmter Aktivitäten am Supply-Chain- beziehungsweise Unternehmenserfolg ist.</p>
+  <div class="trio">
+    <div class="card">
+      <p class="ck">Anwendungsbereiche</p>
+      <h3>Wo es greift</h3>
+      <p>Bestände, Materialpreise, Frachtkosten. Vorgehen über standardisierte Formblätter, in die Ist-Zahlen und Plandaten eingetragen und gegenübergestellt beziehungsweise gegeneinander gewichtet werden.</p>
+    </div>
+    <div class="card">
+      <p class="ck">Doppelter Nutzen</p>
+      <h3>Strategisch und operativ</h3>
+      <p>Strategisch für die Budgetierung, operativ zur Führungsunterstützung. Die Bestandsüberwachung zeigt zeitnah überhöhte Bestände mit Kapitalbindungs- und Lagerkosten; bei Materialpreisen und Frachtkosten können Neuausschreibungen erfolgen.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ochre)">
+      <p class="ck">Die Einschränkung</p>
+      <h3>Keine Stand-alone-Lösung</h3>
+      <p>Cost Tracking wirkt <b>nur in Verknüpfung mit anderen Controllinginstrumenten</b>. Allein gelassen liefert es Zahlenreihen ohne Adressat — genau die Lücke, die das Portfolio in Reiter 03 schließt.</p>
+    </div>
+  </div>
+
+  <h2 class="sec">Drei Arten des Supply Chain Controllings <span class="src kb">Kursbuch S. 21 ff.</span></h2>
+  <div class="tscroll" tabindex="0">
+    <table class="tbl" style="min-width:640px">
+      <thead><tr><th>Art</th><th>Gegenstand</th><th>Kern</th></tr></thead>
+      <tbody>
+        <tr><td class="crit">Beziehungscontrolling<br><span style="font-weight:400;color:var(--grey);font-size:.92em">auch partnerschaftliches Controlling</span></td>
+            <td>Qualität der Zusammenarbeit</td>
+            <td>Soll-Ist-Vergleich auf Basis partnerschaftlich vereinbarter und quantifizierbarer Zielvorgaben innerhalb eines determinierten Controllingzyklus. <b>Hardfacts.</b> Hierher gehört auch CPFR — Collaborative Planning, Forecasting und Replenishment.</td></tr>
+        <tr><td class="crit">Vertrauenscontrolling</td>
+            <td>weiche Faktoren</td>
+            <td>Messung der Vertrauensbasis. <b>Softfacts.</b> Das Kursbuch nennt ausdrücklich die Nachteile: kapazitätsbindender Aufwand und Kosten, etwa für ein Marktforschungsinstitut. Langfristig gerechtfertigt, da der Erfolg einer Kette von vertrauensvoller Zusammenarbeit abhängt.</td></tr>
+        <tr><td class="crit">Performance Measurement</td>
+            <td>Leistungsmessung</td>
+            <td>Steht in engem Zusammenhang mit dem <b>SCOR-Modell</b>, dem Supply Chain Operations Reference Model, seit 1996 als Standardmethode verfügbar.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="sec">Drei Schritte bis zum Betrieb <span class="src kb">Kursbuch S. 16 f.</span></h2>
+  <p class="sub">Bei unternehmensübergreifenden Ketten müssen nicht nur die prozessualen Abläufe, sondern auch die <b>Controllingsysteme</b> aneinander angepasst werden — und die sind zwischen den beteiligten Unternehmen selten vergleichbar.</p>
+  <div class="trio">
+    <div class="card"><p class="ck">Schritt 1</p><h3>Bedarfsanalyse und Zieldefinition</h3>
+      <p>Individuelle Anforderungen aller beteiligten Unternehmen erfassen und genau definieren.</p>
+      <p style="color:#B25E00;font-weight:600">Kritisch: Vollständigkeit der Anforderungen.</p></div>
+    <div class="card"><p class="ck">Schritt 2</p><h3>Konzeptionierung</h3>
+      <p>Ausgestaltung des Ansatzes unter Einbezug aller Beteiligten — Kunden wie Lieferanten.</p>
+      <p style="color:#B25E00;font-weight:600">Kritisch: niemanden auslassen.</p></div>
+    <div class="card"><p class="ck">Schritt 3</p><h3>Go-Life</h3>
+      <p>Häufig eine Pilotphase: Strukturen testen, bei Bedarf modifizieren, dann flächendeckend umsetzen.</p>
+      <p style="color:#B25E00;font-weight:600">Kritisch: Modifikationsbereitschaft.</p></div>
+  </div>
+  <p class="sub" style="margin-top:14px">Festzulegen sind die Art der Kennzahlen, die für die einzelnen Parameter Verantwortlichen, die Messpunkte und Messzeitpunkte — und mit Hauptaugenmerk die verbindlichen <b>Eingriffswerte beziehungsweise Toleranzen</b>. Wichtigster Punkt insgesamt bleibt die überbetriebliche Kommunikation und Abstimmung.</p>
+
+  <div class="readme warn" style="margin-top:8px">
+    <b>Die Grundproblematik.</b> Sie ergibt sich ausgerechnet aus einem der wichtigsten Effekte eines effizienten Supply Chain Managements: der <b>ständigen Veränderung der Abläufe</b>, die aus kontinuierlicher Überwachung und den daraus folgenden Lerneffekten entsteht. Wer laufend besser wird, verändert laufend das, was er misst. Antwort darauf sind langfristig ausgerichtete, unternehmensübergreifende Zielvereinbarungen und Verhaltensregeln, die nicht bei jedem Auftrag neu verhandelt werden müssen.
+  </div>
+</section>
+
+<!-- ============================ TAB C · DAS PORTFOLIO ============================ -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
+  <p class="claim">Zwei Größen, eine Fläche. Links steht, <b>was die Kette dem Partner abverlangt</b>. Oben steht, <b>was er tragen kann</b>. Wo beides auseinanderfällt, entsteht Handlungsbedarf — und zwar in beide Richtungen.</p>
+
+  <h2 class="sec">Wo das Portfolio steht <span class="src kb">Kursbuch S. 42 f.</span></h2>
+  <p class="sub">Drei innovative Instrumente in fester Abfolge. Über eine Station fahren.</p>
+
+  <div class="trio">
+    <div class="card" data-k="map" tabindex="0" style="cursor:help">
+      <p class="ck">Schritt 1</p><h3>Supply Chain Map</h3>
+      <p><b>Wo</b> steht ein Partner in der Kettenarchitektur, in Beziehung zu vor- und nachgelagerten Stufen?</p>
+    </div>
+    <div class="card" data-k="bbp" tabindex="0" style="cursor:help;border-left:3px solid var(--orange);background:var(--orange-xl)">
+      <p class="ck">Schritt 2 · dieses Modul</p><h3>Beanspruchungs- und Belastbarkeitsportfolio</h3>
+      <p><b>Wie</b> sind diese Beziehungen zu bewerten und zu kategorisieren?</p>
+    </div>
+    <div class="card" data-k="val" tabindex="0" style="cursor:help">
+      <p class="ck">Schritt 3</p><h3>Supply Chain Valuation</h3>
+      <p><b>Was</b> sind die daraus gewonnenen Managementempfehlungen wert?</p>
+    </div>
+  </div>
+
+  <h2 class="sec">Wofür es genutzt wird <span class="src kb">Kursbuch S. 43 f.</span></h2>
+  <p class="sub">Das BBP dient der Stärken- und Schwächen-Analyse einzelner Supply-Chain-Beteiligter. Sein Zweck ist zweistufig.</p>
+  <div class="duo">
+    <div class="card"><p class="ck">Zweck, erste Stufe</p><h3>Priorisieren und markieren</h3>
+      <p>Alle Mitglieder der Wertschöpfungskette priorisieren und die <b>kritischen Kettenabschnitte</b> kenntlich machen. Aus einer Liste gleichrangiger Lieferanten wird eine Rangfolge nach Dringlichkeit.</p></div>
+    <div class="card"><p class="ck">Zweck, zweite Stufe</p><h3>Transparenz, die zu Handlung führt</h3>
+      <p>Durch die hergestellte Transparenz gewährleisten, dass die Zusammenarbeit mit Beteiligten, die nicht immer den festgelegten Kriterien entsprechen, <b>beobachtet und verbessert</b> wird — und dass bei Bedarf ein Notfallplan aufgestellt oder dieser Teil der Organisation zum geeigneten Zeitpunkt ausgetauscht wird.</p></div>
+  </div>
+
+  <div class="readme" style="margin-top:16px">
+    <b>Die zentrale Entscheidungsregel.</b> Sofern die Beanspruchung des Mitglieds nicht mit den Möglichkeiten seiner Belastbarkeit übereinstimmt, können strategische und auch operative Maßnahmen erarbeitet und ergriffen werden. Bewertet werden dabei sowohl die <b>Dynamik</b> als auch die <b>Robustheit</b> des laufenden Unternehmenszyklus nach aktuellen Faktoren.
+  </div>
+
+  <h2 class="sec">Die beiden Kerngrößen <span class="src erg">Ergänzung</span></h2>
+  <p class="sub">Das Kursbuch definiert die beiden Größen nicht über Einzelkriterien. Für die Lehre braucht es greifbare Items; die folgenden sind aus dem Kursbuchtext und den dort genannten Beurteilungskriterien der qualitativen Lieferantenbewertung abgeleitet.</p>
+
+  <div class="duo">
+    <div class="card">
+      <p class="ck">Waagerechte Achse</p><h3>Beanspruchung</h3>
+      <p style="font-weight:600;color:var(--teal-dk)">Was die Kette dem Mitglied abverlangt.</p>
+      <ul>
+        <li><b>Volumenanteil</b> — Anteil am Beschaffungs- oder Absatzvolumen</li>
+        <li><b>Quellenstruktur</b> — Single Source ohne qualifizierte Alternative?</li>
+        <li><b>Abrufdynamik</b> — Schwankung zwischen Schwach- und Spitzenzeiten</li>
+        <li><b>Reaktionsanforderung</b> — geforderte Wiederbeschaffungs- und Reaktionszeiten</li>
+        <li><b>Komplexität</b> — Variantenvielfalt und Änderungsfrequenz</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="ck">Senkrechte Achse</p><h3>Belastbarkeit</h3>
+      <p style="font-weight:600;color:var(--teal-dk)">Was das Mitglied tragen kann.</p>
+      <ul>
+        <li><b>Kapazitätsreserve</b> — freie Kapazitäten oberhalb des heutigen Abrufs</li>
+        <li><b>Finanzielle Stabilität</b> — trägt die Lage eine Delle oder Vorfinanzierung?</li>
+        <li><b>Redundanz</b> — Standorte, Anlagen und Vorlieferanten mehrfach vorhanden</li>
+        <li><b>Prozessgüte</b> — Qualitäts- und Termintreue dauerhaft im Zielkorridor</li>
+        <li><b>Informationsanbindung</b> — Datenqualität und IT-Anbindung tragfähig</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="readme warn" style="margin-top:16px">
+    <b>Die Unterscheidung, an der alles hängt.</b> Beanspruchung ist eine Eigenschaft der <b>Beziehung</b>, Belastbarkeit eine Eigenschaft des <b>Partners</b>. Deshalb lassen sich beide mit völlig unterschiedlichen Hebeln verändern: Beanspruchung senkt man durch Umverteilung von Volumen, Zweitquellen oder Glättung der Abrufe — ohne dass beim Partner irgendetwas geschieht. Belastbarkeit steigert man durch Investitionen beim Partner, Rahmenverträge oder Qualifizierung. Wer das verwechselt, sucht den Hebel jedes Mal am falschen Ort.
+  </div>
+
+  <h2 class="sec">Die Skala und ihre Falle <span class="src kb">Kursbuch S. 44 f.</span> <span class="src erg">Transformation: Ergänzung</span></h2>
+  <p class="sub">Die praktikabelste Form des BBP ist ein Fragenkatalog mit Faktoren auf einer ordinalen Skala von 1 bis 5. Damit werden kardinale und ordinale Größen vergleichbar; wie bei einem Scoring-Modell erhalten die Kennzahlen durch <b>Gewichtung</b> ihre Bedeutung.</p>
+
+  <div class="duo">
+    <div class="card" style="border-left:3px solid var(--red)">
+      <p class="ck">Die Falle</p><h3>1 heißt nicht „schlecht“</h3>
+      <p>Die Skala ist invers zur Intuition: <code class="f">1 = trifft genau zu</code> und <code class="f">5 = trifft nicht zu</code>. Eine 1 bei „Es bestehen freie Kapazitätsreserven“ bedeutet also: <b>Reserven sind vorhanden.</b> Ob eine 1 gut oder schlecht ist, hängt allein an der Formulierung des Items.</p>
+      <p class="warn">Ohne Umrechnung liegen die kritischen Fälle in der Grafik genau dort, wo man die unkritischen erwartet. Das ist erfahrungsgemäß der häufigste Fehler in Anwendungsaufgaben.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--teal)">
+      <p class="ck">Die Lösung</p><h3>Transformieren, dann gewichten</h3>
+      <p>Damit ein hoher Achsenwert für eine <b>starke Ausprägung</b> steht, wird jeder Rohwert gedreht:</p>
+      <p><code class="f">Ausprägung = 6 − Rohwert</code></p>
+      <p>Danach der gewichtete Mittelwert je Achse:</p>
+      <p><code class="f">Achsenwert = Σ (Gewicht · (6 − Rohwert)) / Σ Gewicht</code></p>
+      <p>Alle Werte in diesem Modul werden aus den Rohwerten <b>zur Laufzeit</b> gerechnet. Die Rechnung ist damit die einzige Quelle der Wahrheit — wer unten einen Regler bewegt, sieht die Formel mitlaufen.</p>
+    </div>
+  </div>
+
+  <h2 class="sec">Das Portfolio <span class="src erg">Vier-Felder-Logik: Ergänzung</span></h2>
+  <p class="sub">Das Kursbuch beschreibt das Portfolio inhaltlich, benennt aber keine Quadranten mit Namen. Die folgende Vier-Felder-Logik operationalisiert die Kursbuchaussage, dass bei Nichtübereinstimmung von Beanspruchung und Belastbarkeit Maßnahmen zu ergreifen sind.</p>
+
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Betriebsart des Portfolios">
+      <button id="mExample" aria-pressed="true">Beispiel ansehen</button>
+      <button id="mSelf" aria-pressed="false">Selbst bewerten</button>
+    </div>
+    <div class="legend">
+      <span class="key"><i class="sw q1"></i>I Kritisch</span>
+      <span class="key"><i class="sw q2"></i>II Passung</span>
+      <span class="key"><i class="sw q3"></i>III Latent</span>
+      <span class="key"><i class="sw q4"></i>IV Reserve</span>
+    </div>
+  </div>
+
+  <div class="pfwrap">
+    <div class="pfstage" tabindex="0">
+      <svg class="pf" id="pfMain" viewBox="0 0 660 540" role="img"
+           aria-label="Beanspruchungs- und Belastbarkeitsportfolio mit vier Feldern und der Diagonale der Passung"></svg>
+    </div>
+    <div class="detail" id="pfDetail"></div>
+  </div>
+  <p class="hint scrollhint">Portfolio seitlich scrollbar</p>
+
+  <!-- Selbstbewertung -->
+  <div id="selfPanel" hidden>
+    <div class="bar" style="margin-top:20px">
+      <div class="seg" role="group" aria-label="Voreinstellungen">
+        <button class="pre" data-pre="krit" aria-pressed="false">Kritischer Fall</button>
+        <button class="pre" data-pre="pass" aria-pressed="false">Passung</button>
+        <button class="pre" data-pre="res"  aria-pressed="false">Ungenutzte Reserve</button>
+        <button class="pre" data-pre="mid"  aria-pressed="true">Zurücksetzen</button>
+      </div>
+    </div>
+    <div class="duo">
+      <div class="card">
+        <p class="ck">Waagerecht</p><h3>Beanspruchung</h3>
+        <div class="chead"><span>Aussage</span><span>Rohwert 1–5</span><span>Gewicht</span></div>
+        <div id="criticB"></div>
+      </div>
+      <div class="card">
+        <p class="ck">Senkrecht</p><h3>Belastbarkeit</h3>
+        <div class="chead"><span>Aussage</span><span>Rohwert 1–5</span><span>Gewicht</span></div>
+        <div id="criticL"></div>
+      </div>
+    </div>
+    <div class="detail" style="margin-top:14px;min-height:0">
+      <p class="dk">Die Rechnung, mit eingesetzten Zahlen</p>
+      <div class="calc" id="selfCalc"></div>
+    </div>
+  </div>
+
+  <h2 class="sec">Skalen-Check <span class="src erg">Ergänzung</span></h2>
+  <p class="sub">Zwei Fragen, sofortige Auflösung. Wer beide auf Anhieb trifft, hat die Skalenfalle hinter sich.</p>
+  <div class="duo" id="scaleQuiz"></div>
+</section>
+
+<!-- ============================ TAB D · WAS DER CONTROLLER LIEST ============================ -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
+  <p class="claim">Das Portfolio zeigt, <b>dass</b> gehandelt werden muss. Es zeigt nicht, <b>was das Handeln kostet</b>. Genau an dieser Kante endet das BBP — und beginnt seine Erweiterung.</p>
+
+  <h2 class="sec">Die vier Felder und ihre Maßnahmenrichtung <span class="src erg">Ergänzung</span></h2>
+  <div class="tscroll" tabindex="0">
+    <table class="tbl" style="min-width:760px">
+      <thead><tr><th>Feld</th><th>Lage</th><th>Charakter</th><th>Maßnahmenrichtung</th></tr></thead>
+      <tbody id="fieldBody"></tbody>
+    </table>
+  </div>
+
+  <h2 class="sec">Warum die Lücke allein nicht genügt <span class="src erg">Ergänzung</span></h2>
+  <p class="sub">Auf der Winkelhalbierenden gilt Beanspruchung ≈ Belastbarkeit. Der Abstand zu dieser Diagonalen ist die Passungslücke: <code class="f">Δ = Beanspruchung − Belastbarkeit</code></p>
+  <div class="trio">
+    <div class="card"><p class="ck">Δ deutlich über null</p><h3>Überforderung</h3>
+      <p>Der Partner trägt mehr, als er tragen kann. Handlungsbedarf aus <b>Risiko</b>.</p></div>
+    <div class="card"><p class="ck">Δ deutlich unter null</p><h3>Ungenutzte Reserve</h3>
+      <p>Der Partner könnte deutlich mehr tragen, als abgerufen wird. Handlungsbedarf aus <b>Kosten</b>.</p></div>
+    <div class="card" style="border-left:3px solid var(--orange)"><p class="ck">Δ nahe null</p><h3>Sagt für sich genommen nichts</h3>
+      <p>Zwei Partner können beide ein Δ nahe null haben und sich dennoch völlig unterschiedlich verhalten, sobald Volumen verlagert wird. <b>Position und Lücke sind gemeinsam zu lesen.</b></p></div>
+  </div>
+
+  <div class="readme" style="margin-top:16px" id="deltaBox"></div>
+
+  <h2 class="sec">Der Nachteil, im Wortlaut verstanden <span class="src kb">Kursbuch S. 44</span></h2>
+  <div class="card" style="border-left:3px solid var(--red)">
+    <p class="ck">Prüfungsnah</p>
+    <h3>Was das BBP nicht kann</h3>
+    <p>Laufende Qualitätsverbesserungsmaßnahmen, aktive Maßnahmen zur Risikominimierung sowie aktuelle Maßnahmen zur Stabilisierung des Supply-Chain-Mitglieds können nur in die <b>quantitative</b>, nicht aber in die <b>qualitative</b> Messung einfließen. Das kann dazu führen, dass Maßnahmen mit einem hohen Kosten-Nutzen-Faktor eingesetzt werden, um die Belastbarkeit der Lieferkette zu steigern — wobei zwar Handlungsbedarfe erkennbar sind, die <b>Kostenpotenziale jedoch nicht ermittelt werden</b>.</p>
+    <p class="verd" style="color:#B25E00;font-weight:700">Kurz: Das BBP zeigt, dass gehandelt werden muss, aber nicht, was das Handeln kostet und ob es sich lohnt.</p>
+  </div>
+
+  <h2 class="sec">Die Lösung: das BBAP <span class="src kb">Kursbuch S. 44</span></h2>
+  <p class="sub">Das BBP wird um die Dimension <b>Aufwand</b> ergänzt und damit zum Beanspruchungs-, Belastbarkeits- und Aufwandsportfolio. Bei dessen Anwendung können sowohl versteckte Optimierungspotenziale als auch versteckte Kosten identifiziert werden. Es gilt: Je höher der Faktor Aufwand, desto höher die Summe, die für risikomindernde oder risikosteuernde Maßnahmen einzusetzen ist.</p>
+
+  <div class="bar">
+    <label class="chk"><input type="checkbox" id="bubToggle" checked> Aufwand als Blasengröße anzeigen</label>
+    <p class="legend" style="margin:0"><span class="key">Nutzen und Aufwand in der Tabelle sind änderbar — Rang und Blasen rechnen mit.</span></p>
+  </div>
+
+  <div class="pfwrap">
+    <div class="pfstage" tabindex="0">
+      <svg class="pf" id="pfBbap" viewBox="0 0 660 540" role="img"
+           aria-label="Dasselbe Portfolio, ergänzt um den Aufwand als Blasengröße"></svg>
+    </div>
+    <div class="detail" id="bbapDetail"></div>
+  </div>
+  <p class="hint scrollhint">Portfolio seitlich scrollbar</p>
+
+  <h2 class="sec">Aufwand-Nutzen-Rechner <span class="src erg">Ergänzung, Systematik nach Kursbuch S. 81 f.</span></h2>
+  <p class="sub">Nutzen gemessen als Reduktion der Passungslücke in Punkten, Aufwand in Tausend Euro. Der Rang folgt dem Aufwand je Nutzeneinheit, nicht dem absoluten Nutzen.</p>
+  <div class="tscroll" tabindex="0">
+    <table class="calc">
+      <thead><tr><th>Nr.</th><th>Maßnahme</th><th>Wirkt auf</th><th class="r">Nutzen (Punkte)</th><th class="r">Aufwand T€</th><th class="r">T€ je Punkt</th><th class="r">Rang</th></tr></thead>
+      <tbody id="mBody"></tbody>
+    </table>
+  </div>
+  <div class="readme warn" style="margin-top:16px" id="mLesson"></div>
+
+  <h2 class="sec">Häufige Denkfehler <span class="src erg">Ergänzung</span></h2>
+  <p class="sub">Frage anklicken, um die Richtigstellung zu sehen.</p>
+  <div class="acc" id="denkfehler"></div>
+
+  <h2 class="sec">Die wesentlichen Aussagen für den Controller</h2>
+  <p class="sub">Was am Ende eines BBP-Durchlaufs auf dem Tisch liegt — und was ausdrücklich nicht.</p>
+  <div class="says" id="saysBox"></div>
+
+  <h2 class="sec">Und danach: die Supply Chain Valuation <span class="src kb">Kursbuch S. 46</span></h2>
+  <p class="sub">Instrument zur Ermittlung des Wertbeitrags in der Supply-Chain-Optimierung. Der erhöhte Aufwand durch zusätzliche Managementaktivitäten, ausgelöst durch kritisches Verhalten von Kettenmitgliedern, muss durch erhöhte Wertschöpfungserträge gedeckt werden. Bewertet wird die Wirkung konkreter Projekte, simuliert in der Soll-Analyse oder gemessen als Ist-Analyse. Eine anerkannte und einheitliche Definition existiert nicht. Die Methodik ersetzt nicht die Prozesskostenrechnung, sondern ist eine tiefergehende und ganzheitliche Betrachtung, bei der alle Investitionskosten mit den Kosten-Nutzen-Faktoren für alle Beteiligten bewertet werden.</p>
+
+  <div class="readme">
+    <b>Der Bogen schließt sich.</b> Die <b>Supply Chain Map</b> zeigt die Struktur, das <b>BBP</b> bewertet die Beziehungen, das <b>BBAP</b> bepreist die Maßnahmen, und die <b>Supply Chain Valuation</b> prüft, ob sich das Ganze gerechnet hat. Kein Instrument dieser Kette ist für sich genommen vollständig — und keines lässt sich überspringen.
+  </div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Der wirtschaftlichste Hebel für den kritischen Lieferanten lag nicht bei ihm, sondern im Feld der <b>ungenutzten Reserve</b> — in dem Quadranten, den ohne Portfolio niemand angesehen hätte. Ein Kostenbericht kennt nur Zeilen. Ein Portfolio kennt <b>Nachbarn</b>.</p>
+  </div>
+</section>
+
+<footer>
+  Lehrmaterial · Kurs MWCH02, Controlling und Risikomanagement der Supply Chain, IU Kursbuch Versionsnr. 002-2023-1013, Lektion 1 und Lektion 3. Blöcke mit der Kennzeichnung <span class="src kb" style="padding:2px 6px">Kursbuch</span> folgen eng dem Kursbuch und sind prüfungsrelevant; Blöcke mit <span class="src erg" style="padding:2px 6px">Ergänzung</span> sind didaktische Operationalisierungen, die dort nicht ausformuliert sind. Abbildungen und Tabellen des Kursbuchs werden nicht reproduziert, sondern eigenständig neu aufgebaut. Die Fallstudie mit vier Lieferanten ist erfunden; alle Zahlen sind illustrativ und werden aus den Rohwerten zur Laufzeit berechnet. Zitierte Primärquellen: Horváth 2020, Otto/Stölzle 2003, Specht et al. 2002, Weber 2010, Weber/Bacher/Groll 2003.
+</footer>
+
+</div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* =====================================================================
+   0 · Inhalte
+   Alles, was Text ist, steht hier. Achsenwerte stehen bewusst NICHT
+   hier — sie werden aus den Rohwerten gerechnet, damit die Rechnung
+   die einzige Quelle der Wahrheit bleibt.
+   ===================================================================== */
+
+const WORDS = [
+  ["Französisch", "contrerôle", "Gegenrolle, Gegenspirale — die zweite, unabhängig geführte Liste, an der sich die erste messen lassen muss."],
+  ["Französisch", "compter",    "zählen — das nüchterne Erfassen dessen, was tatsächlich vorliegt."],
+  ["Englisch",    "to control", "lenken, steuern — nicht überwachen. Die Hand am Ruder, nicht das Auge im Nacken."],
+  ["Englisch",    "roll",       "Liste — das Verzeichnis, in dem das Gezählte festgehalten wird."]
+];
+
+const TASKS = [
+  ["Einheitliche Kennzahlen festlegen",
+   "Unternehmensübergreifend und einheitlich. Solange jeder Partner seine eigene Definition von Liefertreue führt, sind alle Berichte formal richtig und inhaltlich unvergleichbar."],
+  ["Prozesse ermitteln, Datenbasis entwickeln",
+   "Erst die wesentlichen Prozesse bestimmen, dann darauf aufbauend eine gemeinsame Datenbasis für die Kennzahlen entwickeln. Die Reihenfolge ist keine Formsache — eine Datenbasis ohne Prozessverständnis misst Zufälliges."],
+  ["Gleichartige Darstellung und Bewertung schaffen",
+   "Für unternehmensübergreifende wie interne Prozesse, um ein übereinstimmendes Verständnis für Abläufe zu erreichen. Gleiche Zahl, gleiches Bild, gleiche Lesart."],
+  ["Weiche Faktoren festlegen",
+   "Die Faktoren, die den Erfolg einer Kette wesentlich beeinflussen, ohne in einer Kostenstelle aufzutauchen. Dazu zählt ausdrücklich das Vertrauen zwischen den Beteiligten."],
+  ["Kernelemente aufzeigen",
+   "Einen Gesamtüberblick herstellen, der strategische und operative Planung sowie die Kontrolle der Zielerreichung unterstützt. Genau dieser Überblick ist die Voraussetzung des Portfolios in Reiter 03."]
+];
+
+const VIEWS = [
+  ["Größenart",  "monetäre Größen",               "Kundenorientierung"],
+  ["Sicht",      "kostenorientierte Sicht",       "Innovationsorientierung"],
+  ["Messgrößen", "ergebnisorientierte Messgrößen","Prozessorientierung und prozessorientierte Messgrößen"]
+];
+
+const KRIT = {
+  B:[{id:"B1", text:"Der Anteil am Beschaffungsvolumen ist hoch.", g:3},
+     {id:"B2", text:"Das Teil wird ausschließlich von diesem Lieferanten bezogen.", g:3},
+     {id:"B3", text:"Die Abrufe schwanken zwischen Schwach- und Spitzenzeiten stark.", g:2},
+     {id:"B4", text:"Die geforderte Reaktionszeit ist kurz.", g:2}],
+  L:[{id:"L1", text:"Es bestehen freie Kapazitätsreserven.", g:3},
+     {id:"L2", text:"Die finanzielle Lage ist stabil.", g:3},
+     {id:"L3", text:"Standorte und Anlagen sind redundant ausgelegt.", g:2},
+     {id:"L4", text:"Qualitäts- und Termintreue liegen dauerhaft im Zielkorridor.", g:2}]
+};
+
+const LIEF = [
+  {id:"A", name:"Präzisionsdreherei Nord", lp:"l",
+   roh:{B1:1,B2:1,B3:2,B4:2,L1:4,L2:4,L3:5,L4:3},
+   note:"Single Source bei hohem Volumen, kurzer Reaktionszeit — und einem Partner ohne Reserve, ohne Redundanz und mit angespannter Finanzlage. Die Kette verlangt hier am meisten von dem, der am wenigsten tragen kann."},
+  {id:"B", name:"Kunststofftechnik Süd", lp:"l",
+   roh:{B1:1,B2:2,B3:2,B4:1,L1:2,L2:1,L3:2,L4:2},
+   note:"Hohe Last, aber ein Partner, der sie trägt: Reserven, stabile Finanzen, redundante Standorte, saubere Prozesse. Das ist kein Anlass zur Ruhe, sondern zur Pflege — der Puffer nach oben ist begrenzt."},
+  {id:"C", name:"Elektronikmodule Ost", lp:"r",
+   roh:{B1:4,B2:5,B3:4,B4:4,L1:4,L2:4,L3:4,L4:3},
+   note:"Heute unauffällig, weil kaum etwas über ihn läuft. Die Belastbarkeit ist aber genauso schwach wie bei A. Wer diesem Partner Volumen zuweist, verschiebt ihn quer durch das Portfolio nach Feld I."},
+  {id:"D", name:"Verpackungswerk West", lp:"r",
+   roh:{B1:4,B2:5,B3:5,B4:3,L1:1,L2:2,L3:2,L4:1},
+   note:"Überausgestattet für das, was abgerufen wird. In einem Kostenbericht erscheint dieser Partner als unauffällige kleine Zeile — im Portfolio als die billigste Entlastungsoption, die das Unternehmen hat."}
+];
+
+const FELDER = {
+  I:  {nr:"I",  name:"Kritischer Kettenabschnitt", lage:"Beanspruchung hoch · Belastbarkeit niedrig",
+       char:"akute Überforderung, Ausfallrisiko",
+       mass:"Notfallplan, Stabilisierung, Zweitquelle, gegebenenfalls Austausch"},
+  II: {nr:"II", name:"Tragfähige Passung", lage:"Beanspruchung hoch · Belastbarkeit hoch",
+       char:"leistungsfähig, aber ohne Puffer nach oben",
+       mass:"Partnerschaft ausbauen, Puffer überwachen, gemeinsame Planung"},
+  III:{nr:"III",name:"Latenter Schwachpunkt", lage:"Beanspruchung niedrig · Belastbarkeit niedrig",
+       char:"heute unauffällig, bricht bei Volumenanstieg weg",
+       mass:"vor jeder Volumenverlagerung qualifizieren, bis dahin beobachten"},
+  IV: {nr:"IV", name:"Ungenutzte Reserve", lage:"Beanspruchung niedrig · Belastbarkeit hoch",
+       char:"überausgestattet, Kostenpotenzial und Entlastungsoption",
+       mass:"Volumen verlagern, Reserve für Spitzen nutzen"}
+};
+
+const MASSN = [
+  {id:"M1", text:"Teilvolumen von A auf D verlagern", wirkt:"A Beanspruchung ↓, D Reserve genutzt", auf:["A","D"], nutzen:0.8, aufwand:25},
+  {id:"M2", text:"Rahmenvertrag und Bestandspuffer bei C", wirkt:"C Belastbarkeit ↑", auf:["C"], nutzen:0.8, aufwand:40},
+  {id:"M3", text:"Zweitquelle für das A-Teil qualifizieren", wirkt:"A Beanspruchung ↓", auf:["A"], nutzen:1.5, aufwand:120},
+  {id:"M4", text:"Kapazitätsausbau bei A mitfinanzieren", wirkt:"A Belastbarkeit ↑", auf:["A"], nutzen:1.0, aufwand:180}
+];
+
+const DENKFEHLER = [
+  ["Controlling ist Kontrolle.",
+   "Controlling meint <b>Steuerung und Informationsversorgung</b>. Der Wortstamm verweist auf Gegenrolle und Auflisten, nicht auf Überwachung. Kontrolle ist ein Teilaspekt, nicht der Begriffskern."],
+  ["Das BBP ist ein Risikoportfolio aus Eintrittswahrscheinlichkeit und Tragweite.",
+   "Das ist der <b>Risikofaktor</b> aus einer anderen Lektion. Die Achsen des BBP sind Beanspruchung und Belastbarkeit. Beides sind <b>Zustandsgrößen</b>, keine Wahrscheinlichkeiten."],
+  ["Eine 1 auf der Skala ist eine schlechte Bewertung.",
+   "1 bedeutet, <b>die Aussage trifft genau zu</b>. Ob das gut oder schlecht ist, hängt allein an der Formulierung des Items — bei „freie Kapazitätsreserven“ ist die 1 ein Vorzug, bei „Single Source“ ein Risiko."],
+  ["Belastbarkeit ist gleichbedeutend mit Unternehmensgröße.",
+   "Belastbarkeit umfasst <b>Kapazitätsreserve, Finanzlage, Redundanz und Prozessgüte</b>. Ein großer Lieferant kann vollständig ausgelastet und damit wenig belastbar sein."],
+  ["Das BBP liefert die Maßnahme gleich mit.",
+   "Es zeigt <b>Handlungsbedarf</b>. Die Kostenpotenziale bleiben unermittelt. Genau deshalb existiert das BBAP."],
+  ["Ein Δ nahe null bedeutet, alles ist in Ordnung.",
+   "Zwei Partner mit Δ nahe null können auf völlig unterschiedlichen Niveaus liegen. <b>Position und Lücke sind gemeinsam zu lesen.</b>"],
+  ["Das BBP ersetzt die Supply Chain Map.",
+   "Die Map liefert die <b>Struktur</b>, die das BBP bewertet. Ohne Map fehlt die Grundlage — man bewertet Beziehungen, die man nicht vollständig kennt."]
+];
+
+const SAYS = [
+  ["Zwei Zahlen je Partner, nicht eine",
+   "Ein Ranking sortiert Lieferanten auf einer Linie. Das Portfolio gibt jedem eine Fläche. Erst dadurch lässt sich unterscheiden, ob ein Partner unauffällig ist, weil er trägt, oder unauffällig, weil ihm nichts zugemutet wird."],
+  ["Der Hebel liegt oft nicht beim Problemfall",
+   "Der kritische Partner steht in Feld I. Die billigste Entlastung steht in Feld IV. Ohne Portfolio hätte niemand in diesem Quadranten nachgesehen — dort steht nichts, was auffällt."],
+  ["Beanspruchung wird verhandelt, Belastbarkeit wird investiert",
+   "Zwei Achsen, zwei völlig getrennte Werkzeugkästen. Volumen umverteilen und Abrufe glätten kostet Verhandlung; Kapazität, Redundanz und Finanzlage kosten Geld. Wer die Achsen verwechselt, kauft Lösungen für Probleme, die man hätte besprechen können."],
+  ["Die Skala muss gedreht werden, sonst steht das Bild auf dem Kopf",
+   "1 heißt „trifft genau zu“, nicht „schlecht“. Ohne die Transformation 6 − Rohwert landen die kritischen Partner genau dort, wo man die unkritischen erwartet. Das ist der häufigste Anwendungsfehler."],
+  ["Das Portfolio priorisiert, es entscheidet nicht",
+   "Es macht kritische Kettenabschnitte kenntlich und begründet eine Reihenfolge. Welche Maßnahme ergriffen wird, ob ein Partner qualifiziert oder ausgetauscht wird, bleibt eine Führungsentscheidung — das Portfolio liefert ihre Grundlage, nicht ihren Ersatz."],
+  ["Ohne Aufwandsdimension bleibt jede Empfehlung unbepreist",
+   "Der dokumentierte Nachteil des BBP ist kein Schönheitsfehler, sondern seine Grenze: Handlungsbedarf ja, Kostenpotenzial nein. Erst das BBAP macht aus einer Dringlichkeitsliste eine Investitionsentscheidung."]
+];
+
+const QUIZ = [
+  {q:"Ein Lieferant erhält bei der Aussage „Es bestehen freie Kapazitätsreserven“ eine 1. Ist er eher belastbar oder eher nicht belastbar?",
+   opts:["Eher belastbar","Eher nicht belastbar"], right:0,
+   fb:"1 heißt <b>trifft genau zu</b>. Die Aussage lautet, dass Reserven bestehen — also bestehen sie. Nach der Transformation wird daraus die Ausprägung 6 − 1 = 5, der höchste Beitrag zur Belastbarkeit. Wer die 1 intuitiv als schlechte Note liest, dreht die ganze Achse um."},
+  {q:"Ein Partner erreicht Beanspruchung 4,6 und Belastbarkeit 2,0. In welchem Feld liegt er?",
+   opts:["Feld I","Feld II","Feld IV"], right:0,
+   fb:"Beanspruchung über der Mitte, Belastbarkeit darunter: <b>Feld I, kritischer Kettenabschnitt</b>. Die Passungslücke beträgt Δ = +2,6. Das ist der Partner, bei dem ein Notfallplan nicht optional ist."}
+];
+
+const REG = {
+  map:["Schritt 1 · Supply Chain Map",
+       "Schafft einen ganzheitlichen Überblick über alle relevanten Marktpartner, vor- oder nachgelagert. Die Gesamtbetrachtung wird wegen Unübersichtlichkeit selten angewandt. Größte Herausforderung ist das Aggregationsniveau: Je weiter sich die Abfragen von Ebene 0 — dem betrachteten Unternehmen — entfernen, desto flankierender werden die Inhalte, etwa technische, juristische, politische oder makroökonomische Informationen.",
+       "Wichtigste Stellschraube: konsistente Konsolidierung der Daten"],
+  bbp:["Schritt 2 · Das Portfolio",
+       "Bewertet und kategorisiert die Beziehungen, die die Map sichtbar gemacht hat. Ohne Map fehlt die Grundlage; ohne Portfolio bleibt die Map eine Landkarte ohne Höhenlinien.",
+       "Dieses Modul"],
+  val:["Schritt 3 · Supply Chain Valuation",
+       "Ermittelt den Wertbeitrag der Optimierung. Der erhöhte Aufwand durch zusätzliche Managementaktivitäten muss durch erhöhte Wertschöpfungserträge gedeckt werden. Ersetzt nicht die Prozesskostenrechnung, sondern betrachtet sie ganzheitlich mit.",
+       "Eine anerkannte einheitliche Definition existiert nicht"]
+};
+
+/* =====================================================================
+   1 · Hilfsfunktionen
+   ===================================================================== */
+const $  = id => document.getElementById(id);
+const nf1 = v => v.toFixed(1).replace(".", ",");
+const nf2 = v => v.toFixed(2).replace(".", ",");
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const SVGNS = "http://www.w3.org/2000/svg";
+function el(parent, tag, attrs, text){
+  const n = document.createElementNS(SVGNS, tag);
+  for(const k in attrs) n.setAttribute(k, attrs[k]);
+  if(text != null) n.textContent = text;
+  parent.appendChild(n); return n;
+}
+
+/* Achsenwert: gewichteter Mittelwert der transformierten Rohwerte. */
+function achse(items, roh, gew){
+  let z = 0, g = 0;
+  items.forEach(it => { const w = gew ? gew[it.id] : it.g; z += w * (6 - roh[it.id]); g += w; });
+  return {wert: z/g, z, g};
+}
+function feldVon(b, l){ return b >= 3 ? (l >= 3 ? "II" : "I") : (l >= 3 ? "IV" : "III"); }
+function werte(roh, gew){
+  const b = achse(KRIT.B, roh, gew), l = achse(KRIT.L, roh, gew);
+  return {b:b.wert, l:l.wert, bz:b.z, bg:b.g, lz:l.z, lg:l.g,
+          d:b.wert - l.wert, feld:feldVon(b.wert, l.wert)};
+}
+LIEF.forEach(x => Object.assign(x, werte(x.roh)));
+
+/* =====================================================================
+   2 · Tooltip
+   ===================================================================== */
+const tip = $("tip");
+function showTip(elem, ev){
+  const d = REG[elem.dataset.k]; if(!d) return;
+  tip.innerHTML = `<p class="th">${d[0]}</p><p>${d[1]}</p>` + (d[2] ? `<p class="extra">${d[2]}</p>` : "");
+  tip.classList.add("on"); moveTip(elem, ev);
+}
+function moveTip(elem, ev){
+  let x, y;
+  if(ev && ev.clientX){ x = ev.clientX + 16; y = ev.clientY + 16; }
+  else { const r = elem.getBoundingClientRect(); x = r.left + r.width/2; y = r.top - 8; }
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  if(x + w > innerWidth - 12) x = innerWidth - w - 12;
+  if(y + h > innerHeight - 12) y = y - h - 32;
+  if(y < 8) y = 8;
+  if(x < 8) x = 8;
+  tip.style.left = x + "px"; tip.style.top = y + "px";
+}
+function hideTip(){ tip.classList.remove("on"); }
+const TSEL = "[data-k]";
+document.addEventListener("pointerover", e => {const n = e.target.closest && e.target.closest(TSEL); if(n) showTip(n, e);});
+document.addEventListener("pointermove", e => {const n = e.target.closest && e.target.closest(TSEL); if(n) moveTip(n, e);});
+document.addEventListener("pointerout", e => {
+  const from = e.target.closest && e.target.closest(TSEL); if(!from) return;
+  const to = e.relatedTarget && e.relatedTarget.closest ? e.relatedTarget.closest(TSEL) : null;
+  if(to !== from) hideTip();
+});
+document.addEventListener("focusin",  e => {const n = e.target.closest && e.target.closest(TSEL); if(n) showTip(n, null);});
+document.addEventListener("focusout", e => {if(e.target.closest && e.target.closest(TSEL)) hideTip();});
+addEventListener("scroll", hideTip, {passive:true});
+
+/* =====================================================================
+   3 · Reiter 01 — Begriff
+   ===================================================================== */
+const revealA = $("revealA"), answerA = $("answerA");
+revealA.addEventListener("click", () => {
+  const open = revealA.getAttribute("aria-expanded") === "true";
+  revealA.setAttribute("aria-expanded", String(!open));
+  answerA.hidden = open;
+  revealA.textContent = open ? "Warum hat das kein Kostenbericht gezeigt?" : "Antwort wieder einklappen";
+});
+
+$("wordgrid").innerHTML = WORDS.map(([lang, word, mean], i) =>
+  `<button class="flip" aria-expanded="false" id="w${i}">
+     <span class="lang">${lang}</span>
+     <p class="word">${word}</p>
+     <p class="mean">${mean}</p>
+   </button>`).join("");
+[...document.querySelectorAll(".flip")].forEach(b => b.addEventListener("click", () => {
+  b.setAttribute("aria-expanded", String(b.getAttribute("aria-expanded") !== "true"));
+}));
+
+const vBody = $("vBody"), vNote = $("vNote");
+vBody.innerHTML = VIEWS.map(r => `<tr><td class="crit">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("");
+function setView(scc){
+  $("vKlass").setAttribute("aria-pressed", String(!scc));
+  $("vScc").setAttribute("aria-pressed", String(scc));
+  [...vBody.querySelectorAll("td:nth-child(3)")].forEach(td => {
+    td.style.color = scc ? "" : "var(--grey-mid)";
+    td.style.background = scc ? "var(--teal-xl)" : "";
+  });
+  vNote.textContent = scc
+    ? "Nichts fällt weg — es kommt eine zweite Dimension hinzu."
+    : "Nur die linke Spalte ist besetzt. Innerbetrieblich reicht das.";
+}
+$("vKlass").addEventListener("click", () => setView(false));
+$("vScc").addEventListener("click", () => setView(true));
+setView(false);
+
+$("taskdeck").innerHTML = TASKS.map(([hd, bd], i) =>
+  `<button class="task" aria-expanded="false">
+     <span class="no">Aufgabe ${i+1}</span>
+     <span class="hd">${hd}</span>
+     <span class="bd">${bd}</span>
+   </button>`).join("");
+const taskBtns = [...document.querySelectorAll(".task")], taskCount = $("taskcount");
+function countTasks(){
+  const n = taskBtns.filter(b => b.getAttribute("aria-expanded") === "true").length;
+  taskCount.textContent = n + " von 5 gelesen";
+}
+taskBtns.forEach(b => b.addEventListener("click", () => {
+  b.setAttribute("aria-expanded", String(b.getAttribute("aria-expanded") !== "true"));
+  countTasks();
+}));
+countTasks();
+
+/* =====================================================================
+   4 · Reiter 02 — Regelkreis
+   ===================================================================== */
+const SOLL = 1.5;
+const arrows = ["a12","a23","a34","a41"].map($);
+function drawLoop(ist){
+  const neg = ist > SOLL;
+  $("reklOut").textContent = nf1(ist) + " %";
+  $("n2v").textContent = "Ist " + nf1(ist) + " %";
+  arrows.forEach(a => { a.classList.toggle("on", neg); a.classList.toggle("ok", !neg); });
+  $("n4t").textContent = neg ? "Eingriff erforderlich" : "Kein Eingriff";
+  $("n4v").textContent = (neg ? "Abweichung +" : "Reserve ") + nf1(Math.abs(ist - SOLL)) + " Pp.";
+  $("loopType").textContent = neg ? "Negative Rückkopplung" : "Positive Rückkopplung";
+  $("loopType").setAttribute("fill", neg ? "#B25E00" : "#1E6B47");
+  const lines = neg
+    ? ["Unzufriedene Kunden verlangen kostenlose", "Ersatzlieferung oder treten vom Kauf zurück.", "Folge: Frachtkosten hoch, Frachterlöse aus."]
+    : ["Hohe Lieferzuverlässigkeit, zufriedene Kunden,", "die daraufhin mehr Ware bestellen.", "Folge: höherer Frachtumsatz."];
+  $("loopL1").textContent = lines[0]; $("loopL2").textContent = lines[1]; $("loopL3").textContent = lines[2];
+  const box = $("loopBox");
+  box.className = "readme" + (neg ? " warn" : "");
+  box.innerHTML = neg
+    ? "<b>Die Regelgröße ist verletzt.</b> Der Istwert von " + nf1(ist) + " Prozent liegt über dem festgelegten Maximum von 1,5 Prozent der Ausliefermenge. Der <b>Regler</b> — die Supply-Chain-Verantwortlichen — muss eingreifen. Die Wirkungskette ist eine <b>negative Rückkopplung</b>: Ersatzlieferungen und Kaufrücktritte erzeugen zusätzliche Frachtkosten für Nach- und Neuanlieferungen bei gleichzeitig ausbleibenden Frachterlösen."
+    : "<b>Die Regelgröße wird eingehalten.</b> Bei " + nf1(ist) + " Prozent bleibt der Istwert im Toleranzband. Hier wirkt eine <b>positive Rückkopplung</b>: Sehr hohe Lieferzuverlässigkeit führt zu zufriedenen Kunden, diese bestellen mehr Ware, das Logistikunternehmen erzielt höheren Frachtumsatz. Ein Regelkreis kennt beide Richtungen — der Unterschied liegt allein im Vergleich von Ist und Soll.";
+}
+$("rekl").addEventListener("input", e => drawLoop(parseFloat(e.target.value)));
+drawLoop(3);
+
+/* =====================================================================
+   5 · Das Portfolio — eine Zeichenmechanik, zwei Instanzen
+   ===================================================================== */
+const PX0 = 90, PX1 = 600, PY0 = 50, PY1 = 450;
+const sx = v => PX0 + (v-1)/4 * (PX1-PX0);
+const sy = v => PY1 - (v-1)/4 * (PY1-PY0);
+const QCOL = {I:"#FDE8D3", II:"#E1F0F6", III:"#F2EBD8", IV:"#EAEAE8"};
+/* Beschriftung dorthin, wo weder die Diagonale noch ein Datenpunkt
+   liegt: II und IV an die Innenkante, I und III an die Aussenkante.  */
+const QPOS = {
+  II: {x:sx(3)+10, y:PY0+18,  a:"start"}, I:  {x:PX1-10,   y:PY1-44, a:"end"},
+  IV: {x:PX0+10,   y:PY0+156, a:"start"}, III:{x:sx(3)-10, y:PY1-44, a:"end"}
+};
+
+function pfShell(svg){
+  svg.textContent = "";
+  const g = el(svg, "g", {});
+  /* Quadrantenflaechen. Farbe traegt hier nie allein: jedes Feld hat
+     zusaetzlich Nummer und Namen, damit die Grafik auch bei
+     Farbfehlsichtigkeit lesbar bleibt.                                */
+  const mx = sx(3), my = sy(3);
+  el(g,"rect",{class:"qz", x:mx, y:my,  width:PX1-mx, height:PY1-my, fill:QCOL.I});
+  el(g,"rect",{class:"qz", x:mx, y:PY0, width:PX1-mx, height:my-PY0, fill:QCOL.II});
+  el(g,"rect",{class:"qz", x:PX0,y:my,  width:mx-PX0, height:PY1-my, fill:QCOL.III});
+  el(g,"rect",{class:"qz", x:PX0,y:PY0, width:mx-PX0, height:my-PY0, fill:QCOL.IV});
+  for(const k in QPOS){
+    const p = QPOS[k], f = FELDER[k];
+    el(g,"text",{class:"qn", x:p.x, y:p.y,      "text-anchor":p.a}, "FELD " + f.nr);
+    el(g,"text",{class:"ql", x:p.x, y:p.y + 18, "text-anchor":p.a}, f.name);
+  }
+  /* Gitter, Achsen, Skalen */
+  for(let v = 1; v <= 5; v++){
+    el(g,"line",{class:"gr", x1:sx(v), y1:PY0, x2:sx(v), y2:PY1});
+    el(g,"line",{class:"gr", x1:PX0, y1:sy(v), x2:PX1, y2:sy(v)});
+    el(g,"text",{class:"tick", x:sx(v), y:PY1+20}, v);
+    el(g,"text",{class:"tickY", x:PX0-14, y:sy(v)}, v);
+  }
+  el(g,"line",{class:"ax", x1:PX0, y1:PY1, x2:PX1, y2:PY1});
+  el(g,"line",{class:"ax", x1:PX0, y1:PY0, x2:PX0, y2:PY1});
+  el(g,"line",{class:"diag", x1:sx(1), y1:sy(1), x2:sx(5), y2:sy(5)});
+  el(g,"text",{class:"atitle", x:(PX0+PX1)/2, y:PY1+48, "text-anchor":"middle"}, "BEANSPRUCHUNG →");
+  const yt = el(g,"text",{class:"atitle", x:26, y:(PY0+PY1)/2, "text-anchor":"middle"}, "BELASTBARKEIT →");
+  yt.setAttribute("transform", "rotate(-90 26 " + ((PY0+PY1)/2) + ")");
+  el(g,"line",{class:"diag", x1:PX0, y1:PY1+78, x2:PX0+38, y2:PY1+78});
+  el(g,"text",{class:"lgd", x:PX0+48, y:PY1+78},
+     "Diagonale der Passung — hier gilt Beanspruchung = Belastbarkeit");
+  return el(svg, "g", {});          /* Zeichenflaeche fuer die Punkte */
+}
+
+/* marks: {id,name,b,l,cls,lp,bub,sub} */
+function drawMarks(g, marks){
+  g.textContent = "";
+  marks.forEach(m => {
+    const x = sx(m.b), y = sy(m.l);
+    if(m.bub != null){
+      el(g,"circle",{class:"bub" + (m.bub <= 0 ? " zero" : ""), cx:x, cy:y, r:m.bub <= 0 ? 15 : m.bub});
+    }
+    const node = el(g,"g",{class:"pt " + (m.cls || ""), tabindex:"0", role:"button",
+                           "aria-label":m.name + ", Beanspruchung " + nf1(m.b) + ", Belastbarkeit " + nf1(m.l)});
+    if(m.id) node.dataset.id = m.id;
+    el(node,"circle",{class:"dot", cx:x, cy:y, r:10});
+    const right = (m.lp || "r") === "r";
+    el(node,"text",{class:"lab", x:x + (right ? 18 : -18), y:y - 5,
+                    "text-anchor":right ? "start" : "end"}, m.name);
+    el(node,"text",{class:"sub", x:x + (right ? 18 : -18), y:y + 12,
+                    "text-anchor":right ? "start" : "end"}, m.sub);
+  });
+}
+
+/* ---------- die Rechnung im Klartext, Zeile für Zeile ---------- */
+const ANKER = ["trifft genau zu","trifft eher zu","teils, teils","trifft eher nicht zu","trifft nicht zu"];
+function calcBlock(roh, gew){
+  const block = (items, titel) => {
+    const zs = items.map(it => {
+      const w = gew ? gew[it.id] : it.g, a = 6 - roh[it.id];
+      return "  " + it.id + "   Rohwert " + roh[it.id] + " → " + a + " · Gewicht " + w +
+             " = " + String(a*w).padStart(2, " ");
+    });
+    const a = achse(items, roh, gew);
+    zs.push("  " + "".padStart(4," ") + "Summe " + a.z + " : " + a.g + " = " + nf1(a.wert));
+    return titel + "\n" + zs.join("\n");
+  };
+  const w = werte(roh, gew);
+  return block(KRIT.B, "BEANSPRUCHUNG") + "\n\n" + block(KRIT.L, "BELASTBARKEIT") +
+         "\n\nΔ = " + nf1(w.b) + " − " + nf1(w.l) + " = " + (w.d >= 0 ? "+" : "−") + nf1(Math.abs(w.d)) +
+         "   →   Feld " + w.feld + ", " + FELDER[w.feld].name;
+}
+
+/* =====================================================================
+   6 · Reiter 03 — Portfolio, Beispiel und Selbstbewertung
+   ===================================================================== */
+const gMain = pfShell($("pfMain"));
+const pfDetail = $("pfDetail");
+let pfMode = "example", pfSel = "A";
+
+const DET_DEFAULT =
+  `<p class="dk">Vier Partner, vier Felder</p>
+   <h4>Einen Punkt anklicken</h4>
+   <p>Ein Hersteller von Nutzfahrzeugkomponenten hat mit einer Supply Chain Map vier Vorlieferanten der Ebene 1 identifiziert und bewertet sie im Portfolio. Jeder Punkt zeigt die vollständige Rechnung: acht Rohwerte, ihre Gewichte, die Transformation und beide Achsenwerte.</p>
+   <p class="warn">Die Skala ist invers: 1 heißt „trifft genau zu“. Vor dem Eintragen wird jeder Rohwert mit 6 − Rohwert gedreht.</p>`;
+
+function detailFor(id){
+  const x = LIEF.find(v => v.id === id); if(!x) return;
+  const f = FELDER[x.feld];
+  pfDetail.innerHTML =
+    `<p class="dk">Feld ${f.nr} · ${f.name}</p>
+     <h4>${x.id} · ${x.name}</h4>
+     <p>${x.note}</p>
+     <div class="calc">${esc(calcBlock(x.roh))}</div>
+     <p style="margin-top:12px"><b>Maßnahmenrichtung:</b> ${f.mass}</p>`;
+}
+function bindPoints(g, onPick){
+  [...g.querySelectorAll(".pt")].forEach(n => {
+    if(!n.dataset.id) return;
+    const pick = () => onPick(n.dataset.id);
+    n.addEventListener("click", pick);
+    n.addEventListener("focus", pick);
+    n.addEventListener("keydown", e => { if(e.key === "Enter" || e.key === " "){ e.preventDefault(); pick(); } });
+  });
+}
+function drawMain(){
+  const marks = LIEF.map(x => ({
+    id:x.id, name:x.id + " · " + x.name, b:x.b, l:x.l, lp:x.lp,
+    sub:"Bean. " + nf1(x.b) + " · Bel. " + nf1(x.l),
+    cls: pfMode === "self" ? "ghost" : (x.id === pfSel ? "sel" : "")
+  }));
+  if(pfMode === "self"){
+    const w = werte(selfState.roh, selfState.gew);
+    marks.push({name:"Ihre Bewertung", b:w.b, l:w.l, lp: w.b > 3 ? "l" : "r",
+                sub:"Bean. " + nf1(w.b) + " · Bel. " + nf1(w.l), cls:"live"});
+  }
+  drawMarks(gMain, marks);
+  if(pfMode === "example") bindPoints(gMain, id => { pfSel = id; detailFor(id); drawMain(); });
+}
+
+/* ---------- Selbstbewertung ---------- */
+const selfState = {roh:{}, gew:{}};
+[...KRIT.B, ...KRIT.L].forEach(it => { selfState.roh[it.id] = 3; selfState.gew[it.id] = it.g; });
+
+function buildCritics(host, items){
+  host.innerHTML = items.map(it =>
+    `<div class="crit">
+       <span class="cl"><i>${it.id}</i>${it.text}</span>
+       <span><input type="range" min="1" max="5" step="1" value="3" data-id="${it.id}"
+              aria-label="${it.text} Rohwert 1 trifft genau zu bis 5 trifft nicht zu">
+             <span class="cv" id="cv-${it.id}"></span></span>
+       <select data-id="${it.id}" aria-label="Gewicht für ${it.id}">
+         <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+       </select>
+     </div>`).join("");
+  items.forEach(it => { host.querySelector(`select[data-id="${it.id}"]`).value = String(it.g); });
+}
+buildCritics($("criticB"), KRIT.B);
+buildCritics($("criticL"), KRIT.L);
+
+function syncSelf(){
+  [...KRIT.B, ...KRIT.L].forEach(it => {
+    const r = document.querySelector(`input[data-id="${it.id}"]`);
+    const s = document.querySelector(`select[data-id="${it.id}"]`);
+    r.value = String(selfState.roh[it.id]);
+    s.value = String(selfState.gew[it.id]);
+    $("cv-" + it.id).textContent = selfState.roh[it.id] + " · " + ANKER[selfState.roh[it.id] - 1];
+  });
+  $("selfCalc").textContent = calcBlock(selfState.roh, selfState.gew);
+  drawMain();
+}
+$("selfPanel").addEventListener("input", e => {
+  const id = e.target.dataset.id; if(!id) return;
+  if(e.target.tagName === "INPUT") selfState.roh[id] = +e.target.value;
+  else selfState.gew[id] = +e.target.value;
+  [...document.querySelectorAll(".pre")].forEach(b => b.setAttribute("aria-pressed", "false"));
+  syncSelf();
+});
+const PRESETS = {krit:LIEF[0].roh, pass:LIEF[1].roh, res:LIEF[3].roh,
+                 mid:{B1:3,B2:3,B3:3,B4:3,L1:3,L2:3,L3:3,L4:3}};
+[...document.querySelectorAll(".pre")].forEach(b => b.addEventListener("click", () => {
+  [...document.querySelectorAll(".pre")].forEach(o => o.setAttribute("aria-pressed", "false"));
+  b.setAttribute("aria-pressed", "true");
+  Object.assign(selfState.roh, PRESETS[b.dataset.pre]);
+  [...KRIT.B, ...KRIT.L].forEach(it => { selfState.gew[it.id] = it.g; });
+  syncSelf();
+}));
+
+function setMode(self){
+  pfMode = self ? "self" : "example";
+  $("mExample").setAttribute("aria-pressed", String(!self));
+  $("mSelf").setAttribute("aria-pressed", String(self));
+  $("selfPanel").hidden = !self;
+  if(self){
+    pfDetail.innerHTML =
+      `<p class="dk">Selbst bewerten</p><h4>Acht Regler, ein Punkt</h4>
+       <p>Jeder Regler setzt einen Rohwert von 1 bis 5, jede Auswahl daneben sein Gewicht. Der orange Punkt bewegt sich mit; die vier Lieferanten des Beispiels bleiben blass im Hintergrund als Maßstab stehen.</p>
+       <p class="warn">Achten Sie auf die Skalenrichtung. Ein Rohwert von 1 bedeutet, dass die Aussage <b>zutrifft</b> — die Transformation 6 − Rohwert macht daraus den höchsten Achsenbeitrag.</p>
+       <p>Die vollständige Rechnung steht unterhalb der Regler.</p>`;
+    syncSelf();
+  } else {
+    detailFor(pfSel);
+    drawMain();
+  }
+}
+$("mExample").addEventListener("click", () => setMode(false));
+$("mSelf").addEventListener("click", () => setMode(true));
+pfDetail.innerHTML = DET_DEFAULT;
+drawMain();
+
+/* ---------- Skalen-Check ---------- */
+$("scaleQuiz").innerHTML = QUIZ.map((q, i) =>
+  `<div class="qz">
+     <p class="qq">${q.q}</p>
+     <div class="opts">${q.opts.map((o, j) =>
+        `<button class="opt" data-q="${i}" data-o="${j}">${o}</button>`).join("")}</div>
+     <p class="fb" id="fb${i}" hidden>${q.fb}</p>
+   </div>`).join("");
+$("scaleQuiz").addEventListener("click", e => {
+  const b = e.target.closest(".opt"); if(!b) return;
+  const qi = +b.dataset.q, oi = +b.dataset.o, q = QUIZ[qi];
+  [...$("scaleQuiz").querySelectorAll(`.opt[data-q="${qi}"]`)].forEach(o => o.classList.remove("right","wrong"));
+  b.classList.add(oi === q.right ? "right" : "wrong");
+  if(oi !== q.right)
+    $("scaleQuiz").querySelector(`.opt[data-q="${qi}"][data-o="${q.right}"]`).classList.add("right");
+  $("fb" + qi).hidden = false;
+});
+
+/* =====================================================================
+   7 · Reiter 04 — Felder, BBAP, Denkfehler, Kernaussagen
+   ===================================================================== */
+const FNUM = {I:"f1", II:"f2", III:"f3", IV:"f4"};
+$("fieldBody").innerHTML = ["I","II","III","IV"].map(k => {
+  const f = FELDER[k];
+  return `<tr><td><span class="fmark ${FNUM[k]}">${f.nr}</span></td>
+              <td class="crit">${f.name}<br><span style="font-weight:400;color:var(--grey);font-size:.92em">${f.lage}</span></td>
+              <td>${f.char}</td><td>${f.mass}</td></tr>`;
+}).join("");
+
+const lB = LIEF.find(x => x.id === "B"), lC = LIEF.find(x => x.id === "C");
+$("deltaBox").innerHTML =
+  "<b>Der Beleg aus der Fallstudie.</b> " + lB.id + " liegt bei Δ = " +
+  (lB.d >= 0 ? "+" : "−") + nf1(Math.abs(lB.d)) + ", " + lC.id + " bei Δ = " +
+  (lC.d >= 0 ? "+" : "−") + nf1(Math.abs(lC.d)) +
+  " — beide nahe null, beide scheinbar unauffällig. Und doch: " + lB.id +
+  " trägt hohe Last mit hoher Tragfähigkeit (Beanspruchung " + nf1(lB.b) + "), " + lC.id +
+  " trägt fast keine Last und hätte auch keine Reserve (Beanspruchung " + nf1(lC.b) +
+  ", Belastbarkeit " + nf1(lC.l) + "). Sobald Volumen verlagert wird, kippt " + lC.id +
+  " nach Feld I, während " + lB.id + " stehen bleibt. Genau deshalb spricht das Kursbuch von einem <b>Portfolio</b> und nicht von einer Kennzahl.";
+
+/* ---------- BBAP: dasselbe Portfolio, Aufwand als Blasengroesse ---------- */
+const gBbap = pfShell($("pfBbap"));
+function aufwandJe(){
+  const a = {}; LIEF.forEach(x => a[x.id] = 0);
+  MASSN.forEach(m => m.auf.forEach(id => { a[id] += m.aufwand; }));
+  return a;
+}
+function drawBbap(){
+  const a = aufwandJe(), max = Math.max(...Object.values(a), 1);
+  const bub = $("bubToggle").checked;
+  drawMarks(gBbap, LIEF.map(x => ({
+    id:x.id, name:x.id + " · " + x.name, b:x.b, l:x.l, lp:x.lp,
+    sub: a[x.id] > 0 ? a[x.id] + " T€ gebunden" : "keine Maßnahme, keine Kosten",
+    bub: bub ? (a[x.id] <= 0 ? 0 : 12 + Math.sqrt(a[x.id]/max) * 26) : null
+  })));
+  const top = LIEF.slice().sort((p, q) => a[q.id] - a[p.id])[0];
+  $("bbapDetail").innerHTML =
+    `<p class="dk">Die dritte Dimension</p><h4>Aufwand als Blasengröße</h4>
+     <p>Das BBP wird um die Dimension <b>Aufwand</b> ergänzt. Sie erscheint hier nicht als dritte Raumachse — die wäre auf einer Fläche nicht mehr lesbar — sondern als Fläche der Blase um jeden Punkt. Je größer die Blase, desto mehr Geld ist bei diesem Partner gebunden.</p>
+     <p>Den größten Betrag zieht <b>${top.id} · ${top.name}</b> mit ${a[top.id]} T€ auf sich. Eine gestrichelte leere Blase bedeutet: Für diesen Partner ist derzeit keine Maßnahme vorgesehen — was für sich genommen eine Aussage ist, keine Lücke.</p>
+     <p class="warn">Die Werte in der Tabelle unten sind änderbar. Wer den Aufwand einer Maßnahme verschiebt, sieht die Blase und den Rang unmittelbar mitwandern.</p>`;
+}
+$("bubToggle").addEventListener("change", drawBbap);
+
+/* ---------- Aufwand-Nutzen-Rechner ---------- */
+const mBody = $("mBody");
+function renderMeasures(){
+  const rows = MASSN.map(m => ({...m, quot: m.nutzen > 0 ? m.aufwand / m.nutzen : Infinity}));
+  const order = rows.slice().sort((p, q) => p.quot - q.quot);
+  order.forEach((r, i) => { r.rang = i + 1; });
+  mBody.innerHTML = order.map(r =>
+    `<tr class="${r.rang === 1 ? "best" : ""}">
+       <td class="n">${r.id}</td>
+       <td>${r.text}</td>
+       <td style="color:var(--grey);font-size:.92em">${r.wirkt}</td>
+       <td class="n"><input type="number" step="0.1" min="0.1" value="${r.nutzen}" data-m="${r.id}" data-f="nutzen" aria-label="Nutzen von ${r.id} in Punkten"></td>
+       <td class="n"><input type="number" step="5" min="1" value="${r.aufwand}" data-m="${r.id}" data-f="aufwand" aria-label="Aufwand von ${r.id} in Tausend Euro"></td>
+       <td class="n">${isFinite(r.quot) ? nf1(r.quot) : "—"}</td>
+       <td class="rank">${r.rang}</td>
+     </tr>`).join("");
+  const best = order[0];
+  const maxN = rows.slice().sort((p, q) => q.nutzen - p.nutzen)[0];
+  const maxRang = order.find(r => r.id === maxN.id).rang;
+  $("mLesson").innerHTML =
+    "<b>Die eigentliche Lehre.</b> Auf Rang 1 steht <b>" + best.id + " — " + best.text +
+    "</b> mit " + nf1(best.quot) + " T€ je Nutzenpunkt." +
+    (maxRang > 1
+      ? " Den höchsten <b>absoluten</b> Nutzen bringt dagegen " + maxN.id + " mit " + nf1(maxN.nutzen) +
+        " Punkten — und landet trotzdem nur auf Rang " + maxRang +
+        ", weil das Ranking nach Aufwand je Nutzeneinheit erfolgt und nicht nach absolutem Nutzen. Bei ausreichendem Budget lassen sich mehrere Maßnahmen kombinieren; das Ranking bestimmt dann die Reihenfolge der Umsetzung."
+      : " Diese Maßnahme führt zugleich die absolute Nutzenliste an — ein Fall, in dem Dringlichkeit und Wirtschaftlichkeit ausnahmsweise zusammenfallen.") +
+    (best.auf.length > 1 || best.auf[0] !== "A"
+      ? " Und sie setzt nicht dort an, wo das Problem sichtbar ist: Der wirtschaftlichste Hebel für den kritischen Lieferanten A liegt im Feld der ungenutzten Reserve. Genau das meint das Kursbuch mit <b>versteckten Optimierungspotenzialen</b>."
+      : "");
+  drawBbap();
+}
+mBody.addEventListener("input", e => {
+  const id = e.target.dataset.m; if(!id) return;
+  const v = parseFloat(e.target.value);
+  if(!isFinite(v) || v <= 0) return;
+  MASSN.find(m => m.id === id)[e.target.dataset.f] = v;
+  const keep = e.target.dataset.f, pos = e.target.selectionStart;
+  renderMeasures();
+  const again = mBody.querySelector(`input[data-m="${id}"][data-f="${keep}"]`);
+  if(again){ again.focus(); try{ again.setSelectionRange(pos, pos); }catch(err){} }
+});
+renderMeasures();
+
+/* ---------- Denkfehler ---------- */
+$("denkfehler").innerHTML = DENKFEHLER.map(([irr, rich], i) =>
+  `<button aria-expanded="false" aria-controls="df${i}"><span class="mk">✕</span><span>${irr}</span></button>
+   <div class="ans" id="df${i}" hidden><b>Falsch.</b> ${rich}</div>`).join("");
+$("denkfehler").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  const open = b.getAttribute("aria-expanded") === "true";
+  b.setAttribute("aria-expanded", String(!open));
+  $(b.getAttribute("aria-controls")).hidden = open;
+});
+
+/* ---------- Kernaussagen ---------- */
+$("saysBox").innerHTML = SAYS.map(([h, p], i) =>
+  `<div class="say"><span class="sn">${String(i+1).padStart(2,"0")}</span><h3>${h}</h3><p>${p}</p></div>`).join("");
+
+/* =====================================================================
+   8 · Reiter
+   ===================================================================== */
+const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","d"];
+function select(i){
+  tabs.forEach((t, j) => {
+    const on = i === j;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    $("p-" + keys[j]).hidden = !on;
+  });
+  hideTip();
+}
+tabs.forEach((t, i) => {
+  t.addEventListener("click", () => select(i));
+  t.addEventListener("keydown", e => {
+    const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if(!d) return; e.preventDefault();
+    const n = (i + d + tabs.length) % tabs.length; tabs[n].focus(); select(n);
+  });
+});
+select(0);
+</script>
+</body>
+</html>

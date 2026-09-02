@@ -315,8 +315,8 @@ const UI = {
          en:"Open <code>index.html</code> in a text editor and find the topic list."},
   step3:{de:"Einen Block wie unten einf\u00fcgen. Die Reihenfolge in der Liste ist die Reihenfolge auf der Seite.",
          en:"Paste a block like the one below. Order in the list is the order on the page."},
-  step4:{de:"<code>accent</code> f\u00e4rbt die Kachel: <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> oder <code>green</code>. <code>glyph</code> w\u00e4hlt die Zeichnung: <code>rows</code>, <code>cube</code>, <code>cells</code>, <code>layers</code>, <code>quadrants</code>, <code>star</code>, <code>pyramid</code>, <code>loop</code> oder <code>tree</code>.",
-         en:"<code>accent</code> tints the tile: use <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> or <code>green</code>. <code>glyph</code> picks the drawing: <code>rows</code>, <code>cube</code>, <code>cells</code>, <code>layers</code>, <code>quadrants</code>, <code>star</code>, <code>pyramid</code>, <code>loop</code> or <code>tree</code>."},
+  step4:{de:"<code>accent</code> f\u00e4rbt die Kachel: <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> oder <code>green</code>. <code>glyph</code> w\u00e4hlt die Zeichnung: <code>rows</code>, <code>cube</code>, <code>cells</code>, <code>chain</code>, <code>layers</code>, <code>quadrants</code>, <code>star</code>, <code>pyramid</code>, <code>loop</code> oder <code>tree</code>.",
+         en:"<code>accent</code> tints the tile: use <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> or <code>green</code>. <code>glyph</code> picks the drawing: <code>rows</code>, <code>cube</code>, <code>cells</code>, <code>chain</code>, <code>layers</code>, <code>quadrants</code>, <code>star</code>, <code>pyramid</code>, <code>loop</code> or <code>tree</code>."},
   step5:{de:"Jedes Textfeld darf ein einfacher String sein (dann gilt er in beiden Sprachen) oder ein Paar aus deutscher und englischer Fassung. Fehlt die deutsche, erscheint die englische. <code>langBadge</code> setzt den Hinweis auf die Sprache des Moduls selbst.",
          en:"Every text field may be a plain string (used in both languages) or a pair of a German and an English version. If the German one is missing, the English one is shown. <code>langBadge</code> sets the note about the module's own language."},
   howPaths:{de:"<b>Lernpfade</b> stehen in einer zweiten Liste, <code>const PATHS</code>, direkt darunter. Ein Pfad verweist nur auf die <code>id</code> einer Lerneinheit; die Reihenfolge in <code>steps</code> ist die Reihenfolge im Pfad. Eine Einheit geh\u00f6rt zu mehreren Pfaden, indem sie in mehreren <code>steps</code> steht \u2014 an der Kachel selbst ist daf\u00fcr nichts zu \u00e4ndern. Zeigt ein Pfad auf eine unbekannte <code>id</code>, meldet die Konsole das beim Laden. Mit <code>?path=bi-basics</code> l\u00e4sst sich ein Pfad direkt verlinken.",
@@ -495,6 +495,26 @@ const TOPICS = [
             label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
   },
   {
+    id:"scc",
+    title:{de:"Supply Chain Controlling", en:"Supply chain controlling"},
+    sub:{de:"Eine Kette steuern, die einem nicht gehört — und das Beanspruchungs- und Belastbarkeitsportfolio, das zeigt, welcher Partner trägt und welcher nur unauffällig ist. Eigener Fall außerhalb von Sofias Betrieb: vier Vorlieferanten eines Nutzfahrzeugherstellers.",
+         en:"Steering a chain you do not own — and the load and resilience portfolio that shows which partner carries weight and which is merely inconspicuous. Its own case, outside Sofia's business: four suppliers of a commercial vehicle maker."},
+    track:"ctrl", status:"ready", accent:"navy", glyph:"chain",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Der Fall der Dieseleinspritzpumpe, und die Wortherkunft, die Controlling von Kontrolle trennt",
+       en:"The diesel injection pump case, and the etymology that separates controlling from control"},
+      {de:"Ein Regelkreis zum Bewegen: unter dem Sollwert wirkt die positive Rückkopplung, darüber die negative",
+       en:"A control loop you can move: below the target the positive feedback runs, above it the negative one"},
+      {de:"Das Portfolio mit vier Lieferanten — jede Rechnung offen, jede Achse über acht Regler selbst einstellbar",
+       en:"The portfolio with four suppliers — every calculation shown, every axis settable through eight sliders"},
+      {de:"Aufwand als Blasengröße: warum der billigste Hebel für den kritischen Partner im Feld der ungenutzten Reserve liegt",
+       en:"Effort as bubble size: why the cheapest lever for the critical partner sits in the field of unused reserve"}
+    ],
+    links:[{kind:"html",file:"supply-chain-controlling.html",
+            label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
+  },
+  {
     id:"kpi",
     title:{de:"Kennzahlensysteme", en:"Key figure systems"},
     sub:{de:"Von der einzelnen Verhältniszahl zum Treiberbaum: wie sich der ROI in Dinge zerlegt, die Sofia an einem Dienstagmorgen tatsächlich bewegen kann.",
@@ -570,6 +590,9 @@ const GLYPH={
          <rect x="12.5" y="41" width="8" height="8" rx="1" fill="currentColor" opacity=".85"/>
          <rect x="21.5" y="41" width="8" height="8" rx="1" fill="currentColor" opacity=".85"/>
          <rect x="30.5" y="41" width="8" height="8" rx="1" fill="currentColor" opacity=".85"/>`,
+  chain:`<rect x="7"  y="23" width="21" height="17" rx="8.5" fill="none" stroke="currentColor" stroke-width="3.6" opacity=".8"/>
+         <rect x="34" y="23" width="21" height="17" rx="8.5" fill="none" stroke="currentColor" stroke-width="3.6" opacity=".8"/>
+         <rect class="g-pulse" x="20.5" y="23" width="21" height="17" rx="8.5" fill="none" stroke="#FF922B" stroke-width="3.6"/>`,
   layers:`<rect x="10" y="42" width="40" height="9" rx="2" fill="currentColor" opacity=".9"/>
           <rect x="14" y="30" width="32" height="9" rx="2" fill="currentColor" opacity=".65"/>
           <rect x="18" y="18" width="24" height="9" rx="2" fill="currentColor" opacity=".45"/>
