@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Der Cube · Sofia's Coffee Dream</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2; --canvas:#F4F3F0;
+  --green:#2E9E6B; --red:#D9534F;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.1rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:20ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:clamp(1rem,1.6vw,1.18rem);font-weight:300;color:#3d3d40;max-width:64ch;margin:0}
+
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+
+.claim{font-size:clamp(1.12rem,2.2vw,1.45rem);font-weight:300;line-height:1.36;margin:0 0 24px;max-width:58ch;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--teal-dk)}
+h2.sec{font-size:1.2rem;font-weight:600;letter-spacing:-.012em;margin:34px 0 4px}
+p.sub{margin:0 0 16px;color:var(--grey);font-size:.92rem;max-width:78ch}
+.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:14px 0 0}
+
+/* ---------- Schaltflaechen ---------- */
+.bar{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;justify-content:space-between;margin:0 0 16px}
+.seg{display:inline-flex;border:1px solid var(--grey-xl);background:var(--paper);border-radius:var(--r);padding:4px;gap:4px}
+.seg button{appearance:none;border:0;background:transparent;cursor:pointer;font-family:var(--sans);
+  font-size:.88rem;font-weight:600;color:var(--grey);padding:9px 16px;border-radius:7px;transition:.16s}
+.seg button:hover{color:var(--teal-dk)}
+.seg button[aria-pressed="true"]{background:var(--teal-dk);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.84rem;color:#4a4a4d}
+.key{display:inline-flex;align-items:center;gap:8px}
+.sw{width:14px;height:14px;border-radius:3px;flex:none}
+.sw.f{background:var(--orange)} .sw.d{background:var(--teal)} .sw.n{background:var(--ochre)}
+
+/* ---------- Schema-Zeichnung ---------- */
+.stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:12px 8px 4px;overflow-x:auto}
+svg.schema{width:100%;min-width:840px;height:auto;display:block}
+.node{cursor:help}
+.node .hit{fill:transparent}
+.node:focus-visible{outline:none}
+.node:hover .ring,.node:focus-visible .ring{opacity:1}
+.ring{fill:none;stroke:var(--teal-dk);stroke-width:2.5;opacity:0;transition:opacity .18s;pointer-events:none}
+svg.schema text{font-family:var(--sans);fill:var(--ink);pointer-events:none;dominant-baseline:middle}
+.schema .t-h{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.03em;fill:#fff}
+.schema .t-c{font-family:var(--mono);font-size:11px;fill:#3d3d40}
+.schema .t-c.pk{font-weight:600;fill:var(--teal-dk)}
+.schema .t-k{font-family:var(--mono);font-size:9.5px;fill:var(--grey)}
+.schema .t-n{font-size:11px;fill:var(--grey);font-style:italic}
+.rel{stroke:#9A9A98;stroke-width:1.6;fill:none}
+.rel.snow{stroke:var(--ochre);stroke-width:2}
+.grow{transition:opacity .35s var(--ease)}
+svg.schema:not(.snow) .snowonly{opacity:0;pointer-events:none}
+svg.schema.snow .staronly{opacity:0;pointer-events:none}
+
+/* ---------- Wuerfel ---------- */
+svg.cube{width:100%;min-width:760px;height:auto;display:block}
+.cube .cell{cursor:help;transition:opacity .3s var(--ease)}
+.cube .cell rect{transition:fill .25s var(--ease)}
+.cube .cell.off .t-v{fill:#9A9A98}
+.cube .cell .hit{fill:transparent}
+.cube text{font-family:var(--sans);fill:var(--ink);pointer-events:none;dominant-baseline:middle}
+.cube .t-v{font-family:var(--mono);font-size:12.5px;font-variant-numeric:tabular-nums}
+.cube .t-v.light{fill:#fff}
+.cube .t-ax{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;fill:var(--grey)}
+.cube .t-lb{font-size:12px;fill:#3d3d40}
+.cube .t-lb.hot{fill:var(--teal-dk);font-weight:600}
+.cube .back{fill:#F1F1EF;stroke:#C9C9C7;stroke-width:1}
+.cube .edge{stroke:#C9C9C7;stroke-width:1;fill:none}
+.cube .depth{font-family:var(--mono);font-size:10.5px;fill:var(--grey)}
+.cube .depth.hot{fill:var(--teal-dk);font-weight:600}
+
+.readout{display:flex;flex-wrap:wrap;gap:10px 26px;align-items:baseline;margin-top:14px;
+  background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:16px 20px}
+.readout .q{font-size:.95rem;font-weight:300;flex:1;min-width:220px;line-height:1.4}
+.readout .q b{font-weight:700}
+.readout .cnt{font-family:var(--mono);font-size:.78rem;color:#9FDCEC;white-space:nowrap}
+.readout .val{font-family:var(--mono);font-size:1.5rem;font-weight:600;
+  font-variant-numeric:tabular-nums;letter-spacing:-.02em;white-space:nowrap}
+
+.picks{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.picks>*{min-width:0}
+.pick{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:12px 13px}
+.pick .pk{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 8px}
+.pick .opts{display:flex;flex-wrap:wrap;gap:5px}
+.pick button{appearance:none;border:1px solid var(--grey-xl);background:var(--canvas);cursor:pointer;
+  font-family:var(--sans);font-size:.82rem;font-weight:600;color:var(--grey);
+  padding:7px 11px;border-radius:16px;transition:.16s}
+.pick button:hover{border-color:var(--teal);color:var(--teal-dk)}
+.pick button[aria-pressed="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.pick button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+.asks{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.ask{appearance:none;border:1px dashed var(--grey-mid);background:transparent;cursor:pointer;
+  font-family:var(--sans);font-size:.85rem;font-weight:600;color:var(--grey);
+  padding:9px 14px;border-radius:20px;transition:.18s var(--ease)}
+.ask:hover{border-style:solid;border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.ask[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);border-style:solid;color:#fff}
+.ask:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+/* ---------- Fakt oder Dimension ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip{appearance:none;border:1px solid var(--grey-mid);background:var(--paper);cursor:pointer;
+  font-family:var(--sans);font-size:.88rem;font-weight:600;color:#3d3d40;
+  padding:10px 15px;border-radius:20px;transition:.18s var(--ease)}
+.chip:hover{transform:translateY(-1px);border-color:var(--teal)}
+.chip:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.chip.fakt{background:var(--orange);border-color:var(--orange);color:#fff}
+.chip.dim{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.chip.weder{background:var(--grey-xl);border-color:var(--grey-mid);color:var(--grey)}
+.chip .mk{font-family:var(--mono);font-size:.68rem;opacity:.85;margin-left:7px}
+.score{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 16px}
+
+/* ---------- Tabellen ---------- */
+.tscroll{overflow-x:auto;border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper)}
+table.tbl{width:100%;min-width:560px;border-collapse:collapse;font-size:.85rem}
+table.tbl th{background:#F7F7F5;text-align:left;padding:9px 12px;font-family:var(--mono);
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid);white-space:nowrap}
+table.tbl td{padding:9px 12px;border-bottom:1px solid var(--grey-xl);vertical-align:top}
+table.tbl tr:last-child td{border-bottom:0}
+table.tbl td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.tbl td.m{font-family:var(--mono);font-size:.8rem}
+table.tbl td.dup{background:var(--orange-xl);color:#A85B00}
+table.tbl tr.sum td{font-weight:700;background:var(--teal-xl)}
+
+/* ---------- Hierarchie zum Auf- und Zuklappen ---------- */
+.htree{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:8px}
+.hrow{display:grid;grid-template-columns:1fr 128px 92px;gap:10px;align-items:center;
+  padding:11px 12px;border-radius:7px;cursor:pointer;min-width:0;
+  transition:background .16s var(--ease)}
+.hrow>*{min-width:0}
+.hrow:hover{background:var(--sand-xl)}
+.hrow:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.hrow .lbl{display:flex;align-items:center;gap:9px;font-size:.92rem;min-width:0}
+.hrow .tw{width:14px;height:14px;flex:none;color:var(--teal-dk);transition:transform .22s var(--ease)}
+.hrow.open .tw{transform:rotate(90deg)}
+.hrow.leaf .tw{visibility:hidden}
+.hrow .amt{font-family:var(--mono);font-size:.88rem;font-variant-numeric:tabular-nums;text-align:right}
+.hrow .track{height:10px;background:var(--grey-xl);border-radius:3px;overflow:hidden}
+.hrow .track i{display:block;height:100%;border-radius:3px;background:var(--teal);transition:width .45s var(--ease)}
+.hrow.lv0{font-weight:700}
+.hrow.lv1{padding-left:32px} .hrow.lv1 .lbl{font-size:.88rem}
+.hrow.lv2{padding-left:56px} .hrow.lv2 .lbl{font-size:.86rem;color:#4a4a4d}
+.hrow.lv1 .track i{background:var(--teal-lt)}
+.hrow.lv2 .track i{background:#A9DCE8}
+.hfoot{display:grid;grid-template-columns:1fr 128px 92px;gap:10px;padding:12px;
+  border-top:1px solid var(--grey-xl);margin-top:6px;font-weight:700}
+.hfoot .amt{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+
+/* ---------- Gegenueberstellung flach / Parent-Child ---------- */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.duo>*{min-width:0}
+.card{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px}
+.card .ck{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 4px}
+.card h3{margin:0 0 4px;font-size:1.06rem;font-weight:700;letter-spacing:-.015em}
+.card .verdict{font-size:.86rem;font-weight:600;margin:0 0 14px}
+.card.good .verdict{color:var(--green)} .card.bad .verdict{color:#B25E00}
+.card ul{margin:12px 0 0;padding-left:18px;font-size:.86rem;color:#3d3d40;line-height:1.5}
+.card li{margin-bottom:5px}
+
+/* ---------- Vergleichsmatrix ---------- */
+table.mx{width:100%;min-width:640px;border-collapse:collapse;font-size:.87rem}
+table.mx th{background:#F7F7F5;text-align:left;padding:11px 12px;font-family:var(--mono);
+  font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid)}
+table.mx th.s{color:var(--teal-dk)} table.mx th.n{color:var(--ochre)}
+table.mx td{padding:12px;border-bottom:1px solid var(--grey-xl);vertical-align:top;line-height:1.45}
+table.mx tr:last-child td{border-bottom:0}
+table.mx td.crit{font-weight:600;width:24%}
+table.mx tr:hover td{background:var(--sand-xl)}
+.win{display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.09em;
+  text-transform:uppercase;background:var(--teal-xl);color:var(--teal-dk);
+  border-radius:4px;padding:2px 6px;margin-left:6px;vertical-align:middle}
+.win.n{background:var(--ochre-xl);color:var(--ochre)}
+
+.detail{margin-top:16px;background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:22px 24px;min-height:150px}
+.detail .dk{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--teal-dk);margin:0 0 8px}
+.detail h4{margin:0 0 10px;font-size:1.16rem;font-weight:700;letter-spacing:-.015em}
+.detail p{margin:0 0 10px;font-size:.96rem;color:#3d3d40;max-width:82ch}
+.detail p:last-child{margin-bottom:0}
+.detail .warn{color:#B25E00;font-weight:600}
+.detail .fig{font-family:var(--mono);font-size:.84rem;background:var(--teal-xl);color:var(--teal-dk);
+  border-radius:5px;padding:5px 9px;display:inline-block}
+
+.readme{margin-top:20px;background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:20px 24px;
+  font-size:1rem;line-height:1.55}
+.readme.warn{background:var(--orange)}
+.readme b{font-weight:700}
+.readme code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.2);padding:1px 5px;border-radius:4px}
+.readme a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+.pointe{margin-top:34px;background:var(--orange);color:#fff;border-radius:var(--r);padding:26px 28px}
+.pointe .pk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin:0 0 10px}
+.pointe p{margin:0;font-size:clamp(1.05rem,2vw,1.3rem);font-weight:300;line-height:1.42;max-width:66ch}
+.pointe p b{font-weight:700}
+
+footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+footer a{color:var(--teal-dk)}
+
+.tip{position:fixed;z-index:60;pointer-events:none;opacity:0;transform:translateY(4px);
+  transition:opacity .14s,transform .14s;background:var(--ink);color:#fff;border-radius:9px;
+  padding:12px 14px;font-size:.82rem;line-height:1.5;max-width:320px;box-shadow:0 10px 30px -8px rgba(0,0,0,.45)}
+.tip.on{opacity:1;transform:translateY(0)}
+.tip .th{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#8FD4E6;margin:0 0 5px}
+.tip p{margin:0}
+.tip .extra{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.18);
+  color:var(--orange);font-weight:600;font-family:var(--mono);font-size:.76rem}
+
+.scrollhint{display:none}
+@media (max-width:900px){
+  .scrollhint{display:block;color:var(--teal-dk)}
+  .duo{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px 56px}
+  .hrow,.hfoot{grid-template-columns:1fr 80px}
+  .hrow .track{display:none}
+  .hrow.lv1{padding-left:22px} .hrow.lv2{padding-left:40px}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Sofia's Coffee Dream · Business Intelligence</p>
+  <h1>Drei Achsen, eine Zahl, <em>und alles dazwischen</em></h1>
+  <p class="lede">Ein Cube ist keine Datenbanktechnik, sondern eine Denkweise: Man legt die Kennzahl in einen Raum, dessen Achsen die Fragen sind, die man stellen wird. Danach ist jede Auswertung nur noch eine Adresse in diesem Raum — vollständig angegeben ergibt sie eine Zelle, unvollständig angegeben eine Summe. Dieses Modul baut den Würfel an Sofias Quartal auf und klärt vorher den Begriff, an dem die meisten hängenbleiben: Was ist eigentlich ein Fakt und was eine Dimension?</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Der Cube">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Fakt oder Dimension</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Der Würfel</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Operationen</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Vom Würfel zum Schema</button>
+</div>
+
+<!-- ============================ TAB A ============================ -->
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <p class="claim">Die Unterscheidung klingt trivial und ist es nicht. <b>Ein Fakt ist, was man addiert. Eine Dimension ist, wonach man addiert.</b> Wer das verwechselt, baut ein Modell, das die Frage nicht beantworten kann, für die es gebaut wurde.</p>
+
+  <h2 class="sec">Selbsttest</h2>
+  <p class="sub">Klicken Sie ein Feld an. Jeder Klick schaltet weiter: Fakt → Dimension → Sonderfall. Die Auflösung steht darunter, sobald Sie darüberfahren.</p>
+
+  <p class="score" id="score"></p>
+  <div class="chips" id="chips"></div>
+
+  <div class="detail" id="detA"></div>
+
+  <h2 class="sec">Die drei Proben</h2>
+  <p class="sub">Wenn die Zuordnung unklar ist, helfen drei Fragen — in dieser Reihenfolge.</p>
+
+  <div class="tscroll">
+    <table class="tbl">
+      <thead><tr><th>Probe</th><th>Wenn ja</th><th>Beispiel aus Sofias Betrieb</th></tr></thead>
+      <tbody>
+        <tr><td><b>Ergibt die Summe über alle Zeilen einen sinnvollen Wert?</b></td>
+            <td>Fakt</td>
+            <td>Der Umsatz aller Bonzeilen ist der Quartalsumsatz. Sinnvoll.</td></tr>
+        <tr><td><b>Beantwortet es die Frage „wonach“?</b></td>
+            <td>Dimension</td>
+            <td>„Umsatz <em>nach</em> Filiale“, „<em>nach</em> Monat“, „<em>nach</em> Warengruppe“.</td></tr>
+        <tr><td><b>Ist es zwar eine Zahl, aber nicht über jede Achse addierbar?</b></td>
+            <td>Sonderfall</td>
+            <td>Der Lagerbestand, der Röstverlust in Prozent, die Bonnummer — jeder aus einem anderen Grund.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="readme warn">
+    <b>Die zwei Fallen.</b> Erstens: <b>Nicht jede Zahl ist ein Fakt.</b> Das Jahr 2026 ist eine Zahl und trotzdem eine Dimension — man addiert keine Jahreszahlen. Dasselbe gilt für Postleitzahlen und Bonnummern. Die Probe ist nicht „ist es numerisch“, sondern „ergibt die Summe einen Sinn“. Zweitens: <b>Nicht jeder Fakt ist über jede Dimension addierbar.</b> Ein Lagerbestand darf über Filialen summiert werden, über Monate aber nicht — sonst zählt man denselben Sack Kaffee dreimal. Solche Größen heißen halbadditiv, und sie sind der häufigste Grund für falsche Zahlen in einem sonst korrekten Bericht.
+  </div>
+  <p class="hint">Felder anklicken zum Zuordnen · darüberfahren für die Auflösung</p>
+</section>
+
+<!-- ============================ TAB B ============================ -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b">
+  <p class="claim">Drei Achsen: <b>Warengruppe, Monat, Filiale</b>. In jeder Zelle steht ein Umsatz. Legen Sie alle drei Koordinaten fest, bekommen Sie einen Wert — lassen Sie eine offen, bekommen Sie eine Summe.</p>
+
+  <h2 class="sec">Vier Fragen zum Anklicken</h2>
+  <p class="sub">Von der engsten zur weitesten. Beachten Sie, wie die Zahl der Zellen wächst, während die Frage kürzer wird.</p>
+  <div class="asks" id="asks"></div>
+
+  <div class="picks" id="picks"></div>
+
+  <div class="stage">
+    <svg class="cube" id="cubeB" viewBox="0 0 900 560" role="img"
+      aria-label="Ein Würfel aus Warengruppe, Monat und Filiale; die ausgewählten Zellen sind hervorgehoben"></svg>
+  </div>
+
+  <div class="readout" id="readB"></div>
+
+  <div class="detail" id="detB">
+    <p class="dk">Was der Würfel eigentlich ist</p>
+    <h4>Kein Speicherformat, sondern eine Adressierung</h4>
+    <p>Der Würfel behauptet nicht, dass die Daten physisch als Quader herumliegen. Er sagt nur: Jede Zahl in diesem Modell hat eine vollständige Adresse aus je einem Wert pro Dimension. Ist die Adresse vollständig, gibt es genau eine Zelle. Fehlt eine Angabe, sind alle Werte entlang dieser Achse gemeint — und weil man sie zu einer Zahl zusammenfassen muss, wird summiert.</p>
+    <p class="warn">Über eine Zelle fahren, um ihre vollständige Adresse zu sehen.</p>
+  </div>
+
+  <div class="readme">
+    <b>Warum der Würfel bei drei Achsen aufhört und das Modell nicht.</b> Sofias semantisches Modell hat vier Dimensionen — die vierte ist der Zahlweg. Ein Würfel mit vier Achsen lässt sich nicht zeichnen, und genau deshalb ist das Bild eine Krücke: Es erklärt das Prinzip und endet dort, wo die Anschauung endet. Rechnerisch ändert sich nichts. Eine Adresse aus vier Angaben ist genauso eindeutig wie eine aus dreien, und ein Modell mit zwölf Dimensionen ist völlig normal. Man nennt es weiterhin Würfel, weil das Wort sich eingebürgert hat, nicht weil noch jemand einen Würfel vor sich sieht.
+  </div>
+  <p class="hint scrollhint">Würfel seitlich scrollen</p>
+  <p class="hint">Achsen oben einstellen · Zellen überfahren</p>
+</section>
+
+<!-- ============================ TAB C ============================ -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c">
+  <p class="claim">Die klassischen Operationen sind keine Zaubersprüche, sondern <b>fünf Arten, dieselbe Adresse zu verändern</b>. Klicken Sie eine an — der Würfel führt sie vor.</p>
+
+  <div class="asks" id="ops"></div>
+
+  <div class="stage">
+    <svg class="cube" id="cubeC" viewBox="0 0 900 560" role="img"
+      aria-label="Derselbe Würfel, auf dem die Operationen Slice, Dice, Drill-down, Roll-up und Pivot vorgeführt werden"></svg>
+  </div>
+
+  <div class="readout" id="readC"></div>
+
+  <div class="detail" id="detC"></div>
+
+  <div class="readme warn">
+    <b>Der Unterschied, der in Prüfungen zählt.</b> <b>Slice</b> legt <em>eine</em> Dimension auf <em>einen</em> Wert fest und schneidet damit eine Scheibe heraus — die Dimensionalität sinkt um eins. <b>Dice</b> schränkt <em>mehrere</em> Dimensionen auf je eine <em>Teilmenge</em> ein und liefert einen kleineren Würfel — die Dimensionalität bleibt gleich. Ein Slice ist also ein Sonderfall, kein Oberbegriff. <b>Drill-down</b> und <b>Roll-up</b> verändern überhaupt keine Auswahl, sondern die Feinheit einer Achse. Und <b>Pivot</b> verändert nicht einmal die Daten, sondern nur, welche Achse waagerecht liegt.
+  </div>
+  <p class="hint">Operation anklicken · Zellen überfahren</p>
+</section>
+
+<!-- ============================ TAB D ============================ -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d">
+  <p class="claim">Der Würfel ist die <b>Sicht der Anwenderin</b>. Das Sternschema ist, <b>wie diese Sicht gespeichert wird</b>. Wer den Würfel einmal hingeschrieben hat, hat das Schema fast schon entworfen.</p>
+
+  <h2 class="sec">Die Übersetzung, Stück für Stück</h2>
+  <p class="sub">Jedes Element des Würfels hat im Sternschema genau eine Entsprechung. Fahren Sie über eine Zeile.</p>
+
+  <div class="tscroll">
+    <table class="mx">
+      <thead><tr><th>Im Würfel</th><th class="s">Im Sternschema</th><th>Bei Sofia</th></tr></thead>
+      <tbody id="bridgeBody"></tbody>
+    </table>
+  </div>
+
+  <div class="detail" id="detD"></div>
+
+  <h2 class="sec">Der Entwurfsweg</h2>
+  <p class="sub">In dieser Reihenfolge, und nicht anders herum.</p>
+
+  <div class="readme">
+    <b>Erst die Frage, dann die Kennzahl, dann die Achsen, dann die Tabellen.</b> Man beginnt bei dem Satz, den das Modell beantworten soll — „Umsatz nach Warengruppe, Monat und Filiale“. Aus dem Umsatz wird die Kennzahl in der Faktentabelle. Aus dem Wort „nach“ werden die Dimensionen. Aus dem feinsten Wert, den man je einzeln sehen will, wird das Korn. Und erst dann entstehen Tabellen. Wer umgekehrt anfängt — bei den Tabellen des Vorsystems — bekommt ein Modell, das die Datenbank abbildet statt die Frage.
+  </div>
+
+  <div class="readme">
+    <b>Wie es weitergeht.</b> Stehen Fakten und Dimensionen fest, ist die nächste Frage die nach der Form: Bleibt die Produkthierarchie flach in einer Dimensionstabelle, oder wird sie normalisiert? Das ist die Lerneinheit <a href="semantisches-datenmodell.html">Semantische Datenmodelle</a>. Danach folgt die Frage, was passiert, wenn sich ein Dimensionsattribut ändert — <a href="scd-dashboard.html">Slowly Changing Dimensions</a> — und zuletzt, wo die Summen physisch liegen: <a href="decks/OLAP_Storage_Sofias_Coffee_World.pptx" download>MOLAP, ROLAP und HOLAP</a>.
+  </div>
+  <p class="hint">Zeile überfahren für die Erläuterung</p>
+</section>
+
+<div class="pointe">
+  <p class="pk">Der eine Satz</p>
+  <p><b>Eine Auswertung ist eine Adresse, und was fehlt, wird summiert.</b> Wer den Würfel verstanden hat, muss sich keine Berichtsarten mehr merken: Slice, Dice, Drill-down und Pivot sind nur verschiedene Arten, dieselbe Adresse zu schreiben — und die Summe darunter bleibt dieselbe 145.500 €.</p>
+</div>
+
+<footer>
+  Lehrmaterial · Sofia's Coffee Dream ist ein Wiener Betrieb mit zwei Kaffeehäusern, einer eigenen Rösterei, einem Coffeebike und einem Großhandel. Die Würfelzahlen stammen aus dem Projektkanon: Die Spaltensummen sind die Filial- und Monatsaufteilung des SCD-Beispiels, die Zeilensummen die Warengruppen der Produkthierarchie. Beide treffen sich in der Quartalssumme von 145.500 €. Alle Zahlen sind illustrativ.
+</footer>
+
+</div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* =====================================================================
+   1 · Die Zahlen. Beide Randsummen stammen aus dem Projektkanon:
+   Spalten = Filial- und Monatsaufteilung des SCD-Beispiels,
+   Zeilen  = Warengruppen der Produkthierarchie. Summe 145.500 €.
+   ===================================================================== */
+const MON = ["Januar","Februar","März"];
+const FIL = ["Ringstraße","Alsergrund"];
+const WG  = ["Getränke","Speisen","Bohnen"];
+const PG  = ["Heißgetränke","Kaltgetränke","Gebäck","Retail","Großgebinde"];
+const PARENT = {"Heißgetränke":"Getränke","Kaltgetränke":"Getränke","Gebäck":"Speisen",
+                "Retail":"Bohnen","Großgebinde":"Bohnen"};
+
+/* [Jan/Ring, Feb/Ring, Mär/Ring, Jan/Als, Feb/Als, Mär/Als] */
+const RAW = {
+  "Getränke":     [14600,13900,11600,11400,11100,18100],
+  "Speisen":      [ 5200, 4900, 3700, 4000, 3900, 5800],
+  "Bohnen":       [10600,10100, 7700, 2600, 2500, 3800],
+  "Heißgetränke": [12000,11400, 8800, 9400, 9100,13700],
+  "Kaltgetränke": [ 2600, 2500, 2800, 2000, 2000, 4400],
+  "Gebäck":       [ 5200, 4900, 3700, 4000, 3900, 5800],
+  "Retail":       [ 2100, 2000, 1500, 1700, 1600, 2300],
+  "Großgebinde":  [ 8500, 8100, 6200,  900,  900, 1500]
+};
+const val = (w,m,f) => RAW[w][FIL.indexOf(f)*3 + MON.indexOf(m)];
+const eur = n => n.toLocaleString("de-DE") + " €";
+
+/* =====================================================================
+   2 · Tooltip
+   ===================================================================== */
+const tip = document.getElementById("tip");
+function showTip(html, elem, ev){ tip.innerHTML = html; tip.classList.add("on"); moveTip(elem, ev); }
+function moveTip(elem, ev){
+  let x,y;
+  if(ev && ev.clientX){ x = ev.clientX+16; y = ev.clientY+16; }
+  else { const r = elem.getBoundingClientRect(); x = r.left + r.width/2; y = r.top - 8; }
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  if(x+w > innerWidth-12) x = innerWidth-w-12;
+  if(y+h > innerHeight-12) y = y-h-32;
+  if(y < 8) y = 8; if(x < 8) x = 8;
+  tip.style.left = x+"px"; tip.style.top = y+"px";
+}
+function hideTip(){ tip.classList.remove("on"); }
+addEventListener("scroll", hideTip, {passive:true});
+
+/* =====================================================================
+   3 · Der Würfel
+   ===================================================================== */
+const NS="http://www.w3.org/2000/svg";
+const el=(n,a={})=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+const add=(p,n,a)=>{const e=el(n,a);p.appendChild(e);return e;};
+const X0=250, Y0=140, W=340, H=340, DX=92, DY=-76;
+
+function drawCube(svgId, st, onReadout){
+  const svg=document.getElementById(svgId);
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
+  const yMembers = st.pivot ? MON : (st.level==="fein"?PG:WG);
+  const xMembers = st.pivot ? (st.level==="fein"?PG:WG) : MON;
+  const yName = st.pivot ? "Monat" : "Warengruppe";
+  const xName = st.pivot ? "Warengruppe" : "Monat";
+  const selY = st.pivot ? st.sel.mo : st.sel.wg;
+  const selX = st.pivot ? st.sel.wg : st.sel.mo;
+  const nx=xMembers.length, ny=yMembers.length;
+  const cw=(W-(nx-1)*5)/nx, ch=(H-(ny-1)*5)/ny;
+  const fiSel = FIL.filter(f=>st.sel.fi.has(f));
+
+  /* hintere Ebene und Kanten */
+  add(svg,"rect",{class:"back",x:X0+DX,y:Y0+DY,width:W,height:H,rx:3});
+  [[X0,Y0],[X0+W,Y0],[X0,Y0+H],[X0+W,Y0+H]].forEach(([px,py])=>
+    add(svg,"line",{class:"edge",x1:px,y1:py,x2:px+DX,y2:py+DY}));
+
+  /* Zellen */
+  let cells=0, sum=0;
+  yMembers.forEach((ym,r)=>xMembers.forEach((xm,c)=>{
+    const wg = st.pivot ? xm : ym, mo = st.pivot ? ym : xm;
+    const v  = fiSel.reduce((s,f)=>s+val(wg,mo,f),0);
+    const on = selY.has(ym) && selX.has(xm);
+    if(on){ cells += fiSel.length; sum += v; }
+    const x=X0+c*(cw+5), y=Y0+r*(ch+5);
+    const g=add(svg,"g",{class:"cell"+(on?"":" off"),tabindex:"0",role:"button",
+      "aria-label":`${wg}, ${mo}: ${eur(v)}`});
+    add(g,"rect",{x,y,width:cw,height:ch,rx:3,
+      fill:on?"#209CBD":"#FDFDFC",stroke:on?"#166980":"#DCDCDA","stroke-width":on?1.6:1.2});
+    const t=add(g,"text",{x:x+cw/2,y:y+ch/2,"text-anchor":"middle",class:"t-v"+(on?" light":"")});
+    t.textContent=eur(v);
+    add(g,"rect",{class:"hit",x,y,width:cw,height:ch});
+    const adr = `${wg} · ${mo} · ${fiSel.length===FIL.length?"beide Filialen":fiSel[0]||"—"}`;
+    g.addEventListener("pointerenter",e=>showTip(
+      `<p class="th">${on?"in der Auswahl":"außerhalb der Auswahl"}</p><p>${adr}</p>`+
+      `<p class="extra">${eur(v)}${fiSel.length>1?" · Summe über beide Filialen":""}</p>`,g,e));
+    g.addEventListener("pointermove",e=>moveTip(g,e));
+    g.addEventListener("pointerleave",hideTip);
+    g.addEventListener("focus",()=>showTip(
+      `<p class="th">${adr}</p><p>${eur(v)}</p>`,g,null));
+    g.addEventListener("blur",hideTip);
+  }));
+
+  /* Achsenbeschriftung */
+  xMembers.forEach((m,c)=>{
+    const t=add(svg,"text",{x:X0+c*(cw+5)+cw/2,y:Y0+H+20,"text-anchor":"middle",
+      class:"t-lb"+(selX.has(m)?" hot":"")}); t.textContent=m;
+  });
+  yMembers.forEach((m,r)=>{
+    const t=add(svg,"text",{x:X0-14,y:Y0+r*(ch+5)+ch/2,"text-anchor":"end",
+      class:"t-lb"+(selY.has(m)?" hot":"")}); t.textContent=m;
+  });
+  const xn=add(svg,"text",{x:X0+W/2,y:Y0+H+46,"text-anchor":"middle",class:"t-ax"}); xn.textContent=xName;
+  const yn=add(svg,"text",{x:96,y:Y0+H/2,"text-anchor":"middle",class:"t-ax",
+    transform:`rotate(-90 96 ${Y0+H/2})`}); yn.textContent=yName;
+
+  /* Tiefenachse */
+  add(svg,"line",{class:"edge",x1:X0+W+10,y1:Y0+H+8,x2:X0+W+10+DX,y2:Y0+H+8+DY});
+  const d0=add(svg,"text",{x:X0+W+18,y:Y0+H+16,class:"depth"+(st.sel.fi.has(FIL[0])?" hot":"")});
+  d0.textContent=FIL[0]+" (vorn)";
+  const d1=add(svg,"text",{x:X0+W+DX+18,y:Y0+H+DY+8,class:"depth"+(st.sel.fi.has(FIL[1])?" hot":"")});
+  d1.textContent=FIL[1]+" (hinten)";
+  const dn=add(svg,"text",{x:X0+W+DX+18,y:Y0+H+DY-14,class:"t-ax"}); dn.textContent="Filiale";
+
+  if(onReadout) onReadout(cells,sum);
+}
+
+function readout(id, st, cells, sum){
+  const part = (set,all,none)=> set.size===all.length ? none : [...set].join(" und ");
+  const bits=[];
+  if(st.sel.wg.size < (st.level==="fein"?PG:WG).length) bits.push(part(st.sel.wg,[],""));
+  if(st.sel.mo.size < MON.length) bits.push(part(st.sel.mo,[],""));
+  if(st.sel.fi.size < FIL.length) bits.push(part(st.sel.fi,[],""));
+  const frage = bits.length
+    ? `Umsatz für <b>${bits.join("</b>, <b>")}</b>`
+    : `Umsatz <b>insgesamt</b> — keine Achse eingeschränkt`;
+  document.getElementById(id).innerHTML =
+    `<span class="q">${frage}</span>
+     <span class="cnt">${cells} ${cells===1?"Zelle":"Zellen"}${cells>1?" · summiert":""}</span>
+     <span class="val">${eur(sum)}</span>`;
+}
+
+/* =====================================================================
+   4 · Reiter 02 · Achsen einstellen
+   ===================================================================== */
+const stB = {level:"grob", pivot:false,
+             sel:{wg:new Set(WG), mo:new Set(MON), fi:new Set(FIL)}};
+
+const PICKS=[["wg","Warengruppe",()=>WG],["mo","Monat",()=>MON],["fi","Filiale",()=>FIL]];
+function renderPicks(){
+  document.getElementById("picks").innerHTML = PICKS.map(([k,label,members])=>{
+    const all = members(), s = stB.sel[k];
+    const opts = [`<button type="button" data-d="${k}" data-v="*" aria-pressed="${s.size===all.length}">alle</button>`]
+      .concat(all.map(m=>
+        `<button type="button" data-d="${k}" data-v="${m}" aria-pressed="${s.size===1&&s.has(m)}">${m}</button>`));
+    return `<div class="pick"><p class="pk">${label}</p><div class="opts">${opts.join("")}</div></div>`;
+  }).join("");
+}
+document.getElementById("picks").addEventListener("click", e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  const k=b.dataset.d, v=b.dataset.v;
+  const all = k==="wg"?WG : k==="mo"?MON : FIL;
+  stB.sel[k] = v==="*" ? new Set(all) : new Set([v]);
+  document.querySelectorAll(".ask").forEach(a=>a.setAttribute("aria-pressed","false"));
+  paintB();
+});
+
+const ASKS=[
+ ["Wie war der Umsatz im März für Getränke in der Ringstraße?",
+  {wg:["Getränke"], mo:["März"], fi:["Ringstraße"]}],
+ ["Wie liefen die Getränke im März — in beiden Häusern?",
+  {wg:["Getränke"], mo:["März"], fi:FIL}],
+ ["Wie war der März insgesamt?", {wg:WG, mo:["März"], fi:FIL}],
+ ["Was war der Quartalsumsatz?", {wg:WG, mo:MON, fi:FIL}]
+];
+document.getElementById("asks").innerHTML = ASKS.map(([q],i)=>
+  `<button class="ask" type="button" data-i="${i}" aria-pressed="false">${q}</button>`).join("");
+document.getElementById("asks").addEventListener("click", e=>{
+  const b=e.target.closest(".ask"); if(!b) return;
+  const [,sel]=ASKS[+b.dataset.i];
+  stB.sel = {wg:new Set(sel.wg), mo:new Set(sel.mo), fi:new Set(sel.fi)};
+  document.querySelectorAll(".ask").forEach(a=>a.setAttribute("aria-pressed",String(a===b)));
+  paintB();
+});
+
+function paintB(){
+  renderPicks();
+  drawCube("cubeB", stB, (c,s)=>readout("readB", stB, c, s));
+  hideTip();
+}
+paintB();
+
+/* =====================================================================
+   5 · Reiter 03 · Die Operationen
+   ===================================================================== */
+const stC = {level:"grob", pivot:false,
+             sel:{wg:new Set(WG), mo:new Set(MON), fi:new Set(FIL)}};
+
+const OPS=[
+ ["Slice", st=>{st.level="grob"; st.pivot=false;
+    st.sel={wg:new Set(WG), mo:new Set(["März"]), fi:new Set(FIL)};},
+  "Slice · eine Scheibe",
+  "Genau <b>eine</b> Dimension wird auf <b>einen</b> Wert festgelegt: Monat = März. Übrig bleibt eine Scheibe, die nur noch zwei Achsen hat — Warengruppe und Filiale. Die Dimensionalität sinkt von drei auf zwei, und genau das ist die Definition.",
+  "Sechs Zellen, 50.700 €. Dieselbe Zahl steht in der Monatsspalte des SCD-Beispiels."],
+ ["Dice", st=>{st.level="grob"; st.pivot=false;
+    st.sel={wg:new Set(["Getränke","Speisen"]), mo:new Set(["Februar","März"]), fi:new Set(["Ringstraße"])};},
+  "Dice · ein kleinerer Würfel",
+  "<b>Mehrere</b> Dimensionen werden auf je eine <b>Teilmenge</b> eingeschränkt: Getränke und Speisen, Februar und März, nur die Ringstraße. Das Ergebnis ist wieder ein Würfel, nur kleiner — die Dimensionalität bleibt bei drei. Ein Slice ist damit ein Sonderfall des Dice, nicht sein Oberbegriff.",
+  "Vier Zellen. Ein Würfel bleibt ein Würfel, auch wenn eine Kante nur einen Wert lang ist."],
+ ["Drill-down", st=>{st.level="fein"; st.pivot=false;
+    st.sel={wg:new Set(PG), mo:new Set(MON), fi:new Set(FIL)};},
+  "Drill-down · eine Achse wird feiner",
+  "Die Warengruppenachse wechselt auf die nächstfeinere Stufe: aus drei Warengruppen werden fünf Produktgruppen. <b>Es wird nichts ausgewählt und nichts weggelassen</b> — nur die Auflösung ändert sich. Deshalb bleibt die Summe unverändert.",
+  "Aus 18 Zellen werden 30, und die Summe ist weiterhin 145.500 €."],
+ ["Roll-up", st=>{st.level="grob"; st.pivot=false;
+    st.sel={wg:new Set(WG), mo:new Set(MON), fi:new Set(FIL)};},
+  "Roll-up · eine Achse wird gröber",
+  "Der Weg zurück: Die fünf Produktgruppen werden wieder zu drei Warengruppen zusammengefasst. Roll-up und Drill-down sind dieselbe Bewegung in entgegengesetzter Richtung, und beide brauchen eine Hierarchie im Modell — ohne sie wüsste der Würfel nicht, dass Heißgetränke zu Getränke gehören.",
+  "Zurück bei 18 Zellen. Summe unverändert 145.500 €."],
+ ["Pivot", st=>{st.level="grob"; st.pivot=!st.pivot;
+    st.sel={wg:new Set(WG), mo:new Set(MON), fi:new Set(FIL)};},
+  "Pivot · dieselben Daten, gedreht",
+  "Die Achsen tauschen den Platz: Was waagerecht lag, liegt jetzt senkrecht. <b>An den Daten ändert sich nichts</b> — kein Wert, keine Auswahl, keine Summe. Pivot ist eine Frage der Darstellung, und dass es trotzdem einen eigenen Namen hat, sagt viel darüber, wie sehr die Anordnung das Verständnis prägt.",
+  "Klicken Sie mehrfach — die Ansicht kippt hin und her, die 145.500 € bleiben."]
+];
+document.getElementById("ops").innerHTML = OPS.map(([name],i)=>
+  `<button class="ask" type="button" data-i="${i}" aria-pressed="false">${name}</button>`).join("");
+document.getElementById("ops").addEventListener("click", e=>{
+  const b=e.target.closest(".ask"); if(!b) return;
+  const [,apply,title,body,note]=OPS[+b.dataset.i];
+  apply(stC);
+  document.querySelectorAll("#ops .ask").forEach(a=>a.setAttribute("aria-pressed",String(a===b)));
+  document.getElementById("detC").innerHTML =
+    `<p class="dk">Operation</p><h4>${title}</h4><p>${body}</p><p class="warn">${note}</p>`;
+  paintC();
+});
+function paintC(){
+  drawCube("cubeC", stC, (c,s)=>readout("readC", stC, c, s));
+  hideTip();
+}
+document.getElementById("detC").innerHTML =
+  `<p class="dk">Fünf Operationen</p><h4>Alle verändern die Adresse, keine verändert die Daten</h4>
+   <p>Slice und Dice schränken ein, Drill-down und Roll-up verstellen die Auflösung einer Achse, Pivot dreht nur die Ansicht. Keine dieser Operationen schreibt etwas in den Würfel — sie formulieren die Frage um.</p>
+   <p class="warn">Wählen Sie oben eine Operation.</p>`;
+paintC();
+
+/* =====================================================================
+   6 · Reiter 01 · Fakt, Dimension oder Sonderfall
+   ===================================================================== */
+const KINDS=["fakt","dim","sonder"];
+const KLABEL={fakt:"Fakt", dim:"Dimension", sonder:"Sonderfall"};
+const ITEMS=[
+ ["Umsatz","fakt","Die Kennzahl des Modells. Über jede Achse addierbar — über Produkte, über Monate, über Filialen. Ein voll additiver Fakt, und der einfachste Fall überhaupt."],
+ ["Menge","fakt","Verkaufte Stück, ebenfalls voll additiv. Zwei Fakten in einer Faktentabelle sind der Normalfall, nicht die Ausnahme."],
+ ["Deckungsbeitrag","fakt","Additiv, solange er als Betrag geführt wird. Als Prozentsatz wäre er es nicht — dann müsste man ihn aus zwei addierbaren Größen neu berechnen statt ihn zu summieren."],
+ ["Warengruppe","dim","Beantwortet „wonach“: Umsatz nach Warengruppe. Sie gruppiert, sie misst nicht."],
+ ["Monat","dim","Die Zeitachse. Jede Faktentabelle hat sie, und sie ist fast immer die erste Achse, nach der jemand fragt."],
+ ["Filiale","dim","Der Ort des Vorgangs. Ringstraße, Alsergrund — und im vollständigen Modell auch das Coffeebike."],
+ ["Zahlweg","dim","Bar oder EC-Karte. Eine kleine Dimension, aber eine echte: Man kann sinnvoll nach ihr gruppieren."],
+ ["Jahr 2026","dim","Eine Zahl — und trotzdem eine Dimension. Die Probe ist nicht „ist es numerisch“, sondern „ergibt die Summe einen Sinn“. Die Summe zweier Jahreszahlen ergibt keinen."],
+ ["Lagerbestand","sonder","<b>Halbadditiv.</b> Über Filialen darf man ihn addieren, über Monate nicht — sonst zählt man denselben Sack Kaffee dreimal. Für die Zeitachse braucht er eine andere Regel, meist den Wert am Stichtag."],
+ ["Röstverlust in %","sonder","<b>Nicht additiv.</b> Prozentsätze darf man nie summieren und nur mit Vorsicht mitteln. Speichern muss man die beiden Mengen — grün hinein, geröstet heraus — und den Prozentsatz erst im Bericht berechnen."],
+ ["Bonnummer","sonder","<b>Degenerierte Dimension.</b> Sie gruppiert durchaus — alle Zeilen eines Bons gehören zusammen — hat aber keine eigenen Attribute. Deshalb bekommt sie keine Dimensionstabelle, sondern bleibt als Spalte in der Faktentabelle stehen."]
+];
+const guess = {};
+function renderChips(){
+  document.getElementById("chips").innerHTML = ITEMS.map(([label],i)=>{
+    const g=guess[i];
+    return `<button class="chip ${g==="fakt"?"fakt":g==="dim"?"dim":g==="sonder"?"weder":""}"
+       type="button" data-i="${i}" aria-label="${label}">${label}${g?`<span class="mk">${KLABEL[g]}</span>`:""}</button>`;
+  }).join("");
+  const done=Object.keys(guess).length;
+  const right=Object.entries(guess).filter(([i,g])=>g===ITEMS[i][1]).length;
+  document.getElementById("score").textContent =
+    done ? `${right} von ${done} zugeordneten Feldern richtig · ${ITEMS.length} insgesamt`
+         : `${ITEMS.length} Felder · noch keines zugeordnet`;
+}
+const chipsEl=document.getElementById("chips");
+chipsEl.addEventListener("click", e=>{
+  const b=e.target.closest(".chip"); if(!b) return;
+  const i=b.dataset.i, cur=guess[i];
+  const next = cur===undefined ? "fakt" : KINDS[KINDS.indexOf(cur)+1];
+  if(next) guess[i]=next; else delete guess[i];
+  renderChips();
+});
+function reveal(i){
+  const [label,kind,why]=ITEMS[i];
+  const g=guess[i];
+  const verdict = g===undefined ? "" :
+    g===kind ? `<p class="warn" style="color:var(--green)">Richtig zugeordnet.</p>`
+             : `<p class="warn">Sie haben „${KLABEL[g]}“ gewählt — es ist „${KLABEL[kind]}“.</p>`;
+  document.getElementById("detA").innerHTML =
+    `<p class="dk">${KLABEL[kind]}</p><h4>${label}</h4><p>${why}</p>${verdict}`;
+}
+chipsEl.addEventListener("pointerover", e=>{const b=e.target.closest(".chip"); if(b) reveal(b.dataset.i);});
+chipsEl.addEventListener("focusin", e=>{const b=e.target.closest(".chip"); if(b) reveal(b.dataset.i);});
+const DET_A = `<p class="dk">Die Unterscheidung</p><h4>Ein Fakt wird addiert, eine Dimension gruppiert</h4>
+  <p>Fakten stehen in der Mitte des Würfels, Dimensionen sind seine Achsen. Klingt einfach — der Ärger entsteht bei den Randfällen: Zahlen, die keine Fakten sind, und Fakten, die sich nicht über jede Achse addieren lassen.</p>
+  <p class="warn">Feld anklicken zum Zuordnen, darüberfahren für die Auflösung.</p>`;
+document.getElementById("detA").innerHTML = DET_A;
+renderChips();
+
+/* =====================================================================
+   7 · Reiter 04 · Die Brücke zum Sternschema
+   ===================================================================== */
+const BRIDGE=[
+ ["Eine Achse","Eine Dimensionstabelle","Monat → <code>DIM_ZEIT</code>",
+  "Jede Achse des Würfels wird im Sternschema zu einer eigenen Tabelle. Die Zahl der Achsen ist damit die Zahl der Dimensionstabellen — bei Sofia vier, obwohl sich nur drei zeichnen lassen."],
+ ["Ein Wert auf einer Achse","Eine Zeile in der Dimensionstabelle","„März“ → eine Zeile in <code>DIM_ZEIT</code>",
+  "Was im Würfel eine Koordinate ist, ist im Schema ein Datensatz mit einem künstlichen Schlüssel. Der Schlüssel existiert nur, damit die Faktentabelle darauf zeigen kann."],
+ ["Eine Zelle","Eine Faktenzeile, gegebenenfalls verdichtet","Getränke · März · Ringstraße = 11.600 €",
+  "Eine Würfelzelle ist selten eine einzelne Faktenzeile — sie ist die Summe aller Bonzeilen, die diese Adresse teilen. Der Würfel zeigt also bereits eine Verdichtung des Korns."],
+ ["Die Zahl in der Zelle","Eine Kennzahlenspalte der Faktentabelle","<code>umsatz</code>, <code>menge</code>",
+  "Aus dem Fakt wird eine Spalte. Mehrere Fakten nebeneinander sind der Normalfall — sie teilen sich dieselben Achsen und damit dieselben Fremdschlüssel."],
+ ["Die Adresse der Zelle","Die Fremdschlüssel der Faktenzeile","<code>produkt_sk</code>, <code>datum_sk</code>, <code>filiale_sk</code>",
+  "Die Adressierung des Würfels ist wörtlich der Fremdschlüsselsatz der Faktentabelle. Wer den Würfel adressieren kann, hat den Schlüsselentwurf schon im Kopf."],
+ ["Eine feinere Achsenstufe","Eine weitere Spalte in derselben Dimensionstabelle","<code>produktgruppe</code> neben <code>warengruppe</code>",
+  "Drill-down braucht keine neue Tabelle, sondern eine weitere Spalte — das ist die flache Hierarchie aus der Lerneinheit zum semantischen Datenmodell."],
+ ["Das feinste Detail, das je einzeln sichtbar sein soll","Das Korn der Faktentabelle","eine Bonzeile",
+  "Die einzige Entscheidung, die sich später nicht mehr billig korrigieren lässt. Der Würfel kann nur verdichten, was das Korn hergibt — feiner als das Korn kommt niemand."]
+];
+document.getElementById("bridgeBody").innerHTML = BRIDGE.map(([a,b,c],i)=>
+ `<tr tabindex="0" data-i="${i}"><td class="crit">${a}</td><td>${b}</td><td>${c}</td></tr>`).join("");
+const detD=document.getElementById("detD");
+const DET_D=`<p class="dk">Die Übersetzung</p><h4>Der Würfel ist die Frage, das Schema ist die Antwort auf dem Speicher</h4>
+  <p>Es gibt keine Stelle, an der aus dem Würfel etwas Neues wird. Jedes seiner Elemente hat im Sternschema genau eine Entsprechung — deshalb ist der Würfel das bessere Werkzeug, um mit Fachanwendern über ein Modell zu sprechen, und das Schema das bessere, um es zu bauen.</p>
+  <p class="warn">Über eine Zeile fahren.</p>`;
+detD.innerHTML=DET_D;
+const bb=document.getElementById("bridgeBody");
+function showBridge(tr){
+  const [a,,,why]=BRIDGE[+tr.dataset.i];
+  detD.innerHTML=`<p class="dk">Im Würfel</p><h4>${a}</h4><p>${why}</p>`;
+}
+bb.addEventListener("pointerover",e=>{const t=e.target.closest("tr");if(t&&t.dataset.i)showBridge(t);});
+bb.addEventListener("focusin",e=>{const t=e.target.closest("tr");if(t&&t.dataset.i)showBridge(t);});
+bb.addEventListener("pointerleave",()=>{detD.innerHTML=DET_D;});
+
+/* =====================================================================
+   8 · Reiter
+   ===================================================================== */
+const tabs=[...document.querySelectorAll('[role="tab"]')], keys=["a","b","c","d"];
+function select(i){
+  tabs.forEach((t,j)=>{
+    const on = i===j;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    document.getElementById("p-"+keys[j]).hidden = !on;
+  });
+  hideTip();
+}
+tabs.forEach((t,i)=>{
+  t.addEventListener("click", ()=>select(i));
+  t.addEventListener("keydown", e=>{
+    const d = e.key==="ArrowRight" ? 1 : e.key==="ArrowLeft" ? -1 : 0;
+    if(!d) return; e.preventDefault();
+    const n = (i+d+tabs.length)%tabs.length; tabs[n].focus(); select(n);
+  });
+});
+select(0);
+</script>
+</body>
+</html>
