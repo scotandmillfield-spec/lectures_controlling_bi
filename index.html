@@ -359,6 +359,26 @@ const TOPICS = [
             label:{de:"Interaktiv öffnen", en:"Open interactive"}}]
   },
   {
+    id:"semantik",
+    title:{de:"Semantische Datenmodelle", en:"Semantic data models"},
+    sub:{de:"Fakten und Dimensionen, Hierarchien zum Auf- und Zuklappen — und die Frage, die jedes Projekt einmal stellt: Stern oder Snowflake?",
+         en:"Facts and dimensions, hierarchies that fold and unfold — and the question every project asks once: star or snowflake?"},
+    track:"bi", status:"ready", accent:"teal", glyph:"star",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Das Sternschema an Sofias Verkäufen: eine Faktentabelle, vier Dimensionen, jede Tabelle beim Überfahren erklärt",
+       en:"The star schema on Sofia's sales: one fact table, four dimensions, every table explained on hover"},
+      {de:"Eine Hierarchie zum Anklicken — Warengruppe, Produktgruppe, Produkt — bei der die Summe konstant bleibt",
+       en:"A clickable hierarchy — category, group, product — where the total never changes"},
+      {de:"Warum Hierarchien flach in die Dimensionstabelle gehören und nicht als Parent-Child",
+       en:"Why hierarchies belong flat in the dimension table rather than as parent-child"},
+      {de:"Ein Schalter formt den Stern in ein Snowflake um, und die Feldzählung zeigt, was die Normalisierung wirklich spart",
+       en:"A toggle turns the star into a snowflake, and the field count shows what normalisation really saves"}
+    ],
+    links:[{kind:"html",file:"semantisches-datenmodell.html",
+            label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
+  },
+  {
     id:"scd",
     title:"Slowly Changing Dimensions",
     sub:{de:"Anna wechselt am 1. März ins andere Kaffeehaus. Wem gehört ihr Januarumsatz — und lässt sich der alte Bericht noch reproduzieren?",
@@ -502,7 +522,7 @@ const PATHS = [
     title:{de:"Business Intelligence für Fortgeschrittene", en:"Business Intelligence, advanced"},
     sub:{de:"Zwei Entscheidungen, die man erst trifft, wenn die Architektur steht: wie eine Dimension ihre Vergangenheit behält, und wo die Aggregate liegen. Keine von beiden ändert die Daten — beide ändern, was ein Bericht aussagt.",
          en:"Two decisions you only face once the architecture stands: how a dimension keeps its past, and where the aggregates live. Neither changes the data, and both change what a report says."},
-    steps:["scd","olap"]
+    steps:["semantik","scd","olap"]
   }
 ];
 /* ===================== end of the editable lists ===================== */
@@ -528,6 +548,13 @@ const GLYPH={
              <rect x="9" y="33" width="20" height="20" rx="3" fill="currentColor" opacity=".45"/>
              <rect x="33" y="33" width="20" height="20" rx="3" fill="currentColor" opacity=".85"/>
              <circle class="g-pulse" cx="31" cy="31" r="6" fill="#FF922B"/>`,
+  star:`<rect x="23" y="23" width="16" height="16" rx="2" fill="currentColor"/>
+        <rect x="25" y="3" width="12" height="11" rx="2" fill="currentColor" opacity=".55"/>
+        <rect class="g-move" x="25" y="48" width="12" height="11" rx="2" fill="currentColor" opacity=".45"/>
+        <rect x="3" y="26" width="12" height="11" rx="2" fill="currentColor" opacity=".55"/>
+        <rect x="47" y="26" width="12" height="11" rx="2" fill="currentColor" opacity=".55"/>
+        <path class="g-fade" d="M31 14 V23 M31 39 V48 M15 31.5 H23 M39 31.5 H47"
+              stroke="#FF922B" stroke-width="2.2" fill="none" stroke-linecap="round"/>`,
   loop:`<circle cx="31" cy="31" r="19" fill="none" stroke="currentColor" stroke-width="4" opacity=".26"/>
         <path class="g-fade" d="M31 12 A19 19 0 0 1 50 31" fill="none" stroke="#FF922B"
               stroke-width="4" stroke-linecap="round"/>

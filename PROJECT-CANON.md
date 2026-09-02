@@ -200,9 +200,37 @@ der bisherigen Referenzarchitektur falsch und muss korrigiert werden.
 
 ### Dimensionen
 `DIM_LOCATION` (Ringstraße, Alsergrund, Coffeebike, Rösterei) · `DIM_EMPLOYEE` ·
-`DIM_PRODUCT` (Getränke, Gebäck zugekauft, Bohnen im Retailbeutel, Bohnen im Großgebinde) ·
-`DIM_CUSTOMER` (B2C mit Kundenkarte, B2B Bäckereien) · `DIM_GREEN_LOT` (Herkunftskooperative
-in Peru, Erntejahr, Importdatum) · `DIM_ROAST_PROFILE` · `DIM_DATE`
+`DIM_PRODUCT` (siehe Hierarchie unten) · `DIM_CUSTOMER` (B2C mit Kundenkarte, B2B Bäckereien,
+B2B Kaffeehäuser) · `DIM_PAYMENT` (Bar, EC-Karte) · `DIM_GREEN_LOT` (Herkunftskooperative in
+Peru, Erntejahr, Importdatum) · `DIM_ROAST_PROFILE` · `DIM_DATE`
+
+**[gesetzt]** `DIM_PAYMENT` hat genau zwei Ausprägungen: **Bar** und **EC-Karte**. Bewusst
+klein gehalten — eine Dimension mit zwei Zeilen ist im Modul „Semantische Datenmodelle" ein
+eigener Lehrpunkt.
+
+### Die Produkthierarchie **[gesetzt]**
+
+Drei Ebenen, **flach** in `DIM_PRODUCT` abgelegt — je Ebene eine Spalte, kein Parent-Child.
+Die Umsätze sind Q1 2026 und summieren sich auf die Quartalssumme des Kanons.
+
+| Warengruppe | Produktgruppe | Produkt | Umsatz Q1 2026 |
+|---|---|---|---|
+| Getränke | Heißgetränke | Espresso | 18.400 € |
+| Getränke | Heißgetränke | Melange | 24.700 € |
+| Getränke | Heißgetränke | Cappuccino | 21.300 € |
+| Getränke | Kaltgetränke | Cold Brew | 9.800 € |
+| Getränke | Kaltgetränke | Eiskaffee | 6.500 € |
+| Speisen | Gebäck | Croissant | 12.900 € |
+| Speisen | Gebäck | Apfelstrudel | 14.600 € |
+| Bohnen | Retail | Hausmischung 250 g | 11.200 € |
+| Bohnen | Großgebinde | Hausmischung 1 kg | 26.100 € |
+
+Zwischensummen: Heißgetränke 64.400 €, Kaltgetränke 16.300 €, **Getränke 80.700 €** ·
+Gebäck und damit **Speisen 27.500 €** · Retail 11.200 €, Großgebinde 26.100 €,
+**Bohnen 37.300 €**. Gesamt **145.500 €**.
+
+Die Zahlen sind so gewählt, dass sie mit der Quartalssumme der SCD-Module zusammenfallen.
+Wer sie ändert, muss die Summe halten — sonst widersprechen sich zwei Module.
 
 ### Fakten
 `FACT_SALES` (Bonzeile) · `FACT_ROAST_BATCH` (Einwaage, Ausbeute, Verlust) ·

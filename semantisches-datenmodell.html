@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Semantische Datenmodelle · Sofia's Coffee Dream</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2; --canvas:#F4F3F0;
+  --green:#2E9E6B; --red:#D9534F;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.1rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:20ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:clamp(1rem,1.6vw,1.18rem);font-weight:300;color:#3d3d40;max-width:64ch;margin:0}
+
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+
+.claim{font-size:clamp(1.12rem,2.2vw,1.45rem);font-weight:300;line-height:1.36;margin:0 0 24px;max-width:58ch;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--teal-dk)}
+h2.sec{font-size:1.2rem;font-weight:600;letter-spacing:-.012em;margin:34px 0 4px}
+p.sub{margin:0 0 16px;color:var(--grey);font-size:.92rem;max-width:78ch}
+.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:14px 0 0}
+
+/* ---------- Schaltflaechen ---------- */
+.bar{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;justify-content:space-between;margin:0 0 16px}
+.seg{display:inline-flex;border:1px solid var(--grey-xl);background:var(--paper);border-radius:var(--r);padding:4px;gap:4px}
+.seg button{appearance:none;border:0;background:transparent;cursor:pointer;font-family:var(--sans);
+  font-size:.88rem;font-weight:600;color:var(--grey);padding:9px 16px;border-radius:7px;transition:.16s}
+.seg button:hover{color:var(--teal-dk)}
+.seg button[aria-pressed="true"]{background:var(--teal-dk);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.84rem;color:#4a4a4d}
+.key{display:inline-flex;align-items:center;gap:8px}
+.sw{width:14px;height:14px;border-radius:3px;flex:none}
+.sw.f{background:var(--orange)} .sw.d{background:var(--teal)} .sw.n{background:var(--ochre)}
+
+/* ---------- Schema-Zeichnung ---------- */
+.stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:12px 8px 4px;overflow-x:auto}
+svg.schema{width:100%;min-width:840px;height:auto;display:block}
+.node{cursor:help}
+.node .hit{fill:transparent}
+.node:focus-visible{outline:none}
+.node:hover .ring,.node:focus-visible .ring{opacity:1}
+.ring{fill:none;stroke:var(--teal-dk);stroke-width:2.5;opacity:0;transition:opacity .18s;pointer-events:none}
+svg.schema text{font-family:var(--sans);fill:var(--ink);pointer-events:none;dominant-baseline:middle}
+.schema .t-h{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.03em;fill:#fff}
+.schema .t-c{font-family:var(--mono);font-size:11px;fill:#3d3d40}
+.schema .t-c.pk{font-weight:600;fill:var(--teal-dk)}
+.schema .t-k{font-family:var(--mono);font-size:9.5px;fill:var(--grey)}
+.schema .t-n{font-size:11px;fill:var(--grey);font-style:italic}
+.rel{stroke:#9A9A98;stroke-width:1.6;fill:none}
+.rel.snow{stroke:var(--ochre);stroke-width:2}
+.grow{transition:opacity .35s var(--ease)}
+svg.schema:not(.snow) .snowonly{opacity:0;pointer-events:none}
+svg.schema.snow .staronly{opacity:0;pointer-events:none}
+
+/* ---------- Tabellen ---------- */
+.tscroll{overflow-x:auto;border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper)}
+table.tbl{width:100%;min-width:560px;border-collapse:collapse;font-size:.85rem}
+table.tbl th{background:#F7F7F5;text-align:left;padding:9px 12px;font-family:var(--mono);
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid);white-space:nowrap}
+table.tbl td{padding:9px 12px;border-bottom:1px solid var(--grey-xl);vertical-align:top}
+table.tbl tr:last-child td{border-bottom:0}
+table.tbl td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.tbl td.m{font-family:var(--mono);font-size:.8rem}
+table.tbl td.dup{background:var(--orange-xl);color:#A85B00}
+table.tbl tr.sum td{font-weight:700;background:var(--teal-xl)}
+
+/* ---------- Hierarchie zum Auf- und Zuklappen ---------- */
+.htree{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:8px}
+.hrow{display:grid;grid-template-columns:1fr 128px 92px;gap:10px;align-items:center;
+  padding:11px 12px;border-radius:7px;cursor:pointer;min-width:0;
+  transition:background .16s var(--ease)}
+.hrow>*{min-width:0}
+.hrow:hover{background:var(--sand-xl)}
+.hrow:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.hrow .lbl{display:flex;align-items:center;gap:9px;font-size:.92rem;min-width:0}
+.hrow .tw{width:14px;height:14px;flex:none;color:var(--teal-dk);transition:transform .22s var(--ease)}
+.hrow.open .tw{transform:rotate(90deg)}
+.hrow.leaf .tw{visibility:hidden}
+.hrow .amt{font-family:var(--mono);font-size:.88rem;font-variant-numeric:tabular-nums;text-align:right}
+.hrow .track{height:10px;background:var(--grey-xl);border-radius:3px;overflow:hidden}
+.hrow .track i{display:block;height:100%;border-radius:3px;background:var(--teal);transition:width .45s var(--ease)}
+.hrow.lv0{font-weight:700}
+.hrow.lv1{padding-left:32px} .hrow.lv1 .lbl{font-size:.88rem}
+.hrow.lv2{padding-left:56px} .hrow.lv2 .lbl{font-size:.86rem;color:#4a4a4d}
+.hrow.lv1 .track i{background:var(--teal-lt)}
+.hrow.lv2 .track i{background:#A9DCE8}
+.hfoot{display:grid;grid-template-columns:1fr 128px 92px;gap:10px;padding:12px;
+  border-top:1px solid var(--grey-xl);margin-top:6px;font-weight:700}
+.hfoot .amt{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+
+/* ---------- Gegenueberstellung flach / Parent-Child ---------- */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.duo>*{min-width:0}
+.card{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px}
+.card .ck{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 4px}
+.card h3{margin:0 0 4px;font-size:1.06rem;font-weight:700;letter-spacing:-.015em}
+.card .verdict{font-size:.86rem;font-weight:600;margin:0 0 14px}
+.card.good .verdict{color:var(--green)} .card.bad .verdict{color:#B25E00}
+.card ul{margin:12px 0 0;padding-left:18px;font-size:.86rem;color:#3d3d40;line-height:1.5}
+.card li{margin-bottom:5px}
+
+/* ---------- Vergleichsmatrix ---------- */
+table.mx{width:100%;min-width:640px;border-collapse:collapse;font-size:.87rem}
+table.mx th{background:#F7F7F5;text-align:left;padding:11px 12px;font-family:var(--mono);
+  font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid)}
+table.mx th.s{color:var(--teal-dk)} table.mx th.n{color:var(--ochre)}
+table.mx td{padding:12px;border-bottom:1px solid var(--grey-xl);vertical-align:top;line-height:1.45}
+table.mx tr:last-child td{border-bottom:0}
+table.mx td.crit{font-weight:600;width:24%}
+table.mx tr:hover td{background:var(--sand-xl)}
+.win{display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.09em;
+  text-transform:uppercase;background:var(--teal-xl);color:var(--teal-dk);
+  border-radius:4px;padding:2px 6px;margin-left:6px;vertical-align:middle}
+.win.n{background:var(--ochre-xl);color:var(--ochre)}
+
+.detail{margin-top:16px;background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:22px 24px;min-height:150px}
+.detail .dk{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--teal-dk);margin:0 0 8px}
+.detail h4{margin:0 0 10px;font-size:1.16rem;font-weight:700;letter-spacing:-.015em}
+.detail p{margin:0 0 10px;font-size:.96rem;color:#3d3d40;max-width:82ch}
+.detail p:last-child{margin-bottom:0}
+.detail .warn{color:#B25E00;font-weight:600}
+.detail .fig{font-family:var(--mono);font-size:.84rem;background:var(--teal-xl);color:var(--teal-dk);
+  border-radius:5px;padding:5px 9px;display:inline-block}
+
+.readme{margin-top:20px;background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:20px 24px;
+  font-size:1rem;line-height:1.55}
+.readme.warn{background:var(--orange)}
+.readme b{font-weight:700}
+.readme code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.2);padding:1px 5px;border-radius:4px}
+.readme a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+.pointe{margin-top:34px;background:var(--orange);color:#fff;border-radius:var(--r);padding:26px 28px}
+.pointe .pk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin:0 0 10px}
+.pointe p{margin:0;font-size:clamp(1.05rem,2vw,1.3rem);font-weight:300;line-height:1.42;max-width:66ch}
+.pointe p b{font-weight:700}
+
+footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+footer a{color:var(--teal-dk)}
+
+.tip{position:fixed;z-index:60;pointer-events:none;opacity:0;transform:translateY(4px);
+  transition:opacity .14s,transform .14s;background:var(--ink);color:#fff;border-radius:9px;
+  padding:12px 14px;font-size:.82rem;line-height:1.5;max-width:320px;box-shadow:0 10px 30px -8px rgba(0,0,0,.45)}
+.tip.on{opacity:1;transform:translateY(0)}
+.tip .th{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#8FD4E6;margin:0 0 5px}
+.tip p{margin:0}
+.tip .extra{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.18);
+  color:var(--orange);font-weight:600;font-family:var(--mono);font-size:.76rem}
+
+.scrollhint{display:none}
+@media (max-width:900px){
+  .scrollhint{display:block;color:var(--teal-dk)}
+  .duo{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px 56px}
+  .hrow,.hfoot{grid-template-columns:1fr 80px}
+  .hrow .track{display:none}
+  .hrow.lv1{padding-left:22px} .hrow.lv2{padding-left:40px}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Sofia's Coffee Dream · Business Intelligence</p>
+  <h1>Ein Modell, das <em>die Fachsprache spricht</em></h1>
+  <p class="lede">Zwischen der Datenbank und der Frage „Wie lief der Espresso im März am Coffeebike?" liegt eine Übersetzungsschicht: das semantische Datenmodell. Es ordnet die Welt in <b>Fakten</b> — das, was man zählt — und <b>Dimensionen</b> — das, wonach man zählt. Dieses Modul baut es an Sofias Verkäufen auf, klappt eine Hierarchie auf und zu, und stellt am Ende die Frage, die jedes Projekt einmal stellt: Stern oder Snowflake?</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Semantische Datenmodelle">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Das Sternschema</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Hierarchien</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Snowflake</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Stern oder Snowflake?</button>
+</div>
+
+<!-- ============================ TAB A ============================ -->
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <p class="claim">In der Mitte steht, <b>was gemessen wird</b>. Ringsherum steht, <b>wonach gefragt werden kann</b>. Mehr ist ein Sternschema nicht — und genau diese Sparsamkeit macht es lesbar.</p>
+
+  <div class="bar">
+    <div class="legend">
+      <span class="key"><i class="sw f"></i>Faktentabelle</span>
+      <span class="key"><i class="sw d"></i>Dimensionstabelle</span>
+    </div>
+  </div>
+
+  <div class="stage">
+    <svg class="schema" id="starSvg" viewBox="0 0 960 620" role="img"
+      aria-label="Sternschema: die Faktentabelle FAKT_VERKAUF in der Mitte, ringsherum die Dimensionen Zeit, Produkt, Filiale und Zahlweg"></svg>
+  </div>
+
+  <div class="detail" id="detA"></div>
+
+  <h2 class="sec">Das Korn — die wichtigste Zeile des ganzen Modells</h2>
+  <p class="sub">Bevor eine einzige Spalte entsteht, muss ein Satz stehen: Was ist eine Zeile in der Faktentabelle?</p>
+
+  <div class="readme">
+    <b>Eine Zeile ist eine Bonzeile: ein Produkt, auf einem Bon, in einer Filiale, zu einem Zeitpunkt, mit einem Zahlweg.</b> Dieser Satz heißt <em>Korn</em> oder <em>Granularität</em>, und er ist die einzige Entscheidung im Modell, die sich später nicht mehr billig korrigieren lässt. Wer das Korn zu grob wählt — etwa „ein Bon" statt „eine Bonzeile" — kann nie wieder nach Produkt auswerten, weil die Information gar nicht erst gespeichert wurde. Wer es zu fein wählt, bezahlt Speicher für eine Genauigkeit, die niemand abfragt. Alle Dimensionen ringsherum sind nur so gut wie dieser eine Satz.
+  </div>
+  <p class="hint scrollhint">Zeichnung seitlich scrollen</p>
+  <p class="hint">Über eine Tabelle fahren oder sie antabben</p>
+</section>
+
+<!-- ============================ TAB B ============================ -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b">
+  <p class="claim">Eine Hierarchie ist ein <b>Weg von grob nach fein</b>, den das Modell kennt. Sie ist der Grund, warum sich ein Bericht auf- und zuklappen lässt, ohne dass jemand eine neue Abfrage schreibt.</p>
+
+  <h2 class="sec">Auf- und Zuklappen an Sofias Sortiment</h2>
+  <p class="sub">Warengruppe → Produktgruppe → Produkt, Umsätze Q1 2026. Klicken Sie eine Zeile an. Die Summe bleibt bei jedem Klick dieselbe — sie wird nur feiner aufgeteilt.</p>
+
+  <div class="htree" id="htree"></div>
+
+  <div class="detail" id="detB">
+    <p class="dk">Was beim Klicken passiert</p>
+    <h4>Drill-down und Roll-up sind keine zwei Berichte, sondern zwei Blicke auf dieselbe Summe</h4>
+    <p>Zugeklappt zeigt der Bericht drei Zeilen, aufgeklappt neun. Dahinter steht dieselbe Faktentabelle und dieselbe Summenfunktion — nur die Gruppierung wechselt die Spalte. Genau deshalb muss die Hierarchie im Modell stehen und nicht im Bericht: Wüsste das Modell nicht, dass „Espresso" zu „Heißgetränke" gehört, müsste jede Auswertung diese Zuordnung neu mitbringen.</p>
+    <p class="warn">Klicken Sie eine Zeile, um sie auf- oder zuzuklappen.</p>
+  </div>
+
+  <h2 class="sec">Wie die Hierarchie in der Dimensionstabelle liegt</h2>
+  <p class="sub">Zwei Bauweisen stehen zur Wahl. In einem dimensionalen Modell ist nur eine davon die richtige.</p>
+
+  <div class="duo">
+    <div class="card good">
+      <p class="ck">Bauweise A</p>
+      <h3>Flach — eine Spalte je Ebene</h3>
+      <p class="verdict">✓ So wird es gemacht</p>
+      <div class="tscroll">
+        <table class="tbl">
+          <thead><tr><th>produkt_sk</th><th>warengruppe</th><th>produktgruppe</th><th>produkt</th></tr></thead>
+          <tbody id="flatBody"></tbody>
+        </table>
+      </div>
+      <ul>
+        <li>Jede Ebene ist eine eigene Spalte, jede Zeile trägt ihren vollständigen Weg von oben nach unten.</li>
+        <li>Die Auswertung ist ein schlichtes <code>GROUP BY warengruppe</code> — keine Rekursion, kein Sonderfall.</li>
+        <li>Die Tiefe ist bekannt und fest: drei Ebenen, immer. Werkzeuge wie Power BI bauen daraus die Klapp-Hierarchie von selbst.</li>
+        <li>Die Redundanz ist gewollt: „Getränke" steht fünfmal da, und das ist billiger als jeder Join.</li>
+      </ul>
+    </div>
+    <div class="card bad">
+      <p class="ck">Bauweise B</p>
+      <h3>Parent-Child — Verweis auf die eigene Zeile</h3>
+      <p class="verdict">✗ Hier fehl am Platz</p>
+      <div class="tscroll">
+        <table class="tbl">
+          <thead><tr><th>knoten_id</th><th>eltern_id</th><th>bezeichnung</th></tr></thead>
+          <tbody id="pcBody"></tbody>
+        </table>
+      </div>
+      <ul>
+        <li>Alle Ebenen liegen in einer Spalte, verbunden über einen Verweis auf die eigene Tabelle.</li>
+        <li>Die Auswertung braucht eine rekursive Abfrage, weil die Tiefe erst zur Laufzeit feststeht.</li>
+        <li>Das ist die richtige Bauweise, wenn die Tiefe wirklich schwankt — Organigramme, Kontenpläne, Stücklisten.</li>
+        <li>Sofias Sortiment hat immer drei Ebenen. Wer hier Parent-Child baut, kauft sich Flexibilität, die niemand braucht, und bezahlt sie bei jeder Abfrage.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="readme warn">
+    <b>Die Faustregel.</b> Ist die Zahl der Ebenen bekannt und für alle Zweige gleich, wird die Hierarchie <b>flach</b> in die Dimensionstabelle geschrieben — eine Spalte je Ebene. Parent-Child ist kein Zeichen von Eleganz, sondern die Notlösung für den Fall, dass die Tiefe von Zeile zu Zeile schwankt. Sofias Kaffee hat immer eine Warengruppe, immer eine Produktgruppe und immer einen Namen. Drei Spalten, fertig.
+  </div>
+  <p class="hint">Zeilen anklicken zum Auf- und Zuklappen · Tabellen seitlich scrollbar</p>
+</section>
+
+<!-- ============================ TAB C ============================ -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c">
+  <p class="claim">Das Snowflake-Schema entsteht, wenn man die Hierarchie aus der Dimensionstabelle <b>herauslöst und normalisiert</b>. Aus einer Tabelle werden drei — und aus einem Join werden drei.</p>
+
+  <div class="bar">
+    <div class="legend">
+      <span class="key"><i class="sw f"></i>Faktentabelle</span>
+      <span class="key"><i class="sw d"></i>Dimensionstabelle</span>
+      <span class="key"><i class="sw n"></i>Ausgelagerte Ebene</span>
+    </div>
+    <div class="seg" id="seg" role="group" aria-label="Schemaform">
+      <button type="button" data-m="star" aria-pressed="true">Sternschema</button>
+      <button type="button" data-m="snow" aria-pressed="false">Snowflake-Schema</button>
+    </div>
+  </div>
+
+  <div class="stage">
+    <svg class="schema" id="snowSvg" viewBox="0 0 960 620" role="img"
+      aria-label="Dieselbe Modellzeichnung, umschaltbar zwischen Sternschema und Snowflake-Schema, bei dem die Produktdimension in drei normalisierte Tabellen zerfällt"></svg>
+  </div>
+
+  <div class="detail" id="detC"></div>
+
+  <h2 class="sec">Was die Normalisierung mit den Daten macht</h2>
+  <p class="sub">Dieselben neun Produkte, einmal flach und einmal aufgeteilt. Orange markiert die Werte, die sich wiederholen.</p>
+
+  <div class="duo">
+    <div class="card">
+      <p class="ck">Stern · denormalisiert</p>
+      <h3>DIM_PRODUKT</h3>
+      <p class="verdict" style="color:var(--grey)">1 Tabelle · 9 Zeilen · 36 Felder</p>
+      <div class="tscroll">
+        <table class="tbl">
+          <thead><tr><th>sk</th><th>warengruppe</th><th>produktgruppe</th><th>produkt</th></tr></thead>
+          <tbody id="denormBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <p class="ck">Snowflake · normalisiert</p>
+      <h3>Drei Tabellen</h3>
+      <p class="verdict" style="color:var(--grey)">3 Tabellen · 17 Zeilen · 48 Felder</p>
+      <div id="normTables"></div>
+    </div>
+  </div>
+
+  <div class="readme warn">
+    <b>Rechnen Sie nach — die Normalisierung spart hier gar nichts.</b> Flach sind es 9 Zeilen mit 36 Feldern. Normalisiert sind es 17 Zeilen mit 48 Feldern, weil jede ausgelagerte Tabelle einen eigenen Schlüssel und jede Kindzeile einen Fremdschlüssel braucht. Der Speicherplatz, um dessentwillen normalisiert wird, existiert bei Dimensionen dieser Größe schlicht nicht: Sofias Produktdimension hat neun Zeilen, ihre Faktentabelle Zehntausende. Alles, was ein Data Warehouse an Platz kostet, steckt in der Mitte des Sterns — und dort ändert das Snowflake-Schema kein einziges Byte.
+  </div>
+  <p class="hint scrollhint">Zeichnung seitlich scrollen</p>
+  <p class="hint">Oben umschalten · Tabellen in der Zeichnung überfahren</p>
+</section>
+
+<!-- ============================ TAB D ============================ -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d">
+  <p class="claim">Die Frage wird oft als Geschmacksfrage geführt. Sie ist keine: Die beiden Formen optimieren auf <b>verschiedene Ziele</b>, und in einem Data Warehouse ist nur eines davon knapp.</p>
+
+  <div class="tscroll">
+    <table class="mx">
+      <thead>
+        <tr><th>Kriterium</th><th class="s">Sternschema</th><th class="n">Snowflake-Schema</th></tr>
+      </thead>
+      <tbody id="mxBody"></tbody>
+    </table>
+  </div>
+
+  <div class="detail" id="detD">
+    <p class="dk">Die Abwägung</p>
+    <h4>Lesen ist häufig, Ordnen ist selten</h4>
+    <p>Ein Data Warehouse wird tausendmal gelesen und einmal beladen. Das Sternschema optimiert auf den häufigen Fall: wenige Joins, kurze Wege, ein Modell, das eine Fachanwenderin ohne Erklärung versteht. Das Snowflake-Schema optimiert auf Ordnung — auf Redundanzfreiheit und auf saubere Pflege von Attributen, die zu einer Ebene und nicht zum Einzelprodukt gehören.</p>
+    <p class="warn">Über eine Zeile fahren, um die Begründung zu sehen.</p>
+  </div>
+
+  <h2 class="sec">Wann Snowflake trotzdem richtig ist</h2>
+  <p class="sub">Es gibt drei Fälle, und keiner davon heißt „weil es sauberer aussieht".</p>
+
+  <div class="readme">
+    <b>Erstens: sehr große Dimensionen mit breiten Attributen.</b> Eine Kundendimension mit Millionen Zeilen und einer langen Adressenstruktur spart durch Auslagerung tatsächlich messbar Platz. Bei neun Produkten nicht. <b>Zweitens: geteilte Ebenen.</b> Wenn dieselbe Warengruppe auch in einer Einkaufs- und einer Planungsdimension vorkommt, ist eine eigene Tabelle der ehrlichere Ort für sie — sie wird dann zur konformen Sub-Dimension und garantiert, dass „Getränke" überall dasselbe heißt. <b>Drittens: das Werkzeug verlangt es.</b> Manche Datenbanken und OLAP-Engines bilden Hierarchieebenen nur aus eigenen Tabellen ab. Das ist kein Modellargument, sondern eine Randbedingung — aber eine, die zählt.
+  </div>
+
+  <h2 class="sec">Wo dieses Modul im Kurs steht</h2>
+  <p class="sub">Das semantische Modell ist die Grundlage für die beiden Fragen, die danach kommen.</p>
+
+  <div class="readme">
+    <b>Erst das Modell, dann die Zeit, dann der Speicher.</b> Steht der Stern, stellt sich sofort die nächste Frage: Was passiert, wenn sich ein Dimensionsattribut ändert — wenn Sofia den Espresso von „Heißgetränke" nach „Klassiker" umgruppiert? Das ist das Thema <a href="scd-dashboard.html">Slowly Changing Dimensions</a>. Und wenn geklärt ist, was das Modell weiß, folgt die Frage, wo die Summen liegen: <a href="decks/OLAP_Storage_Sofias_Coffee_World.pptx" download>MOLAP, ROLAP und HOLAP</a>. Beide Fragen setzen voraus, dass es einen Stern gibt, über den man sie stellen kann.
+  </div>
+  <p class="hint">Zeile überfahren für die Begründung</p>
+</section>
+
+<div class="pointe">
+  <p class="pk">Der eine Satz</p>
+  <p><b>Das Sternschema optimiert das Lesen, das Snowflake-Schema die Ordnung.</b> In einem Data Warehouse wird tausendmal gelesen und einmal geordnet — deshalb ist der Stern der Normalfall und das Snowflake die begründungspflichtige Ausnahme. Wer normalisiert, muss sagen können, welches Problem er damit löst.</p>
+</div>
+
+<footer>
+  Lehrmaterial · Sofia's Coffee Dream ist ein Wiener Betrieb mit zwei Kaffeehäusern, einer eigenen Rösterei, einem Coffeebike und einem Großhandel. Die Produkthierarchie, die Umsätze des ersten Quartals 2026 und die Dimensionen stammen aus dem Projektkanon; die Quartalssumme von 145.500 € ist dieselbe wie in den Modulen zu Slowly Changing Dimensions. Alle Zahlen sind illustrativ.
+</footer>
+
+</div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* =====================================================================
+   1 · Inhalte der Hover-Erklärungen
+   ===================================================================== */
+const REG = {
+ fakt:["FAKT_VERKAUF · Faktentabelle",
+   "Die Mitte des Sterns. Hier stehen die Zahlen, die man addieren will — Umsatz und Menge — und sonst nichts als Fremdschlüssel. Sie ist die einzige Tabelle, die wirklich wächst: Sofias Dimensionen haben zusammen keine hundert Zeilen, ihre Bonzeilen Zehntausende im Quartal.",
+   "Korn: eine Bonzeile · Q1 2026: 145.500 €"],
+ zeit:["DIM_ZEIT · Zeitdimension",
+   "Die Dimension, die jedes Warehouse hat und die niemand aus einem Vorsystem lädt: Sie wird erzeugt. Eine Zeile je Tag, dazu Monat, Quartal, Jahr, Kalenderwoche, Feiertagskennzeichen. Damit lässt sich nach Quartal gruppieren, ohne dass eine Abfrage je ein Datum zerlegen muss.",
+   "Hierarchie: Jahr → Quartal → Monat → Tag"],
+ produkt:["DIM_PRODUKT · Produktdimension",
+   "Neun Produkte, und die vollständige Warenhierarchie flach danebengeschrieben. Diese Tabelle ist der Kandidat für die Normalisierung — und damit der Ort, an dem sich Stern und Snowflake unterscheiden.",
+   "9 Zeilen · Warengruppe → Produktgruppe → Produkt"],
+ filiale:["DIM_FILIALE · Standortdimension",
+   "Ringstraße, Alsergrund und das Coffeebike. Der letzte Eintrag ist der interessante: ein Verkaufsort ohne feste Adresse. Er zwingt zu der Frage, was das Dimensionsattribut eigentlich beschreibt — das Fahrrad oder den Platz, an dem es heute steht.",
+   "3 Zeilen · Typ: Haus, Haus, mobil"],
+ zahlweg:["DIM_ZAHLWEG · Zahlwegdimension",
+   "Bar oder EC-Karte. Zwei Zeilen, und damit ein Grenzfall: Eine Dimension mit so wenigen Ausprägungen und ohne eigene Attribute würde man in der Praxis oft mit anderen kleinen Merkmalen zu einer Sammel-Dimension zusammenfassen, statt für sie eine eigene Tabelle zu führen.",
+   "2 Zeilen · Bar, EC-Karte"],
+ pgruppe:["DIM_PRODUKTGRUPPE · ausgelagerte Ebene",
+   "Existiert nur im Snowflake-Schema. Die mittlere Hierarchieebene bekommt eine eigene Tabelle mit eigenem Schlüssel; die Produktdimension verweist nur noch darauf. Was vorher eine Spalte war, ist jetzt ein Join.",
+   "5 Zeilen · Heißgetränke, Kaltgetränke, Gebäck, Retail, Großgebinde"],
+ wgruppe:["DIM_WARENGRUPPE · ausgelagerte Ebene",
+   "Die oberste Hierarchieebene, ebenfalls ausgelagert. Um von einer Bonzeile bis zur Warengruppe zu kommen, sind jetzt drei Joins nötig statt einem. Dafür steht „Getränke\" genau einmal in der Datenbank statt fünfmal.",
+   "3 Zeilen · Getränke, Speisen, Bohnen"]
+};
+
+const tip = document.getElementById("tip");
+const LIVE = {"p-a":["detA","Tabelle im Modell"], "p-c":["detC","Tabelle im Modell"]};
+
+function show(elem, ev){
+  const d = REG[elem.dataset.k]; if(!d) return;
+  tip.innerHTML = `<p class="th">${d[0]}</p><p>${d[1]}</p>` + (d[2]?`<p class="extra">${d[2]}</p>`:"");
+  tip.classList.add("on"); move(elem, ev);
+  const panel = elem.closest(".panel");
+  if(panel && LIVE[panel.id]){
+    const [boxId, kicker] = LIVE[panel.id];
+    document.getElementById(boxId).innerHTML =
+      `<p class="dk">${kicker}</p><h4>${d[0]}</h4><p>${d[1]}</p>` +
+      (d[2]?`<p><span class="fig">${d[2]}</span></p>`:"");
+  }
+}
+function move(elem, ev){
+  let x,y;
+  if(ev && ev.clientX){ x = ev.clientX+16; y = ev.clientY+16; }
+  else { const r = elem.getBoundingClientRect(); x = r.left + r.width/2; y = r.top - 8; }
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  if(x+w > innerWidth-12) x = innerWidth-w-12;
+  if(y+h > innerHeight-12) y = y-h-32;
+  if(y < 8) y = 8;
+  if(x < 8) x = 8;
+  tip.style.left = x+"px"; tip.style.top = y+"px";
+}
+function hideTip(){ tip.classList.remove("on"); }
+
+const SEL = "[data-k]";
+document.addEventListener("pointerover", e=>{const n=e.target.closest&&e.target.closest(SEL); if(n) show(n,e);});
+document.addEventListener("pointermove", e=>{const n=e.target.closest&&e.target.closest(SEL); if(n) move(n,e);});
+document.addEventListener("pointerout", e=>{
+  const from=e.target.closest&&e.target.closest(SEL); if(!from) return;
+  const to=e.relatedTarget&&e.relatedTarget.closest?e.relatedTarget.closest(SEL):null;
+  if(to!==from) hideTip();
+});
+document.addEventListener("focusin", e=>{const n=e.target.closest&&e.target.closest(SEL); if(n) show(n,null);});
+document.addEventListener("focusout", e=>{if(e.target.closest&&e.target.closest(SEL)) hideTip();});
+addEventListener("scroll", hideTip, {passive:true});
+
+/* =====================================================================
+   2 · Die Schemazeichnung — eine Mechanik, zwei Formen
+   ===================================================================== */
+const NS="http://www.w3.org/2000/svg";
+const el=(n,a={})=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+const add=(p,n,a)=>{const e=el(n,a);p.appendChild(e);return e;};
+const TONE={fakt:["#FF922B","#C86A00"], dim:["#209CBD","#166980"], snow:["#B5852C","#8A6417"]};
+
+/* Kastenmasse: Kopfzeile 24, erste Spalte bei +38, Zeilenhoehe 15 */
+function tableBox(parent, id, cx, cy, w, h, title, cols, tone, cls){
+  const x = cx-w/2, y = cy-h/2;
+  const [fill, stroke] = TONE[tone];
+  const g = add(parent,"g",{class:"node"+(cls?" "+cls:""),tabindex:"0",role:"button",
+    "data-k":id,"aria-label":REG[id][0]});
+  add(g,"rect",{x,y,width:w,height:h,rx:5,fill:"#fff",stroke,"stroke-width":1.4});
+  add(g,"path",{d:`M ${x} ${y+5} a 5 5 0 0 1 5 -5 h ${w-10} a 5 5 0 0 1 5 5 v 19 h ${-w} Z`,fill});
+  const t=add(g,"text",{x:cx,y:y+13,"text-anchor":"middle",class:"t-h"}); t.textContent=title;
+  cols.forEach((c,i)=>{
+    const isKey = /\((PK|FK)\)/.test(c);
+    const line=add(g,"text",{x:x+12,y:y+38+i*15,class:"t-c"+(isKey?" pk":"")});
+    line.textContent=c;
+  });
+  add(g,"rect",{class:"ring",x:x-5,y:y-5,width:w+10,height:h+10,rx:9});
+  add(g,"rect",{class:"hit",x,y,width:w,height:h});
+  return g;
+}
+function rel(parent, x1,y1,x2,y2, label, cls, side){
+  const g = add(parent,"g",cls?{class:cls}:{});
+  add(g,"line",{class:"rel"+(cls&&cls.indexOf("snowonly")===0?" snow":""),x1,y1,x2,y2});
+  add(g,"circle",{cx:x1,cy:y1,r:3.5,fill:"#9A9A98"});
+  add(g,"circle",{cx:x2,cy:y2,r:3.5,fill:"#9A9A98"});
+  if(label){
+    const t = side==="right"
+      ? add(g,"text",{x:(x1+x2)/2+10,y:(y1+y2)/2,"text-anchor":"start",class:"t-k"})
+      : add(g,"text",{x:(x1+x2)/2,y:(y1+y2)/2-8,"text-anchor":"middle",class:"t-k"});
+    t.textContent=label;
+  }
+  return g;
+}
+
+function buildSchema(svgId){
+  const svg=document.getElementById(svgId);
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
+
+  /* Beziehungen zuerst, damit die Kaesten darueber liegen */
+  rel(svg,520,145,520,245,"datum_sk");
+  rel(svg,735,320,620,320,"filiale_sk");
+  rel(svg,520,495,520,395,"zahlweg_sk");
+  rel(svg,325,320,420,320,"produkt_sk");
+  rel(svg,230,106,230,132,"warengruppe_sk","snowonly grow","right");
+  rel(svg,230,220,230,255,"produktgruppe_sk","snowonly grow","right");
+
+  tableBox(svg,"fakt",520,320,200,150,"FAKT_VERKAUF",
+    ["datum_sk (FK)","produkt_sk (FK)","filiale_sk (FK)","zahlweg_sk (FK)","umsatz","menge"],"fakt");
+  tableBox(svg,"zeit",520,95,170,100,"DIM_ZEIT",
+    ["datum_sk (PK)","datum · monat","quartal · jahr"],"dim");
+  tableBox(svg,"filiale",820,320,170,100,"DIM_FILIALE",
+    ["filiale_sk (PK)","filiale","typ · bezirk"],"dim");
+  tableBox(svg,"zahlweg",520,540,170,90,"DIM_ZAHLWEG",
+    ["zahlweg_sk (PK)","zahlweg"],"dim");
+
+  /* Die Produktdimension zeigt je nach Form andere Spalten */
+  tableBox(svg,"produkt",230,320,190,130,"DIM_PRODUKT",
+    ["produkt_sk (PK)","produkt","produktgruppe","warengruppe"],"dim","staronly grow");
+  tableBox(svg,"produkt",230,320,190,130,"DIM_PRODUKT",
+    ["produkt_sk (PK)","produkt","produktgruppe_sk (FK)"],"dim","snowonly grow");
+
+  tableBox(svg,"pgruppe",230,176,190,88,"DIM_PRODUKTGRUPPE",
+    ["produktgruppe_sk (PK)","produktgruppe","warengruppe_sk (FK)"],"snow","snowonly grow");
+  tableBox(svg,"wgruppe",230,62,190,88,"DIM_WARENGRUPPE",
+    ["warengruppe_sk (PK)","warengruppe"],"snow","snowonly grow");
+
+  const cap=add(svg,"text",{x:230,y:460,"text-anchor":"middle",class:"t-n"});
+  cap.textContent="Korn: eine Bonzeile";
+}
+buildSchema("starSvg");
+buildSchema("snowSvg");
+
+const snowSvg=document.getElementById("snowSvg");
+document.getElementById("seg").addEventListener("click", e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  const snow = b.dataset.m==="snow";
+  snowSvg.classList.toggle("snow", snow);
+  document.querySelectorAll("#seg button").forEach(x=>
+    x.setAttribute("aria-pressed", String((x.dataset.m==="snow")===snow)));
+  hideTip();
+});
+
+/* =====================================================================
+   3 · Die Hierarchie zum Auf- und Zuklappen
+   ===================================================================== */
+const TREE=[
+ {n:"Getränke", v:80700, k:[
+   {n:"Heißgetränke", v:64400, k:[
+     {n:"Espresso",v:18400},{n:"Melange",v:24700},{n:"Cappuccino",v:21300}]},
+   {n:"Kaltgetränke", v:16300, k:[
+     {n:"Cold Brew",v:9800},{n:"Eiskaffee",v:6500}]}]},
+ {n:"Speisen", v:27500, k:[
+   {n:"Gebäck", v:27500, k:[
+     {n:"Croissant",v:12900},{n:"Apfelstrudel",v:14600}]}]},
+ {n:"Bohnen", v:37300, k:[
+   {n:"Retail", v:11200, k:[{n:"Hausmischung 250 g",v:11200}]},
+   {n:"Großgebinde", v:26100, k:[{n:"Hausmischung 1 kg",v:26100}]}]}
+];
+const eur = n => n.toLocaleString("de-DE") + " €";
+const SCALE = 80700;
+const open = new Set();
+const TW = `<svg class="tw" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3 L11 8 L5 13"
+  fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+function renderTree(){
+  const box=document.getElementById("htree");
+  const rows=[];
+  const walk=(nodes,lv,path)=>nodes.forEach((nd,i)=>{
+    const id=path+"/"+i;
+    const leaf=!nd.k;
+    const isOpen=open.has(id);
+    rows.push(`<div class="hrow lv${lv} ${leaf?"leaf":""} ${isOpen?"open":""}"
+        data-id="${id}" tabindex="0" role="button" aria-expanded="${leaf?"false":isOpen}">
+      <span class="lbl">${TW}${nd.n}</span>
+      <span class="track"><i style="width:${Math.min(100,nd.v/SCALE*100).toFixed(1)}%"></i></span>
+      <span class="amt">${eur(nd.v)}</span></div>`);
+    if(!leaf && isOpen) walk(nd.k, lv+1, id);
+  });
+  walk(TREE,0,"");
+  const total=TREE.reduce((s,n)=>s+n.v,0);
+  box.innerHTML = rows.join("") +
+    `<div class="hfoot"><span>Summe Q1 2026</span><span></span><span class="amt">${eur(total)}</span></div>`;
+}
+document.getElementById("htree").addEventListener("click", e=>{
+  const r=e.target.closest(".hrow"); if(!r||r.classList.contains("leaf")) return;
+  const id=r.dataset.id;
+  open.has(id) ? open.delete(id) : open.add(id);
+  renderTree();
+});
+document.getElementById("htree").addEventListener("keydown", e=>{
+  if(e.key!=="Enter" && e.key!==" ") return;
+  const r=e.target.closest(".hrow"); if(!r||r.classList.contains("leaf")) return;
+  e.preventDefault();
+  const id=r.dataset.id;
+  open.has(id) ? open.delete(id) : open.add(id);
+  renderTree();
+});
+renderTree();
+
+/* =====================================================================
+   4 · Die Produktdimension als Daten
+   ===================================================================== */
+const PROD=[
+ [1,"Getränke","Heißgetränke","Espresso"],
+ [2,"Getränke","Heißgetränke","Melange"],
+ [3,"Getränke","Heißgetränke","Cappuccino"],
+ [4,"Getränke","Kaltgetränke","Cold Brew"],
+ [5,"Getränke","Kaltgetränke","Eiskaffee"],
+ [6,"Speisen","Gebäck","Croissant"],
+ [7,"Speisen","Gebäck","Apfelstrudel"],
+ [8,"Bohnen","Retail","Hausmischung 250 g"],
+ [9,"Bohnen","Großgebinde","Hausmischung 1 kg"]
+];
+
+/* Reiter 02 · flach, gekuerzt */
+document.getElementById("flatBody").innerHTML =
+  PROD.slice(0,5).map(([sk,w,p,n])=>
+    `<tr><td class="m">${sk}</td><td>${w}</td><td>${p}</td><td>${n}</td></tr>`).join("") +
+  `<tr><td class="m">…</td><td colspan="3" style="color:var(--grey)">4 weitere Zeilen</td></tr>`;
+
+/* Reiter 02 · Parent-Child, gekuerzt */
+const PC=[[1,"—","Getränke"],[2,"—","Speisen"],[3,"—","Bohnen"],
+          [4,1,"Heißgetränke"],[5,1,"Kaltgetränke"],[6,4,"Espresso"]];
+document.getElementById("pcBody").innerHTML =
+  PC.map(([id,par,n])=>`<tr><td class="m">${id}</td><td class="m">${par}</td><td>${n}</td></tr>`).join("") +
+  `<tr><td class="m">…</td><td class="m">…</td><td style="color:var(--grey)">11 weitere Zeilen</td></tr>`;
+
+/* Reiter 03 · denormalisiert, Wiederholungen markiert */
+(function(){
+  let lastW=null, lastP=null;
+  document.getElementById("denormBody").innerHTML = PROD.map(([sk,w,p,n])=>{
+    const dw = w===lastW, dp = p===lastP;
+    lastW=w; lastP=p;
+    return `<tr><td class="m">${sk}</td>
+      <td class="${dw?"dup":""}">${w}</td>
+      <td class="${dp?"dup":""}">${p}</td>
+      <td>${n}</td></tr>`;
+  }).join("");
+})();
+
+/* Reiter 03 · normalisiert */
+(function(){
+  const wg=[[1,"Getränke"],[2,"Speisen"],[3,"Bohnen"]];
+  const pg=[[1,"Heißgetränke",1],[2,"Kaltgetränke",1],[3,"Gebäck",2],[4,"Retail",3],[5,"Großgebinde",3]];
+  const pr=PROD.map(([sk,,p,n])=>[sk,n,pg.find(g=>g[1]===p)[0]]);
+  const t=(title,head,rows)=>
+    `<p class="ck" style="margin-top:14px">${title}</p>
+     <div class="tscroll"><table class="tbl"><thead><tr>${head.map(h=>`<th>${h}</th>`).join("")}</tr></thead>
+     <tbody>${rows.map(r=>`<tr>${r.map((c,i)=>`<td class="${i===0||i===r.length-1?"m":""}">${c}</td>`).join("")}</tr>`).join("")}</tbody>
+     </table></div>`;
+  document.getElementById("normTables").innerHTML =
+    t("DIM_WARENGRUPPE · 3 Zeilen",["sk","warengruppe"],wg) +
+    t("DIM_PRODUKTGRUPPE · 5 Zeilen",["sk","produktgruppe","wg_sk"],pg) +
+    t("DIM_PRODUKT · 9 Zeilen",["sk","produkt","pg_sk"],pr);
+})();
+
+/* =====================================================================
+   5 · Der Vergleich
+   ===================================================================== */
+const MX=[
+ ["Normalisierung",
+  ["Denormalisiert. Die ganze Hierarchie steht flach in einer Zeile.","s"],
+  ["Normalisiert bis zur dritten Normalform. Jede Ebene eine eigene Tabelle.","n"],
+  "Der Unterschied ist genau dieser eine Punkt. Alles Weitere folgt daraus."],
+ ["Redundanz",
+  ["Hoch und gewollt. „Getränke“ steht fünfmal in der Tabelle.","s"],
+  ["Keine. Jeder Wert steht genau einmal.","n"],
+  "Redundanz ist in einer operativen Datenbank ein Fehler, weil dort geändert wird. In einer Dimensionstabelle wird nicht geändert, sondern geladen — die Gefahr, die Normalisierung abwehrt, tritt hier nicht auf."],
+ ["Speicherbedarf",
+  ["36 Felder für neun Produkte.","s"],
+  ["48 Felder für dieselben neun Produkte.","n"],
+  "Bei kleinen Dimensionen kostet die Normalisierung sogar mehr, weil Schlüssel und Fremdschlüssel hinzukommen. Nennenswert wird der Unterschied erst bei Dimensionen mit Millionen Zeilen."],
+ ["Joins bis zur Warengruppe",
+  ["Einer: Fakt → Produkt.","s"],
+  ["Drei: Fakt → Produkt → Produktgruppe → Warengruppe.","n"],
+  "Der Punkt, an dem sich die Abfragezeit entscheidet. Jeder zusätzliche Join ist Arbeit für den Optimierer und eine weitere Stelle, an der eine Abfrage schiefgehen kann."],
+ ["Abfragen schreiben",
+  ["Kurz und immer gleich aufgebaut.","s"],
+  ["Länger, mit Join-Ketten je Hierarchieebene.","n"],
+  "Für ein Werkzeug ist beides gleich. Für einen Menschen, der eine Abfrage liest oder debuggt, nicht."],
+ ["Verständlichkeit im Fachbereich",
+  ["Hoch. Vier Tabellen, jede mit einem Namen aus der Fachsprache.","s"],
+  ["Geringer. Das Modell zerfällt in technische Zwischentabellen.","n"],
+  "Ein semantisches Modell soll die Fachsprache sprechen. Jede Tabelle, die es nur aus Normalisierungsgründen gibt, ist eine Vokabel, die niemand im Fachbereich gelernt hat."],
+ ["Pflege der Hierarchie",
+  ["Eine Umbenennung trifft viele Zeilen und muss im Ladeprozess sauber laufen.","n"],
+  ["Eine Umbenennung trifft genau eine Zeile.","n"],
+  "Der einzige Punkt, an dem das Snowflake-Schema sauber gewinnt — und der Grund, warum geteilte Ebenen als eigene Tabelle sinnvoll sein können."],
+ ["Werkzeugunterstützung",
+  ["Der Normalfall. Power BI, Tableau und die meisten OLAP-Engines erwarten genau das.","s"],
+  ["Wird unterstützt, aber selten empfohlen.","n"],
+  "Kein inhaltliches Argument, aber ein praktisches: Wer gegen die Erwartung seines Werkzeugs modelliert, arbeitet gegen die Voreinstellungen."]
+];
+document.getElementById("mxBody").innerHTML = MX.map(([crit,[s,sw],[n,nw],why],i)=>
+ `<tr tabindex="0" data-why="${i}">
+    <td class="crit">${crit}</td>
+    <td>${s}${sw==="s"?'<span class="win">Vorteil</span>':""}</td>
+    <td>${n}${nw==="n"&&sw!=="s"?'<span class="win n">Vorteil</span>':""}</td>
+  </tr>`).join("");
+
+const detD=document.getElementById("detD"), DET_D=detD.innerHTML;
+const mxBody=document.getElementById("mxBody");
+function showWhy(tr){
+  const [crit,,,why]=MX[+tr.dataset.why];
+  detD.innerHTML=`<p class="dk">Kriterium</p><h4>${crit}</h4><p>${why}</p>`;
+}
+mxBody.addEventListener("pointerover",e=>{const t=e.target.closest("tr");if(t&&t.dataset.why)showWhy(t);});
+mxBody.addEventListener("focusin",e=>{const t=e.target.closest("tr");if(t&&t.dataset.why)showWhy(t);});
+mxBody.addEventListener("pointerleave",()=>{detD.innerHTML=DET_D;});
+
+/* =====================================================================
+   6 · Standardtexte der Detailkästen und Reiter
+   ===================================================================== */
+document.getElementById("detA").innerHTML =
+  `<p class="dk">Der Aufbau</p><h4>Vier Dimensionen, eine Faktentabelle, vier Fremdschlüssel</h4>
+   <p>Jede Dimensionstabelle hat einen künstlichen Schlüssel — das <code style="font-family:var(--mono)">_sk</code> steht für Surrogate Key. Die Faktentabelle speichert nur diese Schlüssel und die Messgrößen. Sie enthält keinen einzigen Klartext, und genau deshalb bleibt sie schmal, obwohl sie die mit Abstand meisten Zeilen hat.</p>
+   <p class="warn">Über eine Tabelle fahren, um zu sehen, was sie enthält und warum sie da ist.</p>`;
+document.getElementById("detC").innerHTML =
+  `<p class="dk">Die Umformung</p><h4>Nur ein Ast des Sterns verändert sich</h4>
+   <p>Schalten Sie oben um. Zeit, Filiale und Zahlweg bleiben unberührt — sie haben keine Hierarchie, die sich auslagern ließe. Nur die Produktdimension zerfällt in drei Tabellen, und die Faktentabelle merkt davon nichts: Sie zeigt weiterhin auf <code style="font-family:var(--mono)">produkt_sk</code>. Ein Snowflake-Schema ist also kein anderes Modell, sondern ein Stern mit ausgebauten Ästen.</p>
+   <p class="warn">Über eine Tabelle fahren, um zu sehen, was sie enthält.</p>`;
+
+const tabs=[...document.querySelectorAll('[role="tab"]')], keys=["a","b","c","d"];
+function select(i){
+  tabs.forEach((t,j)=>{
+    const on = i===j;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    document.getElementById("p-"+keys[j]).hidden = !on;
+  });
+  hideTip();
+}
+tabs.forEach((t,i)=>{
+  t.addEventListener("click", ()=>select(i));
+  t.addEventListener("keydown", e=>{
+    const d = e.key==="ArrowRight" ? 1 : e.key==="ArrowLeft" ? -1 : 0;
+    if(!d) return; e.preventDefault();
+    const n = (i+d+tabs.length)%tabs.length; tabs[n].focus(); select(n);
+  });
+});
+select(0);
+</script>
+</body>
+</html>
