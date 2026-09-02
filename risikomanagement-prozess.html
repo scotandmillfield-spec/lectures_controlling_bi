@@ -1,0 +1,2041 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Der Risikomanagement-Prozess · Risk-Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2; --canvas:#F4F3F0;
+  --green:#2E9E6B; --red:#D9534F;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.1rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:20ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:clamp(1rem,1.6vw,1.18rem);font-weight:300;color:#3d3d40;max-width:64ch;margin:0}
+
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+
+.claim{font-size:clamp(1.12rem,2.2vw,1.45rem);font-weight:300;line-height:1.36;margin:0 0 24px;max-width:58ch;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--teal-dk)}
+h2.sec{font-size:1.2rem;font-weight:600;letter-spacing:-.012em;margin:34px 0 4px;
+  display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+h2.sec:first-child{margin-top:0}
+p.sub{margin:0 0 16px;color:var(--grey);font-size:.92rem;max-width:78ch}
+.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:14px 0 0}
+
+/* ---------- Herkunftskennzeichnung: Folien, Kursbuch, Ergaenzung -----
+   Drei Quellen, gleichwertig gestaltet. An der Kante zwischen ihnen
+   findet der Perspektivwechsel statt - das ist kein Kleingedrucktes.  */
+.src{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:600;border-radius:4px;padding:4px 8px;white-space:nowrap}
+.src.kb{background:var(--teal-xl);color:var(--teal-dk)}
+.src.erg{background:var(--ochre-xl);color:#8A6417}
+.src.fol{background:var(--navy-xl);color:var(--navy)}
+
+/* ---------- Schaltflaechen ---------- */
+.bar{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;justify-content:space-between;margin:0 0 16px}
+.seg{display:inline-flex;border:1px solid var(--grey-xl);background:var(--paper);border-radius:var(--r);padding:4px;gap:4px;flex-wrap:wrap}
+.seg button{appearance:none;border:0;background:transparent;cursor:pointer;font-family:var(--sans);
+  font-size:.88rem;font-weight:600;color:var(--grey);padding:9px 16px;border-radius:7px;transition:.16s}
+.seg button:hover{color:var(--teal-dk)}
+.seg button[aria-pressed="true"]{background:var(--teal-dk);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.84rem;color:#4a4a4d}
+.key{display:inline-flex;align-items:center;gap:8px}
+.sw{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.06)}
+.sw.q1{background:#FDE8D3} .sw.q2{background:#E1F0F6}
+.sw.q3{background:#F2EBD8}   .sw.q4{background:#EAEAE8}
+
+.btn{appearance:none;border:1px solid var(--teal-dk);background:transparent;color:var(--teal-dk);
+  font-family:var(--sans);font-size:.88rem;font-weight:600;cursor:pointer;
+  padding:10px 16px;border-radius:8px;transition:.16s}
+.btn:hover{background:var(--teal-dk);color:#fff}
+.btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+/* ---------- Karten ---------- */
+.card{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px}
+.card .ck{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 4px}
+.card h3{margin:0 0 8px;font-size:1.06rem;font-weight:700;letter-spacing:-.015em}
+.card p{margin:0 0 10px;font-size:.9rem;color:#3d3d40;line-height:1.52}
+.card p:last-child{margin-bottom:0}
+.card ul{margin:10px 0 0;padding-left:18px;font-size:.88rem;color:#3d3d40;line-height:1.5}
+.card li{margin-bottom:5px}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.duo>*{min-width:0}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
+.trio>*{min-width:0}
+.quad{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:stretch}
+.quad>*{min-width:0}
+
+/* ---------- Aufdeckkarten: Wortherkunft, Aufgaben, Denkfehler ---------- */
+.flipgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.flipgrid>*{min-width:0}
+.flip{appearance:none;text-align:left;width:100%;cursor:pointer;font-family:var(--sans);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px 16px 14px;transition:.2s var(--ease);color:var(--ink)}
+.flip:hover{border-color:var(--teal);transform:translateY(-2px)}
+.flip:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.flip .lang{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+.flip .word{font-family:var(--mono);font-size:1.02rem;font-weight:600;color:var(--teal-dk);margin:5px 0 0}
+.flip .mean{font-size:.88rem;color:#3d3d40;margin:9px 0 0;line-height:1.45}
+.flip[aria-expanded="false"] .mean{display:none}
+.flip[aria-expanded="false"]::after{content:"umdrehen";display:block;margin-top:9px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal)}
+.flip[aria-expanded="true"]{border-color:var(--teal);background:var(--teal-xl)}
+
+.deck{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.deck>*{min-width:0}
+.task{appearance:none;text-align:left;width:100%;cursor:pointer;font-family:var(--sans);color:var(--ink);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px;transition:.2s var(--ease);display:flex;flex-direction:column;gap:7px}
+.task:hover{border-color:var(--ochre);transform:translateY(-2px)}
+.task:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.task .no{font-family:var(--mono);font-size:.72rem;font-weight:600;color:var(--ochre);letter-spacing:.08em}
+.task .hd{font-size:.95rem;font-weight:600;line-height:1.34}
+.task .bd{font-size:.86rem;color:#3d3d40;line-height:1.5}
+.task[aria-expanded="false"] .bd{display:none}
+.task[aria-expanded="true"]{border-color:var(--ochre);background:var(--ochre-xl)}
+.counter{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:12px 0 0}
+
+.acc{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.acc button{appearance:none;width:100%;text-align:left;cursor:pointer;font-family:var(--sans);
+  background:transparent;border:0;border-bottom:1px solid var(--grey-xl);padding:15px 18px;
+  font-size:.95rem;font-weight:600;color:var(--ink);display:flex;gap:12px;align-items:flex-start;transition:background .16s}
+.acc button:hover{background:var(--sand-xl)}
+.acc button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.acc button .mk{font-family:var(--mono);color:var(--red);flex:none;font-size:.9rem;line-height:1.5}
+.acc .ans{padding:0 18px 16px 42px;font-size:.9rem;color:#3d3d40;line-height:1.55;
+  border-bottom:1px solid var(--grey-xl);background:var(--sand-xl)}
+.acc .ans[hidden]{display:none}
+.acc .ans b{color:var(--green)}
+.acc>*:last-child{border-bottom:0}
+
+/* ---------- Tabellen ---------- */
+.tscroll{overflow-x:auto;border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper)}
+table.tbl{width:100%;min-width:560px;border-collapse:collapse;font-size:.85rem}
+table.tbl th{background:#F7F7F5;text-align:left;padding:9px 12px;font-family:var(--mono);
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid);white-space:nowrap}
+table.tbl td{padding:9px 12px;border-bottom:1px solid var(--grey-xl);vertical-align:top;line-height:1.45}
+table.tbl tr:last-child td{border-bottom:0}
+table.tbl td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.tbl td.m{font-family:var(--mono);font-size:.8rem}
+table.tbl td.crit{font-weight:600}
+table.tbl tr.dim td{color:var(--grey-mid);transition:color .3s var(--ease)}
+table.tbl tr.hi td{background:var(--teal-xl)}
+table.tbl tbody tr:hover td{background:var(--sand-xl)}
+.fmark{display:inline-block;width:22px;height:22px;line-height:20px;text-align:center;
+  border-radius:5px;font-family:var(--mono);font-size:.76rem;font-weight:600;border:1px solid rgba(0,0,0,.08)}
+.fmark.f1{background:var(--orange-xl);color:#A85B00}
+.fmark.f2{background:var(--teal-xl);color:var(--teal-dk)}
+.fmark.f3{background:var(--sand-xl);color:#8A6417}
+.fmark.f4{background:var(--grey-xl);color:#5a5a5c}
+/* ---------- Risk-Map ----------
+   Die drei Zonenfarben sind die einzige Stelle, an der Signalfarben
+   auftreten. Dekorativ erscheinen sie nirgends, und sie tragen die
+   Bedeutung nie allein: jede Zone hat ihren Namen, jeder Punkt seine
+   Kennung, jede rote Position zusaetzlich das Warndreieck.          */
+.mapwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.mapwrap>*{min-width:0}
+.mapstage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:12px 10px 6px;overflow-x:auto}
+.mapstage:focus-visible,.stage:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+svg.rm{width:100%;min-width:340px;height:auto;display:block}
+svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.rm .zone{stroke:#fff;stroke-width:1.5}
+.rm .zg{fill:#E6F1E5} .rm .zy{fill:#FBF2D9} .rm .zr{fill:#FBE4DC}
+.rm .zlab{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.07em;
+  text-anchor:middle;opacity:.62}
+.rm .zlab.g{fill:#2E7D4F} .rm .zlab.y{fill:#8A6417} .rm .zlab.r{fill:#B23C2C}
+.rm .gr{stroke:#fff;stroke-width:1;opacity:.85}
+.rm .ax{stroke:var(--grey-mid);stroke-width:1.4}
+.rm .tol{fill:none;stroke:#B23C2C;stroke-width:2;stroke-dasharray:7 5}
+.rm .iso{fill:none;stroke:var(--teal-dk);stroke-width:1.8;stroke-dasharray:3 4}
+.rm .tickX{font-family:var(--mono);font-size:10.5px;fill:var(--grey);text-anchor:middle}
+.rm .tickY{font-family:var(--mono);font-size:10.5px;fill:var(--grey);text-anchor:end}
+.rm .stufe{font-size:9px;fill:var(--grey);text-anchor:middle}
+.rm .stufeY{font-size:9px;fill:var(--grey);text-anchor:end}
+.rm .atitle{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;fill:var(--teal-dk);
+  text-transform:uppercase;font-weight:600;text-anchor:middle}
+.rm .pt{cursor:pointer}
+.rm .pt:focus-visible{outline:none}
+.rm .pt .dot{fill:var(--navy);stroke:#fff;stroke-width:2.5;transition:r .2s var(--ease)}
+.rm .pt:hover .dot,.rm .pt:focus-visible .dot{r:13}
+.rm .pt .id{font-family:var(--mono);font-size:10px;font-weight:600;fill:#fff;text-anchor:middle;
+  pointer-events:none}
+.rm .pt .lab{font-size:11.5px;font-weight:600}
+.rm .pt.sel .dot{fill:var(--orange);stroke:var(--orange-xl);stroke-width:4}
+.rm .pt.own .dot{fill:var(--teal);stroke:#fff}
+.rm .pt.ref .dot{fill:var(--ochre);stroke:#fff}
+.rm .pt.ghost .dot{fill:var(--grey-mid)}
+.rm .pt.ghost .lab{opacity:.5}
+.rm .pt.live .dot{fill:var(--orange);stroke:#fff;stroke-width:3}
+.rm .pt.split .dot{fill:var(--teal-dk);stroke:#fff}
+.rm .link{stroke:var(--grey);stroke-width:1.4;stroke-dasharray:3 3}
+.rm .warn{fill:#B23C2C}
+.rm .warn text{fill:#fff;font-family:var(--mono);font-size:9px;font-weight:700;text-anchor:middle}
+.rm .mv{fill:none;stroke:var(--orange);stroke-width:3}
+.rm .mv.pre{stroke:#2E7D4F}
+.rm .ghostpath{fill:none;stroke:var(--grey-mid);stroke-width:1.6;stroke-dasharray:4 4}
+
+/* ---------- Zonenlegende und Kennzahlleiste ---------- */
+.zonekey{display:flex;gap:16px;flex-wrap:wrap;font-size:.84rem;color:#4a4a4d}
+.zonekey .k{display:inline-flex;align-items:center;gap:8px}
+.zonekey i{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.08)}
+.zonekey i.g{background:#E6F1E5} .zonekey i.y{background:#FBF2D9} .zonekey i.r{background:#FBE4DC}
+
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:10px;margin:0 0 14px}
+.figs>*{min-width:0}
+.fig{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 15px}
+.fig .fk{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 5px;line-height:1.3}
+.fig .fv{font-family:var(--mono);font-size:1.45rem;font-weight:600;font-variant-numeric:tabular-nums;
+  color:var(--teal-dk);line-height:1}
+.fig .fn{font-size:.76rem;color:var(--grey);margin:5px 0 0;line-height:1.3}
+.fig.hot{border-color:var(--orange);background:var(--orange-xl)}
+.fig.hot .fv{color:#A85B00}
+
+/* ---------- Regler ---------- */
+.rgrid{display:grid;gap:12px}
+.rrow{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 16px}
+.rrow .rl{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin:0 0 8px}
+.rrow .rn{font-size:.9rem;font-weight:600}
+.rrow .rv{font-family:var(--mono);font-size:.82rem;color:var(--teal-dk);font-weight:600;
+  text-align:right;flex:none}
+.rrow input[type=range]{width:100%;accent-color:var(--teal-dk);display:block}
+.rrow .ra{font-size:.78rem;color:var(--grey);margin:6px 0 0;line-height:1.35;min-height:2.1em}
+
+/* ---------- Prozesskreis ---------- */
+.stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:14px 10px 6px;overflow-x:auto}
+svg.proc{width:100%;min-width:560px;height:auto;display:block}
+svg.proc text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.proc .pbox{fill:var(--paper);stroke:var(--grey-mid);stroke-width:1.4;transition:.2s var(--ease)}
+.proc .ph{cursor:pointer}
+.proc .ph:focus-visible{outline:none}
+.proc .ph:hover .pbox,.proc .ph:focus-visible .pbox,.proc .ph.on .pbox{stroke:var(--teal-dk);stroke-width:2.6;fill:var(--teal-xl)}
+.proc .pk{font-family:var(--mono);font-size:9px;letter-spacing:.1em;fill:var(--grey);text-transform:uppercase}
+.proc .pt2{font-size:14px;font-weight:600}
+.proc .pq{font-size:11px;fill:#4a4a4d}
+.proc .arw{fill:none;stroke:var(--teal);stroke-width:2.4}
+.proc .arw.back{stroke:var(--orange);stroke-dasharray:6 4}
+.proc .clam{fill:none;stroke:var(--ochre);stroke-width:2.4;transition:opacity .3s}
+.proc .clamlab{font-family:var(--mono);font-size:10px;fill:var(--ochre);font-weight:600;text-anchor:middle}
+.proc .ctr{font-size:13px;font-weight:600;text-anchor:middle;fill:var(--teal-dk)}
+.proc .ctrs{font-size:11px;text-anchor:middle;fill:var(--grey)}
+
+/* ---------- Balanced Chance- und Risk-Card ---------- */
+svg.bcr{width:100%;min-width:760px;height:auto;display:block}
+svg.bcr text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.bcr .band{stroke:#fff;stroke-width:1.5}
+.bcr .bl{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.05em;fill:var(--teal-dk)}
+.bcr .cell{fill:var(--paper);stroke:var(--grey-xl);stroke-width:1}
+.bcr .ct{font-size:10.5px;fill:#3d3d40}
+.bcr .hd{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:600;text-anchor:middle}
+.bcr .hd.c{fill:#2E7D4F} .bcr .hd.r{fill:#B23C2C}
+.bcr .step{transition:opacity .45s var(--ease)}
+.bcr .step.off{opacity:0}
+.bcr .dash{stroke:var(--ochre);stroke-width:1.5;stroke-dasharray:5 4;fill:none;opacity:.85}
+
+/* ---------- Vergleichsliste Modus A ---------- */
+.cmp{display:grid;grid-template-columns:44px 1fr 108px 108px 64px;gap:8px 12px;align-items:center;
+  padding:10px 0;border-bottom:1px solid var(--grey-xl);font-size:.86rem}
+.cmp>*{min-width:0}
+.cmp:last-child{border-bottom:0}
+.cmp .cid{font-family:var(--mono);font-size:.8rem;font-weight:600;color:var(--teal-dk)}
+.cmp .cn{line-height:1.35}
+.cmp .cw{font-family:var(--mono);font-size:.8rem;font-variant-numeric:tabular-nums;text-align:right}
+.cmp .cw.own{color:var(--teal)} .cmp .cw.ref{color:var(--ochre)}
+.cmp .cd{font-family:var(--mono);font-size:.8rem;font-weight:600;text-align:right}
+.cmp .cd.up{color:#B23C2C} .cmp .cd.dn{color:#2E7D4F} .cmp .cd.eq{color:var(--grey)}
+.cmphead{display:grid;grid-template-columns:44px 1fr 108px 108px 64px;gap:12px;font-family:var(--mono);
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  padding-bottom:7px;border-bottom:1px solid var(--grey-mid)}
+.cmphead>*{min-width:0}
+.cmphead span:nth-child(n+3){text-align:right}
+
+/* ---------- Massnahmen und Strategien ---------- */
+.mlist{display:grid;gap:10px}
+.mopt{display:flex;gap:12px;align-items:flex-start;background:var(--paper);cursor:pointer;
+  border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 16px;transition:.16s var(--ease)}
+.mopt:hover{border-color:var(--teal)}
+.mopt:focus-within{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal-xl)}
+.mopt input{accent-color:var(--teal-dk);width:17px;height:17px;flex:none;margin-top:2px}
+.mopt .mt{display:block;font-size:.92rem;font-weight:600;line-height:1.3}
+.mopt .mm{display:block;font-family:var(--mono);font-size:.76rem;color:var(--grey);margin:4px 0 0}
+.mopt .tag{display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.09em;
+  text-transform:uppercase;font-weight:600;border-radius:4px;padding:3px 7px;margin-left:8px;
+  vertical-align:middle}
+.mopt .tag.pre{background:#E6F1E5;color:#2E7D4F}
+.mopt .tag.kor{background:var(--orange-xl);color:#A85B00}
+.mopt.on{border-color:var(--teal-dk);background:var(--teal-xl)}
+
+.strat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.strat>*{min-width:0}
+.sbtn{appearance:none;cursor:pointer;font-family:var(--sans);text-align:left;color:var(--ink);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:14px 16px;transition:.18s var(--ease)}
+.sbtn:hover{border-color:var(--teal);transform:translateY(-2px)}
+.sbtn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.sbtn .sd{display:block;font-size:.98rem;font-weight:700;letter-spacing:-.01em}
+.sbtn .se{display:block;font-family:var(--mono);font-size:.74rem;color:var(--grey);margin:3px 0 7px;overflow-wrap:anywhere}
+.sbtn .sm{display:block;font-size:.78rem;color:#4a4a4d;line-height:1.35}
+.sbtn[aria-pressed="true"]{border-color:var(--teal-dk);background:var(--teal-xl)}
+.sbtn[aria-pressed="true"] .se{color:var(--teal-dk)}
+
+/* ---------- BAUM ---------- */
+.baum{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.baum>*{min-width:0}
+.bcard{background:var(--paper);border:1px solid var(--grey-xl);border-left:3px solid var(--teal-dk);
+  border-radius:var(--r);padding:16px 18px}
+.bcard .letter{font-family:var(--mono);font-size:1.5rem;font-weight:700;color:var(--teal-dk);line-height:1}
+.bcard h3{margin:8px 0 6px;font-size:.95rem;font-weight:700}
+.bcard p{margin:0;font-size:.85rem;color:#3d3d40;line-height:1.5}
+
+/* ---------- Merkblatt und Druck ---------- */
+.merk{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:24px 26px}
+.merk h3{margin:0 0 14px;font-size:1.1rem;font-weight:700}
+.merk dl{margin:0;display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr);gap:9px 18px;font-size:.87rem}
+.merk dt{font-weight:700;color:var(--teal-dk);line-height:1.4}
+.merk dd{margin:0;color:#3d3d40;line-height:1.45}
+.glos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px 22px;font-size:.85rem}
+.glos>*{min-width:0}
+.glos div{padding:7px 0;border-bottom:1px solid var(--grey-xl);line-height:1.45}
+.glos b{color:var(--teal-dk)}
+
+@media print{
+  body{background:#fff}
+  .tabs,.masthead .lede,.bar,.seg,.btn,.tip,.mapstage,.stage,.rgrid,.mlist,.strat,
+  .figs,.acc,.mapwrap,.cmp,.cmphead,.baum,.zonekey,.hint{display:none!important}
+  .panel[hidden]{display:none!important}
+  #merkblatt{display:block!important;page-break-inside:avoid}
+  #merkblatt .merk{border:0;box-shadow:none;padding:0}
+  footer{border-top:1px solid #ccc}
+}
+/* ---------- Kernaussagen ---------- */
+.says{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.says>*{min-width:0}
+.say{background:var(--paper);border:1px solid var(--grey-xl);border-left:3px solid var(--teal-dk);
+  border-radius:var(--r);box-shadow:var(--shadow);padding:18px 20px}
+.say .sn{font-family:var(--mono);font-size:.72rem;font-weight:600;color:var(--teal-dk);letter-spacing:.1em}
+.say h3{margin:7px 0 8px;font-size:1rem;font-weight:700;line-height:1.3;letter-spacing:-.012em}
+.say p{margin:0;font-size:.88rem;color:#3d3d40;line-height:1.52}
+
+.readme{margin-top:18px;background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:20px 24px;
+  font-size:1rem;line-height:1.55}
+.readme.warn{background:var(--orange)}
+.readme b{font-weight:700}
+.readme code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.2);padding:1px 5px;border-radius:4px}
+.readme a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+blockquote.q{margin:0 0 14px;background:var(--paper);border:1px solid var(--grey-xl);
+  border-left:3px solid var(--teal);border-radius:var(--r);padding:16px 20px;
+  font-size:.95rem;font-weight:300;line-height:1.55;color:#2c2c2f}
+blockquote.q cite{display:block;margin-top:9px;font-style:normal;font-family:var(--mono);
+  font-size:.74rem;letter-spacing:.06em;color:var(--grey)}
+
+.pointe{margin-top:34px;background:var(--orange);color:#fff;border-radius:var(--r);padding:26px 28px}
+.pointe .pk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin:0 0 10px}
+.pointe p{margin:0;font-size:clamp(1.05rem,2vw,1.3rem);font-weight:300;line-height:1.42;max-width:66ch}
+.pointe p b{font-weight:700}
+
+footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+footer a{color:var(--teal-dk)}
+
+.tip{position:fixed;z-index:60;pointer-events:none;opacity:0;transform:translateY(4px);
+  transition:opacity .14s,transform .14s;background:var(--ink);color:#fff;border-radius:9px;
+  padding:12px 14px;font-size:.82rem;line-height:1.5;max-width:320px;box-shadow:0 10px 30px -8px rgba(0,0,0,.45)}
+.tip.on{opacity:1;transform:translateY(0)}
+.tip .th{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#8FD4E6;margin:0 0 5px}
+.tip p{margin:0}
+.tip .extra{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.18);
+  color:var(--orange);font-weight:600;font-family:var(--mono);font-size:.76rem}
+
+.scrollhint{display:none}
+@media (max-width:980px){
+  .mapwrap{grid-template-columns:1fr}
+  .flipgrid{grid-template-columns:repeat(2,1fr)}
+  .quad{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:900px){
+  .scrollhint{display:block;color:var(--teal-dk)}
+  .duo,.trio{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  /* Die Vergleichsliste klappt in zwei Zeilen je Risiko um, statt
+     fuenf Spalten in eine Handybreite zu pressen.                 */
+  .cmphead{display:none}
+  .cmp{grid-template-columns:44px 1fr 60px;row-gap:4px}
+  .cmp .cn{grid-column:2 / span 2}
+  .cmp .cw{grid-column:2;text-align:left}
+  .cmp .cw.ref{grid-column:3;text-align:right}
+  .cmp .cd{grid-row:1;grid-column:3}
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px 56px}
+  .flipgrid,.quad{grid-template-columns:1fr}
+  .merk dl{grid-template-columns:1fr;gap:2px 0}
+  .merk dt{margin-top:9px}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">MWCH02 · Controlling und Risikomanagement der Supply Chain</p>
+  <h1>Zwei Menschen, ein Risiko, <em>zwei Zahlen</em></h1>
+  <p class="lede">Jeder schätzt Risiken. Die Frage ist, ob zwei Menschen dasselbe Risiko gleich schätzen — und was passiert, wenn sie es nicht tun. Diese Einheit beginnt deshalb nicht mit einer Definition, sondern mit Ihrer eigenen Schätzung. Am Ende von Reiter 04 bekommen Sie sie zurück.</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Der Risikomanagement-Prozess">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Risiko und Prozess</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Die Risk-Map</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Steuern</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Überwachen</button>
+</div>
+
+<!-- ============================ TAB A ============================ -->
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <p class="claim">Bevor irgendetwas erklärt wird: <b>Schätzen Sie zwei Risiken.</b> Ohne Skalenerklärung, ohne Beispiel, ohne Rückmeldung. Genau so, wie es in der Praxis am Anfang immer ist.</p>
+
+  <h2 class="sec">Ihre erste Schätzung <span class="src erg">Ergänzung</span></h2>
+  <p class="sub">Zwei Risiken eines Zulieferers für Nutzfahrzeugkomponenten. Stellen Sie für jedes ein, wie wahrscheinlich es eintritt und wie schwer der Schaden wäre. Es gibt hier keine Auswertung — die Werte werden aufgehoben und in Reiter 04 neben die begründete Einschätzung gelegt.</p>
+  <div class="duo" id="einstieg"></div>
+  <p class="hint" id="einstiegHinweis"></p>
+
+  <h2 class="sec">Drei Definitionen, gegeneinander gelesen <span class="src fol">Folie 2</span></h2>
+  <p class="sub">Nicht nacheinander abarbeiten. Die Frage lautet, was allen dreien gemeinsam ist.</p>
+  <div class="trio" id="defs"></div>
+  <p style="margin:16px 0 0"><button class="btn" id="kernBtn" aria-expanded="false" aria-controls="kernBox">Was haben alle drei gemeinsam?</button></p>
+  <div class="readme" id="kernBox" hidden style="margin-top:14px">
+    <b>Alle drei brauchen einen Bezugspunkt.</b> Reichmann nennt ihn <b>Ziel</b> und <b>Strategie</b>, die ISO nennt ihn <b>Ziele</b>, Gleißner nennt ihn <b>geplantes oder erwartetes Ergebnis</b>. Ohne definiertes Ziel, ohne Plan, ohne Erwartung gibt es kein Risiko, sondern nur Ungewissheit. Daraus folgt unmittelbar die Notwendigkeit von <b>Plangrößen</b> — und damit die erste Aufgabe, bevor irgendetwas bewertet werden kann.
+  </div>
+
+  <h2 class="sec">Gefahr oder Risiko <span class="src kb">Kursbuch S. 76</span></h2>
+  <div class="duo">
+    <div class="card" style="border-left:3px solid var(--grey-mid)">
+      <p class="ck">Nicht bewertet</p><h3>Gefahr</h3>
+      <p>Sind Wahrscheinlichkeit und Auswirkungen des Eintretens eines negativen Ereignisses <b>nicht bekannt</b>, wird es als Gefahr betrachtet.</p>
+      <p>Eine Gefahr lässt sich nicht in eine Karte eintragen. Ihr fehlen beide Koordinaten.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--teal)">
+      <p class="ck">Bewertet</p><h3>Risiko</h3>
+      <p>Ein Ereignis, das negativen Einfluss auf eine Organisation hat und dazu führt, dass Planungen nicht eingehalten werden können. Hinzu kommen eine gewisse <b>Eintrittswahrscheinlichkeit</b> und <b>ermittelbare Ursachen</b>.</p>
+      <p>Ein Risiko ist also ein <b>bewertetes</b> Ereignis. Das ist die logische Voraussetzung dafür, dass eine Risk-Map überhaupt zeichenbar ist.</p>
+    </div>
+  </div>
+
+  <h2 class="sec">Das Risikopotenzial: drei Faktoren, kumulativ <span class="src kb">Kursbuch S. 76</span></h2>
+  <p class="sub">Risikomanagement wird beim Vorliegen eines gewissen Risikopotenzials betrieben. Fällt einer der drei Faktoren weg, liegt keines vor. Über eine Karte fahren.</p>
+  <div class="trio">
+    <div class="card" data-k="pot1" tabindex="0" style="cursor:help"><p class="ck">Faktor 1</p><h3>Eine konkrete begründete Bedrohung</h3><p>Nicht ein diffuses Unbehagen, sondern ein benennbares Ereignis mit benennbarer Ursache.</p></div>
+    <div class="card" data-k="pot2" tabindex="0" style="cursor:help"><p class="ck">Faktor 2</p><h3>Eine Schwachstelle in der Supply Chain</h3><p>Die Stelle, an der die Bedrohung wirksam werden kann. Ohne sie trifft die Bedrohung ins Leere.</p></div>
+    <div class="card" data-k="pot3" tabindex="0" style="cursor:help"><p class="ck">Faktor 3</p><h3>Potenzieller Schaden an einem bedeutenden Wert</h3><p>Hinter der Schwachstelle muss etwas stehen, dessen Verlust zählt. Sonst ist der Treffer folgenlos.</p></div>
+  </div>
+
+  <h2 class="sec">Was ein Supply-Chain-Risiko besonders macht <span class="src kb">Kursbuch S. 69</span></h2>
+  <p class="sub">Ein Schaden, der anhand der Wahrscheinlichkeit seines Auftretens zu bewerten ist, <b>mehr als ein Unternehmen</b> des Wertschöpfungsnetzwerks betrifft und seinen Ursprung innerhalb eines Beteiligten oder im direkten Umfeld der Kette hat. Tritt bei einem Beteiligten ein Risiko auf, macht es sich bei anderen als Nachfrage- oder Versorgungsrisiko bemerkbar. Für die Bewertung ist gleichgültig, ob ein Partner das Risiko auslöst oder ob die Ursache in seinem Umfeld liegt.</p>
+  <div class="duo">
+    <div class="card"><p class="ck">Der Effekt</p><h3>Vulnerability</h3>
+      <p>Die <b>Verletzlichkeit der Supply Chain</b>: der Effekt der Folgeschäden innerhalb der Kette.</p>
+      <p>Ursachen der Zunahme: der Trend zu schlanken Wertschöpfungsnetzwerken, die Globalisierung, die hohe Komplexität und die enge Verzahnung verschiedener Supply Chains.</p></div>
+    <div class="card" style="border-left:3px solid var(--ochre)"><p class="ck">Der Grenzfall</p><h3>Schwarze Schwäne</h3>
+      <p>Geschehnisse, die nicht vorhersehbar und äußerst unwahrscheinlich sind und von den Beteiligten nicht beeinflusst werden können — etwa Naturkatastrophen. Ihnen kann das Supply Chain Management nur mit <b>Notfallplänen</b> begegnen, deren Durchführung im Ernstfall häufig doch nicht möglich ist.</p>
+      <p style="color:#B25E00;font-weight:600">Merken Sie sich diesen Fall. In Reiter 02 verschwindet er im Produkt aus Wahrscheinlichkeit und Ausmaß — und das ist kein Rechenfehler, sondern die Schwäche des Instruments.</p></div>
+  </div>
+
+  <h2 class="sec">Der Prozess als Kreislauf <span class="src fol">Folie 3</span> <span class="src kb">Kursbuch S. 78</span></h2>
+  <p class="sub">Kontinuierliche Identifikation, Beurteilung, Steuerung und Überwachung unternehmerischer Risiken. Auf eine Phase klicken; der Schalter blendet die Zählung des Kursbuchs darüber.</p>
+
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Zählung">
+      <button id="zFolien" aria-pressed="true">Vier Phasen · Foliensatz</button>
+      <button id="zKursbuch" aria-pressed="false">Drei Hauptpunkte · Kursbuch</button>
+    </div>
+  </div>
+
+  <div class="mapwrap">
+    <div class="stage" tabindex="0">
+      <svg class="proc" id="procSvg" viewBox="0 0 660 420" role="img"
+           aria-label="Risikoregelkreis mit den vier Phasen Identifikation, Beurteilung, Steuerung und Überwachung"></svg>
+    </div>
+    <div class="detail" id="procDetail"></div>
+  </div>
+  <p class="hint scrollhint">Diagramm seitlich scrollbar</p>
+
+  <div class="readme warn" style="margin-top:16px">
+    <b>Warum ein Kreislauf und keine Abfolge.</b> Der Erfolg des Risikomanagements hängt davon ab, dass Risiken in einem <b>periodischen</b> Prozess frühzeitig erkannt und analysiert werden; auch im laufenden Betrieb neu auftretende Risiken sind periodisch ergebnisbezogen zu analysieren. Wird der Prozess einmalig durchlaufen, ist er kein Risikomanagement, sondern eine Momentaufnahme. Und: Risikomanagement setzt an, <b>bevor</b> Risiken absehbar oder gar eingetreten sind. Wird erst gehandelt, wenn ein akutes Risiko vorliegt, ist es <b>Krisenmanagement</b>.
+  </div>
+
+  <h2 class="sec">Risikoidentifikation <span class="src fol">Folie 4</span></h2>
+  <p class="sub">Nach Diederichs 2023. Drei Aufgaben — die dritte wird in der Lehre meist übergangen und ist die interessanteste.</p>
+  <div class="trio">
+    <div class="card"><p class="ck">Aufgabe 1</p><h3>Identifikation interner und externer Risiken</h3><p>Mit Hilfe leistungsfähiger Instrumente — Checklisten, Prozessdokumentation, spezifische Analysen je Produkt und Dienstleistung.</p></div>
+    <div class="card"><p class="ck">Aufgabe 2</p><h3>Erstellung eines Risikoprofils</h3><p>Dokumentation der Risiken, gegliedert nach Risikokategorien und Risikofeldern.</p></div>
+    <div class="card" style="border-left:3px solid var(--red)"><p class="ck">Aufgabe 3</p><h3>Berücksichtigung der Grenzen</h3>
+      <p>Die Identifikation bleibt <b>prinzipiell unvollständig</b>. Marktumfeld und eigene Kettenentwicklung sind dafür meist viel zu dynamisch. Als kontinuierlicher Prozess ermöglicht Risikomanagement die <b>Begrenzung</b> von Einzelrisiken und Gesamtrisiko — nicht ihre Beseitigung.</p></div>
+  </div>
+
+  <h2 class="sec">Suchfelder der spezifischen Analyse <span class="src kb">Kursbuch S. 78 f.</span></h2>
+  <p class="sub">Produktspezifische Risiken können durch <b>Irrtum, Absicht oder Zufall</b> ausgelöst werden. Alle drei Felder werden mit speziellen Fragen abgearbeitet.</p>
+  <div class="tscroll" tabindex="0">
+    <table class="tbl" style="min-width:600px">
+      <thead><tr><th>Suchfeld</th><th>Beispielfragen</th></tr></thead>
+      <tbody>
+        <tr><td class="crit">Produktion</td><td>Ist die Produktion im Zeitfenster gewährleistet? Stehen alle Hilfsmittel zur Verfügung? Ist das neue Produkt kompatibel zur bisherigen Palette?</td></tr>
+        <tr><td class="crit">Kaufmännisch</td><td>Währungsstabilität bei Importen, Auswirkungen steigender Rohstoffmarktpreise.</td></tr>
+        <tr><td class="crit">Humanressourcen</td><td>Ist ausreichend geeignetes Personal vorhanden oder rekrutierbar?</td></tr>
+        <tr><td class="crit">Unternehmensumwelt</td><td>Gesetzliche Auflagen und Normen, politische Risiken, Verhalten der Wettbewerber.</td></tr>
+        <tr><td class="crit">Vertragspartner</td><td>Abgeschlossene Verträge, Qualitätsbewusstsein und Termintreue von Zulieferern.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="sub" style="margin-top:12px">Ergebnis ist eine Dokumentation mit Kurzbeschreibung der potenziellen Risiken, dem Zusammenhang von Ursache und Wirkung, dem Zeitpunkt des wahrscheinlichen Eintreffens, den erforderlichen Randbedingungen und der potenziellen Tragweite. Ein probates Mittel sind <b>Risiko-Checklisten</b> auf Basis von Erfahrungswerten aus historischen Aufzeichnungen, die um neue Erfahrungen ergänzt werden.</p>
+
+  <h2 class="sec">Fünf Risikoquellen <span class="src kb">Kursbuch S. 70 ff.</span></h2>
+  <p class="sub">Gegliedert nach dem Ort der Entstehung. Karte anklicken für das Beispiel des Kursbuchs; der Schalter färbt nach endogen und exogen um.</p>
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Gliederung">
+      <button id="qQuelle" aria-pressed="true">Nach Risikoquelle</button>
+      <button id="qHerkunft" aria-pressed="false">Endogen und exogen</button>
+    </div>
+    <p class="legend" id="qNote" style="margin:0"></p>
+  </div>
+  <div class="deck" id="quellen"></div>
+</section>
+
+<!-- ============================ TAB B · DIE RISK-MAP ============================ -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
+  <p class="claim">Zwei Achsen, ein Produkt, drei Zonen. Und eine Grenzlinie, die <b>keine Diagonale</b> ist — was die meisten überrascht und der eigentliche Lerninhalt dieser Karte ist.</p>
+
+  <h2 class="sec">Die beiden Achsen <span class="src fol">Folien 5 bis 8</span> <span class="src kb">Kursbuch S. 80</span></h2>
+  <p class="sub">Die Risk-Map dient der systematischen Analyse, Bewertung und Klassifikation interner und externer Risiken. Sie senkrechte Achse trägt die Eintrittswahrscheinlichkeit, die waagerechte das Schadensausmaß.</p>
+  <div class="readme">
+    <b>Zwei Quellen, dieselben zwei Achsen.</b> Der Foliensatz zeichnet ein Raster aus Eintrittswahrscheinlichkeit und Schadensausmaß; das Kursbuch schreibt unabhängig davon, die Risikobewertung erfolge klassischerweise in den Dimensionen <b>Schadenhöhe</b> und <b>Eintrittswahrscheinlichkeit</b>. Dass zwei Quellen ohne voneinander abzuschreiben dieselben Achsen benennen, weist die Systematik als Standard aus — nicht als Meinung eines Autors.
+  </div>
+
+  <h2 class="sec">Womit wird gemessen? <span class="src kb">Kursbuch S. 80</span></h2>
+  <div class="trio">
+    <div class="card"><p class="ck">Variante I</p><h3>Kardinalskala</h3>
+      <p>Auch Verhältnis- oder Intervallskala. Werte sind reelle Zahlen und stehen zueinander in Beziehung.</p>
+      <p><i>Beispiel: Transportkosten pro Kilometer — Kosten in Euro ins Verhältnis zur gefahrenen Strecke.</i></p>
+      <p style="color:var(--teal-dk);font-weight:600">Als einzige rechenbar.</p></div>
+    <div class="card" style="border-left:3px solid var(--teal)"><p class="ck">Variante II</p><h3>Ordinalskala</h3>
+      <p>Auch Rang- oder Rangstufenskala. Werte werden in eine Reihenfolge gebracht, ohne absolute Zahlen.</p>
+      <p><i>Beispiel: Lieferanten nach Zuverlässigkeit, Arbeitnehmer nach Dauer der Betriebszugehörigkeit.</i></p>
+      <p style="color:var(--teal-dk);font-weight:600">In der Praxis am häufigsten — und die Skala dieser Karte.</p></div>
+    <div class="card"><p class="ck">Variante III</p><h3>Nominalskala</h3>
+      <p>Reine Aufzählung ohne Bewertung und ohne Rangfolge.</p>
+      <p><i>Beispiel: gelbe, blaue und rote Autos.</i></p>
+      <p style="color:var(--grey);font-weight:600">Für eine Risk-Map unbrauchbar.</p></div>
+  </div>
+  <p class="sub" style="margin-top:14px">Manche Risiken lassen sich kardinal nicht darstellen. Die Veränderung von Transportkosten ist in Zahlen darstellbar; bei Terminverzögerungen kommt neben der Vertragsstrafe auch der <b>Imageverlust</b> hinzu. Wegen dieser vielfältigen Auswirkungen werden in der Praxis häufig ordinale Skalierungen herangezogen. Risiken, die sich gar nicht skalieren lassen, werden <b>unternehmerisch-summarisch</b> erfasst: Maßnahmen werden beschlossen, ohne dass eine Analyse der Tragweite möglich ist. Maßstäbe sind dann Markenbewusstsein, Firmenimage oder volkswirtschaftliche Kriterien.</p>
+
+  <div class="readme warn" style="margin-top:8px">
+    <b>Die methodische Pointe, offen ausgesprochen.</b> Die Risk-Map ist in der Praxis fast immer <b>ordinal</b>, wird aber <b>multiplikativ</b> ausgewertet, als wäre sie kardinal. Streng genommen darf man Rangplätze nicht multiplizieren. Das ist angreifbar — und zugleich der Grund, warum die Karte ein <b>Kommunikationswerkzeug</b> ist und kein Rechenwerkzeug.
+  </div>
+
+  <h2 class="sec">Die Skalen dieser Einheit <span class="src erg">Ergänzung</span></h2>
+  <p class="sub">Der Foliensatz nutzt drei Stufen je Achse. Für Schieberegler ist das zu grob, deshalb hier eine Fünferskala. Die Deutungshilfen stammen aus keiner der beiden Quellen — sie sind nötig, damit zwei Personen dieselbe Stufe gleich verstehen. Genau darin liegt der Sinn einer <b>Skalenverankerung</b>.</p>
+  <div class="duo">
+    <div class="tscroll" tabindex="0">
+      <table class="tbl" style="min-width:0">
+        <thead><tr><th>W</th><th>Eintrittswahrscheinlichkeit</th><th>Deutungshilfe</th></tr></thead>
+        <tbody id="skalaW"></tbody>
+      </table>
+    </div>
+    <div class="tscroll" tabindex="0">
+      <table class="tbl" style="min-width:0">
+        <thead><tr><th>S</th><th>Schadensausmaß</th><th>Deutungshilfe</th></tr></thead>
+        <tbody id="skalaS"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2 class="sec">Risikofaktor und Zonen <span class="src kb">Kursbuch S. 81</span> <span class="src erg">Zonierung: Ergänzung</span></h2>
+  <div class="duo">
+    <div class="card"><p class="ck">Die Formel</p><h3>Risikofaktor</h3>
+      <p><code class="f">RF = Tragweite (T) × Wahrscheinlichkeit (W)</code></p>
+      <p>Bei einer Fünferskala je Achse liegt RF zwischen <b>1 und 25</b>. Der Risikofaktor dient dazu, neutral bewerten zu können, welche Auswirkungen ein Risiko hat.</p>
+      <p>Nicht jeder Wert kommt vor: aus zwei ganzen Zahlen von 1 bis 5 entstehen nur 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 16, 20 und 25. Eine 7, 11, 13 oder 14 gibt es auf dieser Karte nicht.</p></div>
+    <div class="card" style="border-left:3px solid #B23C2C"><p class="ck">Die Grenze</p><h3>Die Toleranzlinie ist eine Hyperbel</h3>
+      <p>Weil der Risikofaktor ein <b>Produkt</b> ist, verläuft die Linie gleichen Risikos nicht gerade. Alle Punkte mit W × S = 12 liegen auf derselben Kurve: 3 × 4, 4 × 3, 2,4 × 5.</p>
+      <p class="warn">Eine Diagonale würde diese Punkte trennen. In der Karte unten ist die Kurve gestrichelt eingezeichnet — der sichtbare Unterschied zur erwarteten Geraden ist selbst ein Lerninhalt.</p></div>
+  </div>
+  <div class="tscroll" tabindex="0" style="margin-top:14px">
+    <table class="tbl" style="min-width:520px">
+      <thead><tr><th>Zone</th><th>Risikofaktor</th><th>Bedeutung</th></tr></thead>
+      <tbody id="zonen"></tbody>
+    </table>
+  </div>
+
+  <h2 class="sec">Die Karte <span class="src fol">Folie 5</span> <span class="src erg">Fünferskala und Zonierung: Ergänzung</span></h2>
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Betriebsart der Risk-Map">
+      <button id="mA" aria-pressed="true">A · Selbst einschätzen</button>
+      <button id="mB" aria-pressed="false">B · Frei experimentieren</button>
+      <button id="mC" aria-pressed="false">C · Katalog ansehen</button>
+    </div>
+    <div class="zonekey">
+      <span class="k"><i class="g"></i>Grün · Akzeptanz</span>
+      <span class="k"><i class="y"></i>Gelb · Beobachtung</span>
+      <span class="k"><i class="r"></i>Rot · Handlung</span>
+    </div>
+  </div>
+
+  <div class="mapwrap">
+    <div class="mapstage" tabindex="0">
+      <svg class="rm" id="rmMain" viewBox="0 0 560 580" role="img"
+           aria-label="Risk-Map mit Eintrittswahrscheinlichkeit senkrecht, Schadensausmaß waagerecht, drei Zonen und der Risikotoleranzlinie"></svg>
+    </div>
+    <div>
+      <div class="figs" id="rmFigs"></div>
+      <div class="detail" id="rmDetail"></div>
+    </div>
+  </div>
+  <p class="hint scrollhint">Karte seitlich scrollbar</p>
+
+  <div id="modeA">
+    <div class="bar" style="margin-top:20px">
+      <p class="legend" style="margin:0"><span class="key" id="aProgress"></span></p>
+      <div class="seg" role="group" aria-label="Steuerung Modus A">
+        <button id="aBack">Zurück</button>
+        <button id="aNext">Setzen und weiter</button>
+        <button id="aCompare">Vergleichen</button>
+        <button id="aReset">Neu beginnen</button>
+      </div>
+    </div>
+    <div class="card" id="aCard"></div>
+    <div class="rgrid" id="aSliders" style="margin-top:12px"></div>
+    <div id="aResult" hidden style="margin-top:18px"></div>
+  </div>
+
+  <div id="modeB" hidden>
+    <div class="bar" style="margin-top:20px">
+      <label class="chk" style="display:inline-flex;align-items:center;gap:9px;font-size:.88rem;font-weight:600;color:#3d3d40;cursor:pointer;background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:10px 15px">
+        <input type="checkbox" id="isoToggle" style="accent-color:var(--teal-dk);width:16px;height:16px"> Isolinie gleichen Risikofaktors zeigen
+      </label>
+      <p class="legend" style="margin:0"><span class="key">Frei benennbar — die Bezeichnung erscheint an der Karte.</span></p>
+    </div>
+    <div class="duo">
+      <div class="card">
+        <p class="ck">Eigenes Risiko</p>
+        <label for="bName" style="display:block;font-size:.86rem;font-weight:600;margin:0 0 7px">Bezeichnung</label>
+        <input type="text" id="bName" value="Eigenes Risiko" maxlength="42"
+               style="width:100%;font-family:var(--sans);font-size:.9rem;padding:9px 11px;border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper);color:var(--ink)">
+        <div class="rgrid" id="bSliders" style="margin-top:14px"></div>
+      </div>
+      <div class="detail" style="min-height:0">
+        <p class="dk">Die Rechnung, mit eingesetzten Zahlen</p>
+        <div class="calc" id="bCalc" style="font-family:var(--mono);font-size:.8rem;background:var(--canvas);border-radius:7px;padding:11px 13px;line-height:1.75;color:#3d3d40;white-space:pre-wrap;font-variant-numeric:tabular-nums;overflow-x:auto"></div>
+        <p style="margin-top:12px" id="bIso"></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="modeC" hidden>
+    <div class="tscroll" tabindex="0" style="margin-top:20px">
+      <table class="tbl" style="min-width:700px">
+        <thead><tr><th>ID</th><th>Risiko</th><th>Kategorie</th><th>W</th><th>S</th><th>RF</th><th>Zone</th></tr></thead>
+        <tbody id="katalog"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2 class="sec">Das Rechenbeispiel des Kursbuchs <span class="src kb">Kursbuch S. 81</span></h2>
+  <div class="readme warn">
+    <b>Achtung, Skalenwechsel.</b> Das folgende Beispiel arbeitet mit einer <b>Zehnerskala</b>, diese Lerneinheit mit einer Fünferskala. Es steht deshalb hier abgesetzt und speist die Karte oben nicht. Der Wechsel wird offen benannt, statt ihn zu glätten: Die Zahlenwerte einer Risk-Map haben nur <b>innerhalb einer festgelegten Konvention</b> Bedeutung.
+  </div>
+  <div class="duo" style="margin-top:14px">
+    <div class="card"><p class="ck">Unternehmen A</p><h3>Sprinkleranlage</h3>
+      <p>Senkt die Tragweite von Brandschäden, nicht aber das Brandrisiko selbst.</p>
+      <div class="calc" style="font-family:var(--mono);font-size:.82rem;background:var(--canvas);border-radius:7px;padding:11px 13px;line-height:1.8;white-space:pre;font-variant-numeric:tabular-nums;overflow-x:auto">vorher:   10 (T) × 3 (W) = 30
+nachher:   9 (T) × 3 (W) = 27
+Differenz: 30 − 27       =  3</div></div>
+    <div class="card" style="border-left:3px solid #2E7D4F"><p class="ck">Unternehmen B</p><h3>Schulung der Mitarbeitenden</h3>
+      <p>Ergänzend hinsichtlich der Vermeidung von Bränden und Brandschäden.</p>
+      <div class="calc" style="font-family:var(--mono);font-size:.82rem;background:var(--canvas);border-radius:7px;padding:11px 13px;line-height:1.8;white-space:pre;font-variant-numeric:tabular-nums;overflow-x:auto">vorher:   10 (T) × 3 (W) = 30
+nachher:   4 (T) × 1 (W) =  4
+Differenz: 30 −  4       = 26</div>
+      <p style="margin-top:10px;font-weight:600;color:#2E7D4F">Die zweite Maßnahme ist deutlich effektiver — und sie wirkt auf <b>beide</b> Achsen.</p></div>
+  </div>
+  <p class="sub" style="margin-top:12px">Die Effizienz einer Maßnahme ist die Differenz der Risikofaktoren vor und nach ihrer Durchführung: <code class="f">Effizienz = RF vorher − RF nachher</code>. Je größer die Differenz, desto höher die Effizienz.</p>
+
+  <h2 class="sec">Drei Punkte, über die zu streiten sich lohnt <span class="src erg">Ergänzung</span></h2>
+  <div class="trio" id="streit"></div>
+</section>
+
+<!-- ============================ TAB C · STEUERN ============================ -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
+  <p class="claim">In der Risk-Map ist das Bruttorisiko der <b>Ausgangspunkt</b>, das Nettorisiko der <b>Endpunkt</b> und die Maßnahme der <b>Pfeil dazwischen</b>. Der Pfeil ist das eigentliche Managementobjekt.</p>
+
+  <h2 class="sec">Brutto und Netto <span class="src fol">Folien 6 bis 8</span></h2>
+  <div class="duo">
+    <div class="card"><p class="ck">Inherent Risk</p><h3>Bruttorisiko</h3>
+      <p>Das Risiko, das in einer bestimmten Situation besteht, <b>bevor</b> irgendwelche Maßnahmen zur Risikobewältigung ergriffen werden. Das Risiko in seiner rohen Form, ohne Schutzmaßnahmen und ohne Kontrollen. Betrachtet werden nur die ursprüngliche Eintrittswahrscheinlichkeit und die Auswirkungen.</p>
+      <p><i>Beispiel des Foliensatzes: In einem Produktionsbetrieb besteht ein Bruttorisiko für Maschinenausfälle, die ohne Wartung und Kontrollen häufig auftreten könnten. Wahrscheinlichkeit und Auswirkungen wären hoch.</i></p></div>
+    <div class="card"><p class="ck">Residual Risk</p><h3>Nettorisiko</h3>
+      <p>Das verbleibende Risiko, <b>nachdem</b> Risikokontroll- oder Risikominderungsmaßnahmen implementiert wurden. Das bereinigte Risiko, das noch existiert, nachdem alle Vorkehrungen getroffen wurden, um Eintrittswahrscheinlichkeit und Auswirkungen zu reduzieren.</p>
+      <p><i>Beispiel des Foliensatzes: Durch regelmäßige Wartung und den Einbau von Ersatzteilen sinkt das Ausfallrisiko — sowohl in der Wahrscheinlichkeit als auch in den Folgen.</i></p></div>
+  </div>
+  <div class="readme" style="margin-top:16px">
+    <b>Wozu beide Werte?</b> Die Brutto-Netto-Betrachtung hilft, die <b>Wirtschaftlichkeit</b> von Risikominderungsmaßnahmen zu verstehen und gleichzeitig das verbleibende Risiko zu bewerten. Wer nur Nettorisiken führt, kann die bereits bestehenden Kontrollen nicht mehr rechtfertigen — ihre Wirkung ist dann unsichtbar geworden.
+  </div>
+
+  <h2 class="sec">Vier Maßnahmen gegen R1 <span class="src erg">Ergänzung</span></h2>
+  <p class="sub">Ausgangspunkt ist R1, der Ransomware-Angriff auf das ERP-System, brutto W = 4 und S = 5. Maßnahmen zuschalten und den Pfeil beobachten: <b>präventive</b> Maßnahmen bewegen den Punkt senkrecht, <b>korrektive</b> waagerecht.</p>
+
+  <div class="mapwrap">
+    <div class="mapstage" tabindex="0">
+      <svg class="rm" id="rmNetto" viewBox="0 0 560 580" role="img"
+           aria-label="Risk-Map mit dem Bruttorisiko R1 und dem Weg zum Nettorisiko"></svg>
+    </div>
+    <div>
+      <div class="figs" id="nFigs"></div>
+      <div class="mlist" id="nMass"></div>
+    </div>
+  </div>
+  <p class="hint scrollhint">Karte seitlich scrollbar</p>
+
+  <div class="readme" id="nHint" style="margin-top:16px"></div>
+
+  <h2 class="sec">Aufwand-Nutzen-Analyse <span class="src kb">Systematik: Kursbuch S. 81 f., Tabelle 5</span> <span class="src erg">Zahlen: Ergänzung</span></h2>
+  <p class="sub">Nutzen jeweils als Reduktion des Risikofaktors, gerechnet von der Bruttoposition aus, jede Maßnahme <b>allein</b> betrachtet. Maßnahmen haben einen Nutzen für die Supply Chain, verursachen aber auch Kosten — deshalb gehört zu einem sinnvollen Risikomanagement stets eine dezidierte Aufwand-Nutzen-Analyse.</p>
+  <div class="tscroll" tabindex="0">
+    <table class="tbl" style="min-width:760px">
+      <thead><tr><th>ID</th><th>Maßnahme</th><th>Typ</th><th>RF allein</th><th>Nutzen</th><th>Aufwand T€</th><th>T€ je Nutzen</th><th>Rang</th></tr></thead>
+      <tbody id="anBody"></tbody>
+    </table>
+  </div>
+  <p class="sub" style="margin-top:12px">Sobald die Maßnahmen ausgewählt sind, werden sie einem für die Durchführung Verantwortlichen zugeordnet. Maßgeblich für die Auswahl ist, welches Ausmaß die Auswirkungen auf das Wertschöpfungsnetzwerk annehmen, wenn das Risiko <b>nicht</b> behandelt wird, und wie groß das Restrisiko ist, wenn Gegenmaßnahmen ergriffen werden.</p>
+
+  <h2 class="sec">Fünf Steuerungsstrategien <span class="src fol">Folien 9 und 10</span></h2>
+  <p class="sub">Der Foliensatz zeigt jede Strategie als <b>Bewegung</b> eines Risikos in der Karte. Erster Klick zeichnet nur den Vektor, zweiter Klick führt die Bewegung aus.</p>
+
+  <div class="readme warn">
+    <b>Der Schlüssel zu allen fünf Pfeilen.</b> Das Kursbuch formuliert auf S. 81 die Regel: <b>Korrektive Maßnahmen beeinflussen meistens die Tragweite</b> der Risiken, <b>während Prävention sich auf die Wahrscheinlichkeit</b> des Auftretens auswirkt. Damit ist jede Pfeilrichtung erklärbar, ohne eine Liste auswendig zu lernen: waagerecht ist korrektiv, senkrecht ist präventiv, diagonal ist beides, und keine Bewegung ist keines von beidem.
+  </div>
+
+  <div class="strat" id="strats" style="margin-top:16px"></div>
+
+  <div class="mapwrap" style="margin-top:16px">
+    <div class="mapstage" tabindex="0">
+      <svg class="rm" id="rmStrat" viewBox="0 0 560 580" role="img"
+           aria-label="Risk-Map zum Ausprobieren der fünf Steuerungsstrategien"></svg>
+    </div>
+    <div>
+      <div class="rgrid" id="sSliders"></div>
+      <div class="detail" id="sDetail" style="margin-top:12px"></div>
+    </div>
+  </div>
+  <p class="hint scrollhint">Karte seitlich scrollbar</p>
+
+  <div class="tscroll" tabindex="0" style="margin-top:16px">
+    <table class="tbl" style="min-width:660px">
+      <thead><tr><th>Bewegung</th><th>Achse</th><th>Maßnahmentyp</th><th>Strategien</th></tr></thead>
+      <tbody>
+        <tr><td class="crit">waagerecht</td><td>Schadensausmaß</td><td>korrektiv</td><td>Überwälzen, Diversifizieren</td></tr>
+        <tr><td class="crit">senkrecht</td><td>Eintrittswahrscheinlichkeit</td><td>präventiv</td><td>Vermeiden</td></tr>
+        <tr><td class="crit">diagonal</td><td>beide</td><td>präventiv und korrektiv kombiniert</td><td>Verringern</td></tr>
+        <tr><td class="crit">keine</td><td>keine</td><td>keiner</td><td>Akzeptieren</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="sec">Vier Positionen, vier Überlegungen <span class="src erg">Ergänzung</span></h2>
+  <p class="sub">Keine Prüfungsaufgabe und keine Punktewertung — vier Lagen aus der Karte, zu denen jeweils eine begründete Überlegung aufklappt.</p>
+  <div class="acc" id="zuordnung"></div>
+
+  <h2 class="sec">Die BAUM-Struktur der Risikovorsorge <span class="src kb">Kursbuch S. 81, nach Rohrschneider 1998</span></h2>
+  <p class="sub">Sobald Risiken erfasst und analysiert sind, werden Gegenmaßnahmen geplant und eingeleitet — mit einer individuellen Betrachtung jedes einzelnen Risikos nach dieser Struktur. Hier ausgefüllt für R1.</p>
+  <div class="baum" id="baum"></div>
+  <p class="sub" style="margin-top:14px">Risikomanagement bedeutet, dass Risiken erkannt und durch <b>Ausweichen, Minderung oder Abwehr</b> behandelt werden. Die Maßnahmenplanung erfolgt zumeist unterschieden nach präventiven und korrektiven Handlungsweisen. In der Praxis ist allerdings häufig für akute, nicht vorplanbare Ereignisse eine schnelle Schadensbegrenzung herbeizuführen; die Beurteilung dieser bereits aufgetretenen und behandelten Risiken erfolgt im Nachgang, um künftig ähnlich gelagerte Störungen zu vermeiden oder besser beheben zu können.</p>
+</section>
+
+<!-- ============================ TAB D · ÜBERWACHEN ============================ -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
+  <p class="claim">Jedes strategische Ziel hat eine <b>Chancenseite</b> und eine <b>Risikoseite</b>. Risikoüberwachung ist deshalb keine eigene Disziplin neben der Steuerung, sondern <b>deren Rückseite</b>.</p>
+
+  <h2 class="sec">Die vier Aufgaben der Überwachung <span class="src fol">Folie 11</span></h2>
+  <div class="quad" id="ueberw"></div>
+
+  <h2 class="sec">Die Balanced Chance- und Risk-Card <span class="src fol">Folie 12</span></h2>
+  <p class="sub">Das Instrument koppelt eine Balanced Scorecard mit dem Risikoregister. Der Aufbau wird hier eigenständig gezeichnet, nicht aus der Folie übernommen — Schritt für Schritt.</p>
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Aufbauschritte">
+      <button id="bcrPrev">Zurück</button>
+      <button id="bcrNext">Nächster Aufbauschritt</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="bcrStep"></span></p>
+  </div>
+  <div class="stage" tabindex="0">
+    <svg class="bcr" id="bcrSvg" viewBox="0 0 1040 434" role="img"
+         aria-label="Aufbau der Balanced Chance- und Risk-Card mit fünf Perspektiven, Chancenseite und Risikoseite"></svg>
+  </div>
+  <p class="hint scrollhint">Grafik seitlich scrollbar</p>
+  <div class="readme" id="bcrNote" style="margin-top:16px"></div>
+
+  <h2 class="sec">Vertiefung: Cyber-Risk-Management <span class="src fol">Folie 13</span></h2>
+  <p style="margin:0 0 14px"><button class="btn" id="cyberBtn" aria-expanded="false" aria-controls="cyberBox">Vertiefungsblock öffnen</button></p>
+  <div id="cyberBox" hidden>
+    <p class="sub">Die <b>Balanced Chance and Cyber Risk Card</b> erweitert die Card um zwei Dimensionen: die Perspektiven werden um Cyber Resilience ergänzt, und quer dazu treten Adressatenebenen. Quelle laut Fußzeile der Folie: Alexander Lawall und Maik Drozdzynski, IU International University, Securware 2025, Barcelona, 27. Oktober 2025.</p>
+    <div class="tscroll" tabindex="0">
+      <table class="tbl" style="min-width:640px">
+        <thead><tr><th>Dimension</th><th>Ausprägungen</th></tr></thead>
+        <tbody>
+          <tr><td class="crit">Perspektiven, senkrecht</td><td class="m">Finance · Growth · Market · Process · Cyber Resilience</td></tr>
+          <tr><td class="crit">Adressatenebenen, waagerecht</td><td class="m">C-Level · Middle Management · Employees</td></tr>
+          <tr><td class="crit">Verantwortungszuordnung</td><td class="m">CFO · CHRO · CSO · COO · CISO</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="duo" style="margin-top:14px">
+      <div class="card"><p class="ck">Kennzahlen der übrigen Perspektiven</p><h3>Klassisch</h3>
+        <p class="m" style="font-family:var(--mono);font-size:.8rem;line-height:1.7">Return on Equity · Days Sales Outstanding · Employee Satisfaction · Training hours per year · Net Promoter Score · Customer Retention Rate · Warranty Rate</p></div>
+      <div class="card" style="border-left:3px solid var(--ochre)"><p class="ck">Cyberbezogene Risikoindikatoren</p><h3>Neu</h3>
+        <p class="m" style="font-family:var(--mono);font-size:.8rem;line-height:1.7">Expected Annual Loss · Cyber Resilience Index · Cyber-Value at Risk · Meantime to detect · Meantime to respond · CLI · Phishing click through rate · Service Downtime per Customer · Patch Compliance Rate</p></div>
+    </div>
+    <div class="readme warn" style="margin-top:14px">
+      <b>Die Aussage der gestrichelten Linien.</b> Auf der Folie verbinden sie die Cyber-Resilience-Kennzahlen mit den übrigen Perspektiven. Ein Cyberrisiko ist damit <b>kein IT-Thema</b>, sondern ein Finanz-, Markt- und Prozessthema — mit entsprechend verteilter Verantwortung bis ins C-Level.
+    </div>
+  </div>
+
+  <h2 class="sec">Rückblende auf Ihre erste Schätzung <span class="src erg">Ergänzung</span></h2>
+  <div id="rueckblende"></div>
+
+  <h2 class="sec">Häufige Denkfehler <span class="src erg">Ergänzung</span></h2>
+  <p class="sub">Frage anklicken, um die Richtigstellung zu sehen.</p>
+  <div class="acc" id="denkfehler"></div>
+
+  <h2 class="sec">Merkblatt</h2>
+  <p style="margin:0 0 14px"><button class="btn" id="printBtn">Merkblatt drucken</button></p>
+  <div id="merkblatt">
+    <div class="merk">
+      <h3>Risikomanagement und Risk-Map auf einer Seite</h3>
+      <dl id="merkList"></dl>
+    </div>
+  </div>
+
+  <h2 class="sec">Glossar</h2>
+  <div class="glos" id="glossar"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Der Risikofaktor ist ein <b>Produkt</b>. Deshalb ist die Toleranzlinie keine Gerade, deshalb addieren sich Maßnahmenwirkungen nicht, und deshalb verschwindet der schwarze Schwan im grünen Bereich. Die Karte <b>ordnet</b> — entscheiden müssen Sie.</p>
+  </div>
+</section>
+
+<footer>
+  Lehrmaterial · Kurs MWCH02, Controlling und Risikomanagement der Supply Chain. Quellen: Foliensatz „Der Risikomanagement-Prozess“ (13 Folien) sowie IU Kursbuch Versionsnr. 002-2023-1013, Lektionen 6 und 7. Blöcke mit <span class="src fol" style="padding:2px 6px">Folie N</span> stammen aus dem Foliensatz, Blöcke mit <span class="src kb" style="padding:2px 6px">Kursbuch</span> folgen eng dem Kursbuch und sind prüfungsrelevant, Blöcke mit <span class="src erg" style="padding:2px 6px">Ergänzung</span> sind didaktische Operationalisierungen, die in keiner der beiden Quellen ausformuliert sind. Weder Folienabbildungen noch Kursbuchtabellen werden reproduziert; alle Grafiken sind eigenständig als SVG aufgebaut. Der Risikokatalog des Zulieferers für Nutzfahrzeugkomponenten ist erfunden und teilt den Fall mit der Lerneinheit <a href="supply-chain-controlling.html">Supply Chain Controlling</a>. Alle Zahlen sind illustrativ und werden zur Laufzeit aus den Rohwerten berechnet. Im Foliensatz zitierte Quellen: Reichmann 2018; ISO 31000 (2009); Gleißner 2015; Diederichs 2023; Lawall/Drozdzynski, Securware 2025.
+</footer>
+
+</div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* =====================================================================
+   0 · LERNEINHEIT — sämtliche Inhalte an einer Stelle.
+   Risikofaktor, Zone, Nettoposition, Effizienz und Rangfolge stehen
+   bewusst NICHT hier. Sie werden aus den Rohwerten gerechnet, damit
+   eine Änderung an W, S oder Aufwand sofort durch die Seite wirkt.
+   ===================================================================== */
+const LERNEINHEIT = {
+  meta:{kurs:"MWCH02", titel:"Der Risikomanagement-Prozess", dauerMin:90, stand:"2026-09"},
+
+  skalen:{
+    w:[{stufe:1,label:"sehr gering",anker:"seltener als alle zehn Jahre"},
+       {stufe:2,label:"gering",     anker:"etwa alle fünf bis zehn Jahre"},
+       {stufe:3,label:"mittel",     anker:"etwa alle ein bis fünf Jahre"},
+       {stufe:4,label:"hoch",       anker:"mehrmals jährlich"},
+       {stufe:5,label:"sehr hoch",  anker:"laufend oder monatlich"}],
+    s:[{stufe:1,label:"unwesentlich",      anker:"aus dem Tagesgeschäft aufzufangen"},
+       {stufe:2,label:"gering",            anker:"spürbar, aber ohne Wirkung auf die Lieferfähigkeit"},
+       {stufe:3,label:"mittel",            anker:"Lieferfähigkeit beeinträchtigt, der Kunde merkt es"},
+       {stufe:4,label:"schwer",            anker:"Lieferausfall, Vertragsstrafen, Imageschaden"},
+       {stufe:5,label:"existenzbedrohend", anker:"Gefährdung des Fortbestands eines Kettenglieds"}]
+  },
+
+  zonen:[{id:"g", von:1,  bis:5,  name:"Akzeptanzbereich",   kurz:"Grün",
+          bed:"tragbar, Beobachtung genügt"},
+         {id:"y", von:6,  bis:11, name:"Beobachtungsbereich", kurz:"Gelb",
+          bed:"Maßnahmen prüfen, die Wirtschaftlichkeit entscheidet"},
+         {id:"r", von:12, bis:25, name:"Handlungsbereich",    kurz:"Rot",
+          bed:"Maßnahmen erforderlich — im Foliensatz mit Warndreieck markiert"}],
+  toleranzlinie:12,
+
+  risiken:[
+    {id:"R1", name:"Ransomware-Angriff legt das ERP-System still", kat:"infrastrukturell, Cyber",
+     brutto:{w:4,s:5},
+     begr:"Angriffe dieser Art treffen Industrieunternehmen inzwischen mehrmals jährlich, wenn auch nicht jeder erfolgreich ist — W = 4. Ein stillstehendes ERP legt Disposition, Versand und Fakturierung gleichzeitig lahm; ohne Fakturierung reißt der Zahlungseingang ab — S = 5."},
+    {id:"R2", name:"Ausfall des Single-Source-Lieferanten für Steuergeräte", kat:"lieferantenseitig",
+     brutto:{w:2,s:5},
+     begr:"Ein Ausfall dieser Größenordnung tritt etwa alle fünf bis zehn Jahre ein — W = 2. Ohne qualifizierte Zweitquelle steht die Montage; S = 5. Es ist derselbe Partner, den die Lerneinheit Supply Chain Controlling als kritischen Kettenabschnitt ausweist."},
+    {id:"R3", name:"Erdbeben am asiatischen Fertigungsstandort eines Vorlieferanten",
+     kat:"Katastrophe, schwarzer Schwan", brutto:{w:1,s:5},
+     begr:"Am konkreten Standort seltener als alle zehn Jahre — W = 1. Fällt der Standort aus, ist ein Kettenglied auf unabsehbare Zeit vernichtet; S = 5. Der Fall, an dem die multiplikative Bewertung scheitert."},
+    {id:"R4", name:"Stromausfall am Zentrallager bei gleichzeitigem Notstromausfall",
+     kat:"infrastrukturell", brutto:{w:1,s:4},
+     begr:"Das Zusammentreffen beider Ausfälle ist selten — W = 1. Tritt es ein, steht das Zentrallager: Lieferausfall und Vertragsstrafen, aber kein Existenzverlust; S = 4. Vorbild ist der Fall Krankenhaus Boberg 2008."},
+    {id:"R5", name:"Streik beim Hauptfrachtführer", kat:"infrastrukturell, Personal",
+     brutto:{w:3,s:3},
+     begr:"Tarifrunden und Arbeitskämpfe treten etwa alle ein bis fünf Jahre auf — W = 3. Ausweichspediteure sind teurer und langsamer, die Lieferfähigkeit leidet spürbar und der Kunde merkt es; S = 3."},
+    {id:"R6", name:"Wechselkursschwankung bei Importteilen", kat:"kaufmännisch, exogen",
+     brutto:{w:4,s:2},
+     begr:"Spürbare Ausschläge gibt es mehrmals jährlich — W = 4. Sie belasten die Marge, nicht die Lieferfähigkeit; S = 2. Das einzige Risiko im Katalog, das sich sauber in Euro messen ließe."},
+    {id:"R7", name:"Fehlprognose durch Bullwhip-Effekt, Überbestände", kat:"kundenseitig",
+     brutto:{w:4,s:3},
+     begr:"Prognosefehler entstehen mehrmals jährlich — W = 4. Überbestände binden Kapital und Lagerfläche, die an anderer Stelle fehlt; die Lieferfähigkeit im übrigen Sortiment leidet; S = 3."},
+    {id:"R8", name:"Neue Rücknahmepflicht erzwingt Aufbau der Entsorgungslogistik",
+     kat:"gesetzlich und regulatorisch", brutto:{w:2,s:3},
+     begr:"Neue Pflichten dieser Art kommen etwa alle fünf bis zehn Jahre — W = 2. Der Aufbau bindet Zeit, Geld und Genehmigungen (abfallrechtliche Transportgenehmigung mit Sachkundenachweis); S = 3."}
+  ],
+
+  massnahmen:[
+    {id:"M1", risikoId:"R1", name:"Netzsegmentierung und Firewall",
+     typ:"praeventiv", dW:-1, dS:0, aufwand:60,
+     wirk:"Begrenzt die Ausbreitung im Netz und senkt damit die Wahrscheinlichkeit eines erfolgreichen Vollzugriffs."},
+    {id:"M2", risikoId:"R1", name:"Phishing-Schulung und Mehrfaktor-Authentifizierung",
+     typ:"praeventiv", dW:-1, dS:0, aufwand:15,
+     wirk:"Schließt den häufigsten Einstiegsweg. Wirkt auf die Wahrscheinlichkeit, nicht auf den Schaden."},
+    {id:"M3", risikoId:"R1", name:"Offline-Backup mit regelmäßig getestetem Restore",
+     typ:"korrektiv", dW:0, dS:-2, aufwand:45,
+     wirk:"Verhindert den Angriff nicht, verkürzt aber den Stillstand von Wochen auf Tage."},
+    {id:"M4", risikoId:"R1", name:"Cyber-Versicherung",
+     typ:"korrektiv", dW:0, dS:-1, aufwand:30,
+     wirk:"Überwälzung. Verhindert kein Ereignis, sondern verschiebt die finanzielle Folge."}
+  ],
+
+  strategien:[
+    {id:"transfer", de:"Überwälzen", en:"Transfer", richtung:"waagerecht", typ:"korrektiv",
+     dW:0, dS:-2, teilt:false,
+     kurz:"Die finanzielle Folge geht an einen Dritten.",
+     text:"Waagerecht nach links: Das Ausmaß sinkt, die Wahrscheinlichkeit bleibt unverändert. Eine Versicherung verhindert kein Ereignis. Genau deshalb ist Überwälzen eine korrektive und keine präventive Strategie."},
+    {id:"diversify", de:"Diversifizieren", en:"Diversification", richtung:"waagerecht", typ:"korrektiv",
+     dW:0, dS:-2, teilt:true,
+     kurz:"Aus einem großen Kreis werden zwei kleinere.",
+     text:"Ebenfalls waagerecht nach links, aber mit einer zusätzlichen Aussage: Aus einem Risiko werden zwei kleinere. Zwei Lieferanten statt einem, zwei Standorte statt einem. Die Summe der Ausmaße kann gleich bleiben — das Einzelereignis wird tragbar."},
+    {id:"avoid", de:"Vermeiden", en:"Avoidance", richtung:"senkrecht", typ:"praeventiv",
+     dW:-99, dS:0, teilt:false,
+     kurz:"Die Wahrscheinlichkeit wird gegen null gedrückt.",
+     text:"Senkrecht nach unten: Die Aktivität, aus der das Risiko entsteht, wird unterlassen. Die Wahrscheinlichkeit geht gegen null, das mögliche Ausmaß bleibt rechnerisch, wo es war. Der Preis ist der Verzicht auf den Ertrag der Aktivität."},
+    {id:"reduce", de:"Verringern", en:"Reduction", richtung:"diagonal", typ:"präventiv und korrektiv",
+     dW:-1, dS:-1, teilt:false,
+     kurz:"Beide Achsen sinken gleichzeitig.",
+     text:"Diagonal nach unten links: präventive und korrektive Maßnahmen kombiniert. Das ist der Regelfall in der Praxis und zugleich der teuerste, weil zwei Maßnahmentypen finanziert werden müssen."},
+    {id:"accept", de:"Akzeptieren", en:"Acceptance", richtung:"keine", typ:"keiner",
+     dW:0, dS:0, teilt:false,
+     kurz:"Der Punkt bleibt, wo er ist.",
+     text:"Keine Bewegung. Akzeptieren ist keine Untätigkeit, sondern eine bewusste Entscheidung nach der Bewertung — und sie gehört dokumentiert. Ignorieren dagegen ist das Auslassen der Bewertung."}
+  ],
+
+  einstieg:{risikoIds:["R3","R7"]},
+
+  prozess:{
+    phasen:[
+      {name:"Risikoidentifikation", sym:"Lupe", frage:"Welche Risiken existieren überhaupt?",
+       det:"Identifikation interner und externer Risiken, Erstellung eines Risikoprofils nach Kategorien und Risikofeldern — und die Berücksichtigung der Grenzen: Vollständigkeit ist nicht erreichbar."},
+      {name:"Risikobeurteilung", sym:"f(x)", frage:"Wie groß ist jedes einzelne?",
+       det:"Bewertung in den Dimensionen Schadenhöhe und Eintrittswahrscheinlichkeit, auf kardinaler, ordinaler oder nominaler Skala. Ergebnis ist die Position in der Risk-Map und der Risikofaktor."},
+      {name:"Risikosteuerung", sym:"Steuerrad", frage:"Was tun wir dagegen?",
+       det:"Fünf Strategien: Überwälzen, Diversifizieren, Vermeiden, Verringern, Akzeptieren. Jede ist eine Bewegung in der Karte — und jede Bewegung kostet Geld, weshalb die Aufwand-Nutzen-Analyse dazugehört."},
+      {name:"Risikoüberwachung", sym:"Streudiagramm", frage:"Wirkt es, und was hat sich verändert?",
+       det:"Kennzahlen und Indikatoren zur Messung der Zielerreichung und zur Früherkennung, Zuordnung der zielbedrohenden Risiken, Erfassung der steuernden Maßnahmen. Instrument: die Balanced Chance- und Risk-Card."}
+    ],
+    kursbuch:["Risikoidentifikation und -analyse","Steuerung auftretender Risiken","Risikokontrolle"],
+    klammer:[0,1]
+  },
+
+  quellen:[
+    {name:"Lieferantenseitig", herkunft:"endogen",
+     inhalt:"Ausfall von Lieferanten, Qualitätsprobleme, Preisschwankungen auf Beschaffungsmärkten.",
+     bsp:"Defekte Teflonbeschichtung einer 1,5 cm kleinen Buchse für Dieseleinspritzpumpen. Bauteilkosten wenige Cent, Folge: Bandstillstand bei zwei Automobilherstellern, Rückruf mehrerer tausend Fahrzeuge, Schaden in dreistelliger Millionenhöhe."},
+    {name:"Kundenseitig", herkunft:"exogen",
+     inhalt:"Störungen bei den Abnehmern, die sich rückwärts durch die Kette fortpflanzen.",
+     bsp:"Der Bullwhip-Effekt: Kleine Nachfrageschwankungen beim Endkunden schaukeln sich stromaufwärts zu großen Bestellausschlägen auf."},
+    {name:"Gesetzlich und regulatorisch", herkunft:"exogen",
+     inhalt:"Neue Pflichten erzwingen neue Strukturen — oft mit erheblichem Vorlauf und ohne Verhandlungsspielraum.",
+     bsp:"Rücknahmepflicht für Altgeräte und Verpackungen: Aufbau einer Entsorgungslogistik, abfallrechtliche Transportgenehmigung mit Sachkundenachweis."},
+    {name:"Infrastrukturell", herkunft:"endogen",
+     inhalt:"IT-Ausfall, Maschinenschaden, Personalausfall durch Krankheit, Streik oder Betrug, Versorgungsstörungen.",
+     bsp:"Krankenhaus Boberg, Februar 2008: kompletter Stromausfall nach einem Kurzschluss im Notstromaggregat, die Beatmung musste zeitweise manuell erfolgen."},
+    {name:"Katastrophenrisiken", herkunft:"exogen",
+     inhalt:"Schadereignisse mit nachhaltiger Wirkung: terroristische Akte, politische Instabilität, Naturkatastrophen.",
+     bsp:"Ausbruch des Eyjafjallajökull im März 2010: europaweite Flugausfälle, Ausweichrouten über Russland."}
+  ],
+
+  streit:[
+    {t:"R3 und der schwarze Schwan",
+     p:"Das Erdbeben hat das höchstmögliche Schadensausmaß und landet dennoch im <b>grünen</b> Bereich, weil die Wahrscheinlichkeit mit 1 bewertet ist. Der Risikofaktor stuft es als tragbar ein, obwohl es ein Kettenglied vernichten kann. Das ist die strukturelle Schwäche der multiplikativen Bewertung. Das Kursbuch antwortet darauf nicht mit einer besseren Formel, sondern mit einem anderen Instrument: dem <b>Notfallplan</b>."},
+    {t:"R7 gegen R2",
+     p:"Der Bullwhip-Effekt liegt mit Risikofaktor 12 im roten Bereich, der Ausfall des Single-Source-Lieferanten mit 10 im gelben. Nach der Zahl ist die Fehlprognose das dringendere Problem. Würden Sie dieser Reihenfolge folgen? Die Karte <b>ordnet</b>, sie entscheidet nicht."},
+    {t:"R6 und der Preis der Vergleichbarkeit",
+     p:"Die Wechselkursschwankung ist die einzige Position im Katalog, die sich sauber <b>kardinal</b> messen ließe, nämlich in Euro. Sie wird trotzdem ordinal eingestuft, um mit den übrigen vergleichbar zu bleiben. Damit geht Information verloren. Das ist der Preis der Vergleichbarkeit — und er ist bewusst zu zahlen, nicht zu übersehen."}
+  ],
+
+  zuordnung:[
+    {pos:"Hohe Wahrscheinlichkeit, geringes Ausmaß (W 5, S 2)",
+     a:"<b>Verringern oder akzeptieren.</b> Ein Ereignis, das laufend eintritt und kaum wehtut, ist ein Betriebskostenthema. Überwälzen lohnt selten — eine Versicherung, die monatlich zahlt, kostet mehr als der Schaden. Präventiv die Häufigkeit zu senken ist meist wirtschaftlicher als jede korrektive Maßnahme."},
+    {pos:"Geringe Wahrscheinlichkeit, existenzbedrohendes Ausmaß (W 1, S 5)",
+     a:"<b>Überwälzen — und ein Notfallplan.</b> Das ist die Position des schwarzen Schwans. Der Risikofaktor sagt „grün“, die Existenzfrage sagt etwas anderes. Präventiv lässt sich an einer Wahrscheinlichkeit von 1 kaum noch etwas senken; korrektiv lässt sich die Folge verlagern. Genau hier versagt die Zahl und muss das Urteil einspringen."},
+    {pos:"Hohe Wahrscheinlichkeit, hohes Ausmaß (W 4, S 5)",
+     a:"<b>Verringern, und zwar auf beiden Achsen.</b> Die rote Ecke duldet keine halbe Maßnahme. R1 zeigt es: erst präventiv die Wahrscheinlichkeit senken, dann korrektiv die Folge begrenzen. Vermeiden käme hier dem Verzicht auf das ERP-System gleich — theoretisch wirksam, praktisch keine Option."},
+    {pos:"Mittlere Wahrscheinlichkeit, mittleres Ausmaß (W 3, S 3)",
+     a:"<b>Diversifizieren, wenn es strukturell geht.</b> Die Mitte der Karte ist die Zone, in der sich Aufteilung lohnt: ein zweiter Frachtführer, ein zweiter Standort. Aus einem mittleren Risiko werden zwei kleine, und keines davon erreicht mehr die Toleranzlinie."}
+  ],
+
+  ueberwachung:[
+    ["Aufgabe 1","Erfassung strategischer Ziele","und ihre Zuordnung zu den Perspektiven."],
+    ["Aufgabe 2","Kennzahlen und Indikatoren","zur Messung der Zielerreichung und zur Risikofrüherkennung."],
+    ["Aufgabe 3","Zuordnung der Risiken","die die strategischen Ziele bedrohen."],
+    ["Aufgabe 4","Erfassung von Maßnahmen","und Projekten mit chancen- oder risikosteuernden Effekten."]
+  ],
+
+  denkfehler:[
+    ["Risiko und Gefahr sind dasselbe.",
+     "Sind Wahrscheinlichkeit und Auswirkungen nicht bekannt, spricht das Kursbuch von einer <b>Gefahr</b>. Erst die Bewertung macht daraus ein Risiko — und erst dann ist es in eine Karte eintragbar."],
+    ["Ein niedriger Risikofaktor bedeutet, dass nichts zu tun ist.",
+     "Ein schwarzer Schwan mit Wahrscheinlichkeit 1 und Ausmaß 5 landet im grünen Bereich und kann trotzdem ein Kettenglied vernichten. Für ihn ist der <b>Notfallplan</b> zuständig, nicht die Karte."],
+    ["Die Risikotoleranzlinie ist eine Diagonale.",
+     "Da der Risikofaktor ein <b>Produkt</b> ist, ist die Linie gleichen Risikos eine <b>Hyperbel</b>. Die Punkte 2 × 6 und 6 × 2 liegen auf derselben Linie — eine Gerade würde sie trennen."],
+    ["Wirkungen mehrerer Maßnahmen addieren sich.",
+     "Der Risikofaktor ist multiplikativ. Die Summe der Einzelwirkungen liegt regelmäßig <b>über</b> der tatsächlichen Gesamtwirkung. Bei R1 stehen 22 Punkten Einzelsumme nur 16 Punkte echte Wirkung gegenüber."],
+    ["Überwälzen senkt das Risiko.",
+     "Jedenfalls nicht die Eintrittswahrscheinlichkeit. Eine Versicherung verhindert kein Ereignis, sie verschiebt die finanzielle Folge. In der Karte ist das eine <b>waagerechte</b> Bewegung, keine senkrechte."],
+    ["Akzeptieren heißt, das Risiko zu ignorieren.",
+     "Akzeptieren ist eine <b>bewusste Entscheidung nach Bewertung</b> und gehört dokumentiert. Ignorieren ist das Auslassen der Bewertung — der Unterschied ist im Schadensfall auch ein haftungsrechtlicher."],
+    ["Vermeiden ist immer die beste Strategie.",
+     "Vermeiden bedeutet regelmäßig den Verzicht auf die zugrunde liegende Aktivität und damit auch auf deren <b>Ertrag</b>. Die Aufwand-Nutzen-Analyse entscheidet, nicht die Vorliebe."],
+    ["Das Bruttorisiko ist ein theoretischer Wert ohne Nutzen.",
+     "Ohne Bruttowert lässt sich die Wirkung der bereits <b>bestehenden</b> Maßnahmen nicht beziffern. Wer nur Nettorisiken führt, kann seine laufenden Kontrollen nicht rechtfertigen."],
+    ["Der Risikomanagement-Prozess ist einmal zu durchlaufen.",
+     "Er ist ein <b>periodischer Kreislauf</b>. Ein einmaliger Durchlauf ist eine Momentaufnahme — und veraltet in dem Moment, in dem sich die Kette verändert."],
+    ["Risikomanagement und Krisenmanagement sind dasselbe.",
+     "Risikomanagement setzt an, <b>bevor</b> Risiken absehbar sind. Wird erst bei akutem Risiko gehandelt, ist es Krisenmanagement."]
+  ],
+
+  merkblatt:[
+    ["Risiko",              "Ereignis mit negativem Einfluss, das Planungen verhindert, mit gewisser Eintrittswahrscheinlichkeit und ermittelbaren Ursachen. Ein <b>bewertetes</b> Ereignis."],
+    ["Gefahr",              "Negatives Ereignis, dessen Wahrscheinlichkeit und Auswirkungen <b>nicht bekannt</b> sind. Nicht in eine Karte eintragbar."],
+    ["Risikopotenzial",     "Drei Faktoren, kumulativ: begründete Bedrohung, Schwachstelle in der Kette, potenzieller Schaden an einem bedeutenden Wert."],
+    ["Die vier Phasen",     "Identifikation → Beurteilung → Steuerung → Überwachung → zurück zur Identifikation. Das Kursbuch fasst die ersten beiden zu einem Punkt zusammen: drei Hauptpunkte statt vier Phasen."],
+    ["Die beiden Achsen",   "Senkrecht die Eintrittswahrscheinlichkeit W, waagerecht das Schadensausmaß S. Beide hier ordinal 1 bis 5, mit verankerten Stufenbezeichnungen."],
+    ["Risikofaktor",        "<code>RF = T × W</code>, bei Fünferskalen zwischen 1 und 25. Zonen: 1–5 grün, 6–11 gelb, 12–25 rot."],
+    ["Toleranzlinie",       "Die Kurve aller Punkte mit W × S = 12 — eine <b>Hyperbel</b>, keine Gerade."],
+    ["Effizienz",           "<code>Effizienz = RF vorher − RF nachher</code>. Je größer die Differenz, desto höher die Effizienz."],
+    ["Brutto und Netto",    "Bruttorisiko ist der Ausgangspunkt vor allen Maßnahmen, Nettorisiko der Endpunkt danach. Der Pfeil dazwischen ist das Managementobjekt."],
+    ["Fünf Strategien",     "Überwälzen (waagerecht, korrektiv) · Diversifizieren (waagerecht, korrektiv, teilt auf) · Vermeiden (senkrecht, präventiv) · Verringern (diagonal, beides) · Akzeptieren (keine Bewegung)."],
+    ["Die Merkregel",       "<b>Korrektiv wirkt auf die Tragweite, Prävention auf die Wahrscheinlichkeit.</b> Waagerecht ist korrektiv, senkrecht ist präventiv."],
+    ["BAUM-Struktur",       "<b>B</b>eschreibung · <b>A</b>uswirkungen · <b>U</b>rsachen · <b>M</b>aßnahmen. Für jedes identifizierte Risiko einzeln."],
+    ["Nicht additiv",       "Weil RF ein Produkt ist, ergibt die Summe der Einzelwirkungen mehrerer Maßnahmen mehr als ihre tatsächliche Gesamtwirkung."]
+  ],
+
+  glossar:[
+    ["BAUM-Struktur","Raster der Risikovorsorge aus Beschreibung, Auswirkungen, Ursachen und Maßnahmen."],
+    ["Bruttorisiko, Inherent Risk","Risiko vor Ergreifen jeglicher Bewältigungsmaßnahmen."],
+    ["Eintrittswahrscheinlichkeit","Senkrechte Achse der Risk-Map."],
+    ["Gefahr","Negatives Ereignis, dessen Wahrscheinlichkeit und Auswirkungen nicht bekannt sind."],
+    ["Korrektive Maßnahme","Maßnahme, die einen entstehenden Schaden mindert und damit meist auf die Tragweite wirkt."],
+    ["Nettorisiko, Residual Risk","Verbleibendes Risiko nach Umsetzung der Maßnahmen."],
+    ["Präventive Maßnahme","Maßnahme, die einen Schaden verhindert und damit meist auf die Wahrscheinlichkeit wirkt."],
+    ["Risikofaktor","Produkt aus Tragweite und Wahrscheinlichkeit, dient der neutralen Bewertung."],
+    ["Risikopotenzial","Zusammentreffen von begründeter Bedrohung, Schwachstelle und potenziellem Schaden an einem bedeutenden Wert."],
+    ["Risikoprofil","Dokumentation der Risiken, gegliedert nach Risikokategorien und Risikofeldern."],
+    ["Risikoregelkreis","Kreislaufdarstellung des Risikomanagements aus Identifikation und Analyse, Steuerung und Kontrolle."],
+    ["Risikotoleranzlinie","Kurve gleichen Risikofaktors, oberhalb derer Handlungsbedarf besteht."],
+    ["Risk-Map","Portfolio aus Eintrittswahrscheinlichkeit und Schadensausmaß zur Analyse, Bewertung und Klassifikation von Risiken."],
+    ["Schadensausmaß","Waagerechte Achse der Risk-Map, im Kursbuch auch Schadenhöhe oder Tragweite."],
+    ["Schwarzer Schwan","Nicht vorhersehbares, äußerst unwahrscheinliches Geschehnis außerhalb der Einflussmöglichkeit der Beteiligten."],
+    ["SCRM","Supply Chain Risk Management, integraler Bestandteil des Supply Chain Managements."],
+    ["Vulnerability","Verletzlichkeit der Supply Chain, Auftreten von Folgeschäden bei weiteren Partnern."]
+  ]
+};
+
+/* =====================================================================
+   1 · Hilfsfunktionen
+   ===================================================================== */
+const $ = id => document.getElementById(id);
+const SVGNS = "http://www.w3.org/2000/svg";
+function el(p, tag, attrs, text){
+  const n = document.createElementNS(SVGNS, tag);
+  for(const k in attrs) n.setAttribute(k, attrs[k]);
+  if(text != null) n.textContent = text;
+  p.appendChild(n); return n;
+}
+const nf1 = v => v.toFixed(1).replace(".", ",");
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+
+const RF   = (w, s) => w * s;
+const ZONE = rf => LERNEINHEIT.zonen.find(z => rf >= z.von && rf <= z.bis) || LERNEINHEIT.zonen[2];
+const ankW = v => LERNEINHEIT.skalen.w[v-1];
+const ankS = v => LERNEINHEIT.skalen.s[v-1];
+const risk = id => LERNEINHEIT.risiken.find(r => r.id === id);
+
+/* =====================================================================
+   2 · Tooltip
+   ===================================================================== */
+const REG = {
+  pot1:["Faktor 1 · Bedrohung","Eine konkrete, begründete Bedrohung. Nicht „irgendwann könnte etwas passieren“, sondern ein benennbares Ereignis mit benennbarer Ursache — sonst lässt sich weder eine Wahrscheinlichkeit noch eine Maßnahme daran festmachen.","Ohne sie: kein Risikopotenzial"],
+  pot2:["Faktor 2 · Schwachstelle","Die Stelle in der Kette, an der die Bedrohung wirksam werden kann. Ein Angriff auf ein System, das es nicht gibt, ist folgenlos; eine Naturkatastrophe an einem Standort ohne eigene Wertschöpfung ebenso.","Eine Bedrohung ohne Schwachstelle trifft ins Leere"],
+  pot3:["Faktor 3 · Bedeutender Wert","Hinter der Schwachstelle muss etwas stehen, dessen Verlust zählt — Umsatz, Lieferfähigkeit, Reputation, Menschenleben. Eine Schwachstelle ohne bedeutenden Wert dahinter ist folgenlos.","Alle drei müssen zusammentreffen"]
+};
+const tip = $("tip");
+function showTip(e0, ev){
+  const d = REG[e0.dataset.k]; if(!d) return;
+  tip.innerHTML = `<p class="th">${d[0]}</p><p>${d[1]}</p>` + (d[2] ? `<p class="extra">${d[2]}</p>` : "");
+  tip.classList.add("on"); moveTip(e0, ev);
+}
+function moveTip(e0, ev){
+  let x, y;
+  if(ev && ev.clientX){ x = ev.clientX + 16; y = ev.clientY + 16; }
+  else { const r = e0.getBoundingClientRect(); x = r.left + r.width/2; y = r.top - 8; }
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  if(x + w > innerWidth - 12) x = innerWidth - w - 12;
+  if(y + h > innerHeight - 12) y = y - h - 32;
+  if(y < 8) y = 8;
+  if(x < 8) x = 8;
+  tip.style.left = x + "px"; tip.style.top = y + "px";
+}
+function hideTip(){ tip.classList.remove("on"); }
+const TSEL = "[data-k]";
+document.addEventListener("pointerover", e => {const n = e.target.closest && e.target.closest(TSEL); if(n) showTip(n, e);});
+document.addEventListener("pointermove", e => {const n = e.target.closest && e.target.closest(TSEL); if(n) moveTip(n, e);});
+document.addEventListener("pointerout", e => {
+  const from = e.target.closest && e.target.closest(TSEL); if(!from) return;
+  const to = e.relatedTarget && e.relatedTarget.closest ? e.relatedTarget.closest(TSEL) : null;
+  if(to !== from) hideTip();
+});
+document.addEventListener("focusin",  e => {const n = e.target.closest && e.target.closest(TSEL); if(n) showTip(n, null);});
+document.addEventListener("focusout", e => {if(e.target.closest && e.target.closest(TSEL)) hideTip();});
+addEventListener("scroll", hideTip, {passive:true});
+
+/* =====================================================================
+   3 · Die Risk-Map — eine Zeichenmechanik, drei Instanzen
+   ===================================================================== */
+const MX0 = 88, MX1 = 520, MY0 = 36, MY1 = 468;
+const mx = s => MX0 + (s-1)/4 * (MX1-MX0);          /* Schadensausmass, waagerecht */
+const my = w => MY1 - (w-1)/4 * (MY1-MY0);          /* Wahrscheinlichkeit, senkrecht */
+
+/* Alle Punkte mit W · S = k. Weil RF ein Produkt ist, ist das eine
+   Hyperbel und keine Gerade - der sichtbare Unterschied ist Lerninhalt. */
+function hyp(k, n){
+  n = n || 48;
+  const s0 = Math.max(1, k/5), s1 = Math.min(5, k), out = [];
+  for(let i = 0; i <= n; i++){
+    const s = s0 + (s1-s0) * i/n;
+    out.push([s, k/s]);
+  }
+  return out;
+}
+const P = (s, w) => mx(s) + "," + my(w);
+const seg = pts => pts.map(([s,w]) => "L" + P(s,w)).join(" ");
+
+function mapShell(svg){
+  svg.textContent = "";
+  const defs = el(svg, "defs", {});
+  const mk = el(defs, "marker", {id:"rmArrow", viewBox:"0 0 10 10", refX:"9", refY:"5",
+                markerWidth:"5.5", markerHeight:"5.5", orient:"auto-start-reverse"});
+  el(mk, "path", {d:"M0 0 L10 5 L0 10 z", fill:"context-stroke"});
+  const g = el(svg, "g", {});
+  const c5 = hyp(5), c12 = hyp(12);
+  const c5r = c5.slice().reverse(), c12r = c12.slice().reverse();
+
+  el(g,"path",{class:"zone zg", d:"M"+P(1,1)+" L"+P(5,1)+" "+seg(c5r)+" Z"});
+  el(g,"path",{class:"zone zy", d:"M"+P(5,1)+" "+seg(c5r)+" L"+P(12/5,5)+" "+seg(c12)+" L"+P(5,1)+" Z"});
+  el(g,"path",{class:"zone zr", d:"M"+P(12/5,5)+" L"+P(5,5)+" L"+P(5,12/5)+" "+seg(c12r)+" Z"});
+
+  el(g,"text",{class:"zlab g", x:mx(1.75), y:my(1.75)}, "GRÜN · AKZEPTANZ");
+  el(g,"text",{class:"zlab y", x:mx(3.70), y:my(2.35)}, "GELB · BEOBACHTUNG");
+  el(g,"text",{class:"zlab r", x:mx(4.35), y:my(4.45)}, "ROT · HANDLUNG");
+
+  for(let v = 1; v <= 5; v++){
+    el(g,"line",{class:"gr", x1:mx(v), y1:MY0, x2:mx(v), y2:MY1});
+    el(g,"line",{class:"gr", x1:MX0, y1:my(v), x2:MX1, y2:my(v)});
+    el(g,"text",{class:"tickX", x:mx(v), y:MY1+22}, v);
+    el(g,"text",{class:"stufe", x:mx(v), y:MY1+38}, ankS(v).label);
+    el(g,"text",{class:"tickY", x:MX0-16, y:my(v)-7}, v);
+    el(g,"text",{class:"stufeY",x:MX0-16, y:my(v)+8}, ankW(v).label);
+  }
+  el(g,"line",{class:"ax", x1:MX0, y1:MY1, x2:MX1, y2:MY1});
+  el(g,"line",{class:"ax", x1:MX0, y1:MY0, x2:MX0, y2:MY1});
+
+  el(g,"path",{class:"tol", d:"M"+P(12/5,5)+" "+seg(c12)});
+
+  el(g,"text",{class:"atitle", x:(MX0+MX1)/2, y:MY1+66}, "SCHADENSAUSMASS →");
+  const yt = el(g,"text",{class:"atitle", x:18, y:(MY0+MY1)/2}, "EINTRITTSWAHRSCHEINLICHKEIT →");
+  yt.setAttribute("transform", "rotate(-90 18 " + ((MY0+MY1)/2) + ")");
+
+  el(g,"line",{class:"tol", x1:MX0, y1:MY1+96, x2:MX0+34, y2:MY1+96});
+  el(g,"text",{class:"tickX", x:MX0+42, y:MY1+96, style:"text-anchor:start"},
+     "Risikotoleranzlinie · W × S = 12");
+  return {iso: el(svg,"g",{}), marks: el(svg,"g",{})};
+}
+
+/* marks: {id,name,w,s,cls,showName,warn} · opts: {iso, paths, links} */
+function drawMarks(layer, marks, opts){
+  opts = opts || {};
+  layer.iso.textContent = ""; layer.marks.textContent = "";
+
+  if(opts.iso){
+    const k = opts.iso;
+    if(k >= 1 && k <= 25){
+      el(layer.iso,"path",{class:"iso", d:"M"+P(hyp(k)[0][0], hyp(k)[0][1])+" "+seg(hyp(k))});
+      const midS = Math.sqrt(k) <= 5 && Math.sqrt(k) >= 1 ? Math.sqrt(k) : (Math.max(1,k/5)+Math.min(5,k))/2;
+      el(layer.iso,"text",{class:"zlab", x:mx(midS)+34, y:my(k/midS)-14,
+        style:"fill:var(--teal-dk);opacity:1;text-anchor:start"}, "RF = " + k);
+    }
+  }
+  (opts.links || []).forEach(([s1,w1,s2,w2]) =>
+    el(layer.iso,"line",{class:"link", x1:mx(s1), y1:my(w1), x2:mx(s2), y2:my(w2)}));
+
+  (opts.paths || []).forEach(p =>
+    el(layer.iso,"path",{class:p.cls || "mv",
+      d:"M"+P(p.from[1], p.from[0])+" L"+P(p.to[1], p.to[0]),
+      "marker-end":"url(#rmArrow)"}));
+
+  marks.forEach(m => {
+    const x = mx(m.s), y = my(m.w), r = m.r || 11;
+    const node = el(layer.marks,"g",{class:"pt " + (m.cls || ""), tabindex:m.id ? "0" : "-1",
+      role:"img", "aria-label":(m.name || m.id) + ": Wahrscheinlichkeit " + m.w +
+        ", Schadensausmaß " + m.s + ", Risikofaktor " + RF(m.w, m.s) + ", Zone " + ZONE(RF(m.w,m.s)).kurz});
+    if(m.id) node.dataset.id = m.id;
+    el(node,"circle",{class:"dot", cx:x, cy:y, r:r});
+    if(m.id) el(node,"text",{class:"id", x:x, y:y+0.5}, m.id);
+    if(m.showName){
+      const right = m.s <= 3;
+      el(node,"text",{class:"lab", x:x + (right ? r+9 : -(r+9)), y:y-1,
+        "text-anchor":right ? "start" : "end"}, m.showName);
+    }
+    if(m.warn !== false && ZONE(RF(m.w, m.s)).id === "r"){
+      const wx = x + r + 4, wy = y - r - 4;
+      const gw = el(layer.marks,"g",{class:"warn"});
+      el(gw,"path",{d:`M${wx} ${wy-9} L${wx+9} ${wy+6} L${wx-9} ${wy+6} Z`});
+      el(gw,"text",{x:wx, y:wy+2.5}, "!");
+    }
+  });
+}
+
+/* =====================================================================
+   4 · Regler mit verankerter Stufenbezeichnung
+   Die Stufenbezeichnung geht als aria-valuetext heraus, damit eine
+   Sprachausgabe „Stufe 3, mittel“ sagt und nicht nur „3“.
+   ===================================================================== */
+function makeSlider(host, key, achse, value, label, onChange){
+  const row = document.createElement("div");
+  row.className = "rrow";
+  const a = achse === "w" ? ankW(value) : ankS(value);
+  row.innerHTML =
+    `<div class="rl"><span class="rn">${label}</span><span class="rv" id="rv-${key}">${value} · ${a.label}</span></div>
+     <input type="range" min="1" max="5" step="1" value="${value}" id="in-${key}"
+            aria-label="${label}, Stufe 1 bis 5">
+     <p class="ra" id="ra-${key}">${a.anker}</p>`;
+  host.appendChild(row);
+  const inp = row.querySelector("input");
+  const paint = v => {
+    const an = achse === "w" ? ankW(v) : ankS(v);
+    $("rv-" + key).textContent = v + " · " + an.label;
+    $("ra-" + key).textContent = an.anker;
+    inp.setAttribute("aria-valuetext", "Stufe " + v + ", " + an.label);
+  };
+  paint(value);
+  inp.addEventListener("input", () => { const v = +inp.value; paint(v); onChange(v); });
+  return {set:v => { inp.value = String(v); paint(v); }};
+}
+
+/* =====================================================================
+   5 · Reiter 01
+   ===================================================================== */
+const einstieg = {}; let einstiegBeruehrt = false;
+LERNEINHEIT.einstieg.risikoIds.forEach(id => { einstieg[id] = {w:3, s:3}; });
+$("einstieg").innerHTML = LERNEINHEIT.einstieg.risikoIds.map(id => {
+  const r = risk(id);
+  return `<div class="card"><p class="ck">Risiko ${r.id}</p><h3>${r.name}</h3>
+            <div class="rgrid" id="ein-${id}" style="margin-top:12px"></div></div>`;
+}).join("");
+LERNEINHEIT.einstieg.risikoIds.forEach(id => {
+  const host = $("ein-" + id);
+  makeSlider(host, "ew-"+id, "w", 3, "Wie wahrscheinlich tritt es ein?",
+             v => { einstieg[id].w = v; einstiegBeruehrt = true; einstiegHinweis(); });
+  makeSlider(host, "es-"+id, "s", 3, "Wie schwer wäre der Schaden?",
+             v => { einstieg[id].s = v; einstiegBeruehrt = true; einstiegHinweis(); });
+});
+function einstiegHinweis(){
+  $("einstiegHinweis").textContent = einstiegBeruehrt
+    ? "Aufgehoben. In Reiter 04 liegt Ihre Schätzung neben der begründeten Einschätzung."
+    : "Noch nichts eingestellt · beide Regler stehen auf der Mitte";
+}
+einstiegHinweis();
+
+const DEFS = [
+  ["Reichmann 2018, S. 606 ff.",
+   "Risiko ist die Gefahr, dass Ereignisse, Entscheidungen oder Handlungen das Unternehmen daran hindern, definierte Ziele zu erreichen oder Strategien erfolgreich zu realisieren.",
+   "Zielbezug und Handlungsbezug"],
+  ["ISO 31000 · International Organization for Standardization 2009",
+   "Risiko ist die Auswirkung von Unsicherheit auf Ziele.",
+   "maximale Verdichtung, Unsicherheit als Ursache"],
+  ["Gleißner 2015, in Gleißner/Romeike (Hrsg.), Handbuch Risikomanagement, S. 3–24",
+   "Risiko ist die Möglichkeit, dass aufgrund zukünftiger Ereignisse oder Entwicklungen Abweichungen von geplanten oder erwarteten Ergebnissen eintreten.",
+   "Abweichung von der Planung, Zukunftsbezug"]
+];
+$("defs").innerHTML = DEFS.map(([q, t, b]) =>
+  `<div class="card"><p class="ck">${q}</p>
+     <p style="font-size:.95rem;font-weight:300;line-height:1.5;color:#2c2c2f">${t}</p>
+     <p style="margin-top:12px;font-weight:600;color:var(--teal-dk);font-size:.84rem">Betonung: ${b}</p></div>`).join("");
+$("kernBtn").addEventListener("click", () => {
+  const open = $("kernBtn").getAttribute("aria-expanded") === "true";
+  $("kernBtn").setAttribute("aria-expanded", String(!open));
+  $("kernBox").hidden = open;
+  $("kernBtn").textContent = open ? "Was haben alle drei gemeinsam?" : "Antwort wieder einklappen";
+});
+
+/* ---------- Prozesskreis ---------- */
+const PB = [[58,44],[372,44],[372,254],[58,254]], PW = 230, PH = 86;
+let procMode = "folien", procSel = 0;
+function drawProc(){
+  const svg = $("procSvg"); svg.textContent = "";
+  const defs = el(svg,"defs",{});
+  const mk = el(defs,"marker",{id:"pArrow",viewBox:"0 0 10 10",refX:"9",refY:"5",
+                markerWidth:"6",markerHeight:"6",orient:"auto-start-reverse"});
+  el(mk,"path",{d:"M0 0 L10 5 L0 10 z",fill:"context-stroke"});
+
+  el(svg,"path",{class:"arw", d:"M290 87 H364", "marker-end":"url(#pArrow)"});
+  el(svg,"path",{class:"arw", d:"M487 130 V246", "marker-end":"url(#pArrow)"});
+  el(svg,"path",{class:"arw", d:"M370 297 H296", "marker-end":"url(#pArrow)"});
+  el(svg,"path",{class:"arw back", d:"M173 246 V130", "marker-end":"url(#pArrow)"});
+
+  LERNEINHEIT.prozess.phasen.forEach((ph, i) => {
+    const [x, y] = PB[i];
+    const g = el(svg,"g",{class:"ph" + (i === procSel ? " on" : ""), tabindex:"0", role:"button",
+                          "aria-label":"Phase " + (i+1) + ": " + ph.name});
+    g.dataset.i = i;
+    el(g,"rect",{class:"pbox", x:x, y:y, width:PW, height:PH, rx:9});
+    el(g,"text",{class:"pk",  x:x+18, y:y+21}, "Phase " + (i+1) + " · " + ph.sym);
+    el(g,"text",{class:"pt2", x:x+18, y:y+45}, ph.name);
+    el(g,"text",{class:"pq",  x:x+18, y:y+67}, ph.frage);
+  });
+
+  if(procMode === "kursbuch"){
+    el(svg,"path",{class:"clam", d:"M52 40 V22 H606 V40"});
+    el(svg,"text",{class:"clamlab", x:329, y:12}, "Kursbuch, Punkt 1 · Risikoidentifikation und -analyse");
+    el(svg,"text",{class:"clamlab", x:487, y:356, style:"fill:var(--ochre)"},
+       "Kursbuch, Punkt 2 · Steuerung auftretender Risiken");
+    el(svg,"text",{class:"clamlab", x:173, y:356, style:"fill:var(--ochre)"},
+       "Kursbuch, Punkt 3 · Risikokontrolle");
+  }
+  el(svg,"text",{class:"ctr",  x:330, y:160}, "Risikoregelkreis");
+  el(svg,"text",{class:"ctrs", x:330, y:182}, "periodisch, nicht einmalig");
+  el(svg,"text",{class:"ctrs", x:330, y:200, style:"fill:var(--orange);font-weight:600"},
+     "der Rückpfeil ist die Aussage");
+
+  [...svg.querySelectorAll(".ph")].forEach(n => {
+    const pick = () => { procSel = +n.dataset.i; drawProc(); procDetail(); };
+    n.addEventListener("click", pick);
+    n.addEventListener("focus", pick);
+    n.addEventListener("keydown", e => { if(e.key === "Enter" || e.key === " "){ e.preventDefault(); pick(); } });
+  });
+}
+function procDetail(){
+  const ph = LERNEINHEIT.prozess.phasen[procSel];
+  const kb = procSel <= 1 ? LERNEINHEIT.prozess.kursbuch[0] : LERNEINHEIT.prozess.kursbuch[procSel-1];
+  $("procDetail").innerHTML =
+    `<p class="dk">Phase ${procSel+1} · Symbol ${ph.sym}</p><h4>${ph.name}</h4>
+     <p style="font-weight:600;color:var(--teal-dk)">${ph.frage}</p>
+     <p>${ph.det}</p>
+     <p style="margin-top:14px;padding-top:12px;border-top:1px solid var(--grey-xl)">
+       <b>Im Kursbuch:</b> ${kb}${procSel <= 1 ? " — dort sind Identifikation und Beurteilung zu <b>einem</b> Punkt zusammengefasst. Das ist kein Widerspruch, sondern eine andere Schnitttiefe. Genau solche Schnittunterschiede kosten in Prüfungen Punkte." : "."}</p>`;
+}
+$("zFolien").addEventListener("click", () => {
+  procMode = "folien";
+  $("zFolien").setAttribute("aria-pressed","true"); $("zKursbuch").setAttribute("aria-pressed","false");
+  drawProc();
+});
+$("zKursbuch").addEventListener("click", () => {
+  procMode = "kursbuch";
+  $("zFolien").setAttribute("aria-pressed","false"); $("zKursbuch").setAttribute("aria-pressed","true");
+  drawProc();
+});
+drawProc(); procDetail();
+
+/* ---------- Risikoquellen ---------- */
+let qMode = "quelle";
+function drawQuellen(){
+  $("quellen").innerHTML = LERNEINHEIT.quellen.map((q, i) => {
+    const endo = q.herkunft === "endogen";
+    const stripe = qMode === "herkunft" ? (endo ? "var(--teal-dk)" : "var(--ochre)") : "var(--grey-xl)";
+    return `<button class="task" aria-expanded="false" style="border-left:3px solid ${stripe}">
+      <span class="no">${qMode === "herkunft" ? q.herkunft.toUpperCase() : "Quelle " + (i+1)}</span>
+      <span class="hd">${q.name}</span>
+      <span class="bd">${q.inhalt}<br><br><b>Beispiel des Kursbuchs:</b> ${q.bsp}</span>
+    </button>`;
+  }).join("");
+  [...$("quellen").querySelectorAll(".task")].forEach(b => b.addEventListener("click", () =>
+    b.setAttribute("aria-expanded", String(b.getAttribute("aria-expanded") !== "true"))));
+  $("qNote").textContent = qMode === "herkunft"
+    ? "Endogen entsteht im Unternehmen oder der Kette selbst, exogen wirkt von außen ein."
+    : "Gegliedert nach dem Ort der Entstehung.";
+}
+$("qQuelle").addEventListener("click", () => {
+  qMode = "quelle";
+  $("qQuelle").setAttribute("aria-pressed","true"); $("qHerkunft").setAttribute("aria-pressed","false");
+  drawQuellen();
+});
+$("qHerkunft").addEventListener("click", () => {
+  qMode = "herkunft";
+  $("qQuelle").setAttribute("aria-pressed","false"); $("qHerkunft").setAttribute("aria-pressed","true");
+  drawQuellen();
+});
+drawQuellen();
+
+/* =====================================================================
+   6 · Reiter 02 — Skalen, Zonen, die Karte
+   ===================================================================== */
+$("skalaW").innerHTML = LERNEINHEIT.skalen.w.map(x =>
+  `<tr><td class="n" style="text-align:center;font-weight:700">${x.stufe}</td>
+       <td class="crit">${x.label}</td><td>${x.anker}</td></tr>`).join("");
+$("skalaS").innerHTML = LERNEINHEIT.skalen.s.map(x =>
+  `<tr><td class="n" style="text-align:center;font-weight:700">${x.stufe}</td>
+       <td class="crit">${x.label}</td><td>${x.anker}</td></tr>`).join("");
+$("zonen").innerHTML = LERNEINHEIT.zonen.map(z =>
+  `<tr><td><span class="fmark" style="background:${z.id==="g"?"#E6F1E5":z.id==="y"?"#FBF2D9":"#FBE4DC"};color:${z.id==="g"?"#2E7D4F":z.id==="y"?"#8A6417":"#B23C2C"}">${z.kurz[0]}</span></td>
+       <td class="crit">${z.kurz} · ${z.name}</td>
+       <td class="n">${z.von} bis ${z.bis}</td><td>${z.bed}</td></tr>`).join("")
+  .replace(/<thead>[\s\S]*?<\/thead>/, "");
+$("zonen").closest("table").querySelector("thead").innerHTML =
+  "<tr><th></th><th>Zone</th><th>Risikofaktor</th><th>Bedeutung</th></tr>";
+
+$("katalog").innerHTML = LERNEINHEIT.risiken.map(r => {
+  const rf = RF(r.brutto.w, r.brutto.s), z = ZONE(rf);
+  return `<tr><td class="m" style="font-weight:700;color:var(--teal-dk)">${r.id}</td>
+    <td class="crit">${r.name}</td><td style="color:var(--grey)">${r.kat}</td>
+    <td class="n">${r.brutto.w}</td><td class="n">${r.brutto.s}</td>
+    <td class="n" style="font-weight:700">${rf}</td>
+    <td><span class="fmark" style="background:${z.id==="g"?"#E6F1E5":z.id==="y"?"#FBF2D9":"#FBE4DC"};color:${z.id==="g"?"#2E7D4F":z.id==="y"?"#8A6417":"#B23C2C"};width:auto;padding:0 8px">${z.kurz}</span></td></tr>`;
+}).join("");
+
+$("streit").innerHTML = LERNEINHEIT.streit.map((x, i) =>
+  `<div class="card" style="border-left:3px solid ${i===0?"var(--ochre)":i===1?"var(--teal)":"var(--grey-mid)"}">
+     <p class="ck">Punkt ${i+1}</p><h3>${x.t}</h3><p>${x.p}</p></div>`).join("");
+
+/* ---------- die Karte ---------- */
+const rmMain = mapShell($("rmMain"));
+let rmMode = "A";
+const aState = {idx:0, own:{}, verglichen:false};
+const bState = {w:3, s:3, name:"Eigenes Risiko", iso:false};
+let cSel = "R1";
+
+function figs(host, w, s, extra){
+  const rf = RF(w, s), z = ZONE(rf);
+  const cells = [
+    ["Wahrscheinlichkeit", w, ankW(w).label],
+    ["Schadensausmass", s, ankS(s).label],
+    ["Risikofaktor", rf, "W × S"],
+    ["Zone", z.kurz, z.name]
+  ].concat(extra || []);
+  $(host).innerHTML = cells.map((c, i) =>
+    `<div class="fig${i===2 && z.id==="r" ? " hot" : ""}"><p class="fk">${c[0]}</p>
+       <div class="fv">${c[1]}</div><p class="fn">${c[2]}</p></div>`).join("");
+}
+
+function aktuellesRisiko(){ return LERNEINHEIT.risiken[Math.min(aState.idx, 7)]; }
+
+function drawMap(){
+  if(rmMode === "A"){
+    const marks = [];
+    LERNEINHEIT.risiken.forEach(r => {
+      const own = aState.own[r.id];
+      if(own) marks.push({id:r.id, name:r.name + ", Ihre Schätzung", w:own.w, s:own.s,
+                          cls:aState.verglichen ? "own" : "ghost", warn:false});
+    });
+    const links = [];
+    if(aState.verglichen){
+      LERNEINHEIT.risiken.forEach(r => {
+        marks.push({id:r.id, name:r.name + ", begründete Einschätzung",
+                    w:r.brutto.w, s:r.brutto.s, cls:"ref"});
+        const own = aState.own[r.id];
+        if(own && (own.w !== r.brutto.w || own.s !== r.brutto.s))
+          links.push([own.s, own.w, r.brutto.s, r.brutto.w]);
+      });
+    } else if(aState.idx < 8){
+      const r = aktuellesRisiko(), cur = aState.own[r.id] || aLive;
+      marks.push({name:r.name, w:cur.w, s:cur.s, cls:"live", showName:r.id, warn:false});
+    }
+    drawMarks(rmMain, marks, {links:links});
+  }
+  if(rmMode === "B"){
+    const marks = [{name:bState.name, w:bState.w, s:bState.s, cls:"live",
+                    showName:bState.name || "Eigenes Risiko"}];
+    const k = RF(bState.w, bState.s);
+    if(bState.iso && bState.w !== bState.s)
+      marks.push({name:"Spiegelpunkt", w:bState.s, s:bState.w, cls:"ghost",
+                  showName:"gleicher RF", warn:false, r:9});
+    drawMarks(rmMain, marks, {iso: bState.iso ? k : null});
+  }
+  if(rmMode === "C"){
+    drawMarks(rmMain, LERNEINHEIT.risiken.map(r => ({
+      id:r.id, name:r.name, w:r.brutto.w, s:r.brutto.s, cls:r.id === cSel ? "sel" : ""
+    })), {});
+    bindPicks(rmMain.marks, id => { cSel = id; drawMap(); cDetail(); });
+  }
+}
+function bindPicks(g, on){
+  [...g.querySelectorAll(".pt")].forEach(n => {
+    if(!n.dataset.id) return;
+    const pick = () => on(n.dataset.id);
+    n.addEventListener("click", pick);
+    n.addEventListener("focus", pick);
+    n.addEventListener("keydown", e => { if(e.key === "Enter" || e.key === " "){ e.preventDefault(); pick(); } });
+  });
+}
+function cDetail(){
+  const r = risk(cSel), rf = RF(r.brutto.w, r.brutto.s), z = ZONE(rf);
+  figs("rmFigs", r.brutto.w, r.brutto.s);
+  $("rmDetail").innerHTML =
+    `<p class="dk">${r.id} · ${r.kat}</p><h4>${r.name}</h4>
+     <p>${r.begr}</p>
+     <p style="margin-top:12px"><b>Risikofaktor ${rf}</b> — Zone ${z.kurz}, ${z.name}: ${z.bed}</p>`;
+}
+
+/* ---------- Modus A ---------- */
+let aLive = {w:3, s:3};
+let aSlW = null, aSlS = null;
+function aRender(){
+  const fertig = aState.idx >= 8;
+  $("aProgress").textContent = aState.verglichen
+    ? "Verglichen · 8 von 8 Risiken gesetzt"
+    : (fertig ? "8 von 8 gesetzt — jetzt vergleichen" : "Risiko " + (aState.idx+1) + " von 8");
+  $("aNext").disabled = fertig; $("aBack").disabled = aState.idx === 0;
+  $("aCompare").disabled = !fertig || aState.verglichen;
+  $("aNext").style.opacity = fertig ? ".4" : "";
+  $("aCompare").style.opacity = (!fertig || aState.verglichen) ? ".4" : "";
+  $("aBack").style.opacity = aState.idx === 0 ? ".4" : "";
+
+  if(fertig){
+    $("aCard").innerHTML = aState.verglichen
+      ? `<p class="ck">Ergebnis</p><h3>Ihre Karte neben der begründeten Einschätzung</h3>
+         <p>Die teal-farbenen Punkte sind Ihre, die ockerfarbenen die begründeten. Die gestrichelten Linien zeigen den Abstand. Es gibt hier kein Richtig und kein Falsch — die Streuung selbst ist der Befund.</p>`
+      : `<p class="ck">Alle acht gesetzt</p><h3>Bereit zum Vergleich</h3>
+         <p>Ihre Karte ist gefüllt. Der Vergleich blendet die begründete Einschätzung in einer zweiten Farbe ein, mit Verbindungslinie zu Ihrer Position und einer kurzen Begründung je Risiko.</p>`;
+    $("aSliders").innerHTML = ""; aSlW = aSlS = null;
+  } else {
+    const r = aktuellesRisiko();
+    const cur = aState.own[r.id] || {w:3, s:3};
+    aLive = {w:cur.w, s:cur.s};
+    $("aCard").innerHTML =
+      `<p class="ck">Risiko ${r.id} · ${r.kat}</p><h3>${r.name}</h3>
+       <p>Stellen Sie beide Regler ein und setzen Sie das Risiko. Die Begründung erscheint erst nach dem Vergleich.</p>`;
+    $("aSliders").innerHTML = "";
+    aSlW = makeSlider($("aSliders"), "aw", "w", cur.w, "Eintrittswahrscheinlichkeit W",
+                      v => { aLive.w = v; drawMap(); figs("rmFigs", aLive.w, aLive.s); });
+    aSlS = makeSlider($("aSliders"), "as", "s", cur.s, "Schadensausmaß S",
+                      v => { aLive.s = v; drawMap(); figs("rmFigs", aLive.w, aLive.s); });
+    figs("rmFigs", aLive.w, aLive.s);
+  }
+  if(!aState.verglichen) $("aResult").hidden = true;
+
+  if(aState.verglichen){
+    /* Nach dem Vergleich zeigen Kennzahlleiste und Detailkasten das
+       Ergebnis, nicht mehr den zuletzt bewegten Regler.            */
+    const b = aBilanz();
+    $("rmFigs").innerHTML = [
+      ["Höher geschätzt", b.hoch, "als die begründete Einschätzung"],
+      ["Niedriger", b.tief, "als die begründete Einschätzung"],
+      ["Genau getroffen", b.gleich, "identischer Risikofaktor"],
+      ["Grösste Abweichung", (b.max >= 0 ? "+" : "") + b.max, "bei " + b.maxId]
+    ].map((c, i) => `<div class="fig${i === 3 && Math.abs(b.max) >= 6 ? " hot" : ""}">
+        <p class="fk">${c[0]}</p><div class="fv">${c[1]}</div><p class="fn">${c[2]}</p></div>`).join("");
+    $("rmDetail").innerHTML =
+      `<p class="dk">Modus A · verglichen</p><h4>${b.hoch > b.tief ? "Sie haben eher überschätzt" : b.tief > b.hoch ? "Sie haben eher unterschätzt" : "Ihre Schätzungen streuen in beide Richtungen"}</h4>
+       <p>Teal sind Ihre Punkte, Ocker die begründeten, die gestrichelten Linien zeigen den Abstand. Die größte Abweichung liegt bei <b>${b.maxId}</b> mit ${b.max >= 0 ? "+" : ""}${b.max} Punkten Risikofaktor.</p>
+       <p class="warn">Das ist keine Note. Zwei Menschen schätzen dasselbe Risiko unterschiedlich, solange die Stufen nicht verankert sind — und genau deshalb steht neben jeder Stufe dieser Karte eine Deutungshilfe.</p>
+       <p>Die vollständige Gegenüberstellung mit Begründung je Risiko steht unterhalb der Karte.</p>`;
+  }
+  else if(fertig)
+    $("rmDetail").innerHTML = `<p class="dk">Modus A</p><h4>Acht Schätzungen stehen</h4>
+      <p>Der Vergleich ordnet nicht nach richtig und falsch, sondern nach <b>Richtung</b>: bei wie vielen Risiken Sie systematisch höher und bei wie vielen niedriger lagen. Genau das ist die Rückmeldung, die trägt — sie zeigt Ihre eigene Verzerrung, nicht Ihren Punktestand.</p>`;
+  else if(!aState.verglichen)
+    $("rmDetail").innerHTML = `<p class="dk">Modus A · Selbst einschätzen</p><h4>Ohne fremde Zahl im Ohr</h4>
+      <p>Sie gehen acht Risiken durch und setzen jedes in die Karte. Bereits gesetzte Risiken bleiben blass stehen, sodass sich die Karte Schritt für Schritt füllt.</p>
+      <p class="warn">Die begründete Einschätzung wird bewusst erst danach eingeblendet. Wer sie vorher sieht, schätzt nicht mehr, sondern rät die erwartete Antwort.</p>`;
+  drawMap();
+}
+$("aNext").addEventListener("click", () => {
+  if(aState.idx >= 8) return;
+  aState.own[aktuellesRisiko().id] = {w:aLive.w, s:aLive.s};
+  aState.idx++; aRender();
+});
+$("aBack").addEventListener("click", () => {
+  if(aState.idx === 0) return;
+  aState.idx--; aState.verglichen = false; $("aResult").hidden = true; aRender();
+});
+$("aReset").addEventListener("click", () => {
+  aState.idx = 0; aState.own = {}; aState.verglichen = false; aRender();
+});
+function aBilanz(){
+  let hoch = 0, tief = 0, gleich = 0, max = 0, maxId = "—";
+  LERNEINHEIT.risiken.forEach(r => {
+    const o = aState.own[r.id]; if(!o) return;
+    const d = RF(o.w, o.s) - RF(r.brutto.w, r.brutto.s);
+    if(d > 0) hoch++; else if(d < 0) tief++; else gleich++;
+    if(Math.abs(d) > Math.abs(max)){ max = d; maxId = r.id; }
+  });
+  return {hoch, tief, gleich, max, maxId};
+}
+$("aCompare").addEventListener("click", () => {
+  aState.verglichen = true;
+  let hoch = 0, tief = 0, gleich = 0;
+  const rows = LERNEINHEIT.risiken.map(r => {
+    const o = aState.own[r.id], rfO = RF(o.w, o.s), rfR = RF(r.brutto.w, r.brutto.s);
+    const d = rfO - rfR;
+    if(d > 0) hoch++; else if(d < 0) tief++; else gleich++;
+    return `<div class="cmp">
+      <span class="cid">${r.id}</span>
+      <span class="cn">${r.name}<br><span style="color:var(--grey);font-size:.92em">${r.begr}</span></span>
+      <span class="cw own">W ${o.w} · S ${o.s}<br>RF ${rfO}</span>
+      <span class="cw ref">W ${r.brutto.w} · S ${r.brutto.s}<br>RF ${rfR}</span>
+      <span class="cd ${d>0?"up":d<0?"dn":"eq"}">${d>0?"+":""}${d}</span></div>`;
+  }).join("");
+  $("aResult").hidden = false;
+  $("aResult").innerHTML =
+    `<div class="readme"><b>Ihre Richtung.</b> Bei <b>${hoch}</b> von 8 Risiken lagen Sie über der begründeten Einschätzung, bei <b>${tief}</b> darunter, bei <b>${gleich}</b> genau darauf. Das ist keine Note. Es zeigt, dass zwei Menschen dasselbe Risiko unterschiedlich schätzen, solange die Stufen nicht verankert sind — und genau deshalb steht in Reiter 02 eine Deutungshilfe neben jeder Stufe.</div>
+     <div class="card" style="margin-top:14px">
+       <div class="cmphead"><span>ID</span><span>Risiko und Begründung</span><span>Ihre Schätzung</span><span>Begründet</span><span>Δ RF</span></div>
+       ${rows}
+     </div>`;
+  aRender();
+});
+
+/* ---------- Modus B ---------- */
+makeSlider($("bSliders"), "bw", "w", 3, "Eintrittswahrscheinlichkeit W", v => { bState.w = v; bRender(); });
+makeSlider($("bSliders"), "bs", "s", 3, "Schadensausmaß S",             v => { bState.s = v; bRender(); });
+$("bName").addEventListener("input", e => { bState.name = e.target.value || "Eigenes Risiko"; bRender(); });
+$("isoToggle").addEventListener("change", e => { bState.iso = e.target.checked; bRender(); });
+function bRender(){
+  const w = bState.w, s = bState.s, rf = RF(w, s), z = ZONE(rf);
+  figs("rmFigs", w, s);
+  $("bCalc").textContent =
+    "RF = W · S\n" +
+    "   = " + w + " · " + s + "\n" +
+    "   = " + rf + "\n\n" +
+    "W = " + w + "  " + ankW(w).label + " (" + ankW(w).anker + ")\n" +
+    "S = " + s + "  " + ankS(s).label + " (" + ankS(s).anker + ")\n\n" +
+    "Zone: " + z.kurz + ", " + z.name + " (" + z.von + " bis " + z.bis + ")";
+  $("bIso").innerHTML = bState.iso
+    ? (w === s
+        ? `Bei W = S liegt der Spiegelpunkt auf dem Punkt selbst. Verschieben Sie einen der beiden Regler, und der zweite Punkt mit demselben Risikofaktor ${rf} taucht auf.`
+        : `Der blasse Punkt liegt bei <b>W ${s} · S ${w}</b> und hat denselben Risikofaktor <b>${rf}</b>. Rechnerisch identisch — inhaltlich das Gegenteil: einmal ein häufiger kleiner Ärger, einmal ein seltener schwerer Schaden. Die Zahl kann beides nicht auseinanderhalten, die Karte schon.`)
+    : "";
+  $("rmDetail").innerHTML =
+    `<p class="dk">Modus B · Frei experimentieren</p><h4>${esc(bState.name)}</h4>
+     <p>Risikofaktor <b>${rf}</b> in der Zone <b>${z.kurz}</b>, ${z.name}. ${z.bed}.</p>
+     <p class="warn">${rf >= 12 ? "Über der Toleranzlinie: Maßnahmen sind erforderlich, nicht optional." : rf >= 6 ? "Unter der Toleranzlinie, aber im Beobachtungsbereich: Maßnahmen prüfen, die Wirtschaftlichkeit entscheidet." : "Im Akzeptanzbereich. Aber prüfen Sie das Schadensausmaß gesondert — ein seltenes Ereignis mit Ausmaß 5 ist grün und trotzdem existenzbedrohend."}</p>`;
+  drawMap();
+}
+
+function setMapMode(m){
+  rmMode = m;
+  $("mA").setAttribute("aria-pressed", String(m === "A"));
+  $("mB").setAttribute("aria-pressed", String(m === "B"));
+  $("mC").setAttribute("aria-pressed", String(m === "C"));
+  $("modeA").hidden = m !== "A"; $("modeB").hidden = m !== "B"; $("modeC").hidden = m !== "C";
+  if(m === "A") aRender();
+  if(m === "B") bRender();
+  if(m === "C"){ cDetail(); drawMap(); }
+}
+$("mA").addEventListener("click", () => setMapMode("A"));
+$("mB").addEventListener("click", () => setMapMode("B"));
+$("mC").addEventListener("click", () => setMapMode("C"));
+aRender();
+
+/* =====================================================================
+   7 · Reiter 03 — Brutto zu Netto, Strategien, BAUM
+   ===================================================================== */
+const rmNetto = mapShell($("rmNetto"));
+const R1 = risk("R1"), MASS = LERNEINHEIT.massnahmen.filter(m => m.risikoId === "R1");
+const aktiv = {};
+MASS.forEach(m => { aktiv[m.id] = false; });
+const clamp = v => Math.max(1, Math.min(5, v));
+
+$("nMass").innerHTML = MASS.map(m =>
+  `<label class="mopt" data-m="${m.id}">
+     <input type="checkbox" data-m="${m.id}">
+     <span><span class="mt">${m.id} · ${m.name}<span class="tag ${m.typ === "praeventiv" ? "pre" : "kor"}">${m.typ === "praeventiv" ? "präventiv" : "korrektiv"}</span></span>
+       <span class="mm">${m.dW ? "W " + m.dW : ""}${m.dW && m.dS ? " · " : ""}${m.dS ? "S " + m.dS : ""} · ${m.aufwand} T€</span>
+       <span class="mm" style="font-family:var(--sans);font-size:.82rem;color:#3d3d40;margin-top:6px;display:block">${m.wirk}</span></span>
+   </label>`).join("");
+
+function nettoPfad(){
+  let w = R1.brutto.w, s = R1.brutto.s;
+  const paths = [];
+  MASS.forEach(m => {
+    if(!aktiv[m.id]) return;
+    const w2 = clamp(w + m.dW), s2 = clamp(s + m.dS);
+    if(w2 !== w || s2 !== s)
+      paths.push({from:[w, s], to:[w2, s2], cls:"mv" + (m.typ === "praeventiv" ? " pre" : "")});
+    w = w2; s = s2;
+  });
+  return {w:w, s:s, paths:paths};
+}
+function drawNetto(){
+  const n = nettoPfad();
+  const rfB = RF(R1.brutto.w, R1.brutto.s), rfN = RF(n.w, n.s);
+  const einzel = MASS.filter(m => aktiv[m.id])
+    .reduce((a, m) => a + (rfB - RF(clamp(R1.brutto.w + m.dW), clamp(R1.brutto.s + m.dS))), 0);
+  const marks = [{id:"R1", name:"R1 brutto", w:R1.brutto.w, s:R1.brutto.s,
+                  cls:"ghost", showName:"brutto", warn:false}];
+  if(n.w !== R1.brutto.w || n.s !== R1.brutto.s)
+    marks.push({id:"R1", name:"R1 netto", w:n.w, s:n.s, cls:"live", showName:"netto"});
+  drawMarks(rmNetto, marks, {paths:n.paths});
+
+  const z = ZONE(rfN);
+  $("nFigs").innerHTML = [
+    ["RF brutto", rfB, "vor allen Maßnahmen"],
+    ["RF netto", rfN, z.kurz + " · " + z.name],
+    ["Effizienz", rfB - rfN, "RF vorher − RF nachher"],
+    ["Summe der Einzelwirkungen", einzel, "jede Maßnahme für sich"]
+  ].map((c, i) =>
+    `<div class="fig${i === 3 && einzel > (rfB - rfN) ? " hot" : ""}"><p class="fk">${c[0]}</p>
+       <div class="fv">${c[1]}</div><p class="fn">${c[2]}</p></div>`).join("");
+
+  const box = $("nHint");
+  if(einzel > rfB - rfN){
+    box.className = "readme warn";
+    box.innerHTML = `<b>Die beiden letzten Zahlen laufen auseinander — und das ist kein Fehler.</b> Die Summe der Einzelwirkungen beträgt <b>${einzel}</b>, die tatsächliche Gesamtwirkung nur <b>${rfB - rfN}</b>. Der Grund: Der Risikofaktor ist ein <b>Produkt</b>. Die zweite präventive Maßnahme senkt eine Wahrscheinlichkeit, die die erste bereits gesenkt hat — sie wirkt auf eine kleinere Grundmenge. Wer Maßnahmenwirkungen aufsummiert, überschätzt den Effekt systematisch, und zwar umso stärker, je mehr Maßnahmen zusammenkommen.`;
+  } else if(rfB - rfN > 0){
+    box.className = "readme";
+    box.innerHTML = `<b>Eine Maßnahme, ein Pfeil.</b> Präventive Maßnahmen bewegen den Punkt <b>senkrecht</b> nach unten, korrektive <b>waagerecht</b> nach links. Schalten Sie eine zweite Maßnahme desselben Typs dazu, und beobachten Sie die letzten beiden Zahlen.`;
+  } else {
+    box.className = "readme";
+    box.innerHTML = `<b>Noch keine Maßnahme aktiv.</b> R1 steht auf seiner Bruttoposition: Wahrscheinlichkeit 4, Schadensausmaß 5, Risikofaktor 20 — tief im Handlungsbereich, mit Warndreieck. Schalten Sie Maßnahmen zu und beobachten Sie, in welche Richtung sich der Punkt bewegt.`;
+  }
+}
+$("nMass").addEventListener("change", e => {
+  const id = e.target.dataset.m; if(!id) return;
+  aktiv[id] = e.target.checked;
+  e.target.closest(".mopt").classList.toggle("on", e.target.checked);
+  drawNetto();
+});
+drawNetto();
+
+/* ---------- Aufwand-Nutzen ---------- */
+const rfBrutto = RF(R1.brutto.w, R1.brutto.s);
+const anRows = MASS.map(m => {
+  const rfAllein = RF(clamp(R1.brutto.w + m.dW), clamp(R1.brutto.s + m.dS));
+  const nutzen = rfBrutto - rfAllein;
+  return {...m, rfAllein, nutzen, quot: nutzen > 0 ? m.aufwand / nutzen : Infinity};
+}).sort((a, b) => a.quot - b.quot);
+$("anBody").innerHTML = anRows.map((r, i) =>
+  `<tr${i === 0 ? ' style="background:var(--teal-xl)"' : ""}>
+     <td class="m" style="font-weight:700;color:var(--teal-dk)">${r.id}</td>
+     <td class="crit">${r.name}</td>
+     <td><span class="tag ${r.typ === "praeventiv" ? "pre" : "kor"}" style="display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;border-radius:4px;padding:3px 7px;background:${r.typ === "praeventiv" ? "#E6F1E5" : "var(--orange-xl)"};color:${r.typ === "praeventiv" ? "#2E7D4F" : "#A85B00"}">${r.typ === "praeventiv" ? "präventiv" : "korrektiv"}</span></td>
+     <td class="n">${clamp(R1.brutto.w + r.dW)} × ${clamp(R1.brutto.s + r.dS)} = ${r.rfAllein}</td>
+     <td class="n">${r.nutzen}</td><td class="n">${r.aufwand}</td>
+     <td class="n" style="font-weight:700">${nf1(r.quot)}</td>
+     <td class="n" style="text-align:center;font-weight:700;color:${i === 0 ? "var(--orange)" : "var(--teal-dk)"}">${i+1}</td>
+   </tr>`).join("");
+
+/* ---------- Strategien ---------- */
+const rmStrat = mapShell($("rmStrat"));
+const sState = {w:4, s:4, pending:null, geteilt:false};
+const STRATS = LERNEINHEIT.strategien;
+$("strats").innerHTML = STRATS.map(t =>
+  `<button class="sbtn" data-s="${t.id}" aria-pressed="false">
+     <span class="sd">${t.de}</span><span class="se">${t.en}</span>
+     <span class="sm">${t.kurz}</span></button>`).join("");
+makeSlider($("sSliders"), "sw", "w", 4, "Eintrittswahrscheinlichkeit W",
+           v => { sState.w = v; sState.pending = null; sState.geteilt = false; sRender(); });
+makeSlider($("sSliders"), "ss", "s", 4, "Schadensausmaß S",
+           v => { sState.s = v; sState.pending = null; sState.geteilt = false; sRender(); });
+
+function zielVon(t){
+  return {w: t.id === "avoid" ? 1 : clamp(sState.w + t.dW), s: clamp(sState.s + t.dS)};
+}
+function sRender(){
+  const marks = [], paths = [];
+  if(sState.geteilt){
+    marks.push({name:"Teilrisiko 1", w:sState.w, s:sState.s, cls:"split", r:8, showName:"Teil 1", warn:false});
+    marks.push({name:"Teilrisiko 2", w:clamp(sState.w - 1), s:sState.s, cls:"split", r:8, showName:"Teil 2", warn:false});
+  } else {
+    marks.push({name:"Risiko", w:sState.w, s:sState.s, cls:"live", showName:"Risiko"});
+  }
+  if(sState.pending){
+    const t = STRATS.find(x => x.id === sState.pending), z = zielVon(t);
+    if(t.richtung !== "keine"){
+      paths.push({from:[sState.w, sState.s], to:[z.w, z.s],
+                  cls:"mv" + (t.typ === "praeventiv" ? " pre" : "")});
+      marks.push({name:"Zielposition", w:z.w, s:z.s, cls:"ghost", r:9, warn:false});
+    }
+  }
+  drawMarks(rmStrat, marks, {paths:paths});
+
+  const rf = RF(sState.w, sState.s), z = ZONE(rf);
+  if(!sState.pending){
+    $("sDetail").innerHTML =
+      `<p class="dk">Aktuelle Lage</p><h4>W ${sState.w} · S ${sState.s} · RF ${rf}</h4>
+       <p>Zone ${z.kurz}, ${z.name}. Wählen Sie eine Strategie: Der <b>erste Klick</b> zeichnet nur den Bewegungsvektor, der <b>zweite</b> führt ihn aus.</p>
+       <p class="warn">Waagerechte Pfeile sind korrektiv und orange, senkrechte sind präventiv und grün. Die Farbe folgt der Merkregel, nicht der Dekoration.</p>`;
+  } else {
+    const t = STRATS.find(x => x.id === sState.pending), zi = zielVon(t);
+    const rfz = RF(zi.w, zi.s);
+    $("sDetail").innerHTML =
+      `<p class="dk">${t.de} · ${t.en} · ${t.typ}</p><h4>Bewegung: ${t.richtung}</h4>
+       <p>${t.text}</p>
+       <p><b>Von</b> W ${sState.w} · S ${sState.s} · RF ${rf} <b>nach</b> W ${zi.w} · S ${zi.s} · RF ${rfz}${t.id === "accept" ? " — also nirgendwohin." : "."}</p>
+       <p class="warn">Noch einmal auf „${t.de}“ klicken, um die Bewegung auszuführen.</p>`;
+  }
+  [...document.querySelectorAll(".sbtn")].forEach(b =>
+    b.setAttribute("aria-pressed", String(b.dataset.s === sState.pending)));
+}
+$("strats").addEventListener("click", e => {
+  const b = e.target.closest(".sbtn"); if(!b) return;
+  const id = b.dataset.s, t = STRATS.find(x => x.id === id);
+  if(sState.pending !== id){ sState.pending = id; sState.geteilt = false; sRender(); return; }
+  const z = zielVon(t);
+  sState.w = z.w; sState.s = z.s; sState.geteilt = t.teilt; sState.pending = null;
+  document.querySelector('#sSliders input[id="in-sw"]').value = String(z.w);
+  document.querySelector('#sSliders input[id="in-ss"]').value = String(z.s);
+  $("rv-sw").textContent = z.w + " · " + ankW(z.w).label;
+  $("ra-sw").textContent = ankW(z.w).anker;
+  $("rv-ss").textContent = z.s + " · " + ankS(z.s).label;
+  $("ra-ss").textContent = ankS(z.s).anker;
+  sRender();
+  const rf = RF(z.w, z.s);
+  $("sDetail").innerHTML =
+    `<p class="dk">Ausgeführt · ${t.de}</p><h4>${t.id === "accept" ? "Sichtbar ist nichts passiert" : "W " + z.w + " · S " + z.s + " · RF " + rf}</h4>
+     <p>${t.id === "accept"
+        ? "Und genau das ist die Aussage. Akzeptieren ist keine Untätigkeit, sondern eine bewusste Entscheidung nach der Bewertung — sie gehört dokumentiert, mit Datum und Verantwortlichem. Ignorieren dagegen ist das Auslassen der Bewertung."
+        : t.text}</p>
+     ${t.teilt ? "<p><b>Aus einem Kreis sind zwei geworden.</b> Die Aufteilung ist die eigentliche Aussage dieser Strategie: Nicht das Gesamtausmaß verschwindet, sondern das Einzelereignis wird tragbar.</p>" : ""}
+     <p class="warn">${t.typ === "korrektiv" ? "Korrektiv: Die Wahrscheinlichkeit ist unverändert. Das Ereignis tritt genauso häufig ein wie vorher." : t.typ === "praeventiv" ? "Präventiv: Das Ausmaß ist unverändert. Tritt das Ereignis doch ein, ist der Schaden derselbe." : "Weder präventiv noch korrektiv."}</p>`;
+});
+sRender();
+
+/* ---------- Zuordnungsübung ---------- */
+$("zuordnung").innerHTML = LERNEINHEIT.zuordnung.map((z, i) =>
+  `<button aria-expanded="false" aria-controls="zu${i}"><span class="mk" style="color:var(--teal-dk)">?</span><span>${z.pos}</span></button>
+   <div class="ans" id="zu${i}" hidden>${z.a}</div>`).join("");
+$("zuordnung").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  const open = b.getAttribute("aria-expanded") === "true";
+  b.setAttribute("aria-expanded", String(!open));
+  $(b.getAttribute("aria-controls")).hidden = open;
+});
+
+/* ---------- BAUM ---------- */
+$("baum").innerHTML = [
+  ["B","Beschreibung","Ransomware verschlüsselt die Produktivdaten des ERP-Systems und fordert Lösegeld. Betroffen sind Disposition, Versand und Fakturierung gleichzeitig."],
+  ["A","Auswirkungen","Stillstand der Auftragsabwicklung, keine Fakturierung und damit Abriss des Zahlungseingangs, Lieferverzug gegenüber zwei Großkunden, Meldepflichten. Bewertet mit W 4 und S 5, Risikofaktor 20."],
+  ["U","Ursachen","Phishing als häufigster Einstiegsweg, flaches Netz ohne Segmentierung, Backups ohne getesteten Restore. Alle drei Ursachen sind adressierbar — und jede von ihnen wirkt auf eine andere Achse."],
+  ["M","Maßnahmen","Präventiv: Netzsegmentierung (M1) und Schulung mit Mehrfaktor-Authentifizierung (M2). Korrektiv: Offline-Backup mit getestetem Restore (M3) und Cyber-Versicherung (M4). Zusammen führen sie von RF 20 auf RF 4."]
+].map(([l, t, p]) =>
+  `<div class="bcard"><div class="letter">${l}</div><h3>${t}</h3><p>${p}</p></div>`).join("");
+
+/* =====================================================================
+   8 · Reiter 04 — Überwachung, Card, Rückblende, Merkblatt
+   ===================================================================== */
+$("ueberw").innerHTML = LERNEINHEIT.ueberwachung.map(([k, h, p]) =>
+  `<div class="card"><p class="ck">${k}</p><h3>${h}</h3><p>${p}</p></div>`).join("");
+
+/* ---------- Balanced Chance- und Risk-Card, in vier Schritten ---------- */
+const PERSP = [
+  {n:"Finanzen",             ziel:"Marge sichern",        kz:"EBIT-Marge",        ist:"6,2 / 7,0 %", grad:"89 %",
+   risk:"Wechselkurs (R6)",     beu:"mittel",     aus:"10–25 %", proj:"Kurssicherung"},
+  {n:"Kunde und Absatzmarkt", ziel:"Liefertreue halten",  kz:"OTIF",              ist:"94 / 97 %",   grad:"97 %",
+   risk:"Bullwhip-Effekt (R7)", beu:"erhöht",     aus:"25–50 %", proj:"S&OP-Zyklus"},
+  {n:"Produkt",              ziel:"Qualität sichern",     kz:"Reklamationsquote", ist:"1,8 / 1,5 %", grad:"83 %",
+   risk:"Zulieferausfall (R2)", beu:"erhöht",     aus:"> 50 %",  proj:"Zweitquelle"},
+  {n:"Prozesse",             ziel:"Durchlaufzeit senken", kz:"DLZ Auftrag",       ist:"9 / 7 Tage",  grad:"78 %",
+   risk:"ERP-Ausfall (R1)",     beu:"bedrohlich", aus:"> 50 %",  proj:"Netzsegmentierung"},
+  {n:"Personal",             ziel:"Know-how halten",      kz:"Fluktuation",       ist:"11 / 8 %",    grad:"73 %",
+   risk:"Streik (R5)",          beu:"gering",     aus:"< 10 %",  proj:"Rahmenvereinbarung"}
+];
+const BCR_DIV = 552, BCR_L = 8, BCR_R = 1032;
+const BCR_COLS = [
+  {k:"ziel", x:162, w:118, h:"Strategisches Ziel", stufe:2},
+  {k:"kz",   x:284, w:112, h:"Messgröße",          stufe:2},
+  {k:"ist",  x:400, w:84,  h:"Ist / Plan",         stufe:2},
+  {k:"grad", x:488, w:56,  h:"Grad",               stufe:2},
+  {k:"risk", x:560, w:150, h:"Risiko",             stufe:3},
+  {k:"beu",  x:714, w:86,  h:"Beurteilung",        stufe:3},
+  {k:"aus",  x:804, w:78,  h:"Ausmaß",             stufe:3},
+  {k:"proj", x:886, w:146, h:"Projekt / Maßnahme", stufe:4}
+];
+let bcrStep = 1;
+function drawBcr(){
+  const svg = $("bcrSvg"); svg.textContent = "";
+  const y0 = 78, rh = 58, yEnd = y0 + 5*rh;
+  const on = n => bcrStep >= n ? "" : " off";
+
+  el(svg,"text",{class:"hd c", x:(162+544)/2, y:26}, "CHANCEN — was erreicht werden soll");
+  el(svg,"text",{class:"hd r", x:(560+BCR_R)/2, y:26}, "RISIKEN — was es bedroht");
+  el(svg,"line",{x1:BCR_DIV, y1:14, x2:BCR_DIV, y2:yEnd+6,
+                 stroke:"var(--grey-mid)", "stroke-width":1.4});
+
+  /* Schritt 4 zuerst, damit die Zeilenrahmen hinter den Zellen liegen */
+  if(bcrStep >= 4) PERSP.forEach((p, i) =>
+    el(svg,"rect",{class:"dash", x:BCR_L-3, y:y0 + i*rh - 3,
+                   width:BCR_R-BCR_L+6, height:rh-4+6, rx:8}));
+
+  PERSP.forEach((p, i) => {
+    const y = y0 + i*rh;
+    const g1 = el(svg,"g",{class:"step" + on(1)});
+    el(g1,"rect",{class:"band", x:BCR_L, y:y, width:142, height:rh-4, rx:5,
+                  fill:i%2 ? "var(--teal-xl)" : "var(--navy-xl)"});
+    el(g1,"text",{class:"bl", x:BCR_L+12, y:y+(rh-4)/2}, p.n);
+    BCR_COLS.forEach(c => {
+      const g = el(svg,"g",{class:"step" + on(c.stufe)});
+      el(g,"rect",{class:"cell", x:c.x, y:y, width:c.w, height:rh-4, rx:4});
+      el(g,"text",{class:"ct", x:c.x+8, y:y+(rh-4)/2}, p[c.k]);
+    });
+  });
+
+  BCR_COLS.forEach(c => {
+    const g = el(svg,"g",{class:"step" + on(c.stufe)});
+    el(g,"text",{class:"hd", x:c.x + c.w/2, y:62, style:"fill:var(--grey);font-size:9px"}, c.h);
+  });
+
+  if(bcrStep >= 3)
+    el(svg,"text",{class:"ct", x:BCR_L, y:yEnd+24, style:"fill:var(--grey);font-size:9.5px"},
+       "Beurteilungsskala: nicht signifikant · gering · mittel · erhöht · bedrohlich    ·    Ausmaß: < 10 % · 10–25 % · 25–50 % · > 50 %");
+  if(bcrStep >= 4)
+    el(svg,"text",{class:"ct", x:BCR_L, y:yEnd+44,
+                   style:"fill:var(--ochre);font-size:10px;font-weight:600"},
+       "Jede Zeile ist eine Einheit: dasselbe strategische Ziel, einmal von der Chancenseite und einmal von der Risikoseite gelesen.");
+}
+const BCR_NOTES = [
+  "<b>Schritt 1 · Die Perspektiven.</b> Fünf Zeilenbänder: Finanzen, Kunde und Absatzmarkt, Produkt, Prozesse, Personal. Es ist dieselbe Perspektivenlogik wie bei der Balanced Scorecard und der Supply Chain Scorecard — wer die Lerneinheit zum Supply Chain Controlling bearbeitet hat, erkennt hier die Fortsetzung.",
+  "<b>Schritt 2 · Die Chancenseite.</b> Je Perspektive ein strategisches Ziel, eine Messgröße, Ist- und Planwerte und der Realisierungsgrad. Bis hierhin ist es eine gewöhnliche Scorecard.",
+  "<b>Schritt 3 · Die Risikoseite.</b> Rechts derselben Zeile stehen nun das Risiko, seine Beurteilung auf fünfstufiger Skala und das Ausmaß in Prozentbändern. Jedes Risiko im Register lässt sich einem Ziel zuordnen — und jedes hat seine Position in der Risk-Map aus Reiter 02.",
+  "<b>Schritt 4 · Die Maßnahmenspalte, und der eigentliche Punkt.</b> Die gestrichelten Linien verbinden beide Hälften: Jedes strategische Ziel hat eine Chancen- und eine Risikoseite. Risikoüberwachung ist deshalb keine separate Disziplin neben der Steuerung, sondern <b>deren Rückseite</b>."
+];
+function bcrRender(){
+  drawBcr();
+  $("bcrStep").textContent = "Aufbauschritt " + bcrStep + " von 4";
+  $("bcrNote").innerHTML = BCR_NOTES[bcrStep-1];
+  $("bcrPrev").style.opacity = bcrStep === 1 ? ".4" : "";
+  $("bcrNext").style.opacity = bcrStep === 4 ? ".4" : "";
+}
+$("bcrNext").addEventListener("click", () => { if(bcrStep < 4){ bcrStep++; bcrRender(); } });
+$("bcrPrev").addEventListener("click", () => { if(bcrStep > 1){ bcrStep--; bcrRender(); } });
+bcrRender();
+
+$("cyberBtn").addEventListener("click", () => {
+  const open = $("cyberBtn").getAttribute("aria-expanded") === "true";
+  $("cyberBtn").setAttribute("aria-expanded", String(!open));
+  $("cyberBox").hidden = open;
+  $("cyberBtn").textContent = open ? "Vertiefungsblock öffnen" : "Vertiefungsblock schließen";
+});
+
+/* ---------- Rückblende ---------- */
+function rueckblende(){
+  const host = $("rueckblende");
+  if(!einstiegBeruehrt){
+    host.innerHTML =
+      `<div class="readme"><b>Hier stünde Ihre erste Schätzung.</b> In Reiter 01 haben Sie die beiden Regler nicht bewegt — dieser Abschnitt bleibt deshalb leer. Gehen Sie zurück auf Reiter 01, schätzen Sie die beiden Risiken, und kommen Sie wieder her.</div>`;
+    return;
+  }
+  const rows = LERNEINHEIT.einstieg.risikoIds.map(id => {
+    const r = risk(id), o = einstieg[id];
+    const rfO = RF(o.w, o.s), rfR = RF(r.brutto.w, r.brutto.s), d = rfO - rfR;
+    return `<div class="card">
+      <p class="ck">${r.id} · ${r.kat}</p><h3>${r.name}</h3>
+      <div class="figs" style="margin:14px 0 0">
+        <div class="fig"><p class="fk">Ihre Schätzung</p><div class="fv" style="color:var(--teal)">${rfO}</div><p class="fn">W ${o.w} · S ${o.s}</p></div>
+        <div class="fig"><p class="fk">Begründet</p><div class="fv" style="color:var(--ochre)">${rfR}</div><p class="fn">W ${r.brutto.w} · S ${r.brutto.s}</p></div>
+        <div class="fig${d !== 0 ? " hot" : ""}"><p class="fk">Abstand</p><div class="fv">${d > 0 ? "+" : ""}${d}</div><p class="fn">${d === 0 ? "gleich" : d > 0 ? "Sie lagen höher" : "Sie lagen niedriger"}</p></div>
+      </div>
+      <p style="margin-top:14px">${r.begr}</p></div>`;
+  }).join("");
+  const dR3 = RF(einstieg.R3.w, einstieg.R3.s) - RF(risk("R3").brutto.w, risk("R3").brutto.s);
+  host.innerHTML =
+    `<p class="sub">In Reiter 01 haben Sie diese beiden Risiken geschätzt, ohne die Skala zu kennen, ohne Deutungshilfe und ohne Beispiel. Hier stehen beide Schätzungen nebeneinander.</p>
+     <div class="duo">${rows}</div>
+     <div class="readme" style="margin-top:16px"><b>Es geht hier nicht um richtig und falsch.</b> Die begründete Einschätzung ist keine Wahrheit, sondern eine <b>verankerte</b> Schätzung: Jede Stufe trägt eine Deutungshilfe, an der sich zwei Menschen ausrichten können. Ohne diese Verankerung streuen Schätzungen — auch Ihre, auch meine. Genau diese Streuung ist die Existenzberechtigung des Instruments. Eine Risk-Map ist nicht deshalb wertvoll, weil sie die richtige Zahl liefert, sondern weil sie <b>alle Beteiligten zwingt, dieselbe Skala zu benutzen</b>.${
+       dR3 <= -1 ? " Bei R3 lagen Sie übrigens niedriger als die begründete Einschätzung — das ist der schwarze Schwan, bei dem selbst die begründete Zahl in die Irre führt." :
+       dR3 >= 1 ? " Bei R3 lagen Sie höher als die begründete Einschätzung. Interessant: Genau dieses Risiko landet nach der Formel im grünen Bereich, obwohl es ein Kettenglied vernichten kann." : ""}</div>`;
+}
+
+/* ---------- Denkfehler, Merkblatt, Glossar ---------- */
+$("denkfehler").innerHTML = LERNEINHEIT.denkfehler.map(([irr, rich], i) =>
+  `<button aria-expanded="false" aria-controls="df${i}"><span class="mk">✕</span><span>${irr}</span></button>
+   <div class="ans" id="df${i}" hidden><b>Falsch.</b> ${rich}</div>`).join("");
+$("denkfehler").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  const open = b.getAttribute("aria-expanded") === "true";
+  b.setAttribute("aria-expanded", String(!open));
+  $(b.getAttribute("aria-controls")).hidden = open;
+});
+$("merkList").innerHTML = LERNEINHEIT.merkblatt.map(([t, d]) =>
+  `<dt>${t}</dt><dd>${d}</dd>`).join("");
+$("glossar").innerHTML = LERNEINHEIT.glossar.map(([b, e]) =>
+  `<div><b>${b}</b> — ${e}</div>`).join("");
+$("printBtn").addEventListener("click", () => print());
+
+/* =====================================================================
+   9 · Reiter
+   ===================================================================== */
+const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","d"];
+function select(i){
+  tabs.forEach((t, j) => {
+    const on = i === j;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    $("p-" + keys[j]).hidden = !on;
+  });
+  hideTip();
+  if(i === 3) rueckblende();     /* frisch rechnen, die Schätzung kann sich geändert haben */
+}
+tabs.forEach((t, i) => {
+  t.addEventListener("click", () => select(i));
+  t.addEventListener("keydown", e => {
+    const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if(!d) return; e.preventDefault();
+    const n = (i + d + tabs.length) % tabs.length; tabs[n].focus(); select(n);
+  });
+});
+select(0);
+</script>
+</body>
+</html>
