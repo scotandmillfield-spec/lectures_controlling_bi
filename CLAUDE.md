@@ -51,6 +51,37 @@ auf der Startseite — Bezeichner bleiben englisch, nur der erklärende Text dan
 
 ---
 
+## Vor jeder Aufgabe: erst den aktuellen Stand holen
+
+**Maik redigiert die Texte direkt in `main`.** Diese Änderungen sind nicht optional
+mitzunehmen — sie sind der aktuelle Stand. Deshalb gilt vor **jeder** Änderung an einer Datei,
+ohne Aufforderung und ohne Nachfrage:
+
+```bash
+git fetch origin main
+git merge --ff-only origin/main   # spult vor, wenn der Branch nichts Unfertiges trägt
+```
+
+**`fetch` allein genügt nicht.** Es bewegt nur den Zeiger `origin/main`; das Arbeitsverzeichnis
+bleibt auf dem alten Stand. Ohne den zweiten Befehl wird auf einer veralteten Kopie gearbeitet,
+und eine redaktionelle Überarbeitung geht beim nächsten Block, der ganz neu geschrieben wird,
+verloren. Das ist der wahrscheinlichste Weg, Arbeit zu zerstören.
+
+- **Schlägt `--ff-only` fehl**, trägt der Branch eigene, noch nicht gemergte Commits. Dann
+  `git merge origin/main` und den Konflikt auflösen — niemals `--force` und niemals
+  `git checkout -B`, solange dort etwas Unfertiges liegt.
+- **Nach dem Vorspulen die Dateien neu einlesen**, die geändert werden sollen. Was im Kontext
+  steht, kann von vor dem Merge stammen.
+- **Die Anker in Änderungsskripten mit `assert` prüfen.** Wurde ein Textbaustein redigiert,
+  scheitert das Skript laut, statt still etwas Falsches zu treffen. Das ist Absicht.
+- **Die Zusicherung gilt zum Zeitpunkt des Abgleichs, nicht dauerhaft.** Wird während einer
+  laufenden Aufgabe in `main` redigiert, bekommt die Sitzung das nicht mit. Dann vor dem
+  nächsten Schritt erneut abgleichen.
+
+**Autorzeile lesen:** Commits dieser Sitzung stehen als Autor unter *Maik*, weil der Container
+so konfiguriert ist. Ob ein Commit von Hand stammt, verrät allein das Fehlen des Trailers
+`Co-Authored-By: Claude`.
+
 ## Vor jeder Aufgabe lesen
 
 `PROJECT-CANON.md` ist verbindlich. Dort stehen alle Namen, Zahlen, Standorte und
