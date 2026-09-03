@@ -55,12 +55,12 @@ h2.sec:first-child{margin-top:0}
 p.sub{margin:0 0 16px;color:var(--grey);font-size:.92rem;max-width:78ch}
 .hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:14px 0 0}
 
-/* ---------- Herkunftskennzeichnung: Kursbuch oder Ergaenzung ----------
+/* ---------- Herkunftskennzeichnung: Fachliteratur oder Ergaenzung ----
    Gleichwertig gestaltet, nicht als Warnhinweis. Die Kante zwischen
    beiden ist der didaktische Kern, nicht ein Kleingedrucktes.          */
 .src{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;
   text-transform:uppercase;font-weight:600;border-radius:4px;padding:4px 8px;white-space:nowrap}
-.src.kb{background:var(--teal-xl);color:var(--teal-dk)}
+.src.lit{background:var(--teal-xl);color:var(--teal-dk)}
 .src.erg{background:var(--ochre-xl);color:#8A6417}
 
 /* ---------- Schaltflaechen ---------- */
@@ -374,7 +374,7 @@ footer a{color:var(--teal-dk)}
 <section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
   <p class="claim">Controlling heißt nicht Kontrolle. Es heißt <b>Gegenrolle</b> — und in einer Kette aus fremden Unternehmen ist die Gegenrolle schwerer zu spielen als im eigenen Haus.</p>
 
-  <h2 class="sec">Der Fall, der die Lektion trägt <span class="src kb">Kursbuch S. 70 f.</span></h2>
+  <h2 class="sec">Der Fall, der alles Weitere trägt <span class="src lit">Fachliteratur</span></h2>
   <p class="sub">Bevor ein Instrument erklärt wird, muss die Frage stehen, die es beantwortet.</p>
 
   <div class="card" style="border-left:3px solid var(--orange)">
@@ -388,7 +388,7 @@ footer a{color:var(--teal-dk)}
     </div>
   </div>
 
-  <h2 class="sec">Woher das Wort kommt <span class="src kb">Kursbuch S. 14</span></h2>
+  <h2 class="sec">Woher das Wort kommt <span class="src lit">Fachliteratur</span></h2>
   <p class="sub">Vier Wurzeln, und keine einzige davon heißt Überwachung. Karten anklicken.</p>
 
   <div class="flipgrid" id="wordgrid"></div>
@@ -399,14 +399,14 @@ footer a{color:var(--teal-dk)}
 
   <p class="hint">Erste Erwähnungen um 1890 in den USA als reine Beschreibung der Kostenrechnung · Verbreitung in Deutschland ab den 1960er Jahren · Vorreiterin war die Continental Gummi Werke AG in Hannover</p>
 
-  <h2 class="sec">Zwei Definitionen <span class="src kb">Kursbuch S. 14</span></h2>
+  <h2 class="sec">Zwei Definitionen <span class="src lit">Fachliteratur</span></h2>
   <blockquote class="q">Controlling ist funktional gesehen dasjenige Subsystem der Führung, das Planung und Kontrolle sowie Informationsversorgung systembildend und systemkoppelnd ergebniszielorientiert koordiniert und so die Adaption und Koordination des Gesamtsystems unterstützt.
     <cite>Horváth 2020, S. 129</cite></blockquote>
   <blockquote class="q">Dem Supply Chain Controlling obliegt die Aufgabe, eine einheitliche Fachsprache und ein gemeinsames Prozessverständnis über alle Akteure in der Supply Chain zu entwickeln.
     <cite>Otto/Stölzle 2003, S. 5</cite></blockquote>
   <p class="sub">Nach Specht et al. (2002) besteht das Ziel darin, Entscheidungen des Managements zu unterstützen — durch kostenminimale Versorgung mit Informationen in der richtigen Qualität und Quantität, am richtigen Ort und zum richtigen Zeitpunkt.</p>
 
-  <h2 class="sec">Was hinzukommt, wenn die Kette den Betrieb verlässt <span class="src kb">Kursbuch S. 14 f.</span></h2>
+  <h2 class="sec">Was hinzukommt, wenn die Kette den Betrieb verlässt <span class="src lit">Fachliteratur</span></h2>
   <p class="sub">Innerbetrieblich kann weiter auf die klassischen Controllingelemente zurückgegriffen werden. Zur Optimierung der unternehmensübergreifenden Kette leisten sie jedoch nur noch einen untergeordneten Beitrag. Umschalten und beobachten, was passiert.</p>
 
   <div class="bar">
@@ -428,8 +428,8 @@ footer a{color:var(--teal-dk)}
     <b>Die Wirkung.</b> Das Supply Chain Controlling zeigt dezidiert auf, welche Ursache-Wirkungs-Beziehungen in der Wertschöpfungskette bestehen und wie diese gegebenenfalls zu modifizieren sind. Bei optimaler Ausrichtung verfügen alle Beteiligten über ein <b>Frühwarnsystem</b>, das rechtzeitiges Eingreifen bei Störungen ermöglicht.
   </div>
 
-  <h2 class="sec">Die fünf Aufgaben <span class="src kb">Kursbuch S. 17</span></h2>
-  <p class="sub">Nach Weber/Bacher/Groll 2003. Jede Karte anklicken, um die Erläuterung zu sehen — die Abbildung des Kursbuchs wird hier nicht reproduziert, sondern eigenständig aufgebaut.</p>
+  <h2 class="sec">Die fünf Aufgaben <span class="src lit">Weber/Bacher/Groll 2003</span></h2>
+  <p class="sub">Nach Weber/Bacher/Groll 2003. Jede Karte anklicken, um die Erläuterung zu sehen — die Darstellungen der Fachliteratur werden hier nicht reproduziert, sondern eigenständig aufgebaut.</p>
   <div class="deck" id="taskdeck"></div>
   <p class="counter" id="taskcount"></p>
 
@@ -442,7 +442,7 @@ footer a{color:var(--teal-dk)}
 <section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
   <p class="claim">Ein Regelkreis ist ein System, in dem bestimmte Ereignisse bestimmte <b>Rückkopplungen</b> bedingen. Sie können positiv oder negativ ausfallen — und welche von beiden eintritt, entscheidet ein einziger Zahlenvergleich.</p>
 
-  <h2 class="sec">Der Regelkreis am Reklamationsbeispiel <span class="src kb">Kursbuch S. 18 ff.</span></h2>
+  <h2 class="sec">Der Regelkreis am Reklamationsbeispiel <span class="src lit">Fachliteratur</span></h2>
   <p class="sub">Regelgröße ist die Reklamationsquote, das festgelegte Maximum liegt bei 1,5 Prozent der Ausliefermenge. Den Regler bewegen und den Kreislauf beobachten.</p>
 
   <div class="slider">
@@ -502,7 +502,7 @@ footer a{color:var(--teal-dk)}
 
   <div class="readme" id="loopBox" style="margin-top:16px"></div>
 
-  <h2 class="sec">Was überwacht wird <span class="src kb">Kursbuch S. 19 f.</span></h2>
+  <h2 class="sec">Was überwacht wird <span class="src lit">Fachliteratur</span></h2>
   <p class="sub">Regelgrößen, die sich unmittelbar in der Bilanz niederschlagen.</p>
   <div class="duo">
     <div class="card">
@@ -521,7 +521,7 @@ footer a{color:var(--teal-dk)}
     </div>
   </div>
 
-  <h2 class="sec">Cost Tracking <span class="src kb">Kursbuch S. 20 f.</span></h2>
+  <h2 class="sec">Cost Tracking <span class="src lit">Fachliteratur</span></h2>
   <p class="sub">Ein systematisches Kontrollinstrument des Berichtswesens, das misst, wie hoch der Anteil bestimmter Aktivitäten am Supply-Chain- beziehungsweise Unternehmenserfolg ist.</p>
   <div class="trio">
     <div class="card">
@@ -541,7 +541,7 @@ footer a{color:var(--teal-dk)}
     </div>
   </div>
 
-  <h2 class="sec">Drei Arten des Supply Chain Controllings <span class="src kb">Kursbuch S. 21 ff.</span></h2>
+  <h2 class="sec">Drei Arten des Supply Chain Controllings <span class="src lit">Fachliteratur</span></h2>
   <div class="tscroll" tabindex="0">
     <table class="tbl" style="min-width:640px">
       <thead><tr><th>Art</th><th>Gegenstand</th><th>Kern</th></tr></thead>
@@ -551,7 +551,7 @@ footer a{color:var(--teal-dk)}
             <td>Soll-Ist-Vergleich auf Basis partnerschaftlich vereinbarter und quantifizierbarer Zielvorgaben innerhalb eines determinierten Controllingzyklus. <b>Hardfacts.</b> Hierher gehört auch CPFR — Collaborative Planning, Forecasting und Replenishment.</td></tr>
         <tr><td class="crit">Vertrauenscontrolling</td>
             <td>weiche Faktoren</td>
-            <td>Messung der Vertrauensbasis. <b>Softfacts.</b> Das Kursbuch nennt ausdrücklich die Nachteile: kapazitätsbindender Aufwand und Kosten, etwa für ein Marktforschungsinstitut. Langfristig gerechtfertigt, da der Erfolg einer Kette von vertrauensvoller Zusammenarbeit abhängt.</td></tr>
+            <td>Messung der Vertrauensbasis. <b>Softfacts.</b> Die Nachteile werden ausdrücklich benannt: kapazitätsbindender Aufwand und Kosten, etwa für ein Marktforschungsinstitut. Langfristig gerechtfertigt, da der Erfolg einer Kette von vertrauensvoller Zusammenarbeit abhängt.</td></tr>
         <tr><td class="crit">Performance Measurement</td>
             <td>Leistungsmessung</td>
             <td>Steht in engem Zusammenhang mit dem <b>SCOR-Modell</b>, dem Supply Chain Operations Reference Model, seit 1996 als Standardmethode verfügbar.</td></tr>
@@ -559,7 +559,7 @@ footer a{color:var(--teal-dk)}
     </table>
   </div>
 
-  <h2 class="sec">Drei Schritte bis zum Betrieb <span class="src kb">Kursbuch S. 16 f.</span></h2>
+  <h2 class="sec">Drei Schritte bis zum Betrieb <span class="src lit">Fachliteratur</span></h2>
   <p class="sub">Bei unternehmensübergreifenden Ketten müssen nicht nur die prozessualen Abläufe, sondern auch die <b>Controllingsysteme</b> aneinander angepasst werden — und die sind zwischen den beteiligten Unternehmen selten vergleichbar.</p>
   <div class="trio">
     <div class="card"><p class="ck">Schritt 1</p><h3>Bedarfsanalyse und Zieldefinition</h3>
@@ -583,7 +583,7 @@ footer a{color:var(--teal-dk)}
 <section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
   <p class="claim">Zwei Größen, eine Fläche. Links steht, <b>was die Kette dem Partner abverlangt</b>. Oben steht, <b>was er tragen kann</b>. Wo beides auseinanderfällt, entsteht Handlungsbedarf — und zwar in beide Richtungen.</p>
 
-  <h2 class="sec">Wo das Portfolio steht <span class="src kb">Kursbuch S. 42 f.</span></h2>
+  <h2 class="sec">Wo das Portfolio steht <span class="src lit">Weber 2010</span></h2>
   <p class="sub">Drei innovative Instrumente in fester Abfolge. Über eine Station fahren.</p>
 
   <div class="trio">
@@ -601,7 +601,7 @@ footer a{color:var(--teal-dk)}
     </div>
   </div>
 
-  <h2 class="sec">Wofür es genutzt wird <span class="src kb">Kursbuch S. 43 f.</span></h2>
+  <h2 class="sec">Wofür es genutzt wird <span class="src lit">Fachliteratur</span></h2>
   <p class="sub">Das BBP dient der Stärken- und Schwächen-Analyse einzelner Supply-Chain-Beteiligter. Sein Zweck ist zweistufig.</p>
   <div class="duo">
     <div class="card"><p class="ck">Zweck, erste Stufe</p><h3>Priorisieren und markieren</h3>
@@ -615,7 +615,7 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <h2 class="sec">Die beiden Kerngrößen <span class="src erg">Ergänzung</span></h2>
-  <p class="sub">Das Kursbuch definiert die beiden Größen nicht über Einzelkriterien. Für die Lehre braucht es greifbare Items; die folgenden sind aus dem Kursbuchtext und den dort genannten Beurteilungskriterien der qualitativen Lieferantenbewertung abgeleitet.</p>
+  <p class="sub">Die Fachliteratur definiert die beiden Größen nicht über Einzelkriterien. Für die Lehre braucht es greifbare Items; die folgenden sind aus den dort genannten Beurteilungskriterien der qualitativen Lieferantenbewertung abgeleitet.</p>
 
   <div class="duo">
     <div class="card">
@@ -646,7 +646,7 @@ footer a{color:var(--teal-dk)}
     <b>Die Unterscheidung, an der alles hängt.</b> Beanspruchung ist eine Eigenschaft der <b>Beziehung</b>, Belastbarkeit eine Eigenschaft des <b>Partners</b>. Deshalb lassen sich beide mit völlig unterschiedlichen Hebeln verändern: Beanspruchung senkt man durch Umverteilung von Volumen, Zweitquellen oder Glättung der Abrufe — ohne dass beim Partner irgendetwas geschieht. Belastbarkeit steigert man durch Investitionen beim Partner, Rahmenverträge oder Qualifizierung. Wer das verwechselt, sucht den Hebel jedes Mal am falschen Ort.
   </div>
 
-  <h2 class="sec">Die Skala und ihre Falle <span class="src kb">Kursbuch S. 44 f.</span> <span class="src erg">Transformation: Ergänzung</span></h2>
+  <h2 class="sec">Die Skala und ihre Falle <span class="src lit">Fachliteratur</span> <span class="src erg">Transformation: Ergänzung</span></h2>
   <p class="sub">Die praktikabelste Form des BBP ist ein Fragenkatalog mit Faktoren auf einer ordinalen Skala von 1 bis 5. Damit werden kardinale und ordinale Größen vergleichbar; wie bei einem Scoring-Modell erhalten die Kennzahlen durch <b>Gewichtung</b> ihre Bedeutung.</p>
 
   <div class="duo">
@@ -666,7 +666,7 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <h2 class="sec">Das Portfolio <span class="src erg">Vier-Felder-Logik: Ergänzung</span></h2>
-  <p class="sub">Das Kursbuch beschreibt das Portfolio inhaltlich, benennt aber keine Quadranten mit Namen. Die folgende Vier-Felder-Logik operationalisiert die Kursbuchaussage, dass bei Nichtübereinstimmung von Beanspruchung und Belastbarkeit Maßnahmen zu ergreifen sind.</p>
+  <p class="sub">Die Fachliteratur beschreibt das Portfolio inhaltlich, benennt aber keine Quadranten mit Namen. Die folgende Vier-Felder-Logik operationalisiert den Grundsatz, dass bei Nichtübereinstimmung von Beanspruchung und Belastbarkeit Maßnahmen zu ergreifen sind.</p>
 
   <div class="bar">
     <div class="seg" role="group" aria-label="Betriebsart des Portfolios">
@@ -748,15 +748,15 @@ footer a{color:var(--teal-dk)}
 
   <div class="readme" style="margin-top:16px" id="deltaBox"></div>
 
-  <h2 class="sec">Der Nachteil, im Wortlaut verstanden <span class="src kb">Kursbuch S. 44</span></h2>
+  <h2 class="sec">Der Nachteil, genau verstanden <span class="src lit">Fachliteratur</span></h2>
   <div class="card" style="border-left:3px solid var(--red)">
-    <p class="ck">Prüfungsnah</p>
+    <p class="ck">Der wunde Punkt</p>
     <h3>Was das BBP nicht kann</h3>
     <p>Laufende Qualitätsverbesserungsmaßnahmen, aktive Maßnahmen zur Risikominimierung sowie aktuelle Maßnahmen zur Stabilisierung des Supply-Chain-Mitglieds können nur in die <b>quantitative</b>, nicht aber in die <b>qualitative</b> Messung einfließen. Das kann dazu führen, dass Maßnahmen mit einem hohen Kosten-Nutzen-Faktor eingesetzt werden, um die Belastbarkeit der Lieferkette zu steigern — wobei zwar Handlungsbedarfe erkennbar sind, die <b>Kostenpotenziale jedoch nicht ermittelt werden</b>.</p>
     <p class="verd" style="color:#B25E00;font-weight:700">Kurz: Das BBP zeigt, dass gehandelt werden muss, aber nicht, was das Handeln kostet und ob es sich lohnt.</p>
   </div>
 
-  <h2 class="sec">Die Lösung: das BBAP <span class="src kb">Kursbuch S. 44</span></h2>
+  <h2 class="sec">Die Lösung: das BBAP <span class="src lit">Fachliteratur</span></h2>
   <p class="sub">Das BBP wird um die Dimension <b>Aufwand</b> ergänzt und damit zum Beanspruchungs-, Belastbarkeits- und Aufwandsportfolio. Bei dessen Anwendung können sowohl versteckte Optimierungspotenziale als auch versteckte Kosten identifiziert werden. Es gilt: Je höher der Faktor Aufwand, desto höher die Summe, die für risikomindernde oder risikosteuernde Maßnahmen einzusetzen ist.</p>
 
   <div class="bar">
@@ -773,7 +773,7 @@ footer a{color:var(--teal-dk)}
   </div>
   <p class="hint scrollhint">Portfolio seitlich scrollbar</p>
 
-  <h2 class="sec">Aufwand-Nutzen-Rechner <span class="src erg">Ergänzung, Systematik nach Kursbuch S. 81 f.</span></h2>
+  <h2 class="sec">Aufwand-Nutzen-Rechner <span class="src erg">Ergänzung, Systematik nach der Fachliteratur</span></h2>
   <p class="sub">Nutzen gemessen als Reduktion der Passungslücke in Punkten, Aufwand in Tausend Euro. Der Rang folgt dem Aufwand je Nutzeneinheit, nicht dem absoluten Nutzen.</p>
   <div class="tscroll" tabindex="0">
     <table class="calc">
@@ -791,7 +791,7 @@ footer a{color:var(--teal-dk)}
   <p class="sub">Was am Ende eines BBP-Durchlaufs auf dem Tisch liegt — und was ausdrücklich nicht.</p>
   <div class="says" id="saysBox"></div>
 
-  <h2 class="sec">Und danach: die Supply Chain Valuation <span class="src kb">Kursbuch S. 46</span></h2>
+  <h2 class="sec">Und danach: die Supply Chain Valuation <span class="src lit">Fachliteratur</span></h2>
   <p class="sub">Instrument zur Ermittlung des Wertbeitrags in der Supply-Chain-Optimierung. Der erhöhte Aufwand durch zusätzliche Managementaktivitäten, ausgelöst durch kritisches Verhalten von Kettenmitgliedern, muss durch erhöhte Wertschöpfungserträge gedeckt werden. Bewertet wird die Wirkung konkreter Projekte, simuliert in der Soll-Analyse oder gemessen als Ist-Analyse. Eine anerkannte und einheitliche Definition existiert nicht. Die Methodik ersetzt nicht die Prozesskostenrechnung, sondern ist eine tiefergehende und ganzheitliche Betrachtung, bei der alle Investitionskosten mit den Kosten-Nutzen-Faktoren für alle Beteiligten bewertet werden.</p>
 
   <div class="readme">
@@ -805,7 +805,7 @@ footer a{color:var(--teal-dk)}
 </section>
 
 <footer>
-  Lehrmaterial · Kurs MWCH02, Controlling und Risikomanagement der Supply Chain, IU Kursbuch Versionsnr. 002-2023-1013, Lektion 1 und Lektion 3. Blöcke mit der Kennzeichnung <span class="src kb" style="padding:2px 6px">Kursbuch</span> folgen eng dem Kursbuch und sind prüfungsrelevant; Blöcke mit <span class="src erg" style="padding:2px 6px">Ergänzung</span> sind didaktische Operationalisierungen, die dort nicht ausformuliert sind. Abbildungen und Tabellen des Kursbuchs werden nicht reproduziert, sondern eigenständig neu aufgebaut. Die Fallstudie mit vier Lieferanten ist erfunden; alle Zahlen sind illustrativ und werden aus den Rohwerten zur Laufzeit berechnet. Zitierte Primärquellen: Horváth 2020, Otto/Stölzle 2003, Specht et al. 2002, Weber 2010, Weber/Bacher/Groll 2003.
+  Lehrmaterial zum Kurs MWCH02, Controlling und Risikomanagement der Supply Chain. Blöcke mit der Kennzeichnung <span class="src lit" style="padding:2px 6px">Fachliteratur</span> geben den etablierten Stand des Fachs wieder und sind prüfungsrelevant; Blöcke mit <span class="src erg" style="padding:2px 6px">Ergänzung</span> sind didaktische Operationalisierungen, die dort nicht ausformuliert sind. Alle Darstellungen sind eigenständig aufgebaut. Die Fallstudie mit vier Lieferanten ist erfunden; alle Zahlen sind illustrativ und werden aus den Rohwerten zur Laufzeit berechnet. Zitierte Fachliteratur: Horváth 2020; Otto/Stölzle 2003; Specht et al. 2002; Weber 2010; Weber/Bacher/Groll 2003.
 </footer>
 
 </div>
@@ -899,7 +899,7 @@ const DENKFEHLER = [
   ["Controlling ist Kontrolle.",
    "Controlling meint <b>Steuerung und Informationsversorgung</b>. Der Wortstamm verweist auf Gegenrolle und Auflisten, nicht auf Überwachung. Kontrolle ist ein Teilaspekt, nicht der Begriffskern."],
   ["Das BBP ist ein Risikoportfolio aus Eintrittswahrscheinlichkeit und Tragweite.",
-   "Das ist der <b>Risikofaktor</b> aus einer anderen Lektion. Die Achsen des BBP sind Beanspruchung und Belastbarkeit. Beides sind <b>Zustandsgrößen</b>, keine Wahrscheinlichkeiten."],
+   "Das ist der <b>Risikofaktor</b> aus dem Risikomanagement. Die Achsen des BBP sind Beanspruchung und Belastbarkeit. Beides sind <b>Zustandsgrößen</b>, keine Wahrscheinlichkeiten."],
   ["Eine 1 auf der Skala ist eine schlechte Bewertung.",
    "1 bedeutet, <b>die Aussage trifft genau zu</b>. Ob das gut oder schlecht ist, hängt allein an der Formulierung des Items — bei „freie Kapazitätsreserven“ ist die 1 ein Vorzug, bei „Single Source“ ein Risiko."],
   ["Belastbarkeit ist gleichbedeutend mit Unternehmensgröße.",
@@ -1220,7 +1220,7 @@ function drawMain(){
   }));
   if(pfMode === "self"){
     const w = werte(selfState.roh, selfState.gew);
-    marks.push({name:"Ihre Bewertung", b:w.b, l:w.l, lp: w.b > 3 ? "l" : "r",
+    marks.push({name:"Deine Bewertung", b:w.b, l:w.l, lp: w.b > 3 ? "l" : "r",
                 sub:"Bean. " + nf1(w.b) + " · Bel. " + nf1(w.l), cls:"live"});
   }
   drawMarks(gMain, marks);
@@ -1284,7 +1284,7 @@ function setMode(self){
     pfDetail.innerHTML =
       `<p class="dk">Selbst bewerten</p><h4>Acht Regler, ein Punkt</h4>
        <p>Jeder Regler setzt einen Rohwert von 1 bis 5, jede Auswahl daneben sein Gewicht. Der orange Punkt bewegt sich mit; die vier Lieferanten des Beispiels bleiben blass im Hintergrund als Maßstab stehen.</p>
-       <p class="warn">Achten Sie auf die Skalenrichtung. Ein Rohwert von 1 bedeutet, dass die Aussage <b>zutrifft</b> — die Transformation 6 − Rohwert macht daraus den höchsten Achsenbeitrag.</p>
+       <p class="warn">Achte auf die Skalenrichtung. Ein Rohwert von 1 bedeutet, dass die Aussage <b>zutrifft</b> — die Transformation 6 − Rohwert macht daraus den höchsten Achsenbeitrag.</p>
        <p>Die vollständige Rechnung steht unterhalb der Regler.</p>`;
     syncSelf();
   } else {
@@ -1335,7 +1335,7 @@ $("deltaBox").innerHTML =
   " trägt hohe Last mit hoher Tragfähigkeit (Beanspruchung " + nf1(lB.b) + "), " + lC.id +
   " trägt fast keine Last und hätte auch keine Reserve (Beanspruchung " + nf1(lC.b) +
   ", Belastbarkeit " + nf1(lC.l) + "). Sobald Volumen verlagert wird, kippt " + lC.id +
-  " nach Feld I, während " + lB.id + " stehen bleibt. Genau deshalb spricht das Kursbuch von einem <b>Portfolio</b> und nicht von einer Kennzahl.";
+  " nach Feld I, während " + lB.id + " stehen bleibt. Genau deshalb ist es ein <b>Portfolio</b> und keine Kennzahl.";
 
 /* ---------- BBAP: dasselbe Portfolio, Aufwand als Blasengroesse ---------- */
 const gBbap = pfShell($("pfBbap"));
@@ -1389,7 +1389,7 @@ function renderMeasures(){
         ", weil das Ranking nach Aufwand je Nutzeneinheit erfolgt und nicht nach absolutem Nutzen. Bei ausreichendem Budget lassen sich mehrere Maßnahmen kombinieren; das Ranking bestimmt dann die Reihenfolge der Umsetzung."
       : " Diese Maßnahme führt zugleich die absolute Nutzenliste an — ein Fall, in dem Dringlichkeit und Wirtschaftlichkeit ausnahmsweise zusammenfallen.") +
     (best.auf.length > 1 || best.auf[0] !== "A"
-      ? " Und sie setzt nicht dort an, wo das Problem sichtbar ist: Der wirtschaftlichste Hebel für den kritischen Lieferanten A liegt im Feld der ungenutzten Reserve. Genau das meint das Kursbuch mit <b>versteckten Optimierungspotenzialen</b>."
+      ? " Und sie setzt nicht dort an, wo das Problem sichtbar ist: Der wirtschaftlichste Hebel für den kritischen Lieferanten A liegt im Feld der ungenutzten Reserve. Genau das sind die <b>versteckten Optimierungspotenziale</b>, die das BBAP sichtbar macht."
       : "");
   drawBbap();
 }
