@@ -69,7 +69,7 @@ Besonders leicht zu übersehen:
 ### Wenn ein Modul einen eigenen Fall braucht
 
 **Sofia ist der Normalfall, ein eigener Fall die begründete Ausnahme.**
-`supply-chain-controlling.html` gehört zum Kurs MWCH02 und trägt vier Vorlieferanten eines
+`supply-chain-controlling.html` gehört zum Thema Supply Chain und trägt vier Vorlieferanten eines
 Nutzfahrzeugherstellers. Der Grund: Sofias Betrieb hat keine benannten Lieferanten, und der
 Kanon soll nicht um welche erweitert werden, nur damit ein Portfolio vier Punkte bekommt —
 lieber ein sichtbar getrennter Fall als ein stillschweigend gedehnter Kanon. Wo das nötig ist,
@@ -78,8 +78,9 @@ sagt es die Kachel im ersten Satz und der Fußtext des Moduls.
 ### Quellen: Fachliteratur ja, Kursbücher nie
 
 **Kursbücher sind tabu.** Kein Verweis auf ein Kursbuch, keine Seitenzahl daraus, keine
-Versionsnummer, keine Lektionsnummer, keine reproduzierte Abbildung oder Tabelle. Das gilt für
-Fließtext, Etiketten, Fußzeilen, Klassennamen und Kommentare gleichermaßen.
+Versionsnummer, keine Lektionsnummer, keine reproduzierte Abbildung oder Tabelle. Ebenso wenig
+erscheint eine **Kurskennung** wie `MWCH02` — genannt wird das Thema, nicht die Kursnummer.
+Das gilt für Fließtext, Etiketten, Fußzeilen, Klassennamen und Kommentare gleichermaßen.
 
 **Fachliteratur darf zitiert werden** und soll es auch: Horváth, Weber, Reichmann, Gleißner,
 Diederichs, Rohrschneider, ISO-Normen. Wo eine Aussage auf eine benennbare Quelle zurückgeht,
