@@ -49,20 +49,10 @@ h1 em{font-style:normal;color:var(--teal)}
 
 .claim{font-size:clamp(1.12rem,2.2vw,1.45rem);font-weight:300;line-height:1.36;margin:0 0 24px;max-width:58ch;color:#2c2c2f}
 .claim b{font-weight:600;color:var(--teal-dk)}
-h2.sec{font-size:1.2rem;font-weight:600;letter-spacing:-.012em;margin:34px 0 4px;
-  display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+h2.sec{font-size:1.2rem;font-weight:600;letter-spacing:-.012em;margin:34px 0 4px}
 h2.sec:first-child{margin-top:0}
 p.sub{margin:0 0 16px;color:var(--grey);font-size:.92rem;max-width:78ch}
 .hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:14px 0 0}
-
-/* ------- Herkunftskennzeichnung: Folien, Fachliteratur, Ergaenzung ---
-   Drei Quellen, gleichwertig gestaltet. An der Kante zwischen ihnen
-   findet der Perspektivwechsel statt - das ist kein Kleingedrucktes.  */
-.src{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;
-  text-transform:uppercase;font-weight:600;border-radius:4px;padding:4px 8px;white-space:nowrap}
-.src.lit{background:var(--teal-xl);color:var(--teal-dk)}
-.src.erg{background:var(--ochre-xl);color:#8A6417}
-.src.fol{background:var(--navy-xl);color:var(--navy)}
 
 /* ---------- Schaltflaechen ---------- */
 .bar{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;justify-content:space-between;margin:0 0 16px}
@@ -439,12 +429,12 @@ footer a{color:var(--teal-dk)}
 <section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
   <p class="claim">Bevor irgendetwas erklärt wird: <b>Schätze zwei Risiken.</b> Ohne Skalenerklärung, ohne Beispiel, ohne Rückmeldung. Genau so, wie es in der Praxis am Anfang immer ist.</p>
 
-  <h2 class="sec">Deine erste Schätzung <span class="src erg">Ergänzung</span></h2>
+  <h2 class="sec">Deine erste Schätzung</h2>
   <p class="sub">Zwei Risiken eines Zulieferers für Nutzfahrzeugkomponenten. Stelle für jedes ein, wie wahrscheinlich es eintritt und wie schwer der Schaden wäre. Es gibt hier keine Auswertung — die Werte werden aufgehoben und in Reiter 04 neben die begründete Einschätzung gelegt.</p>
   <div class="duo" id="einstieg"></div>
   <p class="hint" id="einstiegHinweis"></p>
 
-  <h2 class="sec">Drei Definitionen, gegeneinander gelesen <span class="src fol">Folie 2</span></h2>
+  <h2 class="sec">Drei Definitionen, gegeneinander gelesen</h2>
   <p class="sub">Nicht nacheinander abarbeiten. Die Frage lautet, was allen dreien gemeinsam ist.</p>
   <div class="trio" id="defs"></div>
   <p style="margin:16px 0 0"><button class="btn" id="kernBtn" aria-expanded="false" aria-controls="kernBox">Was haben alle drei gemeinsam?</button></p>
@@ -452,7 +442,7 @@ footer a{color:var(--teal-dk)}
     <b>Alle drei brauchen einen Bezugspunkt.</b> Reichmann nennt ihn <b>Ziel</b> und <b>Strategie</b>, die ISO nennt ihn <b>Ziele</b>, Gleißner nennt ihn <b>geplantes oder erwartetes Ergebnis</b>. Ohne definiertes Ziel, ohne Plan, ohne Erwartung gibt es kein Risiko, sondern nur Ungewissheit. Daraus folgt unmittelbar die Notwendigkeit von <b>Plangrößen</b> — und damit die erste Aufgabe, bevor irgendetwas bewertet werden kann.
   </div>
 
-  <h2 class="sec">Gefahr oder Risiko <span class="src lit">Fachliteratur</span></h2>
+  <h2 class="sec">Gefahr oder Risiko</h2>
   <div class="duo">
     <div class="card" style="border-left:3px solid var(--grey-mid)">
       <p class="ck">Nicht bewertet</p><h3>Gefahr</h3>
@@ -466,7 +456,7 @@ footer a{color:var(--teal-dk)}
     </div>
   </div>
 
-  <h2 class="sec">Das Risikopotenzial: drei Faktoren, kumulativ <span class="src lit">Fachliteratur</span></h2>
+  <h2 class="sec">Das Risikopotenzial: drei Faktoren, kumulativ</h2>
   <p class="sub">Risikomanagement wird beim Vorliegen eines gewissen Risikopotenzials betrieben. Fällt einer der drei Faktoren weg, liegt keines vor. Über eine Karte fahren.</p>
   <div class="trio">
     <div class="card" data-k="pot1" tabindex="0" style="cursor:help"><p class="ck">Faktor 1</p><h3>Eine konkrete begründete Bedrohung</h3><p>Nicht ein diffuses Unbehagen, sondern ein benennbares Ereignis mit benennbarer Ursache.</p></div>
@@ -474,7 +464,7 @@ footer a{color:var(--teal-dk)}
     <div class="card" data-k="pot3" tabindex="0" style="cursor:help"><p class="ck">Faktor 3</p><h3>Potenzieller Schaden an einem bedeutenden Wert</h3><p>Hinter der Schwachstelle muss etwas stehen, dessen Verlust zählt. Sonst ist der Treffer folgenlos.</p></div>
   </div>
 
-  <h2 class="sec">Was ein Supply-Chain-Risiko besonders macht <span class="src lit">Fachliteratur</span></h2>
+  <h2 class="sec">Was ein Supply-Chain-Risiko besonders macht</h2>
   <p class="sub">Ein Schaden, der anhand der Wahrscheinlichkeit seines Auftretens zu bewerten ist, <b>mehr als ein Unternehmen</b> des Wertschöpfungsnetzwerks betrifft und seinen Ursprung innerhalb eines Beteiligten oder im direkten Umfeld der Kette hat. Tritt bei einem Beteiligten ein Risiko auf, macht es sich bei anderen als Nachfrage- oder Versorgungsrisiko bemerkbar. Für die Bewertung ist gleichgültig, ob ein Partner das Risiko auslöst oder ob die Ursache in seinem Umfeld liegt.</p>
   <div class="duo">
     <div class="card"><p class="ck">Der Effekt</p><h3>Vulnerability</h3>
@@ -485,13 +475,13 @@ footer a{color:var(--teal-dk)}
       <p style="color:#B25E00;font-weight:600">Merke Dir diesen Fall. In Reiter 02 verschwindet er im Produkt aus Wahrscheinlichkeit und Ausmaß — und das ist kein Rechenfehler, sondern die Schwäche des Instruments.</p></div>
   </div>
 
-  <h2 class="sec">Der Prozess als Kreislauf <span class="src fol">Folie 3</span> <span class="src lit">Fachliteratur</span></h2>
+  <h2 class="sec">Der Prozess als Kreislauf</h2>
   <p class="sub">Kontinuierliche Identifikation, Beurteilung, Steuerung und Überwachung unternehmerischer Risiken. Auf eine Phase klicken; der Schalter legt die gröbere Dreiteilung darüber.</p>
 
   <div class="bar">
     <div class="seg" role="group" aria-label="Zählung">
-      <button id="zFolien" aria-pressed="true">Vier Phasen · Foliensatz</button>
-      <button id="zDrei" aria-pressed="false">Drei Hauptpunkte · Regelkreis</button>
+      <button id="zVier" aria-pressed="true">Vier Phasen</button>
+      <button id="zDrei" aria-pressed="false">Drei Hauptpunkte</button>
     </div>
   </div>
 
@@ -508,7 +498,7 @@ footer a{color:var(--teal-dk)}
     <b>Warum ein Kreislauf und keine Abfolge.</b> Der Erfolg des Risikomanagements hängt davon ab, dass Risiken in einem <b>periodischen</b> Prozess frühzeitig erkannt und analysiert werden; auch im laufenden Betrieb neu auftretende Risiken sind periodisch ergebnisbezogen zu analysieren. Wird der Prozess einmalig durchlaufen, ist er kein Risikomanagement, sondern eine Momentaufnahme. Und: Risikomanagement setzt an, <b>bevor</b> Risiken absehbar oder gar eingetreten sind. Wird erst gehandelt, wenn ein akutes Risiko vorliegt, ist es <b>Krisenmanagement</b>.
   </div>
 
-  <h2 class="sec">Risikoidentifikation <span class="src fol">Folie 4</span></h2>
+  <h2 class="sec">Risikoidentifikation</h2>
   <p class="sub">Nach Diederichs 2023. Drei Aufgaben — die dritte wird in der Lehre meist übergangen und ist die interessanteste.</p>
   <div class="trio">
     <div class="card"><p class="ck">Aufgabe 1</p><h3>Identifikation interner und externer Risiken</h3><p>Mit Hilfe leistungsfähiger Instrumente — Checklisten, Prozessdokumentation, spezifische Analysen je Produkt und Dienstleistung.</p></div>
@@ -517,7 +507,7 @@ footer a{color:var(--teal-dk)}
       <p>Die Identifikation bleibt <b>prinzipiell unvollständig</b>. Marktumfeld und eigene Kettenentwicklung sind dafür meist viel zu dynamisch. Als kontinuierlicher Prozess ermöglicht Risikomanagement die <b>Begrenzung</b> von Einzelrisiken und Gesamtrisiko — nicht ihre Beseitigung.</p></div>
   </div>
 
-  <h2 class="sec">Suchfelder der spezifischen Analyse <span class="src lit">Fachliteratur</span></h2>
+  <h2 class="sec">Suchfelder der spezifischen Analyse</h2>
   <p class="sub">Produktspezifische Risiken können durch <b>Irrtum, Absicht oder Zufall</b> ausgelöst werden. Alle drei Felder werden mit speziellen Fragen abgearbeitet.</p>
   <div class="tscroll" tabindex="0">
     <table class="tbl" style="min-width:600px">
@@ -533,7 +523,7 @@ footer a{color:var(--teal-dk)}
   </div>
   <p class="sub" style="margin-top:12px">Ergebnis ist eine Dokumentation mit Kurzbeschreibung der potenziellen Risiken, dem Zusammenhang von Ursache und Wirkung, dem Zeitpunkt des wahrscheinlichen Eintreffens, den erforderlichen Randbedingungen und der potenziellen Tragweite. Ein probates Mittel sind <b>Risiko-Checklisten</b> auf Basis von Erfahrungswerten aus historischen Aufzeichnungen, die um neue Erfahrungen ergänzt werden.</p>
 
-  <h2 class="sec">Fünf Risikoquellen <span class="src lit">Fachliteratur</span></h2>
+  <h2 class="sec">Fünf Risikoquellen</h2>
   <p class="sub">Gegliedert nach dem Ort der Entstehung. Karte anklicken für ein Beispiel; der Schalter färbt nach endogen und exogen um.</p>
   <div class="bar">
     <div class="seg" role="group" aria-label="Gliederung">
@@ -549,13 +539,13 @@ footer a{color:var(--teal-dk)}
 <section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
   <p class="claim">Zwei Achsen, ein Produkt, drei Zonen. Und eine Grenzlinie, die <b>keine Diagonale</b> ist — was die meisten überrascht und der eigentliche Lerninhalt dieser Karte ist.</p>
 
-  <h2 class="sec">Die beiden Achsen <span class="src fol">Folien 5 bis 8</span> <span class="src lit">Fachliteratur</span></h2>
+  <h2 class="sec">Die beiden Achsen</h2>
   <p class="sub">Die Risk-Map dient der systematischen Analyse, Bewertung und Klassifikation interner und externer Risiken. Die senkrechte Achse trägt die Eintrittswahrscheinlichkeit, die waagerechte das Schadensausmaß.</p>
   <div class="readme">
-    <b>Zwei Quellen, dieselben zwei Achsen.</b> Der Foliensatz zeichnet ein Raster aus Eintrittswahrscheinlichkeit und Schadensausmaß; die Fachliteratur beschreibt unabhängig davon, die Risikobewertung erfolge klassischerweise in den Dimensionen <b>Schadenhöhe</b> und <b>Eintrittswahrscheinlichkeit</b>. Dass unabhängige Quellen dieselben zwei Achsen benennen, weist die Systematik als Standard aus — nicht als Meinung eines Autors.
+    <b>Immer dieselben zwei Achsen.</b> Wer die Risikobewertung beschreibt, kommt praktisch ausnahmslos auf dieselben zwei Dimensionen: <b>Schadenhöhe</b> und <b>Eintrittswahrscheinlichkeit</b>. Dass unabhängig voneinander entstandene Darstellungen darin übereinstimmen, weist die Systematik als Standard aus — nicht als Meinung eines Autors.
   </div>
 
-  <h2 class="sec">Womit wird gemessen? <span class="src lit">Fachliteratur</span></h2>
+  <h2 class="sec">Womit wird gemessen?</h2>
   <div class="trio">
     <div class="card"><p class="ck">Variante I</p><h3>Kardinalskala</h3>
       <p>Auch Verhältnis- oder Intervallskala. Werte sind reelle Zahlen und stehen zueinander in Beziehung.</p>
@@ -576,8 +566,8 @@ footer a{color:var(--teal-dk)}
     <b>Die methodische Pointe, offen ausgesprochen.</b> Die Risk-Map ist in der Praxis fast immer <b>ordinal</b>, wird aber <b>multiplikativ</b> ausgewertet, als wäre sie kardinal. Streng genommen darf man Rangplätze nicht multiplizieren. Das ist angreifbar — und zugleich der Grund, warum die Karte ein <b>Kommunikationswerkzeug</b> ist und kein Rechenwerkzeug.
   </div>
 
-  <h2 class="sec">Die Skalen dieser Einheit <span class="src erg">Ergänzung</span></h2>
-  <p class="sub">Der Foliensatz nutzt drei Stufen je Achse. Für Schieberegler ist das zu grob, deshalb hier eine Fünferskala. Die Deutungshilfen stammen aus keiner der beiden Quellen — sie sind nötig, damit zwei Personen dieselbe Stufe gleich verstehen. Genau darin liegt der Sinn einer <b>Skalenverankerung</b>.</p>
+  <h2 class="sec">Die Skalen dieser Einheit</h2>
+  <p class="sub">Üblich sind drei Stufen je Achse. Für Schieberegler ist das zu grob, deshalb hier eine Fünferskala. Die Deutungshilfen daneben sind eine Zutat dieser Lerneinheit — sie sind nötig, damit zwei Personen dieselbe Stufe gleich verstehen. Genau darin liegt der Sinn einer <b>Skalenverankerung</b>.</p>
   <div class="duo">
     <div class="tscroll" tabindex="0">
       <table class="tbl" style="min-width:0">
@@ -593,7 +583,7 @@ footer a{color:var(--teal-dk)}
     </div>
   </div>
 
-  <h2 class="sec">Risikofaktor und Zonen <span class="src lit">Fachliteratur</span> <span class="src erg">Zonierung: Ergänzung</span></h2>
+  <h2 class="sec">Risikofaktor und Zonen</h2>
   <div class="duo">
     <div class="card"><p class="ck">Die Formel</p><h3>Risikofaktor</h3>
       <p><code class="f">RF = Tragweite (T) × Wahrscheinlichkeit (W)</code></p>
@@ -610,7 +600,7 @@ footer a{color:var(--teal-dk)}
     </table>
   </div>
 
-  <h2 class="sec">Die Karte <span class="src fol">Folie 5</span> <span class="src erg">Fünferskala und Zonierung: Ergänzung</span></h2>
+  <h2 class="sec">Die Karte</h2>
   <div class="bar">
     <div class="seg" role="group" aria-label="Betriebsart der Risk-Map">
       <button id="mA" aria-pressed="true">A · Selbst einschätzen</button>
@@ -683,7 +673,7 @@ footer a{color:var(--teal-dk)}
     </div>
   </div>
 
-  <h2 class="sec">Ein Rechenbeispiel aus der Fachliteratur <span class="src lit">Fachliteratur</span></h2>
+  <h2 class="sec">Ein klassisches Rechenbeispiel</h2>
   <div class="readme warn">
     <b>Achtung, Skalenwechsel.</b> Das folgende Beispiel arbeitet mit einer <b>Zehnerskala</b>, diese Lerneinheit mit einer Fünferskala. Es steht deshalb hier abgesetzt und speist die Karte oben nicht. Der Wechsel wird offen benannt, statt ihn zu glätten: Die Zahlenwerte einer Risk-Map haben nur <b>innerhalb einer festgelegten Konvention</b> Bedeutung.
   </div>
@@ -702,7 +692,7 @@ Differenz: 30 −  4       = 26</div>
   </div>
   <p class="sub" style="margin-top:12px">Die Effizienz einer Maßnahme ist die Differenz der Risikofaktoren vor und nach ihrer Durchführung: <code class="f">Effizienz = RF vorher − RF nachher</code>. Je größer die Differenz, desto höher die Effizienz.</p>
 
-  <h2 class="sec">Drei Punkte, über die zu streiten sich lohnt <span class="src erg">Ergänzung</span></h2>
+  <h2 class="sec">Drei Punkte, über die zu streiten sich lohnt</h2>
   <div class="trio" id="streit"></div>
 </section>
 
@@ -710,20 +700,20 @@ Differenz: 30 −  4       = 26</div>
 <section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
   <p class="claim">In der Risk-Map ist das Bruttorisiko der <b>Ausgangspunkt</b>, das Nettorisiko der <b>Endpunkt</b> und die Maßnahme der <b>Pfeil dazwischen</b>. Der Pfeil ist das eigentliche Managementobjekt.</p>
 
-  <h2 class="sec">Brutto und Netto <span class="src fol">Folien 6 bis 8</span></h2>
+  <h2 class="sec">Brutto und Netto</h2>
   <div class="duo">
     <div class="card"><p class="ck">Inherent Risk</p><h3>Bruttorisiko</h3>
       <p>Das Risiko, das in einer bestimmten Situation besteht, <b>bevor</b> irgendwelche Maßnahmen zur Risikobewältigung ergriffen werden. Das Risiko in seiner rohen Form, ohne Schutzmaßnahmen und ohne Kontrollen. Betrachtet werden nur die ursprüngliche Eintrittswahrscheinlichkeit und die Auswirkungen.</p>
-      <p><i>Beispiel des Foliensatzes: In einem Produktionsbetrieb besteht ein Bruttorisiko für Maschinenausfälle, die ohne Wartung und Kontrollen häufig auftreten könnten. Wahrscheinlichkeit und Auswirkungen wären hoch.</i></p></div>
+      <p><i>Beispiel: In einem Produktionsbetrieb besteht ein Bruttorisiko für Maschinenausfälle, die ohne Wartung und Kontrollen häufig auftreten könnten. Wahrscheinlichkeit und Auswirkungen wären hoch.</i></p></div>
     <div class="card"><p class="ck">Residual Risk</p><h3>Nettorisiko</h3>
       <p>Das verbleibende Risiko, <b>nachdem</b> Risikokontroll- oder Risikominderungsmaßnahmen implementiert wurden. Das bereinigte Risiko, das noch existiert, nachdem alle Vorkehrungen getroffen wurden, um Eintrittswahrscheinlichkeit und Auswirkungen zu reduzieren.</p>
-      <p><i>Beispiel des Foliensatzes: Durch regelmäßige Wartung und den Einbau von Ersatzteilen sinkt das Ausfallrisiko — sowohl in der Wahrscheinlichkeit als auch in den Folgen.</i></p></div>
+      <p><i>Beispiel: Durch regelmäßige Wartung und den Einbau von Ersatzteilen sinkt das Ausfallrisiko — sowohl in der Wahrscheinlichkeit als auch in den Folgen.</i></p></div>
   </div>
   <div class="readme" style="margin-top:16px">
     <b>Wozu beide Werte?</b> Die Brutto-Netto-Betrachtung hilft, die <b>Wirtschaftlichkeit</b> von Risikominderungsmaßnahmen zu verstehen und gleichzeitig das verbleibende Risiko zu bewerten. Wer nur Nettorisiken führt, kann die bereits bestehenden Kontrollen nicht mehr rechtfertigen — ihre Wirkung ist dann unsichtbar geworden.
   </div>
 
-  <h2 class="sec">Vier Maßnahmen gegen R1 <span class="src erg">Ergänzung</span></h2>
+  <h2 class="sec">Vier Maßnahmen gegen R1</h2>
   <p class="sub">Ausgangspunkt ist R1, der Ransomware-Angriff auf das ERP-System, brutto W = 4 und S = 5. Maßnahmen zuschalten und den Pfeil beobachten: <b>präventive</b> Maßnahmen bewegen den Punkt senkrecht, <b>korrektive</b> waagerecht.</p>
 
   <div class="mapwrap">
@@ -740,7 +730,7 @@ Differenz: 30 −  4       = 26</div>
 
   <div class="readme" id="nHint" style="margin-top:16px"></div>
 
-  <h2 class="sec">Aufwand-Nutzen-Analyse <span class="src lit">Systematik: Fachliteratur</span> <span class="src erg">Zahlen: Ergänzung</span></h2>
+  <h2 class="sec">Aufwand-Nutzen-Analyse</h2>
   <p class="sub">Nutzen jeweils als Reduktion des Risikofaktors, gerechnet von der Bruttoposition aus, jede Maßnahme <b>allein</b> betrachtet. Maßnahmen haben einen Nutzen für die Supply Chain, verursachen aber auch Kosten — deshalb gehört zu einem sinnvollen Risikomanagement stets eine dezidierte Aufwand-Nutzen-Analyse.</p>
   <div class="tscroll" tabindex="0">
     <table class="tbl" style="min-width:760px">
@@ -750,11 +740,11 @@ Differenz: 30 −  4       = 26</div>
   </div>
   <p class="sub" style="margin-top:12px">Sobald die Maßnahmen ausgewählt sind, werden sie einem für die Durchführung Verantwortlichen zugeordnet. Maßgeblich für die Auswahl ist, welches Ausmaß die Auswirkungen auf das Wertschöpfungsnetzwerk annehmen, wenn das Risiko <b>nicht</b> behandelt wird, und wie groß das Restrisiko ist, wenn Gegenmaßnahmen ergriffen werden.</p>
 
-  <h2 class="sec">Fünf Steuerungsstrategien <span class="src fol">Folien 9 und 10</span></h2>
-  <p class="sub">Der Foliensatz zeigt jede Strategie als <b>Bewegung</b> eines Risikos in der Karte. Erster Klick zeichnet nur den Vektor, zweiter Klick führt die Bewegung aus.</p>
+  <h2 class="sec">Fünf Steuerungsstrategien</h2>
+  <p class="sub">Jede der fünf Strategien ist eine <b>Bewegung</b> eines Risikos in der Karte. Erster Klick zeichnet nur den Vektor, zweiter Klick führt die Bewegung aus.</p>
 
   <div class="readme warn">
-    <b>Der Schlüssel zu allen fünf Pfeilen.</b> Die Fachliteratur formuliert dazu eine Regel: <b>Korrektive Maßnahmen beeinflussen meistens die Tragweite</b> der Risiken, <b>während Prävention sich auf die Wahrscheinlichkeit</b> des Auftretens auswirkt. Damit ist jede Pfeilrichtung erklärbar, ohne eine Liste auswendig zu lernen: waagerecht ist korrektiv, senkrecht ist präventiv, diagonal ist beides, und keine Bewegung ist keines von beidem.
+    <b>Der Schlüssel zu allen fünf Pfeilen.</b> Es gibt dazu eine Regel: <b>Korrektive Maßnahmen beeinflussen meistens die Tragweite</b> der Risiken, <b>während Prävention sich auf die Wahrscheinlichkeit</b> des Auftretens auswirkt. Damit ist jede Pfeilrichtung erklärbar, ohne eine Liste auswendig zu lernen: waagerecht ist korrektiv, senkrecht ist präventiv, diagonal ist beides, und keine Bewegung ist keines von beidem.
   </div>
 
   <div class="strat" id="strats" style="margin-top:16px"></div>
@@ -783,11 +773,11 @@ Differenz: 30 −  4       = 26</div>
     </table>
   </div>
 
-  <h2 class="sec">Vier Positionen, vier Überlegungen <span class="src erg">Ergänzung</span></h2>
+  <h2 class="sec">Vier Positionen, vier Überlegungen</h2>
   <p class="sub">Keine Prüfungsaufgabe und keine Punktewertung — vier Lagen aus der Karte, zu denen jeweils eine begründete Überlegung aufklappt.</p>
   <div class="acc" id="zuordnung"></div>
 
-  <h2 class="sec">Die BAUM-Struktur der Risikovorsorge <span class="src lit">Rohrschneider 1998</span></h2>
+  <h2 class="sec">Die BAUM-Struktur der Risikovorsorge</h2>
   <p class="sub">Sobald Risiken erfasst und analysiert sind, werden Gegenmaßnahmen geplant und eingeleitet — mit einer individuellen Betrachtung jedes einzelnen Risikos nach dieser Struktur. Hier ausgefüllt für R1.</p>
   <div class="baum" id="baum"></div>
   <p class="sub" style="margin-top:14px">Risikomanagement bedeutet, dass Risiken erkannt und durch <b>Ausweichen, Minderung oder Abwehr</b> behandelt werden. Die Maßnahmenplanung erfolgt zumeist unterschieden nach präventiven und korrektiven Handlungsweisen. In der Praxis ist allerdings häufig für akute, nicht vorplanbare Ereignisse eine schnelle Schadensbegrenzung herbeizuführen; die Beurteilung dieser bereits aufgetretenen und behandelten Risiken erfolgt im Nachgang, um künftig ähnlich gelagerte Störungen zu vermeiden oder besser beheben zu können.</p>
@@ -797,11 +787,11 @@ Differenz: 30 −  4       = 26</div>
 <section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
   <p class="claim">Jedes strategische Ziel hat eine <b>Chancenseite</b> und eine <b>Risikoseite</b>. Risikoüberwachung ist deshalb keine eigene Disziplin neben der Steuerung, sondern <b>deren Rückseite</b>.</p>
 
-  <h2 class="sec">Die vier Aufgaben der Überwachung <span class="src fol">Folie 11</span></h2>
+  <h2 class="sec">Die vier Aufgaben der Überwachung</h2>
   <div class="quad" id="ueberw"></div>
 
-  <h2 class="sec">Die Balanced Chance- und Risk-Card <span class="src fol">Folie 12</span></h2>
-  <p class="sub">Das Instrument koppelt eine Balanced Scorecard mit dem Risikoregister. Der Aufbau wird hier eigenständig gezeichnet, nicht aus der Folie übernommen — Schritt für Schritt.</p>
+  <h2 class="sec">Die Balanced Chance- und Risk-Card</h2>
+  <p class="sub">Das Instrument koppelt eine Balanced Scorecard mit dem Risikoregister. Der Aufbau wird hier Schritt für Schritt eigenständig aufgebaut.</p>
   <div class="bar">
     <div class="seg" role="group" aria-label="Aufbauschritte">
       <button id="bcrPrev">Zurück</button>
@@ -816,10 +806,10 @@ Differenz: 30 −  4       = 26</div>
   <p class="hint scrollhint">Grafik seitlich scrollbar</p>
   <div class="readme" id="bcrNote" style="margin-top:16px"></div>
 
-  <h2 class="sec">Vertiefung: Cyber-Risk-Management <span class="src fol">Folie 13</span></h2>
+  <h2 class="sec">Vertiefung: Cyber-Risk-Management</h2>
   <p style="margin:0 0 14px"><button class="btn" id="cyberBtn" aria-expanded="false" aria-controls="cyberBox">Vertiefungsblock öffnen</button></p>
   <div id="cyberBox" hidden>
-    <p class="sub">Die <b>Balanced Chance and Cyber Risk Card</b> erweitert die Card um zwei Dimensionen: die Perspektiven werden um Cyber Resilience ergänzt, und quer dazu treten Adressatenebenen. Quelle laut Fußzeile der Folie: Alexander Lawall und Maik Drozdzynski, IU International University, Securware 2025, Barcelona, 27. Oktober 2025.</p>
+    <p class="sub">Die <b>Balanced Chance and Cyber Risk Card</b> erweitert die Card um zwei Dimensionen: die Perspektiven werden um Cyber Resilience ergänzt, und quer dazu treten Adressatenebenen. Nach Alexander Lawall und Maik Drozdzynski, IU International University, Securware 2025, Barcelona.</p>
     <div class="tscroll" tabindex="0">
       <table class="tbl" style="min-width:640px">
         <thead><tr><th>Dimension</th><th>Ausprägungen</th></tr></thead>
@@ -837,14 +827,14 @@ Differenz: 30 −  4       = 26</div>
         <p class="m" style="font-family:var(--mono);font-size:.8rem;line-height:1.7">Expected Annual Loss · Cyber Resilience Index · Cyber-Value at Risk · Meantime to detect · Meantime to respond · CLI · Phishing click through rate · Service Downtime per Customer · Patch Compliance Rate</p></div>
     </div>
     <div class="readme warn" style="margin-top:14px">
-      <b>Die Aussage der gestrichelten Linien.</b> Auf der Folie verbinden sie die Cyber-Resilience-Kennzahlen mit den übrigen Perspektiven. Ein Cyberrisiko ist damit <b>kein IT-Thema</b>, sondern ein Finanz-, Markt- und Prozessthema — mit entsprechend verteilter Verantwortung bis ins C-Level.
+      <b>Die Aussage der gestrichelten Linien.</b> Sie verbinden die Cyber-Resilience-Kennzahlen mit den übrigen Perspektiven. Ein Cyberrisiko ist damit <b>kein IT-Thema</b>, sondern ein Finanz-, Markt- und Prozessthema — mit entsprechend verteilter Verantwortung bis ins C-Level.
     </div>
   </div>
 
-  <h2 class="sec">Rückblende auf Deine erste Schätzung <span class="src erg">Ergänzung</span></h2>
+  <h2 class="sec">Rückblende auf Deine erste Schätzung</h2>
   <div id="rueckblende"></div>
 
-  <h2 class="sec">Häufige Denkfehler <span class="src erg">Ergänzung</span></h2>
+  <h2 class="sec">Häufige Denkfehler</h2>
   <p class="sub">Frage anklicken, um die Richtigstellung zu sehen.</p>
   <div class="acc" id="denkfehler"></div>
 
@@ -904,7 +894,7 @@ const LERNEINHEIT = {
          {id:"y", von:6,  bis:11, name:"Beobachtungsbereich", kurz:"Gelb",
           bed:"Maßnahmen prüfen, die Wirtschaftlichkeit entscheidet"},
          {id:"r", von:12, bis:25, name:"Handlungsbereich",    kurz:"Rot",
-          bed:"Maßnahmen erforderlich — im Foliensatz mit Warndreieck markiert"}],
+          bed:"Maßnahmen erforderlich — in der Karte mit Warndreieck markiert"}],
   toleranzlinie:12,
 
   risiken:[
@@ -1333,7 +1323,7 @@ $("kernBtn").addEventListener("click", () => {
 
 /* ---------- Prozesskreis ---------- */
 const PB = [[58,44],[372,44],[372,254],[58,254]], PW = 230, PH = 86;
-let procMode = "folien", procSel = 0;
+let procMode = "vier", procSel = 0;
 function drawProc(){
   const svg = $("procSvg"); svg.textContent = "";
   const defs = el(svg,"defs",{});
@@ -1387,14 +1377,14 @@ function procDetail(){
      <p style="margin-top:14px;padding-top:12px;border-top:1px solid var(--grey-xl)">
        <b>In der gröberen Dreiteilung:</b> ${kb}${procSel <= 1 ? " — dort sind Identifikation und Beurteilung zu <b>einem</b> Punkt zusammengefasst. Das ist kein Widerspruch, sondern eine andere Schnitttiefe. Genau solche Schnittunterschiede kosten in Prüfungen Punkte." : "."}</p>`;
 }
-$("zFolien").addEventListener("click", () => {
-  procMode = "folien";
-  $("zFolien").setAttribute("aria-pressed","true"); $("zDrei").setAttribute("aria-pressed","false");
+$("zVier").addEventListener("click", () => {
+  procMode = "vier";
+  $("zVier").setAttribute("aria-pressed","true"); $("zDrei").setAttribute("aria-pressed","false");
   drawProc();
 });
 $("zDrei").addEventListener("click", () => {
   procMode = "drei";
-  $("zFolien").setAttribute("aria-pressed","false"); $("zDrei").setAttribute("aria-pressed","true");
+  $("zVier").setAttribute("aria-pressed","false"); $("zDrei").setAttribute("aria-pressed","true");
   drawProc();
 });
 drawProc(); procDetail();

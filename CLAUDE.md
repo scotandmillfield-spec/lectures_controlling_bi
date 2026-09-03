@@ -117,14 +117,17 @@ Das gilt für Fließtext, Etiketten, Fußzeilen, Klassennamen und Kommentare gle
 Diederichs, Rohrschneider, ISO-Normen. Wo eine Aussage auf eine benennbare Quelle zurückgeht,
 wird sie genannt — mit Autor und Jahr, nicht mit einer Fundstelle in einem Kurswerk.
 
-Entsteht ein Modul aus vorhandenem Lehrstoff, trägt **jeder Inhaltsblock ein Etikett**:
-`FACHLITERATUR` (mit Autor und Jahr, wo bekannt) für den etablierten Stand des Fachs,
-`ERGÄNZUNG` für die didaktische Operationalisierung, die dort nicht ausformuliert ist. Stammt
-etwas aus einem eigenen Foliensatz, heißt das Etikett `FOLIE N`. Die Etiketten sind dauerhaft
-sichtbar und **gleichwertig gestaltet** — die Ergänzung wird nicht optisch zurückgenommen. Die
-Kante zwischen beiden ist der Punkt, an dem Studierende den Perspektivwechsel vollziehen, kein
-Kleingedrucktes. Abbildungen werden **nicht reproduziert**, sondern eigenständig neu aufgebaut;
-Definitionen im Wortlaut nur als ausgewiesenes Zitat mit Quellenangabe.
+**Keine Herkunftsetiketten am Inhalt.** Ein Modul trägt keine Kennzeichnung, aus welcher Quelle
+ein Block stammt — weder `FACHLITERATUR` noch `FOLIE N` noch `ERGÄNZUNG`. Die Module stehen für
+sich; wer sie liest, soll sich mit dem Gegenstand befassen und nicht mit seiner Provenienz.
+Abbildungen werden **nicht reproduziert**, sondern eigenständig neu aufgebaut.
+
+**Wo eine Aussage auf einen Autor zurückgeht, wird er im Fließtext genannt** — als Zitat mit
+Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
+ist Zitieren, kein Etikettieren, und bleibt erwünscht.
+
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026`. Keine
+Quellenverzeichnisse, keine Legenden, keine Versionsangaben.
 
 ## Aufbau
 
