@@ -285,7 +285,7 @@ footer a{color:var(--teal-dk)}
   <p class="claim">Die Unterscheidung klingt trivial und ist es nicht. <b>Ein Fakt ist, was man addiert. Eine Dimension ist, wonach man addiert.</b> Wer das verwechselt, baut ein Modell, das die Frage nicht beantworten kann, für die es gebaut wurde.</p>
 
   <h2 class="sec">Selbsttest</h2>
-  <p class="sub">Klicken Sie ein Feld an. Jeder Klick schaltet weiter: Fakt → Dimension → Sonderfall. Die Auflösung steht darunter, sobald Sie darüberfahren.</p>
+  <p class="sub">Klicke ein Feld an. Jeder Klick schaltet weiter: Fakt → Dimension → Sonderfall. Die Auflösung steht darunter, sobald Du darüberfährst.</p>
 
   <p class="score" id="score"></p>
   <div class="chips" id="chips"></div>
@@ -320,10 +320,10 @@ footer a{color:var(--teal-dk)}
 
 <!-- ============================ TAB B ============================ -->
 <section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b">
-  <p class="claim">Drei Achsen: <b>Warengruppe, Monat, Filiale</b>. In jeder Zelle steht ein Umsatz. Legen Sie alle drei Koordinaten fest, bekommen Sie einen Wert — lassen Sie eine offen, bekommen Sie eine Summe.</p>
+  <p class="claim">Drei Achsen: <b>Warengruppe, Monat, Filiale</b>. In jeder Zelle steht ein Umsatz. Legst Du alle drei Koordinaten fest, bekommst Du einen Wert — lässt Du eine offen, bekommst Du eine Summe.</p>
 
   <h2 class="sec">Vier Fragen zum Anklicken</h2>
-  <p class="sub">Von der engsten zur weitesten. Beachten Sie, wie die Zahl der Zellen wächst, während die Frage kürzer wird.</p>
+  <p class="sub">Von der engsten zur weitesten. Beachte, wie die Zahl der Zellen wächst, während die Frage kürzer wird.</p>
   <div class="asks" id="asks"></div>
 
   <div class="picks" id="picks"></div>
@@ -351,7 +351,7 @@ footer a{color:var(--teal-dk)}
 
 <!-- ============================ TAB C ============================ -->
 <section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c">
-  <p class="claim">Die klassischen Operationen sind keine Zaubersprüche, sondern <b>fünf Arten, dieselbe Adresse zu verändern</b>. Klicken Sie eine an — der Würfel führt sie vor.</p>
+  <p class="claim">Die klassischen Operationen sind keine Zaubersprüche, sondern <b>fünf Arten, dieselbe Adresse zu verändern</b>. Klicke eine an — der Würfel führt sie vor.</p>
 
   <div class="asks" id="ops"></div>
 
@@ -375,7 +375,7 @@ footer a{color:var(--teal-dk)}
   <p class="claim">Der Würfel ist die <b>Sicht der Anwenderin</b>. Das Sternschema ist, <b>wie diese Sicht gespeichert wird</b>. Wer den Würfel einmal hingeschrieben hat, hat das Schema fast schon entworfen.</p>
 
   <h2 class="sec">Die Übersetzung, Stück für Stück</h2>
-  <p class="sub">Jedes Element des Würfels hat im Sternschema genau eine Entsprechung. Fahren Sie über eine Zeile.</p>
+  <p class="sub">Jedes Element des Würfels hat im Sternschema genau eine Entsprechung. Fahre über eine Zeile.</p>
 
   <div class="tscroll">
     <table class="mx">
@@ -630,7 +630,7 @@ const OPS=[
     st.sel={wg:new Set(WG), mo:new Set(MON), fi:new Set(FIL)};},
   "Pivot · dieselben Daten, gedreht",
   "Die Achsen tauschen den Platz: Was waagerecht lag, liegt jetzt senkrecht. <b>An den Daten ändert sich nichts</b> — kein Wert, keine Auswahl, keine Summe. Pivot ist eine Frage der Darstellung, und dass es trotzdem einen eigenen Namen hat, sagt viel darüber, wie sehr die Anordnung das Verständnis prägt.",
-  "Klicken Sie mehrfach — die Ansicht kippt hin und her, die 145.500 € bleiben."]
+  "Klicke mehrfach — die Ansicht kippt hin und her, die 145.500 € bleiben."]
 ];
 document.getElementById("ops").innerHTML = OPS.map(([name],i)=>
   `<button class="ask" type="button" data-i="${i}" aria-pressed="false">${name}</button>`).join("");
@@ -650,7 +650,7 @@ function paintC(){
 document.getElementById("detC").innerHTML =
   `<p class="dk">Fünf Operationen</p><h4>Alle verändern die Adresse, keine verändert die Daten</h4>
    <p>Slice und Dice schränken ein, Drill-down und Roll-up verstellen die Auflösung einer Achse, Pivot dreht nur die Ansicht. Keine dieser Operationen schreibt etwas in den Würfel — sie formulieren die Frage um.</p>
-   <p class="warn">Wählen Sie oben eine Operation.</p>`;
+   <p class="warn">Wähle oben eine Operation.</p>`;
 paintC();
 
 /* =====================================================================
@@ -697,7 +697,7 @@ function reveal(i){
   const g=guess[i];
   const verdict = g===undefined ? "" :
     g===kind ? `<p class="warn" style="color:var(--green)">Richtig zugeordnet.</p>`
-             : `<p class="warn">Sie haben „${KLABEL[g]}“ gewählt — es ist „${KLABEL[kind]}“.</p>`;
+             : `<p class="warn">Du hast „${KLABEL[g]}“ gewählt — es ist „${KLABEL[kind]}“.</p>`;
   document.getElementById("detA").innerHTML =
     `<p class="dk">${KLABEL[kind]}</p><h4>${label}</h4><p>${why}</p>${verdict}`;
 }

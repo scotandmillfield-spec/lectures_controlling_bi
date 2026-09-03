@@ -253,7 +253,7 @@ footer a{color:var(--teal-dk)}
   <p class="claim">Eine Hierarchie ist ein <b>Weg von grob nach fein</b>, den das Modell kennt. Sie ist der Grund, warum sich ein Bericht auf- und zuklappen lässt, ohne dass jemand eine neue Abfrage schreibt.</p>
 
   <h2 class="sec">Auf- und Zuklappen an Sofias Sortiment</h2>
-  <p class="sub">Warengruppe → Produktgruppe → Produkt, Umsätze Q1 2026. Klicken Sie eine Zeile an. Die Summe bleibt bei jedem Klick dieselbe — sie wird nur feiner aufgeteilt.</p>
+  <p class="sub">Warengruppe → Produktgruppe → Produkt, Umsätze Q1 2026. Klicke eine Zeile an. Die Summe bleibt bei jedem Klick dieselbe — sie wird nur feiner aufgeteilt.</p>
 
   <div class="htree" id="htree"></div>
 
@@ -261,7 +261,7 @@ footer a{color:var(--teal-dk)}
     <p class="dk">Was beim Klicken passiert</p>
     <h4>Drill-down und Roll-up sind keine zwei Berichte, sondern zwei Blicke auf dieselbe Summe</h4>
     <p>Zugeklappt zeigt der Bericht drei Zeilen, aufgeklappt neun. Dahinter steht dieselbe Faktentabelle und dieselbe Summenfunktion — nur die Gruppierung wechselt die Spalte. Genau deshalb muss die Hierarchie im Modell stehen und nicht im Bericht: Wüsste das Modell nicht, dass „Espresso" zu „Heißgetränke" gehört, müsste jede Auswertung diese Zuordnung neu mitbringen.</p>
-    <p class="warn">Klicken Sie eine Zeile, um sie auf- oder zuzuklappen.</p>
+    <p class="warn">Klicke eine Zeile, um sie auf- oder zuzuklappen.</p>
   </div>
 
   <h2 class="sec">Wie die Hierarchie in der Dimensionstabelle liegt</h2>
@@ -357,7 +357,7 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <div class="readme warn">
-    <b>Rechnen Sie nach — die Normalisierung spart hier gar nichts.</b> Flach sind es 9 Zeilen mit 36 Feldern. Normalisiert sind es 17 Zeilen mit 48 Feldern, weil jede ausgelagerte Tabelle einen eigenen Schlüssel und jede Kindzeile einen Fremdschlüssel braucht. Der Speicherplatz, um dessentwillen normalisiert wird, existiert bei Dimensionen dieser Größe schlicht nicht: Sofias Produktdimension hat neun Zeilen, ihre Faktentabelle Zehntausende. Alles, was ein Data Warehouse an Platz kostet, steckt in der Mitte des Sterns — und dort ändert das Snowflake-Schema kein einziges Byte.
+    <b>Rechne nach — die Normalisierung spart hier gar nichts.</b> Flach sind es 9 Zeilen mit 36 Feldern. Normalisiert sind es 17 Zeilen mit 48 Feldern, weil jede ausgelagerte Tabelle einen eigenen Schlüssel und jede Kindzeile einen Fremdschlüssel braucht. Der Speicherplatz, um dessentwillen normalisiert wird, existiert bei Dimensionen dieser Größe schlicht nicht: Sofias Produktdimension hat neun Zeilen, ihre Faktentabelle Zehntausende. Alles, was ein Data Warehouse an Platz kostet, steckt in der Mitte des Sterns — und dort ändert das Snowflake-Schema kein einziges Byte.
   </div>
   <p class="hint scrollhint">Zeichnung seitlich scrollen</p>
   <p class="hint">Oben umschalten · Tabellen in der Zeichnung überfahren</p>
@@ -746,7 +746,7 @@ document.getElementById("detA").innerHTML =
    <p class="warn">Über eine Tabelle fahren, um zu sehen, was sie enthält und warum sie da ist.</p>`;
 document.getElementById("detC").innerHTML =
   `<p class="dk">Die Umformung</p><h4>Nur ein Ast des Sterns verändert sich</h4>
-   <p>Schalten Sie oben um. Zeit, Filiale und Zahlweg bleiben unberührt — sie haben keine Hierarchie, die sich auslagern ließe. Nur die Produktdimension zerfällt in drei Tabellen, und die Faktentabelle merkt davon nichts: Sie zeigt weiterhin auf <code style="font-family:var(--mono)">produkt_sk</code>. Ein Snowflake-Schema ist also kein anderes Modell, sondern ein Stern mit ausgebauten Ästen.</p>
+   <p>Schalte oben um. Zeit, Filiale und Zahlweg bleiben unberührt — sie haben keine Hierarchie, die sich auslagern ließe. Nur die Produktdimension zerfällt in drei Tabellen, und die Faktentabelle merkt davon nichts: Sie zeigt weiterhin auf <code style="font-family:var(--mono)">produkt_sk</code>. Ein Snowflake-Schema ist also kein anderes Modell, sondern ein Stern mit ausgebauten Ästen.</p>
    <p class="warn">Über eine Tabelle fahren, um zu sehen, was sie enthält.</p>`;
 
 const tabs=[...document.querySelectorAll('[role="tab"]')], keys=["a","b","c","d"];

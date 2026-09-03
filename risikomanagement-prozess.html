@@ -55,12 +55,12 @@ h2.sec:first-child{margin-top:0}
 p.sub{margin:0 0 16px;color:var(--grey);font-size:.92rem;max-width:78ch}
 .hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:14px 0 0}
 
-/* ---------- Herkunftskennzeichnung: Folien, Kursbuch, Ergaenzung -----
+/* ------- Herkunftskennzeichnung: Folien, Fachliteratur, Ergaenzung ---
    Drei Quellen, gleichwertig gestaltet. An der Kante zwischen ihnen
    findet der Perspektivwechsel statt - das ist kein Kleingedrucktes.  */
 .src{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;
   text-transform:uppercase;font-weight:600;border-radius:4px;padding:4px 8px;white-space:nowrap}
-.src.kb{background:var(--teal-xl);color:var(--teal-dk)}
+.src.lit{background:var(--teal-xl);color:var(--teal-dk)}
 .src.erg{background:var(--ochre-xl);color:#8A6417}
 .src.fol{background:var(--navy-xl);color:var(--navy)}
 
@@ -423,9 +423,9 @@ footer a{color:var(--teal-dk)}
 <div class="wrap">
 
 <header class="masthead">
-  <p class="eyebrow">MWCH02 · Controlling und Risikomanagement der Supply Chain</p>
+  <p class="eyebrow">Controlling und Risikomanagement der Supply Chain</p>
   <h1>Zwei Menschen, ein Risiko, <em>zwei Zahlen</em></h1>
-  <p class="lede">Jeder schätzt Risiken. Die Frage ist, ob zwei Menschen dasselbe Risiko gleich schätzen — und was passiert, wenn sie es nicht tun. Diese Einheit beginnt deshalb nicht mit einer Definition, sondern mit Ihrer eigenen Schätzung. Am Ende von Reiter 04 bekommen Sie sie zurück.</p>
+  <p class="lede">Jeder schätzt Risiken. Die Frage ist, ob zwei Menschen dasselbe Risiko gleich schätzen — und was passiert, wenn sie es nicht tun. Diese Einheit beginnt deshalb nicht mit einer Definition, sondern mit Deiner eigenen Schätzung. Am Ende von Reiter 04 bekommst Du sie zurück.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Der Risikomanagement-Prozess">
@@ -437,10 +437,10 @@ footer a{color:var(--teal-dk)}
 
 <!-- ============================ TAB A ============================ -->
 <section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
-  <p class="claim">Bevor irgendetwas erklärt wird: <b>Schätzen Sie zwei Risiken.</b> Ohne Skalenerklärung, ohne Beispiel, ohne Rückmeldung. Genau so, wie es in der Praxis am Anfang immer ist.</p>
+  <p class="claim">Bevor irgendetwas erklärt wird: <b>Schätze zwei Risiken.</b> Ohne Skalenerklärung, ohne Beispiel, ohne Rückmeldung. Genau so, wie es in der Praxis am Anfang immer ist.</p>
 
-  <h2 class="sec">Ihre erste Schätzung <span class="src erg">Ergänzung</span></h2>
-  <p class="sub">Zwei Risiken eines Zulieferers für Nutzfahrzeugkomponenten. Stellen Sie für jedes ein, wie wahrscheinlich es eintritt und wie schwer der Schaden wäre. Es gibt hier keine Auswertung — die Werte werden aufgehoben und in Reiter 04 neben die begründete Einschätzung gelegt.</p>
+  <h2 class="sec">Deine erste Schätzung <span class="src erg">Ergänzung</span></h2>
+  <p class="sub">Zwei Risiken eines Zulieferers für Nutzfahrzeugkomponenten. Stelle für jedes ein, wie wahrscheinlich es eintritt und wie schwer der Schaden wäre. Es gibt hier keine Auswertung — die Werte werden aufgehoben und in Reiter 04 neben die begründete Einschätzung gelegt.</p>
   <div class="duo" id="einstieg"></div>
   <p class="hint" id="einstiegHinweis"></p>
 
@@ -452,7 +452,7 @@ footer a{color:var(--teal-dk)}
     <b>Alle drei brauchen einen Bezugspunkt.</b> Reichmann nennt ihn <b>Ziel</b> und <b>Strategie</b>, die ISO nennt ihn <b>Ziele</b>, Gleißner nennt ihn <b>geplantes oder erwartetes Ergebnis</b>. Ohne definiertes Ziel, ohne Plan, ohne Erwartung gibt es kein Risiko, sondern nur Ungewissheit. Daraus folgt unmittelbar die Notwendigkeit von <b>Plangrößen</b> — und damit die erste Aufgabe, bevor irgendetwas bewertet werden kann.
   </div>
 
-  <h2 class="sec">Gefahr oder Risiko <span class="src kb">Kursbuch S. 76</span></h2>
+  <h2 class="sec">Gefahr oder Risiko <span class="src lit">Fachliteratur</span></h2>
   <div class="duo">
     <div class="card" style="border-left:3px solid var(--grey-mid)">
       <p class="ck">Nicht bewertet</p><h3>Gefahr</h3>
@@ -466,7 +466,7 @@ footer a{color:var(--teal-dk)}
     </div>
   </div>
 
-  <h2 class="sec">Das Risikopotenzial: drei Faktoren, kumulativ <span class="src kb">Kursbuch S. 76</span></h2>
+  <h2 class="sec">Das Risikopotenzial: drei Faktoren, kumulativ <span class="src lit">Fachliteratur</span></h2>
   <p class="sub">Risikomanagement wird beim Vorliegen eines gewissen Risikopotenzials betrieben. Fällt einer der drei Faktoren weg, liegt keines vor. Über eine Karte fahren.</p>
   <div class="trio">
     <div class="card" data-k="pot1" tabindex="0" style="cursor:help"><p class="ck">Faktor 1</p><h3>Eine konkrete begründete Bedrohung</h3><p>Nicht ein diffuses Unbehagen, sondern ein benennbares Ereignis mit benennbarer Ursache.</p></div>
@@ -474,7 +474,7 @@ footer a{color:var(--teal-dk)}
     <div class="card" data-k="pot3" tabindex="0" style="cursor:help"><p class="ck">Faktor 3</p><h3>Potenzieller Schaden an einem bedeutenden Wert</h3><p>Hinter der Schwachstelle muss etwas stehen, dessen Verlust zählt. Sonst ist der Treffer folgenlos.</p></div>
   </div>
 
-  <h2 class="sec">Was ein Supply-Chain-Risiko besonders macht <span class="src kb">Kursbuch S. 69</span></h2>
+  <h2 class="sec">Was ein Supply-Chain-Risiko besonders macht <span class="src lit">Fachliteratur</span></h2>
   <p class="sub">Ein Schaden, der anhand der Wahrscheinlichkeit seines Auftretens zu bewerten ist, <b>mehr als ein Unternehmen</b> des Wertschöpfungsnetzwerks betrifft und seinen Ursprung innerhalb eines Beteiligten oder im direkten Umfeld der Kette hat. Tritt bei einem Beteiligten ein Risiko auf, macht es sich bei anderen als Nachfrage- oder Versorgungsrisiko bemerkbar. Für die Bewertung ist gleichgültig, ob ein Partner das Risiko auslöst oder ob die Ursache in seinem Umfeld liegt.</p>
   <div class="duo">
     <div class="card"><p class="ck">Der Effekt</p><h3>Vulnerability</h3>
@@ -482,16 +482,16 @@ footer a{color:var(--teal-dk)}
       <p>Ursachen der Zunahme: der Trend zu schlanken Wertschöpfungsnetzwerken, die Globalisierung, die hohe Komplexität und die enge Verzahnung verschiedener Supply Chains.</p></div>
     <div class="card" style="border-left:3px solid var(--ochre)"><p class="ck">Der Grenzfall</p><h3>Schwarze Schwäne</h3>
       <p>Geschehnisse, die nicht vorhersehbar und äußerst unwahrscheinlich sind und von den Beteiligten nicht beeinflusst werden können — etwa Naturkatastrophen. Ihnen kann das Supply Chain Management nur mit <b>Notfallplänen</b> begegnen, deren Durchführung im Ernstfall häufig doch nicht möglich ist.</p>
-      <p style="color:#B25E00;font-weight:600">Merken Sie sich diesen Fall. In Reiter 02 verschwindet er im Produkt aus Wahrscheinlichkeit und Ausmaß — und das ist kein Rechenfehler, sondern die Schwäche des Instruments.</p></div>
+      <p style="color:#B25E00;font-weight:600">Merke Dir diesen Fall. In Reiter 02 verschwindet er im Produkt aus Wahrscheinlichkeit und Ausmaß — und das ist kein Rechenfehler, sondern die Schwäche des Instruments.</p></div>
   </div>
 
-  <h2 class="sec">Der Prozess als Kreislauf <span class="src fol">Folie 3</span> <span class="src kb">Kursbuch S. 78</span></h2>
-  <p class="sub">Kontinuierliche Identifikation, Beurteilung, Steuerung und Überwachung unternehmerischer Risiken. Auf eine Phase klicken; der Schalter blendet die Zählung des Kursbuchs darüber.</p>
+  <h2 class="sec">Der Prozess als Kreislauf <span class="src fol">Folie 3</span> <span class="src lit">Fachliteratur</span></h2>
+  <p class="sub">Kontinuierliche Identifikation, Beurteilung, Steuerung und Überwachung unternehmerischer Risiken. Auf eine Phase klicken; der Schalter legt die gröbere Dreiteilung darüber.</p>
 
   <div class="bar">
     <div class="seg" role="group" aria-label="Zählung">
       <button id="zFolien" aria-pressed="true">Vier Phasen · Foliensatz</button>
-      <button id="zKursbuch" aria-pressed="false">Drei Hauptpunkte · Kursbuch</button>
+      <button id="zDrei" aria-pressed="false">Drei Hauptpunkte · Regelkreis</button>
     </div>
   </div>
 
@@ -517,7 +517,7 @@ footer a{color:var(--teal-dk)}
       <p>Die Identifikation bleibt <b>prinzipiell unvollständig</b>. Marktumfeld und eigene Kettenentwicklung sind dafür meist viel zu dynamisch. Als kontinuierlicher Prozess ermöglicht Risikomanagement die <b>Begrenzung</b> von Einzelrisiken und Gesamtrisiko — nicht ihre Beseitigung.</p></div>
   </div>
 
-  <h2 class="sec">Suchfelder der spezifischen Analyse <span class="src kb">Kursbuch S. 78 f.</span></h2>
+  <h2 class="sec">Suchfelder der spezifischen Analyse <span class="src lit">Fachliteratur</span></h2>
   <p class="sub">Produktspezifische Risiken können durch <b>Irrtum, Absicht oder Zufall</b> ausgelöst werden. Alle drei Felder werden mit speziellen Fragen abgearbeitet.</p>
   <div class="tscroll" tabindex="0">
     <table class="tbl" style="min-width:600px">
@@ -533,8 +533,8 @@ footer a{color:var(--teal-dk)}
   </div>
   <p class="sub" style="margin-top:12px">Ergebnis ist eine Dokumentation mit Kurzbeschreibung der potenziellen Risiken, dem Zusammenhang von Ursache und Wirkung, dem Zeitpunkt des wahrscheinlichen Eintreffens, den erforderlichen Randbedingungen und der potenziellen Tragweite. Ein probates Mittel sind <b>Risiko-Checklisten</b> auf Basis von Erfahrungswerten aus historischen Aufzeichnungen, die um neue Erfahrungen ergänzt werden.</p>
 
-  <h2 class="sec">Fünf Risikoquellen <span class="src kb">Kursbuch S. 70 ff.</span></h2>
-  <p class="sub">Gegliedert nach dem Ort der Entstehung. Karte anklicken für das Beispiel des Kursbuchs; der Schalter färbt nach endogen und exogen um.</p>
+  <h2 class="sec">Fünf Risikoquellen <span class="src lit">Fachliteratur</span></h2>
+  <p class="sub">Gegliedert nach dem Ort der Entstehung. Karte anklicken für ein Beispiel; der Schalter färbt nach endogen und exogen um.</p>
   <div class="bar">
     <div class="seg" role="group" aria-label="Gliederung">
       <button id="qQuelle" aria-pressed="true">Nach Risikoquelle</button>
@@ -549,13 +549,13 @@ footer a{color:var(--teal-dk)}
 <section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
   <p class="claim">Zwei Achsen, ein Produkt, drei Zonen. Und eine Grenzlinie, die <b>keine Diagonale</b> ist — was die meisten überrascht und der eigentliche Lerninhalt dieser Karte ist.</p>
 
-  <h2 class="sec">Die beiden Achsen <span class="src fol">Folien 5 bis 8</span> <span class="src kb">Kursbuch S. 80</span></h2>
-  <p class="sub">Die Risk-Map dient der systematischen Analyse, Bewertung und Klassifikation interner und externer Risiken. Sie senkrechte Achse trägt die Eintrittswahrscheinlichkeit, die waagerechte das Schadensausmaß.</p>
+  <h2 class="sec">Die beiden Achsen <span class="src fol">Folien 5 bis 8</span> <span class="src lit">Fachliteratur</span></h2>
+  <p class="sub">Die Risk-Map dient der systematischen Analyse, Bewertung und Klassifikation interner und externer Risiken. Die senkrechte Achse trägt die Eintrittswahrscheinlichkeit, die waagerechte das Schadensausmaß.</p>
   <div class="readme">
-    <b>Zwei Quellen, dieselben zwei Achsen.</b> Der Foliensatz zeichnet ein Raster aus Eintrittswahrscheinlichkeit und Schadensausmaß; das Kursbuch schreibt unabhängig davon, die Risikobewertung erfolge klassischerweise in den Dimensionen <b>Schadenhöhe</b> und <b>Eintrittswahrscheinlichkeit</b>. Dass zwei Quellen ohne voneinander abzuschreiben dieselben Achsen benennen, weist die Systematik als Standard aus — nicht als Meinung eines Autors.
+    <b>Zwei Quellen, dieselben zwei Achsen.</b> Der Foliensatz zeichnet ein Raster aus Eintrittswahrscheinlichkeit und Schadensausmaß; die Fachliteratur beschreibt unabhängig davon, die Risikobewertung erfolge klassischerweise in den Dimensionen <b>Schadenhöhe</b> und <b>Eintrittswahrscheinlichkeit</b>. Dass unabhängige Quellen dieselben zwei Achsen benennen, weist die Systematik als Standard aus — nicht als Meinung eines Autors.
   </div>
 
-  <h2 class="sec">Womit wird gemessen? <span class="src kb">Kursbuch S. 80</span></h2>
+  <h2 class="sec">Womit wird gemessen? <span class="src lit">Fachliteratur</span></h2>
   <div class="trio">
     <div class="card"><p class="ck">Variante I</p><h3>Kardinalskala</h3>
       <p>Auch Verhältnis- oder Intervallskala. Werte sind reelle Zahlen und stehen zueinander in Beziehung.</p>
@@ -593,7 +593,7 @@ footer a{color:var(--teal-dk)}
     </div>
   </div>
 
-  <h2 class="sec">Risikofaktor und Zonen <span class="src kb">Kursbuch S. 81</span> <span class="src erg">Zonierung: Ergänzung</span></h2>
+  <h2 class="sec">Risikofaktor und Zonen <span class="src lit">Fachliteratur</span> <span class="src erg">Zonierung: Ergänzung</span></h2>
   <div class="duo">
     <div class="card"><p class="ck">Die Formel</p><h3>Risikofaktor</h3>
       <p><code class="f">RF = Tragweite (T) × Wahrscheinlichkeit (W)</code></p>
@@ -683,7 +683,7 @@ footer a{color:var(--teal-dk)}
     </div>
   </div>
 
-  <h2 class="sec">Das Rechenbeispiel des Kursbuchs <span class="src kb">Kursbuch S. 81</span></h2>
+  <h2 class="sec">Ein Rechenbeispiel aus der Fachliteratur <span class="src lit">Fachliteratur</span></h2>
   <div class="readme warn">
     <b>Achtung, Skalenwechsel.</b> Das folgende Beispiel arbeitet mit einer <b>Zehnerskala</b>, diese Lerneinheit mit einer Fünferskala. Es steht deshalb hier abgesetzt und speist die Karte oben nicht. Der Wechsel wird offen benannt, statt ihn zu glätten: Die Zahlenwerte einer Risk-Map haben nur <b>innerhalb einer festgelegten Konvention</b> Bedeutung.
   </div>
@@ -740,7 +740,7 @@ Differenz: 30 −  4       = 26</div>
 
   <div class="readme" id="nHint" style="margin-top:16px"></div>
 
-  <h2 class="sec">Aufwand-Nutzen-Analyse <span class="src kb">Systematik: Kursbuch S. 81 f., Tabelle 5</span> <span class="src erg">Zahlen: Ergänzung</span></h2>
+  <h2 class="sec">Aufwand-Nutzen-Analyse <span class="src lit">Systematik: Fachliteratur</span> <span class="src erg">Zahlen: Ergänzung</span></h2>
   <p class="sub">Nutzen jeweils als Reduktion des Risikofaktors, gerechnet von der Bruttoposition aus, jede Maßnahme <b>allein</b> betrachtet. Maßnahmen haben einen Nutzen für die Supply Chain, verursachen aber auch Kosten — deshalb gehört zu einem sinnvollen Risikomanagement stets eine dezidierte Aufwand-Nutzen-Analyse.</p>
   <div class="tscroll" tabindex="0">
     <table class="tbl" style="min-width:760px">
@@ -754,7 +754,7 @@ Differenz: 30 −  4       = 26</div>
   <p class="sub">Der Foliensatz zeigt jede Strategie als <b>Bewegung</b> eines Risikos in der Karte. Erster Klick zeichnet nur den Vektor, zweiter Klick führt die Bewegung aus.</p>
 
   <div class="readme warn">
-    <b>Der Schlüssel zu allen fünf Pfeilen.</b> Das Kursbuch formuliert auf S. 81 die Regel: <b>Korrektive Maßnahmen beeinflussen meistens die Tragweite</b> der Risiken, <b>während Prävention sich auf die Wahrscheinlichkeit</b> des Auftretens auswirkt. Damit ist jede Pfeilrichtung erklärbar, ohne eine Liste auswendig zu lernen: waagerecht ist korrektiv, senkrecht ist präventiv, diagonal ist beides, und keine Bewegung ist keines von beidem.
+    <b>Der Schlüssel zu allen fünf Pfeilen.</b> Die Fachliteratur formuliert dazu eine Regel: <b>Korrektive Maßnahmen beeinflussen meistens die Tragweite</b> der Risiken, <b>während Prävention sich auf die Wahrscheinlichkeit</b> des Auftretens auswirkt. Damit ist jede Pfeilrichtung erklärbar, ohne eine Liste auswendig zu lernen: waagerecht ist korrektiv, senkrecht ist präventiv, diagonal ist beides, und keine Bewegung ist keines von beidem.
   </div>
 
   <div class="strat" id="strats" style="margin-top:16px"></div>
@@ -787,7 +787,7 @@ Differenz: 30 −  4       = 26</div>
   <p class="sub">Keine Prüfungsaufgabe und keine Punktewertung — vier Lagen aus der Karte, zu denen jeweils eine begründete Überlegung aufklappt.</p>
   <div class="acc" id="zuordnung"></div>
 
-  <h2 class="sec">Die BAUM-Struktur der Risikovorsorge <span class="src kb">Kursbuch S. 81, nach Rohrschneider 1998</span></h2>
+  <h2 class="sec">Die BAUM-Struktur der Risikovorsorge <span class="src lit">Rohrschneider 1998</span></h2>
   <p class="sub">Sobald Risiken erfasst und analysiert sind, werden Gegenmaßnahmen geplant und eingeleitet — mit einer individuellen Betrachtung jedes einzelnen Risikos nach dieser Struktur. Hier ausgefüllt für R1.</p>
   <div class="baum" id="baum"></div>
   <p class="sub" style="margin-top:14px">Risikomanagement bedeutet, dass Risiken erkannt und durch <b>Ausweichen, Minderung oder Abwehr</b> behandelt werden. Die Maßnahmenplanung erfolgt zumeist unterschieden nach präventiven und korrektiven Handlungsweisen. In der Praxis ist allerdings häufig für akute, nicht vorplanbare Ereignisse eine schnelle Schadensbegrenzung herbeizuführen; die Beurteilung dieser bereits aufgetretenen und behandelten Risiken erfolgt im Nachgang, um künftig ähnlich gelagerte Störungen zu vermeiden oder besser beheben zu können.</p>
@@ -841,7 +841,7 @@ Differenz: 30 −  4       = 26</div>
     </div>
   </div>
 
-  <h2 class="sec">Rückblende auf Ihre erste Schätzung <span class="src erg">Ergänzung</span></h2>
+  <h2 class="sec">Rückblende auf Deine erste Schätzung <span class="src erg">Ergänzung</span></h2>
   <div id="rueckblende"></div>
 
   <h2 class="sec">Häufige Denkfehler <span class="src erg">Ergänzung</span></h2>
@@ -862,12 +862,12 @@ Differenz: 30 −  4       = 26</div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der Risikofaktor ist ein <b>Produkt</b>. Deshalb ist die Toleranzlinie keine Gerade, deshalb addieren sich Maßnahmenwirkungen nicht, und deshalb verschwindet der schwarze Schwan im grünen Bereich. Die Karte <b>ordnet</b> — entscheiden müssen Sie.</p>
+    <p>Der Risikofaktor ist ein <b>Produkt</b>. Deshalb ist die Toleranzlinie keine Gerade, deshalb addieren sich Maßnahmenwirkungen nicht, und deshalb verschwindet der schwarze Schwan im grünen Bereich. Die Karte <b>ordnet</b> — entscheiden musst Du.</p>
   </div>
 </section>
 
 <footer>
-  Lehrmaterial · Kurs MWCH02, Controlling und Risikomanagement der Supply Chain. Quellen: Foliensatz „Der Risikomanagement-Prozess“ (13 Folien) sowie IU Kursbuch Versionsnr. 002-2023-1013, Lektionen 6 und 7. Blöcke mit <span class="src fol" style="padding:2px 6px">Folie N</span> stammen aus dem Foliensatz, Blöcke mit <span class="src kb" style="padding:2px 6px">Kursbuch</span> folgen eng dem Kursbuch und sind prüfungsrelevant, Blöcke mit <span class="src erg" style="padding:2px 6px">Ergänzung</span> sind didaktische Operationalisierungen, die in keiner der beiden Quellen ausformuliert sind. Weder Folienabbildungen noch Kursbuchtabellen werden reproduziert; alle Grafiken sind eigenständig als SVG aufgebaut. Der Risikokatalog des Zulieferers für Nutzfahrzeugkomponenten ist erfunden und teilt den Fall mit der Lerneinheit <a href="supply-chain-controlling.html">Supply Chain Controlling</a>. Alle Zahlen sind illustrativ und werden zur Laufzeit aus den Rohwerten berechnet. Im Foliensatz zitierte Quellen: Reichmann 2018; ISO 31000 (2009); Gleißner 2015; Diederichs 2023; Lawall/Drozdzynski, Securware 2025.
+  Lehrmaterial zum Thema Controlling und Risikomanagement der Supply Chain. Quellen: der Foliensatz „Der Risikomanagement-Prozess“ sowie die Fachliteratur des Gebiets. Blöcke mit <span class="src fol" style="padding:2px 6px">Folie N</span> stammen aus dem Foliensatz, Blöcke mit <span class="src lit" style="padding:2px 6px">Fachliteratur</span> geben den etablierten Stand des Fachs wieder und sind prüfungsrelevant, Blöcke mit <span class="src erg" style="padding:2px 6px">Ergänzung</span> sind didaktische Operationalisierungen, die dort nicht ausformuliert sind. Keine Abbildung wird reproduziert; alle Grafiken sind eigenständig als SVG aufgebaut. Der Risikokatalog des Zulieferers für Nutzfahrzeugkomponenten ist erfunden und teilt den Fall mit der Lerneinheit <a href="supply-chain-controlling.html">Supply Chain Controlling</a>. Alle Zahlen sind illustrativ und werden zur Laufzeit aus den Rohwerten berechnet. Zitierte Fachliteratur: Reichmann 2018; ISO 31000 (2009); Gleißner 2015; Diederichs 2023; Rohrschneider 1998; Lawall/Drozdzynski, Securware 2025.
 </footer>
 
 </div>
@@ -883,7 +883,8 @@ Differenz: 30 −  4       = 26</div>
    eine Änderung an W, S oder Aufwand sofort durch die Seite wirkt.
    ===================================================================== */
 const LERNEINHEIT = {
-  meta:{kurs:"MWCH02", titel:"Der Risikomanagement-Prozess", dauerMin:90, stand:"2026-09"},
+  meta:{thema:"Controlling und Risikomanagement der Supply Chain",
+        titel:"Der Risikomanagement-Prozess", dauerMin:90, stand:"2026-09"},
 
   skalen:{
     w:[{stufe:1,label:"sehr gering",anker:"seltener als alle zehn Jahre"},
@@ -984,7 +985,7 @@ const LERNEINHEIT = {
       {name:"Risikoüberwachung", sym:"Streudiagramm", frage:"Wirkt es, und was hat sich verändert?",
        det:"Kennzahlen und Indikatoren zur Messung der Zielerreichung und zur Früherkennung, Zuordnung der zielbedrohenden Risiken, Erfassung der steuernden Maßnahmen. Instrument: die Balanced Chance- und Risk-Card."}
     ],
-    kursbuch:["Risikoidentifikation und -analyse","Steuerung auftretender Risiken","Risikokontrolle"],
+    dreiteilung:["Risikoidentifikation und -analyse","Steuerung auftretender Risiken","Risikokontrolle"],
     klammer:[0,1]
   },
 
@@ -1008,9 +1009,9 @@ const LERNEINHEIT = {
 
   streit:[
     {t:"R3 und der schwarze Schwan",
-     p:"Das Erdbeben hat das höchstmögliche Schadensausmaß und landet dennoch im <b>grünen</b> Bereich, weil die Wahrscheinlichkeit mit 1 bewertet ist. Der Risikofaktor stuft es als tragbar ein, obwohl es ein Kettenglied vernichten kann. Das ist die strukturelle Schwäche der multiplikativen Bewertung. Das Kursbuch antwortet darauf nicht mit einer besseren Formel, sondern mit einem anderen Instrument: dem <b>Notfallplan</b>."},
+     p:"Das Erdbeben hat das höchstmögliche Schadensausmaß und landet dennoch im <b>grünen</b> Bereich, weil die Wahrscheinlichkeit mit 1 bewertet ist. Der Risikofaktor stuft es als tragbar ein, obwohl es ein Kettenglied vernichten kann. Das ist die strukturelle Schwäche der multiplikativen Bewertung. Die Antwort darauf ist keine bessere Formel, sondern ein anderes Instrument: der <b>Notfallplan</b>."},
     {t:"R7 gegen R2",
-     p:"Der Bullwhip-Effekt liegt mit Risikofaktor 12 im roten Bereich, der Ausfall des Single-Source-Lieferanten mit 10 im gelben. Nach der Zahl ist die Fehlprognose das dringendere Problem. Würden Sie dieser Reihenfolge folgen? Die Karte <b>ordnet</b>, sie entscheidet nicht."},
+     p:"Der Bullwhip-Effekt liegt mit Risikofaktor 12 im roten Bereich, der Ausfall des Single-Source-Lieferanten mit 10 im gelben. Nach der Zahl ist die Fehlprognose das dringendere Problem. Würdest Du dieser Reihenfolge folgen? Die Karte <b>ordnet</b>, sie entscheidet nicht."},
     {t:"R6 und der Preis der Vergleichbarkeit",
      p:"Die Wechselkursschwankung ist die einzige Position im Katalog, die sich sauber <b>kardinal</b> messen ließe, nämlich in Euro. Sie wird trotzdem ordinal eingestuft, um mit den übrigen vergleichbar zu bleiben. Damit geht Information verloren. Das ist der Preis der Vergleichbarkeit — und er ist bewusst zu zahlen, nicht zu übersehen."}
   ],
@@ -1035,7 +1036,7 @@ const LERNEINHEIT = {
 
   denkfehler:[
     ["Risiko und Gefahr sind dasselbe.",
-     "Sind Wahrscheinlichkeit und Auswirkungen nicht bekannt, spricht das Kursbuch von einer <b>Gefahr</b>. Erst die Bewertung macht daraus ein Risiko — und erst dann ist es in eine Karte eintragbar."],
+     "Sind Wahrscheinlichkeit und Auswirkungen nicht bekannt, spricht man von einer <b>Gefahr</b>. Erst die Bewertung macht daraus ein Risiko — und erst dann ist es in eine Karte eintragbar."],
     ["Ein niedriger Risikofaktor bedeutet, dass nichts zu tun ist.",
      "Ein schwarzer Schwan mit Wahrscheinlichkeit 1 und Ausmaß 5 landet im grünen Bereich und kann trotzdem ein Kettenglied vernichten. Für ihn ist der <b>Notfallplan</b> zuständig, nicht die Karte."],
     ["Die Risikotoleranzlinie ist eine Diagonale.",
@@ -1060,7 +1061,7 @@ const LERNEINHEIT = {
     ["Risiko",              "Ereignis mit negativem Einfluss, das Planungen verhindert, mit gewisser Eintrittswahrscheinlichkeit und ermittelbaren Ursachen. Ein <b>bewertetes</b> Ereignis."],
     ["Gefahr",              "Negatives Ereignis, dessen Wahrscheinlichkeit und Auswirkungen <b>nicht bekannt</b> sind. Nicht in eine Karte eintragbar."],
     ["Risikopotenzial",     "Drei Faktoren, kumulativ: begründete Bedrohung, Schwachstelle in der Kette, potenzieller Schaden an einem bedeutenden Wert."],
-    ["Die vier Phasen",     "Identifikation → Beurteilung → Steuerung → Überwachung → zurück zur Identifikation. Das Kursbuch fasst die ersten beiden zu einem Punkt zusammen: drei Hauptpunkte statt vier Phasen."],
+    ["Die vier Phasen",     "Identifikation → Beurteilung → Steuerung → Überwachung → zurück zur Identifikation. Eine gröbere Zählung fasst die ersten beiden zu einem Punkt zusammen: drei Hauptpunkte statt vier Phasen."],
     ["Die beiden Achsen",   "Senkrecht die Eintrittswahrscheinlichkeit W, waagerecht das Schadensausmaß S. Beide hier ordinal 1 bis 5, mit verankerten Stufenbezeichnungen."],
     ["Risikofaktor",        "<code>RF = T × W</code>, bei Fünferskalen zwischen 1 und 25. Zonen: 1–5 grün, 6–11 gelb, 12–25 rot."],
     ["Toleranzlinie",       "Die Kurve aller Punkte mit W × S = 12 — eine <b>Hyperbel</b>, keine Gerade."],
@@ -1086,7 +1087,7 @@ const LERNEINHEIT = {
     ["Risikoregelkreis","Kreislaufdarstellung des Risikomanagements aus Identifikation und Analyse, Steuerung und Kontrolle."],
     ["Risikotoleranzlinie","Kurve gleichen Risikofaktors, oberhalb derer Handlungsbedarf besteht."],
     ["Risk-Map","Portfolio aus Eintrittswahrscheinlichkeit und Schadensausmaß zur Analyse, Bewertung und Klassifikation von Risiken."],
-    ["Schadensausmaß","Waagerechte Achse der Risk-Map, im Kursbuch auch Schadenhöhe oder Tragweite."],
+    ["Schadensausmaß","Waagerechte Achse der Risk-Map, auch Schadenhöhe oder Tragweite genannt."],
     ["Schwarzer Schwan","Nicht vorhersehbares, äußerst unwahrscheinliches Geschehnis außerhalb der Einflussmöglichkeit der Beteiligten."],
     ["SCRM","Supply Chain Risk Management, integraler Bestandteil des Supply Chain Managements."],
     ["Vulnerability","Verletzlichkeit der Supply Chain, Auftreten von Folgeschäden bei weiteren Partnern."]
@@ -1303,7 +1304,7 @@ LERNEINHEIT.einstieg.risikoIds.forEach(id => {
 });
 function einstiegHinweis(){
   $("einstiegHinweis").textContent = einstiegBeruehrt
-    ? "Aufgehoben. In Reiter 04 liegt Ihre Schätzung neben der begründeten Einschätzung."
+    ? "Aufgehoben. In Reiter 04 liegt Deine Schätzung neben der begründeten Einschätzung."
     : "Noch nichts eingestellt · beide Regler stehen auf der Mitte";
 }
 einstiegHinweis();
@@ -1356,13 +1357,13 @@ function drawProc(){
     el(g,"text",{class:"pq",  x:x+18, y:y+67}, ph.frage);
   });
 
-  if(procMode === "kursbuch"){
+  if(procMode === "drei"){
     el(svg,"path",{class:"clam", d:"M52 40 V22 H606 V40"});
-    el(svg,"text",{class:"clamlab", x:329, y:12}, "Kursbuch, Punkt 1 · Risikoidentifikation und -analyse");
+    el(svg,"text",{class:"clamlab", x:329, y:12}, "Dreiteilung, Punkt 1 · Risikoidentifikation und -analyse");
     el(svg,"text",{class:"clamlab", x:487, y:356, style:"fill:var(--ochre)"},
-       "Kursbuch, Punkt 2 · Steuerung auftretender Risiken");
+       "Dreiteilung, Punkt 2 · Steuerung auftretender Risiken");
     el(svg,"text",{class:"clamlab", x:173, y:356, style:"fill:var(--ochre)"},
-       "Kursbuch, Punkt 3 · Risikokontrolle");
+       "Dreiteilung, Punkt 3 · Risikokontrolle");
   }
   el(svg,"text",{class:"ctr",  x:330, y:160}, "Risikoregelkreis");
   el(svg,"text",{class:"ctrs", x:330, y:182}, "periodisch, nicht einmalig");
@@ -1378,22 +1379,22 @@ function drawProc(){
 }
 function procDetail(){
   const ph = LERNEINHEIT.prozess.phasen[procSel];
-  const kb = procSel <= 1 ? LERNEINHEIT.prozess.kursbuch[0] : LERNEINHEIT.prozess.kursbuch[procSel-1];
+  const kb = procSel <= 1 ? LERNEINHEIT.prozess.dreiteilung[0] : LERNEINHEIT.prozess.dreiteilung[procSel-1];
   $("procDetail").innerHTML =
     `<p class="dk">Phase ${procSel+1} · Symbol ${ph.sym}</p><h4>${ph.name}</h4>
      <p style="font-weight:600;color:var(--teal-dk)">${ph.frage}</p>
      <p>${ph.det}</p>
      <p style="margin-top:14px;padding-top:12px;border-top:1px solid var(--grey-xl)">
-       <b>Im Kursbuch:</b> ${kb}${procSel <= 1 ? " — dort sind Identifikation und Beurteilung zu <b>einem</b> Punkt zusammengefasst. Das ist kein Widerspruch, sondern eine andere Schnitttiefe. Genau solche Schnittunterschiede kosten in Prüfungen Punkte." : "."}</p>`;
+       <b>In der gröberen Dreiteilung:</b> ${kb}${procSel <= 1 ? " — dort sind Identifikation und Beurteilung zu <b>einem</b> Punkt zusammengefasst. Das ist kein Widerspruch, sondern eine andere Schnitttiefe. Genau solche Schnittunterschiede kosten in Prüfungen Punkte." : "."}</p>`;
 }
 $("zFolien").addEventListener("click", () => {
   procMode = "folien";
-  $("zFolien").setAttribute("aria-pressed","true"); $("zKursbuch").setAttribute("aria-pressed","false");
+  $("zFolien").setAttribute("aria-pressed","true"); $("zDrei").setAttribute("aria-pressed","false");
   drawProc();
 });
-$("zKursbuch").addEventListener("click", () => {
-  procMode = "kursbuch";
-  $("zFolien").setAttribute("aria-pressed","false"); $("zKursbuch").setAttribute("aria-pressed","true");
+$("zDrei").addEventListener("click", () => {
+  procMode = "drei";
+  $("zFolien").setAttribute("aria-pressed","false"); $("zDrei").setAttribute("aria-pressed","true");
   drawProc();
 });
 drawProc(); procDetail();
@@ -1407,7 +1408,7 @@ function drawQuellen(){
     return `<button class="task" aria-expanded="false" style="border-left:3px solid ${stripe}">
       <span class="no">${qMode === "herkunft" ? q.herkunft.toUpperCase() : "Quelle " + (i+1)}</span>
       <span class="hd">${q.name}</span>
-      <span class="bd">${q.inhalt}<br><br><b>Beispiel des Kursbuchs:</b> ${q.bsp}</span>
+      <span class="bd">${q.inhalt}<br><br><b>Beispiel:</b> ${q.bsp}</span>
     </button>`;
   }).join("");
   [...$("quellen").querySelectorAll(".task")].forEach(b => b.addEventListener("click", () =>
@@ -1485,7 +1486,7 @@ function drawMap(){
     const marks = [];
     LERNEINHEIT.risiken.forEach(r => {
       const own = aState.own[r.id];
-      if(own) marks.push({id:r.id, name:r.name + ", Ihre Schätzung", w:own.w, s:own.s,
+      if(own) marks.push({id:r.id, name:r.name + ", Deine Schätzung", w:own.w, s:own.s,
                           cls:aState.verglichen ? "own" : "ghost", warn:false});
     });
     const links = [];
@@ -1553,10 +1554,10 @@ function aRender(){
 
   if(fertig){
     $("aCard").innerHTML = aState.verglichen
-      ? `<p class="ck">Ergebnis</p><h3>Ihre Karte neben der begründeten Einschätzung</h3>
-         <p>Die teal-farbenen Punkte sind Ihre, die ockerfarbenen die begründeten. Die gestrichelten Linien zeigen den Abstand. Es gibt hier kein Richtig und kein Falsch — die Streuung selbst ist der Befund.</p>`
+      ? `<p class="ck">Ergebnis</p><h3>Deine Karte neben der begründeten Einschätzung</h3>
+         <p>Die teal-farbenen Punkte sind Deine, die ockerfarbenen die begründeten. Die gestrichelten Linien zeigen den Abstand. Es gibt hier kein Richtig und kein Falsch — die Streuung selbst ist der Befund.</p>`
       : `<p class="ck">Alle acht gesetzt</p><h3>Bereit zum Vergleich</h3>
-         <p>Ihre Karte ist gefüllt. Der Vergleich blendet die begründete Einschätzung in einer zweiten Farbe ein, mit Verbindungslinie zu Ihrer Position und einer kurzen Begründung je Risiko.</p>`;
+         <p>Deine Karte ist gefüllt. Der Vergleich blendet die begründete Einschätzung in einer zweiten Farbe ein, mit Verbindungslinie zu Deiner Position und einer kurzen Begründung je Risiko.</p>`;
     $("aSliders").innerHTML = ""; aSlW = aSlS = null;
   } else {
     const r = aktuellesRisiko();
@@ -1564,7 +1565,7 @@ function aRender(){
     aLive = {w:cur.w, s:cur.s};
     $("aCard").innerHTML =
       `<p class="ck">Risiko ${r.id} · ${r.kat}</p><h3>${r.name}</h3>
-       <p>Stellen Sie beide Regler ein und setzen Sie das Risiko. Die Begründung erscheint erst nach dem Vergleich.</p>`;
+       <p>Stelle beide Regler ein und setze das Risiko. Die Begründung erscheint erst nach dem Vergleich.</p>`;
     $("aSliders").innerHTML = "";
     aSlW = makeSlider($("aSliders"), "aw", "w", cur.w, "Eintrittswahrscheinlichkeit W",
                       v => { aLive.w = v; drawMap(); figs("rmFigs", aLive.w, aLive.s); });
@@ -1586,17 +1587,17 @@ function aRender(){
     ].map((c, i) => `<div class="fig${i === 3 && Math.abs(b.max) >= 6 ? " hot" : ""}">
         <p class="fk">${c[0]}</p><div class="fv">${c[1]}</div><p class="fn">${c[2]}</p></div>`).join("");
     $("rmDetail").innerHTML =
-      `<p class="dk">Modus A · verglichen</p><h4>${b.hoch > b.tief ? "Sie haben eher überschätzt" : b.tief > b.hoch ? "Sie haben eher unterschätzt" : "Ihre Schätzungen streuen in beide Richtungen"}</h4>
-       <p>Teal sind Ihre Punkte, Ocker die begründeten, die gestrichelten Linien zeigen den Abstand. Die größte Abweichung liegt bei <b>${b.maxId}</b> mit ${b.max >= 0 ? "+" : ""}${b.max} Punkten Risikofaktor.</p>
+      `<p class="dk">Modus A · verglichen</p><h4>${b.hoch > b.tief ? "Du hast eher überschätzt" : b.tief > b.hoch ? "Du hast eher unterschätzt" : "Deine Schätzungen streuen in beide Richtungen"}</h4>
+       <p>Teal sind Deine Punkte, Ocker die begründeten, die gestrichelten Linien zeigen den Abstand. Die größte Abweichung liegt bei <b>${b.maxId}</b> mit ${b.max >= 0 ? "+" : ""}${b.max} Punkten Risikofaktor.</p>
        <p class="warn">Das ist keine Note. Zwei Menschen schätzen dasselbe Risiko unterschiedlich, solange die Stufen nicht verankert sind — und genau deshalb steht neben jeder Stufe dieser Karte eine Deutungshilfe.</p>
        <p>Die vollständige Gegenüberstellung mit Begründung je Risiko steht unterhalb der Karte.</p>`;
   }
   else if(fertig)
     $("rmDetail").innerHTML = `<p class="dk">Modus A</p><h4>Acht Schätzungen stehen</h4>
-      <p>Der Vergleich ordnet nicht nach richtig und falsch, sondern nach <b>Richtung</b>: bei wie vielen Risiken Sie systematisch höher und bei wie vielen niedriger lagen. Genau das ist die Rückmeldung, die trägt — sie zeigt Ihre eigene Verzerrung, nicht Ihren Punktestand.</p>`;
+      <p>Der Vergleich ordnet nicht nach richtig und falsch, sondern nach <b>Richtung</b>: bei wie vielen Risiken Du systematisch höher und bei wie vielen niedriger lagst. Genau das ist die Rückmeldung, die trägt — sie zeigt Deine eigene Verzerrung, nicht Deinen Punktestand.</p>`;
   else if(!aState.verglichen)
     $("rmDetail").innerHTML = `<p class="dk">Modus A · Selbst einschätzen</p><h4>Ohne fremde Zahl im Ohr</h4>
-      <p>Sie gehen acht Risiken durch und setzen jedes in die Karte. Bereits gesetzte Risiken bleiben blass stehen, sodass sich die Karte Schritt für Schritt füllt.</p>
+      <p>Du gehst acht Risiken durch und setzt jedes in die Karte. Bereits gesetzte Risiken bleiben blass stehen, sodass sich die Karte Schritt für Schritt füllt.</p>
       <p class="warn">Die begründete Einschätzung wird bewusst erst danach eingeblendet. Wer sie vorher sieht, schätzt nicht mehr, sondern rät die erwartete Antwort.</p>`;
   drawMap();
 }
@@ -1638,9 +1639,9 @@ $("aCompare").addEventListener("click", () => {
   }).join("");
   $("aResult").hidden = false;
   $("aResult").innerHTML =
-    `<div class="readme"><b>Ihre Richtung.</b> Bei <b>${hoch}</b> von 8 Risiken lagen Sie über der begründeten Einschätzung, bei <b>${tief}</b> darunter, bei <b>${gleich}</b> genau darauf. Das ist keine Note. Es zeigt, dass zwei Menschen dasselbe Risiko unterschiedlich schätzen, solange die Stufen nicht verankert sind — und genau deshalb steht in Reiter 02 eine Deutungshilfe neben jeder Stufe.</div>
+    `<div class="readme"><b>Deine Richtung.</b> Bei <b>${hoch}</b> von 8 Risiken lagst Du über der begründeten Einschätzung, bei <b>${tief}</b> darunter, bei <b>${gleich}</b> genau darauf. Das ist keine Note. Es zeigt, dass zwei Menschen dasselbe Risiko unterschiedlich schätzen, solange die Stufen nicht verankert sind — und genau deshalb steht in Reiter 02 eine Deutungshilfe neben jeder Stufe.</div>
      <div class="card" style="margin-top:14px">
-       <div class="cmphead"><span>ID</span><span>Risiko und Begründung</span><span>Ihre Schätzung</span><span>Begründet</span><span>Δ RF</span></div>
+       <div class="cmphead"><span>ID</span><span>Risiko und Begründung</span><span>Deine Schätzung</span><span>Begründet</span><span>Δ RF</span></div>
        ${rows}
      </div>`;
   aRender();
@@ -1663,13 +1664,13 @@ function bRender(){
     "Zone: " + z.kurz + ", " + z.name + " (" + z.von + " bis " + z.bis + ")";
   $("bIso").innerHTML = bState.iso
     ? (w === s
-        ? `Bei W = S liegt der Spiegelpunkt auf dem Punkt selbst. Verschieben Sie einen der beiden Regler, und der zweite Punkt mit demselben Risikofaktor ${rf} taucht auf.`
+        ? `Bei W = S liegt der Spiegelpunkt auf dem Punkt selbst. Verschiebe einen der beiden Regler, und der zweite Punkt mit demselben Risikofaktor ${rf} taucht auf.`
         : `Der blasse Punkt liegt bei <b>W ${s} · S ${w}</b> und hat denselben Risikofaktor <b>${rf}</b>. Rechnerisch identisch — inhaltlich das Gegenteil: einmal ein häufiger kleiner Ärger, einmal ein seltener schwerer Schaden. Die Zahl kann beides nicht auseinanderhalten, die Karte schon.`)
     : "";
   $("rmDetail").innerHTML =
     `<p class="dk">Modus B · Frei experimentieren</p><h4>${esc(bState.name)}</h4>
      <p>Risikofaktor <b>${rf}</b> in der Zone <b>${z.kurz}</b>, ${z.name}. ${z.bed}.</p>
-     <p class="warn">${rf >= 12 ? "Über der Toleranzlinie: Maßnahmen sind erforderlich, nicht optional." : rf >= 6 ? "Unter der Toleranzlinie, aber im Beobachtungsbereich: Maßnahmen prüfen, die Wirtschaftlichkeit entscheidet." : "Im Akzeptanzbereich. Aber prüfen Sie das Schadensausmaß gesondert — ein seltenes Ereignis mit Ausmaß 5 ist grün und trotzdem existenzbedrohend."}</p>`;
+     <p class="warn">${rf >= 12 ? "Über der Toleranzlinie: Maßnahmen sind erforderlich, nicht optional." : rf >= 6 ? "Unter der Toleranzlinie, aber im Beobachtungsbereich: Maßnahmen prüfen, die Wirtschaftlichkeit entscheidet." : "Im Akzeptanzbereich. Aber prüfe das Schadensausmaß gesondert — ein seltenes Ereignis mit Ausmaß 5 ist grün und trotzdem existenzbedrohend."}</p>`;
   drawMap();
 }
 
@@ -1744,10 +1745,10 @@ function drawNetto(){
     box.innerHTML = `<b>Die beiden letzten Zahlen laufen auseinander — und das ist kein Fehler.</b> Die Summe der Einzelwirkungen beträgt <b>${einzel}</b>, die tatsächliche Gesamtwirkung nur <b>${rfB - rfN}</b>. Der Grund: Der Risikofaktor ist ein <b>Produkt</b>. Die zweite präventive Maßnahme senkt eine Wahrscheinlichkeit, die die erste bereits gesenkt hat — sie wirkt auf eine kleinere Grundmenge. Wer Maßnahmenwirkungen aufsummiert, überschätzt den Effekt systematisch, und zwar umso stärker, je mehr Maßnahmen zusammenkommen.`;
   } else if(rfB - rfN > 0){
     box.className = "readme";
-    box.innerHTML = `<b>Eine Maßnahme, ein Pfeil.</b> Präventive Maßnahmen bewegen den Punkt <b>senkrecht</b> nach unten, korrektive <b>waagerecht</b> nach links. Schalten Sie eine zweite Maßnahme desselben Typs dazu, und beobachten Sie die letzten beiden Zahlen.`;
+    box.innerHTML = `<b>Eine Maßnahme, ein Pfeil.</b> Präventive Maßnahmen bewegen den Punkt <b>senkrecht</b> nach unten, korrektive <b>waagerecht</b> nach links. Schalte eine zweite Maßnahme desselben Typs dazu, und beobachte die letzten beiden Zahlen.`;
   } else {
     box.className = "readme";
-    box.innerHTML = `<b>Noch keine Maßnahme aktiv.</b> R1 steht auf seiner Bruttoposition: Wahrscheinlichkeit 4, Schadensausmaß 5, Risikofaktor 20 — tief im Handlungsbereich, mit Warndreieck. Schalten Sie Maßnahmen zu und beobachten Sie, in welche Richtung sich der Punkt bewegt.`;
+    box.innerHTML = `<b>Noch keine Maßnahme aktiv.</b> R1 steht auf seiner Bruttoposition: Wahrscheinlichkeit 4, Schadensausmaß 5, Risikofaktor 20 — tief im Handlungsbereich, mit Warndreieck. Schalte Maßnahmen zu und beobachte, in welche Richtung sich der Punkt bewegt.`;
   }
 }
 $("nMass").addEventListener("change", e => {
@@ -1814,7 +1815,7 @@ function sRender(){
   if(!sState.pending){
     $("sDetail").innerHTML =
       `<p class="dk">Aktuelle Lage</p><h4>W ${sState.w} · S ${sState.s} · RF ${rf}</h4>
-       <p>Zone ${z.kurz}, ${z.name}. Wählen Sie eine Strategie: Der <b>erste Klick</b> zeichnet nur den Bewegungsvektor, der <b>zweite</b> führt ihn aus.</p>
+       <p>Zone ${z.kurz}, ${z.name}. Wähle eine Strategie: Der <b>erste Klick</b> zeichnet nur den Bewegungsvektor, der <b>zweite</b> führt ihn aus.</p>
        <p class="warn">Waagerechte Pfeile sind korrektiv und orange, senkrechte sind präventiv und grün. Die Farbe folgt der Merkregel, nicht der Dekoration.</p>`;
   } else {
     const t = STRATS.find(x => x.id === sState.pending), zi = zielVon(t);
@@ -1973,7 +1974,7 @@ function rueckblende(){
   const host = $("rueckblende");
   if(!einstiegBeruehrt){
     host.innerHTML =
-      `<div class="readme"><b>Hier stünde Ihre erste Schätzung.</b> In Reiter 01 haben Sie die beiden Regler nicht bewegt — dieser Abschnitt bleibt deshalb leer. Gehen Sie zurück auf Reiter 01, schätzen Sie die beiden Risiken, und kommen Sie wieder her.</div>`;
+      `<div class="readme"><b>Hier stünde Deine erste Schätzung.</b> In Reiter 01 hast Du die beiden Regler nicht bewegt — dieser Abschnitt bleibt deshalb leer. Geh zurück auf Reiter 01, schätze die beiden Risiken, und komm wieder her.</div>`;
     return;
   }
   const rows = LERNEINHEIT.einstieg.risikoIds.map(id => {
@@ -1982,19 +1983,19 @@ function rueckblende(){
     return `<div class="card">
       <p class="ck">${r.id} · ${r.kat}</p><h3>${r.name}</h3>
       <div class="figs" style="margin:14px 0 0">
-        <div class="fig"><p class="fk">Ihre Schätzung</p><div class="fv" style="color:var(--teal)">${rfO}</div><p class="fn">W ${o.w} · S ${o.s}</p></div>
+        <div class="fig"><p class="fk">Deine Schätzung</p><div class="fv" style="color:var(--teal)">${rfO}</div><p class="fn">W ${o.w} · S ${o.s}</p></div>
         <div class="fig"><p class="fk">Begründet</p><div class="fv" style="color:var(--ochre)">${rfR}</div><p class="fn">W ${r.brutto.w} · S ${r.brutto.s}</p></div>
-        <div class="fig${d !== 0 ? " hot" : ""}"><p class="fk">Abstand</p><div class="fv">${d > 0 ? "+" : ""}${d}</div><p class="fn">${d === 0 ? "gleich" : d > 0 ? "Sie lagen höher" : "Sie lagen niedriger"}</p></div>
+        <div class="fig${d !== 0 ? " hot" : ""}"><p class="fk">Abstand</p><div class="fv">${d > 0 ? "+" : ""}${d}</div><p class="fn">${d === 0 ? "gleich" : d > 0 ? "Du lagst höher" : "Du lagst niedriger"}</p></div>
       </div>
       <p style="margin-top:14px">${r.begr}</p></div>`;
   }).join("");
   const dR3 = RF(einstieg.R3.w, einstieg.R3.s) - RF(risk("R3").brutto.w, risk("R3").brutto.s);
   host.innerHTML =
-    `<p class="sub">In Reiter 01 haben Sie diese beiden Risiken geschätzt, ohne die Skala zu kennen, ohne Deutungshilfe und ohne Beispiel. Hier stehen beide Schätzungen nebeneinander.</p>
+    `<p class="sub">In Reiter 01 hast Du diese beiden Risiken geschätzt, ohne die Skala zu kennen, ohne Deutungshilfe und ohne Beispiel. Hier stehen beide Schätzungen nebeneinander.</p>
      <div class="duo">${rows}</div>
-     <div class="readme" style="margin-top:16px"><b>Es geht hier nicht um richtig und falsch.</b> Die begründete Einschätzung ist keine Wahrheit, sondern eine <b>verankerte</b> Schätzung: Jede Stufe trägt eine Deutungshilfe, an der sich zwei Menschen ausrichten können. Ohne diese Verankerung streuen Schätzungen — auch Ihre, auch meine. Genau diese Streuung ist die Existenzberechtigung des Instruments. Eine Risk-Map ist nicht deshalb wertvoll, weil sie die richtige Zahl liefert, sondern weil sie <b>alle Beteiligten zwingt, dieselbe Skala zu benutzen</b>.${
-       dR3 <= -1 ? " Bei R3 lagen Sie übrigens niedriger als die begründete Einschätzung — das ist der schwarze Schwan, bei dem selbst die begründete Zahl in die Irre führt." :
-       dR3 >= 1 ? " Bei R3 lagen Sie höher als die begründete Einschätzung. Interessant: Genau dieses Risiko landet nach der Formel im grünen Bereich, obwohl es ein Kettenglied vernichten kann." : ""}</div>`;
+     <div class="readme" style="margin-top:16px"><b>Es geht hier nicht um richtig und falsch.</b> Die begründete Einschätzung ist keine Wahrheit, sondern eine <b>verankerte</b> Schätzung: Jede Stufe trägt eine Deutungshilfe, an der sich zwei Menschen ausrichten können. Ohne diese Verankerung streuen Schätzungen — auch Deine, auch meine. Genau diese Streuung ist die Existenzberechtigung des Instruments. Eine Risk-Map ist nicht deshalb wertvoll, weil sie die richtige Zahl liefert, sondern weil sie <b>alle Beteiligten zwingt, dieselbe Skala zu benutzen</b>.${
+       dR3 <= -1 ? " Bei R3 lagst Du übrigens niedriger als die begründete Einschätzung — das ist der schwarze Schwan, bei dem selbst die begründete Zahl in die Irre führt." :
+       dR3 >= 1 ? " Bei R3 lagst Du höher als die begründete Einschätzung. Interessant: Genau dieses Risiko landet nach der Formel im grünen Bereich, obwohl es ein Kettenglied vernichten kann." : ""}</div>`;
 }
 
 /* ---------- Denkfehler, Merkblatt, Glossar ---------- */

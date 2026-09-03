@@ -20,6 +20,11 @@ Deutsch. Für die Module gilt:
 - **Namen und Zahlen des Kanons bleiben unverändert.** Sofia heißt in beiden Sprachen Sofia,
   Ringstraße bleibt Ringstraße, 145.500 € bleiben 145.500 €. Übersetzt werden Fließtext und
   Bedienelemente, nicht der Fall.
+- **Die Anrede ist immer „Du".** In den Modulen wird geduzt, mit großem D: „Klicke eine Zeile
+  an", „Deine erste Schätzung", „entscheiden musst Du". Kein „Sie", kein „Ihre", nirgends —
+  weder im Fließtext noch in Tooltips, Detailkästen oder Schaltflächen. Das englische *you*
+  ist ohnehin schon die passende Form. Aufpassen bei „sie" in der dritten Person: „Sie ist der
+  Grund, warum sich ein Bericht aufklappen lässt" bleibt, wie es ist.
 
 ### Der Sprachschalter
 
@@ -64,21 +69,31 @@ Besonders leicht zu übersehen:
 ### Wenn ein Modul einen eigenen Fall braucht
 
 **Sofia ist der Normalfall, ein eigener Fall die begründete Ausnahme.**
-`supply-chain-controlling.html` gehört zum Kurs MWCH02 und trägt vier Vorlieferanten eines
+`supply-chain-controlling.html` gehört zum Thema Supply Chain und trägt vier Vorlieferanten eines
 Nutzfahrzeugherstellers. Der Grund: Sofias Betrieb hat keine benannten Lieferanten, und der
 Kanon soll nicht um welche erweitert werden, nur damit ein Portfolio vier Punkte bekommt —
 lieber ein sichtbar getrennter Fall als ein stillschweigend gedehnter Kanon. Wo das nötig ist,
 sagt es die Kachel im ersten Satz und der Fußtext des Moduls.
 
-### Herkunftskennzeichnung bei Kursbuchstoff
+### Quellen: Fachliteratur ja, Kursbücher nie
 
-Entsteht ein Modul aus einem Kursbuch, trägt **jeder Inhaltsblock ein Etikett**: `KURSBUCH S. xx`
-für das, was eng am Kursbuch steht und prüfungsrelevant ist, `ERGÄNZUNG` für die didaktische
-Operationalisierung, die dort nicht ausformuliert ist. Die Etiketten sind dauerhaft sichtbar und
-**gleichwertig gestaltet** — die Ergänzung wird nicht optisch zurückgenommen. Die Kante zwischen
-beiden ist der Punkt, an dem Studierende den Perspektivwechsel vollziehen, kein Kleingedrucktes.
-Abbildungen und Tabellen des Kursbuchs werden **nicht reproduziert**, sondern eigenständig neu
-aufgebaut; Definitionen im Wortlaut nur als ausgewiesenes Zitat mit Quellenangabe.
+**Kursbücher sind tabu.** Kein Verweis auf ein Kursbuch, keine Seitenzahl daraus, keine
+Versionsnummer, keine Lektionsnummer, keine reproduzierte Abbildung oder Tabelle. Ebenso wenig
+erscheint eine **Kurskennung** wie `MWCH02` — genannt wird das Thema, nicht die Kursnummer.
+Das gilt für Fließtext, Etiketten, Fußzeilen, Klassennamen und Kommentare gleichermaßen.
+
+**Fachliteratur darf zitiert werden** und soll es auch: Horváth, Weber, Reichmann, Gleißner,
+Diederichs, Rohrschneider, ISO-Normen. Wo eine Aussage auf eine benennbare Quelle zurückgeht,
+wird sie genannt — mit Autor und Jahr, nicht mit einer Fundstelle in einem Kurswerk.
+
+Entsteht ein Modul aus vorhandenem Lehrstoff, trägt **jeder Inhaltsblock ein Etikett**:
+`FACHLITERATUR` (mit Autor und Jahr, wo bekannt) für den etablierten Stand des Fachs,
+`ERGÄNZUNG` für die didaktische Operationalisierung, die dort nicht ausformuliert ist. Stammt
+etwas aus einem eigenen Foliensatz, heißt das Etikett `FOLIE N`. Die Etiketten sind dauerhaft
+sichtbar und **gleichwertig gestaltet** — die Ergänzung wird nicht optisch zurückgenommen. Die
+Kante zwischen beiden ist der Punkt, an dem Studierende den Perspektivwechsel vollziehen, kein
+Kleingedrucktes. Abbildungen werden **nicht reproduziert**, sondern eigenständig neu aufgebaut;
+Definitionen im Wortlaut nur als ausgewiesenes Zitat mit Quellenangabe.
 
 ## Aufbau
 
