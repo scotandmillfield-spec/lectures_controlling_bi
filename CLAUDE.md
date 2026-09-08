@@ -215,6 +215,13 @@ Zahlen mit `font-variant-numeric: tabular-nums`, Kennungen und Codes in der Mono
 Höchstens vier Reiter pro Modul. Reiter sind für Facetten derselben Frage da, nicht für
 verschiedene Themen — sonst sind es zwei Module.
 
+**Eine bewusste Ausnahme:** `risikomanagement-prozess.html` hat sechs Reiter. Die Reiter 05
+(eine Werkstatt zum Selbermachen mit Ausgabe als PDF) und 06 (Einstiegs-Checkliste, Glossar,
+Übung) sind Anwendung und Nachschlagewerk zu denselben vier Grundreitern und wurden bewusst
+dort belassen, statt sie in ein zweites Modul zu ziehen — wer analysiert, will die Theorie
+einen Reiter entfernt haben und nicht eine Datei entfernt. Wächst noch etwas hinzu, ist der
+Schnitt zwischen Reiter 04 und 05 die Stelle zum Teilen.
+
 ## Vor dem Abschluss prüfen
 
 Diese Prüfung immer laufen lassen und das Ergebnis in die Pull-Request-Beschreibung
