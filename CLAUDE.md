@@ -3,6 +3,45 @@
 Interaktive Lehrmodule für Vorlesungen zu Business Intelligence und Controlling.
 Ein durchgehender Fall — ein Wiener Kaffeehausbetrieb — trägt alle Themen.
 
+## Die drei Begriffe
+
+Es gibt genau drei Ebenen. Sie heißen überall gleich — im Gespräch, in den Commits, in den
+Texten der Plattform:
+
+- **Modul** — eine Kachel auf der Startseite, eine HTML-Datei, ein Thema.
+- **Lektion** — ein Reiter innerhalb eines Moduls. Die kleinste Einheit, die jemand am Stück
+  durcharbeitet.
+- **Lernpfad** — eine Reihenfolge von Modulen, die zusammen Sinn ergibt. Sie steht in
+  `index.html` in `const PATHS`.
+
+„Lerneinheit“, „Kapitel“, „Kurs“ sind keine Begriffe dieser Plattform. Wo sie noch stehen, sind
+sie Reste. **Im Code** heißen die Dinge weiter `role="tab"`, `.panel`, `TOPICS` — das ist
+Technik und wird nicht umbenannt, nur der sichtbare und der gesprochene Text folgt den drei
+Begriffen oben.
+
+## Was ein Modul ausmacht
+
+**Jedes Modul hat mindestens drei Lektionen** und endet immer mit denselben zweien:
+
+1. **Mindestens eine Inhaltslektion.** Wie viele es sind, entscheidet der Stoff. Eine Obergrenze
+   gibt es nicht.
+2. **Das Quiz.** Ein Vorrat von mindestens 20 Fragen, aus dem beim Laden **fünf zufällig**
+   gezogen werden. Beim Neuladen kommen andere; genau das ist der Zweck.
+3. **Der Praxiseinstieg.** Was jemand als Erstes tut, der das Gelernte im eigenen Unternehmen
+   einführen will. Der Form nach eine Checkliste, dem Ton nach keine — konkrete erste Schritte,
+   keine Kästchen zum Abhaken um des Abhakens willen. Hierhin gehört auch das Glossar, wenn das
+   Modul eines hat: Es ist Nachschlagewerk für die Anwendung, nicht Prüfstoff.
+
+**Die Reihenfolge steht fest:** Inhalt, dann Quiz, dann Praxiseinstieg. Das Quiz prüft, was
+gerade gelesen wurde, der Praxiseinstieg schaut nach vorn. Umgedreht ergäbe es keinen Sinn.
+
+**Eine Lektion ist in 15 bis 20 Minuten durchzuarbeiten** — durchzuarbeiten, nicht zu verstehen.
+Verstehen braucht länger und lässt sich nicht planen. Wird eine Lektion länger, wird sie geteilt,
+nicht gestaucht. Das ist die einzige Größenregel, die es gibt.
+
+**Warum die zwei Pflichtlektionen:** Die Module richten sich an Praktiker, nicht an Theoretiker.
+Auch wo Theorie unumgänglich ist, muss am Ende etwas stehen, das jemand am Montag anfassen kann.
+
 **Sprache:** Commit-Nachrichten, Pull-Request-Beschreibungen und Kommunikation immer auf
 Deutsch. Für die Module gilt:
 
@@ -11,10 +50,10 @@ Deutsch. Für die Module gilt:
 - **Deutsch ist zulässig, wo es die Sache trägt** — etwa bei einem Beispiel aus einem
   deutschen Rechts- oder Praxisfeld, in dem die Fachbegriffe übersetzt schief würden
   (Pflegesatz, Personalkostenquote, Jahresabschluss). Nicht aus Bequemlichkeit.
-- **Die Sprache muss sichtbar sein.** Ein deutscher Reiter trägt `DE` in der Beschriftung,
-  ein durchgehend deutsches Modul einen Hinweis in der Kachel auf der Startseite. Niemand
+- **Die Sprache muss sichtbar sein.** Eine deutsche Lektion trägt `DE` in der Beschriftung,
+  ein durchgehend deutsches Modul einen Hinweis auf seiner Kachel auf der Startseite. Niemand
   soll beim Klicken überrascht werden.
-- **Innerhalb eines Reiters wird nicht gemischt.** Der Reiter ist die kleinste Einheit, die
+- **Innerhalb einer Lektion wird nicht gemischt.** Die Lektion ist die kleinste Einheit, die
   eine Sprache hat. Halbe Sätze in der einen und Tooltips in der anderen Sprache sind der
   Fehler, den diese Regel verhindern soll.
 - **Namen und Zahlen des Kanons bleiben unverändert.** Sofia heißt in beiden Sprachen Sofia,
@@ -33,7 +72,7 @@ Deutsch. Für die Module gilt:
 
 - **Deutsch ist die Grundfassung.** Ohne Parameter erscheint Deutsch. `?lang=en` schaltet um.
 - **Die Wahl reist als URL-Parameter**, nicht im Speicher — `localStorage` bleibt
-  ausgeschlossen. Die Startseite hängt `?lang=en` an die Kachel-Links, jedes Modul liest
+  ausgeschlossen. Die Startseite hängt `?lang=en` an die Links der Module, jedes Modul liest
   `location.search` und hängt den Parameter an seine eigenen Querverweise weiter.
 - **Ein Textfeld ist entweder ein String** — dann gilt er in beiden Sprachen, etwa ein Name
   oder eine Zahl — **oder `{de:"…", en:"…"}`**. Fehlt `de`, erscheint `en`. Damit lässt sich
@@ -132,7 +171,7 @@ Quellenverzeichnisse, keine Legenden, keine Versionsangaben.
 ## Aufbau
 
 ```
-index.html                       Startseite mit Kacheln, Filter und Suche
+index.html                       Startseite mit allen Modulen, Filter und Suche
 PROJECT-CANON.md                 Namen, Zahlen, Festlegungen
 <thema>.html                     je ein Modul, in sich geschlossen
 decks/*.pptx                     Foliensätze zum Herunterladen
@@ -144,17 +183,17 @@ keine Frameworks, keine geteilten CSS- oder JS-Dateien. Doppelklick muss genüge
 
 ## Lernpfade
 
-Ein Lernpfad ist eine Reihenfolge von Lerneinheiten, die zusammen Sinn ergeben. Er steht in
+Ein Lernpfad ist eine Reihenfolge von Modulen, die zusammen Sinn ergeben. Er steht in
 `index.html` in `const PATHS = [ ... ]`, direkt unter `TOPICS`.
 
-- **Pfade verweisen auf Lerneinheiten, nie umgekehrt.** Ein Pfad kennt nur die `id` aus
-  `TOPICS` und die Reihenfolge in `steps`. Eine Einheit gehört zu mehreren Pfaden, indem sie
-  in mehreren `steps` steht — an der Kachel ist dafür nichts zu ändern. Deshalb kostet ein
-  neuer Pfad keine Änderung an einem einzigen Modul.
+- **Pfade verweisen auf Module, nie umgekehrt.** Ein Pfad kennt nur die `id` aus `TOPICS` und
+  die Reihenfolge in `steps`. Ein Modul gehört zu mehreren Pfaden, indem es in mehreren `steps`
+  steht — am Modul selbst ist dafür nichts zu ändern. Deshalb kostet ein neuer Pfad keine
+  Änderung an einer einzigen Moduldatei.
 - **Pfad und Spur sind zwei Sichten, nicht zwei Filter.** Wird ein Pfad gewählt, springt der
   Spurfilter auf „Alle"; wird eine Spur gewählt, wird der Pfad verlassen. Alles andere wäre
   eine Kreuztabelle, die niemand im Kopf behält. Die Suche grenzt weiter ein, in beiden Sichten.
-- **Die Reihenfolge schlägt die Listenreihenfolge.** Im Pfad werden die Kacheln über
+- **Die Reihenfolge schlägt die Listenreihenfolge.** Im Pfad werden die Module über
   CSS `order` sortiert und mit `01`, `02`, `03` nummeriert; der erste Schritt trägt die
   Signalfarbe.
 - **Kein Fortschritt, keine Sperren.** Spätere Schritte bleiben klickbar. Ein „erst freischalten,
@@ -198,11 +237,16 @@ el.addEventListener("pointerout", e => {
 ```
 
 **Tooltips auch an `focusin` hängen**, sonst sind sie per Tastatur unerreichbar.
-Reiter als `role="tablist"` mit Pfeiltastennavigation. `prefers-reduced-motion` respektieren.
+Lektionen als `role="tablist"` mit Pfeiltastennavigation. `prefers-reduced-motion` respektieren.
 
 **Jedes Modul endet mit einem Pointe-Kasten** — dem einen Satz, der hängen bleiben soll.
+Er steht am Ende jeder Lektion, nicht nur am Ende der letzten.
 
-**Abschnitte innerhalb eines Reiters sind auf- und zuklappbar.** Die Blöcke entstehen zur
+**Ein Modul ohne Quiz und ohne Praxiseinstieg ist nicht fertig.** Die beiden Pflichtlektionen
+werden nicht nachgereicht und nicht „später ergänzt“. Wer ein Modul anlegt oder erweitert,
+legt sie mit an.
+
+**Abschnitte innerhalb einer Lektion sind auf- und zuklappbar.** Die Blöcke entstehen zur
 Laufzeit: `makeBlocks(panel)` läuft am Ende jedes Moduls über `document.querySelectorAll(".panel")`,
 jedes `h2.sec` eröffnet einen Block, alles danach bis zum nächsten `h2.sec` ist sein Inhalt. Der
 erste ist offen, die übrigen zu.
@@ -210,7 +254,7 @@ erste ist offen, die übrigen zu.
 - **Am Markup ist dafür nichts zu tun** — ein neues `h2.sec` wird automatisch ein Block. Genau
   deshalb ist es so gebaut: Ein neues Modul bekommt die Mechanik durch Kopieren des CSS-Blocks
   und der Funktion, ohne dass eine einzige Überschrift umgeschrieben wird.
-- **Zwei Dinge bleiben außerhalb:** alles vor dem ersten `h2.sec` (die Kernaussage des Reiters)
+- **Zwei Dinge bleiben außerhalb:** alles vor dem ersten `h2.sec` (die Kernaussage der Lektion)
   und ein `.pointe` am Ende. Der Sammelvorgang hält vor dem Pointe-Kasten an.
 - **Wer seine Zeichnung aus dem Layout misst, muss auf `resize` hören.** In einem zugeklappten
   Block liefert `getBoundingClientRect` nur Nullen; die Zeichnung entartet auf einen Punkt. Beim
@@ -219,7 +263,7 @@ erste ist offen, die übrigen zu.
 - **Im Druck sind alle Blöcke offen** (`.blk-b[hidden]{display:block!important}`), sonst fehlt
   im PDF, was gerade zugeklappt war.
 - **Module ohne `h2.sec` bleiben unverändert.** `bi-reference-architecture.html` und
-  `scd-dashboard.html` gliedern ihre Reiter nicht in Abschnitte; dort gibt es nichts zu klappen.
+  `scd-dashboard.html` gliedern ihre Lektionen nicht in Abschnitte; dort gibt es nichts zu klappen.
 
 ## Gestaltung
 
@@ -231,15 +275,10 @@ Ein Element, das beim Scrollen einfliegt, hält nur auf.
 
 Zahlen mit `font-variant-numeric: tabular-nums`, Kennungen und Codes in der Monospace.
 
-Höchstens vier Reiter pro Modul. Reiter sind für Facetten derselben Frage da, nicht für
-verschiedene Themen — sonst sind es zwei Module.
-
-**Eine bewusste Ausnahme:** `risikomanagement-prozess.html` hat sechs Reiter. Die Reiter 05
-(eine Werkstatt zum Selbermachen mit Ausgabe als PDF) und 06 (Einstiegs-Checkliste, Glossar,
-Übung) sind Anwendung und Nachschlagewerk zu denselben vier Grundreitern und wurden bewusst
-dort belassen, statt sie in ein zweites Modul zu ziehen — wer analysiert, will die Theorie
-einen Reiter entfernt haben und nicht eine Datei entfernt. Wächst noch etwas hinzu, ist der
-Schnitt zwischen Reiter 04 und 05 die Stelle zum Teilen.
+Lektionen sind für Facetten derselben Frage da, nicht für verschiedene Themen — sonst sind es
+zwei Module. Wie viele es werden, entscheidet der Stoff; die Grenze zieht die 15-bis-20-Minuten-Regel
+pro Lektion, nicht eine feste Obergrenze. Werden es viele, ist das ein Hinweis, aber kein Verbot:
+Erst wenn zwei Lektionen nichts mehr miteinander zu tun haben, ist es Zeit für ein zweites Modul.
 
 ## Vor dem Abschluss prüfen
 
