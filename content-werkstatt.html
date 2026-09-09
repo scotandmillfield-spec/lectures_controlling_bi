@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Die Werkstatt · Wie diese Lernplattform gebaut ist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2; --canvas:#F4F3F0;
+  --green:#2E9E6B; --red:#D9534F;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.1rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:20ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:clamp(1rem,1.6vw,1.18rem);font-weight:300;color:#3d3d40;max-width:64ch;margin:0}
+
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+
+.claim{font-size:clamp(1.12rem,2.2vw,1.45rem);font-weight:300;line-height:1.36;margin:0 0 24px;max-width:58ch;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--teal-dk)}
+h2.sec{font-size:1.2rem;font-weight:600;letter-spacing:-.012em;margin:34px 0 4px}
+h2.sec:first-child{margin-top:0}
+h3.sub3{font-size:1rem;font-weight:700;margin:22px 0 6px;letter-spacing:-.01em}
+p.sub{margin:0 0 16px;color:var(--grey);font-size:.92rem;max-width:78ch}
+p.txt{margin:0 0 14px;font-size:.95rem;color:#3d3d40;line-height:1.6;max-width:76ch}
+p.txt b{color:var(--ink)}
+ul.txt{margin:0 0 14px;padding-left:20px;font-size:.94rem;color:#3d3d40;line-height:1.6;max-width:76ch}
+ul.txt li{margin-bottom:7px}
+ul.txt b{color:var(--ink)}
+code{font-family:var(--mono);font-size:.86em;background:var(--grey-xl);padding:1px 5px;border-radius:4px}
+.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:14px 0 0}
+
+/* ---------- Schaltflaechen ---------- */
+.bar{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;justify-content:space-between;margin:0 0 16px}
+.seg{display:inline-flex;border:1px solid var(--grey-xl);background:var(--paper);border-radius:var(--r);padding:4px;gap:4px;flex-wrap:wrap}
+.seg button{appearance:none;border:0;background:transparent;cursor:pointer;font-family:var(--sans);
+  font-size:.88rem;font-weight:600;color:var(--grey);padding:9px 16px;border-radius:7px;transition:.16s}
+.seg button:hover{color:var(--teal-dk)}
+.seg button[aria-pressed="true"]{background:var(--teal-dk);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.84rem;color:#4a4a4d}
+.key{display:inline-flex;align-items:center;gap:8px}
+.btn{appearance:none;border:1px solid var(--teal-dk);background:transparent;color:var(--teal-dk);
+  font-family:var(--sans);font-size:.88rem;font-weight:600;cursor:pointer;
+  padding:10px 16px;border-radius:8px;transition:.16s}
+.btn:hover{background:var(--teal-dk);color:#fff}
+.btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.btn.solid{background:var(--teal-dk);color:#fff}
+.btn.solid:hover{background:var(--teal)}
+
+/* ---------- Karten ---------- */
+.card{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px}
+.card .ck{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 4px}
+.card h3{margin:0 0 8px;font-size:1.06rem;font-weight:700;letter-spacing:-.015em}
+.card p{margin:0 0 10px;font-size:.9rem;color:#3d3d40;line-height:1.52}
+.card p:last-child{margin-bottom:0}
+.card ul{margin:10px 0 0;padding-left:18px;font-size:.88rem;color:#3d3d40;line-height:1.5}
+.card li{margin-bottom:5px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.duo>*{min-width:0}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
+.trio>*{min-width:0}
+
+blockquote.q{margin:0 0 14px;background:var(--paper);border:1px solid var(--grey-xl);
+  border-left:3px solid var(--teal);border-radius:var(--r);padding:16px 20px;
+  font-size:.95rem;font-weight:300;line-height:1.55;color:#2c2c2f}
+blockquote.q cite{display:block;margin-top:9px;font-style:normal;font-family:var(--mono);
+  font-size:.74rem;letter-spacing:.06em;color:var(--grey)}
+
+/* ---------- Die Hierarchie: Pfad, Modul, Lektion ---------- */
+.hierwrap{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px;overflow-x:auto}
+.hierwrap:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+svg.hier{display:block;width:100%;height:auto;min-width:660px}
+svg.hier text{font-family:var(--sans);fill:var(--ink);pointer-events:none;dominant-baseline:middle}
+svg.hier .lbl{font-size:12.5px;font-weight:600}
+svg.hier .cap{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;fill:var(--grey);text-transform:uppercase}
+svg.hier .node{cursor:pointer}
+svg.hier .node rect{transition:fill .18s,stroke .18s}
+svg.hier .node:hover rect,svg.hier .node:focus-visible rect{stroke:var(--orange);stroke-width:2}
+svg.hier .node:focus-visible{outline:none}
+svg.hier .edge{stroke:var(--grey-mid);stroke-width:1.4;fill:none}
+svg.hier .edge.hot{stroke:var(--orange);stroke-width:2.2}
+
+/* ---------- Der Lektionsplaner ---------- */
+.planner{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;align-items:start}
+.planner>*{min-width:0}
+.plin{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px}
+.prow{display:grid;grid-template-columns:1fr 168px 44px;gap:12px;align-items:center;
+  padding:11px 0;border-top:1px solid var(--grey-xl)}
+.prow:first-of-type{border-top:0}
+.prow>*{min-width:0}
+.prow .pn{font-size:.9rem;font-weight:600;line-height:1.3}
+.prow .pd{display:block;font-weight:400;font-size:.79rem;color:var(--grey);margin-top:2px}
+.prow input[type=range]{width:100%;accent-color:var(--teal-dk)}
+.prow .pv{font-family:var(--mono);font-size:.9rem;font-weight:600;color:var(--teal-dk);
+  text-align:right;font-variant-numeric:tabular-nums}
+.gauge{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px}
+.gnum{font-size:2.9rem;font-weight:700;line-height:1;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;margin:6px 0 2px}
+.gunit{font-size:.82rem;color:var(--grey);margin:0 0 14px}
+.gbar{height:16px;border-radius:8px;background:var(--grey-xl);position:relative;overflow:hidden;margin:0 0 8px}
+.gbar .zone{position:absolute;top:0;bottom:0;background:#CFEADC;
+  border-left:1px solid #7FC4A2;border-right:1px solid #7FC4A2}
+.gbar .fill{position:absolute;top:0;bottom:0;left:0;border-radius:8px;opacity:.9;
+  transition:width .3s var(--ease),background .3s}
+.gscale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.68rem;
+  color:var(--grey);letter-spacing:.06em;margin:0 0 14px}
+.gverd{font-size:.9rem;line-height:1.5;color:#3d3d40;margin:0;padding-top:13px;
+  border-top:1px solid var(--grey-xl)}
+.gverd b{color:var(--ink)}
+.note{margin:14px 0 0;font-size:.8rem;color:var(--grey);line-height:1.5;
+  padding-top:12px;border-top:1px solid var(--grey-xl)}
+
+/* ---------- Aufdeckkarten fuer den Kanon ---------- */
+.flipgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.flipgrid>*{min-width:0}
+.flip{appearance:none;text-align:left;width:100%;cursor:pointer;font-family:var(--sans);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px;transition:.2s var(--ease);color:var(--ink)}
+.flip:hover{border-color:var(--teal);transform:translateY(-2px)}
+.flip:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.flip .lang{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--grey)}
+.flip .word{display:block;font-size:.98rem;font-weight:700;color:var(--teal-dk);margin:5px 0 0;line-height:1.3}
+.flip .mean{display:block;font-size:.87rem;color:#3d3d40;margin:9px 0 0;line-height:1.5}
+.flip[aria-expanded="false"] .mean{display:none}
+.flip[aria-expanded="false"]::after{content:"umdrehen";display:block;margin-top:9px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal)}
+.flip[aria-expanded="true"]{border-color:var(--teal);background:var(--teal-xl)}
+
+/* ---------- Ja und Nein nebeneinander ---------- */
+.yn{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.yn>*{min-width:0}
+.ynb{border-radius:var(--r);padding:18px;border:1px solid var(--grey-xl);background:var(--paper)}
+.ynb.ja{border-left:3px solid var(--green);background:#F4FAF7}
+.ynb.nein{border-left:3px solid var(--red);background:#FDF6F5}
+.ynb h3{margin:0 0 10px;font-size:.98rem;font-weight:700}
+.ynb.ja h3{color:#1E6B47} .ynb.nein h3{color:#9C2F2C}
+.ynb ul{margin:0;padding-left:18px;font-size:.88rem;color:#3d3d40;line-height:1.55}
+.ynb li{margin-bottom:6px}
+.ynb li:last-child{margin-bottom:0}
+
+/* ---------- Quiz ---------- */
+.qwrap{display:grid;gap:14px}
+.qcard{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px 20px}
+.qcard .qn{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 7px}
+.qcard .qt{font-size:.98rem;font-weight:600;line-height:1.4;margin:0 0 13px}
+.qopts{display:grid;gap:8px}
+.qopt{appearance:none;text-align:left;cursor:pointer;font-family:var(--sans);font-size:.89rem;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--ink);
+  padding:11px 14px;border-radius:8px;transition:.16s;line-height:1.4}
+.qopt:hover:not(:disabled){border-color:var(--teal);background:var(--teal-xl)}
+.qopt:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.qopt:disabled{cursor:default}
+.qopt.right{background:#E8F5EE;border-color:var(--green);color:#1E6B47;font-weight:600}
+.qopt.wrong{background:#FBEAE9;border-color:var(--red);color:#9C2F2C;font-weight:600}
+.qfb{margin:13px 0 0;font-size:.86rem;color:#3d3d40;line-height:1.5;
+  padding-top:11px;border-top:1px solid var(--grey-xl)}
+.qfb[hidden]{display:none}
+.qscore{background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:18px 22px;
+  font-size:.98rem;line-height:1.5}
+.qscore b{font-weight:700}
+
+/* ---------- Praxiseinstieg: die Schritte ---------- */
+.steps{display:grid;gap:12px}
+.stp{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:0}
+.stp>button{appearance:none;width:100%;text-align:left;cursor:pointer;font-family:var(--sans);
+  background:transparent;border:0;color:var(--ink);padding:16px 18px;
+  display:grid;grid-template-columns:38px 1fr 20px;gap:14px;align-items:center}
+.stp>button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px;border-radius:var(--r)}
+.stp .no{font-family:var(--mono);font-size:.86rem;font-weight:600;color:#fff;background:var(--teal-dk);
+  width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.stp .hd{font-size:.98rem;font-weight:600;line-height:1.35}
+.stp .hd em{display:block;font-style:normal;font-weight:400;font-size:.82rem;color:var(--grey);margin-top:3px}
+.stp .cv{width:12px;height:12px;color:var(--teal-dk);transition:transform .22s var(--ease);justify-self:end}
+.stp[data-open="true"] .cv{transform:rotate(90deg)}
+.stp .bd{padding:0 18px 18px 70px;font-size:.9rem;color:#3d3d40;line-height:1.6}
+.stp .bd[hidden]{display:none}
+.stp .bd p{margin:0 0 10px}
+.stp .bd p:last-child{margin-bottom:0}
+.stp .bd .warn{color:#B25E00;font-size:.86rem}
+.stp .bd .warn b{font-weight:700}
+
+/* ---------- Der Briefing-Bogen ---------- */
+.brief{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.brief>*{min-width:0}
+.bform{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px}
+.bf{margin:0 0 16px}
+.bf:last-child{margin-bottom:0}
+.bf label,.bf .lg{display:block;font-size:.86rem;font-weight:600;margin:0 0 3px}
+.bf .why{display:block;font-size:.79rem;color:var(--grey);line-height:1.45;margin:0 0 7px}
+.bf input[type=text],.bf textarea,.bf select{width:100%;font-family:var(--sans);font-size:.89rem;
+  color:var(--ink);background:var(--paper);border:1px solid var(--grey-mid);border-radius:8px;
+  padding:9px 11px;line-height:1.45}
+.bf textarea{resize:vertical;min-height:64px}
+.bf input:focus-visible,.bf textarea:focus-visible,.bf select:focus-visible{
+  outline:2px solid var(--orange);outline-offset:1px;border-color:var(--teal)}
+.radios{display:grid;gap:7px;margin-top:2px}
+.radios label{display:flex;gap:9px;align-items:flex-start;font-weight:400;font-size:.87rem;
+  color:#3d3d40;cursor:pointer;background:var(--paper);border:1px solid var(--grey-xl);
+  border-radius:8px;padding:10px 12px;line-height:1.45;transition:.16s;margin:0}
+.radios label:hover{border-color:var(--teal)}
+.radios input{margin:2px 0 0;accent-color:var(--teal-dk);flex:none}
+.radios input:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.radios label:has(input:checked){border-color:var(--teal-dk);background:var(--teal-xl)}
+.bout{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px;position:sticky;top:18px}
+.bout textarea{width:100%;min-height:400px;font-family:var(--mono);font-size:.76rem;line-height:1.62;
+  color:var(--ink);background:var(--canvas);border:1px solid var(--grey-xl);border-radius:8px;
+  padding:13px;resize:vertical}
+.bout textarea:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
+.bmsg{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--green);
+  margin:10px 0 0;min-height:1.2em}
+.bmiss{background:var(--orange-xl);border:1px solid #F5C68A;border-radius:8px;padding:11px 13px;
+  font-size:.83rem;color:#8A4E00;line-height:1.5;margin:0 0 12px}
+.bmiss[hidden]{display:none}
+.bmiss b{font-weight:700}
+
+/* ---------- Glossar ---------- */
+.glos{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:6px 20px}
+.glos dl{margin:0;display:grid;grid-template-columns:220px 1fr;gap:0 22px}
+.glos dt{font-weight:700;font-size:.9rem;padding:13px 0 13px;border-top:1px solid var(--grey-xl)}
+.glos dd{margin:0;font-size:.89rem;color:#3d3d40;line-height:1.55;padding:13px 0;border-top:1px solid var(--grey-xl)}
+.glos dl>dt:first-of-type,.glos dl>dt:first-of-type+dd{border-top:0}
+
+.pointe{margin-top:34px;background:var(--orange);color:#fff;border-radius:var(--r);padding:26px 28px}
+.pointe .pk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin:0 0 10px}
+.pointe p{margin:0;font-size:clamp(1.05rem,2vw,1.3rem);font-weight:300;line-height:1.42;max-width:66ch}
+.pointe p b{font-weight:700}
+
+footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+footer a{color:var(--teal-dk)}
+
+.tip{position:fixed;z-index:60;pointer-events:none;opacity:0;transform:translateY(4px);
+  transition:opacity .14s,transform .14s;background:var(--ink);color:#fff;border-radius:9px;
+  padding:12px 14px;font-size:.82rem;line-height:1.5;max-width:320px;box-shadow:0 10px 30px -8px rgba(0,0,0,.45)}
+.tip.on{opacity:1;transform:translateY(0)}
+.tip .th{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#8FD4E6;margin:0 0 5px}
+.tip p{margin:0}
+
+.scrollhint{display:none}
+@media (max-width:980px){
+  .planner,.brief{grid-template-columns:1fr}
+  .bout{position:static}
+  .flipgrid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:900px){
+  .scrollhint{display:block;color:var(--teal-dk)}
+  .duo,.trio,.yn{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px 56px}
+  .flipgrid{grid-template-columns:1fr}
+  .glos dl{grid-template-columns:1fr;gap:0}
+  .glos dd{padding-top:0;border-top:0}
+  .prow{grid-template-columns:1fr 44px;grid-template-areas:"n v" "s s"}
+  .prow .pn{grid-area:n} .prow .pv{grid-area:v} .prow .sl{grid-area:s}
+  .stp>button{grid-template-columns:30px 1fr 16px;gap:11px;padding:14px}
+  .stp .bd{padding:0 14px 16px 55px}
+}
+/* ---------- Auf- und zuklappbare Bloecke innerhalb einer Lektion ------
+   Die Bloecke entstehen zur Laufzeit aus der vorhandenen Gliederung:
+   jedes h2.sec eroeffnet einen Block, alles bis zum naechsten h2.sec
+   ist sein Inhalt. Am Markup ist dafuer nichts zu aendern.          */
+.blk{border-top:1px solid var(--grey-xl)}
+.blk:first-of-type{border-top:0}
+.blk h2.sec{margin:0}
+.blk-t{appearance:none;width:100%;background:transparent;border:0;cursor:pointer;
+  display:flex;align-items:center;gap:12px;text-align:left;padding:20px 0 18px;
+  font:inherit;color:inherit;letter-spacing:inherit;transition:color .16s}
+.blk-t:hover{color:var(--teal-dk)}
+.blk-t:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:4px}
+.blk-c{width:13px;height:13px;flex:none;color:var(--teal-dk);
+  transition:transform .22s var(--ease)}
+.blk[data-open="true"] .blk-c{transform:rotate(90deg)}
+.blk-b{padding:0 0 28px}
+.blk-b[hidden]{display:none}
+
+@media print{
+  .tabs,.tip,.btn,.seg{display:none!important}
+  .panel[hidden]{display:block!important}
+  .blk-b[hidden]{display:block!important}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Werkstatt für alle, die Content beisteuern</p>
+  <h1>Wie diese Plattform <em>gebaut</em> ist</h1>
+  <p class="lede">Diese Sammlung folgt einem knappen Bauplan: drei Ebenen, ein Modulvertrag, eine Handvoll Regeln, die nicht verhandelbar sind. Wer den Bauplan kennt, kann Inhalte so vorbereiten, dass sie ohne Rückfragen zu einem Modul werden. Dieses Modul ist zugleich das Beispiel — es hält sich an alles, was es beschreibt.</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Die Werkstatt">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Die drei Ebenen</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Der Bauplan eines Moduls</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Die Regeln des Hauses</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Quiz</button>
+  <button class="tab" role="tab" id="tab-e" aria-controls="p-e" aria-selected="false" tabindex="-1"><span class="num">05</span> Der erste Schritt</button>
+</div>
+
+<!-- ======================= LEKTION 01 · DIE DREI EBENEN ======================= -->
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <p class="claim">Es gibt genau drei Ebenen, und sie heißen überall gleich: <b>Lernpfad</b>, <b>Modul</b>, <b>Lektion</b>. Wer sie durcheinanderbringt, baut am Ende eine Datei, die niemand findet.</p>
+
+  <h2 class="sec">Die Landkarte</h2>
+  <p class="sub">Fahre über einen Kasten oder tabbe ihn an. Achte auf den mittleren Kasten: Er hängt an zwei Pfaden zugleich.</p>
+
+  <div class="hierwrap" tabindex="0" role="group" aria-label="Landkarte der drei Ebenen, seitlich scrollbar">
+    <p class="scrollhint hint">Seitlich scrollbar</p>
+    <svg class="hier" viewBox="0 0 900 320" role="img" aria-label="Drei Ebenen: zwei Lernpfade verweisen auf drei Module, ein Modul enthält vier Lektionen">
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#C9C9C7"/>
+        </marker>
+        <marker id="ahh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#FF922B"/>
+        </marker>
+      </defs>
+
+      <path class="edge hot" d="M190 62 C190 92 450 98 450 128" marker-end="url(#ahh)"/>
+      <path class="edge" d="M190 62 C190 92 145 98 145 128" marker-end="url(#ah)"/>
+      <path class="edge hot" d="M710 62 C710 92 450 98 450 128" marker-end="url(#ahh)"/>
+      <path class="edge" d="M710 62 C710 92 755 98 755 128" marker-end="url(#ah)"/>
+
+      <path class="edge" d="M450 176 C450 210 185 214 185 248" marker-end="url(#ah)"/>
+      <path class="edge" d="M450 176 C450 210 362 214 362 248" marker-end="url(#ah)"/>
+      <path class="edge" d="M450 176 C450 210 539 214 539 248" marker-end="url(#ah)"/>
+      <path class="edge" d="M450 176 C450 210 716 214 716 248" marker-end="url(#ah)"/>
+
+      <g class="node" tabindex="0" role="button" data-th="Lernpfad" data-tt="Eine Reihenfolge von Modulen, die zusammen Sinn ergibt. Der Pfad lebt allein in index.html und kennt von einem Modul nichts als dessen id.">
+        <rect x="60" y="14" width="260" height="48" rx="9" fill="var(--navy-xl)" stroke="var(--navy)"/>
+        <text class="cap" x="76" y="30">Ebene 1 · Lernpfad</text>
+        <text class="lbl" x="76" y="47">Grundlagen</text>
+      </g>
+      <g class="node" tabindex="0" role="button" data-th="Zweiter Lernpfad" data-tt="Ein zweiter Pfad greift auf dasselbe Modul zu. Dafür ist am Modul nichts zu ändern — es steht einfach in zwei steps-Listen.">
+        <rect x="580" y="14" width="260" height="48" rx="9" fill="var(--navy-xl)" stroke="var(--navy)"/>
+        <text class="cap" x="596" y="30">Ebene 1 · Lernpfad</text>
+        <text class="lbl" x="596" y="47">Vertiefung</text>
+      </g>
+
+      <g class="node" tabindex="0" role="button" data-th="Modul" data-tt="Eine Kachel auf der Startseite, eine HTML-Datei, ein Thema. Läuft ohne Server per Doppelklick und weiß selbst nicht, zu welchen Pfaden es gehört.">
+        <rect x="40" y="128" width="210" height="48" rx="9" fill="var(--paper)" stroke="var(--teal)" stroke-width="1.6"/>
+        <text class="cap" x="56" y="144">Ebene 2 · Modul</text>
+        <text class="lbl" x="56" y="161">Modul A</text>
+      </g>
+      <g class="node" tabindex="0" role="button" data-th="Ein Modul, zwei Pfade" data-tt="Genau das ist der Grund, warum die Pfeile nur nach unten zeigen. Ein neuer Lernpfad kostet keine Änderung an einer einzigen Moduldatei.">
+        <rect x="345" y="128" width="210" height="48" rx="9" fill="var(--paper)" stroke="var(--orange)" stroke-width="2.4"/>
+        <text class="cap" x="361" y="144">Ebene 2 · Modul</text>
+        <text class="lbl" x="361" y="161">Modul B</text>
+      </g>
+      <g class="node" tabindex="0" role="button" data-th="Modul" data-tt="Jedes Modul ist in sich geschlossen. Keine gemeinsame CSS-Datei, kein Bundler, keine Abhängigkeit auf ein Nachbarmodul.">
+        <rect x="650" y="128" width="210" height="48" rx="9" fill="var(--paper)" stroke="var(--teal)" stroke-width="1.6"/>
+        <text class="cap" x="666" y="144">Ebene 2 · Modul</text>
+        <text class="lbl" x="666" y="161">Modul C</text>
+      </g>
+
+      <g class="node" tabindex="0" role="button" data-th="Inhaltslektion" data-tt="Der Stoff. Mindestens eine davon muss es geben, wie viele es werden, entscheidet das Thema.">
+        <rect x="102" y="248" width="165" height="48" rx="9" fill="var(--grey-xl)" stroke="var(--grey-mid)"/>
+        <text class="cap" x="116" y="264">Ebene 3 · Lektion</text>
+        <text class="lbl" x="116" y="281">01 Inhalt</text>
+      </g>
+      <g class="node" tabindex="0" role="button" data-th="Inhaltslektion" data-tt="Eine zweite Lektion entsteht, wenn die erste über zwanzig Minuten hinauswächst. Geteilt, nicht gestaucht.">
+        <rect x="279" y="248" width="165" height="48" rx="9" fill="var(--grey-xl)" stroke="var(--grey-mid)"/>
+        <text class="cap" x="293" y="264">Ebene 3 · Lektion</text>
+        <text class="lbl" x="293" y="281">02 Inhalt</text>
+      </g>
+      <g class="node" tabindex="0" role="button" data-th="Pflichtlektion Quiz" data-tt="Fünf Fragen, zufällig aus einem Vorrat von mindestens zwanzig. Beim Neuladen kommen andere.">
+        <rect x="456" y="248" width="165" height="48" rx="9" fill="var(--sand-xl)" stroke="var(--ochre)" stroke-width="1.6"/>
+        <text class="cap" x="470" y="264">Pflicht · Lektion</text>
+        <text class="lbl" x="470" y="281">03 Quiz</text>
+      </g>
+      <g class="node" tabindex="0" role="button" data-th="Pflichtlektion Praxiseinstieg" data-tt="Was jemand als Erstes tut, der das Gelernte im eigenen Unternehmen einführen will. Immer die letzte Lektion.">
+        <rect x="633" y="248" width="165" height="48" rx="9" fill="var(--sand-xl)" stroke="var(--ochre)" stroke-width="1.6"/>
+        <text class="cap" x="647" y="264">Pflicht · Lektion</text>
+        <text class="lbl" x="647" y="281">04 Praxis</text>
+      </g>
+    </svg>
+  </div>
+
+  <h2 class="sec">Der Lernpfad</h2>
+  <p class="txt">Ein Lernpfad ist eine <b>Reihenfolge von Modulen</b>, die zusammen Sinn ergibt. Er beantwortet die Frage, in welcher Folge jemand die Themen durchgeht, der noch nichts weiß. Ein Pfad ist kein Kurs und keine Prüfungsordnung: Spätere Schritte bleiben klickbar, es gibt keinen Fortschrittsbalken und keine Sperren.</p>
+  <p class="txt">Der Pfad lebt vollständig in <code>index.html</code>, in einer Liste namens <code>PATHS</code>. Er kennt von einem Modul nichts als dessen Kennung und die Position in der Reihenfolge. Wer einen neuen Pfad anlegt, ändert genau eine Datei.</p>
+
+  <h2 class="sec">Das Modul</h2>
+  <p class="txt">Ein Modul ist <b>eine Kachel auf der Startseite, eine HTML-Datei, ein Thema</b>. Es ist die Einheit, die man weitergeben kann: Die Datei läuft per Doppelklick, ohne Server, ohne Installation, ohne Internet außer für die Schriften. Wer sie an einen Studenten mailt, hat ihm das ganze Thema gemailt.</p>
+  <p class="txt">Ein Modul weiß selbst nicht, zu welchen Pfaden es gehört. Das ist Absicht und der Grund, warum ein neuer Pfad keine Arbeit an bestehenden Modulen macht.</p>
+
+  <h2 class="sec">Die Lektion</h2>
+  <p class="txt">Eine Lektion ist ein <b>Reiter innerhalb eines Moduls</b> — die kleinste Einheit, die jemand am Stück durcharbeitet. Sie ist der Ort, an dem die Größe geregelt wird: 15 bis 20 Minuten, dann ist Schluss. Wächst der Stoff darüber hinaus, wird die Lektion geteilt.</p>
+  <p class="txt">Innerhalb einer Lektion gliedern Abschnitte den Text. Sie klappen auf und zu, der erste steht offen. Auch dafür ist beim Schreiben nichts zu tun — die Mechanik baut sich aus den Überschriften selbst.</p>
+
+  <h2 class="sec">Warum die Pfeile nur nach unten zeigen</h2>
+  <p class="txt">Ein Pfad verweist auf Module. Ein Modul verweist <b>nie</b> zurück auf einen Pfad. Diese eine Asymmetrie trägt die ganze Konstruktion.</p>
+  <ul class="txt">
+    <li><b>Ein Modul in mehreren Pfaden</b> kostet nichts. Es steht einfach in mehreren Reihenfolgen — an der Datei ändert sich kein Zeichen.</li>
+    <li><b>Ein neuer Pfad</b> ist ein Eintrag in einer Liste, keine Migration.</li>
+    <li><b>Ein Modul umhängen</b> heißt: eine Kennung aus einer Liste nehmen und in eine andere schreiben.</li>
+  </ul>
+  <p class="txt">Stünde die Zugehörigkeit im Modul, müssten bei jedem neuen Pfad alle betroffenen Dateien angefasst werden. Genau das passiert hier nicht.</p>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Drei Ebenen, und die Abhängigkeit läuft nur in eine Richtung. Deshalb kostet ein neuer Lernpfad <b>eine Zeile</b> und kein einziges Modul.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 02 · DER BAUPLAN ==================== -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
+  <p class="claim">Jedes Modul hat <b>mindestens drei Lektionen</b> und endet immer mit denselben zweien. Das ist kein Formalismus, sondern die Antwort auf eine Beobachtung: Wer ein Thema verstanden hat, weiß deshalb noch nicht, was er am Montag tun soll.</p>
+
+  <h2 class="sec">Drei Lektionen, mindestens</h2>
+  <p class="sub">Die ersten sind so viele, wie der Stoff braucht. Die letzten beiden sind gesetzt.</p>
+
+  <div class="trio">
+    <div class="card" style="border-left:3px solid var(--teal)">
+      <p class="ck">Eine bis viele</p>
+      <h3>Die Inhaltslektionen</h3>
+      <p>Der Stoff selbst. Wie viele es werden, entscheidet das Thema, nicht eine Obergrenze. Jede für sich in 15 bis 20 Minuten durchzuarbeiten.</p>
+      <p>Reiter sind für <b>Facetten derselben Frage</b> da. Haben zwei Lektionen inhaltlich nichts mehr miteinander zu tun, sind es zwei Module.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--orange)">
+      <p class="ck">Pflicht · vorletzte Lektion</p>
+      <h3>Das Quiz</h3>
+      <p>Ein Vorrat von mindestens zwanzig Fragen, aus dem beim Laden <b>fünf zufällig</b> gezogen werden. Beim Neuladen kommen andere.</p>
+      <p>Jede Antwort bringt sofort eine Begründung, auch die richtige. Die Begründung ist der eigentliche Lernstoff, nicht der Punktestand — der wird nirgends gespeichert.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--orange)">
+      <p class="ck">Pflicht · letzte Lektion</p>
+      <h3>Der Praxiseinstieg</h3>
+      <p>Was jemand als Erstes tut, der das Gelernte im eigenen Unternehmen einführen will. Der Form nach eine Checkliste, dem Ton nach keine.</p>
+      <p>Konkrete erste Schritte mit dem, was dabei schiefgeht — keine Kästchen zum Abhaken um des Abhakens willen. Hierhin gehört auch das Glossar, wenn das Modul eines hat.</p>
+    </div>
+  </div>
+
+  <h2 class="sec">Die Reihenfolge ist nicht beliebig</h2>
+  <p class="txt">Erst Inhalt, dann Quiz, dann Praxiseinstieg. Das Quiz prüft, was gerade gelesen wurde — es steht deshalb <b>hinter</b> dem Stoff und vor der Anwendung. Der Praxiseinstieg schaut nach vorn und ist die letzte Lektion, weil er der letzte Eindruck sein soll.</p>
+  <p class="txt">Umgedreht ergäbe es keinen Sinn: Ein Quiz am Ende prüft gegen eine Checkliste, die niemand als Prüfstoff gemeint hat, und ein Praxiseinstieg in der Mitte wird überblättert.</p>
+
+  <blockquote class="q">
+    Wir richten uns an Praktiker, nicht an Theoretiker. Auch wo Theorie unumgänglich ist, muss am Ende etwas stehen, das jemand am Montag anfassen kann.
+    <cite>Der Grund für die zwei Pflichtlektionen</cite>
+  </blockquote>
+
+  <h2 class="sec">Wie lang eine Lektion sein darf</h2>
+  <p class="sub">Schiebe die Regler auf das, was Du vorhast. Der Zielkorridor ist grün hinterlegt.</p>
+
+  <div class="planner">
+    <div class="plin">
+      <div class="prow">
+        <div class="pn">Fließtext<span class="pd">Wörter in Absätzen und Listen</span></div>
+        <div class="sl"><input type="range" id="rW" min="200" max="2600" step="100" value="1100" aria-label="Wörter Fließtext"></div>
+        <div class="pv" id="vW">1100</div>
+      </div>
+      <div class="prow">
+        <div class="pn">Abschnitte<span class="pd">Aufklappbare Blöcke in der Lektion</span></div>
+        <div class="sl"><input type="range" id="rA" min="1" max="12" step="1" value="5" aria-label="Anzahl Abschnitte"></div>
+        <div class="pv" id="vA">5</div>
+      </div>
+      <div class="prow">
+        <div class="pn">Interaktive Elemente<span class="pd">Diagramm, Rechner, Simulation — etwas, das reagiert</span></div>
+        <div class="sl"><input type="range" id="rI" min="0" max="6" step="1" value="2" aria-label="Anzahl interaktiver Elemente"></div>
+        <div class="pv" id="vI">2</div>
+      </div>
+      <div class="prow">
+        <div class="pn">Karten und Tabellen<span class="pd">Aufdeckkarten, Vergleiche, Übersichten</span></div>
+        <div class="sl"><input type="range" id="rK" min="0" max="14" step="1" value="4" aria-label="Anzahl Karten und Tabellen"></div>
+        <div class="pv" id="vK">4</div>
+      </div>
+      <p class="note">Die Schätzung rechnet mit 180 Wörtern je Minute — langsamer als beim Roman, weil Fachtext gelesen und nicht überflogen wird.</p>
+    </div>
+
+    <div class="gauge">
+      <p class="hint" style="margin:0">Geschätzte Bearbeitungszeit</p>
+      <p class="gnum" id="gN">15,5</p>
+      <p class="gunit">Minuten für eine Lektion</p>
+      <div class="gbar"><div class="zone" id="gZone"></div><div class="fill" id="gFill"></div></div>
+      <div class="gscale"><span>0</span><span>15</span><span>20</span><span>35+</span></div>
+      <p class="gverd" id="gV"></p>
+    </div>
+  </div>
+
+  <h2 class="sec">Was in einer Lektion steht</h2>
+  <p class="txt">Der Aufbau ist immer derselbe, und er entsteht beim Schreiben von allein:</p>
+  <ul class="txt">
+    <li><b>Die Kernaussage</b> ganz oben, ein bis zwei Sätze, immer sichtbar. Sie beantwortet, warum jemand weiterliest.</li>
+    <li><b>Abschnitte</b> darunter, jeder mit einer Überschrift. Sie werden zur Laufzeit zu auf- und zuklappbaren Blöcken; der erste steht offen, die übrigen zu. Am Text ist dafür nichts zu tun.</li>
+    <li><b>Der Pointe-Kasten</b> am Ende, immer sichtbar. Der eine Satz, der hängen bleiben soll.</li>
+  </ul>
+  <p class="txt">Kernaussage und Pointe bleiben außerhalb der Klappmechanik. Wer eine Lektion zuklappt, sieht immer noch, worum es ging und was am Ende steht.</p>
+
+  <h2 class="sec">Der Pointe-Kasten</h2>
+  <p class="txt">Jede Lektion endet mit einem orangefarbenen Kasten und einem einzigen Gedanken darin. Das ist die schwerste Zeile des ganzen Moduls, und sie lohnt die Zeit: Wer sie nicht schreiben kann, hat meist auch die Lektion noch nicht fertig gedacht.</p>
+  <div class="yn">
+    <div class="ynb ja">
+      <h3>Das ist eine Pointe</h3>
+      <ul>
+        <li>„Der wirtschaftlichste Hebel lag im Quadranten, den ohne Portfolio niemand angesehen hätte.“</li>
+        <li>„Ein Kostenbericht kennt nur Zeilen. Ein Portfolio kennt Nachbarn.“</li>
+        <li>Sie überrascht, oder sie dreht etwas um, das vorher selbstverständlich schien.</li>
+      </ul>
+    </div>
+    <div class="ynb nein">
+      <h3>Das ist keine</h3>
+      <ul>
+        <li>„Zusammenfassend lässt sich sagen, dass das Portfolio ein nützliches Instrument ist.“</li>
+        <li>Eine Wiederholung der Überschrift in längeren Worten.</li>
+        <li>Eine Aufzählung dessen, was gerade dastand. Dafür ist der Text da.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Die Größe wird nicht am Modul geregelt, sondern an der Lektion. Ein Modul darf zwölf Lektionen haben — <b>eine Lektion darf keine dreißig Minuten haben</b>.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 03 · DIE REGELN DES HAUSES ==================== -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
+  <p class="claim">Fünf Regeln entscheiden darüber, ob aus einem guten Text ein Modul wird oder eine Rückfrage. Vier davon kosten nichts, wenn man sie vorher kennt — und Tage, wenn man sie hinterher erfährt.</p>
+
+  <h2 class="sec">Der Fall gehört Sofia</h2>
+  <p class="sub">Alle Module spielen im selben Wiener Kaffeehausbetrieb. Dreh eine Karte um, wenn Du eine Angabe brauchst.</p>
+
+  <div class="flipgrid" id="kanon"></div>
+
+  <p class="txt" style="margin-top:16px">Diese Angaben sind <b>verbindlich und werden nicht erfunden</b>. Fehlt eine Zahl, ein Name oder ein Standort für das, was Du schreiben willst, dann frag danach, statt sie zu ergänzen. Ein zweiter Standort, der nur in einem Modul existiert, ist genau die Art Fehler, die erst drei Module später auffällt.</p>
+
+  <h2 class="sec">Wann ein eigener Fall erlaubt ist</h2>
+  <p class="txt">Sofia ist der Normalfall, ein eigener Fall die <b>begründete Ausnahme</b>. Es gibt sie: Das Modul zum Supply Chain Controlling trägt vier Vorlieferanten eines Nutzfahrzeugherstellers, weil Sofias Betrieb keine benannten Lieferanten hat.</p>
+  <p class="txt">Die Überlegung dahinter lohnt sich zu kennen, weil sie auch für Deinen Fall gilt: Lieber ein sichtbar getrennter Fall als ein stillschweigend gedehnter Kanon. Der Kanon wird nicht um vier Lieferanten erweitert, nur damit ein Portfolio vier Punkte bekommt. Wo das nötig ist, sagt es die Kachel im ersten Satz und der Fußtext des Moduls — niemand soll raten müssen, warum hier plötzlich Lastwagen vorkommen.</p>
+
+  <h2 class="sec">Quellen</h2>
+  <p class="sub">Die klarste Regel im Haus, und die mit den meisten Rückfragen.</p>
+  <div class="yn">
+    <div class="ynb ja">
+      <h3>Erwünscht</h3>
+      <ul>
+        <li><b>Fachliteratur</b> mit Autor und Jahr: Horváth, Weber, Reichmann, Gleißner, Diederichs, Rohrschneider.</li>
+        <li><b>Normen</b> mit ihrer Kennung, etwa die ISO 31000.</li>
+        <li><b>Wörtliche Zitate</b> mit Seitenangabe, im Fließtext gesetzt.</li>
+        <li><b>Ein Hinweis im Satz</b>: „nach Diederichs 2023“ genügt, wo kein Zitat nötig ist.</li>
+      </ul>
+    </div>
+    <div class="ynb nein">
+      <h3>Ausgeschlossen</h3>
+      <ul>
+        <li><b>Kursbücher</b> in jeder Form: kein Verweis, keine Seitenzahl, keine Lektionsnummer.</li>
+        <li><b>Kurskennungen</b> aus einem Studienprogramm.</li>
+        <li><b>Reproduzierte Abbildungen</b> und Tabellen. Grafiken werden eigenständig neu aufgebaut.</li>
+        <li><b>Herkunftsetiketten</b> am Inhalt — kein „Fachliteratur“, kein „Folie 7“, kein „Ergänzung“ als Beschriftung.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="txt" style="margin-top:14px">Der Unterschied zwischen den beiden Spalten ist <b>Zitieren gegen Etikettieren</b>. Wer eine Aussage auf Gleißner zurückführt, nennt Gleißner. Wer einen Block mit dem Wort „Fachliteratur“ überschreibt, sagt nichts über den Inhalt und macht die Leserin mit der Provenienz beschäftigt statt mit der Sache.</p>
+  <p class="txt">Die Fußzeile ist eine einzige Zeile: <code>Copyright Prof. Dr. Maik Drozdzynski, 2026</code>. Kein Quellenverzeichnis, keine Legende, keine Versionsangabe.</p>
+
+  <h2 class="sec">Sprache und Anrede</h2>
+  <ul class="txt">
+    <li><b>Die Anrede ist immer „Du“</b>, mit großem D. „Klicke eine Zeile an“, „Deine erste Schätzung“, „entscheiden musst Du“. Kein „Sie“, nirgends — auch nicht in Tooltips, Detailkästen oder auf Schaltflächen.</li>
+    <li><b>Innerhalb einer Lektion wird die Sprache nicht gemischt.</b> Die Lektion ist die kleinste Einheit, die eine Sprache hat. Halbe Sätze auf Deutsch und Tooltips auf Englisch sind der Fehler, den diese Regel verhindert.</li>
+    <li><b>Die Sprache muss sichtbar sein.</b> Eine deutsche Lektion in einem englischen Modul trägt <code>DE</code> in der Beschriftung, ein durchgehend deutsches Modul einen Hinweis auf seiner Kachel. Niemand soll beim Klicken überrascht werden.</li>
+    <li><b>Namen und Zahlen des Kanons bleiben unverändert.</b> Sofia heißt in beiden Sprachen Sofia, die Ringstraße bleibt die Ringstraße, 145.500 € bleiben 145.500 €. Übersetzt werden Fließtext und Bedienelemente, nicht der Fall.</li>
+  </ul>
+
+  <h2 class="sec">Was die Technik verbietet</h2>
+  <p class="txt">Die eine Eigenschaft, die diese Sammlung von jeder Lernplattform unterscheidet: <b>Doppelklick genügt.</b> Kein Server, kein Build, keine Installation. Daraus folgen ein paar Verbote, die absolut sind.</p>
+  <div class="duo">
+    <div class="card">
+      <p class="ck">Geht nicht</p>
+      <h3>Nachladen von Nachbardateien</h3>
+      <p>Eine Datei, die eine zweite nachlädt, scheitert beim direkten Öffnen im Browser. Deshalb liegen alle Daten <b>eingebettet</b> in der Datei selbst — auch die Zahlen einer Tabelle, auch ein Foliensatz-Verweis.</p>
+    </div>
+    <div class="card">
+      <p class="ck">Geht nicht</p>
+      <h3>Etwas speichern</h3>
+      <p>Der Browser-Speicher ist ausgeschlossen. Ein Quizergebnis, ein Fortschritt, eine ausgefüllte Werkstatt: alles lebt nur, solange die Seite offen ist. Wer etwas behalten will, druckt es als PDF oder kopiert es heraus.</p>
+    </div>
+  </div>
+  <p class="txt" style="margin-top:14px">Praktisch heißt das für Dich: Liefere Zahlen als Zahlen, nicht als Verweis auf eine Datenbank. Und erwarte nicht, dass ein Modul sich merkt, was jemand beim letzten Mal getan hat.</p>
+
+  <h2 class="sec">Gestaltung</h2>
+  <ul class="txt">
+    <li><b>Ein Akzent trägt, einer warnt, der Rest ist Grau.</b> Die Signalfarbe erscheint an höchstens zwei Stellen pro Bildschirm. Ist sie überall, ist sie nirgends.</li>
+    <li><b>Bewegung nur, wo sie etwas aussagt.</b> Ein Balken, der auf seinen Wert wächst, erklärt etwas. Ein Element, das beim Scrollen einfliegt, hält nur auf.</li>
+    <li><b>Alles ist per Tastatur erreichbar.</b> Was einen Tooltip beim Überfahren zeigt, zeigt ihn auch beim Antabben. Wer eine Grafik liefert, liefert auch den Satz, der sie beschreibt.</li>
+    <li><b>Alles läuft auf dem Telefon.</b> Jedes Modul wird bei 390 Pixeln Breite geprüft. Eine Tabelle, die dort nicht passt, scrollt in ihrem eigenen Rahmen und schiebt nicht die Seite.</li>
+  </ul>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Von diesen Regeln ist eine einzige eine Geschmacksfrage. Die anderen vier sind der Grund, warum jede dieser Dateien in fünf Jahren noch <b>per Doppelklick startet</b>.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 04 · QUIZ ==================== -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
+  <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen. Kein Zeitdruck, keine Bewertung, die irgendwo landet — die Begründung steht nach jeder Antwort da, auch nach der richtigen.</p>
+
+  <h2 class="sec">Übung</h2>
+  <p class="sub">Wer eine Frage verfehlt, hat meist keine Wissenslücke, sondern eine Regel zu allgemein verstanden. Genau darum steht die Begründung dabei.</p>
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Übung">
+      <button id="qNew" type="button">Fünf neue Fragen</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="qStand"></span></p>
+  </div>
+  <div class="qwrap" id="quiz"></div>
+  <div id="qResult" style="margin-top:16px"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Fünf aus vielen, jedes Mal andere. Ein Quiz, das man auswendig lernen kann, prüft das <b>Gedächtnis für Reihenfolgen</b> und nicht den Stoff.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 05 · DER ERSTE SCHRITT ==================== -->
+<section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e" hidden>
+  <p class="claim">Du hast ein Thema und willst daraus ein Modul machen. Zehn Entscheidungen stehen dazwischen — und keine davon triffst Du besser, während die Datei schon geschrieben wird.</p>
+
+  <h2 class="sec">Zehn Punkte, bevor Du etwas abgibst</h2>
+  <p class="sub">Klick einen Punkt auf, wenn Du wissen willst, warum er dasteht und was passiert, wenn er offen bleibt.</p>
+  <div class="steps" id="steps"></div>
+
+  <h2 class="sec">Der Briefing-Bogen</h2>
+  <p class="sub">Fülle aus, was Du weißt. Der Bogen erzeugt daraus einen Text, den Du zusammen mit Deinem Material abgibst. Nichts davon wird gespeichert — kopier ihn heraus, bevor Du die Seite schließt.</p>
+
+  <div class="brief">
+    <div class="bform">
+      <div class="bf">
+        <label for="bTitel">Arbeitstitel des Moduls</label>
+        <span class="why">Muss nicht endgültig sein. Er wird zum Dateinamen und zur Überschrift der Kachel.</span>
+        <input type="text" id="bTitel" placeholder="Deckungsbeitragsrechnung">
+      </div>
+      <div class="bf">
+        <label for="bFrage">Welche Frage beantwortet das Modul?</label>
+        <span class="why">Ein Satz, und zwar die Frage, nicht das Thema. „Welche Kosten darf ich einer Filiale zurechnen?“ statt „Kostenrechnung“.</span>
+        <textarea id="bFrage" placeholder="Welche Frage soll jemand nach dem Modul beantworten können?"></textarea>
+      </div>
+      <div class="bf">
+        <span class="lg">Spielt es in Sofias Kaffeehausbetrieb?</span>
+        <span class="why">Sofia ist der Normalfall. Ein eigener Fall ist erlaubt, aber begründungspflichtig — er wird dann sichtbar getrennt ausgewiesen.</span>
+        <div class="radios">
+          <label><input type="radio" name="bFall" value="sofia" checked> Ja, Sofias Betrieb trägt das Thema.</label>
+          <label><input type="radio" name="bFall" value="eigen"> Nein, es braucht einen eigenen Fall.</label>
+          <label><input type="radio" name="bFall" value="offen"> Weiß ich noch nicht.</label>
+        </div>
+      </div>
+      <div class="bf">
+        <label for="bFallWarum">Falls eigener Fall: warum?</label>
+        <span class="why">Was fehlt Sofias Betrieb für dieses Thema? Diese Begründung landet später im Fußtext des Moduls.</span>
+        <textarea id="bFallWarum" placeholder="Sofias Betrieb hat keine benannten Lieferanten, das Portfolio braucht aber vier."></textarea>
+      </div>
+      <div class="bf">
+        <span class="lg">Zu welchem Lernpfad gehört das Modul?</span>
+        <span class="why">Ein Modul kann in mehreren Pfaden stehen oder in keinem. Ein neuer Pfad kostet keine Änderung am Modul.</span>
+        <div class="radios">
+          <label><input type="radio" name="bPfad" value="best" checked> Zu einem bestehenden Pfad.</label>
+          <label><input type="radio" name="bPfad" value="neu"> Es soll ein neuer Pfad werden.</label>
+          <label><input type="radio" name="bPfad" value="kein"> Zu keinem, es steht für sich.</label>
+        </div>
+      </div>
+      <div class="bf">
+        <label for="bPfadName">Name des Pfades und Position darin</label>
+        <span class="why">Bei einem bestehenden Pfad auch: vor oder nach welchem Modul?</span>
+        <input type="text" id="bPfadName" placeholder="Einführung in das Risikomanagement, als zweiter Schritt">
+      </div>
+      <div class="bf">
+        <span class="lg">In welcher Sprache?</span>
+        <span class="why">Deutsch ist zulässig, wo die Fachbegriffe übersetzt schief würden. Nicht aus Bequemlichkeit.</span>
+        <div class="radios">
+          <label><input type="radio" name="bSpr" value="de" checked> Deutsch.</label>
+          <label><input type="radio" name="bSpr" value="en"> Englisch.</label>
+          <label><input type="radio" name="bSpr" value="beide"> Zweisprachig, umschaltbar.</label>
+        </div>
+      </div>
+      <div class="bf">
+        <label for="bLekt">Die Inhaltslektionen, eine je Zeile</label>
+        <span class="why">Titel und ein Satz dazu. Quiz und Praxiseinstieg kommen automatisch dazu, die musst Du hier nicht aufführen.</span>
+        <textarea id="bLekt" rows="4" placeholder="Der Begriff — woher der Deckungsbeitrag kommt und was er deckt&#10;Die Rechnung — ein- und mehrstufig an Sofias Zahlen"></textarea>
+      </div>
+      <div class="bf">
+        <label for="bInter">Was soll man anfassen können?</label>
+        <span class="why">Was reagiert, wenn jemand klickt oder schiebt? Ein Diagramm, ein Rechner, eine Simulation. Eine Grafik, die nur dasteht, ist ein Bild.</span>
+        <textarea id="bInter" placeholder="Ein Regler für den Fixkostenblock, der die Break-even-Menge mitwandern lässt."></textarea>
+      </div>
+      <div class="bf">
+        <label for="bZahlen">Verbindliche Zahlen</label>
+        <span class="why">Jede Zahl, die im Modul steht, muss von irgendwoher kommen. Nenne sie hier vollständig — erfunden wird nichts.</span>
+        <textarea id="bZahlen" placeholder="Wareneinsatz 31 %, Personalkosten 38 % vom Umsatz, Quartalsumsatz Ringstraße 145.500 €"></textarea>
+      </div>
+      <div class="bf">
+        <label for="bQuellen">Quellen mit Autor und Jahr</label>
+        <span class="why">Fachliteratur und Normen. Kursbücher und Kurskennungen können nicht verwendet werden, auch nicht als Hintergrund.</span>
+        <textarea id="bQuellen" placeholder="Horváth 2020, S. 129; ISO 31000"></textarea>
+      </div>
+      <div class="bf">
+        <label for="bPointe">Die Pointe des Moduls</label>
+        <span class="why">Der eine Satz, der hängen bleiben soll. Wenn er nicht kommt, ist meist das Modul noch nicht fertig gedacht.</span>
+        <textarea id="bPointe" placeholder="Ein Kostenbericht kennt nur Zeilen. Ein Portfolio kennt Nachbarn."></textarea>
+      </div>
+      <div class="bf">
+        <label for="bPraxis">Was tut der Praktiker am Montag?</label>
+        <span class="why">Der Stoff für die letzte Lektion. Drei bis fünf erste Schritte, jeweils mit dem, was dabei schiefgeht.</span>
+        <textarea id="bPraxis" placeholder="Erst die Kostenarten trennen, bevor irgendetwas umgelegt wird. Wer mit der Umlage anfängt, bekommt sie nie wieder heraus."></textarea>
+      </div>
+      <div class="bf">
+        <label for="bMaterial">Material, das Du mitlieferst</label>
+        <span class="why">PDF, Grafiken, Foliensatz, Tabellen. Grafiken werden nicht übernommen, sondern neu aufgebaut — sie dienen als Vorlage, nicht als Datei.</span>
+        <textarea id="bMaterial" placeholder="Ein PDF mit dem Ablauf, zwei Skizzen als PNG, eine Tabelle mit den Quartalszahlen"></textarea>
+      </div>
+    </div>
+
+    <div class="bout">
+      <div class="bar" style="margin-bottom:12px">
+        <button class="btn solid" id="bGo" type="button">Briefing erzeugen</button>
+        <button class="btn" id="bCopy" type="button">In die Zwischenablage</button>
+      </div>
+      <div class="bmiss" id="bMiss" hidden></div>
+      <label class="hint" for="bOut" style="margin:0 0 6px;display:block">Ergebnis</label>
+      <textarea id="bOut" readonly aria-label="Erzeugtes Briefing"></textarea>
+      <p class="bmsg" id="bMsg"></p>
+    </div>
+  </div>
+
+  <h2 class="sec">Glossar</h2>
+  <p class="sub">Die Begriffe, die in Rückmeldungen vorkommen, und was sie hier genau bedeuten.</p>
+  <div class="glos"><dl id="glossar"></dl></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Der aufwendigste Teil eines Moduls ist nicht das Schreiben, sondern die zehn Entscheidungen davor. Wer sie <b>vorher</b> trifft, bekommt ein Modul. Wer sie offen lässt, bekommt einen Terminvorschlag.</p>
+  </div>
+</section>
+
+<footer>
+Copyright Prof. Dr. Maik Drozdzynski, 2026
+</footer>
+
+</div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+
+/* =====================================================================
+   1 · Tooltip
+   ===================================================================== */
+const tip = $("tip");
+const TSEL = "[data-tt]";
+function showTip(n, e){
+  tip.innerHTML = "<p class=\"th\">" + n.dataset.th + "</p><p>" + n.dataset.tt + "</p>";
+  tip.classList.add("on");
+  moveTip(n, e);
+}
+function moveTip(n, e){
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  let x, y;
+  if(e && e.clientX != null){ x = e.clientX + 16; y = e.clientY + 18; }
+  else { const r = n.getBoundingClientRect(); x = r.left; y = r.bottom + 10; }
+  if(x + w > innerWidth - 12) x = innerWidth - w - 12;
+  if(y + h > innerHeight - 12) y = y - h - 34;
+  tip.style.left = Math.max(12, x) + "px";
+  tip.style.top  = Math.max(12, y) + "px";
+}
+function hideTip(){ tip.classList.remove("on"); }
+
+document.addEventListener("pointerover", e => {
+  const n = e.target.closest && e.target.closest(TSEL); if(n) showTip(n, e);
+});
+document.addEventListener("pointermove", e => {
+  const n = e.target.closest && e.target.closest(TSEL); if(n) moveTip(n, e);
+});
+document.addEventListener("pointerout", e => {
+  const from = e.target.closest && e.target.closest(TSEL);
+  const to = e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest(TSEL);
+  if(from && to !== from) hideTip();
+});
+document.addEventListener("focusin", e => {
+  const n = e.target.closest && e.target.closest(TSEL);
+  if(n) showTip(n, null); else hideTip();
+});
+document.addEventListener("focusout", e => {
+  if(e.target.closest && e.target.closest(TSEL)) hideTip();
+});
+
+/* =====================================================================
+   2 · Der Kanon als Aufdeckkarten
+   ===================================================================== */
+const KANON = [
+  ["Das Unternehmen", "Zwei Kaffeehäuser",
+   "Zwei Kaffeehäuser in Wien (Ringstraße und Alsergrund), eine eigene Rösterei, ein Coffeebike, Import von fair gehandeltem Rohkaffee aus Peru und Großhandel an Bäckereien und andere Kaffeehäuser. <b>Keine vier Filialen und keine eigene Bäckerei.</b>"],
+  ["Die Personen", "Keine Nachnamen",
+   "Sofia ist die Inhaberin, Nguyen die Werkstudentin für Controlling und BI, Alex der Controller. Dazu Anna, Jonas, Klara, Elif und Tobias. <b>Niemand trägt einen Nachnamen</b>, und neue Namen werden nicht ohne Rückfrage erfunden."],
+  ["Die Regieanweisung", "Sofia fragt falsch, Nguyen fragt richtig",
+   "Sofia hat gute Ideen und handelt zu schnell: Sie liest eine Kennzahl und zieht sofort einen Schluss. Nguyen fragt, was die Zahl eigentlich zählt. Alex bringt die Methode dazu. <b>Dieses Muster trägt jedes Modul</b> — Sofia ist nicht die Dumme, sondern die Ungeduldige."],
+  ["Die Standorte", "Drei Verkaufsorte, einer davon mobil",
+   "Ringstraße liegt zentral: Touristen und Pendler, gleichmäßige Auslastung, höherer Bon. Alsergrund liegt universitätsnah: die Nachfrage folgt dem Semesterrhythmus, kleinerer Bon, hohe Frequenz. Das Coffeebike wechselt den Standort täglich."],
+  ["Die Zahl, die nicht wandert", "145.500 €",
+   "Die Quartalssumme bleibt über alle Varianten der Slowly Changing Dimensions hinweg gleich: <b>145.500 €</b>. Genau das ist der didaktische Kern — die Summe stimmt immer, und trotzdem sagt jeder Bericht etwas anderes. Diese Zahl wird nie angepasst."],
+  ["Der Anfang", "Erst kam das Rad",
+   "Angefangen hat alles mit dem Coffeebike. Es ist nicht der jüngste Zweig, sondern der erste — Kaffeehäuser, Rösterei und Großhandel sind daraus gewachsen. Deshalb taucht es in der Fallstudie zweimal auf: als Keimzelle und als Traum."]
+];
+$("kanon").innerHTML = KANON.map(([kat, wort, txt], i) =>
+  "<button class=\"flip\" type=\"button\" aria-expanded=\"false\" data-i=\"" + i + "\">" +
+  "<span class=\"lang\">" + kat + "</span>" +
+  "<span class=\"word\">" + wort + "</span>" +
+  "<span class=\"mean\">" + txt + "</span></button>").join("");
+$("kanon").addEventListener("click", e => {
+  const b = e.target.closest(".flip"); if(!b) return;
+  b.setAttribute("aria-expanded", b.getAttribute("aria-expanded") === "true" ? "false" : "true");
+});
+
+/* =====================================================================
+   3 · Der Lektionsplaner
+   Fliesstext mit 180 Woertern je Minute, weil Fachtext gelesen und
+   nicht ueberflogen wird. Jeder Abschnitt kostet Orientierung, jedes
+   interaktive Element will ausprobiert werden.
+   ===================================================================== */
+const PL = {w:1100, a:5, i:2, k:4};
+const ZIEL = [15, 20], SKALA = 35;
+function plRechne(){
+  return PL.w / 180 + PL.a * 0.4 + PL.i * 2.5 + PL.k * 0.6;
+}
+function plZeichne(){
+  const m = plRechne();
+  $("gN").textContent = m.toFixed(1).replace(".", ",");
+  const pct = v => Math.min(100, v / SKALA * 100);
+  const zone = $("gZone");
+  zone.style.left  = pct(ZIEL[0]) + "%";
+  zone.style.width = (pct(ZIEL[1]) - pct(ZIEL[0])) + "%";
+  const fill = $("gFill");
+  fill.style.width = pct(m) + "%";
+  const farbe = m < ZIEL[0] ? "var(--grey-mid)" : m <= ZIEL[1] ? "var(--green)" : m <= 26 ? "var(--orange)" : "var(--red)";
+  fill.style.background = farbe;
+  $("gN").style.color = farbe === "var(--grey-mid)" ? "var(--grey)" : farbe;
+  $("gV").innerHTML =
+    m < ZIEL[0] ? "<b>Reichlich knapp.</b> Das ist kein Fehler — eine kurze Lektion ist besser als eine überladene. Prüfe nur, ob wirklich eine eigene Lektion daraus werden muss oder ob der Stoff zu einer anderen gehört." :
+    m <= ZIEL[1] ? "<b>Im Korridor.</b> Das ist die Größe, für die alles hier gebaut ist: eine Sitzung, ein Thema, ein Ende, das man erreicht." :
+    m <= 26 ? "<b>Zu lang.</b> Such die Naht: Meist gibt es einen Abschnitt, ab dem eine neue Frage anfängt. Dort wird geteilt — zwei Lektionen sind kein Makel, eine Obergrenze für ihre Zahl gibt es nicht." :
+    "<b>Deutlich zu lang.</b> Wer das am Stück durcharbeitet, hört vorher auf. Teile in zwei oder drei Lektionen; die Klammer darum ist ohnehin schon das Modul.";
+}
+[["rW","vW","w",1],["rA","vA","a",1],["rI","vI","i",1],["rK","vK","k",1]].forEach(([r, v, key]) => {
+  $(r).addEventListener("input", () => {
+    PL[key] = +$(r).value;
+    $(v).textContent = $(r).value;
+    plZeichne();
+  });
+});
+plZeichne();
+
+/* =====================================================================
+   4 · Die zehn Punkte
+   ===================================================================== */
+const STEPS = [
+  ["Schreib die Frage auf, die das Modul beantwortet", "Ein Satz, und zwar eine Frage",
+   "<p>Nicht das Thema, sondern die Frage. „Kostenrechnung“ ist ein Thema. „Welche Kosten darf ich einer Filiale zurechnen?“ ist eine Frage, und sie sagt Dir sofort, was ins Modul gehört und was nicht.</p><p>Diese Zeile wird später zur Kernaussage der ersten Lektion und zum Untertitel der Kachel.</p>",
+   "Bleibt sie offen, wächst das Modul während des Schreibens, weil kein Kriterium sagt, wo Schluss ist."],
+  ["Entscheide über den Fall", "Sofia oder ein eigener",
+   "<p>Der Normalfall ist Sofias Kaffeehausbetrieb. Prüfe, ob er Dein Thema trägt: Gibt es dort die Rollen, die Mengen, die Konflikte, die Du brauchst?</p><p>Trägt er es nicht, ist ein eigener Fall erlaubt — aber er wird begründet und sichtbar getrennt ausgewiesen, in der Kachel und im Fußtext.</p>",
+   "Der Kanon wird nicht stillschweigend gedehnt. Vier erfundene Lieferanten in einem Modul sind schlimmer als ein offen getrennter Fall."],
+  ["Ordne das Modul einem Lernpfad zu", "Bestehend, neu oder keiner",
+   "<p>Drei Möglichkeiten: Es gehört in einen vorhandenen Pfad, es begründet einen neuen, oder es steht für sich. Alle drei sind in Ordnung.</p><p>Beim vorhandenen Pfad sag auch die Position: vor oder nach welchem Modul? Beim neuen Pfad brauchst Du einen Namen und einen Satz, der den Bogen beschreibt.</p>",
+   "Ohne Zuordnung landet das Modul in der Kachelliste, aber in keiner Reihenfolge. Gefunden wird es dann nur über die Suche."],
+  ["Leg die Sprache fest", "Und begründe Deutsch",
+   "<p>Deutsch ist zulässig, wo die Fachbegriffe übersetzt schief würden — Pflegesatz, Personalkostenquote, Jahresabschluss. Nicht aus Bequemlichkeit.</p><p>Zweisprachig ist die aufwendigste Variante und die beste, wenn das Modul in beiden Kontexten gebraucht wird. Sag es vorher, nicht nachträglich: Ein Modul im Nachhinein zweisprachig zu machen kostet mehr als es gleich so anzulegen.</p>",
+   "Innerhalb einer Lektion wird nie gemischt. Halbe Sätze in der einen und Tooltips in der anderen Sprache sind der Fehler, den die Regel verhindert."],
+  ["Schneide die Lektionen", "15 bis 20 Minuten je Stück",
+   "<p>Zerleg den Stoff in Portionen, die jemand am Stück durcharbeiten kann. Gib jeder einen Titel und einen Satz.</p><p>Der Planer in der Lektion über den Bauplan hilft beim Schätzen. Faustregel: Wenn Du zwei Grafiken und über 1.500 Wörter in derselben Lektion hast, sind es zwei.</p>",
+   "Quiz und Praxiseinstieg musst Du nicht aufführen — die kommen ohnehin dazu. Aber sie zählen mit, wenn Du überlegst, wie groß das Modul insgesamt wird."],
+  ["Sammle die Zahlen", "Jede einzelne, vollständig",
+   "<p>Jede Zahl, die im Modul steht, muss von irgendwoher kommen. Liefere sie als Tabelle oder Liste, nicht als Verweis auf ein System, das hier niemand aufmacht.</p><p>Gehört die Zahl zu Sofias Betrieb, wird sie in den Kanon aufgenommen und gilt ab dann für alle Module.</p>",
+   "Fehlt eine Zahl, wird sie nicht erfunden, sondern nachgefragt. Das kostet einen Tag — eine erfundene Zahl kostet später ein ganzes Modul."],
+  ["Nenn die Quellen", "Autor und Jahr",
+   "<p>Fachliteratur und Normen sind erwünscht und sollen im Fließtext auftauchen: als Zitat mit Seitenangabe oder als Hinweis im Satz.</p><p>Kursbücher und Kurskennungen können nicht verwendet werden, auch nicht als stiller Hintergrund. Abbildungen daraus werden nicht reproduziert, sondern eigenständig neu aufgebaut.</p>",
+   "Ein Block, der mit „Fachliteratur“ überschrieben ist, sagt nichts über den Inhalt. Genannt wird der Autor, nicht die Gattung der Quelle."],
+  ["Markier, was man anfassen können soll", "Was reagiert, wenn jemand klickt",
+   "<p>Das ist der Unterschied zwischen einem Modul und einem PDF. Sag konkret, welches Element reagieren soll und worauf: ein Regler, der eine Kurve wandern lässt, ein Schalter, der ein Sternschema in ein Snowflake dreht, eine Karte, auf der sich ein Punkt bewegt.</p><p>Eine Grafik, die nur dasteht, ist ein Bild. Bilder sind erlaubt, aber sie sind nicht der Grund, warum es diese Plattform gibt.</p>",
+   "Bewegung nur, wo sie etwas aussagt. Ein Balken, der auf seinen Wert wächst, erklärt etwas — ein Element, das beim Scrollen einfliegt, hält nur auf."],
+  ["Schreib die Pointe und den Fragenvorrat", "Der Satz und die zwanzig Fragen",
+   "<p>Jede Lektion endet mit einem Satz, der hängen bleiben soll. Er überrascht, oder er dreht etwas um, das vorher selbstverständlich schien. Eine Zusammenfassung ist keine Pointe.</p><p>Dazu der Fragenvorrat für das Quiz: mindestens zwanzig Fragen mit je vier Antworten, einer richtigen und einer Begründung. Die Begründung ist wichtiger als die Frage.</p>",
+   "Wer die Pointe nicht schreiben kann, hat die Lektion meist noch nicht zu Ende gedacht. Das ist ein nützliches Signal, kein Formfehler."],
+  ["Stell das Material bereit", "PDF und Grafiken, dann übernimmt der Einbau",
+   "<p>Am Ende steht ein Ordner: Dein Text als PDF oder Dokument, die Skizzen als Bilddateien, die Zahlen als Tabelle, dazu der Briefing-Bogen von dieser Seite. Damit wird das Modul gebaut.</p><p>Grafiken werden dabei <b>nicht übernommen, sondern neu aufgebaut</b> — sie dienen als Vorlage für Aufbau und Aussage, nicht als Datei, die eingebettet wird. Eine saubere Handskizze ist deshalb genauso brauchbar wie eine fertige Zeichnung.</p>",
+   "Liefere lieber zu viel Kontext als zu wenig. Was in Deinem Kopf offensichtlich ist, ist beim Einbau eine Rückfrage."]
+];
+$("steps").innerHTML = STEPS.map(([hd, sub, bd, warn], i) => {
+  const id = "stp-" + i;
+  return "<div class=\"stp\" data-open=\"false\">" +
+    "<button type=\"button\" aria-expanded=\"false\" aria-controls=\"" + id + "\">" +
+      "<span class=\"no\">" + String(i + 1).padStart(2, "0") + "</span>" +
+      "<span class=\"hd\">" + hd + "<em>" + sub + "</em></span>" +
+      "<svg class=\"cv\" viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M4 2 L8 6 L4 10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>" +
+    "</button>" +
+    "<div class=\"bd\" id=\"" + id + "\" hidden>" + bd +
+      "<p class=\"warn\"><b>Wenn es offen bleibt:</b> " + warn + "</p></div></div>";
+}).join("");
+$("steps").addEventListener("click", e => {
+  const b = e.target.closest(".stp > button"); if(!b) return;
+  const stp = b.closest(".stp"), bd = $(b.getAttribute("aria-controls"));
+  const offen = stp.dataset.open === "true";
+  stp.dataset.open = String(!offen);
+  b.setAttribute("aria-expanded", String(!offen));
+  bd.hidden = offen;
+});
+
+/* =====================================================================
+   5 · Der Briefing-Bogen
+   Nichts wird gespeichert. Der Text entsteht bei jedem Klick neu aus
+   dem, was gerade in den Feldern steht.
+   ===================================================================== */
+const FALL = {sofia:"Sofias Kaffeehausbetrieb trägt das Thema.",
+              eigen:"Es braucht einen eigenen Fall.",
+              offen:"Noch offen."};
+const PFAD = {best:"Zu einem bestehenden Lernpfad.",
+              neu:"Es soll ein neuer Lernpfad werden.",
+              kein:"Zu keinem Pfad, das Modul steht für sich."};
+const SPRACHE = {de:"Deutsch.", en:"Englisch.", beide:"Zweisprachig, per Schalter umstellbar."};
+const rad = name => (document.querySelector("input[name=" + name + "]:checked") || {}).value;
+const val = id => $(id).value.trim();
+
+function zeile(titel, text){
+  return titel + "\n" + (text ? text : "— offen —") + "\n\n";
+}
+function briefing(){
+  const fall = rad("bFall"), pfad = rad("bPfad"), spr = rad("bSpr");
+  const t = val("bTitel") || "ohne Titel";
+  let s = "BRIEFING FÜR EIN NEUES MODUL\n";
+  s += "".padEnd(60, "=") + "\n\n";
+  s += zeile("ARBEITSTITEL", t);
+  s += zeile("DIE FRAGE, DIE DAS MODUL BEANTWORTET", val("bFrage"));
+  s += zeile("DER FALL", FALL[fall] + (fall === "eigen" && val("bFallWarum") ? "\nBegründung: " + val("bFallWarum") : ""));
+  s += zeile("LERNPFAD", PFAD[pfad] + (val("bPfadName") ? "\n" + val("bPfadName") : ""));
+  s += zeile("SPRACHE", SPRACHE[spr]);
+  s += zeile("INHALTSLEKTIONEN", val("bLekt"));
+  s += "PFLICHTLEKTIONEN\nQuiz mit fünf Fragen aus dem Vorrat, danach der Praxiseinstieg.\n\n";
+  s += zeile("WAS MAN ANFASSEN KÖNNEN SOLL", val("bInter"));
+  s += zeile("VERBINDLICHE ZAHLEN", val("bZahlen"));
+  s += zeile("QUELLEN", val("bQuellen"));
+  s += zeile("DIE POINTE", val("bPointe"));
+  s += zeile("WAS DER PRAKTIKER AM MONTAG TUT", val("bPraxis"));
+  s += zeile("MITGELIEFERTES MATERIAL", val("bMaterial"));
+  s += "".padEnd(60, "-") + "\n";
+  s += "Kanon beachtet: keine Nachnamen, zwei Kaffeehäuser, keine eigene\nBäckerei, Quartalssumme 145.500 €. Anrede durchgehend Du.\n";
+  s += "Keine Kursbücher, keine Kurskennungen, keine reproduzierten\nAbbildungen. Fachliteratur mit Autor und Jahr.\n";
+  return s;
+}
+const PFLICHT = [["bFrage","die Frage, die das Modul beantwortet"],
+                 ["bLekt","die Inhaltslektionen"],
+                 ["bPointe","die Pointe"],
+                 ["bPraxis","was der Praktiker am Montag tut"],
+                 ["bMaterial","das mitgelieferte Material"]];
+$("bGo").addEventListener("click", () => {
+  $("bOut").value = briefing();
+  const fehlt = PFLICHT.filter(([id]) => !val(id)).map(([, n]) => n);
+  const box = $("bMiss");
+  box.hidden = fehlt.length === 0;
+  if(fehlt.length) box.innerHTML = "<b>Noch offen:</b> " + fehlt.join(", ") +
+    ". Der Bogen lässt sich trotzdem abgeben — dann kommt die Frage eben später zurück.";
+  $("bMsg").textContent = "";
+});
+$("bCopy").addEventListener("click", () => {
+  if(!$("bOut").value) $("bOut").value = briefing();
+  const feld = $("bOut");
+  feld.removeAttribute("readonly");
+  feld.select(); feld.setSelectionRange(0, feld.value.length);
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch(err) { ok = false; }
+  feld.setAttribute("readonly", "");
+  if(ok){ $("bMsg").textContent = "Kopiert."; return; }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(feld.value)
+      .then(() => { $("bMsg").textContent = "Kopiert."; })
+      .catch(() => { $("bMsg").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand."; });
+  } else {
+    $("bMsg").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand.";
+  }
+});
+
+/* =====================================================================
+   6 · Glossar
+   ===================================================================== */
+const GLOSSAR = [
+  ["Modul", "Eine Kachel auf der Startseite, eine HTML-Datei, ein Thema. Die Einheit, die man weitergeben kann."],
+  ["Lektion", "Ein Reiter innerhalb eines Moduls. Die kleinste Einheit, die jemand am Stück durcharbeitet, und die Ebene, auf der die Größe geregelt wird."],
+  ["Lernpfad", "Eine Reihenfolge von Modulen, die zusammen Sinn ergibt. Zeigt die Reihenfolge an, erzwingt sie aber nicht — spätere Schritte bleiben klickbar."],
+  ["Spur", "Der grobe Fachbereich einer Kachel auf der Startseite, etwa Business Intelligence oder Controlling. Spur und Lernpfad sind zwei Sichten auf dieselbe Liste, nicht zwei Filter, die sich kreuzen lassen."],
+  ["Inhaltslektion", "Eine Lektion mit Stoff. Mindestens eine gibt es je Modul, nach oben ist die Zahl offen."],
+  ["Pflichtlektion", "Das Quiz und der Praxiseinstieg. Sie stehen am Ende jedes Moduls, in dieser Reihenfolge, und werden nicht nachgereicht."],
+  ["Praxiseinstieg", "Die letzte Lektion: was jemand als Erstes tut, der das Gelernte im eigenen Unternehmen einführen will. Der Form nach eine Checkliste, dem Ton nach keine."],
+  ["Pointe", "Der orangefarbene Kasten am Ende jeder Lektion mit dem einen Satz, der hängen bleiben soll. Eine Zusammenfassung ist keine Pointe."],
+  ["Block", "Ein auf- und zuklappbarer Abschnitt innerhalb einer Lektion. Entsteht zur Laufzeit aus den Überschriften; der erste steht offen, die übrigen zu."],
+  ["Kanon", "Die verbindliche Sammlung aller Namen, Zahlen, Standorte und Festlegungen zu Sofias Betrieb. Was dort steht, wird nicht abgewandelt; was fehlt, wird erfragt und nicht erfunden."],
+  ["Kernaussage", "Der Satz ganz oben in einer Lektion, immer sichtbar. Er beantwortet, warum jemand weiterliest."],
+  ["Sprachschalter", "Der Umschalter zwischen Deutsch und Englisch. Die Wahl reist als Parameter in der Adresse mit, nicht im Speicher des Browsers."]
+];
+$("glossar").innerHTML = GLOSSAR.map(([t, d]) =>
+  "<dt>" + t + "</dt><dd>" + d + "</dd>").join("");
+
+/* =====================================================================
+   7 · Quiz
+   ===================================================================== */
+const FRAGEN = [
+  ["Wie heißt ein Reiter innerhalb eines Moduls?",
+   ["Lektion", "Kapitel", "Lerneinheit", "Abschnitt"], 0,
+   "Lektion. „Lerneinheit“ und „Kapitel“ sind keine Begriffe dieser Plattform mehr; wo sie noch stehen, sind sie Reste."],
+  ["Wie viele Fragen zieht ein Quiz beim Laden aus seinem Vorrat?",
+   ["Drei", "Fünf", "Zehn", "Alle"], 1,
+   "Fünf, zufällig gezogen. Beim Neuladen kommen andere — ein Quiz, das man auswendig lernen kann, prüft die Reihenfolge und nicht den Stoff."],
+  ["Wie viele Lektionen hat ein Modul mindestens?",
+   ["Eine", "Zwei", "Drei", "Vier"], 2,
+   "Drei: mindestens eine Inhaltslektion, dann das Quiz, dann der Praxiseinstieg."],
+  ["Welche Lektion steht immer ganz am Ende eines Moduls?",
+   ["Das Quiz", "Der Praxiseinstieg", "Das Glossar", "Die Zusammenfassung"], 1,
+   "Der Praxiseinstieg. Er schaut nach vorn und soll der letzte Eindruck sein; das Quiz steht davor, weil es prüft, was gerade gelesen wurde."],
+  ["Wie lange soll eine Lektion zum Durcharbeiten brauchen?",
+   ["5 bis 10 Minuten", "15 bis 20 Minuten", "30 bis 45 Minuten", "So lange wie nötig"], 1,
+   "15 bis 20 Minuten — durchzuarbeiten, nicht zu verstehen. Verstehen braucht länger und lässt sich nicht planen."],
+  ["Eine Lektion wächst auf geschätzte 28 Minuten. Was tust Du?",
+   ["Text kürzen, bis es passt", "Die Lektion teilen", "Ein zweites Modul anlegen", "Nichts, die Grenze ist eine Empfehlung"], 1,
+   "Teilen, nicht stauchen. Zwei Lektionen sind kein Makel — eine Obergrenze für ihre Zahl gibt es nicht."],
+  ["Wer verweist auf wen?",
+   ["Das Modul auf seine Lernpfade", "Der Lernpfad auf seine Module", "Beide aufeinander", "Die Startseite auf beide getrennt"], 1,
+   "Der Pfad verweist auf Module, nie umgekehrt. Diese Asymmetrie ist der Grund, warum ein neuer Pfad keine Änderung an einer Moduldatei kostet."],
+  ["Ein Modul soll zusätzlich in einen zweiten Lernpfad. Was ist zu ändern?",
+   ["Eine Zeile in der Pfadliste", "Die Kachel des Moduls", "Der Kopf der Moduldatei", "Beides, Pfadliste und Modul"], 0,
+   "Nur die Pfadliste. Das Modul weiß selbst nicht, zu welchen Pfaden es gehört — genau deshalb ist es so gebaut."],
+  ["Ein neues Modul ist fertig, erscheint aber nicht auf der Startseite. Woran liegt das meistens?",
+   ["Es fehlt der Eintrag in der Kachelliste", "Die Datei liegt im falschen Ordner", "Der Lernpfad fehlt", "Die Suche findet es nicht"], 0,
+   "Die Startseite kennt nur, was in ihrer Liste steht. Das ist der häufigste Fehler beim Anlegen eines Moduls."],
+  ["Darf ein Modul Daten aus einer Nachbardatei nachladen?",
+   ["Ja, wenn die Datei danebenliegt", "Ja, aber nur Textdateien", "Nein, alle Daten werden eingebettet", "Nur beim Start über einen Server"], 2,
+   "Nein. Beim direkten Öffnen im Browser schlägt das fehl, und genau dieser Fall muss funktionieren. Alle Daten liegen eingebettet in der Datei."],
+  ["Was passiert mit einem Quizergebnis, wenn die Seite geschlossen wird?",
+   ["Es bleibt im Browser gespeichert", "Es wird verworfen", "Es wandert in die Startseite", "Es hängt an der Adresse"], 1,
+   "Es ist weg. Der Browser-Speicher ist ausgeschlossen; wer etwas behalten will, druckt es als PDF oder kopiert es heraus."],
+  ["Wie viele Kaffeehäuser betreibt Sofia?",
+   ["Eines", "Zwei", "Drei", "Vier"], 1,
+   "Zwei: Ringstraße und Alsergrund. Dazu kommen eine eigene Rösterei und das Coffeebike — aber es sind keine vier Filialen."],
+  ["Was gehört nicht zu Sofias Betrieb?",
+   ["Eine eigene Rösterei", "Eine eigene Bäckerei", "Ein Coffeebike", "Import von Rohkaffee aus Peru"], 1,
+   "Eine eigene Bäckerei gibt es nicht. Kuchen und Gebäck werden zugekauft, teils bei denselben Bäckereien, die von Sofia Bohnen beziehen."],
+  ["Welche Zahl bleibt über alle Varianten der Slowly Changing Dimensions gleich?",
+   ["Die Quartalssumme von 145.500 €", "Der Umsatz der Ringstraße", "Der Umsatz des Alsergrunds", "Der Monatsumsatz im März"], 0,
+   "Die Quartalssumme. Genau darin liegt der didaktische Kern: Die Summe stimmt immer, und trotzdem sagt jeder Bericht etwas anderes."],
+  ["Wie werden die Personen des Falls benannt?",
+   ["Vorname und Nachname", "Nur Vorname", "Nur Rolle", "Kürzel aus zwei Buchstaben"], 1,
+   "Nur der Vorname. Sofia, Nguyen, Alex, Anna, Jonas, Klara, Elif — niemand trägt einen Nachnamen."],
+  ["Eine Angabe zu Sofias Betrieb fehlt Dir. Was tust Du?",
+   ["Eine plausible Angabe ergänzen", "Nachfragen und die Lücke offen lassen", "Die Stelle weglassen", "Eine Angabe aus einem anderen Modul übernehmen"], 1,
+   "Nachfragen. Eine erfundene Angabe fällt oft erst drei Module später auf, und dann ist sie an mehreren Stellen verankert."],
+  ["Darf aus einem Kursbuch zitiert werden?",
+   ["Ja, mit Seitenangabe", "Ja, wenn die Auflage genannt wird", "Nein, in keiner Form", "Nur in der Fußzeile"], 2,
+   "In keiner Form: kein Verweis, keine Seitenzahl, keine Lektionsnummer, keine Kurskennung und keine reproduzierte Abbildung."],
+  ["Darf eine Aussage auf Horváth zurückgeführt werden?",
+   ["Nein, Namen sind ausgeschlossen", "Ja, mit Autor und Jahr im Fließtext", "Nur im Quellenverzeichnis", "Nur wenn es ein wörtliches Zitat ist"], 1,
+   "Ja, und das ist erwünscht. Fachliteratur wird im Fließtext genannt, mit Autor und Jahr — das ist Zitieren, kein Etikettieren."],
+  ["Was gehört nicht als Beschriftung an einen Inhaltsblock?",
+   ["Eine Überschrift", "Ein Hinweis auf die Herkunft wie „Fachliteratur“", "Eine Kernaussage", "Eine Zahl"], 1,
+   "Herkunftsetiketten. Die Module stehen für sich; wer sie liest, soll sich mit dem Gegenstand befassen und nicht mit seiner Provenienz."],
+  ["Wie lautet die Anrede in den Modulen?",
+   ["Sie, durchgehend", "Du, durchgehend", "Unpersönlich, gar keine Anrede", "Je nach Modul verschieden"], 1,
+   "Du, mit großem D, und zwar überall — auch in Tooltips, Detailkästen und auf Schaltflächen."],
+  ["Darf innerhalb einer Lektion zwischen Deutsch und Englisch gewechselt werden?",
+   ["Ja, bei Fachbegriffen", "Ja, in Tooltips", "Nein, die Lektion ist die kleinste Spracheinheit", "Nur in der Kernaussage"], 2,
+   "Nein. Halbe Sätze in der einen und Tooltips in der anderen Sprache sind genau der Fehler, den diese Regel verhindert."],
+  ["Ein Modul läuft durchgehend auf Deutsch, obwohl der Rest englisch ist. Was ist zu tun?",
+   ["Nichts, das fällt auf", "Es kenntlich machen, in Beschriftung und Kachel", "Es nachträglich übersetzen lassen", "Es aus dem Lernpfad nehmen"], 1,
+   "Die Sprache muss sichtbar sein. Niemand soll beim Klicken überrascht werden."],
+  ["Welcher Teil einer Lektion bleibt beim Zuklappen der Abschnitte sichtbar?",
+   ["Nur die Überschriften", "Kernaussage und Pointe", "Nur die Pointe", "Der erste Absatz jedes Abschnitts"], 1,
+   "Kernaussage und Pointe stehen außerhalb der Klappmechanik. Wer alles zuklappt, sieht immer noch, worum es ging und was am Ende steht."],
+  ["Was ist eine gute Pointe?",
+   ["Eine Zusammenfassung der Lektion", "Eine Aufzählung der Kernbegriffe", "Ein Satz, der etwas umdreht", "Ein Ausblick auf das nächste Modul"], 2,
+   "Sie überrascht oder dreht etwas um, das vorher selbstverständlich schien. Wer sie nicht schreiben kann, hat die Lektion meist noch nicht fertig gedacht."],
+  ["Wann ist ein eigener Fall statt Sofias Betrieb zulässig?",
+   ["Wann immer es besser passt", "Als begründete und sichtbar getrennte Ausnahme", "Nie", "Nur in englischen Modulen"], 1,
+   "Als begründete Ausnahme, die im ersten Satz der Kachel und im Fußtext benannt wird. Lieber ein sichtbar getrennter Fall als ein stillschweigend gedehnter Kanon."],
+  ["Du lieferst eine fertige Grafik mit. Was passiert damit?",
+   ["Sie wird eingebettet", "Sie wird als Vorlage genutzt und neu aufgebaut", "Sie wird verkleinert übernommen", "Sie wird zum Herunterladen angeboten"], 1,
+   "Sie dient als Vorlage für Aufbau und Aussage, nicht als Datei. Deshalb ist eine saubere Handskizze genauso brauchbar wie eine fertige Zeichnung."]
+];
+
+let qAktuell = [];
+const QZAHL = 5;
+function qZiehen(){
+  const pool = FRAGEN.map((f, i) => i);
+  for(let i = pool.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  qAktuell = pool.slice(0, QZAHL).map(i => ({i, gewaehlt:null}));
+  qRender();
+}
+function qRender(){
+  $("quiz").innerHTML = qAktuell.map((q, n) => {
+    const [text, opts, richtig, begr] = FRAGEN[q.i];
+    return "<div class=\"qcard\">" +
+      "<p class=\"qn\">Frage " + (n + 1) + " von " + QZAHL + "</p>" +
+      "<p class=\"qt\">" + text + "</p>" +
+      "<div class=\"qopts\">" + opts.map((o, j) => {
+        let kl = "";
+        if(q.gewaehlt !== null) kl = j === richtig ? " right" : (j === q.gewaehlt ? " wrong" : "");
+        return "<button class=\"qopt" + kl + "\" type=\"button\" data-q=\"" + n + "\" data-o=\"" + j + "\"" +
+               (q.gewaehlt !== null ? " disabled" : "") + ">" + o + "</button>";
+      }).join("") + "</div>" +
+      "<p class=\"qfb\"" + (q.gewaehlt === null ? " hidden" : "") + ">" +
+        (q.gewaehlt === null ? "" :
+         (q.gewaehlt === richtig ? "<b style=\"color:#1E6B47\">Richtig.</b> " : "<b style=\"color:#9C2F2C\">Daneben.</b> ") + begr) +
+      "</p></div>";
+  }).join("");
+  const fertig  = qAktuell.filter(q => q.gewaehlt !== null).length;
+  const treffer = qAktuell.filter(q => q.gewaehlt === FRAGEN[q.i][2]).length;
+  $("qStand").textContent = fertig === 0
+    ? QZAHL + " Fragen aus einem Vorrat von " + FRAGEN.length
+    : fertig + " von " + QZAHL + " beantwortet · " + treffer + " richtig";
+  $("qResult").innerHTML = fertig < QZAHL ? "" :
+    "<div class=\"qscore\"><b>" + treffer + " von " + QZAHL + " richtig.</b> " + (
+      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen — der Vorrat hat " + FRAGEN.length + "." :
+      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben; sie sind der eigentliche Lernstoff." :
+      "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind die Richtung der Verweise zwischen Pfad und Modul, die Regel zu den Quellen und der Kanon des Falls."
+    ) + "</div>";
+}
+$("quiz").addEventListener("click", e => {
+  const b = e.target.closest(".qopt"); if(!b || b.disabled) return;
+  const q = qAktuell[+b.dataset.q]; if(!q || q.gewaehlt !== null) return;
+  q.gewaehlt = +b.dataset.o;
+  qRender();
+});
+$("qNew").addEventListener("click", qZiehen);
+qZiehen();
+
+/* =====================================================================
+   8 · Lektionen
+   ===================================================================== */
+const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","d","e"];
+function select(i){
+  tabs.forEach((t, j) => {
+    const on = i === j;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    $("p-" + keys[j]).hidden = !on;
+  });
+  hideTip();
+}
+tabs.forEach((t, i) => {
+  t.addEventListener("click", () => select(i));
+  t.addEventListener("keydown", e => {
+    const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if(!d) return; e.preventDefault();
+    const n = (i + d + tabs.length) % tabs.length; tabs[n].focus(); select(n);
+  });
+});
+select(0);
+
+/* =====================================================================
+   Bloecke zum Auf- und Zuklappen
+   Baut die Abschnitte einer Lektion zur Laufzeit aus der vorhandenen
+   Gliederung: jedes h2.sec eroeffnet einen Block, alles danach bis zum
+   naechsten h2.sec ist sein Inhalt. Was vor dem ersten h2.sec steht -
+   die Kernaussage der Lektion - bleibt immer sichtbar, ebenso ein
+   Pointe-Kasten am Ende. Der erste Block ist offen, die uebrigen zu.
+
+   Weil die Knoten nur verschoben und nicht neu erzeugt werden, bleiben
+   alle ids, Verweise und bereits gesetzten Zuhoerer unberuehrt.
+   ===================================================================== */
+function makeBlocks(panel){
+  if(!panel) return 0;
+  const kinder = [...panel.children];
+  const istKopf = n => n.tagName === "H2" && n.classList.contains("sec");
+  const istEnde = n => n.classList.contains("pointe");
+  let i = 0, nr = 0;
+  while(i < kinder.length){
+    if(!istKopf(kinder[i])){ i++; continue; }
+    const h2 = kinder[i], inhalt = [];
+    let j = i + 1;
+    while(j < kinder.length && !istKopf(kinder[j]) && !istEnde(kinder[j])){
+      inhalt.push(kinder[j]); j++;
+    }
+    nr++;
+    const offen = nr === 1, bid = "blk-" + (panel.id || "p") + "-" + nr;
+    const wrap = document.createElement("section");
+    wrap.className = "blk"; wrap.dataset.open = String(offen);
+    panel.insertBefore(wrap, h2);
+    h2.innerHTML = '<button class="blk-t" type="button" aria-expanded="' + offen + '" aria-controls="' + bid + '">' +
+      '<svg class="blk-c" viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2 L8 6 L4 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+      '<span>' + h2.innerHTML + '</span></button>';
+    wrap.appendChild(h2);
+    const body = document.createElement("div");
+    body.className = "blk-b"; body.id = bid; body.hidden = !offen;
+    inhalt.forEach(n => body.appendChild(n));
+    wrap.appendChild(body);
+    i = j;
+  }
+  if(nr) panel.addEventListener("click", e => {
+    const b = e.target.closest(".blk-t"); if(!b) return;
+    const wrap = b.closest(".blk"), body = document.getElementById(b.getAttribute("aria-controls"));
+    const offen = wrap.dataset.open === "true";
+    wrap.dataset.open = String(!offen);
+    b.setAttribute("aria-expanded", String(!offen));
+    body.hidden = offen;
+    if(!offen) dispatchEvent(new Event("resize"));
+  });
+  return nr;
+}
+document.querySelectorAll(".panel").forEach(makeBlocks);
+</script>
+</body>
+</html>

@@ -42,6 +42,11 @@ nicht gestaucht. Das ist die einzige Größenregel, die es gibt.
 **Warum die zwei Pflichtlektionen:** Die Module richten sich an Praktiker, nicht an Theoretiker.
 Auch wo Theorie unumgänglich ist, muss am Ende etwas stehen, das jemand am Montag anfassen kann.
 
+**`content-werkstatt.html` erklärt all das von innen** — die drei Ebenen, den Modulvertrag, den
+Kanon und die Regeln, mit einem Briefing-Bogen für Zuarbeit von außen. Es ist zugleich das
+Muster: Wer wissen will, wie ein Modul nach diesen Regeln aussieht, sieht dort nach. Ändert
+sich eine Festlegung hier, wird sie dort mitgezogen — sonst widersprechen sich die beiden.
+
 **Sprache:** Commit-Nachrichten, Pull-Request-Beschreibungen und Kommunikation immer auf
 Deutsch. Für die Module gilt:
 

@@ -120,6 +120,7 @@ h1 em{font-style:normal;color:var(--teal)}
 .b-track{background:var(--teal-xl);color:var(--teal-dk)}
 .b-track.ctrl{background:var(--sand-xl);color:#8A6417}
 .b-track.case{background:#EDF5E9;color:#3F7233}
+.b-track.meta{background:var(--grey-xl);color:#5A5A58}
 .b-plan{background:var(--grey-xl);color:var(--grey)}
 
 .tile h2{font-size:1.24rem;font-weight:700;letter-spacing:-.018em;line-height:1.2;margin:0 0 7px}
@@ -196,6 +197,7 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
     <button class="chip" data-f="bi" aria-pressed="false" type="button" data-t="chipBi"></button>
     <button class="chip" data-f="ctrl" aria-pressed="false" type="button" data-t="chipCtrl"></button>
     <button class="chip" data-f="case" aria-pressed="false" type="button" data-t="chipCase"></button>
+    <button class="chip" data-f="meta" aria-pressed="false" type="button" data-t="chipMeta"></button>
     <button class="chip" data-f="planned" aria-pressed="false" type="button" data-t="chipPlan"></button>
   </div>
   <div class="search">
@@ -300,8 +302,9 @@ const UI = {
   chipBi:"Business Intelligence",
   chipCtrl:"Controlling",
   chipCase:{de:"Fallstudie", en:"Case study"},
+  chipMeta:{de:"Werkstatt", en:"Workshop"},
   chipPlan:{de:"Geplant", en:"Planned"},
-  search:{de:"Themen durchsuchen\u2026", en:"Search topics\u2026"},
+  search:{de:"Module durchsuchen\u2026", en:"Search modules\u2026"},
   empty:{de:"Dazu passt gerade nichts.", en:"Nothing matches that filter yet."},
   soon:{de:"In Arbeit", en:"In preparation"},
   howH:{de:"Ein neues Modul aufnehmen", en:"Adding a new module"},
@@ -311,28 +314,28 @@ const UI = {
   treeB:{de:"\u2190 Namen, Zahlen, Festlegungen", en:"\u2190 names, figures, conventions"},
   step1:{de:"Die neue Datei in den Ordner legen (HTML neben <code>index.html</code>, Foliens\u00e4tze nach <code>decks/</code>).",
          en:"Put the new file in the folder (HTML next to <code>index.html</code>, slide decks in <code>decks/</code>)."},
-  step2:{de:"<code>index.html</code> im Texteditor \u00f6ffnen und die Themenliste suchen.",
-         en:"Open <code>index.html</code> in a text editor and find the topic list."},
+  step2:{de:"<code>index.html</code> im Texteditor \u00f6ffnen und die Modulliste suchen.",
+         en:"Open <code>index.html</code> in a text editor and find the module list."},
   step3:{de:"Einen Block wie unten einf\u00fcgen. Die Reihenfolge in der Liste ist die Reihenfolge auf der Seite.",
          en:"Paste a block like the one below. Order in the list is the order on the page."},
-  step4:{de:"<code>accent</code> f\u00e4rbt die Kachel: <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> oder <code>green</code>. <code>glyph</code> w\u00e4hlt die Zeichnung: <code>rows</code>, <code>cube</code>, <code>cells</code>, <code>chain</code>, <code>riskmap</code>, <code>layers</code>, <code>quadrants</code>, <code>star</code>, <code>pyramid</code>, <code>loop</code> oder <code>tree</code>.",
-         en:"<code>accent</code> tints the tile: use <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> or <code>green</code>. <code>glyph</code> picks the drawing: <code>rows</code>, <code>cube</code>, <code>cells</code>, <code>chain</code>, <code>riskmap</code>, <code>layers</code>, <code>quadrants</code>, <code>star</code>, <code>pyramid</code>, <code>loop</code> or <code>tree</code>."},
+  step4:{de:"<code>accent</code> f\u00e4rbt die Kachel: <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> oder <code>green</code>. <code>glyph</code> w\u00e4hlt die Zeichnung: <code>rows</code>, <code>cube</code>, <code>cells</code>, <code>chain</code>, <code>riskmap</code>, <code>layers</code>, <code>quadrants</code>, <code>star</code>, <code>pyramid</code>, <code>loop</code>, <code>tree</code> oder <code>scaffold</code>.",
+         en:"<code>accent</code> tints the tile: use <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> or <code>green</code>. <code>glyph</code> picks the drawing: <code>rows</code>, <code>cube</code>, <code>cells</code>, <code>chain</code>, <code>riskmap</code>, <code>layers</code>, <code>quadrants</code>, <code>star</code>, <code>pyramid</code>, <code>loop</code>, <code>tree</code> or <code>scaffold</code>."},
   step5:{de:"Jedes Textfeld darf ein einfacher String sein (dann gilt er in beiden Sprachen) oder ein Paar aus deutscher und englischer Fassung. Fehlt die deutsche, erscheint die englische. <code>langBadge</code> setzt den Hinweis auf die Sprache des Moduls selbst.",
          en:"Every text field may be a plain string (used in both languages) or a pair of a German and an English version. If the German one is missing, the English one is shown. <code>langBadge</code> sets the note about the module's own language."},
-  howPaths:{de:"<b>Lernpfade</b> stehen in einer zweiten Liste, <code>const PATHS</code>, direkt darunter. Ein Pfad verweist nur auf die <code>id</code> einer Lerneinheit; die Reihenfolge in <code>steps</code> ist die Reihenfolge im Pfad. Eine Einheit geh\u00f6rt zu mehreren Pfaden, indem sie in mehreren <code>steps</code> steht \u2014 an der Kachel selbst ist daf\u00fcr nichts zu \u00e4ndern. Zeigt ein Pfad auf eine unbekannte <code>id</code>, meldet die Konsole das beim Laden. Mit <code>?path=bi-basics</code> l\u00e4sst sich ein Pfad direkt verlinken.",
-            en:"<b>Learning paths</b> live in a second list, <code>const PATHS</code>, right below. A path only refers to a unit's <code>id</code>; the order in <code>steps</code> is the order of the path. A unit belongs to several paths by appearing in several <code>steps</code> arrays \u2014 nothing on the tile itself has to change. If a path points at an unknown <code>id</code>, the console says so on load. Use <code>?path=bi-basics</code> to link straight to a path."},
+  howPaths:{de:"<b>Lernpfade</b> stehen in einer zweiten Liste, <code>const PATHS</code>, direkt darunter. Ein Pfad verweist nur auf die <code>id</code> eines Moduls; die Reihenfolge in <code>steps</code> ist die Reihenfolge im Pfad. Ein Modul geh\u00f6rt zu mehreren Pfaden, indem es in mehreren <code>steps</code> steht \u2014 am Modul selbst ist daf\u00fcr nichts zu \u00e4ndern. Zeigt ein Pfad auf eine unbekannte <code>id</code>, meldet die Konsole das beim Laden. Mit <code>?path=bi-basics</code> l\u00e4sst sich ein Pfad direkt verlinken.",
+            en:"<b>Learning paths</b> live in a second list, <code>const PATHS</code>, right below. A path only refers to a module's <code>id</code>; the order in <code>steps</code> is the order of the path. A module belongs to several paths by appearing in several <code>steps</code> arrays \u2014 nothing on the module itself has to change. If a path points at an unknown <code>id</code>, the console says so on load. Use <code>?path=bi-basics</code> to link straight to a path."},
   footer:{de:"Lehrmaterial \u00b7 Corporate Design der IU. Alle Zahlen in den Modulen sind illustrativ. <code>PROJECT-CANON.md</code> geh\u00f6rt in denselben Ordner \u2014 dort stehen die Namen, Zahlen und Gestaltungsregeln, die die Module untereinander stimmig halten.",
           en:"Teaching material \u00b7 IU corporate identity. All figures in the modules are illustrative. Keep <code>PROJECT-CANON.md</code> with this folder \u2014 it holds the names, numbers and design conventions that keep the modules consistent with one another."},
   pathLabel:{de:"Lernpfade", en:"Learning paths"},
   pathKicker:{de:"Lernpfad", en:"Learning path"},
-  pathClear:{de:"Pfad verlassen \u00b7 alle Themen zeigen", en:"Leave the path \u00b7 show all topics"},
-  pathSteps:{de:n=>n===1?"1 Lerneinheit":n+" Lerneinheiten", en:n=>n===1?"1 unit":n+" units"},
-  countPath:{de:(k,n)=>k+" von "+n+(n===1?" Lerneinheit":" Lerneinheiten")+" des Pfades",
-             en:(k,n)=>k+" of "+n+(n===1?" unit":" units")+" in this path"},
-  countAll:{de:(n,r)=>n+" Themen \u00b7 "+r+" Dateien zum Herunterladen",
-            en:(n,r)=>n+" topics \u00b7 "+r+" downloadable resources"},
-  countSome:{de:(k,n)=>k+" von "+n+" Themen angezeigt",
-             en:(k,n)=>k+" of "+n+" topics shown"}
+  pathClear:{de:"Pfad verlassen \u00b7 alle Module zeigen", en:"Leave the path \u00b7 show all modules"},
+  pathSteps:{de:n=>n===1?"1 Modul":n+" Module", en:n=>n===1?"1 module":n+" modules"},
+  countPath:{de:(k,n)=>k+" von "+n+(n===1?" Modul":" Modulen")+" des Pfades",
+             en:(k,n)=>k+" of "+n+(n===1?" module":" modules")+" in this path"},
+  countAll:{de:(n,r)=>n+" Module \u00b7 "+r+" Dateien zum Herunterladen",
+            en:(n,r)=>n+" modules \u00b7 "+r+" downloadable resources"},
+  countSome:{de:(k,n)=>k+" von "+n+" Modulen angezeigt",
+             en:(k,n)=>k+" of "+n+" modules shown"}
 };
 
 /* =====================================================================
@@ -563,15 +566,36 @@ const TOPICS = [
        en:"Data quality dimensions with real failure cases"}
     ],
     links:[]
+  },
+  {
+    id:"werkstatt",
+    title:{de:"Die Werkstatt — wie diese Plattform gebaut ist",
+           en:"The workshop — how this platform is built"},
+    sub:{de:"Für alle, die Inhalte beisteuern: die drei Ebenen Lernpfad, Modul und Lektion, der Bauplan eines Moduls und die Regeln, die nicht verhandelbar sind. Durchgehend auf Deutsch.",
+         en:"For everyone who contributes content: the three levels of path, module and lesson, the blueprint of a module and the rules that are not up for negotiation. In German throughout."},
+    track:"meta", status:"ready", accent:"navy", glyph:"scaffold",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Die drei Ebenen als Landkarte, in der ein Modul sichtbar an zwei Lernpfaden hängt",
+       en:"The three levels as a map, with one module visibly hanging from two learning paths"},
+      {de:"Ein Planer, der aus Textmenge, Abschnitten und Interaktion die Bearbeitungszeit einer Lektion schätzt",
+       en:"A planner that estimates a lesson's working time from text volume, sections and interaction"},
+      {de:"Der Kanon des Falls als Aufdeckkarten: zwei Kaffeehäuser, keine Nachnamen, 145.500 €",
+       en:"The canon of the case as flip cards: two coffee houses, no surnames, 145,500 €"},
+      {de:"Ein Briefing-Bogen, der aus Deinen Antworten den Text erzeugt, den Du mit dem Material abgibst",
+       en:"A briefing sheet that turns your answers into the text you hand in with your material"}
+    ],
+    links:[{kind:"html",file:"content-werkstatt.html",
+            label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
   }
 ];
 
 /* =====================================================================
    LERNPFADE - die zweite Liste, die du bearbeitest.
    Ein Pfad verweist nur auf die ids aus TOPICS. Die Reihenfolge in
-   steps ist die Reihenfolge im Pfad. Eine Lerneinheit gehört zu
-   mehreren Pfaden, indem sie in mehreren steps steht — an der Kachel
-   selbst ist dafür nichts zu ändern.
+   steps ist die Reihenfolge im Pfad. Ein Modul gehört zu mehreren
+   Pfaden, indem es in mehreren steps steht — am Modul selbst ist
+   dafür nichts zu ändern.
    ===================================================================== */
 const PATHS = [
   {
@@ -600,7 +624,8 @@ const PATHS = [
 
 const ACCENT={teal:"#209CBD",navy:"#0F4C5C",orange:"#FF922B",ochre:"#B5852C",green:"#4C8B3F"};
 const TRACK={bi:["Business Intelligence",""],ctrl:["Controlling","ctrl"],
-             case:[{de:"Fallstudie",en:"Case study"},"case"]};
+             case:[{de:"Fallstudie",en:"Case study"},"case"],
+             meta:[{de:"Werkstatt",en:"Workshop"},"meta"]};
 
 const GLYPH={
   rows:`<rect x="8" y="10" width="44" height="10" rx="2" fill="currentColor" opacity=".9"/>
@@ -664,7 +689,15 @@ const GLYPH={
         <rect x="36" y="30" width="18" height="10" rx="2" fill="currentColor" opacity=".6"/>
         <rect class="g-move" x="36" y="48" width="18" height="9" rx="2" fill="currentColor" opacity=".4"/>
         <path d="M31 18 L31 25 M17 30 L17 25 L45 25 L45 30 M45 40 L45 48" stroke="currentColor"
-              stroke-width="2" fill="none" opacity=".55"/>`
+              stroke-width="2" fill="none" opacity=".55"/>`,
+  scaffold:`<rect x="9" y="7" width="20" height="9" rx="2" fill="currentColor" opacity=".85"/>
+        <rect x="33" y="7" width="20" height="9" rx="2" fill="currentColor" opacity=".85"/>
+        <rect class="g-pulse" x="21" y="26" width="20" height="10" rx="2" fill="#FF922B"/>
+        <rect x="9" y="46" width="13" height="8" rx="2" fill="currentColor" opacity=".45"/>
+        <rect x="24.5" y="46" width="13" height="8" rx="2" fill="currentColor" opacity=".45"/>
+        <rect class="g-move" x="40" y="46" width="13" height="8" rx="2" fill="currentColor" opacity=".45"/>
+        <path d="M19 16 L31 26 M43 16 L31 26 M31 36 L15.5 46 M31 36 L31 46 M31 36 L46.5 46"
+              stroke="currentColor" stroke-width="1.8" fill="none" opacity=".5"/>`
 };
 
 const ICON={
@@ -731,7 +764,7 @@ const pathchips=document.getElementById("pathchips"), pathbar=document.getElemen
 
 /* Ein Pfad, der auf eine unbekannte id zeigt, ist ein Tippfehler - laut sagen. */
 PATHS.forEach(p=>p.steps.forEach(id=>{
-  if(!TOPICS.some(t=>t.id===id)) console.warn(`Lernpfad "${p.id}": unbekannte Lerneinheit "${id}"`);
+  if(!TOPICS.some(t=>t.id===id)) console.warn(`Lernpfad "${p.id}": unbekanntes Modul "${id}"`);
 }));
 
 let activePath = new URLSearchParams(location.search).get("path") || null;
