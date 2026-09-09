@@ -455,9 +455,6 @@ table.sc .up{color:#B23C2C;font-weight:700}
 .blk-c{width:13px;height:13px;flex:none;color:var(--teal-dk);
   transition:transform .22s var(--ease)}
 .blk[data-open="true"] .blk-c{transform:rotate(90deg)}
-.blk-t .zu{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--grey);font-weight:600;margin-left:auto;flex:none}
-.blk[data-open="true"] .blk-t .zu{color:var(--teal-dk)}
 .blk-b{padding:0 0 28px}
 .blk-b[hidden]{display:none}
 
@@ -2804,8 +2801,8 @@ select(0);
    Weil die Knoten nur verschoben und nicht neu erzeugt werden, bleiben
    alle ids, Verweise und bereits gesetzten Zuhoerer unberuehrt.
    ===================================================================== */
-function makeBlocks(panelId){
-  const panel = $(panelId); if(!panel) return 0;
+function makeBlocks(panel){
+  if(!panel) return 0;
   const kinder = [...panel.children];
   const istKopf = n => n.tagName === "H2" && n.classList.contains("sec");
   const istEnde = n => n.classList.contains("pointe");
@@ -2819,7 +2816,7 @@ function makeBlocks(panelId){
       inhalt.push(kinder[j]); j++;
     }
     nr++;
-    const offen = nr === 1, bid = "blk-" + panelId + "-" + nr;
+    const offen = nr === 1, bid = "blk-" + (panel.id || "p") + "-" + nr;
     const wrap = document.createElement("section");
     wrap.className = "blk";
     wrap.dataset.open = String(offen);
@@ -2830,8 +2827,11 @@ function makeBlocks(panelId){
          <svg class="blk-c" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2 L8.5 6 L4.5 10"
            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
          <span>${h2.innerHTML}</span>
-         <span class="zu">${offen ? "offen" : "aufklappen"}</span>
        </button>`;
+    if(h2.dataset.t){
+      h2.querySelector(".blk-t span").dataset.t = h2.dataset.t;
+      delete h2.dataset.t;
+    }
     wrap.appendChild(h2);
 
     const body = document.createElement("div");
@@ -2842,21 +2842,19 @@ function makeBlocks(panelId){
     i = j;
   }
 
-  panel.addEventListener("click", e => {
+  if(nr) panel.addEventListener("click", e => {
     const b = e.target.closest(".blk-t"); if(!b) return;
-    const wrap = b.closest(".blk"), body = $(b.getAttribute("aria-controls"));
+    const wrap = b.closest(".blk"), body = document.getElementById(b.getAttribute("aria-controls"));
     const offen = wrap.dataset.open === "true";
     wrap.dataset.open = String(!offen);
     b.setAttribute("aria-expanded", String(!offen));
     body.hidden = offen;
-    b.querySelector(".zu").textContent = offen ? "aufklappen" : "offen";
+    if(!offen) dispatchEvent(new Event("resize"));
   });
   return nr;
 }
 
-/* Vorerst nur die beiden neuen Reiter. Der Rollout auf die uebrigen
-   Module ist je Panel eine weitere Kennung in dieser Liste.         */
-["p-e", "p-f"].forEach(makeBlocks);
+document.querySelectorAll(".panel").forEach(makeBlocks);
 </script>
 </body>
 </html>

@@ -202,6 +202,25 @@ Reiter als `role="tablist"` mit Pfeiltastennavigation. `prefers-reduced-motion` 
 
 **Jedes Modul endet mit einem Pointe-Kasten** — dem einen Satz, der hängen bleiben soll.
 
+**Abschnitte innerhalb eines Reiters sind auf- und zuklappbar.** Die Blöcke entstehen zur
+Laufzeit: `makeBlocks(panel)` läuft am Ende jedes Moduls über `document.querySelectorAll(".panel")`,
+jedes `h2.sec` eröffnet einen Block, alles danach bis zum nächsten `h2.sec` ist sein Inhalt. Der
+erste ist offen, die übrigen zu.
+
+- **Am Markup ist dafür nichts zu tun** — ein neues `h2.sec` wird automatisch ein Block. Genau
+  deshalb ist es so gebaut: Ein neues Modul bekommt die Mechanik durch Kopieren des CSS-Blocks
+  und der Funktion, ohne dass eine einzige Überschrift umgeschrieben wird.
+- **Zwei Dinge bleiben außerhalb:** alles vor dem ersten `h2.sec` (die Kernaussage des Reiters)
+  und ein `.pointe` am Ende. Der Sammelvorgang hält vor dem Pointe-Kasten an.
+- **Wer seine Zeichnung aus dem Layout misst, muss auf `resize` hören.** In einem zugeklappten
+  Block liefert `getBoundingClientRect` nur Nullen; die Zeichnung entartet auf einen Punkt. Beim
+  Aufklappen wird deshalb ein `resize` ausgelöst. Die Strategy Map in `balanced-scorecard.html`
+  ist der Fall, an dem das aufgefallen ist — sie zeichnete zugeklappt `0,0,0,0`.
+- **Im Druck sind alle Blöcke offen** (`.blk-b[hidden]{display:block!important}`), sonst fehlt
+  im PDF, was gerade zugeklappt war.
+- **Module ohne `h2.sec` bleiben unverändert.** `bi-reference-architecture.html` und
+  `scd-dashboard.html` gliedern ihre Reiter nicht in Abschnitte; dort gibt es nichts zu klappen.
+
 ## Gestaltung
 
 Ein Akzent trägt, einer warnt, der Rest ist Grau. Die Signalfarbe erscheint an höchstens
