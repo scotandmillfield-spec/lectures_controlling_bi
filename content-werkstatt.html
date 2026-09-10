@@ -257,70 +257,91 @@ svg.hier .edge.hot{stroke:var(--orange);stroke-width:2.2}
 .bmiss b{font-weight:700}
 
 
-/* ---------- Der Pfadplaner ----------
-   Drei Ebenen als geschachtelte Karten. Jede Karte laesst sich mit der
-   Maus ziehen und mit den Pfeilen verschieben; die Pfeile sind der
-   verlaessliche Weg, das Ziehen der bequeme.                        */
-.pfp{display:grid;gap:14px}
-.pfp-kopf{background:var(--navy-xl);border:1px solid var(--navy);border-radius:var(--r);padding:16px 18px}
-.pfp-kopf .pk{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--navy);margin:0 0 10px}
-.pfp-zeile{display:grid;grid-template-columns:1fr;gap:9px}
-.pfp-zeile label{display:block;font-size:.82rem;font-weight:600;margin:0 0 3px;color:#2c2c2f}
+/* ---------- Der Pfadplaner: die Buehne ----------
+   Die Elemente liegen als Kaesten auf einer Flaeche und sind mit Pfeilen
+   verbunden. Ein Knoten hat eine feste Groesse — deshalb laesst sich jeder
+   Pfeil rechnen statt messen. Das ist kein Geiz, sondern Absicht: In einem
+   zugeklappten Block liefert jede Messung nur Nullen, und die Zeichnung
+   entartete auf einen Punkt.                                            */
+.pfp{display:grid;grid-template-columns:minmax(0,1fr) 264px;gap:14px;align-items:start}
+.pfp>*{min-width:0}
 
-.karte{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
-  box-shadow:var(--shadow);padding:12px 14px;border-left-width:3px}
-.k-mod{border-left-color:var(--teal-dk)}
-.k-lek{border-left-color:var(--ochre)}
-.k-blk{border-left-color:var(--grey-mid)}
-.karte.zieht{opacity:.4}
-.k-kopf{display:grid;grid-template-columns:22px 1fr auto;gap:9px;align-items:center}
-.k-kopf>*{min-width:0}
-.griff{width:16px;height:16px;color:var(--grey-mid);cursor:grab;justify-self:center;
-  touch-action:none}
-.griff:active{cursor:grabbing}
-/* Der Geist folgt dem Finger, der Platzhalter zeigt, wo die Karte landet. */
-.geist{position:fixed;z-index:70;pointer-events:none;opacity:.94;margin:0;
+.bue{position:relative;overflow:auto;height:440px;background:var(--canvas);
+  border:1px solid var(--grey-xl);border-radius:var(--r);
+  background-image:radial-gradient(var(--grey-xl) 1.1px,transparent 1.1px);
+  background-size:24px 24px;background-attachment:local;touch-action:pan-x pan-y}
+.bue-in{position:relative;width:730px;height:400px}
+.bue-lin{position:absolute;left:0;top:0;width:100%;height:100%;
+  pointer-events:none;overflow:visible;color:var(--teal-dk)}
+.bue-lin .lin{fill:none;stroke:var(--teal-dk);stroke-width:1.7;opacity:.75}
+.bue-lin .band{fill:none;stroke:var(--orange);stroke-width:2;stroke-dasharray:6 4}
+
+/* Ein Knoten. Die Groesse steht hier und nirgends sonst — das Skript
+   rechnet mit denselben Zahlen (NB, NH).                              */
+.kn{position:absolute;box-sizing:border-box;width:152px;height:64px;
+  background:var(--paper);border:1px solid var(--grey-xl);border-left-width:3px;
+  border-radius:10px;box-shadow:var(--shadow);padding:7px 10px;cursor:grab;
+  touch-action:none;user-select:none;transition:box-shadow .14s,border-color .14s}
+.kn:active{cursor:grabbing}
+.kn.zieht{opacity:.85;box-shadow:0 14px 30px -10px rgba(22,105,128,.5)}
+.kn.t-pfad{border-left-color:var(--navy);background:var(--navy-xl)}
+.kn.t-modul{border-left-color:var(--teal-dk)}
+.kn.t-lektion{border-left-color:var(--ochre)}
+.kn.t-block{border-left-color:var(--grey-mid)}
+.kn.wahl{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal)}
+.kn.ziel{border-color:var(--orange);box-shadow:0 0 0 2px var(--orange)}
+.kn.los{border-style:dashed;border-color:var(--red)}
+.kn:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.kn-num{font-family:var(--mono);font-size:.6rem;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 2px}
+.kn-tit{margin:0;font-size:.8rem;font-weight:600;line-height:1.25;color:var(--ink);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.kn-tit.leer{color:var(--grey-mid);font-weight:400;font-style:italic}
+.kn .port{position:absolute;right:-8px;top:50%;transform:translateY(-50%);
+  width:15px;height:15px;border-radius:50%;background:var(--paper);
+  border:2px solid var(--teal-dk);cursor:crosshair;touch-action:none}
+.kn .port:hover{background:var(--teal);border-color:var(--teal)}
+.kn-weg{position:absolute;top:-9px;right:-9px;width:21px;height:21px;padding:0;
+  appearance:none;border:1px solid var(--grey-xl);background:var(--paper);border-radius:50%;
+  color:var(--grey);font-size:.8rem;line-height:1;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:.14s}
+.kn-weg:hover{border-color:var(--red);color:var(--red)}
+.kn-weg:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.kn.geist{position:fixed;z-index:70;pointer-events:none;opacity:.9;
   box-shadow:0 18px 40px -12px rgba(22,105,128,.5);transform:rotate(-1deg)}
-.platz{height:10px;border-radius:6px;background:var(--teal);opacity:.4}
-.k-num{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;color:var(--grey);
-  text-transform:uppercase;margin:0 0 3px}
-.k-btns{display:flex;gap:4px}
-.k-btn{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);cursor:pointer;
-  width:28px;height:28px;border-radius:7px;color:var(--grey);font-size:.85rem;line-height:1;
-  display:flex;align-items:center;justify-content:center;transition:.14s;padding:0}
-.k-btn:hover:not(:disabled){border-color:var(--teal);color:var(--teal-dk)}
-.k-btn:disabled{opacity:.3;cursor:default}
-.k-btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
-.k-btn.weg:hover{border-color:var(--red);color:var(--red)}
 
-.pfp input[type=text],.pfp textarea,.pfp select{width:100%;font-family:var(--sans);
+/* Die Leiste, aus der die Elemente kommen. */
+.pal{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.pal-el{appearance:none;font:inherit;font-size:.84rem;font-weight:600;color:var(--ink);
+  background:var(--paper);border:1px solid var(--grey-xl);border-left-width:3px;
+  border-radius:9px;padding:8px 13px;cursor:grab;touch-action:none;transition:.14s}
+.pal-el:hover{border-color:var(--teal);color:var(--teal-dk)}
+.pal-el:active{cursor:grabbing}
+.pal-el:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.pal-el.t-modul{border-left-color:var(--teal-dk)}
+.pal-el.t-lektion{border-left-color:var(--ochre)}
+.pal-el.t-block{border-left-color:var(--grey-mid)}
+
+/* Die Stammdaten des angeklickten Elements. */
+.insp{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:15px 16px;position:sticky;top:16px}
+.insp .kn-num{margin:0 0 11px}
+.insp label{display:block;font-size:.8rem;font-weight:600;margin:11px 0 3px;color:#2c2c2f}
+.insp label:first-of-type{margin-top:0}
+.insp input[type=text],.insp textarea,.insp select{width:100%;font-family:var(--sans);
   color:var(--ink);background:var(--paper);border:1px solid var(--grey-mid);border-radius:8px;
-  padding:8px 10px;line-height:1.45;font-size:.92rem}
-.pfp textarea{resize:vertical;min-height:52px;font-size:.88rem}
-.pfp input:focus-visible,.pfp textarea:focus-visible,.pfp select:focus-visible{
+  padding:8px 10px;line-height:1.45;font-size:.9rem}
+.insp textarea{resize:vertical;min-height:88px;font-size:.86rem}
+.insp input:focus-visible,.insp textarea:focus-visible,.insp select:focus-visible{
   outline:2px solid var(--orange);outline-offset:1px;border-color:var(--teal)}
-.k-titel{font-weight:600}
-.k-meta{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:center;margin:9px 0 0}
-.k-meta>*{min-width:0}
-.k-datei{font-family:var(--mono);font-size:.72rem;color:var(--grey);white-space:nowrap;
-  overflow:hidden;text-overflow:ellipsis}
-.k-rumpf{margin:9px 0 0}
-
-.dz{display:grid;gap:9px;padding:2px 0;min-height:6px}
-.tief{margin:10px 0 0 22px;padding-left:12px;border-left:1px dashed var(--grey-xl)}
-.dz.ueber{outline:2px dashed var(--teal);outline-offset:4px;border-radius:8px}
-.k-fest{display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:center;
-  background:var(--grey-xl);border-radius:8px;padding:9px 12px;color:#5A5A58;font-size:.88rem}
-.k-fest .pf{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
-.k-fest b{color:#3d3d40;font-weight:600}
-
-.pfp-neu{appearance:none;border:1.5px dashed var(--grey-mid);background:transparent;cursor:pointer;
-  font-family:var(--sans);font-size:.88rem;font-weight:600;color:var(--grey);
-  padding:9px 14px;border-radius:8px;transition:.16s;width:100%;text-align:left}
-.pfp-neu:hover{border-color:var(--teal);color:var(--teal-dk)}
-.pfp-neu:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
-.pfp-neu.klein{width:auto;padding:7px 12px;font-size:.84rem}
+.insp .abl{font-family:var(--mono);font-size:.72rem;color:var(--navy);margin:9px 0 0;
+  overflow-wrap:anywhere}
+.insp .leerhin{font-size:.86rem;color:var(--grey);line-height:1.6;margin:0}
+.insp .weg{appearance:none;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer;
+  margin-top:14px;padding:7px 12px;border-radius:8px;background:transparent;
+  border:1px solid var(--grey-xl);color:var(--grey);transition:.14s}
+.insp .weg:hover{border-color:var(--red);color:var(--red)}
+.insp .weg:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 
 .pout textarea{width:100%;min-height:320px;font-family:var(--mono);font-size:.75rem;line-height:1.62;
   color:var(--ink);background:var(--canvas);border:1px solid var(--grey-xl);border-radius:8px;padding:13px;resize:vertical}
@@ -372,15 +393,14 @@ footer a{color:var(--teal-dk)}
   .stp>button{grid-template-columns:30px 1fr 16px;gap:11px;padding:14px}
   .stp .bd{padding:0 14px 16px 55px}
 }
-/* Auf dem Telefon frisst die Verschachtelung sonst die halbe Breite:
-   Der Einzug faellt weg, die Zeile mit Spur und Sprache bricht um.   */
+/* Auf schmalen Fenstern liegen Buehne und Stammdaten uebereinander.
+   Die Buehne bleibt scrollbar, sie schrumpft nicht mit.              */
+@media (max-width:900px){
+  .pfp{grid-template-columns:1fr}
+  .insp{position:static}
+}
 @media (max-width:620px){
-  .tief{margin-left:0;padding-left:9px}
-  .karte{padding:10px 11px}
-  .k-meta{grid-template-columns:1fr}
-  .k-datei{white-space:normal;overflow-wrap:anywhere}
-  .pfp textarea{min-height:72px}
-  .k-fest{font-size:.82rem}
+  .bue{height:380px}
 }
 /* ---------- Auf- und zuklappbare Bloecke innerhalb einer Lektion ------
    Die Bloecke entstehen zur Laufzeit aus der vorhandenen Gliederung:
@@ -723,41 +743,39 @@ footer a{color:var(--teal-dk)}
 
 <!-- ==================== LEKTION 04 · DER PFADPLANER ==================== -->
 <section class="panel" id="p-p" role="tabpanel" aria-labelledby="tab-p" hidden>
-  <p class="claim">Bevor eine Zeile Text entsteht, wird die Struktur gebaut: <b>Pfad, Module, Lektionen, Blöcke.</b> Hier geht das mit der Maus — und am Ende fällt ein Auftrag heraus, aus dem die Hüllen entstehen.</p>
+  <p class="claim">Bevor eine Zeile Text entsteht, wird die Struktur gebaut. Hier liegt sie als <b>Bühne</b> vor Dir: Elemente draufziehen, mit Pfeilen verbinden, anklicken und benennen. Am Ende fällt ein Auftrag heraus.</p>
 
-  <h2 class="sec">Die Struktur bauen und abgeben</h2>
-  <p class="sub">Ziehen mit der Maus ordnet um, auch über Modulgrenzen hinweg. Die Pfeile tun dasselbe und funktionieren überall, auch auf dem Telefon. Quiz und Praxiseinstieg hängen automatisch an jedem Modul und lassen sich nicht entfernen.</p>
+  <h2 class="sec">Die Bühne</h2>
+  <p class="sub">Zieh ein Element aus der Leiste auf die Fläche — oder klick es an, dann legt es sich selbst hin. Vom Punkt am rechten Rand ziehst Du einen Pfeil zum nächsten Element. Ein Klick auf ein Element öffnet rechts seine Stammdaten. <b>Was weiter oben liegt, kommt zuerst</b> — die Nummer im Kasten zeigt es sofort. Auf einem schmalen Bildschirm ist die Fläche breiter als das Bild: Schieb sie mit dem Finger, die Stammdaten stehen dann darunter.</p>
 
   <div class="bar">
-    <div class="seg" role="group" aria-label="Entwurf">
-      <button id="pfpBsp" type="button">Beispiel laden</button>
-      <button id="pfpLeer" type="button">Alles leeren</button>
+    <div class="pal">
+      <span class="key">Elemente</span>
+      <button class="pal-el t-modul"   data-neu="modul"   type="button">Modul</button>
+      <button class="pal-el t-lektion" data-neu="lektion" type="button">Lektion</button>
+      <button class="pal-el t-block"   data-neu="block"   type="button">Block</button>
     </div>
-    <p class="legend" style="margin:0"><span class="key" id="pfpStand"></span></p>
+    <div class="seg" role="group" aria-label="Bühne">
+      <button id="pfpOrdnen" type="button">Anordnen</button>
+      <button id="pfpBsp" type="button">Beispiel</button>
+      <button id="pfpLeer" type="button">Leeren</button>
+    </div>
   </div>
 
   <div class="pfp">
-    <div class="pfp-kopf">
-      <p class="pk">Ebene 1 · Lernpfad</p>
-      <div class="pfp-zeile">
-        <div>
-          <label for="pfpPfadName">Name des Lernpfads</label>
-          <input type="text" id="pfpPfadName" placeholder="Grundlagen Cyber-Security">
-        </div>
-        <div>
-          <label for="pfpPfadSub">Ein Satz dazu</label>
-          <textarea id="pfpPfadSub" placeholder="Was verbindet diese Module, und in welcher Reihenfolge ergeben sie Sinn?"></textarea>
-        </div>
+    <div class="bue" id="pfpBue" tabindex="0" role="group" aria-label="Bühne des Pfadplaners, scrollbar">
+      <div class="bue-in" id="pfpFlaeche">
+        <svg class="bue-lin" id="pfpLinien" aria-hidden="true"></svg>
       </div>
-      <p id="pfpPfadId" style="margin:9px 0 0;font-family:var(--mono);font-size:.76rem;color:var(--navy)"></p>
     </div>
-
-    <div class="dz" id="pfpModule" data-typ="modul"></div>
-    <button class="pfp-neu" id="pfpNeuModul" type="button">+ Modul</button>
+    <div class="insp" id="pfpInsp"></div>
   </div>
 
+  <p class="legend" style="margin-top:12px"><span class="key" id="pfpStand"></span></p>
+  <p class="pmsg" id="pfpHint" role="status"></p>
+
   <h3 class="sub3" style="margin-top:30px">Der Auftrag</h3>
-  <p class="sub">Ein Klick, und die Struktur wird zu einem Text, den Claude Code lesen kann. Was noch fehlt, steht vorher im gelben Kasten.</p>
+  <p class="sub">Ein Klick, und die Bühne wird zu einem Text, den Claude Code lesen kann. Was noch fehlt, steht vorher im gelben Kasten.</p>
   <div class="pout">
     <div class="bar" style="margin-bottom:12px">
       <button class="btn solid" id="pfpGo" type="button">Auftrag erzeugen</button>
@@ -769,12 +787,21 @@ footer a{color:var(--teal-dk)}
     <p class="pmsg" id="pfpMsg"></p>
   </div>
 
-  <h2 class="sec">Was der Planer macht</h2>
-  <p class="txt">Ein neues Thema fängt selten mit einem Satz an. Es fängt mit der Frage an, in welche Portionen es zerfällt und in welcher Reihenfolge sie stehen. Genau dafür ist dieser Reiter da: Du schiebst die Struktur zusammen, gibst jedem Stück einen Namen und einen Satz, und drückst am Ende auf einen Knopf.</p>
+  <h2 class="sec">Was die Bühne kann und was nicht</h2>
+  <p class="txt">Ein neues Thema fängt selten mit einem Satz an. Es fängt mit der Frage an, in welche Portionen es zerfällt und in welcher Reihenfolge sie stehen. Genau dafür ist dieser Reiter da: Du legst die Teile hin, verbindest sie, gibst jedem einen Namen und einen Satz, und drückst am Ende auf einen Knopf.</p>
   <p class="txt">Heraus kommt ein Text. Den kopierst Du in Claude Code, und daraus entstehen die Dateien — <b>als Hüllen</b>, mit Deiner Struktur, Deinen Überschriften und Deinen Sätzen darunter, aber ohne Inhalt. Die Kacheln stehen dann auf <i>Geplant</i> und lassen sich trotzdem öffnen. Geschrieben wird danach, Block für Block.</p>
+
+  <h3 class="sub3">Vier Regeln, mehr sind es nicht</h3>
+  <ul class="txt">
+    <li><b>Jedes Element hat genau einen Platz.</b> Ziehst Du einen zweiten Pfeil darauf, löst sich der erste. Ein Block hängt an einer Lektion, eine Lektion an einem Modul, ein Modul am Lernpfad — anderes nimmt die Bühne nicht an.</li>
+    <li><b>Die Höhe entscheidet die Reihenfolge.</b> Was weiter oben liegt, kommt zuerst. Schiebst Du einen Kasten nach oben, ändert sich seine Nummer, während Du ihn noch in der Hand hast.</li>
+    <li><b>Quiz und Praxiseinstieg hängen von selbst an jedem Modul.</b> Sie stehen nicht auf der Bühne, weil sie nichts zu entscheiden geben. Im Auftrag sind sie da.</li>
+    <li><b>Ein Element ohne Anschluss ist gestrichelt und rot.</b> Es geht nicht verloren, aber es kommt auch nicht in den Auftrag. „Anordnen“ sammelt alle Losen unten ein.</li>
+  </ul>
+
   <div class="yn">
     <div class="ynb ja">
-      <h3>Wofür der Planer gut ist</h3>
+      <h3>Wofür die Bühne gut ist</h3>
       <ul>
         <li>Die Reihenfolge ausprobieren, solange sie noch nichts kostet.</li>
         <li>Sehen, wie groß ein Modul wird, bevor es geschrieben ist.</li>
@@ -785,17 +812,20 @@ footer a{color:var(--teal-dk)}
     <div class="ynb nein">
       <h3>Wofür nicht</h3>
       <ul>
-        <li>Er schreibt keinen Inhalt. Er legt nur die Fächer an.</li>
-        <li>Er speichert nichts. Schließt Du das Fenster, ist der Entwurf weg.</li>
-        <li>Er prüft nicht, ob die Gliederung klug ist. Das bleibt Deine Arbeit.</li>
+        <li>Sie schreibt keinen Inhalt. Sie legt nur die Fächer an.</li>
+        <li>Sie speichert nichts. Schließt Du das Fenster, ist der Entwurf weg.</li>
+        <li>Sie prüft nicht, ob die Gliederung klug ist. Das bleibt Deine Arbeit.</li>
       </ul>
     </div>
   </div>
   <p class="txt" style="margin-top:14px"><b>Kopier den erzeugten Text heraus, bevor Du gehst.</b> Er ist das Einzige, was den Entwurf überlebt — dieselbe Regel wie überall in dieser Sammlung: kein Speicher, keine Datenbank, kein Server.</p>
 
+  <h3 class="sub3">Ohne Maus</h3>
+  <p class="txt">Jeder Kasten ist mit der Tabulatortaste erreichbar. Die Pfeiltasten schieben ihn, mit gedrückter Umschalttaste feiner. <span class="key">Entf</span> nimmt ihn weg. Verbunden wird über das Feld <i>Hängt an</i> in den Stammdaten — das ist der verlässliche Weg, der Pfeil ist der bequeme.</p>
+
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Eine Gliederung, die man <b>schieben</b> kann, wird geändert. Eine, die als Fließtext in einer Mail steht, wird verteidigt.</p>
+    <p>Eine Gliederung, die man <b>sieht</b>, wird besprochen. Eine, die als Fließtext in einer Mail steht, wird überlesen.</p>
   </div>
 </section>
 
@@ -1340,16 +1370,23 @@ qZiehen();
 
 /* =====================================================================
    Der Pfadplaner
-   Ein Entwurf im Speicher, drei Ebenen tief. Geaendert wird immer am
-   Modell, danach wird neu gezeichnet — ausser beim Tippen, denn ein
-   Neuzeichnen waehrend der Eingabe nimmt dem Feld den Fokus.
-   ===================================================================== */
-let pfpLfd = 0;
-const pfpId = () => "e" + (++pfpLfd);
+   Ein Graph im Speicher: Knoten mit Ort und Typ, Kanten dazwischen.
+   Der Baum entsteht erst beim Lesen — Kinder eines Knotens sind die,
+   deren Kante von ihm ausgeht, sortiert nach ihrer Hoehe auf der
+   Buehne. Deshalb aendert ein Schieben die Reihenfolge, ohne dass
+   irgendwo eine Liste umsortiert werden muesste.
 
-const pfpSlug = s => (s || "").toLowerCase()
-  .replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/ß/g,"ss")
-  .replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,52);
+   Die Namen beginnen alle mit pfp. Der gemeinsame Gueltigkeitsbereich
+   dieses Moduls hat schon einmal zwei gleichnamige Funktionen aus
+   verschiedenen Lektionen gegeneinander ausgespielt.
+   ===================================================================== */
+const NB = 152, NH = 64;                       /* Knotengroesse, wie im CSS */
+/* Vier Spalten mit 34px Luft fuer den Pfeil. Weiter auseinander, und die
+   letzte Spalte faellt aus dem Bild.                                    */
+const SPALTE = {pfad:14, modul:200, lektion:386, block:572};
+const REGEL   = {pfad:"modul", modul:"lektion", lektion:"block"};
+const TYPNAME = {pfad:"Lernpfad", modul:"Modul", lektion:"Lektion", block:"Block"};
+const NIMMT   = {pfad:"Module", modul:"Lektionen", lektion:"Blöcke"};
 
 const SPUREN = [
   ["bi",   "Business Intelligence"],
@@ -1359,369 +1396,521 @@ const SPUREN = [
   ["sec",  "Cyber-Security"],
   ["neu",  "eine neue Spur"]
 ];
-const SPRACHEN = [["de","Deutsch"],["en","Englisch"],["beide","zweisprachig"]];
+const SPRACHEN = [["de","Deutsch"],["en","Englisch"]];
 
-const ENTWURF = { pfad:{name:"", sub:""}, module:[] };
+let pfpLfd = 0;
+const pfpId = () => "e" + (++pfpLfd);
+const pfpSlug = s => (s || "").toLowerCase()
+  .replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/ß/g,"ss")
+  .replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,52);
+const pfpEsc = s => String(s == null ? "" : s)
+  .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 
-const neuBlock  = () => ({id:pfpId(), name:"", text:""});
-const neuLektion= () => ({id:pfpId(), name:"", kern:"", bloecke:[neuBlock()]});
-const neuModul  = () => ({id:pfpId(), name:"", sub:"", spur:"bi", sprache:"de", lektionen:[neuLektion()]});
+const PLAN = {knoten:[], kanten:[]};
+let pfpWahl = null;                            /* angeklicktes Element      */
+let pfpBand = "";                              /* der Pfeil an der Maus     */
 
-/* ---------- Suchen im Entwurf ---------- */
-function pfpListe(typ, elternId){
-  if(typ === "modul") return ENTWURF.module;
-  if(typ === "lektion"){
-    const m = ENTWURF.module.find(m => m.id === elternId);
-    return m ? m.lektionen : null;
-  }
-  for(const m of ENTWURF.module) for(const l of m.lektionen)
-    if(l.id === elternId) return l.bloecke;
-  return null;
+/* ---------- Lesen ---------- */
+const pfpKn    = id => PLAN.knoten.find(k => k.id === id);
+const pfpEltern= id => (PLAN.kanten.find(e => e.nach === id) || {}).von;
+const pfpKinder= id => PLAN.knoten.filter(k => pfpEltern(k.id) === id)
+                                  .sort((x, y) => x.y - y.y || x.x - y.x);
+const pfpWurzel= () => PLAN.knoten.find(k => k.typ === "pfad");
+const pfpLos   = k => k.typ !== "pfad" && !pfpEltern(k.id);
+function pfpNummer(k){
+  const e = pfpEltern(k.id);
+  if(!e) return "";
+  const i = pfpKinder(e).findIndex(x => x.id === k.id);
+  return i < 0 ? "" : String(i + 1).padStart(2, "0");
 }
-function pfpHerkunft(typ, id){
-  if(typ === "modul") return ENTWURF.module;
-  if(typ === "lektion"){
-    const m = ENTWURF.module.find(m => m.lektionen.some(l => l.id === id));
-    return m ? m.lektionen : null;
-  }
-  for(const m of ENTWURF.module) for(const l of m.lektionen)
-    if(l.bloecke.some(b => b.id === id)) return l.bloecke;
-  return null;
+
+/* ---------- Schreiben ---------- */
+function pfpNeu(typ, x, y){
+  const k = {id:pfpId(), typ, name:"", text:"", x:Math.round(x), y:Math.round(y),
+             spur:"bi", sprache:"de"};
+  PLAN.knoten.push(k);
+  return k;
 }
-const pfpFinde = (typ, id) => {
-  const l = pfpHerkunft(typ, id);
-  return l ? l.find(o => o.id === id) : null;
-};
+/* Ein Element hat genau einen Platz: Die neue Kante loest die alte. */
+function pfpVerbinde(von, nach){
+  const a = pfpKn(von), b = pfpKn(nach);
+  if(!a || !b || REGEL[a.typ] !== b.typ) return false;
+  PLAN.kanten = PLAN.kanten.filter(e => e.nach !== nach);
+  PLAN.kanten.push({von, nach});
+  return true;
+}
+function pfpTrenne(id){ PLAN.kanten = PLAN.kanten.filter(e => e.nach !== id); }
+/* Die Kinder eines entfernten Knotens bleiben liegen, statt lautlos mit
+   zu verschwinden. Sie stehen dann gestrichelt da und fallen auf.      */
+function pfpEntferne(id){
+  PLAN.knoten = PLAN.knoten.filter(k => k.id !== id);
+  PLAN.kanten = PLAN.kanten.filter(e => e.von !== id && e.nach !== id);
+  if(pfpWahl === id) pfpWahl = null;
+}
+/* Beim Anlegen haengt sich ein Element an das ausgewaehlte, wenn es
+   passt, sonst an das unterste der passenden Sorte.                   */
+function pfpAnhaengen(k){
+  const et = Object.keys(REGEL).find(t => REGEL[t] === k.typ);
+  const gewaehlt = pfpWahl ? pfpKn(pfpWahl) : null;
+  if(gewaehlt && gewaehlt.typ === et) return pfpVerbinde(gewaehlt.id, k.id);
+  const kand = PLAN.knoten.filter(n => n.typ === et).sort((x, y) => y.y - x.y);
+  if(kand.length) return pfpVerbinde(kand[0].id, k.id);
+  return false;
+}
+function pfpPlatz(typ){
+  const gleiche = PLAN.knoten.filter(n => n.typ === typ);
+  return {x:SPALTE[typ],
+          y:gleiche.length ? Math.max(...gleiche.map(n => n.y)) + NH + 18 : 24};
+}
 
 /* ---------- Zeichnen ---------- */
-const GRIFF = '<svg class="griff" viewBox="0 0 16 16" aria-hidden="true">' +
-  [4,8,12].map(y => [5,11].map(x =>
-    `<circle cx="${x}" cy="${y}" r="1.5" fill="currentColor"/>`).join("")).join("") + '</svg>';
+const pfpFl  = () => $("pfpFlaeche");
+const PFEIL  = '<defs><marker id="pfpSpitze" viewBox="0 0 10 10" refX="9" refY="5" ' +
+               'markerWidth="7" markerHeight="7" orient="auto-start-reverse">' +
+               '<path d="M0 0 L10 5 L0 10 z" fill="currentColor"/></marker></defs>';
 
-function pfpBtns(typ, id, ersteR, letzteR){
-  return `<span class="k-btns">
-    <button class="k-btn" type="button" data-tun="hoch"   data-typ="${typ}" data-id="${id}" title="nach oben"  aria-label="nach oben"${ersteR ? " disabled" : ""}>&#8593;</button>
-    <button class="k-btn" type="button" data-tun="runter" data-typ="${typ}" data-id="${id}" title="nach unten" aria-label="nach unten"${letzteR ? " disabled" : ""}>&#8595;</button>
-    <button class="k-btn weg" type="button" data-tun="weg" data-typ="${typ}" data-id="${id}" title="entfernen" aria-label="entfernen">&#10005;</button>
-  </span>`;
-}
-const pfpEsc = s => String(s == null ? "" : s)
-  .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
-
-function pfpBlock(b, i, n){
-  return `<article class="karte k-blk" data-typ="block" data-id="${b.id}">
-    <div class="k-kopf">${GRIFF}
-      <div>
-        <p class="k-num">Block ${String(i+1).padStart(2,"0")}</p>
-        <input type="text" class="k-titel" data-feld="name" data-typ="block" data-id="${b.id}"
-               value="${pfpEsc(b.name)}" placeholder="Überschrift des Abschnitts" aria-label="Überschrift des Blocks">
-      </div>
-      ${pfpBtns("block", b.id, i === 0, i === n-1)}
-    </div>
-    <div class="k-rumpf">
-      <textarea data-feld="text" data-typ="block" data-id="${b.id}"
-        placeholder="Der erste Absatz unter dieser Überschrift. Ein bis drei Sätze genügen." aria-label="Erster Absatz">${pfpEsc(b.text)}</textarea>
-    </div>
-  </article>`;
+function pfpLinien(){
+  let d = "";
+  for(const e of PLAN.kanten){
+    const a = pfpKn(e.von), b = pfpKn(e.nach);
+    if(!a || !b) continue;
+    const x1 = a.x + NB, y1 = a.y + NH / 2, x2 = b.x - 9, y2 = b.y + NH / 2;
+    const mx = (x1 + x2) / 2;
+    d += '<path class="lin" d="M' + x1 + ' ' + y1 + ' C' + mx + ' ' + y1 + ' ' +
+         mx + ' ' + y2 + ' ' + x2 + ' ' + y2 + '" marker-end="url(#pfpSpitze)"/>';
+  }
+  $("pfpLinien").innerHTML = PFEIL + d + pfpBand;
 }
 
-function pfpLektion(l, i, n, modulId, mehrereModule){
-  const umzug = mehrereModule
-    ? `<select data-feld="umzug" data-typ="lektion" data-id="${l.id}" aria-label="in ein anderes Modul verschieben">
-         ${ENTWURF.module.map((m, j) => `<option value="${m.id}"${m.id === modulId ? " selected" : ""}>Modul ${j+1}${m.name ? " · " + pfpEsc(m.name) : ""}</option>`).join("")}
-       </select>`
-    : "";
-  return `<article class="karte k-lek" data-typ="lektion" data-id="${l.id}">
-    <div class="k-kopf">${GRIFF}
-      <div>
-        <p class="k-num">Lektion ${String(i+1).padStart(2,"0")}</p>
-        <input type="text" class="k-titel" data-feld="name" data-typ="lektion" data-id="${l.id}"
-               value="${pfpEsc(l.name)}" placeholder="Name der Lektion" aria-label="Name der Lektion">
-      </div>
-      ${pfpBtns("lektion", l.id, i === 0, i === n-1)}
-    </div>
-    <div class="k-rumpf">
-      <textarea data-feld="kern" data-typ="lektion" data-id="${l.id}"
-        placeholder="Die Kernaussage: ein bis zwei Sätze, die beantworten, warum jemand weiterliest." aria-label="Kernaussage">${pfpEsc(l.kern)}</textarea>
-    </div>
-    ${umzug ? `<div class="k-meta" style="grid-template-columns:1fr">${umzug}</div>` : ""}
-    <div class="dz tief" data-typ="block" data-eltern="${l.id}">
-      ${l.bloecke.map((b, j) => pfpBlock(b, j, l.bloecke.length)).join("")}
-    </div>
-    <p style="margin:9px 0 0 22px"><button class="pfp-neu klein" type="button" data-tun="neu-block" data-id="${l.id}">+ Block</button></p>
-  </article>`;
-}
-
-function pfpModul(m, i, n){
-  const datei = (pfpSlug(m.name) || "noch-ohne-namen") + ".html";
-  return `<article class="karte k-mod" data-typ="modul" data-id="${m.id}">
-    <div class="k-kopf">${GRIFF}
-      <div>
-        <p class="k-num">Modul ${String(i+1).padStart(2,"0")}</p>
-        <input type="text" class="k-titel" data-feld="name" data-typ="modul" data-id="${m.id}"
-               value="${pfpEsc(m.name)}" placeholder="Name des Moduls" aria-label="Name des Moduls">
-      </div>
-      ${pfpBtns("modul", m.id, i === 0, i === n-1)}
-    </div>
-    <div class="k-rumpf">
-      <textarea data-feld="sub" data-typ="modul" data-id="${m.id}"
-        placeholder="Der Text auf der Kachel: worum es geht, in zwei bis drei Sätzen." aria-label="Text auf der Kachel">${pfpEsc(m.sub)}</textarea>
-    </div>
-    <div class="k-meta">
-      <select data-feld="spur" data-typ="modul" data-id="${m.id}" aria-label="Spur">
-        ${SPUREN.map(([k, t]) => `<option value="${k}"${m.spur === k ? " selected" : ""}>${t}</option>`).join("")}
-      </select>
-      <select data-feld="sprache" data-typ="modul" data-id="${m.id}" aria-label="Sprache">
-        ${SPRACHEN.map(([k, t]) => `<option value="${k}"${m.sprache === k ? " selected" : ""}>${t}</option>`).join("")}
-      </select>
-      <span class="k-datei" data-datei="${m.id}">${datei}</span>
-    </div>
-    <div class="dz tief" data-typ="lektion" data-eltern="${m.id}">
-      ${m.lektionen.map((l, j) => pfpLektion(l, j, m.lektionen.length, m.id, ENTWURF.module.length > 1)).join("")}
-    </div>
-    <p style="margin:9px 0 0 22px"><button class="pfp-neu klein" type="button" data-tun="neu-lektion" data-id="${m.id}">+ Lektion</button></p>
-    <div class="tief" style="display:grid;gap:6px;border-left-style:solid;border-left-color:var(--orange)">
-      <div class="k-fest"><span class="pf">Pflicht</span><span><b>Quiz</b> — fünf aus mindestens zwanzig Fragen</span><span class="pf">fest</span></div>
-      <div class="k-fest"><span class="pf">Pflicht</span><span><b>Der erste Schritt</b> — was der Praktiker zuerst tut</span><span class="pf">fest</span></div>
-    </div>
-  </article>`;
+function pfpKnotenEl(k){
+  const el = document.createElement("div");
+  el.className = "kn t-" + k.typ +
+                 (k.id === pfpWahl ? " wahl" : "") + (pfpLos(k) ? " los" : "");
+  el.dataset.id = k.id;
+  el.tabIndex = 0;
+  el.setAttribute("role", "button");
+  el.style.left = k.x + "px";
+  el.style.top  = k.y + "px";
+  const nr = pfpNummer(k), titel = k.name.trim();
+  el.setAttribute("aria-label", TYPNAME[k.typ] + " " + (nr || "") + " " +
+                                (titel || "ohne Namen") + (pfpLos(k) ? ", ohne Anschluss" : ""));
+  el.innerHTML =
+    '<p class="kn-num">' + TYPNAME[k.typ] + (nr ? " " + nr : "") + '</p>' +
+    '<p class="kn-tit' + (titel ? '' : ' leer') + '">' + pfpEsc(titel || "ohne Namen") + '</p>' +
+    (k.typ === "block" ? "" :
+      '<span class="port" title="Pfeil zum nächsten Element ziehen"></span>') +
+    (k.typ === "pfad"  ? "" :
+      '<button class="kn-weg" type="button" aria-label="' +
+      pfpEsc(TYPNAME[k.typ] + " " + (titel || "ohne Namen") + " entfernen") + '">×</button>');
+  return el;
 }
 
 function pfpZeichne(){
-  $("pfpModule").innerHTML = ENTWURF.module.map((m, i) => pfpModul(m, i, ENTWURF.module.length)).join("");
-  const nL = ENTWURF.module.reduce((s, m) => s + m.lektionen.length, 0);
-  const nB = ENTWURF.module.reduce((s, m) => s + m.lektionen.reduce((t, l) => t + l.bloecke.length, 0), 0);
-  $("pfpStand").textContent = ENTWURF.module.length === 0
-    ? "Noch kein Modul im Entwurf"
-    : `${ENTWURF.module.length} Module · ${nL} Inhaltslektionen · ${nB} Blöcke · dazu ${ENTWURF.module.length * 2} Pflichtlektionen`;
-  const pid = pfpSlug(ENTWURF.pfad.name);
-  $("pfpPfadId").textContent = pid ? "Kennung des Pfades: " + pid : "Die Kennung entsteht aus dem Namen.";
+  const fl = pfpFl();
+  [...fl.querySelectorAll(".kn")].forEach(e => e.remove());
+  for(const k of PLAN.knoten) fl.appendChild(pfpKnotenEl(k));
+  /* Die Flaeche waechst mit, damit nichts hinter den Rand rutscht. */
+  const br = Math.max(730, ...PLAN.knoten.map(k => k.x + NB + 40));
+  const ho = Math.max(340, ...PLAN.knoten.map(k => k.y + NH + 40));
+  fl.style.width = br + "px"; fl.style.height = ho + "px";
+  pfpLinien();
+  pfpStammdaten();
+  pfpStand();
 }
 
-/* ---------- Bedienen: Knoepfe, Eingaben, Auswahllisten ---------- */
-const pfpHost = $("pfpModule");
+function pfpStand(){
+  const z = t => PLAN.knoten.filter(k => k.typ === t).length;
+  const los = PLAN.knoten.filter(pfpLos).length;
+  $("pfpStand").textContent =
+    z("modul") + " Module · " + z("lektion") + " Lektionen · " + z("block") + " Blöcke" +
+    (los ? " · " + los + " ohne Anschluss" : "");
+}
+const pfpMelde = t => { $("pfpHint").textContent = t || ""; };
 
-pfpHost.addEventListener("click", e => {
-  const b = e.target.closest("button[data-tun]"); if(!b) return;
-  const {tun, typ, id} = b.dataset;
-  if(tun === "neu-lektion"){
-    const m = ENTWURF.module.find(m => m.id === id);
-    if(m) m.lektionen.push(neuLektion());
-  } else if(tun === "neu-block"){
-    const l = pfpFinde("lektion", id);
-    if(l) l.bloecke.push(neuBlock());
-  } else {
-    const liste = pfpHerkunft(typ, id); if(!liste) return;
-    const i = liste.findIndex(o => o.id === id);
-    if(tun === "weg")         liste.splice(i, 1);
-    else if(tun === "hoch"   && i > 0)                [liste[i-1], liste[i]] = [liste[i], liste[i-1]];
-    else if(tun === "runter" && i < liste.length - 1) [liste[i+1], liste[i]] = [liste[i], liste[i+1]];
+/* ---------- Die Stammdaten rechts ---------- */
+function pfpStammdaten(){
+  const box = $("pfpInsp");
+  const k = pfpWahl ? pfpKn(pfpWahl) : null;
+  if(!k){
+    box.innerHTML = '<p class="kn-num">Stammdaten</p>' +
+      '<p class="leerhin">Klick ein Element auf der Bühne an. Hier stehen dann seine ' +
+      'Bezeichnung, sein Kurzinhalt und der Platz, an dem es hängt.</p>';
+    return;
   }
-  pfpZeichne();
-});
+  const BEZ = {pfad:["Name des Lernpfads", "Ein Satz dazu"],
+               modul:["Bezeichnung des Moduls", "Kurzinhalt für die Kachel"],
+               lektion:["Bezeichnung der Lektion", "Kernaussage — der erste Absatz"],
+               block:["Überschrift des Blocks", "Kurzinhalt — der erste Absatz darunter"]};
+  const nr = pfpNummer(k);
+  let h = '<p class="kn-num">' + TYPNAME[k.typ] + (nr ? " " + nr : "") + '</p>';
+  h += '<label for="pfpFName">' + BEZ[k.typ][0] + '</label>';
+  h += '<input type="text" id="pfpFName" value="' + pfpEsc(k.name) + '">';
+  h += '<label for="pfpFText">' + BEZ[k.typ][1] + '</label>';
+  h += '<textarea id="pfpFText">' + pfpEsc(k.text) + '</textarea>';
 
-/* Beim Tippen wird nur das Modell nachgezogen. Ein Neuzeichnen nähme dem
-   Feld den Fokus mitten im Wort.                                       */
-pfpHost.addEventListener("input", e => {
-  const f = e.target.closest("[data-feld]"); if(!f) return;
-  const {feld, typ, id} = f.dataset;
-  if(feld === "umzug") return;
-  const o = pfpFinde(typ, id); if(!o) return;
-  o[feld] = f.value;
-  if(typ === "modul" && feld === "name"){
-    const anz = pfpHost.querySelector(`[data-datei="${id}"]`);
-    if(anz) anz.textContent = (pfpSlug(f.value) || "noch-ohne-namen") + ".html";
+  if(k.typ === "modul"){
+    h += '<label for="pfpFSpur">Spur</label><select id="pfpFSpur">' +
+         SPUREN.map(s => '<option value="' + s[0] + '"' +
+           (k.spur === s[0] ? " selected" : "") + '>' + s[1] + '</option>').join("") + '</select>';
+    h += '<label for="pfpFSpr">Sprache</label><select id="pfpFSpr">' +
+         SPRACHEN.map(s => '<option value="' + s[0] + '"' +
+           (k.sprache === s[0] ? " selected" : "") + '>' + s[1] + '</option>').join("") + '</select>';
   }
-});
+  if(k.typ !== "pfad"){
+    const et = Object.keys(REGEL).find(t => REGEL[t] === k.typ);
+    const kand = PLAN.knoten.filter(n => n.typ === et).sort((x, y) => x.y - y.y);
+    const jetzt = pfpEltern(k.id) || "";
+    h += '<label for="pfpFAn">Hängt an</label><select id="pfpFAn">' +
+         '<option value=""' + (jetzt ? "" : " selected") + '>— ohne Anschluss —</option>' +
+         kand.map(n => '<option value="' + n.id + '"' + (jetzt === n.id ? " selected" : "") +
+           '>' + pfpEsc((n.name.trim() || TYPNAME[n.typ] + " ohne Namen")) + '</option>').join("") +
+         '</select>';
+  }
+  h += '<p class="abl" id="pfpFAbl"></p>';
+  if(k.typ !== "pfad") h += '<button class="weg" type="button" id="pfpFWeg">Element entfernen</button>';
+  box.innerHTML = h;
 
-pfpHost.addEventListener("change", e => {
-  const f = e.target.closest('[data-feld="umzug"]'); if(!f) return;
-  const {id} = f.dataset, zielId = f.value;
-  const quelle = pfpHerkunft("lektion", id), ziel = pfpListe("lektion", zielId);
-  if(!quelle || !ziel || quelle === ziel) return;
-  const [obj] = quelle.splice(quelle.findIndex(o => o.id === id), 1);
-  ziel.push(obj);
-  pfpZeichne();
-});
+  const abl = () => {
+    const e = $("pfpFAbl"); if(!e) return;
+    if(k.typ === "pfad")  e.textContent = "Kennung: " + (pfpSlug(k.name) || "—");
+    else if(k.typ === "modul") e.textContent = (pfpSlug(k.name) || "noch-ohne-namen") + ".html";
+    else e.textContent = "";
+  };
+  abl();
 
-/* ---------- Ziehen und Ablegen ----------
-   Auf Zeigerereignissen statt auf der HTML5-Schnittstelle. Das ist etwas
-   mehr Arbeit und dafuer auf dem Tastbildschirm dasselbe wie mit der Maus.
-   Ein Geist folgt dem Finger, ein Balken zeigt, wo die Karte landet.   */
+  /* Beim Tippen wird nur das Modell und der Kasten auf der Buehne
+     nachgezogen. Ein Neuzeichnen naehme dem Feld den Fokus.        */
+  const kasten = () => pfpFl().querySelector('.kn[data-id="' + k.id + '"]');
+  $("pfpFName").addEventListener("input", e => {
+    k.name = e.target.value;
+    const kk = kasten();
+    if(kk){
+      const t = kk.querySelector(".kn-tit");
+      t.textContent = k.name.trim() || "ohne Namen";
+      t.classList.toggle("leer", !k.name.trim());
+    }
+    abl();
+  });
+  $("pfpFText").addEventListener("input", e => { k.text = e.target.value; });
+  if($("pfpFSpur")) $("pfpFSpur").addEventListener("change", e => { k.spur = e.target.value; });
+  if($("pfpFSpr"))  $("pfpFSpr").addEventListener("change",  e => { k.sprache = e.target.value; });
+  if($("pfpFAn"))   $("pfpFAn").addEventListener("change", e => {
+    if(e.target.value) pfpVerbinde(e.target.value, k.id); else pfpTrenne(k.id);
+    pfpMelde(""); pfpZeichne();
+  });
+  if($("pfpFWeg")) $("pfpFWeg").addEventListener("click", () => {
+    pfpEntferne(k.id); pfpMelde("Entfernt. Was daran hing, liegt jetzt ohne Anschluss da."); pfpZeichne();
+  });
+}
+
+/* ---------- Ziehen auf der Buehne ---------- */
 let pfpZieh = null;
-
-function pfpAufraeumen(){
-  if(pfpZieh){
-    if(pfpZieh.geist.parentNode) pfpZieh.geist.remove();
-    if(pfpZieh.platz.parentNode) pfpZieh.platz.remove();
-  }
-  pfpZieh = null;
-  pfpHost.querySelectorAll(".zieht").forEach(k => k.classList.remove("zieht"));
-  pfpHost.querySelectorAll(".ueber").forEach(d => d.classList.remove("ueber"));
+function pfpOrt(e){
+  const r = pfpFl().getBoundingClientRect();
+  return {x:e.clientX - r.left, y:e.clientY - r.top};
+}
+function pfpUnterDemZeiger(e){
+  const el = document.elementFromPoint(e.clientX, e.clientY);
+  return el ? el.closest(".kn") : null;
 }
 
-pfpHost.addEventListener("pointerdown", e => {
-  if(e.button !== undefined && e.button !== 0) return;
-  const griff = e.target.closest(".griff"); if(!griff) return;
-  const k = griff.closest(".karte"); if(!k) return;
+$("pfpBue").addEventListener("pointerdown", e => {
+  if(e.target.closest(".kn-weg")) return;               /* das ist ein Klick */
+  const knEl = e.target.closest(".kn");
+  if(!knEl) return;
+  const k = pfpKn(knEl.dataset.id);
+  if(!k) return;
   e.preventDefault();
-  const r = k.getBoundingClientRect();
-  const geist = k.cloneNode(true);
-  geist.classList.add("geist");
-  geist.style.width = r.width + "px";
-  geist.style.left  = r.left + "px";
-  geist.style.top   = r.top + "px";
-  document.body.appendChild(geist);
-  const platz = document.createElement("div");
-  platz.className = "platz";
-  pfpZieh = {typ:k.dataset.typ, id:k.dataset.id, geist, platz,
-             dx:e.clientX - r.left, dy:e.clientY - r.top};
-  k.classList.add("zieht");
-  try { griff.setPointerCapture(e.pointerId); } catch(err) { /* aelterer Browser */ }
-});
-
-pfpHost.addEventListener("pointermove", e => {
-  if(!pfpZieh) return;
-  e.preventDefault();
-  pfpZieh.geist.style.left = (e.clientX - pfpZieh.dx) + "px";
-  pfpZieh.geist.style.top  = (e.clientY - pfpZieh.dy) + "px";
-  /* Am Rand mitscrollen, sonst endet der Entwurf am Fensterrand. */
-  if(e.clientY < 90) scrollBy(0, -14);
-  else if(e.clientY > innerHeight - 90) scrollBy(0, 14);
-
-  const unter = document.elementFromPoint(e.clientX, e.clientY);
-  const dz = unter && unter.closest ? unter.closest('.dz[data-typ="' + pfpZieh.typ + '"]') : null;
-  pfpHost.querySelectorAll(".ueber").forEach(d => { if(d !== dz) d.classList.remove("ueber"); });
-  if(!dz){ if(pfpZieh.platz.parentNode) pfpZieh.platz.remove(); return; }
-  dz.classList.add("ueber");
-  const karten = [...dz.children].filter(n =>
-    n.classList.contains("karte") && n.dataset.id !== pfpZieh.id);
-  let vor = null;
-  for(const kk of karten){
-    const rr = kk.getBoundingClientRect();
-    if(e.clientY < rr.top + rr.height / 2){ vor = kk; break; }
+  pfpWahl = k.id;
+  if(e.target.closest(".port")){
+    pfpZieh = {art:"band", id:k.id};
+  } else {
+    const o = pfpOrt(e);
+    pfpZieh = {art:"knoten", id:k.id, dx:o.x - k.x, dy:o.y - k.y, el:knEl};
+    knEl.classList.add("zieht");
   }
-  if(vor) dz.insertBefore(pfpZieh.platz, vor);
-  else    dz.appendChild(pfpZieh.platz);
+  try { $("pfpBue").setPointerCapture(e.pointerId); } catch(err) {}
+  pfpStammdaten();
+  pfpFl().querySelectorAll(".kn.wahl").forEach(n => n.classList.remove("wahl"));
+  knEl.classList.add("wahl");
 });
 
-function pfpAblegen(){
+$("pfpBue").addEventListener("pointermove", e => {
   if(!pfpZieh) return;
-  const dz = pfpZieh.platz.parentNode;
-  if(dz && dz.classList.contains("dz")){
-    const ziel   = pfpListe(pfpZieh.typ, dz.dataset.eltern);
-    const quelle = pfpHerkunft(pfpZieh.typ, pfpZieh.id);
-    if(ziel && quelle){
-      /* Die gezogene Karte zaehlt nicht mit; damit stimmt der Platz auch
-         dann, wenn sie aus derselben Liste stammt.                     */
-      const reihe = [...dz.children].filter(n =>
-        (n.classList.contains("karte") && n.dataset.id !== pfpZieh.id) || n === pfpZieh.platz);
-      const wohin = reihe.indexOf(pfpZieh.platz);
-      const von = quelle.findIndex(o => o.id === pfpZieh.id);
-      if(von >= 0 && wohin >= 0){
-        const [obj] = quelle.splice(von, 1);
-        ziel.splice(Math.max(0, Math.min(wohin, ziel.length)), 0, obj);
-      }
+  const o = pfpOrt(e), k = pfpKn(pfpZieh.id);
+  if(!k) return;
+  if(pfpZieh.art === "knoten"){
+    k.x = Math.max(0, Math.round(o.x - pfpZieh.dx));
+    k.y = Math.max(0, Math.round(o.y - pfpZieh.dy));
+    pfpZieh.el.style.left = k.x + "px";
+    pfpZieh.el.style.top  = k.y + "px";
+    /* Die Nummern haengen an der Hoehe, also wandern sie beim Schieben mit. */
+    for(const n of PLAN.knoten){
+      const el = pfpFl().querySelector('.kn[data-id="' + n.id + '"]');
+      if(el) el.querySelector(".kn-num").textContent =
+        TYPNAME[n.typ] + (pfpNummer(n) ? " " + pfpNummer(n) : "");
+    }
+  } else {
+    pfpBand = '<path class="band" d="M' + (k.x + NB) + ' ' + (k.y + NH / 2) +
+              ' L' + Math.round(o.x) + ' ' + Math.round(o.y) + '"/>';
+    const ziel = pfpUnterDemZeiger(e);
+    pfpFl().querySelectorAll(".kn.ziel").forEach(n => n.classList.remove("ziel"));
+    if(ziel && ziel.dataset.id !== k.id){
+      const b = pfpKn(ziel.dataset.id);
+      if(b && REGEL[k.typ] === b.typ) ziel.classList.add("ziel");
     }
   }
-  pfpAufraeumen();
+  pfpLinien();
+  /* Am Rand mitscrollen, sonst endet die Buehne dort, wo das Fenster endet. */
+  const r = $("pfpBue").getBoundingClientRect();
+  if(e.clientY > r.bottom - 44) $("pfpBue").scrollTop  += 14;
+  if(e.clientY < r.top    + 44) $("pfpBue").scrollTop  -= 14;
+  if(e.clientX > r.right  - 44) $("pfpBue").scrollLeft += 14;
+  if(e.clientX < r.left   + 44) $("pfpBue").scrollLeft -= 14;
+});
+
+function pfpLoslassen(e){
+  if(!pfpZieh) return;
+  const art = pfpZieh.art, id = pfpZieh.id;
+  if(art === "band"){
+    const ziel = e ? pfpUnterDemZeiger(e) : null;
+    const a = pfpKn(id);
+    if(ziel && ziel.dataset.id !== id){
+      if(pfpVerbinde(id, ziel.dataset.id)) pfpMelde("");
+      else pfpMelde("Ein " + TYPNAME[a.typ] + " nimmt nur " + NIMMT[a.typ] + " auf.");
+    }
+    pfpBand = "";
+  } else if(pfpZieh.el){
+    pfpZieh.el.classList.remove("zieht");
+  }
+  pfpZieh = null;
   pfpZeichne();
 }
-pfpHost.addEventListener("pointerup", pfpAblegen);
-pfpHost.addEventListener("pointercancel", () => { pfpAufraeumen(); pfpZeichne(); });
+$("pfpBue").addEventListener("pointerup", pfpLoslassen);
+$("pfpBue").addEventListener("pointercancel", () => pfpLoslassen(null));
 
-/* ---------- Entwurf anlegen und leeren ---------- */
-$("pfpNeuModul").addEventListener("click", () => { ENTWURF.module.push(neuModul()); pfpZeichne(); });
-$("pfpPfadName").addEventListener("input", e => { ENTWURF.pfad.name = e.target.value; pfpZeichne(); });
-$("pfpPfadSub").addEventListener("input", e => { ENTWURF.pfad.sub = e.target.value; });
+$("pfpBue").addEventListener("click", e => {
+  const w = e.target.closest(".kn-weg");
+  if(!w) return;
+  const knEl = w.closest(".kn");
+  if(!knEl) return;
+  pfpEntferne(knEl.dataset.id);
+  pfpMelde("Entfernt. Was daran hing, liegt jetzt ohne Anschluss da.");
+  pfpZeichne();
+});
 
+/* ---------- Ohne Maus ---------- */
+$("pfpBue").addEventListener("keydown", e => {
+  const knEl = e.target.closest(".kn");
+  if(!knEl) return;
+  const k = pfpKn(knEl.dataset.id);
+  if(!k) return;
+  const S = e.shiftKey ? 4 : 22;
+  if(e.key === "Delete" || e.key === "Backspace"){
+    if(k.typ === "pfad") return;
+    e.preventDefault();
+    pfpEntferne(k.id); pfpMelde("Entfernt."); pfpZeichne();
+    return;
+  }
+  if(e.key === "ArrowLeft")       k.x = Math.max(0, k.x - S);
+  else if(e.key === "ArrowRight") k.x += S;
+  else if(e.key === "ArrowUp")    k.y = Math.max(0, k.y - S);
+  else if(e.key === "ArrowDown")  k.y += S;
+  else if(e.key === "Enter" || e.key === " "){ /* nur auswaehlen */ }
+  else return;
+  e.preventDefault();
+  pfpWahl = k.id;
+  pfpZeichne();
+  const neu = pfpFl().querySelector('.kn[data-id="' + k.id + '"]');
+  if(neu) neu.focus();
+});
+
+/* ---------- Die Leiste mit den Elementen ---------- */
+let pfpPal = null;
+document.querySelectorAll(".pal-el").forEach(btn => {
+  btn.addEventListener("pointerdown", e => {
+    e.preventDefault();
+    pfpPal = {typ:btn.dataset.neu, bewegt:false, geist:null};
+    try { btn.setPointerCapture(e.pointerId); } catch(err) {}
+  });
+  btn.addEventListener("pointermove", e => {
+    if(!pfpPal) return;
+    pfpPal.bewegt = true;
+    if(!pfpPal.geist){
+      const g = document.createElement("div");
+      g.className = "kn geist t-" + pfpPal.typ;
+      g.innerHTML = '<p class="kn-num">' + TYPNAME[pfpPal.typ] + '</p>' +
+                    '<p class="kn-tit leer">ohne Namen</p>';
+      document.body.appendChild(g);
+      pfpPal.geist = g;
+    }
+    pfpPal.geist.style.left = (e.clientX - NB / 2) + "px";
+    pfpPal.geist.style.top  = (e.clientY - NH / 2) + "px";
+  });
+  btn.addEventListener("pointerup", e => {
+    if(!pfpPal) return;
+    const typ = pfpPal.typ, bewegt = pfpPal.bewegt;
+    if(pfpPal.geist) pfpPal.geist.remove();
+    pfpPal = null;
+    let k;
+    if(bewegt){
+      const el = document.elementFromPoint(e.clientX, e.clientY);
+      if(!el || !el.closest("#pfpBue")){
+        pfpMelde("Dorthin lässt sich nichts legen. Die Fläche ist das Ziel.");
+        return;
+      }
+      const r = pfpFl().getBoundingClientRect();
+      k = pfpNeu(typ, Math.max(0, e.clientX - r.left - NB / 2),
+                      Math.max(0, e.clientY - r.top  - NH / 2));
+    } else {
+      const o = pfpPlatz(typ);
+      k = pfpNeu(typ, o.x, o.y);
+    }
+    const dran = pfpAnhaengen(k);
+    pfpWahl = k.id;
+    pfpMelde(dran ? "" : TYPNAME[typ] + " liegt ohne Anschluss da — es fehlt " +
+                         (typ === "modul" ? "der Lernpfad" :
+                          typ === "lektion" ? "ein Modul" : "eine Lektion") + " darüber.");
+    pfpZeichne();
+    const el = pfpFl().querySelector('.kn[data-id="' + k.id + '"]');
+    if(el) el.scrollIntoView({block:"nearest", inline:"nearest"});
+  });
+});
+
+/* ---------- Aufraeumen ----------
+   Ein Elternteil sitzt auf der Mitte seiner Kinder, die Blaetter stehen
+   untereinander. Was ohne Anschluss ist, sammelt sich darunter.        */
+function pfpOrdne(){
+  let lauf = 20;
+  const lege = k => {
+    k.x = SPALTE[k.typ];
+    const ks = pfpKinder(k.id);
+    if(!ks.length){ k.y = lauf; lauf += NH + 14; return; }
+    ks.forEach(lege);
+    k.y = Math.round((ks[0].y + ks[ks.length - 1].y) / 2);
+  };
+  const w = pfpWurzel();
+  if(w) lege(w);
+  const losen = PLAN.knoten.filter(pfpLos);
+  if(losen.length){
+    lauf += 34;
+    losen.sort((a, b) => a.y - b.y).forEach(lege);
+  }
+  $("pfpBue").scrollTop = 0; $("pfpBue").scrollLeft = 0;
+}
+$("pfpOrdnen").addEventListener("click", () => { pfpOrdne(); pfpMelde("Aufgeräumt."); pfpZeichne(); });
+
+/* ---------- Beispiel und leeren ---------- */
 $("pfpLeer").addEventListener("click", () => {
-  ENTWURF.pfad.name = ""; ENTWURF.pfad.sub = ""; ENTWURF.module.length = 0;
-  $("pfpPfadName").value = ""; $("pfpPfadSub").value = "";
+  PLAN.knoten.length = 0; PLAN.kanten.length = 0;
+  pfpWahl = null;
+  const w = pfpNeu("pfad", SPALTE.pfad, 24);
+  pfpWahl = w.id;
   $("pfpOut").value = ""; $("pfpMsg").textContent = ""; $("pfpMiss").hidden = true;
+  pfpMelde("Leer. Der Lernpfad bleibt — ohne ihn hat nichts einen Platz.");
   pfpZeichne();
 });
 
 $("pfpBsp").addEventListener("click", () => {
-  ENTWURF.pfad.name = "Grundlagen Cyber-Security";
-  ENTWURF.pfad.sub  = "Vom Begriff über die Bedrohungslage bis zu den ersten Maßnahmen im eigenen Haus.";
-  $("pfpPfadName").value = ENTWURF.pfad.name;
-  $("pfpPfadSub").value  = ENTWURF.pfad.sub;
-  ENTWURF.module.length = 0;
-  ENTWURF.module.push({
-    id:pfpId(), name:"Einführung in Cyber-Security", spur:"sec", sprache:"de",
-    sub:"Was der Begriff meint, wovor geschützt wird und wer im Unternehmen wofür zuständig ist. Der Einstieg in den Pfad.",
-    lektionen:[
-      {id:pfpId(), name:"Was Cyber-Security meint",
-       kern:"Sicherheit ist kein Zustand, sondern eine Reihe von Entscheidungen unter Unsicherheit.",
-       bloecke:[
-         {id:pfpId(), name:"Drei Schutzziele", text:"Vertraulichkeit, Integrität, Verfügbarkeit. Warum die drei zusammengehören und warum sie sich gegenseitig im Weg stehen können."},
-         {id:pfpId(), name:"Was ein Angriff kostet", text:"Nicht die Wiederherstellung ist teuer, sondern der Stillstand daneben."}
-       ]},
-      {id:pfpId(), name:"Die Bedrohungslage",
-       kern:"Die meisten Vorfälle sind keine Kunststücke, sondern Gelegenheiten.",
-       bloecke:[
-         {id:pfpId(), name:"Die häufigsten Einfallstore", text:"Phishing, veraltete Software, zu weit gefasste Rechte. Drei Muster, die zusammen den größten Teil ausmachen."}
-       ]}
-    ]
-  });
+  PLAN.knoten.length = 0; PLAN.kanten.length = 0;
+  const setz = (typ, name, text, extra) =>
+    Object.assign(pfpNeu(typ, 0, 0), {name, text}, extra || {});
+  const w = setz("pfad", "Grundlagen Cyber-Security",
+    "Vom Begriff über die Bedrohungslage bis zu den ersten Maßnahmen im eigenen Haus.");
+  const m = setz("modul", "Einführung in Cyber-Security",
+    "Was der Begriff meint, wovor geschützt wird und wer im Unternehmen wofür zuständig ist. Der Einstieg in den Pfad.",
+    {spur:"sec", sprache:"de"});
+  const l1 = setz("lektion", "Was Cyber-Security meint",
+    "Sicherheit ist kein Zustand, sondern eine Reihe von Entscheidungen unter Unsicherheit.");
+  const l2 = setz("lektion", "Die Bedrohungslage",
+    "Die meisten Vorfälle sind keine Kunststücke, sondern Gelegenheiten.");
+  const b1 = setz("block", "Drei Schutzziele",
+    "Vertraulichkeit, Integrität, Verfügbarkeit. Warum die drei zusammengehören und warum sie sich gegenseitig im Weg stehen können.");
+  const b2 = setz("block", "Was ein Angriff kostet",
+    "Nicht die Wiederherstellung ist teuer, sondern der Stillstand daneben.");
+  const b3 = setz("block", "Die häufigsten Einfallstore",
+    "Phishing, veraltete Software, zu weit gefasste Rechte. Drei Muster, die zusammen den größten Teil ausmachen.");
+  PLAN.kanten.push({von:w.id, nach:m.id}, {von:m.id, nach:l1.id}, {von:m.id, nach:l2.id},
+                   {von:l1.id, nach:b1.id}, {von:l1.id, nach:b2.id}, {von:l2.id, nach:b3.id});
+  /* Damit die Reihenfolge stimmt, bevor das Aufraeumen sie neu setzt. */
+  [m, l1, b1, b2, l2, b3].forEach((k, i) => { k.y = i * (NH + 14) + 24; });
+  pfpWahl = m.id;
+  $("pfpOut").value = ""; $("pfpMsg").textContent = ""; $("pfpMiss").hidden = true;
+  pfpMelde("");
+  pfpOrdne();
   pfpZeichne();
 });
 
-/* ---------- Aus dem Entwurf einen Auftrag machen ---------- */
-const pfpSpurName = k => (SPUREN.find(s => s[0] === k) || ["", k])[1];
+/* ---------- Aus der Buehne einen Auftrag machen ---------- */
+const pfpSpurName = k => (SPUREN.find(s => s[0] === k)   || ["", k])[1];
 const pfpSprName  = k => (SPRACHEN.find(s => s[0] === k) || ["", k])[1];
 const pfpLinie    = z => "".padEnd(62, z);
 const pfpWert     = v => (v || "").trim() || "— noch offen —";
 
+function pfpBaum(){
+  const w = pfpWurzel();
+  if(!w) return null;
+  return {pfad:w, module:pfpKinder(w.id).map(m => ({
+    k:m, lektionen:pfpKinder(m.id).map(l => ({k:l, bloecke:pfpKinder(l.id)}))
+  }))};
+}
+
 function pfpLuecken(){
-  const fehlt = [];
-  if(!ENTWURF.pfad.name.trim()) fehlt.push("der Name des Lernpfads");
-  ENTWURF.module.forEach((m, i) => {
-    const wo = `Modul ${i+1}`;
-    if(!m.name.trim()) fehlt.push(`der Name von ${wo}`);
-    if(!m.sub.trim())  fehlt.push(`der Kacheltext von ${wo}`);
+  const t = pfpBaum(), fehlt = [];
+  if(!t) return fehlt;
+  if(!t.pfad.name.trim()) fehlt.push("der Name des Lernpfads");
+  t.module.forEach((m, i) => {
+    const wo = "Modul " + (i + 1);
+    if(!m.k.name.trim()) fehlt.push("der Name von " + wo);
+    if(!m.k.text.trim()) fehlt.push("der Kacheltext von " + wo);
+    if(!m.lektionen.length) fehlt.push(wo + " hat noch keine Lektion");
     m.lektionen.forEach((l, j) => {
-      if(!l.name.trim()) fehlt.push(`der Name von ${wo}, Lektion ${j+1}`);
-      l.bloecke.forEach((b, k) => {
-        if(!b.name.trim()) fehlt.push(`die Überschrift von ${wo}, Lektion ${j+1}, Block ${k+1}`);
+      if(!l.k.name.trim()) fehlt.push("der Name von " + wo + ", Lektion " + (j + 1));
+      l.bloecke.forEach((b, n) => {
+        if(!b.name.trim())
+          fehlt.push("die Überschrift von " + wo + ", Lektion " + (j + 1) + ", Block " + (n + 1));
       });
     });
   });
+  const los = PLAN.knoten.filter(pfpLos);
+  if(los.length) fehlt.push(los.length + " Element" + (los.length > 1 ? "e" : "") +
+    " ohne Anschluss — sie kommen nicht in den Auftrag");
   return fehlt;
 }
 
 function pfpAuftrag(){
-  const P = ENTWURF.pfad;
+  const t = pfpBaum();
   let s = "AUFTRAG: LERNPFAD UND MODULHUELLEN ANLEGEN\n" + pfpLinie("=") + "\n\n";
   s += "Erzeugt mit dem Pfadplaner aus content-werkstatt.html. Jedes Modul\n";
   s += "entsteht als Huelle nach dem Modulvertrag: Struktur, Ueberschriften\n";
   s += "und die Saetze darunter stehen, der Inhalt kommt spaeter.\n\n";
 
   s += "LERNPFAD\n";
-  s += "  Kennung    " + (pfpSlug(P.name) || "— noch offen —") + "\n";
-  s += "  Titel      " + pfpWert(P.name) + "\n";
-  s += "  Ein Satz   " + pfpWert(P.sub) + "\n\n";
+  s += "  Kennung    " + (pfpSlug(t.pfad.name) || "— noch offen —") + "\n";
+  s += "  Titel      " + pfpWert(t.pfad.name) + "\n";
+  s += "  Ein Satz   " + pfpWert(t.pfad.text) + "\n\n";
 
-  ENTWURF.module.forEach((m, i) => {
+  t.module.forEach((m, i) => {
     s += pfpLinie("-") + "\n";
-    s += `MODUL ${String(i+1).padStart(2,"0")}   ` + (pfpSlug(m.name) || "noch-ohne-namen") + ".html\n";
-    s += "  Titel      " + pfpWert(m.name) + "\n";
-    s += "  Spur       " + pfpSpurName(m.spur) + (m.spur === "neu" ? "  (Name der Spur noch offen)" : ` (${m.spur})`) + "\n";
-    s += "  Sprache    " + pfpSprName(m.sprache) + "\n";
-    s += "  Kachel     " + pfpWert(m.sub) + "\n\n";
+    s += "MODUL " + String(i + 1).padStart(2, "0") + "   " +
+         (pfpSlug(m.k.name) || "noch-ohne-namen") + ".html\n";
+    s += "  Titel      " + pfpWert(m.k.name) + "\n";
+    s += "  Spur       " + pfpSpurName(m.k.spur) +
+         (m.k.spur === "neu" ? "  (Name der Spur noch offen)" : " (" + m.k.spur + ")") + "\n";
+    s += "  Sprache    " + pfpSprName(m.k.sprache) + "\n";
+    s += "  Kachel     " + pfpWert(m.k.text) + "\n\n";
     m.lektionen.forEach((l, j) => {
-      s += `  LEKTION ${String(j+1).padStart(2,"0")}   ` + pfpWert(l.name) + "\n";
-      s += "    Kernaussage  " + pfpWert(l.kern) + "\n";
-      l.bloecke.forEach((b, k) => {
-        s += `    BLOCK ${String(k+1).padStart(2,"0")}   ` + pfpWert(b.name) + "\n";
+      s += "  LEKTION " + String(j + 1).padStart(2, "0") + "   " + pfpWert(l.k.name) + "\n";
+      s += "    Kernaussage  " + pfpWert(l.k.text) + "\n";
+      l.bloecke.forEach((b, n) => {
+        s += "    BLOCK " + String(n + 1).padStart(2, "0") + "   " + pfpWert(b.name) + "\n";
         s += "      " + pfpWert(b.text) + "\n";
       });
       s += "\n";
     });
     const n = m.lektionen.length;
-    s += `  LEKTION ${String(n+1).padStart(2,"0")}   Quiz                (Pflicht)\n`;
-    s += `  LEKTION ${String(n+2).padStart(2,"0")}   Der erste Schritt   (Pflicht)\n\n`;
+    s += "  LEKTION " + String(n + 1).padStart(2, "0") + "   Quiz                (Pflicht)\n";
+    s += "  LEKTION " + String(n + 2).padStart(2, "0") + "   Der erste Schritt   (Pflicht)\n\n";
   });
 
   s += pfpLinie("=") + "\n";
@@ -1740,17 +1929,20 @@ function pfpAuftrag(){
   s += "   einem Verweis, damit sich die Huelle oeffnen laesst.\n";
   s += "7. Den Lernpfad in const PATHS anlegen, mit den Modulen in der Reihen-\n";
   s += "   folge von oben.\n";
-  if(ENTWURF.module.some(m => m.spur === "neu"))
-    s += "8. Fuer die als neu markierte Spur eine neue Spur anlegen und im Pull\n   Request nachfragen, wie sie heissen soll.\n";
+  if(t.module.some(m => m.k.spur === "neu"))
+    s += "8. Fuer die als neu markierte Spur eine neue Spur anlegen und im Pull\n" +
+         "   Request nachfragen, wie sie heissen soll.\n";
   s += "\nDie Sprachpruefung und die Playwright-Pruefung laufen wie immer.\n";
   return s;
 }
 
 $("pfpGo").addEventListener("click", () => {
-  if(ENTWURF.module.length === 0){
+  const t = pfpBaum();
+  if(!t || !t.module.length){
     $("pfpOut").value = "";
     $("pfpMiss").hidden = false;
-    $("pfpMiss").innerHTML = "<b>Noch kein Modul im Entwurf.</b> Leg mindestens eines an — oder lade das Beispiel, um zu sehen, wie es gemeint ist.";
+    $("pfpMiss").innerHTML = "<b>Noch kein Modul am Lernpfad.</b> Leg eines an und verbinde es " +
+      "— oder lade das Beispiel, um zu sehen, wie es gemeint ist.";
     $("pfpMsg").textContent = "";
     return;
   }
@@ -1760,14 +1952,15 @@ $("pfpGo").addEventListener("click", () => {
   if(fehlt.length){
     const zeig = fehlt.slice(0, 6).join(", ");
     $("pfpMiss").innerHTML = "<b>Noch offen:</b> " + zeig +
-      (fehlt.length > 6 ? ` und ${fehlt.length - 6} weitere Stellen` : "") +
+      (fehlt.length > 6 ? " und " + (fehlt.length - 6) + " weitere Stellen" : "") +
       ". Der Auftrag lässt sich trotzdem abgeben — die offenen Stellen stehen darin als solche.";
   }
   $("pfpMsg").textContent = "";
 });
 
 $("pfpCopy").addEventListener("click", () => {
-  if(ENTWURF.module.length === 0){ $("pfpMsg").textContent = "Nichts zu kopieren."; return; }
+  const t = pfpBaum();
+  if(!t || !t.module.length){ $("pfpMsg").textContent = "Nichts zu kopieren."; return; }
   if(!$("pfpOut").value) $("pfpOut").value = pfpAuftrag();
   const feld = $("pfpOut");
   feld.removeAttribute("readonly");
@@ -1785,6 +1978,8 @@ $("pfpCopy").addEventListener("click", () => {
   }
 });
 
+/* Der Lernpfad steht von Anfang an da. Ohne ihn hat nichts einen Platz. */
+pfpWahl = pfpNeu("pfad", SPALTE.pfad, 24).id;
 pfpZeichne();
 
 /* =====================================================================
