@@ -283,6 +283,31 @@ Ein Lernpfad ist eine Reihenfolge von Modulen, die zusammen Sinn ergeben. Er ste
 brechen, dass jede Datei für sich weitergegeben werden kann. Wächst die Liste stark, ist das
 Auslagern eine Zeile Arbeit — bis dahin bleibt sie in `index.html`.
 
+### Der Pfadplaner
+
+Lektion 04 in `content-werkstatt.html` ist das Werkzeug, mit dem ein Autor die Gliederung
+baut, bevor eine Zeile Text entsteht: Pfad, Module, Lektionen, aufklappbare Blöcke, per Maus
+oder Finger verschiebbar. Am Ende erzeugt „Auftrag erzeugen“ einen Text.
+
+- **Dieser Text ist die erwartete Eingabe.** Wer ihn hier einfügt, bekommt die Hüllen — leere
+  Module mit den benannten Lektionen und Blöcken, samt Quiz und Praxiseinstieg, eingetragen in
+  `TOPICS` und `PATHS`. Die Kacheln bekommen `status: "planned"` und bleiben klickbar.
+- **Der Planer speichert nichts.** Kein `localStorage`, also ist der Entwurf beim Neuladen weg.
+  Deshalb steht der erzeugte Auftrag im Textfeld und nicht im Speicher: Er ist die Sicherung.
+- **Zwei Wege für dieselbe Sache.** Die Pfeiltasten an jeder Karte sind der verlässliche Weg,
+  das Ziehen der bequeme. Beides muss funktionieren, auch auf dem Telefon — deshalb Pointer
+  Events und nicht HTML5-Drag-and-drop, das dort gar nicht auslöst.
+
+**Der gemeinsame Namensraum ist die Falle.** Alle Skripte eines Moduls liegen im selben
+Gültigkeitsbereich. `plZeichne` des Planers in Lektion 04 hat einmal `plZeichne` des
+Längenrechners in Lektion 02 überschrieben, und beide waren tot. Ein neues Werkzeug in einem
+vorhandenen Modul bekommt deshalb ein eigenes Präfix und wird vor dem Anlegen dagegen
+geprüft:
+
+```bash
+grep -c "\bpfp" content-werkstatt.html   # Präfix schon vergeben?
+```
+
 ## Harte Regeln
 
 **Neues Modul immer in `index.html` registrieren.** Die Startseite kennt nur, was in

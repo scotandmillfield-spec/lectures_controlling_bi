@@ -256,6 +256,77 @@ svg.hier .edge.hot{stroke:var(--orange);stroke-width:2.2}
 .bmiss[hidden]{display:none}
 .bmiss b{font-weight:700}
 
+
+/* ---------- Der Pfadplaner ----------
+   Drei Ebenen als geschachtelte Karten. Jede Karte laesst sich mit der
+   Maus ziehen und mit den Pfeilen verschieben; die Pfeile sind der
+   verlaessliche Weg, das Ziehen der bequeme.                        */
+.pfp{display:grid;gap:14px}
+.pfp-kopf{background:var(--navy-xl);border:1px solid var(--navy);border-radius:var(--r);padding:16px 18px}
+.pfp-kopf .pk{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--navy);margin:0 0 10px}
+.pfp-zeile{display:grid;grid-template-columns:1fr;gap:9px}
+.pfp-zeile label{display:block;font-size:.82rem;font-weight:600;margin:0 0 3px;color:#2c2c2f}
+
+.karte{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:12px 14px;border-left-width:3px}
+.k-mod{border-left-color:var(--teal-dk)}
+.k-lek{border-left-color:var(--ochre)}
+.k-blk{border-left-color:var(--grey-mid)}
+.karte.zieht{opacity:.4}
+.k-kopf{display:grid;grid-template-columns:22px 1fr auto;gap:9px;align-items:center}
+.k-kopf>*{min-width:0}
+.griff{width:16px;height:16px;color:var(--grey-mid);cursor:grab;justify-self:center;
+  touch-action:none}
+.griff:active{cursor:grabbing}
+/* Der Geist folgt dem Finger, der Platzhalter zeigt, wo die Karte landet. */
+.geist{position:fixed;z-index:70;pointer-events:none;opacity:.94;margin:0;
+  box-shadow:0 18px 40px -12px rgba(22,105,128,.5);transform:rotate(-1deg)}
+.platz{height:10px;border-radius:6px;background:var(--teal);opacity:.4}
+.k-num{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;color:var(--grey);
+  text-transform:uppercase;margin:0 0 3px}
+.k-btns{display:flex;gap:4px}
+.k-btn{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);cursor:pointer;
+  width:28px;height:28px;border-radius:7px;color:var(--grey);font-size:.85rem;line-height:1;
+  display:flex;align-items:center;justify-content:center;transition:.14s;padding:0}
+.k-btn:hover:not(:disabled){border-color:var(--teal);color:var(--teal-dk)}
+.k-btn:disabled{opacity:.3;cursor:default}
+.k-btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.k-btn.weg:hover{border-color:var(--red);color:var(--red)}
+
+.pfp input[type=text],.pfp textarea,.pfp select{width:100%;font-family:var(--sans);
+  color:var(--ink);background:var(--paper);border:1px solid var(--grey-mid);border-radius:8px;
+  padding:8px 10px;line-height:1.45;font-size:.92rem}
+.pfp textarea{resize:vertical;min-height:52px;font-size:.88rem}
+.pfp input:focus-visible,.pfp textarea:focus-visible,.pfp select:focus-visible{
+  outline:2px solid var(--orange);outline-offset:1px;border-color:var(--teal)}
+.k-titel{font-weight:600}
+.k-meta{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:center;margin:9px 0 0}
+.k-meta>*{min-width:0}
+.k-datei{font-family:var(--mono);font-size:.72rem;color:var(--grey);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.k-rumpf{margin:9px 0 0}
+
+.dz{display:grid;gap:9px;padding:2px 0;min-height:6px}
+.tief{margin:10px 0 0 22px;padding-left:12px;border-left:1px dashed var(--grey-xl)}
+.dz.ueber{outline:2px dashed var(--teal);outline-offset:4px;border-radius:8px}
+.k-fest{display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:center;
+  background:var(--grey-xl);border-radius:8px;padding:9px 12px;color:#5A5A58;font-size:.88rem}
+.k-fest .pf{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+.k-fest b{color:#3d3d40;font-weight:600}
+
+.pfp-neu{appearance:none;border:1.5px dashed var(--grey-mid);background:transparent;cursor:pointer;
+  font-family:var(--sans);font-size:.88rem;font-weight:600;color:var(--grey);
+  padding:9px 14px;border-radius:8px;transition:.16s;width:100%;text-align:left}
+.pfp-neu:hover{border-color:var(--teal);color:var(--teal-dk)}
+.pfp-neu:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.pfp-neu.klein{width:auto;padding:7px 12px;font-size:.84rem}
+
+.pout textarea{width:100%;min-height:320px;font-family:var(--mono);font-size:.75rem;line-height:1.62;
+  color:var(--ink);background:var(--canvas);border:1px solid var(--grey-xl);border-radius:8px;padding:13px;resize:vertical}
+.pout textarea:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
+.pmsg{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--green);margin:10px 0 0;min-height:1.2em}
+
 /* ---------- Glossar ---------- */
 .glos{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   box-shadow:var(--shadow);padding:6px 20px}
@@ -301,6 +372,16 @@ footer a{color:var(--teal-dk)}
   .stp>button{grid-template-columns:30px 1fr 16px;gap:11px;padding:14px}
   .stp .bd{padding:0 14px 16px 55px}
 }
+/* Auf dem Telefon frisst die Verschachtelung sonst die halbe Breite:
+   Der Einzug faellt weg, die Zeile mit Spur und Sprache bricht um.   */
+@media (max-width:620px){
+  .tief{margin-left:0;padding-left:9px}
+  .karte{padding:10px 11px}
+  .k-meta{grid-template-columns:1fr}
+  .k-datei{white-space:normal;overflow-wrap:anywhere}
+  .pfp textarea{min-height:72px}
+  .k-fest{font-size:.82rem}
+}
 /* ---------- Auf- und zuklappbare Bloecke innerhalb einer Lektion ------
    Die Bloecke entstehen zur Laufzeit aus der vorhandenen Gliederung:
    jedes h2.sec eroeffnet einen Block, alles bis zum naechsten h2.sec
@@ -340,8 +421,9 @@ footer a{color:var(--teal-dk)}
   <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Die drei Ebenen</button>
   <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Der Bauplan eines Moduls</button>
   <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Die Regeln des Hauses</button>
-  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Quiz</button>
-  <button class="tab" role="tab" id="tab-e" aria-controls="p-e" aria-selected="false" tabindex="-1"><span class="num">05</span> Der erste Schritt</button>
+  <button class="tab" role="tab" id="tab-p" aria-controls="p-p" aria-selected="false" tabindex="-1"><span class="num">04</span> Der Pfadplaner</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">05</span> Quiz</button>
+  <button class="tab" role="tab" id="tab-e" aria-controls="p-e" aria-selected="false" tabindex="-1"><span class="num">06</span> Der erste Schritt</button>
 </div>
 
 <!-- ======================= LEKTION 01 · DIE DREI EBENEN ======================= -->
@@ -639,7 +721,85 @@ footer a{color:var(--teal-dk)}
   </div>
 </section>
 
-<!-- ==================== LEKTION 04 · QUIZ ==================== -->
+<!-- ==================== LEKTION 04 · DER PFADPLANER ==================== -->
+<section class="panel" id="p-p" role="tabpanel" aria-labelledby="tab-p" hidden>
+  <p class="claim">Bevor eine Zeile Text entsteht, wird die Struktur gebaut: <b>Pfad, Module, Lektionen, Blöcke.</b> Hier geht das mit der Maus — und am Ende fällt ein Auftrag heraus, aus dem die Hüllen entstehen.</p>
+
+  <h2 class="sec">Die Struktur bauen und abgeben</h2>
+  <p class="sub">Ziehen mit der Maus ordnet um, auch über Modulgrenzen hinweg. Die Pfeile tun dasselbe und funktionieren überall, auch auf dem Telefon. Quiz und Praxiseinstieg hängen automatisch an jedem Modul und lassen sich nicht entfernen.</p>
+
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Entwurf">
+      <button id="pfpBsp" type="button">Beispiel laden</button>
+      <button id="pfpLeer" type="button">Alles leeren</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="pfpStand"></span></p>
+  </div>
+
+  <div class="pfp">
+    <div class="pfp-kopf">
+      <p class="pk">Ebene 1 · Lernpfad</p>
+      <div class="pfp-zeile">
+        <div>
+          <label for="pfpPfadName">Name des Lernpfads</label>
+          <input type="text" id="pfpPfadName" placeholder="Grundlagen Cyber-Security">
+        </div>
+        <div>
+          <label for="pfpPfadSub">Ein Satz dazu</label>
+          <textarea id="pfpPfadSub" placeholder="Was verbindet diese Module, und in welcher Reihenfolge ergeben sie Sinn?"></textarea>
+        </div>
+      </div>
+      <p id="pfpPfadId" style="margin:9px 0 0;font-family:var(--mono);font-size:.76rem;color:var(--navy)"></p>
+    </div>
+
+    <div class="dz" id="pfpModule" data-typ="modul"></div>
+    <button class="pfp-neu" id="pfpNeuModul" type="button">+ Modul</button>
+  </div>
+
+  <h3 class="sub3" style="margin-top:30px">Der Auftrag</h3>
+  <p class="sub">Ein Klick, und die Struktur wird zu einem Text, den Claude Code lesen kann. Was noch fehlt, steht vorher im gelben Kasten.</p>
+  <div class="pout">
+    <div class="bar" style="margin-bottom:12px">
+      <button class="btn solid" id="pfpGo" type="button">Auftrag erzeugen</button>
+      <button class="btn" id="pfpCopy" type="button">In die Zwischenablage</button>
+    </div>
+    <div class="bmiss" id="pfpMiss" hidden></div>
+    <label class="hint" for="pfpOut" style="margin:0 0 6px;display:block">Ergebnis</label>
+    <textarea id="pfpOut" readonly aria-label="Erzeugter Auftrag"></textarea>
+    <p class="pmsg" id="pfpMsg"></p>
+  </div>
+
+  <h2 class="sec">Was der Planer macht</h2>
+  <p class="txt">Ein neues Thema fängt selten mit einem Satz an. Es fängt mit der Frage an, in welche Portionen es zerfällt und in welcher Reihenfolge sie stehen. Genau dafür ist dieser Reiter da: Du schiebst die Struktur zusammen, gibst jedem Stück einen Namen und einen Satz, und drückst am Ende auf einen Knopf.</p>
+  <p class="txt">Heraus kommt ein Text. Den kopierst Du in Claude Code, und daraus entstehen die Dateien — <b>als Hüllen</b>, mit Deiner Struktur, Deinen Überschriften und Deinen Sätzen darunter, aber ohne Inhalt. Die Kacheln stehen dann auf <i>Geplant</i> und lassen sich trotzdem öffnen. Geschrieben wird danach, Block für Block.</p>
+  <div class="yn">
+    <div class="ynb ja">
+      <h3>Wofür der Planer gut ist</h3>
+      <ul>
+        <li>Die Reihenfolge ausprobieren, solange sie noch nichts kostet.</li>
+        <li>Sehen, wie groß ein Modul wird, bevor es geschrieben ist.</li>
+        <li>Mit jemandem am Bildschirm darüber streiten.</li>
+        <li>Am Ende einen Auftrag abgeben, der keine Rückfragen erzeugt.</li>
+      </ul>
+    </div>
+    <div class="ynb nein">
+      <h3>Wofür nicht</h3>
+      <ul>
+        <li>Er schreibt keinen Inhalt. Er legt nur die Fächer an.</li>
+        <li>Er speichert nichts. Schließt Du das Fenster, ist der Entwurf weg.</li>
+        <li>Er prüft nicht, ob die Gliederung klug ist. Das bleibt Deine Arbeit.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="txt" style="margin-top:14px"><b>Kopier den erzeugten Text heraus, bevor Du gehst.</b> Er ist das Einzige, was den Entwurf überlebt — dieselbe Regel wie überall in dieser Sammlung: kein Speicher, keine Datenbank, kein Server.</p>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Eine Gliederung, die man <b>schieben</b> kann, wird geändert. Eine, die als Fließtext in einer Mail steht, wird verteidigt.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 05 · QUIZ ==================== -->
 <section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
   <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen. Kein Zeitdruck, keine Bewertung, die irgendwo landet — die Begründung steht nach jeder Antwort da, auch nach der richtigen.</p>
 
@@ -660,7 +820,7 @@ footer a{color:var(--teal-dk)}
   </div>
 </section>
 
-<!-- ==================== LEKTION 05 · DER ERSTE SCHRITT ==================== -->
+<!-- ==================== LEKTION 06 · DER ERSTE SCHRITT ==================== -->
 <section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e" hidden>
   <p class="claim">Du hast ein Thema und willst daraus ein Modul machen. Zehn Entscheidungen stehen dazwischen — und keine davon triffst Du besser, während die Datei schon geschrieben wird.</p>
 
@@ -1177,10 +1337,460 @@ $("quiz").addEventListener("click", e => {
 $("qNew").addEventListener("click", qZiehen);
 qZiehen();
 
+
 /* =====================================================================
-   8 · Lektionen
+   Der Pfadplaner
+   Ein Entwurf im Speicher, drei Ebenen tief. Geaendert wird immer am
+   Modell, danach wird neu gezeichnet — ausser beim Tippen, denn ein
+   Neuzeichnen waehrend der Eingabe nimmt dem Feld den Fokus.
    ===================================================================== */
-const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","d","e"];
+let pfpLfd = 0;
+const pfpId = () => "e" + (++pfpLfd);
+
+const pfpSlug = s => (s || "").toLowerCase()
+  .replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/ß/g,"ss")
+  .replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,52);
+
+const SPUREN = [
+  ["bi",   "Business Intelligence"],
+  ["ctrl", "Controlling"],
+  ["case", "Fallstudie"],
+  ["meta", "Werkstatt"],
+  ["sec",  "Cyber-Security"],
+  ["neu",  "eine neue Spur"]
+];
+const SPRACHEN = [["de","Deutsch"],["en","Englisch"],["beide","zweisprachig"]];
+
+const ENTWURF = { pfad:{name:"", sub:""}, module:[] };
+
+const neuBlock  = () => ({id:pfpId(), name:"", text:""});
+const neuLektion= () => ({id:pfpId(), name:"", kern:"", bloecke:[neuBlock()]});
+const neuModul  = () => ({id:pfpId(), name:"", sub:"", spur:"bi", sprache:"de", lektionen:[neuLektion()]});
+
+/* ---------- Suchen im Entwurf ---------- */
+function pfpListe(typ, elternId){
+  if(typ === "modul") return ENTWURF.module;
+  if(typ === "lektion"){
+    const m = ENTWURF.module.find(m => m.id === elternId);
+    return m ? m.lektionen : null;
+  }
+  for(const m of ENTWURF.module) for(const l of m.lektionen)
+    if(l.id === elternId) return l.bloecke;
+  return null;
+}
+function pfpHerkunft(typ, id){
+  if(typ === "modul") return ENTWURF.module;
+  if(typ === "lektion"){
+    const m = ENTWURF.module.find(m => m.lektionen.some(l => l.id === id));
+    return m ? m.lektionen : null;
+  }
+  for(const m of ENTWURF.module) for(const l of m.lektionen)
+    if(l.bloecke.some(b => b.id === id)) return l.bloecke;
+  return null;
+}
+const pfpFinde = (typ, id) => {
+  const l = pfpHerkunft(typ, id);
+  return l ? l.find(o => o.id === id) : null;
+};
+
+/* ---------- Zeichnen ---------- */
+const GRIFF = '<svg class="griff" viewBox="0 0 16 16" aria-hidden="true">' +
+  [4,8,12].map(y => [5,11].map(x =>
+    `<circle cx="${x}" cy="${y}" r="1.5" fill="currentColor"/>`).join("")).join("") + '</svg>';
+
+function pfpBtns(typ, id, ersteR, letzteR){
+  return `<span class="k-btns">
+    <button class="k-btn" type="button" data-tun="hoch"   data-typ="${typ}" data-id="${id}" title="nach oben"  aria-label="nach oben"${ersteR ? " disabled" : ""}>&#8593;</button>
+    <button class="k-btn" type="button" data-tun="runter" data-typ="${typ}" data-id="${id}" title="nach unten" aria-label="nach unten"${letzteR ? " disabled" : ""}>&#8595;</button>
+    <button class="k-btn weg" type="button" data-tun="weg" data-typ="${typ}" data-id="${id}" title="entfernen" aria-label="entfernen">&#10005;</button>
+  </span>`;
+}
+const pfpEsc = s => String(s == null ? "" : s)
+  .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
+
+function pfpBlock(b, i, n){
+  return `<article class="karte k-blk" data-typ="block" data-id="${b.id}">
+    <div class="k-kopf">${GRIFF}
+      <div>
+        <p class="k-num">Block ${String(i+1).padStart(2,"0")}</p>
+        <input type="text" class="k-titel" data-feld="name" data-typ="block" data-id="${b.id}"
+               value="${pfpEsc(b.name)}" placeholder="Überschrift des Abschnitts" aria-label="Überschrift des Blocks">
+      </div>
+      ${pfpBtns("block", b.id, i === 0, i === n-1)}
+    </div>
+    <div class="k-rumpf">
+      <textarea data-feld="text" data-typ="block" data-id="${b.id}"
+        placeholder="Der erste Absatz unter dieser Überschrift. Ein bis drei Sätze genügen." aria-label="Erster Absatz">${pfpEsc(b.text)}</textarea>
+    </div>
+  </article>`;
+}
+
+function pfpLektion(l, i, n, modulId, mehrereModule){
+  const umzug = mehrereModule
+    ? `<select data-feld="umzug" data-typ="lektion" data-id="${l.id}" aria-label="in ein anderes Modul verschieben">
+         ${ENTWURF.module.map((m, j) => `<option value="${m.id}"${m.id === modulId ? " selected" : ""}>Modul ${j+1}${m.name ? " · " + pfpEsc(m.name) : ""}</option>`).join("")}
+       </select>`
+    : "";
+  return `<article class="karte k-lek" data-typ="lektion" data-id="${l.id}">
+    <div class="k-kopf">${GRIFF}
+      <div>
+        <p class="k-num">Lektion ${String(i+1).padStart(2,"0")}</p>
+        <input type="text" class="k-titel" data-feld="name" data-typ="lektion" data-id="${l.id}"
+               value="${pfpEsc(l.name)}" placeholder="Name der Lektion" aria-label="Name der Lektion">
+      </div>
+      ${pfpBtns("lektion", l.id, i === 0, i === n-1)}
+    </div>
+    <div class="k-rumpf">
+      <textarea data-feld="kern" data-typ="lektion" data-id="${l.id}"
+        placeholder="Die Kernaussage: ein bis zwei Sätze, die beantworten, warum jemand weiterliest." aria-label="Kernaussage">${pfpEsc(l.kern)}</textarea>
+    </div>
+    ${umzug ? `<div class="k-meta" style="grid-template-columns:1fr">${umzug}</div>` : ""}
+    <div class="dz tief" data-typ="block" data-eltern="${l.id}">
+      ${l.bloecke.map((b, j) => pfpBlock(b, j, l.bloecke.length)).join("")}
+    </div>
+    <p style="margin:9px 0 0 22px"><button class="pfp-neu klein" type="button" data-tun="neu-block" data-id="${l.id}">+ Block</button></p>
+  </article>`;
+}
+
+function pfpModul(m, i, n){
+  const datei = (pfpSlug(m.name) || "noch-ohne-namen") + ".html";
+  return `<article class="karte k-mod" data-typ="modul" data-id="${m.id}">
+    <div class="k-kopf">${GRIFF}
+      <div>
+        <p class="k-num">Modul ${String(i+1).padStart(2,"0")}</p>
+        <input type="text" class="k-titel" data-feld="name" data-typ="modul" data-id="${m.id}"
+               value="${pfpEsc(m.name)}" placeholder="Name des Moduls" aria-label="Name des Moduls">
+      </div>
+      ${pfpBtns("modul", m.id, i === 0, i === n-1)}
+    </div>
+    <div class="k-rumpf">
+      <textarea data-feld="sub" data-typ="modul" data-id="${m.id}"
+        placeholder="Der Text auf der Kachel: worum es geht, in zwei bis drei Sätzen." aria-label="Text auf der Kachel">${pfpEsc(m.sub)}</textarea>
+    </div>
+    <div class="k-meta">
+      <select data-feld="spur" data-typ="modul" data-id="${m.id}" aria-label="Spur">
+        ${SPUREN.map(([k, t]) => `<option value="${k}"${m.spur === k ? " selected" : ""}>${t}</option>`).join("")}
+      </select>
+      <select data-feld="sprache" data-typ="modul" data-id="${m.id}" aria-label="Sprache">
+        ${SPRACHEN.map(([k, t]) => `<option value="${k}"${m.sprache === k ? " selected" : ""}>${t}</option>`).join("")}
+      </select>
+      <span class="k-datei" data-datei="${m.id}">${datei}</span>
+    </div>
+    <div class="dz tief" data-typ="lektion" data-eltern="${m.id}">
+      ${m.lektionen.map((l, j) => pfpLektion(l, j, m.lektionen.length, m.id, ENTWURF.module.length > 1)).join("")}
+    </div>
+    <p style="margin:9px 0 0 22px"><button class="pfp-neu klein" type="button" data-tun="neu-lektion" data-id="${m.id}">+ Lektion</button></p>
+    <div class="tief" style="display:grid;gap:6px;border-left-style:solid;border-left-color:var(--orange)">
+      <div class="k-fest"><span class="pf">Pflicht</span><span><b>Quiz</b> — fünf aus mindestens zwanzig Fragen</span><span class="pf">fest</span></div>
+      <div class="k-fest"><span class="pf">Pflicht</span><span><b>Der erste Schritt</b> — was der Praktiker zuerst tut</span><span class="pf">fest</span></div>
+    </div>
+  </article>`;
+}
+
+function pfpZeichne(){
+  $("pfpModule").innerHTML = ENTWURF.module.map((m, i) => pfpModul(m, i, ENTWURF.module.length)).join("");
+  const nL = ENTWURF.module.reduce((s, m) => s + m.lektionen.length, 0);
+  const nB = ENTWURF.module.reduce((s, m) => s + m.lektionen.reduce((t, l) => t + l.bloecke.length, 0), 0);
+  $("pfpStand").textContent = ENTWURF.module.length === 0
+    ? "Noch kein Modul im Entwurf"
+    : `${ENTWURF.module.length} Module · ${nL} Inhaltslektionen · ${nB} Blöcke · dazu ${ENTWURF.module.length * 2} Pflichtlektionen`;
+  const pid = pfpSlug(ENTWURF.pfad.name);
+  $("pfpPfadId").textContent = pid ? "Kennung des Pfades: " + pid : "Die Kennung entsteht aus dem Namen.";
+}
+
+/* ---------- Bedienen: Knoepfe, Eingaben, Auswahllisten ---------- */
+const pfpHost = $("pfpModule");
+
+pfpHost.addEventListener("click", e => {
+  const b = e.target.closest("button[data-tun]"); if(!b) return;
+  const {tun, typ, id} = b.dataset;
+  if(tun === "neu-lektion"){
+    const m = ENTWURF.module.find(m => m.id === id);
+    if(m) m.lektionen.push(neuLektion());
+  } else if(tun === "neu-block"){
+    const l = pfpFinde("lektion", id);
+    if(l) l.bloecke.push(neuBlock());
+  } else {
+    const liste = pfpHerkunft(typ, id); if(!liste) return;
+    const i = liste.findIndex(o => o.id === id);
+    if(tun === "weg")         liste.splice(i, 1);
+    else if(tun === "hoch"   && i > 0)                [liste[i-1], liste[i]] = [liste[i], liste[i-1]];
+    else if(tun === "runter" && i < liste.length - 1) [liste[i+1], liste[i]] = [liste[i], liste[i+1]];
+  }
+  pfpZeichne();
+});
+
+/* Beim Tippen wird nur das Modell nachgezogen. Ein Neuzeichnen nähme dem
+   Feld den Fokus mitten im Wort.                                       */
+pfpHost.addEventListener("input", e => {
+  const f = e.target.closest("[data-feld]"); if(!f) return;
+  const {feld, typ, id} = f.dataset;
+  if(feld === "umzug") return;
+  const o = pfpFinde(typ, id); if(!o) return;
+  o[feld] = f.value;
+  if(typ === "modul" && feld === "name"){
+    const anz = pfpHost.querySelector(`[data-datei="${id}"]`);
+    if(anz) anz.textContent = (pfpSlug(f.value) || "noch-ohne-namen") + ".html";
+  }
+});
+
+pfpHost.addEventListener("change", e => {
+  const f = e.target.closest('[data-feld="umzug"]'); if(!f) return;
+  const {id} = f.dataset, zielId = f.value;
+  const quelle = pfpHerkunft("lektion", id), ziel = pfpListe("lektion", zielId);
+  if(!quelle || !ziel || quelle === ziel) return;
+  const [obj] = quelle.splice(quelle.findIndex(o => o.id === id), 1);
+  ziel.push(obj);
+  pfpZeichne();
+});
+
+/* ---------- Ziehen und Ablegen ----------
+   Auf Zeigerereignissen statt auf der HTML5-Schnittstelle. Das ist etwas
+   mehr Arbeit und dafuer auf dem Tastbildschirm dasselbe wie mit der Maus.
+   Ein Geist folgt dem Finger, ein Balken zeigt, wo die Karte landet.   */
+let pfpZieh = null;
+
+function pfpAufraeumen(){
+  if(pfpZieh){
+    if(pfpZieh.geist.parentNode) pfpZieh.geist.remove();
+    if(pfpZieh.platz.parentNode) pfpZieh.platz.remove();
+  }
+  pfpZieh = null;
+  pfpHost.querySelectorAll(".zieht").forEach(k => k.classList.remove("zieht"));
+  pfpHost.querySelectorAll(".ueber").forEach(d => d.classList.remove("ueber"));
+}
+
+pfpHost.addEventListener("pointerdown", e => {
+  if(e.button !== undefined && e.button !== 0) return;
+  const griff = e.target.closest(".griff"); if(!griff) return;
+  const k = griff.closest(".karte"); if(!k) return;
+  e.preventDefault();
+  const r = k.getBoundingClientRect();
+  const geist = k.cloneNode(true);
+  geist.classList.add("geist");
+  geist.style.width = r.width + "px";
+  geist.style.left  = r.left + "px";
+  geist.style.top   = r.top + "px";
+  document.body.appendChild(geist);
+  const platz = document.createElement("div");
+  platz.className = "platz";
+  pfpZieh = {typ:k.dataset.typ, id:k.dataset.id, geist, platz,
+             dx:e.clientX - r.left, dy:e.clientY - r.top};
+  k.classList.add("zieht");
+  try { griff.setPointerCapture(e.pointerId); } catch(err) { /* aelterer Browser */ }
+});
+
+pfpHost.addEventListener("pointermove", e => {
+  if(!pfpZieh) return;
+  e.preventDefault();
+  pfpZieh.geist.style.left = (e.clientX - pfpZieh.dx) + "px";
+  pfpZieh.geist.style.top  = (e.clientY - pfpZieh.dy) + "px";
+  /* Am Rand mitscrollen, sonst endet der Entwurf am Fensterrand. */
+  if(e.clientY < 90) scrollBy(0, -14);
+  else if(e.clientY > innerHeight - 90) scrollBy(0, 14);
+
+  const unter = document.elementFromPoint(e.clientX, e.clientY);
+  const dz = unter && unter.closest ? unter.closest('.dz[data-typ="' + pfpZieh.typ + '"]') : null;
+  pfpHost.querySelectorAll(".ueber").forEach(d => { if(d !== dz) d.classList.remove("ueber"); });
+  if(!dz){ if(pfpZieh.platz.parentNode) pfpZieh.platz.remove(); return; }
+  dz.classList.add("ueber");
+  const karten = [...dz.children].filter(n =>
+    n.classList.contains("karte") && n.dataset.id !== pfpZieh.id);
+  let vor = null;
+  for(const kk of karten){
+    const rr = kk.getBoundingClientRect();
+    if(e.clientY < rr.top + rr.height / 2){ vor = kk; break; }
+  }
+  if(vor) dz.insertBefore(pfpZieh.platz, vor);
+  else    dz.appendChild(pfpZieh.platz);
+});
+
+function pfpAblegen(){
+  if(!pfpZieh) return;
+  const dz = pfpZieh.platz.parentNode;
+  if(dz && dz.classList.contains("dz")){
+    const ziel   = pfpListe(pfpZieh.typ, dz.dataset.eltern);
+    const quelle = pfpHerkunft(pfpZieh.typ, pfpZieh.id);
+    if(ziel && quelle){
+      /* Die gezogene Karte zaehlt nicht mit; damit stimmt der Platz auch
+         dann, wenn sie aus derselben Liste stammt.                     */
+      const reihe = [...dz.children].filter(n =>
+        (n.classList.contains("karte") && n.dataset.id !== pfpZieh.id) || n === pfpZieh.platz);
+      const wohin = reihe.indexOf(pfpZieh.platz);
+      const von = quelle.findIndex(o => o.id === pfpZieh.id);
+      if(von >= 0 && wohin >= 0){
+        const [obj] = quelle.splice(von, 1);
+        ziel.splice(Math.max(0, Math.min(wohin, ziel.length)), 0, obj);
+      }
+    }
+  }
+  pfpAufraeumen();
+  pfpZeichne();
+}
+pfpHost.addEventListener("pointerup", pfpAblegen);
+pfpHost.addEventListener("pointercancel", () => { pfpAufraeumen(); pfpZeichne(); });
+
+/* ---------- Entwurf anlegen und leeren ---------- */
+$("pfpNeuModul").addEventListener("click", () => { ENTWURF.module.push(neuModul()); pfpZeichne(); });
+$("pfpPfadName").addEventListener("input", e => { ENTWURF.pfad.name = e.target.value; pfpZeichne(); });
+$("pfpPfadSub").addEventListener("input", e => { ENTWURF.pfad.sub = e.target.value; });
+
+$("pfpLeer").addEventListener("click", () => {
+  ENTWURF.pfad.name = ""; ENTWURF.pfad.sub = ""; ENTWURF.module.length = 0;
+  $("pfpPfadName").value = ""; $("pfpPfadSub").value = "";
+  $("pfpOut").value = ""; $("pfpMsg").textContent = ""; $("pfpMiss").hidden = true;
+  pfpZeichne();
+});
+
+$("pfpBsp").addEventListener("click", () => {
+  ENTWURF.pfad.name = "Grundlagen Cyber-Security";
+  ENTWURF.pfad.sub  = "Vom Begriff über die Bedrohungslage bis zu den ersten Maßnahmen im eigenen Haus.";
+  $("pfpPfadName").value = ENTWURF.pfad.name;
+  $("pfpPfadSub").value  = ENTWURF.pfad.sub;
+  ENTWURF.module.length = 0;
+  ENTWURF.module.push({
+    id:pfpId(), name:"Einführung in Cyber-Security", spur:"sec", sprache:"de",
+    sub:"Was der Begriff meint, wovor geschützt wird und wer im Unternehmen wofür zuständig ist. Der Einstieg in den Pfad.",
+    lektionen:[
+      {id:pfpId(), name:"Was Cyber-Security meint",
+       kern:"Sicherheit ist kein Zustand, sondern eine Reihe von Entscheidungen unter Unsicherheit.",
+       bloecke:[
+         {id:pfpId(), name:"Drei Schutzziele", text:"Vertraulichkeit, Integrität, Verfügbarkeit. Warum die drei zusammengehören und warum sie sich gegenseitig im Weg stehen können."},
+         {id:pfpId(), name:"Was ein Angriff kostet", text:"Nicht die Wiederherstellung ist teuer, sondern der Stillstand daneben."}
+       ]},
+      {id:pfpId(), name:"Die Bedrohungslage",
+       kern:"Die meisten Vorfälle sind keine Kunststücke, sondern Gelegenheiten.",
+       bloecke:[
+         {id:pfpId(), name:"Die häufigsten Einfallstore", text:"Phishing, veraltete Software, zu weit gefasste Rechte. Drei Muster, die zusammen den größten Teil ausmachen."}
+       ]}
+    ]
+  });
+  pfpZeichne();
+});
+
+/* ---------- Aus dem Entwurf einen Auftrag machen ---------- */
+const pfpSpurName = k => (SPUREN.find(s => s[0] === k) || ["", k])[1];
+const pfpSprName  = k => (SPRACHEN.find(s => s[0] === k) || ["", k])[1];
+const pfpLinie    = z => "".padEnd(62, z);
+const pfpWert     = v => (v || "").trim() || "— noch offen —";
+
+function pfpLuecken(){
+  const fehlt = [];
+  if(!ENTWURF.pfad.name.trim()) fehlt.push("der Name des Lernpfads");
+  ENTWURF.module.forEach((m, i) => {
+    const wo = `Modul ${i+1}`;
+    if(!m.name.trim()) fehlt.push(`der Name von ${wo}`);
+    if(!m.sub.trim())  fehlt.push(`der Kacheltext von ${wo}`);
+    m.lektionen.forEach((l, j) => {
+      if(!l.name.trim()) fehlt.push(`der Name von ${wo}, Lektion ${j+1}`);
+      l.bloecke.forEach((b, k) => {
+        if(!b.name.trim()) fehlt.push(`die Überschrift von ${wo}, Lektion ${j+1}, Block ${k+1}`);
+      });
+    });
+  });
+  return fehlt;
+}
+
+function pfpAuftrag(){
+  const P = ENTWURF.pfad;
+  let s = "AUFTRAG: LERNPFAD UND MODULHUELLEN ANLEGEN\n" + pfpLinie("=") + "\n\n";
+  s += "Erzeugt mit dem Pfadplaner aus content-werkstatt.html. Jedes Modul\n";
+  s += "entsteht als Huelle nach dem Modulvertrag: Struktur, Ueberschriften\n";
+  s += "und die Saetze darunter stehen, der Inhalt kommt spaeter.\n\n";
+
+  s += "LERNPFAD\n";
+  s += "  Kennung    " + (pfpSlug(P.name) || "— noch offen —") + "\n";
+  s += "  Titel      " + pfpWert(P.name) + "\n";
+  s += "  Ein Satz   " + pfpWert(P.sub) + "\n\n";
+
+  ENTWURF.module.forEach((m, i) => {
+    s += pfpLinie("-") + "\n";
+    s += `MODUL ${String(i+1).padStart(2,"0")}   ` + (pfpSlug(m.name) || "noch-ohne-namen") + ".html\n";
+    s += "  Titel      " + pfpWert(m.name) + "\n";
+    s += "  Spur       " + pfpSpurName(m.spur) + (m.spur === "neu" ? "  (Name der Spur noch offen)" : ` (${m.spur})`) + "\n";
+    s += "  Sprache    " + pfpSprName(m.sprache) + "\n";
+    s += "  Kachel     " + pfpWert(m.sub) + "\n\n";
+    m.lektionen.forEach((l, j) => {
+      s += `  LEKTION ${String(j+1).padStart(2,"0")}   ` + pfpWert(l.name) + "\n";
+      s += "    Kernaussage  " + pfpWert(l.kern) + "\n";
+      l.bloecke.forEach((b, k) => {
+        s += `    BLOCK ${String(k+1).padStart(2,"0")}   ` + pfpWert(b.name) + "\n";
+        s += "      " + pfpWert(b.text) + "\n";
+      });
+      s += "\n";
+    });
+    const n = m.lektionen.length;
+    s += `  LEKTION ${String(n+1).padStart(2,"0")}   Quiz                (Pflicht)\n`;
+    s += `  LEKTION ${String(n+2).padStart(2,"0")}   Der erste Schritt   (Pflicht)\n\n`;
+  });
+
+  s += pfpLinie("=") + "\n";
+  s += "SO SOLL GEBAUT WERDEN\n\n";
+  s += "1. Je Modul eine eigene HTML-Datei unter dem oben genannten Namen,\n";
+  s += "   in sich geschlossen, ohne Build und ohne Server.\n";
+  s += "2. Der Stilblock und die Mechanik werden aus einer bestehenden Huelle\n";
+  s += "   uebernommen, damit der :root-Block identisch bleibt.\n";
+  s += "3. Jede Inhaltslektion bekommt ihre Kernaussage als sichtbaren Vorspann\n";
+  s += "   und je Block eine Ueberschrift mit dem angegebenen ersten Absatz.\n";
+  s += "   Alles Weitere bleibt als gestrichelter Platzhalter offen.\n";
+  s += "4. Quiz und Praxiseinstieg wie in der bestehenden Huelle: Mechanik\n";
+  s += "   lauffaehig, mit Beispieleintraegen, an denen das Format ablesbar ist.\n";
+  s += "5. Jede Lektion endet mit einem Pointe-Kasten, vorerst als Platzhalter.\n";
+  s += "6. Alle Module in index.html eintragen, mit status \"planned\", aber mit\n";
+  s += "   einem Verweis, damit sich die Huelle oeffnen laesst.\n";
+  s += "7. Den Lernpfad in const PATHS anlegen, mit den Modulen in der Reihen-\n";
+  s += "   folge von oben.\n";
+  if(ENTWURF.module.some(m => m.spur === "neu"))
+    s += "8. Fuer die als neu markierte Spur eine neue Spur anlegen und im Pull\n   Request nachfragen, wie sie heissen soll.\n";
+  s += "\nDie Sprachpruefung und die Playwright-Pruefung laufen wie immer.\n";
+  return s;
+}
+
+$("pfpGo").addEventListener("click", () => {
+  if(ENTWURF.module.length === 0){
+    $("pfpOut").value = "";
+    $("pfpMiss").hidden = false;
+    $("pfpMiss").innerHTML = "<b>Noch kein Modul im Entwurf.</b> Leg mindestens eines an — oder lade das Beispiel, um zu sehen, wie es gemeint ist.";
+    $("pfpMsg").textContent = "";
+    return;
+  }
+  $("pfpOut").value = pfpAuftrag();
+  const fehlt = pfpLuecken();
+  $("pfpMiss").hidden = fehlt.length === 0;
+  if(fehlt.length){
+    const zeig = fehlt.slice(0, 6).join(", ");
+    $("pfpMiss").innerHTML = "<b>Noch offen:</b> " + zeig +
+      (fehlt.length > 6 ? ` und ${fehlt.length - 6} weitere Stellen` : "") +
+      ". Der Auftrag lässt sich trotzdem abgeben — die offenen Stellen stehen darin als solche.";
+  }
+  $("pfpMsg").textContent = "";
+});
+
+$("pfpCopy").addEventListener("click", () => {
+  if(ENTWURF.module.length === 0){ $("pfpMsg").textContent = "Nichts zu kopieren."; return; }
+  if(!$("pfpOut").value) $("pfpOut").value = pfpAuftrag();
+  const feld = $("pfpOut");
+  feld.removeAttribute("readonly");
+  feld.select(); feld.setSelectionRange(0, feld.value.length);
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch(err) { ok = false; }
+  feld.setAttribute("readonly", "");
+  if(ok){ $("pfpMsg").textContent = "Kopiert."; return; }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(feld.value)
+      .then(() => { $("pfpMsg").textContent = "Kopiert."; })
+      .catch(() => { $("pfpMsg").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand."; });
+  } else {
+    $("pfpMsg").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand.";
+  }
+});
+
+pfpZeichne();
+
+/* =====================================================================
+   9 · Lektionen
+   ===================================================================== */
+const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","p","d","e"];
 function select(i){
   tabs.forEach((t, j) => {
     const on = i === j;
