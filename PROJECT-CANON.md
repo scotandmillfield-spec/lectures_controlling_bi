@@ -21,8 +21,8 @@ geändert werden · **[offen]** = braucht eine Entscheidung.
 - **Großhandel:** Sie liefert geröstete Bohnen an **Bäckereien** und an **andere Kaffeehäuser**
 - **keine eigene Bäckerei**
 
-**[gesetzt]** Angefangen hat alles mit dem **Coffeebike**. Es ist nicht der jüngste Zweig des
-Geschäfts, sondern der erste — Kaffeehäuser, Rösterei und Großhandel sind daraus gewachsen.
+**[gesetzt]** Angefangen hat alles mit dem **Coffeebike**. Es ist der erste Zweig des Geschäfts —
+Kaffeehäuser, Rösterei und Großhandel sind daraus gewachsen.
 Deshalb taucht das Rad in der Fallstudie zweimal auf: am Anfang als Keimzelle und am Ende als
 Traum.
 
@@ -68,7 +68,7 @@ eigenen studentischen Hilfskraft gebaut — das erklärt, warum ein Betrieb dies
 **[gesetzt]** Sofia hat viele gute Ideen und ist in der Umsetzung tollpatschig. Sie liest eine
 Kennzahl, zieht sofort einen Schluss und handelt. Nguyen holt sie herunter: Sie fragt, was die
 Zahl eigentlich zählt, und gemeinsam wird daraus etwas Professionelles. Sofia lernt dabei
-jedes Mal etwas — sie ist nicht die Dumme, sondern die Ungeduldige.
+jedes Mal etwas — sie ist die Ungeduldige, und dumm ist sie an keiner Stelle.
 
 Dieses Muster zieht sich durch jedes Modul: **Sofia stellt die Frage falsch, Nguyen stellt sie richtig.**
 Alex, der Controller, bringt die Methode dazu — Plan gegen Ist, Abweichung, Ursache.
@@ -77,9 +77,8 @@ Alex, der Controller, bringt die Methode dazu — Plan gegen Ist, Abweichung, Ur
 gehören in die Vorlesung, nicht in die Module — sie altern schlecht und nicht jede Kohorte
 kennt sie.
 
-**Zu den Personalnummern:** Anna hat E-042, obwohl es nur zehn Stellen gibt. Das ist kein
-Fehler, sondern Absicht — bei studentischer Belegschaft mit hoher Fluktuation sind
-Nummernkreise längst weitergelaufen. Genau deshalb braucht es Surrogatschlüssel.
+**Zu den Personalnummern:** Anna hat E-042, obwohl es nur zehn Stellen gibt. Das ist Absicht — bei studentischer
+Belegschaft mit hoher Fluktuation sind Nummernkreise längst weitergelaufen. Genau deshalb braucht es Surrogatschlüssel.
 
 ---
 
@@ -94,7 +93,7 @@ gebauten Modulen und bleibt, damit der Änderungsaufwand klein ist.
 | **Kaffeehaus Alsergrund** | Universitätsnah. Studierende, Nachfrage folgt dem Semesterrhythmus, kleinerer Bon, hohe Frequenz |
 | **Coffeebike** | Mobil. Standort wechselt täglich — Märkte, Veranstaltungen, Firmenfeste |
 | **Rösterei** | Produktion, kein Verkauf an Endkunden |
-| **Großhandel** | Kein Ort, sondern ein Kanal: Lieferung an Bäckereien |
+| **Großhandel** | Ein Kanal ohne eigenen Ort: Lieferung an Bäckereien |
 
 Das Coffeebike ist als vierter Eintrag der Standortdimension wertvoll: Ein Verkaufsort, dessen
 Position sich laufend ändert, wirft von selbst die Frage auf, was eigentlich das

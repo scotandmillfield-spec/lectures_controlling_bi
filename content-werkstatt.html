@@ -260,7 +260,7 @@ svg.hier .edge.hot{stroke:var(--orange);stroke-width:2.2}
 /* ---------- Der Pfadplaner: die Buehne ----------
    Die Elemente liegen als Kaesten auf einer Flaeche und sind mit Pfeilen
    verbunden. Ein Knoten hat eine feste Groesse — deshalb laesst sich jeder
-   Pfeil rechnen statt messen. Das ist kein Geiz, sondern Absicht: In einem
+   Pfeil rechnen statt messen. Das ist Absicht: In einem
    zugeklappten Block liefert jede Messung nur Nullen, und die Zeichnung
    entartete auf einen Punkt.                                            */
 .pfp{display:grid;grid-template-columns:minmax(0,1fr) 264px;gap:14px;align-items:start}
@@ -554,7 +554,7 @@ footer a{color:var(--teal-dk)}
 
 <!-- ==================== LEKTION 02 · DER BAUPLAN ==================== -->
 <section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
-  <p class="claim">Jedes Modul hat <b>mindestens drei Lektionen</b> und endet immer mit denselben zweien. Das ist kein Formalismus, sondern die Antwort auf eine Beobachtung: Wer ein Thema verstanden hat, weiß deshalb noch nicht, was er am Montag tun soll.</p>
+  <p class="claim">Jedes Modul hat <b>mindestens drei Lektionen</b> und endet immer mit denselben zweien. Dahinter steht eine Beobachtung: Wer ein Thema verstanden hat, weiß deshalb noch nicht, was er am Montag tun soll.</p>
 
   <h2 class="sec">Drei Lektionen, mindestens</h2>
   <p class="sub">Die ersten sind so viele, wie der Stoff braucht. Die letzten beiden sind gesetzt.</p>
@@ -659,7 +659,7 @@ footer a{color:var(--teal-dk)}
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Die Größe wird nicht am Modul geregelt, sondern an der Lektion. Ein Modul darf zwölf Lektionen haben — <b>eine Lektion darf keine dreißig Minuten haben</b>.</p>
+    <p>Die Größe wird an der Lektion geregelt, nie am Modul. Ein Modul darf zwölf Lektionen haben — <b>eine Lektion darf keine dreißig Minuten haben</b>.</p>
   </div>
 </section>
 
@@ -834,7 +834,7 @@ footer a{color:var(--teal-dk)}
   <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen. Kein Zeitdruck, keine Bewertung, die irgendwo landet — die Begründung steht nach jeder Antwort da, auch nach der richtigen.</p>
 
   <h2 class="sec">Übung</h2>
-  <p class="sub">Wer eine Frage verfehlt, hat meist keine Wissenslücke, sondern eine Regel zu allgemein verstanden. Genau darum steht die Begründung dabei.</p>
+  <p class="sub">Wer eine Frage verfehlt, hat meist eine Regel zu allgemein verstanden. Am Wissen liegt es selten. Genau darum steht die Begründung dabei.</p>
   <div class="bar">
     <div class="seg" role="group" aria-label="Übung">
       <button id="qNew" type="button">Fünf neue Fragen</button>
@@ -942,7 +942,7 @@ footer a{color:var(--teal-dk)}
       </div>
       <div class="bf">
         <label for="bMaterial">Material, das Du mitlieferst</label>
-        <span class="why">PDF, Grafiken, Foliensatz, Tabellen. Grafiken werden nicht übernommen, sondern neu aufgebaut — sie dienen als Vorlage, nicht als Datei.</span>
+        <span class="why">PDF, Grafiken, Foliensatz, Tabellen. Grafiken werden neu aufgebaut; sie dienen als Vorlage, nicht als Datei.</span>
         <textarea id="bMaterial" placeholder="Ein PDF mit dem Ablauf, zwei Skizzen als PNG, eine Tabelle mit den Quartalszahlen"></textarea>
       </div>
     </div>
@@ -965,7 +965,7 @@ footer a{color:var(--teal-dk)}
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der aufwendigste Teil eines Moduls ist nicht das Schreiben, sondern die zehn Entscheidungen davor. Wer sie <b>vorher</b> trifft, bekommt ein Modul. Wer sie offen lässt, bekommt einen Terminvorschlag.</p>
+    <p>Der aufwendigste Teil eines Moduls sind die zehn Entscheidungen vor dem Schreiben. Wer sie <b>vorher</b> trifft, bekommt ein Modul. Wer sie offen lässt, bekommt einen Terminvorschlag.</p>
   </div>
 </section>
 
@@ -1030,13 +1030,13 @@ const KANON = [
   ["Die Personen", "Keine Nachnamen",
    "Sofia ist die Inhaberin, Nguyen die Werkstudentin für Controlling und BI, Alex der Controller. Dazu Anna, Jonas, Klara, Elif und Tobias. <b>Niemand hat einen Nachnamen</b>, und neue Namen werden nicht ohne Rückfrage erfunden."],
   ["Die Regieanweisung", "Sofia fragt falsch, Nguyen fragt richtig",
-   "Sofia hat gute Ideen und handelt zu schnell: Sie liest eine Kennzahl und zieht sofort einen Schluss. Nguyen fragt, was die Zahl eigentlich zählt. Alex bringt die Methode dazu. <b>Dieses Muster zieht sich durch jedes Modul</b> — Sofia ist nicht die Dumme, sondern die Ungeduldige."],
+   "Sofia hat gute Ideen und handelt zu schnell: Sie liest eine Kennzahl und zieht sofort einen Schluss. Nguyen fragt, was die Zahl eigentlich zählt. Alex bringt die Methode dazu. <b>Dieses Muster zieht sich durch jedes Modul</b> — Sofia ist die Ungeduldige, und dumm ist sie an keiner Stelle."],
   ["Die Standorte", "Drei Verkaufsorte, einer davon mobil",
    "Ringstraße liegt zentral: Touristen und Pendler, gleichmäßige Auslastung, höherer Bon. Alsergrund liegt universitätsnah: die Nachfrage folgt dem Semesterrhythmus, kleinerer Bon, hohe Frequenz. Das Coffeebike wechselt den Standort täglich."],
   ["Die Zahl, die nicht wandert", "145.500 €",
    "Die Quartalssumme bleibt über alle Varianten der Slowly Changing Dimensions hinweg gleich: <b>145.500 €</b>. Genau das ist der didaktische Kern — die Summe stimmt immer, und trotzdem sagt jeder Bericht etwas anderes. Diese Zahl wird nie angepasst."],
   ["Der Anfang", "Erst kam das Rad",
-   "Angefangen hat alles mit dem Coffeebike. Es ist nicht der jüngste Zweig, sondern der erste — Kaffeehäuser, Rösterei und Großhandel sind daraus gewachsen. Deshalb taucht es in der Fallstudie zweimal auf: als Keimzelle und als Traum."]
+   "Angefangen hat alles mit dem Coffeebike. Es ist der erste Zweig — Kaffeehäuser, Rösterei und Großhandel sind daraus gewachsen. Deshalb taucht es in der Fallstudie zweimal auf: als Keimzelle und als Traum."]
 ];
 $("kanon").innerHTML = KANON.map(([kat, wort, txt], i) =>
   "<button class=\"flip\" type=\"button\" aria-expanded=\"false\" data-i=\"" + i + "\">" +
@@ -1091,7 +1091,7 @@ plZeichne();
    ===================================================================== */
 const STEPS = [
   ["Schreib die Frage auf, die das Modul beantwortet", "Ein Satz, und zwar eine Frage",
-   "<p>Nicht das Thema, sondern die Frage. „Kostenrechnung“ ist ein Thema. „Welche Kosten darf ich einer Filiale zurechnen?“ ist eine Frage, und sie sagt Dir sofort, was ins Modul gehört und was nicht.</p><p>Diese Zeile wird später zur Kernaussage der ersten Lektion und zum Untertitel der Kachel.</p>",
+   "<p>Die Frage zählt, nicht das Thema. „Kostenrechnung“ ist ein Thema. „Welche Kosten darf ich einer Filiale zurechnen?“ ist eine Frage, und sie sagt Dir sofort, was ins Modul gehört und was nicht.</p><p>Diese Zeile wird später zur Kernaussage der ersten Lektion und zum Untertitel der Kachel.</p>",
    "Bleibt sie offen, wächst das Modul während des Schreibens, weil kein Kriterium sagt, wo Schluss ist."],
   ["Entscheide über den Fall", "Sofia oder ein eigener",
    "<p>Der Normalfall ist Sofias Kaffeehausbetrieb. Prüfe, ob er Dein Thema hergibt: Gibt es dort die Rollen, die Mengen, die Konflikte, die Du brauchst?</p><p>Gibt er es nicht her, ist ein eigener Fall erlaubt — aber er wird begründet und sichtbar getrennt ausgewiesen, in der Kachel und im Fußtext.</p>",
@@ -1107,9 +1107,9 @@ const STEPS = [
    "Quiz und Praxiseinstieg musst Du nicht aufführen — die kommen ohnehin dazu. Aber sie zählen mit, wenn Du überlegst, wie groß das Modul insgesamt wird."],
   ["Sammle die Zahlen", "Jede einzelne, vollständig",
    "<p>Jede Zahl, die im Modul steht, muss von irgendwoher kommen. Liefere sie als Tabelle oder Liste, nicht als Verweis auf ein System, das hier niemand aufmacht.</p><p>Gehört die Zahl zu Sofias Betrieb, wird sie in den Kanon aufgenommen und gilt ab dann für alle Module.</p>",
-   "Fehlt eine Zahl, wird sie nicht erfunden, sondern nachgefragt. Das kostet einen Tag — eine erfundene Zahl kostet später ein ganzes Modul."],
+   "Fehlt eine Zahl, wird sie nachgefragt und nie erfunden. Das kostet einen Tag — eine erfundene Zahl kostet später ein ganzes Modul."],
   ["Nenn die Quellen", "Autor und Jahr",
-   "<p>Fachliteratur und Normen sind erwünscht und sollen im Fließtext auftauchen: als Zitat mit Seitenangabe oder als Hinweis im Satz.</p><p>Kursbücher und Kurskennungen können nicht verwendet werden, auch nicht als stiller Hintergrund. Abbildungen daraus werden nicht reproduziert, sondern eigenständig neu aufgebaut.</p>",
+   "<p>Fachliteratur und Normen sind erwünscht und sollen im Fließtext auftauchen: als Zitat mit Seitenangabe oder als Hinweis im Satz.</p><p>Kursbücher und Kurskennungen können nicht verwendet werden, auch nicht als stiller Hintergrund. Abbildungen daraus werden eigenständig neu aufgebaut.</p>",
    "Ein Block, der mit „Fachliteratur“ überschrieben ist, sagt nichts über den Inhalt. Genannt wird der Autor, nicht die Gattung der Quelle."],
   ["Markier, was man anfassen können soll", "Was reagiert, wenn jemand klickt",
    "<p>Das ist der Unterschied zwischen einem Modul und einem PDF. Sag konkret, welches Element reagieren soll und worauf: ein Regler, der eine Kurve wandern lässt, ein Schalter, der ein Sternschema in ein Snowflake dreht, eine Karte, auf der sich ein Punkt bewegt.</p><p>Eine Grafik, die nur dasteht, ist ein Bild. Bilder sind erlaubt, aber sie sind nicht der Grund, warum es diese Plattform gibt.</p>",
@@ -1118,7 +1118,7 @@ const STEPS = [
    "<p>Jede Lektion endet mit einem Satz, der hängen bleiben soll. Er überrascht, oder er dreht etwas um, das vorher selbstverständlich schien. Eine Zusammenfassung ist keine Pointe.</p><p>Dazu der Fragenvorrat für das Quiz: mindestens zwanzig Fragen mit je vier Antworten, einer richtigen und einer Begründung. Die Begründung ist wichtiger als die Frage.</p>",
    "Wer die Pointe nicht schreiben kann, hat die Lektion meist noch nicht zu Ende gedacht. Das ist ein nützliches Signal, kein Formfehler."],
   ["Stell das Material bereit", "PDF und Grafiken, dann übernimmt der Einbau",
-   "<p>Am Ende steht ein Ordner: Dein Text als PDF oder Dokument, die Skizzen als Bilddateien, die Zahlen als Tabelle, dazu der Briefing-Bogen von dieser Seite. Damit wird das Modul gebaut.</p><p>Grafiken werden dabei <b>nicht übernommen, sondern neu aufgebaut</b> — sie dienen als Vorlage für Aufbau und Aussage, nicht als Datei, die eingebettet wird. Eine saubere Handskizze ist deshalb genauso brauchbar wie eine fertige Zeichnung.</p>",
+   "<p>Am Ende steht ein Ordner: Dein Text als PDF oder Dokument, die Skizzen als Bilddateien, die Zahlen als Tabelle, dazu der Briefing-Bogen von dieser Seite. Damit wird das Modul gebaut.</p><p>Grafiken werden dabei <b>neu aufgebaut</b> — sie dienen als Vorlage für Aufbau und Aussage, nicht als Datei, die eingebettet wird. Eine saubere Handskizze ist deshalb genauso brauchbar wie eine fertige Zeichnung.</p>",
    "Liefere lieber zu viel Kontext als zu wenig. Was in Deinem Kopf offensichtlich ist, ist beim Einbau eine Rückfrage."]
 ];
 $("steps").innerHTML = STEPS.map(([hd, sub, bd, warn], i) => {
@@ -1821,13 +1821,13 @@ $("pfpBsp").addEventListener("click", () => {
     "Was der Begriff meint, wovor geschützt wird und wer im Unternehmen wofür zuständig ist. Der Einstieg in den Pfad.",
     {spur:"sec", sprache:"de"});
   const l1 = setz("lektion", "Was Cyber-Security meint",
-    "Sicherheit ist kein Zustand, sondern eine Reihe von Entscheidungen unter Unsicherheit.");
+    "Sicherheit ist eine Reihe von Entscheidungen unter Unsicherheit.");
   const l2 = setz("lektion", "Die Bedrohungslage",
-    "Die meisten Vorfälle sind keine Kunststücke, sondern Gelegenheiten.");
+    "Die meisten Vorfälle nutzen eine Gelegenheit aus, die offen stand.");
   const b1 = setz("block", "Drei Schutzziele",
     "Vertraulichkeit, Integrität, Verfügbarkeit. Warum die drei zusammengehören und warum sie sich gegenseitig im Weg stehen können.");
   const b2 = setz("block", "Was ein Angriff kostet",
-    "Nicht die Wiederherstellung ist teuer, sondern der Stillstand daneben.");
+    "Teuer wird der Stillstand neben der Wiederherstellung.");
   const b3 = setz("block", "Die häufigsten Einfallstore",
     "Phishing, veraltete Software, zu weit gefasste Rechte. Drei Muster, die zusammen den größten Teil ausmachen.");
   PLAN.kanten.push({von:w.id, nach:m.id}, {von:m.id, nach:l1.id}, {von:m.id, nach:l2.id},

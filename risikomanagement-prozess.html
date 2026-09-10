@@ -557,7 +557,7 @@ footer a{color:var(--teal-dk)}
 <header class="masthead">
   <p class="eyebrow">Controlling und Risikomanagement der Supply Chain</p>
   <h1>Zwei Menschen, ein Risiko, <em>zwei Zahlen</em></h1>
-  <p class="lede">Jeder schätzt Risiken. Die Frage ist, ob zwei Menschen dasselbe Risiko gleich schätzen — und was passiert, wenn sie es nicht tun. Dieses Modul nimmt die vier Phasen des Regelkreises einzeln auseinander und beginnt deshalb nicht mit einer Definition, sondern mit Deiner eigenen Schätzung. In Lektion 04 bekommst Du sie zurück. Der Fall ist ein eigener: ein Zulieferer für Nutzfahrzeugkomponenten, nicht Sofias Kaffeehausbetrieb.</p>
+  <p class="lede">Jeder schätzt Risiken. Die Frage ist, ob zwei Menschen dasselbe Risiko gleich schätzen — und was passiert, wenn sie es nicht tun. Dieses Modul nimmt die vier Phasen des Regelkreises einzeln auseinander und beginnt deshalb mit Deiner eigenen Schätzung. Die Definition kommt später. In Lektion 04 bekommst Du sie zurück. Der Fall ist ein eigener: ein Zulieferer für Nutzfahrzeugkomponenten, nicht Sofias Kaffeehausbetrieb.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Der Risikomanagement-Prozess">
@@ -604,7 +604,7 @@ footer a{color:var(--teal-dk)}
   <p class="sub" style="margin-top:12px">Ergebnis ist eine Dokumentation mit Kurzbeschreibung der potenziellen Risiken, dem Zusammenhang von Ursache und Wirkung, dem Zeitpunkt des wahrscheinlichen Eintreffens, den erforderlichen Randbedingungen und der potenziellen Tragweite. Ein probates Mittel sind <b>Risiko-Checklisten</b> auf Basis von Erfahrungswerten aus historischen Aufzeichnungen, die um neue Erfahrungen ergänzt werden.</p>
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Die Identifikation bleibt <b>prinzipiell unvollständig</b>, und das ist keine Ausrede, sondern eine Eigenschaft. Wer Vollständigkeit verspricht, hat entweder eine sehr kleine Kette oder eine sehr kurze Liste.</p>
+    <p>Die Identifikation bleibt <b>prinzipiell unvollständig</b>. Das ist eine Eigenschaft des Verfahrens und taugt trotzdem nicht als Ausrede. Wer Vollständigkeit verspricht, hat entweder eine sehr kleine Kette oder eine sehr kurze Liste.</p>
   </div>
 </section>
 
@@ -866,7 +866,7 @@ Differenz: 30 −  4       = 26</div>
 
 <!-- ==================== LEKTION 04 · ÜBERWACHEN ==================== -->
 <section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
-  <p class="claim">Jedes strategische Ziel hat eine <b>Chancenseite</b> und eine <b>Risikoseite</b>. Risikoüberwachung ist deshalb keine eigene Disziplin neben der Steuerung, sondern <b>deren Rückseite</b>.</p>
+  <p class="claim">Jedes strategische Ziel hat eine <b>Chancenseite</b> und eine <b>Risikoseite</b>. Risikoüberwachung ist deshalb <b>die Rückseite der Steuerung</b> und keine Disziplin daneben.</p>
 
   <h2 class="sec">Die vier Aufgaben der Überwachung</h2>
   <div class="quad" id="ueberw"></div>
@@ -908,7 +908,7 @@ Differenz: 30 −  4       = 26</div>
         <p class="m" style="font-family:var(--mono);font-size:.8rem;line-height:1.7">Expected Annual Loss · Cyber Resilience Index · Cyber-Value at Risk · Meantime to detect · Meantime to respond · CLI · Phishing click through rate · Service Downtime per Customer · Patch Compliance Rate</p></div>
     </div>
     <div class="readme warn" style="margin-top:14px">
-      <b>Die Aussage der gestrichelten Linien.</b> Sie verbinden die Cyber-Resilience-Kennzahlen mit den übrigen Perspektiven. Ein Cyberrisiko ist damit <b>kein IT-Thema</b>, sondern ein Finanz-, Markt- und Prozessthema — mit entsprechend verteilter Verantwortung bis ins C-Level.
+      <b>Die Aussage der gestrichelten Linien.</b> Sie verbinden die Cyber-Resilience-Kennzahlen mit den übrigen Perspektiven. Ein Cyberrisiko ist damit ein Finanz-, Markt- und Prozessthema — mit entsprechend verteilter Verantwortung bis ins C-Level. In der IT-Abteilung allein lässt es sich nicht halten.
     </div>
   </div>
 
@@ -938,7 +938,7 @@ Differenz: 30 −  4       = 26</div>
   <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen. Kein Zeitdruck, keine Bewertung, die irgendwo landet — die Begründung steht nach jeder Antwort da, auch nach der richtigen.</p>
 
   <h2 class="sec">Übung</h2>
-  <p class="sub">Der Vorrat deckt alle vier Phasen ab. Wer eine Frage verfehlt, hat meist keine Wissenslücke, sondern eine Rechenregel zu grob im Kopf.</p>
+  <p class="sub">Der Vorrat deckt alle vier Phasen ab. Wer eine Frage verfehlt, hat meist eine Rechenregel zu grob im Kopf. Am Wissen liegt es selten.</p>
   <div class="wsbar">
     <div class="seg" role="group" aria-label="Übung">
       <button id="qNew" type="button">Fünf neue Fragen</button>
@@ -1053,7 +1053,7 @@ const LERNEINHEIT = {
      wirk:"Verhindert den Angriff nicht, verkürzt aber den Stillstand von Wochen auf Tage."},
     {id:"M4", risikoId:"R1", name:"Cyber-Versicherung",
      typ:"korrektiv", dW:0, dS:-1, aufwand:30,
-     wirk:"Überwälzung. Verhindert kein Ereignis, sondern verschiebt die finanzielle Folge."}
+     wirk:"Überwälzung. Verschiebt die finanzielle Folge; das Ereignis tritt trotzdem ein."}
   ],
 
   strategien:[
@@ -1076,7 +1076,7 @@ const LERNEINHEIT = {
     {id:"accept", de:"Akzeptieren", en:"Acceptance", richtung:"keine", typ:"keiner",
      dW:0, dS:0, teilt:false,
      kurz:"Der Punkt bleibt, wo er ist.",
-     text:"Keine Bewegung. Akzeptieren ist keine Untätigkeit, sondern eine bewusste Entscheidung nach der Bewertung — und sie gehört dokumentiert. Ignorieren dagegen ist das Auslassen der Bewertung."}
+     text:"Keine Bewegung. Akzeptieren ist eine bewusste Entscheidung nach der Bewertung, und sie gehört dokumentiert. Ignorieren dagegen ist das Auslassen der Bewertung."}
   ],
 
   einstieg:{risikoIds:["R3","R7"]},
@@ -1116,7 +1116,7 @@ const LERNEINHEIT = {
 
   streit:[
     {t:"R3 und der schwarze Schwan",
-     p:"Das Erdbeben hat das höchstmögliche Schadensausmaß und landet dennoch im <b>grünen</b> Bereich, weil die Wahrscheinlichkeit mit 1 bewertet ist. Der Risikofaktor stuft es als tragbar ein, obwohl es ein Kettenglied vernichten kann. Das ist die strukturelle Schwäche der multiplikativen Bewertung. Die Antwort darauf ist keine bessere Formel, sondern ein anderes Instrument: der <b>Notfallplan</b>."},
+     p:"Das Erdbeben hat das höchstmögliche Schadensausmaß und landet dennoch im <b>grünen</b> Bereich, weil die Wahrscheinlichkeit mit 1 bewertet ist. Der Risikofaktor stuft es als tragbar ein, obwohl es ein Kettenglied vernichten kann. Das ist die strukturelle Schwäche der multiplikativen Bewertung. Die Antwort darauf liegt in einem anderen Instrument: dem <b>Notfallplan</b>. An der Formel ist nichts zu verbessern."},
     {t:"R7 gegen R2",
      p:"Der Bullwhip-Effekt liegt mit Risikofaktor 12 im roten Bereich, der Ausfall des Single-Source-Lieferanten mit 10 im gelben. Nach der Zahl ist die Fehlprognose das dringendere Problem. Würdest Du dieser Reihenfolge folgen? Die Karte <b>ordnet</b>, sie entscheidet nicht."},
     {t:"R6 und der Preis der Vergleichbarkeit",
@@ -1224,7 +1224,7 @@ const risk = id => LERNEINHEIT.risiken.find(r => r.id === id);
    2 · Tooltip
    ===================================================================== */
 const REG = {
-  pot1:["Faktor 1 · Bedrohung","Eine konkrete, begründete Bedrohung. Nicht „irgendwann könnte etwas passieren“, sondern ein benennbares Ereignis mit benennbarer Ursache — sonst lässt sich weder eine Wahrscheinlichkeit noch eine Maßnahme daran festmachen.","Ohne sie: kein Risikopotenzial"],
+  pot1:["Faktor 1 · Bedrohung","Eine konkrete, begründete Bedrohung: ein benennbares Ereignis mit benennbarer Ursache. „Irgendwann könnte etwas passieren“ genügt nicht — daran lässt sich weder eine Wahrscheinlichkeit noch eine Maßnahme festmachen.","Ohne sie: kein Risikopotenzial"],
   pot2:["Faktor 2 · Schwachstelle","Die Stelle in der Kette, an der die Bedrohung wirksam werden kann. Ein Angriff auf ein System, das es nicht gibt, ist folgenlos; eine Naturkatastrophe an einem Standort ohne eigene Wertschöpfung ebenso.","Eine Bedrohung ohne Schwachstelle trifft ins Leere"],
   pot3:["Faktor 3 · Bedeutender Wert","Hinter der Schwachstelle muss etwas stehen, dessen Verlust zählt — Umsatz, Lieferfähigkeit, Reputation, Menschenleben. Eine Schwachstelle ohne bedeutenden Wert dahinter ist folgenlos.","Alle drei müssen zusammentreffen"]
 };
@@ -1580,11 +1580,11 @@ function aRender(){
   }
   else if(fertig)
     $("rmDetail").innerHTML = `<p class="dk">Modus A</p><h4>Acht Schätzungen stehen</h4>
-      <p>Der Vergleich ordnet nicht nach richtig und falsch, sondern nach <b>Richtung</b>: bei wie vielen Risiken Du systematisch höher und bei wie vielen niedriger lagst. Genau das ist die Rückmeldung, auf die es ankommt — sie zeigt Deine eigene Verzerrung, nicht Deinen Punktestand.</p>`;
+      <p>Der Vergleich ordnet nach <b>Richtung</b>: bei wie vielen Risiken Du systematisch höher und bei wie vielen niedriger lagst. Richtig und falsch gibt es hier nicht. Genau das ist die Rückmeldung, auf die es ankommt — sie zeigt Deine eigene Verzerrung, nicht Deinen Punktestand.</p>`;
   else if(!aState.verglichen)
     $("rmDetail").innerHTML = `<p class="dk">Modus A · Selbst einschätzen</p><h4>Ohne fremde Zahl im Ohr</h4>
       <p>Du gehst acht Risiken durch und setzt jedes in die Karte. Bereits gesetzte Risiken bleiben blass stehen, sodass sich die Karte Schritt für Schritt füllt.</p>
-      <p class="warn">Die begründete Einschätzung wird bewusst erst danach eingeblendet. Wer sie vorher sieht, schätzt nicht mehr, sondern rät die erwartete Antwort.</p>`;
+      <p class="warn">Die begründete Einschätzung wird bewusst erst danach eingeblendet. Wer sie vorher sieht, rät die erwartete Antwort und schätzt gar nicht mehr.</p>`;
   drawMap();
 }
 $("aNext").addEventListener("click", () => {
@@ -1832,9 +1832,9 @@ $("strats").addEventListener("click", e => {
   $("sDetail").innerHTML =
     `<p class="dk">Ausgeführt · ${t.de}</p><h4>${t.id === "accept" ? "Sichtbar ist nichts passiert" : "W " + z.w + " · S " + z.s + " · RF " + rf}</h4>
      <p>${t.id === "accept"
-        ? "Und genau das ist die Aussage. Akzeptieren ist keine Untätigkeit, sondern eine bewusste Entscheidung nach der Bewertung — sie gehört dokumentiert, mit Datum und Verantwortlichem. Ignorieren dagegen ist das Auslassen der Bewertung."
+        ? "Und genau das ist die Aussage. Akzeptieren ist eine bewusste Entscheidung nach der Bewertung; sie gehört dokumentiert, mit Datum und Verantwortlichem. Ignorieren dagegen ist das Auslassen der Bewertung."
         : t.text}</p>
-     ${t.teilt ? "<p><b>Aus einem Kreis sind zwei geworden.</b> Die Aufteilung ist die eigentliche Aussage dieser Strategie: Nicht das Gesamtausmaß verschwindet, sondern das Einzelereignis wird tragbar.</p>" : ""}
+     ${t.teilt ? "<p><b>Aus einem Kreis sind zwei geworden.</b> Die Aufteilung ist die eigentliche Aussage dieser Strategie: Das Einzelereignis wird tragbar, das Gesamtausmaß bleibt.</p>" : ""}
      <p class="warn">${t.typ === "korrektiv" ? "Korrektiv: Die Wahrscheinlichkeit ist unverändert. Das Ereignis tritt genauso häufig ein wie vorher." : t.typ === "praeventiv" ? "Präventiv: Das Ausmaß ist unverändert. Tritt das Ereignis doch ein, ist der Schaden derselbe." : "Weder präventiv noch korrektiv."}</p>`;
 });
 sRender();
@@ -1935,7 +1935,7 @@ const BCR_NOTES = [
   "<b>Schritt 1 · Die Perspektiven.</b> Fünf Zeilenbänder: Finanzen, Kunde und Absatzmarkt, Produkt, Prozesse, Personal. Es ist dieselbe Perspektivenlogik wie bei der Balanced Scorecard und der Supply Chain Scorecard — wer die Modul zum Supply Chain Controlling bearbeitet hat, erkennt hier die Fortsetzung.",
   "<b>Schritt 2 · Die Chancenseite.</b> Je Perspektive ein strategisches Ziel, eine Messgröße, Ist- und Planwerte und der Realisierungsgrad. Bis hierhin ist es eine gewöhnliche Scorecard.",
   "<b>Schritt 3 · Die Risikoseite.</b> Rechts derselben Zeile stehen nun das Risiko, seine Beurteilung auf fünfstufiger Skala und das Ausmaß in Prozentbändern. Jedes Risiko im Register lässt sich einem Ziel zuordnen — und jedes hat seine Position in der Risk-Map aus Lektion 02.",
-  "<b>Schritt 4 · Die Maßnahmenspalte, und der eigentliche Punkt.</b> Die gestrichelten Linien verbinden beide Hälften: Jedes strategische Ziel hat eine Chancen- und eine Risikoseite. Risikoüberwachung ist deshalb keine separate Disziplin neben der Steuerung, sondern <b>deren Rückseite</b>."
+  "<b>Schritt 4 · Die Maßnahmenspalte, und der eigentliche Punkt.</b> Die gestrichelten Linien verbinden beide Hälften: Jedes strategische Ziel hat eine Chancen- und eine Risikoseite. Risikoüberwachung ist deshalb <b>die Rückseite der Steuerung</b> und keine Disziplin daneben."
 ];
 function bcrRender(){
   drawBcr();
@@ -1979,7 +1979,7 @@ function rueckblende(){
   host.innerHTML =
     `<p class="sub">In Lektion 01 hast Du diese beiden Risiken geschätzt, ohne die Skala zu kennen, ohne Deutungshilfe und ohne Beispiel. Hier stehen beide Schätzungen nebeneinander.</p>
      <div class="duo">${rows}</div>
-     <div class="readme" style="margin-top:16px"><b>Es geht hier nicht um richtig und falsch.</b> Die begründete Einschätzung ist keine Wahrheit, sondern eine <b>verankerte</b> Schätzung: Zu jeder Stufe gehört eine Deutungshilfe, an der sich zwei Menschen ausrichten können. Ohne diese Verankerung streuen Schätzungen — auch Deine, auch meine. Genau diese Streuung ist die Existenzberechtigung des Instruments. Eine Risk-Map ist nicht deshalb wertvoll, weil sie die richtige Zahl liefert, sondern weil sie <b>alle Beteiligten zwingt, dieselbe Skala zu benutzen</b>.${
+     <div class="readme" style="margin-top:16px"><b>Es geht hier nicht um richtig und falsch.</b> Die begründete Einschätzung ist eine <b>verankerte</b> Schätzung: Zu jeder Stufe gehört eine Deutungshilfe, an der sich zwei Menschen ausrichten können. Als Wahrheit gibt sie sich nirgends aus. Ohne diese Verankerung streuen Schätzungen — auch Deine, auch meine. Genau diese Streuung ist die Existenzberechtigung des Instruments. Wertvoll wird eine Risk-Map dadurch, dass sie <b>alle Beteiligten zwingt, dieselbe Skala zu benutzen</b>. Die richtige Zahl liefert sie nie.${
        dR3 <= -1 ? " Bei R3 lagst Du übrigens niedriger als die begründete Einschätzung — das ist der schwarze Schwan, bei dem selbst die begründete Zahl in die Irre führt." :
        dR3 >= 1 ? " Bei R3 lagst Du höher als die begründete Einschätzung. Interessant: Genau dieses Risiko landet nach der Formel im grünen Bereich, obwohl es ein Kettenglied vernichten kann." : ""}</div>`;
 }
@@ -2008,7 +2008,7 @@ addEventListener("afterprint", () => { delete document.body.dataset.print; });
 
 const CHECK10 = [
   ["Eine Person benennen, die zuständig ist",
-   "Nicht ein Gremium, nicht „die Geschäftsführung“, sondern ein Name. Diese Person führt das Register, lädt zur Wiedervorlage und hat das Recht, Bewertungen einzufordern.",
+   "Ein Name. Kein Gremium und keine „Geschäftsführung“. Diese Person führt das Register, lädt zur Wiedervorlage und hat das Recht, Bewertungen einzufordern.",
    "Ein Arbeitskreis wird gegründet, niemand ist verantwortlich, und nach dem dritten Termin schläft es ein."],
   ["Den Zweck in einem Satz aufschreiben",
    "Wozu betreibt Ihr das? Frühwarnung, Nachweis gegenüber einem Kunden, Vorbereitung einer Finanzierung, Vorschrift? Der Zweck entscheidet über Tiefe und Aufwand von allem, was folgt.",

@@ -277,7 +277,7 @@ footer a{color:var(--teal-dk)}
 
   <div class="detail" id="detB">
     <p class="dk">Was beim Klicken passiert</p>
-    <h4>Drill-down und Roll-up sind keine zwei Berichte, sondern zwei Blicke auf dieselbe Summe</h4>
+    <h4>Drill-down und Roll-up sind zwei Blicke auf dieselbe Summe</h4>
     <p>Zugeklappt zeigt der Bericht drei Zeilen, aufgeklappt neun. Dahinter steht dieselbe Faktentabelle und dieselbe Summenfunktion — nur die Gruppierung wechselt die Spalte. Genau deshalb muss die Hierarchie im Modell stehen und nicht im Bericht: Wüsste das Modell nicht, dass „Espresso" zu „Heißgetränke" gehört, müsste jede Auswertung diese Zuordnung neu mitbringen.</p>
     <p class="warn">Klicke eine Zeile, um sie auf- oder zuzuklappen.</p>
   </div>
@@ -323,7 +323,7 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <div class="readme warn">
-    <b>Die Faustregel.</b> Ist die Zahl der Ebenen bekannt und für alle Zweige gleich, wird die Hierarchie <b>flach</b> in die Dimensionstabelle geschrieben — eine Spalte je Ebene. Parent-Child ist kein Zeichen von Eleganz, sondern die Notlösung für den Fall, dass die Tiefe von Zeile zu Zeile schwankt. Sofias Kaffee hat immer eine Warengruppe, immer eine Produktgruppe und immer einen Namen. Drei Spalten, fertig.
+    <b>Die Faustregel.</b> Ist die Zahl der Ebenen bekannt und für alle Zweige gleich, wird die Hierarchie <b>flach</b> in die Dimensionstabelle geschrieben — eine Spalte je Ebene. Parent-Child ist die Notlösung für den Fall, dass die Tiefe von Zeile zu Zeile schwankt. Elegant wirkt es nur auf den ersten Blick. Sofias Kaffee hat immer eine Warengruppe, immer eine Produktgruppe und immer einen Namen. Drei Spalten, fertig.
   </div>
   <p class="hint">Zeilen anklicken zum Auf- und Zuklappen · Tabellen seitlich scrollbar</p>
 </section>
@@ -405,7 +405,7 @@ footer a{color:var(--teal-dk)}
   <p class="sub">Es gibt drei Fälle, und keiner davon heißt „weil es sauberer aussieht".</p>
 
   <div class="readme">
-    <b>Erstens: sehr große Dimensionen mit breiten Attributen.</b> Eine Kundendimension mit Millionen Zeilen und einer langen Adressenstruktur spart durch Auslagerung tatsächlich messbar Platz. Bei neun Produkten nicht. <b>Zweitens: geteilte Ebenen.</b> Wenn dieselbe Warengruppe auch in einer Einkaufs- und einer Planungsdimension vorkommt, ist eine eigene Tabelle der ehrlichere Ort für sie — sie wird dann zur konformen Sub-Dimension und garantiert, dass „Getränke" überall dasselbe heißt. <b>Drittens: das Werkzeug verlangt es.</b> Manche Datenbanken und OLAP-Engines bilden Hierarchieebenen nur aus eigenen Tabellen ab. Das ist kein Modellargument, sondern eine Randbedingung — aber eine, die zählt.
+    <b>Erstens: sehr große Dimensionen mit breiten Attributen.</b> Eine Kundendimension mit Millionen Zeilen und einer langen Adressenstruktur spart durch Auslagerung tatsächlich messbar Platz. Bei neun Produkten nicht. <b>Zweitens: geteilte Ebenen.</b> Wenn dieselbe Warengruppe auch in einer Einkaufs- und einer Planungsdimension vorkommt, ist eine eigene Tabelle der ehrlichere Ort für sie — sie wird dann zur konformen Sub-Dimension und garantiert, dass „Getränke" überall dasselbe heißt. <b>Drittens: das Werkzeug verlangt es.</b> Manche Datenbanken und OLAP-Engines bilden Hierarchieebenen nur aus eigenen Tabellen ab. Das ist eine Randbedingung des Werkzeugs — aber eine, die zählt.
   </div>
 
   <h2 class="sec">Wo dieses Modul im Kurs steht</h2>
@@ -712,7 +712,7 @@ const MX=[
  ["Redundanz",
   ["Hoch und gewollt. „Getränke“ steht fünfmal in der Tabelle.","s"],
   ["Keine. Jeder Wert steht genau einmal.","n"],
-  "Redundanz ist in einer operativen Datenbank ein Fehler, weil dort geändert wird. In einer Dimensionstabelle wird nicht geändert, sondern geladen — die Gefahr, die Normalisierung abwehrt, tritt hier nicht auf."],
+  "Redundanz ist in einer operativen Datenbank ein Fehler, weil dort geändert wird. In einer Dimensionstabelle wird geladen und nie geändert — die Gefahr, die Normalisierung abwehrt, tritt hier gar nicht erst auf."],
  ["Speicherbedarf",
   ["36 Felder für neun Produkte.","s"],
   ["48 Felder für dieselben neun Produkte.","n"],
@@ -764,7 +764,7 @@ document.getElementById("detA").innerHTML =
    <p class="warn">Über eine Tabelle fahren, um zu sehen, was sie enthält und warum sie da ist.</p>`;
 document.getElementById("detC").innerHTML =
   `<p class="dk">Die Umformung</p><h4>Nur ein Ast des Sterns verändert sich</h4>
-   <p>Schalte oben um. Zeit, Filiale und Zahlweg bleiben unberührt — sie haben keine Hierarchie, die sich auslagern ließe. Nur die Produktdimension zerfällt in drei Tabellen, und die Faktentabelle merkt davon nichts: Sie zeigt weiterhin auf <code style="font-family:var(--mono)">produkt_sk</code>. Ein Snowflake-Schema ist also kein anderes Modell, sondern ein Stern mit ausgebauten Ästen.</p>
+   <p>Schalte oben um. Zeit, Filiale und Zahlweg bleiben unberührt — sie haben keine Hierarchie, die sich auslagern ließe. Nur die Produktdimension zerfällt in drei Tabellen, und die Faktentabelle merkt davon nichts: Sie zeigt weiterhin auf <code style="font-family:var(--mono)">produkt_sk</code>. Ein Snowflake-Schema ist also ein Stern mit ausgebauten Ästen. Ein anderes Modell wird daraus nicht.</p>
    <p class="warn">Über eine Tabelle fahren, um zu sehen, was sie enthält.</p>`;
 
 const tabs=[...document.querySelectorAll('[role="tab"]')], keys=["a","b","c","d"];

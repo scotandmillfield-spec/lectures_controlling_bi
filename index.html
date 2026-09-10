@@ -523,8 +523,8 @@ const TOPICS = [
   {
     id:"risiko-intro",
     title:{de:"Risikomanagement: der Begriff", en:"Risk management: the term"},
-    sub:{de:"Ein Risiko ist kein Unglück, das passieren könnte, sondern ein bewertetes Ereignis. Was das genau heißt, woher Risiken in einer Lieferkette kommen und wie der Regelkreis aussieht, in den sie gehören. Eigener Fall: ein Zulieferer für Nutzfahrzeugkomponenten.",
-         en:"A risk is not a misfortune that might happen but an assessed event. What that means exactly, where risks in a supply chain come from, and the control loop they belong to. Its own case: a supplier of commercial vehicle components."},
+    sub:{de:"Ein Risiko ist ein bewertetes Ereignis: Ohne Bezugspunkt und ohne Bewertung bleibt es bloße Ungewissheit. Was das genau heißt, woher Risiken in einer Lieferkette kommen und wie der Regelkreis aussieht, in den sie gehören. Eigener Fall: ein Zulieferer für Nutzfahrzeugkomponenten.",
+         en:"A risk is an assessed event: without a reference point and without an assessment it stays plain uncertainty. What that means exactly, where risks in a supply chain come from, and the control loop they belong to. Its own case: a supplier of commercial vehicle components."},
     track:"ctrl", status:"ready", accent:"teal", glyph:"riskmap",
     langBadge:{de:"", en:"DE"},
     features:[
@@ -930,7 +930,7 @@ document.querySelectorAll("#langsw a").forEach(a=>{
   a.setAttribute("aria-current", String(a.dataset.lang===LANG));
 });
 
-/* Beim Laden nicht umschalten, sondern setzen: erst leeren, dann anwenden */
+/* Beim Laden wird gesetzt, nicht umgeschaltet: erst leeren, dann anwenden */
 const deepLink = activePath; activePath = null; setPath(deepLink);
 </script>
 </body>
