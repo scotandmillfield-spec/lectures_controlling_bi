@@ -286,17 +286,33 @@ Auslagern eine Zeile Arbeit — bis dahin bleibt sie in `index.html`.
 ### Der Pfadplaner
 
 Lektion 04 in `content-werkstatt.html` ist das Werkzeug, mit dem ein Autor die Gliederung
-baut, bevor eine Zeile Text entsteht: Pfad, Module, Lektionen, aufklappbare Blöcke, per Maus
-oder Finger verschiebbar. Am Ende erzeugt „Auftrag erzeugen“ einen Text.
+baut, bevor eine Zeile Text entsteht. Sie liegt als **Bühne** vor ihm: Pfad, Module, Lektionen
+und aufklappbare Blöcke als Kästen auf einer Fläche, mit Pfeilen verbunden. Ein Klick auf einen
+Kasten öffnet daneben seine Stammdaten — Bezeichnung, Kurzinhalt, bei einem Modul auch Spur und
+Sprache. Am Ende erzeugt „Auftrag erzeugen“ einen Text.
 
 - **Dieser Text ist die erwartete Eingabe.** Wer ihn hier einfügt, bekommt die Hüllen — leere
   Module mit den benannten Lektionen und Blöcken, samt Quiz und Praxiseinstieg, eingetragen in
   `TOPICS` und `PATHS`. Die Kacheln bekommen `status: "planned"` und bleiben klickbar.
 - **Der Planer speichert nichts.** Kein `localStorage`, also ist der Entwurf beim Neuladen weg.
   Deshalb steht der erzeugte Auftrag im Textfeld und nicht im Speicher: Er ist die Sicherung.
-- **Zwei Wege für dieselbe Sache.** Die Pfeiltasten an jeder Karte sind der verlässliche Weg,
-  das Ziehen der bequeme. Beides muss funktionieren, auch auf dem Telefon — deshalb Pointer
-  Events und nicht HTML5-Drag-and-drop, das dort gar nicht auslöst.
+- **Ein Graph, kein Baum.** Im Speicher liegen Knoten mit Ort und Typ und Kanten dazwischen.
+  Der Baum entsteht erst beim Lesen: Kinder eines Knotens sind die, deren Kante von ihm
+  ausgeht, sortiert nach ihrer Höhe auf der Bühne. Deshalb ändert ein Schieben die Reihenfolge,
+  ohne dass irgendwo eine Liste umsortiert werden müsste — und deshalb steht die Nummer im
+  Kasten, während er noch in der Hand ist.
+- **Ein Element hat genau einen Platz.** Eine neue Kante löst die alte. Erlaubt sind nur
+  Pfad → Modul → Lektion → Block; alles andere weist die Bühne mit einem Satz ab. Was keinen
+  Anschluss hat, steht gestrichelt da und kommt nicht in den Auftrag.
+- **Die Knoten haben eine feste Größe.** `NB` und `NH` im Skript stehen auf denselben Werten
+  wie `.kn` im CSS. Damit lässt sich jeder Pfeil rechnen statt messen — in einem zugeklappten
+  Block liefert `getBoundingClientRect` nur Nullen, und eine gemessene Zeichnung entartete
+  dort auf einen Punkt.
+- **Zwei Wege für dieselbe Sache.** Verbunden wird über das Feld *Hängt an* in den Stammdaten
+  oder durch Ziehen eines Pfeils vom Punkt am rechten Rand; geschoben wird mit den Pfeiltasten
+  oder mit der Maus. Der erste Weg ist der verlässliche, der zweite der bequeme. Beides muss
+  funktionieren, auch auf dem Telefon — deshalb Pointer Events und nicht HTML5-Drag-and-drop,
+  das dort gar nicht auslöst.
 
 **Der gemeinsame Namensraum ist die Falle.** Alle Skripte eines Moduls liegen im selben
 Gültigkeitsbereich. `plZeichne` des Planers in Lektion 04 hat einmal `plZeichne` des
