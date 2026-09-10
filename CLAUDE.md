@@ -116,6 +116,11 @@ schweigt die Prüfung dort künftig. Ein kurzer Grund dahinter hilft dem nächst
 wenn die Zeichenkette später als Markup ausgegeben wird — der Kommentar landet sonst in
 der Seite.
 
+**Die Umlautfalle.** `index.html` schreibt Umlaute im `UI`-Wörterbuch als `\u00e4`-Folgen.
+Eine Regel, die nach dem Zeichen sucht, findet dort nichts. Die Prüfung löst die Folgen
+deshalb vor dem Suchen auf. Wer sie umbaut, lässt diesen Schritt stehen — an ihm ist ein
+„trägt“ auf der Startseite einmal unbemerkt vorbeigekommen.
+
 **Zum Muster.** In der ersten Spalte steht ein regulärer Ausdruck. Der senkrechte Strich ist
 in einer Markdown-Tabelle nicht verwendbar, außer innerhalb einer Klammergruppe wie oben;
 soll etwas ganz anderes zusätzlich verboten werden, bekommt es eine eigene Zeile.
@@ -409,12 +414,19 @@ for zeile in block.splitlines():
             break
 print(f"{len(regeln)} Regeln gelesen\n")
 
+# index.html schreibt Umlaute als \\u00e4-Folgen. Ohne dieses Aufloesen
+# geht jede Regel mit Umlaut dort ins Leere - genau so ist ein "traegt"
+# auf der Startseite einmal durch die Pruefung gerutscht.
+ESC = re.compile(r"\\u([0-9a-fA-F]{4})")
+klar = lambda z: ESC.sub(lambda m: chr(int(m.group(1), 16)), z)
+
 hart = weich = 0
 for datei in sorted(glob.glob("*.html")):
     zeilen = io.open(datei, encoding="utf-8").read().split("\n")
     for nr, z in enumerate(zeilen, 1):
         if "sprache:ok" in z:
             continue
+        z = klar(z)
         for muster, grad, warum, statt in regeln:
             if re.search(muster, z):
                 streng = grad == "hart"

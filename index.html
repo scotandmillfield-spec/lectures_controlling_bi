@@ -121,6 +121,7 @@ h1 em{font-style:normal;color:var(--teal)}
 .b-track.ctrl{background:var(--sand-xl);color:#8A6417}
 .b-track.case{background:#EDF5E9;color:#3F7233}
 .b-track.meta{background:var(--grey-xl);color:#5A5A58}
+.b-track.sec{background:var(--navy-xl);color:var(--navy)}
 .b-plan{background:var(--grey-xl);color:var(--grey)}
 
 .tile h2{font-size:1.24rem;font-weight:700;letter-spacing:-.018em;line-height:1.2;margin:0 0 7px}
@@ -198,6 +199,7 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
     <button class="chip" data-f="ctrl" aria-pressed="false" type="button" data-t="chipCtrl"></button>
     <button class="chip" data-f="case" aria-pressed="false" type="button" data-t="chipCase"></button>
     <button class="chip" data-f="meta" aria-pressed="false" type="button" data-t="chipMeta"></button>
+    <button class="chip" data-f="sec" aria-pressed="false" type="button" data-t="chipSec"></button>
     <button class="chip" data-f="planned" aria-pressed="false" type="button" data-t="chipPlan"></button>
   </div>
   <div class="search">
@@ -296,13 +298,14 @@ const UI = {
   title:{de:"Sofia's Coffee Dream \u00b7 Lehrmaterial BI und Controlling",
          en:"Sofia's Coffee Dream \u00b7 BI & Controlling teaching materials"},
   eyebrow:{de:"Lehrbibliothek \u00b7 IU", en:"Teaching library \u00b7 IU"},
-  lede:{de:"Zwei Wiener Kaffeeh\u00e4user, eine R\u00f6sterei, ein Coffeebike und Rohkaffee aus Peru \u2014 ein durchgehender Fall, der die Vorlesungen zu Business Intelligence und Controlling tr\u00e4gt. Jedes Modul unten steht f\u00fcr sich: eines f\u00fcr eine Sitzung herausgreifen, oder die ganze Kette verfolgen, vom Kassenbon bis zum Management-Cockpit.",
+  lede:{de:"Zwei Wiener Kaffeeh\u00e4user, eine R\u00f6sterei, ein Coffeebike und Rohkaffee aus Peru \u2014 ein durchgehender Fall, der die Vorlesungen zu Business Intelligence und Controlling verbindet. Jedes Modul unten steht f\u00fcr sich: eines f\u00fcr eine Sitzung herausgreifen, oder die ganze Kette verfolgen, vom Kassenbon bis zum Management-Cockpit.",
         en:"Two Viennese coffee houses, a roastery, a coffee bike and green coffee shipped in from Peru \u2014 used across the Business Intelligence and Controlling lectures as a single running case. Every module below is self-contained: take one for a session, or follow the whole chain from the till roll to the management cockpit."},
   chipAll:{de:"Alle", en:"All"},
   chipBi:"Business Intelligence",
   chipCtrl:"Controlling",
   chipCase:{de:"Fallstudie", en:"Case study"},
   chipMeta:{de:"Werkstatt", en:"Workshop"},
+  chipSec:"Cyber-Security",
   chipPlan:{de:"Geplant", en:"Planned"},
   search:{de:"Module durchsuchen\u2026", en:"Search modules\u2026"},
   empty:{de:"Dazu passt gerade nichts.", en:"Nothing matches that filter yet."},
@@ -631,6 +634,24 @@ const TOPICS = [
     ],
     links:[{kind:"html",file:"content-werkstatt.html",
             label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
+  },
+  {
+    id:"cyber-intro",
+    title:{de:"Einführung in Cyber-Security", en:"Introduction to cyber security"},
+    sub:{de:"Der erste Schritt des Lernpfads. Bisher eine Hülle: Aufbau, Reiterleiste und die beiden Pflichtlektionen stehen, der Inhalt kommt noch.",
+         en:"The first step of the path. So far a shell: structure, lesson bar and the two obligatory lessons are in place, the content is still to come."},
+    track:"sec", status:"planned", accent:"navy", glyph:"shield",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Gerüst nach dem Modulvertrag: eine Inhaltslektion, das Quiz, der Praxiseinstieg",
+       en:"A frame following the module contract: one content lesson, the quiz, the practitioner's start"},
+      {de:"Quiz und Checkliste laufen schon, mit Beispieleinträgen, an denen das Format ablesbar ist",
+       en:"Quiz and checklist already run, with example entries that show the format"},
+      {de:"Jede offene Stelle als gestrichelter Kasten — ist der letzte weg, ist das Modul fertig",
+       en:"Every open spot marked as a dashed box — once the last one is gone, the module is finished"}
+    ],
+    links:[{kind:"html",file:"cyber-security-einfuehrung.html",
+            label:{de:"Hülle ansehen",en:"Look at the shell"}}]
   }
 ];
 
@@ -662,6 +683,13 @@ const PATHS = [
     sub:{de:"Zwei Entscheidungen, die man erst trifft, wenn die Architektur steht: wie eine Dimension ihre Vergangenheit behält, und wo die Aggregate liegen. Keine von beiden ändert die Daten — beide ändern, was ein Bericht aussagt.",
          en:"Two decisions you only face once the architecture stands: how a dimension keeps its past, and where the aggregates live. Neither changes the data, and both change what a report says."},
     steps:["cube","semantik","scd","olap"]
+  },
+  {
+    id:"cyber-basics",
+    title:{de:"Grundlagen Cyber-Security", en:"Cyber security foundations"},
+    sub:{de:"Ein neuer Pfad, der gerade erst anfängt. Der erste Schritt steht als Hülle bereit; die weiteren Module kommen dazu, sobald ihr Inhalt geschrieben ist.",
+         en:"A new path that is only just beginning. The first step is in place as a shell; further modules follow once their content is written."},
+    steps:["cyber-intro"]
   }
 ];
 /* ===================== end of the editable lists ===================== */
@@ -669,7 +697,8 @@ const PATHS = [
 const ACCENT={teal:"#209CBD",navy:"#0F4C5C",orange:"#FF922B",ochre:"#B5852C",green:"#4C8B3F"};
 const TRACK={bi:["Business Intelligence",""],ctrl:["Controlling","ctrl"],
              case:[{de:"Fallstudie",en:"Case study"},"case"],
-             meta:[{de:"Werkstatt",en:"Workshop"},"meta"]};
+             meta:[{de:"Werkstatt",en:"Workshop"},"meta"],
+             sec:["Cyber-Security","sec"]};
 
 const GLYPH={
   rows:`<rect x="8" y="10" width="44" height="10" rx="2" fill="currentColor" opacity=".9"/>
@@ -734,6 +763,11 @@ const GLYPH={
         <rect class="g-move" x="36" y="48" width="18" height="9" rx="2" fill="currentColor" opacity=".4"/>
         <path d="M31 18 L31 25 M17 30 L17 25 L45 25 L45 30 M45 40 L45 48" stroke="currentColor"
               stroke-width="2" fill="none" opacity=".55"/>`,
+  shield:`<path d="M31 6 L52 14 V32 C52 44 42 52 31 56 C20 52 10 44 10 32 V14 Z"
+          fill="none" stroke="currentColor" stroke-width="3" opacity=".85"/>
+        <path class="g-move" d="M31 6 L52 14 V32 C52 44 42 52 31 56 Z" fill="currentColor" opacity=".14"/>
+        <path class="g-pulse" d="M22 30 L28.5 37 L41 24" fill="none" stroke="#FF922B"
+          stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`,
   scaffold:`<rect x="9" y="7" width="20" height="9" rx="2" fill="currentColor" opacity=".85"/>
         <rect x="33" y="7" width="20" height="9" rx="2" fill="currentColor" opacity=".85"/>
         <rect class="g-pulse" x="21" y="26" width="20" height="10" rx="2" fill="#FF922B"/>
