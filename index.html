@@ -518,27 +518,71 @@ const TOPICS = [
             label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
   },
   {
-    id:"risiko",
-    title:{de:"Der Risikomanagement-Prozess", en:"The risk management process"},
-    sub:{de:"Zwei Achsen, ein Produkt, drei Zonen — und eine Toleranzlinie, die keine Diagonale ist. Beginnt mit Deiner eigenen Schätzung und legt sie am Ende neben die begründete. Eigener Fall: ein Zulieferer für Nutzfahrzeugkomponenten.",
-         en:"Two axes, one product, three zones — and a tolerance line that is no diagonal. It starts with your own estimate and ends by placing it beside the reasoned one. Its own case: a supplier of commercial vehicle components."},
-    track:"ctrl", status:"ready", accent:"navy", glyph:"riskmap",
+    id:"risiko-intro",
+    title:{de:"Risikomanagement: der Begriff", en:"Risk management: the term"},
+    sub:{de:"Ein Risiko ist kein Unglück, das passieren könnte, sondern ein bewertetes Ereignis. Was das genau heißt, woher Risiken in einer Lieferkette kommen und wie der Regelkreis aussieht, in den sie gehören. Eigener Fall: ein Zulieferer für Nutzfahrzeugkomponenten.",
+         en:"A risk is not a misfortune that might happen but an assessed event. What that means exactly, where risks in a supply chain come from, and the control loop they belong to. Its own case: a supplier of commercial vehicle components."},
+    track:"ctrl", status:"ready", accent:"teal", glyph:"riskmap",
     langBadge:{de:"", en:"DE"},
     features:[
-      {de:"Acht Risiken selbst einschätzen, bevor eine einzige Zahl verraten wird — danach der Vergleich mit der begründeten Einschätzung, ohne Note",
-       en:"Rate eight risks yourself before a single number is revealed — then compare with the reasoned assessment, ungraded"},
+      {de:"Drei Definitionen von Reichmann, der ISO 31000 und Gleißner gegeneinander gelesen — mit der Frage, was allen dreien gemeinsam ist",
+       en:"Three definitions by Reichmann, ISO 31000 and Gleißner read against one another — with the question of what all three share"},
+      {de:"Gefahr oder Risiko: warum sich das eine in keine Karte eintragen lässt und das andere schon",
+       en:"Hazard or risk: why one of them cannot be plotted on any map and the other can"},
+      {de:"Fünf Risikoquellen nach dem Ort ihrer Entstehung, umschaltbar auf endogen und exogen",
+       en:"Five sources of risk by place of origin, switchable to endogenous and exogenous"},
+      {de:"Der Regelkreis mit vier Phasen, anklickbar, dazu die gröbere Dreiteilung als zweite Sicht",
+       en:"The four-phase control loop, clickable, with the coarser three-part view as a second reading"},
+      {de:"Ein Quiz mit fünf zufälligen Fragen und sechs Punkte, die vor der ersten Bewertung liegen",
+       en:"A quiz drawing five random questions and six steps that come before any assessment"}
+    ],
+    links:[{kind:"html",file:"risikomanagement-einfuehrung.html",
+            label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
+  },
+  {
+    id:"risiko",
+    title:{de:"Der Risikomanagement-Prozess", en:"The risk management process"},
+    sub:{de:"Die vier Phasen einzeln: identifizieren, bewerten, steuern, überwachen. Zwei Achsen, ein Produkt, drei Zonen — und eine Toleranzlinie, die keine Diagonale ist. Beginnt mit Deiner eigenen Schätzung und legt sie am Ende neben die begründete. Eigener Fall: ein Zulieferer für Nutzfahrzeugkomponenten.",
+         en:"The four phases one by one: identify, assess, control, monitor. Two axes, one product, three zones — and a tolerance line that is no diagonal. It starts with your own estimate and ends by placing it beside the reasoned one."},
+    track:"ctrl", status:"ready", accent:"navy", glyph:"loop",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Zwei Risiken selbst einschätzen, bevor eine einzige Zahl verraten wird — danach der Vergleich mit der begründeten Einschätzung, ohne Note",
+       en:"Rate two risks yourself before a single number is revealed — then compare with the reasoned assessment, ungraded"},
       {de:"Die Risikotoleranzlinie als Hyperbel gezeichnet: W × S = 12 sieht anders aus, als alle erwarten",
        en:"The risk tolerance line drawn as a hyperbola: W × S = 12 looks nothing like what everyone expects"},
       {de:"Vier Maßnahmen zuschalten und sehen, wie präventiv senkrecht und korrektiv waagerecht wirkt — und warum sich Wirkungen nicht addieren",
        en:"Switch on four measures and watch prevention move vertically and correction horizontally — and why the effects never add up"},
       {de:"Die fünf Steuerungsstrategien als Bewegungsvektoren: erst der Pfeil, dann die Bewegung",
        en:"The five control strategies as movement vectors: first the arrow, then the move"},
-      {de:"Eine Werkstatt zum Selbermachen: eigene Risiken erfassen, bewerten, Strategien wählen — und den Maßnahmenplan als PDF mitnehmen",
-       en:"A workshop of your own: record and rate your risks, pick strategies, and take the action plan away as a PDF"},
-      {de:"Zehn Punkte für den Start im eigenen Haus, Glossar und eine Übung, die sechs aus dreißig Fragen zieht",
-       en:"Ten steps for starting in your own organisation, a glossary, and a drill that draws six of thirty questions"}
+      {de:"Die Balanced Chance- und Risk-Card in vier Schritten, dazu ein Merkblatt zum Ausdrucken",
+       en:"The Balanced Chance and Risk Card in four steps, plus a one-page summary to print"},
+      {de:"Zehn Punkte für den Start im eigenen Haus, ein Glossar und eine Übung, die fünf aus 23 Fragen zieht",
+       en:"Ten steps for starting in your own organisation, a glossary, and a drill that draws five of 23 questions"}
     ],
     links:[{kind:"html",file:"risikomanagement-prozess.html",
+            label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
+  },
+  {
+    id:"risiko-werkstatt",
+    title:{de:"Die Risikoanalyse-Werkstatt", en:"The risk analysis workshop"},
+    sub:{de:"Dieselbe Methode auf einen eigenen Fall angewandt: beliebig viele Risiken erfassen, bewerten, in die Karte legen, Normstrategie und Maßnahme wählen und einen Maßnahmenplan als PDF mitnehmen. Gespeichert wird nichts. Eigener Fall: ein Zulieferer für Nutzfahrzeugkomponenten.",
+         en:"The same method applied to a case of your own: record any number of risks, rate them, plot them, pick a strategy and a measure, and take an action plan away as a PDF. Nothing is stored."},
+    track:"ctrl", status:"ready", accent:"ochre", glyph:"quadrants",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Beliebig viele eigene Risiken mit Kurzbeschreibung, Bewertung und Begründung je Achse",
+       en:"Any number of your own risks with a short description, a rating and a reason per axis"},
+      {de:"Die Risk-Map zeichnet sich mit, während Du die Regler bewegst — mit derselben Toleranzlinie wie im Prozessmodul",
+       en:"The risk map redraws as you move the sliders — with the same tolerance line as in the process module"},
+      {de:"Normstrategie und Maßnahme wählen und die geplante Position gleich daneben sehen",
+       en:"Pick a strategy and a measure and see the planned position right beside it"},
+      {de:"Ein Maßnahmenplan als Scorecard, mit aktuellem und geplantem Risikofaktor, zum Ausdrucken als PDF",
+       en:"An action plan as a scorecard with current and planned risk factor, printable as a PDF"},
+      {de:"Ein Quiz mit Anwendungsfragen zum Rechnen und Entscheiden, dazu sieben Punkte für den ersten eigenen Workshop",
+       en:"A quiz of applied questions on calculating and deciding, plus seven steps for your first own workshop"}
+    ],
+    links:[{kind:"html",file:"risikomanagement-werkstatt.html",
             label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
   },
   {
@@ -608,9 +652,9 @@ const PATHS = [
   {
     id:"risk-intro",
     title:{de:"Einführung in das Risikomanagement", en:"Introduction to risk management"},
-    sub:{de:"Vom Begriff über die Bewertung bis zur Steuerung: wie aus einem Bauchgefühl eine Position in einer Karte wird — und warum die Karte ordnet, aber nicht entscheidet.",
-         en:"From the term through assessment to control: how a gut feeling becomes a position on a map — and why the map orders things without deciding them."},
-    steps:["risiko"]
+    sub:{de:"Vom Begriff über die vier Phasen bis zur eigenen Anwendung: wie aus einem Bauchgefühl eine Position in einer Karte wird, warum die Karte ordnet und nicht entscheidet — und was davon am Montag im eigenen Haus übrig bleibt.",
+         en:"From the term through the four phases to your own application: how a gut feeling becomes a position on a map, why the map orders things without deciding them — and what survives of it on Monday in your own organisation."},
+    steps:["risiko-intro","risiko","risiko-werkstatt"]
   },
   {
     id:"bi-advanced",
