@@ -1,7 +1,7 @@
 # Projektanweisungen
 
 Interaktive Lehrmodule für Vorlesungen zu Business Intelligence und Controlling.
-Ein durchgehender Fall — ein Wiener Kaffeehausbetrieb — trägt alle Themen.
+Ein durchgehender Fall — ein Wiener Kaffeehausbetrieb — verbindet alle Themen.
 
 ## Die drei Begriffe
 
@@ -52,12 +52,12 @@ Deutsch. Für die Module gilt:
 
 - **Englisch ist der Normalfall.** Ein neues Modul entsteht auf Englisch, solange nichts
   anderes vereinbart ist.
-- **Deutsch ist zulässig, wo es die Sache trägt** — etwa bei einem Beispiel aus einem
+- **Deutsch ist zulässig, wo die Sache es verlangt** — etwa bei einem Beispiel aus einem
   deutschen Rechts- oder Praxisfeld, in dem die Fachbegriffe übersetzt schief würden
   (Pflegesatz, Personalkostenquote, Jahresabschluss). Nicht aus Bequemlichkeit.
-- **Die Sprache muss sichtbar sein.** Eine deutsche Lektion trägt `DE` in der Beschriftung,
-  ein durchgehend deutsches Modul einen Hinweis auf seiner Kachel auf der Startseite. Niemand
-  soll beim Klicken überrascht werden.
+- **Die Sprache muss sichtbar sein.** Eine deutsche Lektion ist mit `DE` in der Beschriftung
+  gekennzeichnet, ein durchgehend deutsches Modul mit einem Hinweis auf seiner Kachel auf der
+  Startseite. Niemand soll beim Klicken überrascht werden.
 - **Innerhalb einer Lektion wird nicht gemischt.** Die Lektion ist die kleinste Einheit, die
   eine Sprache hat. Halbe Sätze in der einen und Tooltips in der anderen Sprache sind der
   Fehler, den diese Regel verhindern soll.
@@ -93,6 +93,13 @@ es gibt keine zweite Liste, die auseinanderlaufen könnte.
 | `ERGÄNZUNG` | hart | Herkunftsetikett am Inhalt. | Eine Überschrift, die den Inhalt benennt |
 | `Lerneinheit` | hart | Kein Begriff dieser Plattform. | „Modul“ oder „Lektion“, je nach Ebene |
 | `\bKapitel\b` | prüfen | Kein Begriff dieser Plattform. | „Lektion“ oder „Abschnitt“ |
+| `\b([Tt]rage|[Tt]rägst|[Tt]rägt|[Tt]ragen|[Tt]ragt|[Tt]rug|[Tt]rugen|[Tt]rüge|[Gg]etragen|[Tt]ragend[ers]*)\b` | hart | Das Verb „tragen“ ist eine Verlegenheitslösung: Es klingt nach Aussage und sagt nichts. | Das konkrete Verb: „hält aus“, „gibt her“, „ruht auf“, „steht auf“, „hat“, „reicht“ |
+
+**Was „tragen“ nicht trifft.** Verboten ist das einfache Verb. Zusammensetzungen sind andere
+Wörter und bleiben: `eintragen`, `übertragen`, `betragen`, `Vertrag`, `Beitrag`, `Auftrag`,
+`Ertrag`. Ebenso die Ableitungen `Tragweite`, `Tragfähigkeit`, `tragbar` und `Träger` — sie
+sind Fachbegriffe und keine Beugung. Der reguläre Ausdruck ist mit `\b` genau so geschnitten;
+wer ihn erweitert, prüft vorher gegen `beträgt` und `eingetragen`.
 
 **Warum nicht einfach `Sie` verboten wird.** Das Wort trifft in fast jedem Modul die dritte
 Person: „Abschnitte … Sie werden zur Laufzeit zu Blöcken“. Ein Verbot darauf meldet fast nur
@@ -140,7 +147,7 @@ sinngemäß, wird dort aber nicht maschinell geprüft.
 - **Ein Textfeld ist entweder ein String** — dann gilt er in beiden Sprachen, etwa ein Name
   oder eine Zahl — **oder `{de:"…", en:"…"}`**. Fehlt `de`, erscheint `en`. Damit lässt sich
   ein Modul schrittweise übersetzen, ohne dass je eine halbe Seite entsteht.
-- **Statischer Text im Markup trägt `data-t="schlüssel"`** und wird aus dem `UI`-Wörterbuch
+- **Statischer Text im Markup bekommt `data-t="schlüssel"`** und wird aus dem `UI`-Wörterbuch
   gefüllt; `data-tp` setzt einen Platzhalter, `data-ta` ein `aria-label`.
 - **`$QS` in einem `href` innerhalb eines Textbausteins** wird beim Einsetzen durch den
   aktuellen Parameter ersetzt, damit Querverweise die Sprache mitnehmen.
@@ -161,7 +168,7 @@ ohne Aufforderung und ohne Nachfrage:
 
 ```bash
 git fetch origin main
-git merge --ff-only origin/main   # spult vor, wenn der Branch nichts Unfertiges trägt
+git merge --ff-only origin/main   # spult vor, wenn auf dem Branch nichts Unfertiges liegt
 ```
 
 **`fetch` allein genügt nicht.** Es bewegt nur den Zeiger `origin/main`; das Arbeitsverzeichnis
@@ -169,7 +176,7 @@ bleibt auf dem alten Stand. Ohne den zweiten Befehl wird auf einer veralteten Ko
 und eine redaktionelle Überarbeitung geht beim nächsten Block, der ganz neu geschrieben wird,
 verloren. Das ist der wahrscheinlichste Weg, Arbeit zu zerstören.
 
-- **Schlägt `--ff-only` fehl**, trägt der Branch eigene, noch nicht gemergte Commits. Dann
+- **Schlägt `--ff-only` fehl**, liegen auf dem Branch eigene, noch nicht gemergte Commits. Dann
   `git merge origin/main` und den Konflikt auflösen — niemals `--force` und niemals
   `git checkout -B`, solange dort etwas Unfertiges liegt.
 - **Nach dem Vorspulen die Dateien neu einlesen**, die geändert werden sollen. Was im Kontext
@@ -192,7 +199,7 @@ im Pull Request nachfragen statt sie zu ergänzen.
 
 Besonders leicht zu übersehen:
 
-- Personen tragen **keine Nachnamen**. Sofia, Nguyen, Alex, Anna, Jonas, Klara, Elif.
+- Personen haben **keine Nachnamen**. Sofia, Nguyen, Alex, Anna, Jonas, Klara, Elif.
 - Es gibt **zwei Kaffeehäuser** (Ringstraße, Alsergrund), eine Rösterei und ein Coffeebike —
   keine vier Filialen und **keine eigene Bäckerei**.
 - PPS meint die **Rösterei**, nicht eine Backstube.
@@ -202,7 +209,7 @@ Besonders leicht zu übersehen:
 ### Wenn ein Modul einen eigenen Fall braucht
 
 **Sofia ist der Normalfall, ein eigener Fall die begründete Ausnahme.**
-`supply-chain-controlling.html` gehört zum Thema Supply Chain und trägt vier Vorlieferanten eines
+`supply-chain-controlling.html` gehört zum Thema Supply Chain und arbeitet mit vier Vorlieferanten eines
 Nutzfahrzeugherstellers. Der Grund: Sofias Betrieb hat keine benannten Lieferanten, und der
 Kanon soll nicht um welche erweitert werden, nur damit ein Portfolio vier Punkte bekommt —
 lieber ein sichtbar getrennter Fall als ein stillschweigend gedehnter Kanon. Wo das nötig ist,
@@ -219,7 +226,7 @@ Das gilt für Fließtext, Etiketten, Fußzeilen, Klassennamen und Kommentare gle
 Diederichs, Rohrschneider, ISO-Normen. Wo eine Aussage auf eine benennbare Quelle zurückgeht,
 wird sie genannt — mit Autor und Jahr, nicht mit einer Fundstelle in einem Kurswerk.
 
-**Keine Herkunftsetiketten am Inhalt.** Ein Modul trägt keine Kennzeichnung, aus welcher Quelle
+**Keine Herkunftsetiketten am Inhalt.** Ein Modul bekommt keine Kennzeichnung, aus welcher Quelle
 ein Block stammt — weder `FACHLITERATUR` noch `FOLIE N` noch `ERGÄNZUNG`. Die Module stehen für
 sich; wer sie liest, soll sich mit dem Gegenstand befassen und nicht mit seiner Provenienz.
 Abbildungen werden **nicht reproduziert**, sondern eigenständig neu aufgebaut.
@@ -257,7 +264,7 @@ Ein Lernpfad ist eine Reihenfolge von Modulen, die zusammen Sinn ergeben. Er ste
   Spurfilter auf „Alle"; wird eine Spur gewählt, wird der Pfad verlassen. Alles andere wäre
   eine Kreuztabelle, die niemand im Kopf behält. Die Suche grenzt weiter ein, in beiden Sichten.
 - **Die Reihenfolge schlägt die Listenreihenfolge.** Im Pfad werden die Module über
-  CSS `order` sortiert und mit `01`, `02`, `03` nummeriert; der erste Schritt trägt die
+  CSS `order` sortiert und mit `01`, `02`, `03` nummeriert; der erste Schritt bekommt die
   Signalfarbe.
 - **Kein Fortschritt, keine Sperren.** Spätere Schritte bleiben klickbar. Ein „erst freischalten,
   wenn Schritt 1 erledigt ist" bräuchte gespeicherten Zustand, und `localStorage` ist
@@ -330,7 +337,7 @@ erste ist offen, die übrigen zu.
 
 ## Gestaltung
 
-Ein Akzent trägt, einer warnt, der Rest ist Grau. Die Signalfarbe erscheint an höchstens
+Ein Akzent führt, einer warnt, der Rest ist Grau. Die Signalfarbe erscheint an höchstens
 zwei Stellen pro Bildschirm; ist sie überall, ist sie nirgends.
 
 Bewegung nur, wo sie etwas aussagt. Ein Balken, der auf seinen Wert wächst, erklärt etwas.

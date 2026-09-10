@@ -158,8 +158,8 @@ table.tbl tbody tr:hover td{background:var(--sand-xl)}
 .fmark.f4{background:var(--grey-xl);color:#5a5a5c}
 /* ---------- Risk-Map ----------
    Die drei Zonenfarben sind die einzige Stelle, an der Signalfarben
-   auftreten. Dekorativ erscheinen sie nirgends, und sie tragen die
-   Bedeutung nie allein: jede Zone hat ihren Namen, jeder Punkt seine
+   auftreten. Dekorativ erscheinen sie nirgends, und die Bedeutung
+   hängt nie an ihnen allein: jede Zone hat ihren Namen, jeder Punkt seine
    Kennung, jede rote Position zusaetzlich das Warndreieck.          */
 .mapwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
 .mapwrap>*{min-width:0}
@@ -613,7 +613,7 @@ footer a{color:var(--teal-dk)}
   <p class="claim">Zwei Achsen, ein Produkt, drei Zonen. Und eine Grenzlinie, die <b>keine Diagonale</b> ist — was die meisten überrascht und der eigentliche Lerninhalt dieser Karte ist.</p>
 
   <h2 class="sec">Die beiden Achsen</h2>
-  <p class="sub">Die Risk-Map dient der systematischen Analyse, Bewertung und Klassifikation interner und externer Risiken. Die senkrechte Achse trägt die Eintrittswahrscheinlichkeit, die waagerechte das Schadensausmaß.</p>
+  <p class="sub">Die Risk-Map dient der systematischen Analyse, Bewertung und Klassifikation interner und externer Risiken. Auf der senkrechten Achse steht die Eintrittswahrscheinlichkeit, auf der waagerechten das Schadensausmaß.</p>
   <div class="readme">
     <b>Immer dieselben zwei Achsen.</b> Wer die Risikobewertung beschreibt, kommt praktisch ausnahmslos auf dieselben zwei Dimensionen: <b>Schadenhöhe</b> und <b>Eintrittswahrscheinlichkeit</b>. Dass unabhängig voneinander entstandene Darstellungen darin übereinstimmen, weist die Systematik als Standard aus — nicht als Meinung eines Autors.
   </div>
@@ -1580,7 +1580,7 @@ function aRender(){
   }
   else if(fertig)
     $("rmDetail").innerHTML = `<p class="dk">Modus A</p><h4>Acht Schätzungen stehen</h4>
-      <p>Der Vergleich ordnet nicht nach richtig und falsch, sondern nach <b>Richtung</b>: bei wie vielen Risiken Du systematisch höher und bei wie vielen niedriger lagst. Genau das ist die Rückmeldung, die trägt — sie zeigt Deine eigene Verzerrung, nicht Deinen Punktestand.</p>`;
+      <p>Der Vergleich ordnet nicht nach richtig und falsch, sondern nach <b>Richtung</b>: bei wie vielen Risiken Du systematisch höher und bei wie vielen niedriger lagst. Genau das ist die Rückmeldung, auf die es ankommt — sie zeigt Deine eigene Verzerrung, nicht Deinen Punktestand.</p>`;
   else if(!aState.verglichen)
     $("rmDetail").innerHTML = `<p class="dk">Modus A · Selbst einschätzen</p><h4>Ohne fremde Zahl im Ohr</h4>
       <p>Du gehst acht Risiken durch und setzt jedes in die Karte. Bereits gesetzte Risiken bleiben blass stehen, sodass sich die Karte Schritt für Schritt füllt.</p>
@@ -1979,7 +1979,7 @@ function rueckblende(){
   host.innerHTML =
     `<p class="sub">In Lektion 01 hast Du diese beiden Risiken geschätzt, ohne die Skala zu kennen, ohne Deutungshilfe und ohne Beispiel. Hier stehen beide Schätzungen nebeneinander.</p>
      <div class="duo">${rows}</div>
-     <div class="readme" style="margin-top:16px"><b>Es geht hier nicht um richtig und falsch.</b> Die begründete Einschätzung ist keine Wahrheit, sondern eine <b>verankerte</b> Schätzung: Jede Stufe trägt eine Deutungshilfe, an der sich zwei Menschen ausrichten können. Ohne diese Verankerung streuen Schätzungen — auch Deine, auch meine. Genau diese Streuung ist die Existenzberechtigung des Instruments. Eine Risk-Map ist nicht deshalb wertvoll, weil sie die richtige Zahl liefert, sondern weil sie <b>alle Beteiligten zwingt, dieselbe Skala zu benutzen</b>.${
+     <div class="readme" style="margin-top:16px"><b>Es geht hier nicht um richtig und falsch.</b> Die begründete Einschätzung ist keine Wahrheit, sondern eine <b>verankerte</b> Schätzung: Zu jeder Stufe gehört eine Deutungshilfe, an der sich zwei Menschen ausrichten können. Ohne diese Verankerung streuen Schätzungen — auch Deine, auch meine. Genau diese Streuung ist die Existenzberechtigung des Instruments. Eine Risk-Map ist nicht deshalb wertvoll, weil sie die richtige Zahl liefert, sondern weil sie <b>alle Beteiligten zwingt, dieselbe Skala zu benutzen</b>.${
        dR3 <= -1 ? " Bei R3 lagst Du übrigens niedriger als die begründete Einschätzung — das ist der schwarze Schwan, bei dem selbst die begründete Zahl in die Irre führt." :
        dR3 >= 1 ? " Bei R3 lagst Du höher als die begründete Einschätzung. Interessant: Genau dieses Risiko landet nach der Formel im grünen Bereich, obwohl es ein Kettenglied vernichten kann." : ""}</div>`;
 }
@@ -2073,7 +2073,7 @@ const FRAGEN = [
    ["Nominalskala","Ordinalskala","Kardinalskala","Alle drei gleichermaßen"], 2,
    "Nur die Kardinalskala. Die Risk-Map ist in der Praxis fast immer ordinal, wird aber multiplikativ ausgewertet — methodisch angreifbar, und der Grund, warum sie ein Kommunikations- und kein Rechenwerkzeug ist."],
   ["Was bedeutet die Strategie Akzeptieren?",
-   ["Das Risiko wird ignoriert","Das Risiko wird nach Bewertung bewusst getragen und dokumentiert","Das Risiko wird an einen Dritten übertragen","Die Bewertung wird ausgesetzt"], 1,
+   ["Das Risiko wird ignoriert","Das Risiko wird nach Bewertung bewusst hingenommen und dokumentiert","Das Risiko wird an einen Dritten übertragen","Die Bewertung wird ausgesetzt"], 1,
    "Akzeptieren ist eine Entscheidung nach der Bewertung und gehört mit Datum und Verantwortlichem dokumentiert. Ignorieren ist das Auslassen der Bewertung."],
   ["Welche Strategie teilt ein Risiko in zwei kleinere auf?",
    ["Überwälzen","Vermeiden","Diversifizieren","Verringern"], 2,

@@ -34,7 +34,7 @@ Kreditor. Für Stammdatenmodellierung und Konsolidierung ein dankbares Motiv.
 
 **Zwei B2B-Segmente, nicht eines:** Bäckereien (mit der Schleife) und andere Wiener
 Kaffeehäuser (ohne sie, dafür größere Gebinde und Preisdruck durch Wettbewerb). Für die
-Dimensionsmodellierung ein Gewinn: `DIM_CUSTOMER` trägt damit B2C mit Kundenkarte, B2B
+Dimensionsmodellierung ein Gewinn: `DIM_CUSTOMER` enthält damit B2C mit Kundenkarte, B2B
 Bäckereien und B2B Kaffeehäuser.
 
 **Aus dem Master abgeleitet:** Das Geschäft liegt im Universitätsviertel — auf Folie 5 des
@@ -70,14 +70,14 @@ Kennzahl, zieht sofort einen Schluss und handelt. Nguyen holt sie herunter: Sie 
 Zahl eigentlich zählt, und gemeinsam wird daraus etwas Professionelles. Sofia lernt dabei
 jedes Mal etwas — sie ist nicht die Dumme, sondern die Ungeduldige.
 
-Dieses Muster trägt jedes Modul: **Sofia stellt die Frage falsch, Nguyen stellt sie richtig.**
+Dieses Muster zieht sich durch jedes Modul: **Sofia stellt die Frage falsch, Nguyen stellt sie richtig.**
 Alex, der Controller, bringt die Methode dazu — Plan gegen Ist, Abweichung, Ursache.
 
 **Nicht ausschreiben:** Das Vorbild sind Fernseh-Duos aus Enthusiast und Korrektiv. Die Namen
 gehören in die Vorlesung, nicht in die Module — sie altern schlecht und nicht jede Kohorte
 kennt sie.
 
-**Zu den Personalnummern:** Anna trägt E-042, obwohl es nur zehn Stellen gibt. Das ist kein
+**Zu den Personalnummern:** Anna hat E-042, obwohl es nur zehn Stellen gibt. Das ist kein
 Fehler, sondern Absicht — bei studentischer Belegschaft mit hoher Fluktuation sind
 Nummernkreise längst weitergelaufen. Genau deshalb braucht es Surrogatschlüssel.
 
@@ -336,7 +336,7 @@ Google Fonts mit Fallback-Stack.
 - Grid- und Flex-Kinder brauchen `min-width:0`
 - Breite Tabellen in `.tscroll` mit `overflow-x:auto`
 - `prefers-reduced-motion` respektieren, kein `localStorage`
-- Jedes Modul endet mit einem farbigen Kasten, der die eine Pointe trägt
+- Jedes Modul endet mit einem farbigen Kasten, in dem die eine Pointe steht
 
 ---
 
