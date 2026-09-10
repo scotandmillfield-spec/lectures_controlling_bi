@@ -1,7 +1,7 @@
 # Projektanweisungen
 
 Interaktive Lehrmodule für Vorlesungen zu Business Intelligence und Controlling.
-Ein durchgehender Fall — ein Wiener Kaffeehausbetrieb — trägt alle Themen.
+Ein durchgehender Fall — ein Wiener Kaffeehausbetrieb — verbindet alle Themen.
 
 ## Die drei Begriffe
 
@@ -52,12 +52,12 @@ Deutsch. Für die Module gilt:
 
 - **Englisch ist der Normalfall.** Ein neues Modul entsteht auf Englisch, solange nichts
   anderes vereinbart ist.
-- **Deutsch ist zulässig, wo es die Sache trägt** — etwa bei einem Beispiel aus einem
+- **Deutsch ist zulässig, wo die Sache es verlangt** — etwa bei einem Beispiel aus einem
   deutschen Rechts- oder Praxisfeld, in dem die Fachbegriffe übersetzt schief würden
   (Pflegesatz, Personalkostenquote, Jahresabschluss). Nicht aus Bequemlichkeit.
-- **Die Sprache muss sichtbar sein.** Eine deutsche Lektion trägt `DE` in der Beschriftung,
-  ein durchgehend deutsches Modul einen Hinweis auf seiner Kachel auf der Startseite. Niemand
-  soll beim Klicken überrascht werden.
+- **Die Sprache muss sichtbar sein.** Eine deutsche Lektion ist mit `DE` in der Beschriftung
+  gekennzeichnet, ein durchgehend deutsches Modul mit einem Hinweis auf seiner Kachel auf der
+  Startseite. Niemand soll beim Klicken überrascht werden.
 - **Innerhalb einer Lektion wird nicht gemischt.** Die Lektion ist die kleinste Einheit, die
   eine Sprache hat. Halbe Sätze in der einen und Tooltips in der anderen Sprache sind der
   Fehler, den diese Regel verhindern soll.
@@ -69,6 +69,71 @@ Deutsch. Für die Module gilt:
   weder im Fließtext noch in Tooltips, Detailkästen oder Schaltflächen. Das englische *you*
   ist ohnehin schon die passende Form. Aufpassen bei „sie" in der dritten Person: „Sie ist der
   Grund, warum sich ein Bericht aufklappen lässt" bleibt, wie es ist.
+
+### Verbotene Formulierungen
+
+Diese Liste wächst. Fällt beim Lesen eine Wendung auf, die nicht mehr vorkommen soll, kommt
+sie hier hinein — mit dem Grund und mit dem, was stattdessen dasteht. **Ein Verbot ohne Ersatz
+erzeugt Ausweichmanöver, keinen besseren Text.** Deshalb hat jede Zeile drei Angaben.
+
+**Die Tabelle ist die einzige Quelle.** Die Prüfung am Ende dieser Datei liest sie hier aus;
+es gibt keine zweite Liste, die auseinanderlaufen könnte.
+
+| Muster | Grad | Warum | Stattdessen |
+|---|---|---|---|
+| `(können|haben|sind|werden|müssen|sollten|wollen|finden|sehen|klicken|erhalten) Sie\b` | hart | Die Anrede ist immer „Du“. Die Umstellung Verb-vor-Sie ist eindeutig. | „kannst Du“, „siehst Du“ |
+| `\b(Wenn|Falls|Sobald|Damit|Bevor) Sie\b` | hart | Dasselbe, an der anderen typischen Stelle. | „Wenn Du“, „Bevor Du“ |
+| `\bIhre[nmrs]?\b` | prüfen | Meist die Sie-Anrede. Am Satzanfang kann es die dritte Person sein. | „Deine“, „Deinen“ |
+| `\bIhnen\b` | prüfen | Meist die Sie-Anrede. | „Dir“ |
+| `Kursbuch` | hart | Kursbücher sind als Quelle ausgeschlossen. | Fachliteratur mit Autor und Jahr |
+| `Studienbrief` | hart | Dasselbe wie Kursbuch. | Fachliteratur mit Autor und Jahr |
+| `\bMWCH\d*\b` | hart | Kurskennungen erscheinen nicht. | Das Thema benennen |
+| `FACHLITERATUR` | hart | Herkunftsetikett am Inhalt. | Den Autor im Fließtext nennen |
+| `FOLIE \d` | hart | Herkunftsetikett am Inhalt. | Die Aussage selbst überschreiben |
+| `ERGÄNZUNG` | hart | Herkunftsetikett am Inhalt. | Eine Überschrift, die den Inhalt benennt |
+| `Lerneinheit` | hart | Kein Begriff dieser Plattform. | „Modul“ oder „Lektion“, je nach Ebene |
+| `\bKapitel\b` | prüfen | Kein Begriff dieser Plattform. | „Lektion“ oder „Abschnitt“ |
+| `\b([Tt]rage|[Tt]rägst|[Tt]rägt|[Tt]ragen|[Tt]ragt|[Tt]rug|[Tt]rugen|[Tt]rüge|[Gg]etragen|[Tt]ragend[ers]*)\b` | hart | Das Verb „tragen“ ist eine Verlegenheitslösung: Es klingt nach Aussage und sagt nichts. | Das konkrete Verb: „hält aus“, „gibt her“, „ruht auf“, „steht auf“, „hat“, „reicht“ |
+
+**Was „tragen“ nicht trifft.** Verboten ist das einfache Verb. Zusammensetzungen sind andere
+Wörter und bleiben: `eintragen`, `übertragen`, `betragen`, `Vertrag`, `Beitrag`, `Auftrag`,
+`Ertrag`. Ebenso die Ableitungen `Tragweite`, `Tragfähigkeit`, `tragbar` und `Träger` — sie
+sind Fachbegriffe und keine Beugung. Der reguläre Ausdruck ist mit `\b` genau so geschnitten;
+wer ihn erweitert, prüft vorher gegen `beträgt` und `eingetragen`.
+
+**Warum nicht einfach `Sie` verboten wird.** Das Wort trifft in fast jedem Modul die dritte
+Person: „Abschnitte … Sie werden zur Laufzeit zu Blöcken“. Ein Verbot darauf meldet fast nur
+Fehlalarme und wird nach dem dritten Lauf ignoriert. Geprüft wird deshalb die Umstellung
+Verb-vor-Sie und die Konjunktion davor — dort ist die Anrede eindeutig. Für alles andere
+gilt die Regel weiter, sie wird nur nicht maschinell gesucht.
+
+**Zwei Grade.** `hart` heißt: kommt nicht vor, die Prüfung schlägt fehl. `prüfen` heißt: ist
+fast immer falsch, kann im Einzelfall richtig sein — die Prüfung meldet den Fund, entschieden
+wird von Hand. Ein „prüfen“-Fund, der bleiben soll, bekommt in derselben Zeile die Marke
+`sprache:ok` — im Markup als `<!-- sprache:ok -->`, im Skript als `/* sprache:ok */`. Dann
+schweigt die Prüfung dort künftig. Ein kurzer Grund dahinter hilft dem nächsten Leser:
+`/* sprache:ok — dritte Person, Sofia */`. **Im Skript nie einen HTML-Kommentar setzen**,
+wenn die Zeichenkette später als Markup ausgegeben wird — der Kommentar landet sonst in
+der Seite.
+
+**Zum Muster.** In der ersten Spalte steht ein regulärer Ausdruck. Der senkrechte Strich ist
+in einer Markdown-Tabelle nicht verwendbar, außer innerhalb einer Klammergruppe wie oben;
+soll etwas ganz anderes zusätzlich verboten werden, bekommt es eine eigene Zeile.
+
+**Was passiert, wenn eine Zeile dazukommt.** Nicht nur künftige Texte sind gemeint, sondern
+auch die vorhandenen. Deshalb gehört zu jedem neuen Eintrag im selben Arbeitsgang:
+
+1. Die Zeile in die Tabelle schreiben, mit Grund und Ersatz.
+2. Die Prüfung laufen lassen und **alle** Fundstellen in den bestehenden Modulen bereinigen.
+3. Beim Ersetzen den Satz lesen, nicht nur das Wort tauschen. Ein Suchen-und-Ersetzen über die
+   ganze Datei hat schon einen Satz zerstört, in dem „Reiter“ den Browser-Reiter meinte und
+   nicht die Lektion.
+4. Das Ergebnis in der Pull-Request-Beschreibung nennen: welche Zeile neu ist und wie viele
+   Stellen sie berührt hat.
+
+**Wo die Liste gilt.** In allen `*.html` — Fließtext, Beschriftungen, Tooltips, Fußzeilen,
+Klassennamen und Kommentare. Für Commit-Nachrichten und Pull-Request-Beschreibungen gilt sie
+sinngemäß, wird dort aber nicht maschinell geprüft.
 
 ### Der Sprachschalter
 
@@ -82,7 +147,7 @@ Deutsch. Für die Module gilt:
 - **Ein Textfeld ist entweder ein String** — dann gilt er in beiden Sprachen, etwa ein Name
   oder eine Zahl — **oder `{de:"…", en:"…"}`**. Fehlt `de`, erscheint `en`. Damit lässt sich
   ein Modul schrittweise übersetzen, ohne dass je eine halbe Seite entsteht.
-- **Statischer Text im Markup trägt `data-t="schlüssel"`** und wird aus dem `UI`-Wörterbuch
+- **Statischer Text im Markup bekommt `data-t="schlüssel"`** und wird aus dem `UI`-Wörterbuch
   gefüllt; `data-tp` setzt einen Platzhalter, `data-ta` ein `aria-label`.
 - **`$QS` in einem `href` innerhalb eines Textbausteins** wird beim Einsetzen durch den
   aktuellen Parameter ersetzt, damit Querverweise die Sprache mitnehmen.
@@ -103,7 +168,7 @@ ohne Aufforderung und ohne Nachfrage:
 
 ```bash
 git fetch origin main
-git merge --ff-only origin/main   # spult vor, wenn der Branch nichts Unfertiges trägt
+git merge --ff-only origin/main   # spult vor, wenn auf dem Branch nichts Unfertiges liegt
 ```
 
 **`fetch` allein genügt nicht.** Es bewegt nur den Zeiger `origin/main`; das Arbeitsverzeichnis
@@ -111,7 +176,7 @@ bleibt auf dem alten Stand. Ohne den zweiten Befehl wird auf einer veralteten Ko
 und eine redaktionelle Überarbeitung geht beim nächsten Block, der ganz neu geschrieben wird,
 verloren. Das ist der wahrscheinlichste Weg, Arbeit zu zerstören.
 
-- **Schlägt `--ff-only` fehl**, trägt der Branch eigene, noch nicht gemergte Commits. Dann
+- **Schlägt `--ff-only` fehl**, liegen auf dem Branch eigene, noch nicht gemergte Commits. Dann
   `git merge origin/main` und den Konflikt auflösen — niemals `--force` und niemals
   `git checkout -B`, solange dort etwas Unfertiges liegt.
 - **Nach dem Vorspulen die Dateien neu einlesen**, die geändert werden sollen. Was im Kontext
@@ -134,7 +199,7 @@ im Pull Request nachfragen statt sie zu ergänzen.
 
 Besonders leicht zu übersehen:
 
-- Personen tragen **keine Nachnamen**. Sofia, Nguyen, Alex, Anna, Jonas, Klara, Elif.
+- Personen haben **keine Nachnamen**. Sofia, Nguyen, Alex, Anna, Jonas, Klara, Elif.
 - Es gibt **zwei Kaffeehäuser** (Ringstraße, Alsergrund), eine Rösterei und ein Coffeebike —
   keine vier Filialen und **keine eigene Bäckerei**.
 - PPS meint die **Rösterei**, nicht eine Backstube.
@@ -144,7 +209,7 @@ Besonders leicht zu übersehen:
 ### Wenn ein Modul einen eigenen Fall braucht
 
 **Sofia ist der Normalfall, ein eigener Fall die begründete Ausnahme.**
-`supply-chain-controlling.html` gehört zum Thema Supply Chain und trägt vier Vorlieferanten eines
+`supply-chain-controlling.html` gehört zum Thema Supply Chain und arbeitet mit vier Vorlieferanten eines
 Nutzfahrzeugherstellers. Der Grund: Sofias Betrieb hat keine benannten Lieferanten, und der
 Kanon soll nicht um welche erweitert werden, nur damit ein Portfolio vier Punkte bekommt —
 lieber ein sichtbar getrennter Fall als ein stillschweigend gedehnter Kanon. Wo das nötig ist,
@@ -161,7 +226,7 @@ Das gilt für Fließtext, Etiketten, Fußzeilen, Klassennamen und Kommentare gle
 Diederichs, Rohrschneider, ISO-Normen. Wo eine Aussage auf eine benennbare Quelle zurückgeht,
 wird sie genannt — mit Autor und Jahr, nicht mit einer Fundstelle in einem Kurswerk.
 
-**Keine Herkunftsetiketten am Inhalt.** Ein Modul trägt keine Kennzeichnung, aus welcher Quelle
+**Keine Herkunftsetiketten am Inhalt.** Ein Modul bekommt keine Kennzeichnung, aus welcher Quelle
 ein Block stammt — weder `FACHLITERATUR` noch `FOLIE N` noch `ERGÄNZUNG`. Die Module stehen für
 sich; wer sie liest, soll sich mit dem Gegenstand befassen und nicht mit seiner Provenienz.
 Abbildungen werden **nicht reproduziert**, sondern eigenständig neu aufgebaut.
@@ -199,7 +264,7 @@ Ein Lernpfad ist eine Reihenfolge von Modulen, die zusammen Sinn ergeben. Er ste
   Spurfilter auf „Alle"; wird eine Spur gewählt, wird der Pfad verlassen. Alles andere wäre
   eine Kreuztabelle, die niemand im Kopf behält. Die Suche grenzt weiter ein, in beiden Sichten.
 - **Die Reihenfolge schlägt die Listenreihenfolge.** Im Pfad werden die Module über
-  CSS `order` sortiert und mit `01`, `02`, `03` nummeriert; der erste Schritt trägt die
+  CSS `order` sortiert und mit `01`, `02`, `03` nummeriert; der erste Schritt bekommt die
   Signalfarbe.
 - **Kein Fortschritt, keine Sperren.** Spätere Schritte bleiben klickbar. Ein „erst freischalten,
   wenn Schritt 1 erledigt ist" bräuchte gespeicherten Zustand, und `localStorage` ist
@@ -272,7 +337,7 @@ erste ist offen, die übrigen zu.
 
 ## Gestaltung
 
-Ein Akzent trägt, einer warnt, der Rest ist Grau. Die Signalfarbe erscheint an höchstens
+Ein Akzent führt, einer warnt, der Rest ist Grau. Die Signalfarbe erscheint an höchstens
 zwei Stellen pro Bildschirm; ist sie überall, ist sie nirgends.
 
 Bewegung nur, wo sie etwas aussagt. Ein Balken, der auf seinen Wert wächst, erklärt etwas.
@@ -317,6 +382,54 @@ EOF
 ```
 
 Überlauf muss überall `0` sein, die Fehlerliste leer, alle Links vorhanden.
+
+### Die Sprachprüfung
+
+Liest die Tabelle der verbotenen Formulierungen aus dieser Datei und sucht sie in allen
+`*.html`. Braucht kein Netz und läuft in einer Sekunde.
+
+```bash
+python3 - <<'EOF'
+import io, re, glob, sys
+
+# Die Tabelle aus CLAUDE.md ist die einzige Quelle.
+md = io.open("CLAUDE.md", encoding="utf-8").read()
+block = md.split("| Muster | Grad | Warum | Stattdessen |", 1)[1].split("\n\n", 1)[0]
+regeln = []
+for zeile in block.splitlines():
+    sp = [t.strip() for t in zeile.strip().strip("|").split("|")]
+    if len(sp) < 4 or sp[0].startswith("---") or not sp[0].startswith("`"):
+        continue
+    # Ein Muster kann selbst einen senkrechten Strich enthalten; alles vor dem
+    # Grad gehoert zum Muster.
+    for i, t in enumerate(sp):
+        if t in ("hart", "pruefen", "prüfen"):
+            muster = "|".join(sp[:i]).strip().strip("`")
+            regeln.append((muster, t, sp[i+1], sp[i+2] if len(sp) > i+2 else ""))
+            break
+print(f"{len(regeln)} Regeln gelesen\n")
+
+hart = weich = 0
+for datei in sorted(glob.glob("*.html")):
+    zeilen = io.open(datei, encoding="utf-8").read().split("\n")
+    for nr, z in enumerate(zeilen, 1):
+        if "sprache:ok" in z:
+            continue
+        for muster, grad, warum, statt in regeln:
+            if re.search(muster, z):
+                streng = grad == "hart"
+                hart += streng; weich += not streng
+                stelle = re.search(muster, z).group(0)
+                print(f'{"FEHLER" if streng else "pruefen"}  {datei}:{nr}  „{stelle}“')
+                print(f'        {warum}  Stattdessen: {statt}')
+
+print(f"\n{hart} harte Verstoesse, {weich} zu pruefen")
+sys.exit(1 if hart else 0)
+EOF
+```
+
+Ein harter Verstoß muss vor dem Pull Request weg. Ein „prüfen“-Fund wird angesehen und
+entweder geändert oder mit `<!-- sprache:ok -->` in derselben Zeile stehen gelassen.
 
 Zusätzlich nach Resten einer früheren Fassung suchen, wenn sich Namen geändert haben:
 

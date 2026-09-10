@@ -158,8 +158,8 @@ table.tbl tbody tr:hover td{background:var(--sand-xl)}
 .fmark.f4{background:var(--grey-xl);color:#5a5a5c}
 /* ---------- Risk-Map ----------
    Die drei Zonenfarben sind die einzige Stelle, an der Signalfarben
-   auftreten. Dekorativ erscheinen sie nirgends, und sie tragen die
-   Bedeutung nie allein: jede Zone hat ihren Namen, jeder Punkt seine
+   auftreten. Dekorativ erscheinen sie nirgends, und die Bedeutung
+   hängt nie an ihnen allein: jede Zone hat ihren Namen, jeder Punkt seine
    Kennung, jede rote Position zusaetzlich das Warndreieck.          */
 .mapwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
 .mapwrap>*{min-width:0}
@@ -557,7 +557,7 @@ footer a{color:var(--teal-dk)}
 <header class="masthead">
   <p class="eyebrow">Controlling und Risikomanagement der Supply Chain</p>
   <h1>Ein Risiko ist ein <em>bewertetes</em> Ereignis</h1>
-  <p class="lede">Bevor irgendjemand eine Karte zeichnet oder eine Maßnahme beschließt, muss feststehen, wovon die Rede ist. Diese Einführung klärt den Begriff, zeigt, woher Risiken in einer Lieferkette kommen, und legt den Prozess als Landkarte aus. Gerechnet und gesteuert wird im nächsten Modul. Die drei Risikomodule tragen einen eigenen Fall: einen Zulieferer für Nutzfahrzeugkomponenten. Sofias Kaffeehausbetrieb hat keine benannten Vorlieferanten, und der Kanon soll dafür nicht gedehnt werden.</p>
+  <p class="lede">Bevor irgendjemand eine Karte zeichnet oder eine Maßnahme beschließt, muss feststehen, wovon die Rede ist. Diese Einführung klärt den Begriff, zeigt, woher Risiken in einer Lieferkette kommen, und legt den Prozess als Landkarte aus. Gerechnet und gesteuert wird im nächsten Modul. Die drei Risikomodule arbeiten mit einem eigenen Fall: einen Zulieferer für Nutzfahrzeugkomponenten. Sofias Kaffeehausbetrieb hat keine benannten Vorlieferanten, und der Kanon soll dafür nicht gedehnt werden.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Einführung in das Risikomanagement">
@@ -619,7 +619,7 @@ footer a{color:var(--teal-dk)}
       <p>Die <b>Verletzlichkeit der Supply Chain</b>: der Effekt der Folgeschäden innerhalb der Kette.</p>
       <p>Ursachen der Zunahme: der Trend zu schlanken Wertschöpfungsnetzwerken, die Globalisierung, die hohe Komplexität und die enge Verzahnung verschiedener Supply Chains.</p></div>
     <div class="card" style="border-left:3px solid var(--ochre)"><p class="ck">Der Grenzfall</p><h3>Schwarze Schwäne</h3>
-      <p>Geschehnisse, die nicht vorhersehbar und äußerst unwahrscheinlich sind und von den Beteiligten nicht beeinflusst werden können — etwa Naturkatastrophen. Ihnen kann das Supply Chain Management nur mit <b>Notfallplänen</b> begegnen, deren Durchführung im Ernstfall häufig doch nicht möglich ist.</p>
+      <p>Geschehnisse, die nicht vorhersehbar und äußerst unwahrscheinlich sind und von den Beteiligten nicht beeinflusst werden können — etwa Naturkatastrophen. Ihnen kann das Supply Chain Management nur mit <b>Notfallplänen</b> begegnen, deren Durchführung im Ernstfall häufig doch nicht möglich ist.</p>  <!-- sprache:ok -->
       <p style="color:#B25E00;font-weight:600">Merke Dir diesen Fall. Sobald im <a href="risikomanagement-prozess.html" style="color:inherit">Prozessmodul</a> bewertet wird, verschwindet er im Produkt aus Wahrscheinlichkeit und Ausmaß — und das ist kein Rechenfehler, sondern die Schwäche des Instruments.</p></div>
   </div>
 
@@ -773,7 +773,7 @@ const LERNEINHEIT = {
      begr:"Angriffe dieser Art treffen Industrieunternehmen inzwischen mehrmals jährlich, wenn auch nicht jeder erfolgreich ist — W = 4. Ein stillstehendes ERP legt Disposition, Versand und Fakturierung gleichzeitig lahm; ohne Fakturierung reißt der Zahlungseingang ab — S = 5."},
     {id:"R2", name:"Ausfall des Single-Source-Lieferanten für Steuergeräte", kat:"lieferantenseitig",
      brutto:{w:2,s:5},
-     begr:"Ein Ausfall dieser Größenordnung tritt etwa alle fünf bis zehn Jahre ein — W = 2. Ohne qualifizierte Zweitquelle steht die Montage; S = 5. Es ist derselbe Partner, den die Lerneinheit Supply Chain Controlling als kritischen Kettenabschnitt ausweist."},
+     begr:"Ein Ausfall dieser Größenordnung tritt etwa alle fünf bis zehn Jahre ein — W = 2. Ohne qualifizierte Zweitquelle steht die Montage; S = 5. Es ist derselbe Partner, den das Modul Supply Chain Controlling als kritischen Kettenabschnitt ausweist."},
     {id:"R3", name:"Erdbeben am asiatischen Fertigungsstandort eines Vorlieferanten",
      kat:"Katastrophe, schwarzer Schwan", brutto:{w:1,s:5},
      begr:"Am konkreten Standort seltener als alle zehn Jahre — W = 1. Fällt der Standort aus, ist ein Kettenglied auf unabsehbare Zeit vernichtet; S = 5. Der Fall, an dem die multiplikative Bewertung scheitert."},
@@ -1200,7 +1200,7 @@ const FRAGEN = [
    ["Mit höheren Sicherheitsbeständen","Mit Notfallplänen","Mit einer feineren Skala","Mit Versicherungen"], 1,
    "Notfallpläne sind die einzige verbleibende Antwort — und ihre Durchführung ist im Ernstfall häufig doch nicht möglich. Das ist ehrlicher Teil der Aussage."],
   ["Warum sind schwarze Schwäne für eine Risk-Map ein Problem?",
-   ["Sie haben kein Schadensausmaß","Ihre sehr geringe Wahrscheinlichkeit drückt das Produkt nach unten","Sie lassen sich nicht benennen","Sie treten zu häufig auf"], 1,
+   ["Sie haben kein Schadensausmaß","Ihre sehr geringe Wahrscheinlichkeit drückt das Produkt nach unten","Sie lassen sich nicht benennen","Sie treten zu häufig auf"], 1,  <!-- sprache:ok -->
    "Weil der Risikofaktor ein Produkt ist, verschwindet ein katastrophales Ausmaß hinter einer winzigen Wahrscheinlichkeit. Das ist kein Rechenfehler, sondern die Schwäche des Instruments."],
   ["Ab wann gilt ein Schaden als Supply-Chain-Risiko?",
    ["Wenn er über eine Million Euro liegt","Wenn er mehr als ein Unternehmen des Wertschöpfungsnetzwerks betrifft","Wenn er beim Zulieferer entsteht","Wenn er versicherbar ist"], 1,

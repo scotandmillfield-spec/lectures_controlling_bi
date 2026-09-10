@@ -158,8 +158,8 @@ table.tbl tbody tr:hover td{background:var(--sand-xl)}
 .fmark.f4{background:var(--grey-xl);color:#5a5a5c}
 /* ---------- Risk-Map ----------
    Die drei Zonenfarben sind die einzige Stelle, an der Signalfarben
-   auftreten. Dekorativ erscheinen sie nirgends, und sie tragen die
-   Bedeutung nie allein: jede Zone hat ihren Namen, jeder Punkt seine
+   auftreten. Dekorativ erscheinen sie nirgends, und die Bedeutung
+   hängt nie an ihnen allein: jede Zone hat ihren Namen, jeder Punkt seine
    Kennung, jede rote Position zusaetzlich das Warndreieck.          */
 .mapwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
 .mapwrap>*{min-width:0}
@@ -613,7 +613,7 @@ footer a{color:var(--teal-dk)}
   <p class="claim">Zwei Achsen, ein Produkt, drei Zonen. Und eine Grenzlinie, die <b>keine Diagonale</b> ist — was die meisten überrascht und der eigentliche Lerninhalt dieser Karte ist.</p>
 
   <h2 class="sec">Die beiden Achsen</h2>
-  <p class="sub">Die Risk-Map dient der systematischen Analyse, Bewertung und Klassifikation interner und externer Risiken. Die senkrechte Achse trägt die Eintrittswahrscheinlichkeit, die waagerechte das Schadensausmaß.</p>
+  <p class="sub">Die Risk-Map dient der systematischen Analyse, Bewertung und Klassifikation interner und externer Risiken. Auf der senkrechten Achse steht die Eintrittswahrscheinlichkeit, auf der waagerechten das Schadensausmaß.</p>
   <div class="readme">
     <b>Immer dieselben zwei Achsen.</b> Wer die Risikobewertung beschreibt, kommt praktisch ausnahmslos auf dieselben zwei Dimensionen: <b>Schadenhöhe</b> und <b>Eintrittswahrscheinlichkeit</b>. Dass unabhängig voneinander entstandene Darstellungen darin übereinstimmen, weist die Systematik als Standard aus — nicht als Meinung eines Autors.
   </div>
@@ -640,7 +640,7 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <h2 class="sec">Die Skalen dieser Einheit</h2>
-  <p class="sub">Üblich sind drei Stufen je Achse. Für Schieberegler ist das zu grob, deshalb hier eine Fünferskala. Die Deutungshilfen daneben sind eine Zutat dieser Lerneinheit — sie sind nötig, damit zwei Personen dieselbe Stufe gleich verstehen. Genau darin liegt der Sinn einer <b>Skalenverankerung</b>.</p>
+  <p class="sub">Üblich sind drei Stufen je Achse. Für Schieberegler ist das zu grob, deshalb hier eine Fünferskala. Die Deutungshilfen daneben sind eine Zutat dieses Moduls — sie sind nötig, damit zwei Personen dieselbe Stufe gleich verstehen. Genau darin liegt der Sinn einer <b>Skalenverankerung</b>.</p>
   <div class="duo">
     <div class="tscroll" tabindex="0">
       <table class="tbl" style="min-width:0">
@@ -748,7 +748,7 @@ footer a{color:var(--teal-dk)}
 
   <h2 class="sec">Ein klassisches Rechenbeispiel</h2>
   <div class="readme warn">
-    <b>Achtung, Skalenwechsel.</b> Das folgende Beispiel arbeitet mit einer <b>Zehnerskala</b>, diese Lerneinheit mit einer Fünferskala. Es steht deshalb hier abgesetzt und speist die Karte oben nicht. Der Wechsel wird offen benannt, statt ihn zu glätten: Die Zahlenwerte einer Risk-Map haben nur <b>innerhalb einer festgelegten Konvention</b> Bedeutung.
+    <b>Achtung, Skalenwechsel.</b> Das folgende Beispiel arbeitet mit einer <b>Zehnerskala</b>, dieses Modul mit einer Fünferskala. Es steht deshalb hier abgesetzt und speist die Karte oben nicht. Der Wechsel wird offen benannt, statt ihn zu glätten: Die Zahlenwerte einer Risk-Map haben nur <b>innerhalb einer festgelegten Konvention</b> Bedeutung.
   </div>
   <div class="duo" style="margin-top:14px">
     <div class="card"><p class="ck">Unternehmen A</p><h3>Sprinkleranlage</h3>
@@ -1020,7 +1020,7 @@ const LERNEINHEIT = {
      begr:"Angriffe dieser Art treffen Industrieunternehmen inzwischen mehrmals jährlich, wenn auch nicht jeder erfolgreich ist — W = 4. Ein stillstehendes ERP legt Disposition, Versand und Fakturierung gleichzeitig lahm; ohne Fakturierung reißt der Zahlungseingang ab — S = 5."},
     {id:"R2", name:"Ausfall des Single-Source-Lieferanten für Steuergeräte", kat:"lieferantenseitig",
      brutto:{w:2,s:5},
-     begr:"Ein Ausfall dieser Größenordnung tritt etwa alle fünf bis zehn Jahre ein — W = 2. Ohne qualifizierte Zweitquelle steht die Montage; S = 5. Es ist derselbe Partner, den die Lerneinheit Supply Chain Controlling als kritischen Kettenabschnitt ausweist."},
+     begr:"Ein Ausfall dieser Größenordnung tritt etwa alle fünf bis zehn Jahre ein — W = 2. Ohne qualifizierte Zweitquelle steht die Montage; S = 5. Es ist derselbe Partner, den das Modul Supply Chain Controlling als kritischen Kettenabschnitt ausweist."},
     {id:"R3", name:"Erdbeben am asiatischen Fertigungsstandort eines Vorlieferanten",
      kat:"Katastrophe, schwarzer Schwan", brutto:{w:1,s:5},
      begr:"Am konkreten Standort seltener als alle zehn Jahre — W = 1. Fällt der Standort aus, ist ein Kettenglied auf unabsehbare Zeit vernichtet; S = 5. Der Fall, an dem die multiplikative Bewertung scheitert."},
@@ -1580,7 +1580,7 @@ function aRender(){
   }
   else if(fertig)
     $("rmDetail").innerHTML = `<p class="dk">Modus A</p><h4>Acht Schätzungen stehen</h4>
-      <p>Der Vergleich ordnet nicht nach richtig und falsch, sondern nach <b>Richtung</b>: bei wie vielen Risiken Du systematisch höher und bei wie vielen niedriger lagst. Genau das ist die Rückmeldung, die trägt — sie zeigt Deine eigene Verzerrung, nicht Deinen Punktestand.</p>`;
+      <p>Der Vergleich ordnet nicht nach richtig und falsch, sondern nach <b>Richtung</b>: bei wie vielen Risiken Du systematisch höher und bei wie vielen niedriger lagst. Genau das ist die Rückmeldung, auf die es ankommt — sie zeigt Deine eigene Verzerrung, nicht Deinen Punktestand.</p>`;
   else if(!aState.verglichen)
     $("rmDetail").innerHTML = `<p class="dk">Modus A · Selbst einschätzen</p><h4>Ohne fremde Zahl im Ohr</h4>
       <p>Du gehst acht Risiken durch und setzt jedes in die Karte. Bereits gesetzte Risiken bleiben blass stehen, sodass sich die Karte Schritt für Schritt füllt.</p>
@@ -1932,7 +1932,7 @@ function drawBcr(){
        "Jede Zeile ist eine Einheit: dasselbe strategische Ziel, einmal von der Chancenseite und einmal von der Risikoseite gelesen.");
 }
 const BCR_NOTES = [
-  "<b>Schritt 1 · Die Perspektiven.</b> Fünf Zeilenbänder: Finanzen, Kunde und Absatzmarkt, Produkt, Prozesse, Personal. Es ist dieselbe Perspektivenlogik wie bei der Balanced Scorecard und der Supply Chain Scorecard — wer die Lerneinheit zum Supply Chain Controlling bearbeitet hat, erkennt hier die Fortsetzung.",
+  "<b>Schritt 1 · Die Perspektiven.</b> Fünf Zeilenbänder: Finanzen, Kunde und Absatzmarkt, Produkt, Prozesse, Personal. Es ist dieselbe Perspektivenlogik wie bei der Balanced Scorecard und der Supply Chain Scorecard — wer die Modul zum Supply Chain Controlling bearbeitet hat, erkennt hier die Fortsetzung.",
   "<b>Schritt 2 · Die Chancenseite.</b> Je Perspektive ein strategisches Ziel, eine Messgröße, Ist- und Planwerte und der Realisierungsgrad. Bis hierhin ist es eine gewöhnliche Scorecard.",
   "<b>Schritt 3 · Die Risikoseite.</b> Rechts derselben Zeile stehen nun das Risiko, seine Beurteilung auf fünfstufiger Skala und das Ausmaß in Prozentbändern. Jedes Risiko im Register lässt sich einem Ziel zuordnen — und jedes hat seine Position in der Risk-Map aus Lektion 02.",
   "<b>Schritt 4 · Die Maßnahmenspalte, und der eigentliche Punkt.</b> Die gestrichelten Linien verbinden beide Hälften: Jedes strategische Ziel hat eine Chancen- und eine Risikoseite. Risikoüberwachung ist deshalb keine separate Disziplin neben der Steuerung, sondern <b>deren Rückseite</b>."
@@ -1979,7 +1979,7 @@ function rueckblende(){
   host.innerHTML =
     `<p class="sub">In Lektion 01 hast Du diese beiden Risiken geschätzt, ohne die Skala zu kennen, ohne Deutungshilfe und ohne Beispiel. Hier stehen beide Schätzungen nebeneinander.</p>
      <div class="duo">${rows}</div>
-     <div class="readme" style="margin-top:16px"><b>Es geht hier nicht um richtig und falsch.</b> Die begründete Einschätzung ist keine Wahrheit, sondern eine <b>verankerte</b> Schätzung: Jede Stufe trägt eine Deutungshilfe, an der sich zwei Menschen ausrichten können. Ohne diese Verankerung streuen Schätzungen — auch Deine, auch meine. Genau diese Streuung ist die Existenzberechtigung des Instruments. Eine Risk-Map ist nicht deshalb wertvoll, weil sie die richtige Zahl liefert, sondern weil sie <b>alle Beteiligten zwingt, dieselbe Skala zu benutzen</b>.${
+     <div class="readme" style="margin-top:16px"><b>Es geht hier nicht um richtig und falsch.</b> Die begründete Einschätzung ist keine Wahrheit, sondern eine <b>verankerte</b> Schätzung: Zu jeder Stufe gehört eine Deutungshilfe, an der sich zwei Menschen ausrichten können. Ohne diese Verankerung streuen Schätzungen — auch Deine, auch meine. Genau diese Streuung ist die Existenzberechtigung des Instruments. Eine Risk-Map ist nicht deshalb wertvoll, weil sie die richtige Zahl liefert, sondern weil sie <b>alle Beteiligten zwingt, dieselbe Skala zu benutzen</b>.${
        dR3 <= -1 ? " Bei R3 lagst Du übrigens niedriger als die begründete Einschätzung — das ist der schwarze Schwan, bei dem selbst die begründete Zahl in die Irre führt." :
        dR3 >= 1 ? " Bei R3 lagst Du höher als die begründete Einschätzung. Interessant: Genau dieses Risiko landet nach der Formel im grünen Bereich, obwohl es ein Kettenglied vernichten kann." : ""}</div>`;
 }
@@ -2073,7 +2073,7 @@ const FRAGEN = [
    ["Nominalskala","Ordinalskala","Kardinalskala","Alle drei gleichermaßen"], 2,
    "Nur die Kardinalskala. Die Risk-Map ist in der Praxis fast immer ordinal, wird aber multiplikativ ausgewertet — methodisch angreifbar, und der Grund, warum sie ein Kommunikations- und kein Rechenwerkzeug ist."],
   ["Was bedeutet die Strategie Akzeptieren?",
-   ["Das Risiko wird ignoriert","Das Risiko wird nach Bewertung bewusst getragen und dokumentiert","Das Risiko wird an einen Dritten übertragen","Die Bewertung wird ausgesetzt"], 1,
+   ["Das Risiko wird ignoriert","Das Risiko wird nach Bewertung bewusst hingenommen und dokumentiert","Das Risiko wird an einen Dritten übertragen","Die Bewertung wird ausgesetzt"], 1,
    "Akzeptieren ist eine Entscheidung nach der Bewertung und gehört mit Datum und Verantwortlichem dokumentiert. Ignorieren ist das Auslassen der Bewertung."],
   ["Welche Strategie teilt ein Risiko in zwei kleinere auf?",
    ["Überwälzen","Vermeiden","Diversifizieren","Verringern"], 2,

@@ -427,7 +427,7 @@ const UI = {
  title:{de:"Es war einmal · Sofias Coffee Dream", en:"Once upon a time · Sofia's Coffee Dream"},
  eyebrow:{de:"Sofias Coffee Dream · Fallstudie", en:"Sofia's Coffee Dream · Case study"},
  h1:{de:"Es war einmal <em>ein Fahrrad</em>", en:"Once upon a time, <em>there was a bicycle</em>"},
- lede:{de:"Vor den Sternschemata und den Scorecards steht ein Mensch mit einer Idee, einem Fahrrad und einer daraufgeschnallten Espressomaschine. Dieses Modul erzählt diese Geschichte — wer Sofia ist, wie das Geschäft gewachsen ist, warum die Art, es zu führen, nicht mehr trägt, und was an dem Tag geschah, an dem sie ein Diagramm zu schnell gelesen hat. Nichts anderes in der Bibliothek hängt davon ab: zeigen, wenn der Raum einen Fall braucht, sonst weglassen.",
+ lede:{de:"Vor den Sternschemata und den Scorecards steht ein Mensch mit einer Idee, einem Fahrrad und einer daraufgeschnallten Espressomaschine. Dieses Modul erzählt diese Geschichte — wer Sofia ist, wie das Geschäft gewachsen ist, warum die Art, es zu führen, nicht mehr reicht, und was an dem Tag geschah, an dem sie ein Diagramm zu schnell gelesen hat. Nichts anderes in der Bibliothek hängt davon ab: zeigen, wenn der Raum einen Fall braucht, sonst weglassen.",
       en:"Before the star schemas and the scorecards there is a person with an idea, a bicycle and an espresso machine strapped to it. This module tells that story — who Sofia is, how the business grew, why the way she runs it stopped working, and what happened the day she read a chart too quickly. Nothing else in the library depends on it: show it when the room needs a case, skip it when it does not."},
  tabA:{de:"Der Traum", en:"The dream"},
  tabB:{de:"Das Geschäft", en:"The business"},
@@ -550,7 +550,7 @@ const REG = {
    {de:"Behandelt in: BI-Referenzarchitektur (ERP), Controlling-Pyramide (Beschaffung)",
     en:"Covered in: BI reference architecture (ERP), Controlling Pyramid (sourcing)"}],
  st2:[{de:"Sofias Rösterei",en:"Sofia's roastery"},
-   {de:"Röstprofile, Chargen zu 12 kg, grün eingewogen und geröstet ausgewogen. Der Abstand zwischen beiden Zahlen ist die Größe mit der stärksten Hebelwirkung im ganzen Betrieb — und keine Zeile der Gewinn- und Verlustrechnung trägt ihren Namen.",
+   {de:"Röstprofile, Chargen zu 12 kg, grün eingewogen und geröstet ausgewogen. Der Abstand zwischen beiden Zahlen ist die Größe mit der stärksten Hebelwirkung im ganzen Betrieb — und in keiner Zeile der Gewinn- und Verlustrechnung steht ihr Name.",
     en:"Roast profiles, 12 kg batches, weighed in green and weighed out roasted. The gap between the two numbers is the single figure with the most leverage in the whole business, and no line of the profit and loss account is called by its name."},
    {de:"Behandelt in: Controlling-Pyramide (Produktion, Sonderteil des RL-Systems)",
     en:"Covered in: Controlling Pyramid (production, the special part of the RL system)"}],
@@ -785,7 +785,7 @@ const SCALE=90000;
 const eur = n => n.toLocaleString(LANG==="de"?"de-DE":"en-US").replace(/[.,]/g," ") + " €";
 
 const VERDICT={
- t1:{de:`<b>Alsergrund liegt mit 13 500 € vorn</b> — ein Fünftel vor der Ringstraße. Sofias Lesart: Das Campus-Haus hebt ab, und die Studierenden sind die Zukunft. Ihre Entscheidung noch am selben Nachmittag: <span class="amt">10 000 €</span> in eine Semesterkampagne für Alsergrund.`,
+ t1:{de:`<b>Alsergrund liegt mit 13 500 € vorn</b> — ein Fünftel vor der Ringstraße. Sofias Lesart: Das Campus-Haus hebt ab, und die Studierenden sind die Zukunft. Ihre Entscheidung noch am selben Nachmittag: <span class="amt">10 000 €</span> in eine Semesterkampagne für Alsergrund.`, /* sprache:ok — dritte Person, Sofia */
      en:`<b>Alsergrund leads by 13 500 €</b> — a fifth ahead of Ringstraße. Sofia's reading: the campus house is taking off, and the students are the future. Her decision that same afternoon: <span class="amt">10 000 €</span> into a semester campaign for Alsergrund.`},
  t2:{de:`<b>Die Ringstraße liegt mit 19 100 € vorn</b> — dreißig Prozent voraus. Alsergrund ist nie gewachsen. Anna ist am 1. März dorthin gewechselt, und der erste Bericht hat ihr ganzes Quartal dem neuen Haus zugeschlagen. Die <span class="amt">10 000 €</span> gingen an die falsche Adresse.`,
      en:`<b>Ringstraße leads by 19 100 €</b> — thirty per cent ahead. Alsergrund never grew. Anna moved there on 1 March, and the first report handed her whole quarter to her new house. The <span class="amt">10 000 €</span> went to the wrong address.`}

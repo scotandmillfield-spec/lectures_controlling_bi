@@ -436,7 +436,7 @@ footer a{color:var(--teal-dk)}
   <p class="txt">Innerhalb einer Lektion gliedern Abschnitte den Text. Sie klappen auf und zu, der erste steht offen. Auch dafür ist beim Schreiben nichts zu tun — die Mechanik baut sich aus den Überschriften selbst.</p>
 
   <h2 class="sec">Warum die Pfeile nur nach unten zeigen</h2>
-  <p class="txt">Ein Pfad verweist auf Module. Ein Modul verweist <b>nie</b> zurück auf einen Pfad. Diese eine Asymmetrie trägt die ganze Konstruktion.</p>
+  <p class="txt">Ein Pfad verweist auf Module. Ein Modul verweist <b>nie</b> zurück auf einen Pfad. Auf dieser einen Asymmetrie ruht die ganze Konstruktion.</p>
   <ul class="txt">
     <li><b>Ein Modul in mehreren Pfaden</b> kostet nichts. Es steht einfach in mehreren Reihenfolgen — an der Datei ändert sich kein Zeichen.</li>
     <li><b>Ein neuer Pfad</b> ist ein Eintrag in einer Liste, keine Migration.</li>
@@ -573,7 +573,7 @@ footer a{color:var(--teal-dk)}
   <p class="txt" style="margin-top:16px">Diese Angaben sind <b>verbindlich und werden nicht erfunden</b>. Fehlt eine Zahl, ein Name oder ein Standort für das, was Du schreiben willst, dann frag danach, statt sie zu ergänzen. Ein zweiter Standort, der nur in einem Modul existiert, ist genau die Art Fehler, die erst drei Module später auffällt.</p>
 
   <h2 class="sec">Wann ein eigener Fall erlaubt ist</h2>
-  <p class="txt">Sofia ist der Normalfall, ein eigener Fall die <b>begründete Ausnahme</b>. Es gibt sie: Das Modul zum Supply Chain Controlling trägt vier Vorlieferanten eines Nutzfahrzeugherstellers, weil Sofias Betrieb keine benannten Lieferanten hat.</p>
+  <p class="txt">Sofia ist der Normalfall, ein eigener Fall die <b>begründete Ausnahme</b>. Es gibt sie: Das Modul zum Supply Chain Controlling arbeitet mit vier Vorlieferanten eines Nutzfahrzeugherstellers, weil Sofias Betrieb keine benannten Lieferanten hat.</p>
   <p class="txt">Die Überlegung dahinter lohnt sich zu kennen, weil sie auch für Deinen Fall gilt: Lieber ein sichtbar getrennter Fall als ein stillschweigend gedehnter Kanon. Der Kanon wird nicht um vier Lieferanten erweitert, nur damit ein Portfolio vier Punkte bekommt. Wo das nötig ist, sagt es die Kachel im ersten Satz und der Fußtext des Moduls — niemand soll raten müssen, warum hier plötzlich Lastwagen vorkommen.</p>
 
   <h2 class="sec">Quellen</h2>
@@ -605,7 +605,7 @@ footer a{color:var(--teal-dk)}
   <ul class="txt">
     <li><b>Die Anrede ist immer „Du“</b>, mit großem D. „Klicke eine Zeile an“, „Deine erste Schätzung“, „entscheiden musst Du“. Kein „Sie“, nirgends — auch nicht in Tooltips, Detailkästen oder auf Schaltflächen.</li>
     <li><b>Innerhalb einer Lektion wird die Sprache nicht gemischt.</b> Die Lektion ist die kleinste Einheit, die eine Sprache hat. Halbe Sätze auf Deutsch und Tooltips auf Englisch sind der Fehler, den diese Regel verhindert.</li>
-    <li><b>Die Sprache muss sichtbar sein.</b> Eine deutsche Lektion in einem englischen Modul trägt <code>DE</code> in der Beschriftung, ein durchgehend deutsches Modul einen Hinweis auf seiner Kachel. Niemand soll beim Klicken überrascht werden.</li>
+    <li><b>Die Sprache muss sichtbar sein.</b> Eine deutsche Lektion in einem englischen Modul ist mit <code>DE</code> in der Beschriftung gekennzeichnet, ein durchgehend deutsches Modul einen Hinweis auf seiner Kachel. Niemand soll beim Klicken überrascht werden.</li>
     <li><b>Namen und Zahlen des Kanons bleiben unverändert.</b> Sofia heißt in beiden Sprachen Sofia, die Ringstraße bleibt die Ringstraße, 145.500 € bleiben 145.500 €. Übersetzt werden Fließtext und Bedienelemente, nicht der Fall.</li>
   </ul>
 
@@ -627,7 +627,7 @@ footer a{color:var(--teal-dk)}
 
   <h2 class="sec">Gestaltung</h2>
   <ul class="txt">
-    <li><b>Ein Akzent trägt, einer warnt, der Rest ist Grau.</b> Die Signalfarbe erscheint an höchstens zwei Stellen pro Bildschirm. Ist sie überall, ist sie nirgends.</li>
+    <li><b>Ein Akzent führt, einer warnt, der Rest ist Grau.</b> Die Signalfarbe erscheint an höchstens zwei Stellen pro Bildschirm. Ist sie überall, ist sie nirgends.</li>
     <li><b>Bewegung nur, wo sie etwas aussagt.</b> Ein Balken, der auf seinen Wert wächst, erklärt etwas. Ein Element, das beim Scrollen einfliegt, hält nur auf.</li>
     <li><b>Alles ist per Tastatur erreichbar.</b> Was einen Tooltip beim Überfahren zeigt, zeigt ihn auch beim Antabben. Wer eine Grafik liefert, liefert auch den Satz, der sie beschreibt.</li>
     <li><b>Alles läuft auf dem Telefon.</b> Jedes Modul wird bei 390 Pixeln Breite geprüft. Eine Tabelle, die dort nicht passt, scrollt in ihrem eigenen Rahmen und schiebt nicht die Seite.</li>
@@ -687,7 +687,7 @@ footer a{color:var(--teal-dk)}
         <span class="lg">Spielt es in Sofias Kaffeehausbetrieb?</span>
         <span class="why">Sofia ist der Normalfall. Ein eigener Fall ist erlaubt, aber begründungspflichtig — er wird dann sichtbar getrennt ausgewiesen.</span>
         <div class="radios">
-          <label><input type="radio" name="bFall" value="sofia" checked> Ja, Sofias Betrieb trägt das Thema.</label>
+          <label><input type="radio" name="bFall" value="sofia" checked> Ja, Sofias Betrieb gibt das Thema her.</label>
           <label><input type="radio" name="bFall" value="eigen"> Nein, es braucht einen eigenen Fall.</label>
           <label><input type="radio" name="bFall" value="offen"> Weiß ich noch nicht.</label>
         </div>
@@ -838,9 +838,9 @@ const KANON = [
   ["Das Unternehmen", "Zwei Kaffeehäuser",
    "Zwei Kaffeehäuser in Wien (Ringstraße und Alsergrund), eine eigene Rösterei, ein Coffeebike, Import von fair gehandeltem Rohkaffee aus Peru und Großhandel an Bäckereien und andere Kaffeehäuser. <b>Keine vier Filialen und keine eigene Bäckerei.</b>"],
   ["Die Personen", "Keine Nachnamen",
-   "Sofia ist die Inhaberin, Nguyen die Werkstudentin für Controlling und BI, Alex der Controller. Dazu Anna, Jonas, Klara, Elif und Tobias. <b>Niemand trägt einen Nachnamen</b>, und neue Namen werden nicht ohne Rückfrage erfunden."],
+   "Sofia ist die Inhaberin, Nguyen die Werkstudentin für Controlling und BI, Alex der Controller. Dazu Anna, Jonas, Klara, Elif und Tobias. <b>Niemand hat einen Nachnamen</b>, und neue Namen werden nicht ohne Rückfrage erfunden."],
   ["Die Regieanweisung", "Sofia fragt falsch, Nguyen fragt richtig",
-   "Sofia hat gute Ideen und handelt zu schnell: Sie liest eine Kennzahl und zieht sofort einen Schluss. Nguyen fragt, was die Zahl eigentlich zählt. Alex bringt die Methode dazu. <b>Dieses Muster trägt jedes Modul</b> — Sofia ist nicht die Dumme, sondern die Ungeduldige."],
+   "Sofia hat gute Ideen und handelt zu schnell: Sie liest eine Kennzahl und zieht sofort einen Schluss. Nguyen fragt, was die Zahl eigentlich zählt. Alex bringt die Methode dazu. <b>Dieses Muster zieht sich durch jedes Modul</b> — Sofia ist nicht die Dumme, sondern die Ungeduldige."],
   ["Die Standorte", "Drei Verkaufsorte, einer davon mobil",
    "Ringstraße liegt zentral: Touristen und Pendler, gleichmäßige Auslastung, höherer Bon. Alsergrund liegt universitätsnah: die Nachfrage folgt dem Semesterrhythmus, kleinerer Bon, hohe Frequenz. Das Coffeebike wechselt den Standort täglich."],
   ["Die Zahl, die nicht wandert", "145.500 €",
@@ -904,7 +904,7 @@ const STEPS = [
    "<p>Nicht das Thema, sondern die Frage. „Kostenrechnung“ ist ein Thema. „Welche Kosten darf ich einer Filiale zurechnen?“ ist eine Frage, und sie sagt Dir sofort, was ins Modul gehört und was nicht.</p><p>Diese Zeile wird später zur Kernaussage der ersten Lektion und zum Untertitel der Kachel.</p>",
    "Bleibt sie offen, wächst das Modul während des Schreibens, weil kein Kriterium sagt, wo Schluss ist."],
   ["Entscheide über den Fall", "Sofia oder ein eigener",
-   "<p>Der Normalfall ist Sofias Kaffeehausbetrieb. Prüfe, ob er Dein Thema trägt: Gibt es dort die Rollen, die Mengen, die Konflikte, die Du brauchst?</p><p>Trägt er es nicht, ist ein eigener Fall erlaubt — aber er wird begründet und sichtbar getrennt ausgewiesen, in der Kachel und im Fußtext.</p>",
+   "<p>Der Normalfall ist Sofias Kaffeehausbetrieb. Prüfe, ob er Dein Thema hergibt: Gibt es dort die Rollen, die Mengen, die Konflikte, die Du brauchst?</p><p>Gibt er es nicht her, ist ein eigener Fall erlaubt — aber er wird begründet und sichtbar getrennt ausgewiesen, in der Kachel und im Fußtext.</p>",
    "Der Kanon wird nicht stillschweigend gedehnt. Vier erfundene Lieferanten in einem Modul sind schlimmer als ein offen getrennter Fall."],
   ["Ordne das Modul einem Lernpfad zu", "Bestehend, neu oder keiner",
    "<p>Drei Möglichkeiten: Es gehört in einen vorhandenen Pfad, es begründet einen neuen, oder es steht für sich. Alle drei sind in Ordnung.</p><p>Beim vorhandenen Pfad sag auch die Position: vor oder nach welchem Modul? Beim neuen Pfad brauchst Du einen Namen und einen Satz, der den Bogen beschreibt.</p>",
@@ -956,7 +956,7 @@ $("steps").addEventListener("click", e => {
    Nichts wird gespeichert. Der Text entsteht bei jedem Klick neu aus
    dem, was gerade in den Feldern steht.
    ===================================================================== */
-const FALL = {sofia:"Sofias Kaffeehausbetrieb trägt das Thema.",
+const FALL = {sofia:"Sofias Kaffeehausbetrieb gibt das Thema her.",
               eigen:"Es braucht einen eigenen Fall.",
               offen:"Noch offen."};
 const PFAD = {best:"Zu einem bestehenden Lernpfad.",
@@ -1049,8 +1049,8 @@ $("glossar").innerHTML = GLOSSAR.map(([t, d]) =>
    ===================================================================== */
 const FRAGEN = [
   ["Wie heißt ein Reiter innerhalb eines Moduls?",
-   ["Lektion", "Kapitel", "Lerneinheit", "Abschnitt"], 0,
-   "Lektion. „Lerneinheit“ und „Kapitel“ sind keine Begriffe dieser Plattform mehr; wo sie noch stehen, sind sie Reste."],
+   ["Lektion", "Kapitel", "Lerneinheit", "Abschnitt"], 0,  <!-- sprache:ok -->
+   "Lektion. „Lerneinheit“ und „Kapitel“ sind keine Begriffe dieser Plattform mehr; wo sie noch stehen, sind sie Reste."],  <!-- sprache:ok -->
   ["Wie viele Fragen zieht ein Quiz beim Laden aus seinem Vorrat?",
    ["Drei", "Fünf", "Zehn", "Alle"], 1,
    "Fünf, zufällig gezogen. Beim Neuladen kommen andere — ein Quiz, das man auswendig lernen kann, prüft die Reihenfolge und nicht den Stoff."],
@@ -1092,11 +1092,11 @@ const FRAGEN = [
    "Die Quartalssumme. Genau darin liegt der didaktische Kern: Die Summe stimmt immer, und trotzdem sagt jeder Bericht etwas anderes."],
   ["Wie werden die Personen des Falls benannt?",
    ["Vorname und Nachname", "Nur Vorname", "Nur Rolle", "Kürzel aus zwei Buchstaben"], 1,
-   "Nur der Vorname. Sofia, Nguyen, Alex, Anna, Jonas, Klara, Elif — niemand trägt einen Nachnamen."],
+   "Nur der Vorname. Sofia, Nguyen, Alex, Anna, Jonas, Klara, Elif — niemand hat einen Nachnamen."],
   ["Eine Angabe zu Sofias Betrieb fehlt Dir. Was tust Du?",
    ["Eine plausible Angabe ergänzen", "Nachfragen und die Lücke offen lassen", "Die Stelle weglassen", "Eine Angabe aus einem anderen Modul übernehmen"], 1,
    "Nachfragen. Eine erfundene Angabe fällt oft erst drei Module später auf, und dann ist sie an mehreren Stellen verankert."],
-  ["Darf aus einem Kursbuch zitiert werden?",
+  ["Darf aus einem Kursbuch zitiert werden?",  <!-- sprache:ok -->
    ["Ja, mit Seitenangabe", "Ja, wenn die Auflage genannt wird", "Nein, in keiner Form", "Nur in der Fußzeile"], 2,
    "In keiner Form: kein Verweis, keine Seitenzahl, keine Lektionsnummer, keine Kurskennung und keine reproduzierte Abbildung."],
   ["Darf eine Aussage auf Horváth zurückgeführt werden?",

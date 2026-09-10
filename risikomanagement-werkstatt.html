@@ -158,8 +158,8 @@ table.tbl tbody tr:hover td{background:var(--sand-xl)}
 .fmark.f4{background:var(--grey-xl);color:#5a5a5c}
 /* ---------- Risk-Map ----------
    Die drei Zonenfarben sind die einzige Stelle, an der Signalfarben
-   auftreten. Dekorativ erscheinen sie nirgends, und sie tragen die
-   Bedeutung nie allein: jede Zone hat ihren Namen, jeder Punkt seine
+   auftreten. Dekorativ erscheinen sie nirgends, und die Bedeutung
+   hängt nie an ihnen allein: jede Zone hat ihren Namen, jeder Punkt seine
    Kennung, jede rote Position zusaetzlich das Warndreieck.          */
 .mapwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
 .mapwrap>*{min-width:0}
@@ -739,7 +739,7 @@ const LERNEINHEIT = {
      begr:"Angriffe dieser Art treffen Industrieunternehmen inzwischen mehrmals jährlich, wenn auch nicht jeder erfolgreich ist — W = 4. Ein stillstehendes ERP legt Disposition, Versand und Fakturierung gleichzeitig lahm; ohne Fakturierung reißt der Zahlungseingang ab — S = 5."},
     {id:"R2", name:"Ausfall des Single-Source-Lieferanten für Steuergeräte", kat:"lieferantenseitig",
      brutto:{w:2,s:5},
-     begr:"Ein Ausfall dieser Größenordnung tritt etwa alle fünf bis zehn Jahre ein — W = 2. Ohne qualifizierte Zweitquelle steht die Montage; S = 5. Es ist derselbe Partner, den die Lerneinheit Supply Chain Controlling als kritischen Kettenabschnitt ausweist."},
+     begr:"Ein Ausfall dieser Größenordnung tritt etwa alle fünf bis zehn Jahre ein — W = 2. Ohne qualifizierte Zweitquelle steht die Montage; S = 5. Es ist derselbe Partner, den das Modul Supply Chain Controlling als kritischen Kettenabschnitt ausweist."},
     {id:"R3", name:"Erdbeben am asiatischen Fertigungsstandort eines Vorlieferanten",
      kat:"Katastrophe, schwarzer Schwan", brutto:{w:1,s:5},
      begr:"Am konkreten Standort seltener als alle zehn Jahre — W = 1. Fällt der Standort aus, ist ein Kettenglied auf unabsehbare Zeit vernichtet; S = 5. Der Fall, an dem die multiplikative Bewertung scheitert."},
@@ -1466,13 +1466,13 @@ const FRAGEN = [
    ["Weil Maßnahmen unterschiedlich teuer sind","Weil sie an derselben Ursache ansetzen können und sich überschneiden","Weil die Skala nicht linear ist","Weil Brutto und Netto verschiedene Einheiten haben"], 1,
    "Zwei Maßnahmen gegen dieselbe Ursache wirken teilweise doppelt. Wer die Einzelwirkungen addiert, rechnet das Restrisiko kleiner, als es ist."],
   ["Ein Risiko liegt bei W = 1 und S = 5. Welche Normstrategie liegt nahe?",
-   ["Vermeiden","Vermindern","Überwälzen","Selbst tragen"], 2,
+   ["Vermeiden","Verringern","Überwälzen","Akzeptieren"], 2,
    "Selten, aber schwer: der klassische Versicherungsfall. Überwälzen tauscht einen großen unsicheren Schaden gegen eine kleine sichere Prämie."],
   ["Ein Risiko liegt bei W = 5 und S = 1. Welche Antwort ist meist die wirtschaftlichste?",
-   ["Vermeiden","Überwälzen","Selbst tragen und im Prozess auffangen","Die Aktivität aufgeben"], 2,
-   "Häufig, aber unwesentlich: Der Schaden ist aus dem Tagesgeschäft zu tragen. Eine Versicherung für Kleinschäden kostet mehr als die Schäden."],
+   ["Vermeiden","Überwälzen","Akzeptieren und im Prozess auffangen","Die Aktivität aufgeben"], 2,
+   "Häufig, aber unwesentlich: Der Schaden lässt sich aus dem Tagesgeschäft auffangen. Eine Versicherung für Kleinschäden kostet mehr als die Schäden."],
   ["Was bedeutet die Normstrategie „Vermeiden“ in letzter Konsequenz?",
-   ["Die Wahrscheinlichkeit auf null senken","Die Aktivität aufgeben, die das Risiko trägt","Das Risiko an einen Dritten geben","Das Risiko nicht dokumentieren"], 1,
+   ["Die Wahrscheinlichkeit auf null senken","Die Aktivität aufgeben, aus der das Risiko entsteht","Das Risiko an einen Dritten geben","Das Risiko nicht dokumentieren"], 1,
    "Vermeiden heißt, die Ursache zu entfernen — und wenn die Ursache das Geschäft selbst ist, heißt es, dieses Geschäft nicht zu machen. Deshalb ist es die teuerste Strategie."],
   ["Was misst die Effizienz einer Maßnahme in der Aufwand-Nutzen-Betrachtung?",
    ["Den absoluten Rückgang des Risikofaktors","Den Rückgang je eingesetzter Aufwandseinheit","Die Zahl der abgedeckten Risiken","Die Laufzeit der Maßnahme"], 1,
