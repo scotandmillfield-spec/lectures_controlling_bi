@@ -70,6 +70,64 @@ Deutsch. Für die Module gilt:
   ist ohnehin schon die passende Form. Aufpassen bei „sie" in der dritten Person: „Sie ist der
   Grund, warum sich ein Bericht aufklappen lässt" bleibt, wie es ist.
 
+### Verbotene Formulierungen
+
+Diese Liste wächst. Fällt beim Lesen eine Wendung auf, die nicht mehr vorkommen soll, kommt
+sie hier hinein — mit dem Grund und mit dem, was stattdessen dasteht. **Ein Verbot ohne Ersatz
+erzeugt Ausweichmanöver, keinen besseren Text.** Deshalb hat jede Zeile drei Angaben.
+
+**Die Tabelle ist die einzige Quelle.** Die Prüfung am Ende dieser Datei liest sie hier aus;
+es gibt keine zweite Liste, die auseinanderlaufen könnte.
+
+| Muster | Grad | Warum | Stattdessen |
+|---|---|---|---|
+| `(können|haben|sind|werden|müssen|sollten|wollen|finden|sehen|klicken|erhalten) Sie\b` | hart | Die Anrede ist immer „Du“. Die Umstellung Verb-vor-Sie ist eindeutig. | „kannst Du“, „siehst Du“ |
+| `\b(Wenn|Falls|Sobald|Damit|Bevor) Sie\b` | hart | Dasselbe, an der anderen typischen Stelle. | „Wenn Du“, „Bevor Du“ |
+| `\bIhre[nmrs]?\b` | prüfen | Meist die Sie-Anrede. Am Satzanfang kann es die dritte Person sein. | „Deine“, „Deinen“ |
+| `\bIhnen\b` | prüfen | Meist die Sie-Anrede. | „Dir“ |
+| `Kursbuch` | hart | Kursbücher sind als Quelle ausgeschlossen. | Fachliteratur mit Autor und Jahr |
+| `Studienbrief` | hart | Dasselbe wie Kursbuch. | Fachliteratur mit Autor und Jahr |
+| `\bMWCH\d*\b` | hart | Kurskennungen erscheinen nicht. | Das Thema benennen |
+| `FACHLITERATUR` | hart | Herkunftsetikett am Inhalt. | Den Autor im Fließtext nennen |
+| `FOLIE \d` | hart | Herkunftsetikett am Inhalt. | Die Aussage selbst überschreiben |
+| `ERGÄNZUNG` | hart | Herkunftsetikett am Inhalt. | Eine Überschrift, die den Inhalt benennt |
+| `Lerneinheit` | hart | Kein Begriff dieser Plattform. | „Modul“ oder „Lektion“, je nach Ebene |
+| `\bKapitel\b` | prüfen | Kein Begriff dieser Plattform. | „Lektion“ oder „Abschnitt“ |
+
+**Warum nicht einfach `Sie` verboten wird.** Das Wort trifft in fast jedem Modul die dritte
+Person: „Abschnitte … Sie werden zur Laufzeit zu Blöcken“. Ein Verbot darauf meldet fast nur
+Fehlalarme und wird nach dem dritten Lauf ignoriert. Geprüft wird deshalb die Umstellung
+Verb-vor-Sie und die Konjunktion davor — dort ist die Anrede eindeutig. Für alles andere
+gilt die Regel weiter, sie wird nur nicht maschinell gesucht.
+
+**Zwei Grade.** `hart` heißt: kommt nicht vor, die Prüfung schlägt fehl. `prüfen` heißt: ist
+fast immer falsch, kann im Einzelfall richtig sein — die Prüfung meldet den Fund, entschieden
+wird von Hand. Ein „prüfen“-Fund, der bleiben soll, bekommt in derselben Zeile die Marke
+`sprache:ok` — im Markup als `<!-- sprache:ok -->`, im Skript als `/* sprache:ok */`. Dann
+schweigt die Prüfung dort künftig. Ein kurzer Grund dahinter hilft dem nächsten Leser:
+`/* sprache:ok — dritte Person, Sofia */`. **Im Skript nie einen HTML-Kommentar setzen**,
+wenn die Zeichenkette später als Markup ausgegeben wird — der Kommentar landet sonst in
+der Seite.
+
+**Zum Muster.** In der ersten Spalte steht ein regulärer Ausdruck. Der senkrechte Strich ist
+in einer Markdown-Tabelle nicht verwendbar, außer innerhalb einer Klammergruppe wie oben;
+soll etwas ganz anderes zusätzlich verboten werden, bekommt es eine eigene Zeile.
+
+**Was passiert, wenn eine Zeile dazukommt.** Nicht nur künftige Texte sind gemeint, sondern
+auch die vorhandenen. Deshalb gehört zu jedem neuen Eintrag im selben Arbeitsgang:
+
+1. Die Zeile in die Tabelle schreiben, mit Grund und Ersatz.
+2. Die Prüfung laufen lassen und **alle** Fundstellen in den bestehenden Modulen bereinigen.
+3. Beim Ersetzen den Satz lesen, nicht nur das Wort tauschen. Ein Suchen-und-Ersetzen über die
+   ganze Datei hat schon einen Satz zerstört, in dem „Reiter“ den Browser-Reiter meinte und
+   nicht die Lektion.
+4. Das Ergebnis in der Pull-Request-Beschreibung nennen: welche Zeile neu ist und wie viele
+   Stellen sie berührt hat.
+
+**Wo die Liste gilt.** In allen `*.html` — Fließtext, Beschriftungen, Tooltips, Fußzeilen,
+Klassennamen und Kommentare. Für Commit-Nachrichten und Pull-Request-Beschreibungen gilt sie
+sinngemäß, wird dort aber nicht maschinell geprüft.
+
 ### Der Sprachschalter
 
 **[gesetzt]** Zweisprachig sind bisher `index.html` und `sofias-coffee-dream.html`. Die
@@ -317,6 +375,54 @@ EOF
 ```
 
 Überlauf muss überall `0` sein, die Fehlerliste leer, alle Links vorhanden.
+
+### Die Sprachprüfung
+
+Liest die Tabelle der verbotenen Formulierungen aus dieser Datei und sucht sie in allen
+`*.html`. Braucht kein Netz und läuft in einer Sekunde.
+
+```bash
+python3 - <<'EOF'
+import io, re, glob, sys
+
+# Die Tabelle aus CLAUDE.md ist die einzige Quelle.
+md = io.open("CLAUDE.md", encoding="utf-8").read()
+block = md.split("| Muster | Grad | Warum | Stattdessen |", 1)[1].split("\n\n", 1)[0]
+regeln = []
+for zeile in block.splitlines():
+    sp = [t.strip() for t in zeile.strip().strip("|").split("|")]
+    if len(sp) < 4 or sp[0].startswith("---") or not sp[0].startswith("`"):
+        continue
+    # Ein Muster kann selbst einen senkrechten Strich enthalten; alles vor dem
+    # Grad gehoert zum Muster.
+    for i, t in enumerate(sp):
+        if t in ("hart", "pruefen", "prüfen"):
+            muster = "|".join(sp[:i]).strip().strip("`")
+            regeln.append((muster, t, sp[i+1], sp[i+2] if len(sp) > i+2 else ""))
+            break
+print(f"{len(regeln)} Regeln gelesen\n")
+
+hart = weich = 0
+for datei in sorted(glob.glob("*.html")):
+    zeilen = io.open(datei, encoding="utf-8").read().split("\n")
+    for nr, z in enumerate(zeilen, 1):
+        if "sprache:ok" in z:
+            continue
+        for muster, grad, warum, statt in regeln:
+            if re.search(muster, z):
+                streng = grad == "hart"
+                hart += streng; weich += not streng
+                stelle = re.search(muster, z).group(0)
+                print(f'{"FEHLER" if streng else "pruefen"}  {datei}:{nr}  „{stelle}“')
+                print(f'        {warum}  Stattdessen: {statt}')
+
+print(f"\n{hart} harte Verstoesse, {weich} zu pruefen")
+sys.exit(1 if hart else 0)
+EOF
+```
+
+Ein harter Verstoß muss vor dem Pull Request weg. Ein „prüfen“-Fund wird angesehen und
+entweder geändert oder mit `<!-- sprache:ok -->` in derselben Zeile stehen gelassen.
 
 Zusätzlich nach Resten einer früheren Fassung suchen, wenn sich Namen geändert haben:
 

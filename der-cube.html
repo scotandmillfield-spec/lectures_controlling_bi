@@ -412,7 +412,7 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <div class="readme">
-    <b>Wie es weitergeht.</b> Stehen Fakten und Dimensionen fest, ist die nächste Frage die nach der Form: Bleibt die Produkthierarchie flach in einer Dimensionstabelle, oder wird sie normalisiert? Das ist die Lerneinheit <a href="semantisches-datenmodell.html">Semantische Datenmodelle</a>. Danach folgt die Frage, was passiert, wenn sich ein Dimensionsattribut ändert — <a href="scd-dashboard.html">Slowly Changing Dimensions</a> — und zuletzt, wo die Summen physisch liegen: <a href="decks/OLAP_Storage_Sofias_Coffee_World.pptx" download>MOLAP, ROLAP und HOLAP</a>.
+    <b>Wie es weitergeht.</b> Stehen Fakten und Dimensionen fest, ist die nächste Frage die nach der Form: Bleibt die Produkthierarchie flach in einer Dimensionstabelle, oder wird sie normalisiert? Das ist das Modul <a href="semantisches-datenmodell.html">Semantische Datenmodelle</a>. Danach folgt die Frage, was passiert, wenn sich ein Dimensionsattribut ändert — <a href="scd-dashboard.html">Slowly Changing Dimensions</a> — und zuletzt, wo die Summen physisch liegen: <a href="decks/OLAP_Storage_Sofias_Coffee_World.pptx" download>MOLAP, ROLAP und HOLAP</a>.
   </div>
   <p class="hint">Zeile überfahren für die Erläuterung</p>
 </section>
@@ -742,7 +742,7 @@ const BRIDGE=[
  ["Die Adresse der Zelle","Die Fremdschlüssel der Faktenzeile","<code>produkt_sk</code>, <code>datum_sk</code>, <code>filiale_sk</code>",
   "Die Adressierung des Würfels ist wörtlich der Fremdschlüsselsatz der Faktentabelle. Wer den Würfel adressieren kann, hat den Schlüsselentwurf schon im Kopf."],
  ["Eine feinere Achsenstufe","Eine weitere Spalte in derselben Dimensionstabelle","<code>produktgruppe</code> neben <code>warengruppe</code>",
-  "Drill-down braucht keine neue Tabelle, sondern eine weitere Spalte — das ist die flache Hierarchie aus der Lerneinheit zum semantischen Datenmodell."],
+  "Drill-down braucht keine neue Tabelle, sondern eine weitere Spalte — das ist die flache Hierarchie aus dem Modul zum semantischen Datenmodell."],
  ["Das feinste Detail, das je einzeln sichtbar sein soll","Das Korn der Faktentabelle","eine Bonzeile",
   "Die einzige Entscheidung, die sich später nicht mehr billig korrigieren lässt. Der Würfel kann nur verdichten, was das Korn hergibt — feiner als das Korn kommt niemand."]
 ];
