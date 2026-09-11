@@ -264,6 +264,13 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
   ]
 },</pre>
 
+<pre><span class="c">// reihenfolge.js — eine Zeile je Modul, die Folge ist die Folge auf der Seite</span>
+<span class="k">const</span> REIHENFOLGE = [
+  <span class="s">"werkstatt"</span>,
+  <span class="s">"case"</span>,
+  <span class="s">"etl"</span>          <span class="c">// neu — hier einsortieren</span>
+];</pre>
+
   <p data-t="howPaths"></p>
 
 <pre><span class="c">// paste inside const PATHS = [ ... ]</span>
@@ -279,6 +286,8 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
 
 </div>
 
+<!-- Die Reihenfolge der Kacheln. Fehlt die Datei, gilt die Folge der Liste. -->
+<script src="reihenfolge.js"></script>
 <script>
 "use strict";
 
@@ -319,8 +328,8 @@ const UI = {
          en:"Put the new file in the folder (HTML next to <code>index.html</code>, slide decks in <code>decks/</code>)."},
   step2:{de:"<code>index.html</code> im Texteditor \u00f6ffnen und die Modulliste suchen.",
          en:"Open <code>index.html</code> in a text editor and find the module list."},
-  step3:{de:"Einen Block wie unten einf\u00fcgen. Die Reihenfolge in der Liste ist die Reihenfolge auf der Seite.",
-         en:"Paste a block like the one below. Order in the list is the order on the page."},
+  step3:{de:"Einen Block wie unten einf\u00fcgen. Wo die Liste ihn hat, ist gleich \u2014 die Folge der Kacheln steht in <code>reihenfolge.js</code>. Fehlt die Kennung dort, rutscht die Kachel ans Ende und die Konsole sagt es.",
+         en:"Paste a block like the one below. Where it sits in the list makes no difference \u2014 the order of the tiles lives in <code>reihenfolge.js</code>. If the id is missing there, the tile goes to the end and the console says so."},
   step4:{de:"<code>accent</code> f\u00e4rbt die Kachel: <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> oder <code>green</code>. <code>glyph</code> w\u00e4hlt die Zeichnung: <code>rows</code>, <code>cube</code>, <code>cells</code>, <code>chain</code>, <code>riskmap</code>, <code>layers</code>, <code>quadrants</code>, <code>star</code>, <code>pyramid</code>, <code>loop</code>, <code>tree</code> oder <code>scaffold</code>.",
          en:"<code>accent</code> tints the tile: use <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> or <code>green</code>. <code>glyph</code> picks the drawing: <code>rows</code>, <code>cube</code>, <code>cells</code>, <code>chain</code>, <code>riskmap</code>, <code>layers</code>, <code>quadrants</code>, <code>star</code>, <code>pyramid</code>, <code>loop</code>, <code>tree</code> or <code>scaffold</code>."},
   step5:{de:"Jedes Textfeld darf ein einfacher String sein (dann gilt er in beiden Sprachen) oder ein Paar aus deutscher und englischer Fassung. Fehlt die deutsche, erscheint die englische. <code>langBadge</code> setzt den Hinweis auf die Sprache des Moduls selbst.",
@@ -789,7 +798,30 @@ const grid=document.getElementById("grid");
 /* Die Sprachwahl reist als Parameter in die Module mit */
 const qs = LANG==="de" ? "" : "?lang="+LANG;
 
-grid.innerHTML=TOPICS.map(t=>{
+/* Die Reihenfolge der Kacheln steht in reihenfolge.js. Fehlt die Datei,
+   gilt die Folge der Liste — die Startseite laeuft dann allein weiter.
+   Ein Modul, das dort fehlt, rutscht ans Ende statt zu verschwinden:
+   Ein neues Modul ist sofort sichtbar, auch wenn die Datei vergessen
+   wurde. Beides meldet die Konsole. */
+const SORTIERT = (() => {
+  if(typeof REIHENFOLGE === "undefined"){
+    console.warn("reihenfolge.js fehlt — die Kacheln stehen in der Folge der Liste");
+    return TOPICS;
+  }
+  const rang = new Map(REIHENFOLGE.map((id,i)=>[id,i]));
+  REIHENFOLGE.forEach(id=>{
+    if(!TOPICS.some(t=>t.id===id)) console.warn(`reihenfolge.js: unbekanntes Modul "${id}"`);
+  });
+  TOPICS.forEach(t=>{
+    if(!rang.has(t.id)) console.warn(`reihenfolge.js: "${t.id}" fehlt — die Kachel steht am Ende`);
+  });
+  return TOPICS
+    .map((t,i)=>[t, rang.has(t.id) ? rang.get(t.id) : REIHENFOLGE.length + i])
+    .sort((a,b)=>a[1]-b[1])
+    .map(x=>x[0]);
+})();
+
+grid.innerHTML=SORTIERT.map(t=>{
   const planned=t.status==="planned";
   const [trackName,trackCls]=TRACK[t.track];
   const title=L(t.title), sub=L(t.sub), feats=t.features.map(L), lb=L(t.langBadge);

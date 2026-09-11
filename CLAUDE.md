@@ -256,6 +256,7 @@ Quellenverzeichnisse, keine Legenden, keine Versionsangaben.
 
 ```
 index.html                       Startseite mit allen Modulen, Filter und Suche
+reihenfolge.js                   die Folge der Kacheln, eine Zeile je Modul
 PROJECT-CANON.md                 Namen, Zahlen, Festlegungen
 <thema>.html                     je ein Modul, in sich geschlossen
 decks/*.pptx                     Foliensätze zum Herunterladen
@@ -264,6 +265,13 @@ decks/*.pptx                     Foliensätze zum Herunterladen
 Jede HTML-Datei läuft **ohne Build und ohne Server**. Einzige externe Abhängigkeit sind
 Google Fonts mit Fallback-Stack. Diese Eigenschaft nicht aufgeben: kein npm, kein Bundler,
 keine Frameworks, keine geteilten CSS- oder JS-Dateien. Doppelklick muss genügen.
+
+**Die eine Ausnahme ist `reihenfolge.js`**, und sie ist eng geschnitten. Nur `index.html` lädt
+sie, über einen klassischen `<script src>` — der funktioniert über `file://`, anders als `fetch`.
+Sie ist **optional**: Fehlt sie, meldet die Konsole das und die Startseite nimmt die Folge der
+Liste in `TOPICS`. Ein Modul bleibt davon unberührt und wird weiterhin einzeln
+weitergegeben. Eine zweite solche Datei kommt nicht dazu, ohne dass diese Regel neu
+verhandelt wird.
 
 ## Lernpfade
 
@@ -287,10 +295,26 @@ Ein Lernpfad ist eine Reihenfolge von Modulen, die zusammen Sinn ergeben. Er ste
 - **Eine unbekannte `id` in `steps`** meldet die Konsole beim Laden. Stillschweigend
   verschwinden darf ein Tippfehler nicht.
 
-**Warum die Liste nicht in einer eigenen Datei liegt:** `fetch` auf eine `paths.json` scheitert
-über `file://`, und eine `paths.js` per `<script src>` würde zwar laufen, aber die Eigenschaft
-brechen, dass jede Datei für sich weitergegeben werden kann. Wächst die Liste stark, ist das
-Auslagern eine Zeile Arbeit — bis dahin bleibt sie in `index.html`.
+**Warum `PATHS` in `index.html` bleibt:** Die Liste ist kurz und enthält zweisprachigen
+Fließtext — Titel und Beschreibung jedes Pfads. Das ist Inhalt und keine Anordnung, und es
+gehört zu den Daten, aus denen die Startseite besteht. Ausgelagert ist deshalb allein die
+Reihenfolge der Kacheln, siehe unten.
+
+### Die Reihenfolge der Kacheln
+
+Sie steht in **`reihenfolge.js`**, einer Liste von Modulkennungen, eine je Zeile. Umsortieren
+heißt: eine Zeile verschieben. Dass die Reihenfolge früher aus der Stellung der Blöcke in
+`TOPICS` entstand, hat jedes Umsortieren zu einer Blockverschiebung über zwanzig Zeilen
+gemacht — dafür ist diese Datei da.
+
+- **`TOPICS` ist seitdem eine reine Definitionsliste.** Wo ein Modul dort steht, ist gleich.
+- **Ein Modul, das in `reihenfolge.js` fehlt, verschwindet nicht.** Seine Kachel rutscht ans
+  Ende, und die Konsole sagt es. Ein neu registriertes Modul ist damit sofort sichtbar, auch
+  wenn die Datei vergessen wurde. Eine Kennung ohne Modul meldet die Konsole ebenso.
+- **Der Text hinter jeder Kennung ist eine Lesehilfe.** Gelesen wird allein die Kennung; ein
+  umbenanntes Modul macht den Kommentar schief, aber nichts kaputt.
+- **Die Lernpfade behalten ihre eigene Reihenfolge** in `steps`. Ist ein Pfad gewählt, schlägt
+  sie die Folge aus `reihenfolge.js`.
 
 ### Der Pfadplaner
 
@@ -337,7 +361,8 @@ grep -c "\bpfp" content-werkstatt.html   # Präfix schon vergeben?
 
 **Neues Modul immer in `index.html` registrieren.** Die Startseite kennt nur, was in
 `const TOPICS = [ ... ]` steht. Ohne Eintrag ist das Modul unsichtbar. Das ist der
-häufigste Fehler.
+häufigste Fehler. Die Kennung gehört danach an ihre Stelle in `reihenfolge.js` — wird das
+vergessen, steht die Kachel am Ende und die Konsole sagt es beim Laden.
 
 **Der `:root`-Block muss in allen Dateien identisch sein.** Alle Farb- und
 Schriftentscheidungen leben dort. Nie einen Farbwert direkt in eine Regel schreiben.
