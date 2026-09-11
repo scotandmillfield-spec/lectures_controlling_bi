@@ -656,7 +656,7 @@ footer a{color:var(--teal-dk)}
 
 <!-- ==================== LEKTION 02 · QUIZ ==================== -->
 <section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
-  <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen. Hier wird nicht Wissen abgefragt, sondern <b>angewandt</b>: rechnen, einordnen, eine Strategie wählen.</p>
+  <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen. Hier wird Wissen <b>angewandt</b>: rechnen, einordnen, eine Strategie wählen. Abgefragt wird es woanders.</p>
 
   <h2 class="sec">Übung</h2>
   <p class="sub">Die meisten Fragen lassen sich in der Werkstatt nebenan nachstellen. Wer unsicher ist, stellt den Fall dort ein und schaut, wohin der Punkt wandert.</p>
@@ -772,7 +772,7 @@ const LERNEINHEIT = {
      wirk:"Verhindert den Angriff nicht, verkürzt aber den Stillstand von Wochen auf Tage."},
     {id:"M4", risikoId:"R1", name:"Cyber-Versicherung",
      typ:"korrektiv", dW:0, dS:-1, aufwand:30,
-     wirk:"Überwälzung. Verhindert kein Ereignis, sondern verschiebt die finanzielle Folge."}
+     wirk:"Überwälzung. Verschiebt die finanzielle Folge; das Ereignis tritt trotzdem ein."}
   ],
 
   strategien:[
@@ -795,7 +795,7 @@ const LERNEINHEIT = {
     {id:"accept", de:"Akzeptieren", en:"Acceptance", richtung:"keine", typ:"keiner",
      dW:0, dS:0, teilt:false,
      kurz:"Der Punkt bleibt, wo er ist.",
-     text:"Keine Bewegung. Akzeptieren ist keine Untätigkeit, sondern eine bewusste Entscheidung nach der Bewertung — und sie gehört dokumentiert. Ignorieren dagegen ist das Auslassen der Bewertung."}
+     text:"Keine Bewegung. Akzeptieren ist eine bewusste Entscheidung nach der Bewertung, und sie gehört dokumentiert. Ignorieren dagegen ist das Auslassen der Bewertung."}
   ],
 
   einstieg:{risikoIds:["R3","R7"]},
@@ -835,7 +835,7 @@ const LERNEINHEIT = {
 
   streit:[
     {t:"R3 und der schwarze Schwan",
-     p:"Das Erdbeben hat das höchstmögliche Schadensausmaß und landet dennoch im <b>grünen</b> Bereich, weil die Wahrscheinlichkeit mit 1 bewertet ist. Der Risikofaktor stuft es als tragbar ein, obwohl es ein Kettenglied vernichten kann. Das ist die strukturelle Schwäche der multiplikativen Bewertung. Die Antwort darauf ist keine bessere Formel, sondern ein anderes Instrument: der <b>Notfallplan</b>."},
+     p:"Das Erdbeben hat das höchstmögliche Schadensausmaß und landet dennoch im <b>grünen</b> Bereich, weil die Wahrscheinlichkeit mit 1 bewertet ist. Der Risikofaktor stuft es als tragbar ein, obwohl es ein Kettenglied vernichten kann. Das ist die strukturelle Schwäche der multiplikativen Bewertung. Die Antwort darauf liegt in einem anderen Instrument: dem <b>Notfallplan</b>. An der Formel ist nichts zu verbessern."},
     {t:"R7 gegen R2",
      p:"Der Bullwhip-Effekt liegt mit Risikofaktor 12 im roten Bereich, der Ausfall des Single-Source-Lieferanten mit 10 im gelben. Nach der Zahl ist die Fehlprognose das dringendere Problem. Würdest Du dieser Reihenfolge folgen? Die Karte <b>ordnet</b>, sie entscheidet nicht."},
     {t:"R6 und der Preis der Vergleichbarkeit",
@@ -943,7 +943,7 @@ const risk = id => LERNEINHEIT.risiken.find(r => r.id === id);
    2 · Tooltip
    ===================================================================== */
 const REG = {
-  pot1:["Faktor 1 · Bedrohung","Eine konkrete, begründete Bedrohung. Nicht „irgendwann könnte etwas passieren“, sondern ein benennbares Ereignis mit benennbarer Ursache — sonst lässt sich weder eine Wahrscheinlichkeit noch eine Maßnahme daran festmachen.","Ohne sie: kein Risikopotenzial"],
+  pot1:["Faktor 1 · Bedrohung","Eine konkrete, begründete Bedrohung: ein benennbares Ereignis mit benennbarer Ursache. „Irgendwann könnte etwas passieren“ genügt nicht — daran lässt sich weder eine Wahrscheinlichkeit noch eine Maßnahme festmachen.","Ohne sie: kein Risikopotenzial"],
   pot2:["Faktor 2 · Schwachstelle","Die Stelle in der Kette, an der die Bedrohung wirksam werden kann. Ein Angriff auf ein System, das es nicht gibt, ist folgenlos; eine Naturkatastrophe an einem Standort ohne eigene Wertschöpfung ebenso.","Eine Bedrohung ohne Schwachstelle trifft ins Leere"],
   pot3:["Faktor 3 · Bedeutender Wert","Hinter der Schwachstelle muss etwas stehen, dessen Verlust zählt — Umsatz, Lieferfähigkeit, Reputation, Menschenleben. Eine Schwachstelle ohne bedeutenden Wert dahinter ist folgenlos.","Alle drei müssen zusammentreffen"]
 };
@@ -1303,7 +1303,7 @@ function wsFigs(){
     : kritisch
       ? `<p class="dk">Dringendster Eintrag</p><h4>${esc(kritisch.name || kritisch.id)}</h4>
          <p>${esc(kritisch.id)} liegt mit Risikofaktor <b>${RF(kritisch.w, kritisch.s)}</b> im Handlungsbereich. ${kritisch.desc ? esc(kritisch.desc) : "Noch keine Beschreibung hinterlegt."}</p>
-         <p class="warn">Über der Toleranzlinie ist eine Maßnahme keine Option, sondern fällig. Weiter in Schritt 3.</p>`
+         <p class="warn">Über der Toleranzlinie ist eine Maßnahme fällig. Zur Wahl steht sie dort nicht mehr. Weiter in Schritt 3.</p>`
       : `<p class="dk">Stand</p><h4>Nichts über der Toleranzlinie</h4>
          <p>Kein Eintrag erreicht den Handlungsbereich. Das ist kein Freibrief: Prüfe die Zeile mit dem höchsten Schadensausmaß gesondert — ein seltenes Ereignis mit Ausmaß 5 ist rechnerisch grün und trotzdem existenzbedrohend.</p>`;
 }

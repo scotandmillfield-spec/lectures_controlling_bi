@@ -288,7 +288,7 @@ footer a{color:var(--teal-dk)}
 <header class="masthead">
   <p class="eyebrow">Sofia's Coffee Dream · Business Intelligence</p>
   <h1>Drei Achsen, eine Zahl, <em>und alles dazwischen</em></h1>
-  <p class="lede">Ein Cube ist keine Datenbanktechnik, sondern eine Denkweise: Man legt die Kennzahl in einen Raum, dessen Achsen die Fragen sind, die man stellen wird. Danach ist jede Auswertung nur noch eine Adresse in diesem Raum — vollständig angegeben ergibt sie eine Zelle, unvollständig angegeben eine Summe. Dieses Modul baut den Würfel an Sofias Quartal auf und klärt vorher den Begriff, an dem die meisten hängenbleiben: Was ist eigentlich ein Fakt und was eine Dimension?</p>
+  <p class="lede">Ein Cube ist eine Denkweise: Man legt die Kennzahl in einen Raum, dessen Achsen die Fragen sind, die man stellen wird. Danach ist jede Auswertung nur noch eine Adresse in diesem Raum — vollständig angegeben ergibt sie eine Zelle, unvollständig angegeben eine Summe. Mit Speichertechnik hat das alles noch nichts zu tun. Dieses Modul baut den Würfel an Sofias Quartal auf und klärt vorher den Begriff, an dem die meisten hängenbleiben: Was ist eigentlich ein Fakt und was eine Dimension?</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Der Cube">
@@ -331,7 +331,7 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <div class="readme warn">
-    <b>Die zwei Fallen.</b> Erstens: <b>Nicht jede Zahl ist ein Fakt.</b> Das Jahr 2026 ist eine Zahl und trotzdem eine Dimension — man addiert keine Jahreszahlen. Dasselbe gilt für Postleitzahlen und Bonnummern. Die Probe ist nicht „ist es numerisch“, sondern „ergibt die Summe einen Sinn“. Zweitens: <b>Nicht jeder Fakt ist über jede Dimension addierbar.</b> Ein Lagerbestand darf über Filialen summiert werden, über Monate aber nicht — sonst zählt man denselben Sack Kaffee dreimal. Solche Größen heißen halbadditiv, und sie sind der häufigste Grund für falsche Zahlen in einem sonst korrekten Bericht.
+    <b>Die zwei Fallen.</b> Erstens: <b>Nicht jede Zahl ist ein Fakt.</b> Das Jahr 2026 ist eine Zahl und trotzdem eine Dimension — man addiert keine Jahreszahlen. Dasselbe gilt für Postleitzahlen und Bonnummern. Die Probe lautet: Ergibt die Summe einen Sinn? Numerisch zu sein reicht nicht. Zweitens: <b>Nicht jeder Fakt ist über jede Dimension addierbar.</b> Ein Lagerbestand darf über Filialen summiert werden, über Monate aber nicht — sonst zählt man denselben Sack Kaffee dreimal. Solche Größen heißen halbadditiv, und sie sind der häufigste Grund für falsche Zahlen in einem sonst korrekten Bericht.
   </div>
   <p class="hint">Felder anklicken zum Zuordnen · darüberfahren für die Auflösung</p>
 </section>
@@ -355,7 +355,7 @@ footer a{color:var(--teal-dk)}
 
   <div class="detail" id="detB">
     <p class="dk">Was der Würfel eigentlich ist</p>
-    <h4>Kein Speicherformat, sondern eine Adressierung</h4>
+    <h4>Der Würfel ist eine Adressierung</h4>
     <p>Der Würfel behauptet nicht, dass die Daten physisch als Quader herumliegen. Er sagt nur: Jede Zahl in diesem Modell hat eine vollständige Adresse aus je einem Wert pro Dimension. Ist die Adresse vollständig, gibt es genau eine Zelle. Fehlt eine Angabe, sind alle Werte entlang dieser Achse gemeint — und weil man sie zu einer Zahl zusammenfassen muss, wird summiert.</p>
     <p class="warn">Über eine Zelle fahren, um ihre vollständige Adresse zu sehen.</p>
   </div>
@@ -369,7 +369,7 @@ footer a{color:var(--teal-dk)}
 
 <!-- ============================ TAB C ============================ -->
 <section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c">
-  <p class="claim">Die klassischen Operationen sind keine Zaubersprüche, sondern <b>fünf Arten, dieselbe Adresse zu verändern</b>. Klicke eine an — der Würfel führt sie vor.</p>
+  <p class="claim">Die klassischen Operationen sind <b>fünf Arten, dieselbe Adresse zu verändern</b>. Mehr steckt nicht dahinter. Klicke eine an — der Würfel führt sie vor.</p>
 
   <div class="asks" id="ops"></div>
 
@@ -383,7 +383,7 @@ footer a{color:var(--teal-dk)}
   <div class="detail" id="detC"></div>
 
   <div class="readme warn">
-    <b>Der Unterschied, der in Prüfungen zählt.</b> <b>Slice</b> legt <em>eine</em> Dimension auf <em>einen</em> Wert fest und schneidet damit eine Scheibe heraus — die Dimensionalität sinkt um eins. <b>Dice</b> schränkt <em>mehrere</em> Dimensionen auf je eine <em>Teilmenge</em> ein und liefert einen kleineren Würfel — die Dimensionalität bleibt gleich. Ein Slice ist also ein Sonderfall, kein Oberbegriff. <b>Drill-down</b> und <b>Roll-up</b> verändern überhaupt keine Auswahl, sondern die Feinheit einer Achse. Und <b>Pivot</b> verändert nicht einmal die Daten, sondern nur, welche Achse waagerecht liegt.
+    <b>Der Unterschied, der in Prüfungen zählt.</b> <b>Slice</b> legt <em>eine</em> Dimension auf <em>einen</em> Wert fest und schneidet damit eine Scheibe heraus — die Dimensionalität sinkt um eins. <b>Dice</b> schränkt <em>mehrere</em> Dimensionen auf je eine <em>Teilmenge</em> ein und liefert einen kleineren Würfel — die Dimensionalität bleibt gleich. Ein Slice ist also ein Sonderfall, kein Oberbegriff. <b>Drill-down</b> und <b>Roll-up</b> verändern die Feinheit einer Achse; die Auswahl lassen sie in Ruhe. Und <b>Pivot</b> rührt die Daten überhaupt nicht an — es dreht nur, welche Achse waagerecht liegt.
   </div>
   <p class="hint">Operation anklicken · Zellen überfahren</p>
 </section>
@@ -684,10 +684,10 @@ const ITEMS=[
  ["Monat","dim","Die Zeitachse. Jede Faktentabelle hat sie, und sie ist fast immer die erste Achse, nach der jemand fragt."],
  ["Filiale","dim","Der Ort des Vorgangs. Ringstraße, Alsergrund — und im vollständigen Modell auch das Coffeebike."],
  ["Zahlweg","dim","Bar oder EC-Karte. Eine kleine Dimension, aber eine echte: Man kann sinnvoll nach ihr gruppieren."],
- ["Jahr 2026","dim","Eine Zahl — und trotzdem eine Dimension. Die Probe ist nicht „ist es numerisch“, sondern „ergibt die Summe einen Sinn“. Die Summe zweier Jahreszahlen ergibt keinen."],
+ ["Jahr 2026","dim","Eine Zahl — und trotzdem eine Dimension. Die Probe lautet: Ergibt die Summe einen Sinn? Die Summe zweier Jahreszahlen ergibt keinen."],
  ["Lagerbestand","sonder","<b>Halbadditiv.</b> Über Filialen darf man ihn addieren, über Monate nicht — sonst zählt man denselben Sack Kaffee dreimal. Für die Zeitachse braucht er eine andere Regel, meist den Wert am Stichtag."],
  ["Röstverlust in %","sonder","<b>Nicht additiv.</b> Prozentsätze darf man nie summieren und nur mit Vorsicht mitteln. Speichern muss man die beiden Mengen — grün hinein, geröstet heraus — und den Prozentsatz erst im Bericht berechnen."],
- ["Bonnummer","sonder","<b>Degenerierte Dimension.</b> Sie gruppiert durchaus — alle Zeilen eines Bons gehören zusammen — hat aber keine eigenen Attribute. Deshalb bekommt sie keine Dimensionstabelle, sondern bleibt als Spalte in der Faktentabelle stehen."]
+ ["Bonnummer","sonder","<b>Degenerierte Dimension.</b> Sie gruppiert durchaus — alle Zeilen eines Bons gehören zusammen — hat aber keine eigenen Attribute. Eine eigene Dimensionstabelle wäre leer; deshalb bleibt sie als Spalte in der Faktentabelle stehen."]
 ];
 const guess = {};
 function renderChips(){
@@ -742,7 +742,7 @@ const BRIDGE=[
  ["Die Adresse der Zelle","Die Fremdschlüssel der Faktenzeile","<code>produkt_sk</code>, <code>datum_sk</code>, <code>filiale_sk</code>",
   "Die Adressierung des Würfels ist wörtlich der Fremdschlüsselsatz der Faktentabelle. Wer den Würfel adressieren kann, hat den Schlüsselentwurf schon im Kopf."],
  ["Eine feinere Achsenstufe","Eine weitere Spalte in derselben Dimensionstabelle","<code>produktgruppe</code> neben <code>warengruppe</code>",
-  "Drill-down braucht keine neue Tabelle, sondern eine weitere Spalte — das ist die flache Hierarchie aus dem Modul zum semantischen Datenmodell."],
+  "Drill-down braucht eine weitere Spalte in derselben Tabelle — das ist die flache Hierarchie aus dem Modul zum semantischen Datenmodell."],
  ["Das feinste Detail, das je einzeln sichtbar sein soll","Das Korn der Faktentabelle","eine Bonzeile",
   "Die einzige Entscheidung, die sich später nicht mehr billig korrigieren lässt. Der Würfel kann nur verdichten, was das Korn hergibt — feiner als das Korn kommt niemand."]
 ];

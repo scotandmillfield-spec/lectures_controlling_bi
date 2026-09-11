@@ -94,6 +94,15 @@ es gibt keine zweite Liste, die auseinanderlaufen könnte.
 | `Lerneinheit` | hart | Kein Begriff dieser Plattform. | „Modul“ oder „Lektion“, je nach Ebene |
 | `\bKapitel\b` | prüfen | Kein Begriff dieser Plattform. | „Lektion“ oder „Abschnitt“ |
 | `\b([Tt]rage|[Tt]rägst|[Tt]rägt|[Tt]ragen|[Tt]ragt|[Tt]rug|[Tt]rugen|[Tt]rüge|[Gg]etragen|[Tt]ragend[ers]*)\b` | hart | Das Verb „tragen“ ist eine Verlegenheitslösung: Es klingt nach Aussage und sagt nichts. | Das konkrete Verb: „hält aus“, „gibt her“, „ruht auf“, „steht auf“, „hat“, „reicht“ |
+| `\bsondern\b` | hart | Die Figur „nicht X, sondern Y“ klingt nach Schärfe und sagt zuerst, was etwas nicht ist. Der Leser hält die Verneinung im Kopf, bis die Behauptung endlich kommt. | Den Satz positiv stellen: „Ein Risiko ist ein bewertetes Ereignis.“ |
+
+**Was „sondern“ nicht rettet.** Gemeint ist die Figur, nicht das Wort. Wer „Ein Risiko ist
+kein Unglück, sondern ein bewertetes Ereignis“ in zwei Sätze zerlegt, hat sie mit einem Punkt
+getarnt: „Ein Risiko ist kein Unglück. Es ist ein bewertetes Ereignis.“ Die Prüfung findet das
+nicht, ein Leser schon. Der Satz wird positiv gestellt, und die Behauptung steht vorn. Wo die
+Verneinung wirklich etwas beiträgt, bekommt sie einen eigenen Satz mit eigenem Inhalt — einen,
+der über den Spiegel der Behauptung hinausgeht. „Die Formel rechnet dabei richtig“ sagt etwas.
+„Es ist kein Rechenfehler“ sagt nichts.
 
 **Was „tragen“ nicht trifft.** Verboten ist das einfache Verb. Zusammensetzungen sind andere
 Wörter und bleiben: `eintragen`, `übertragen`, `betragen`, `Vertrag`, `Beitrag`, `Auftrag`,
@@ -125,8 +134,8 @@ deshalb vor dem Suchen auf. Wer sie umbaut, lässt diesen Schritt stehen — an 
 in einer Markdown-Tabelle nicht verwendbar, außer innerhalb einer Klammergruppe wie oben;
 soll etwas ganz anderes zusätzlich verboten werden, bekommt es eine eigene Zeile.
 
-**Was passiert, wenn eine Zeile dazukommt.** Nicht nur künftige Texte sind gemeint, sondern
-auch die vorhandenen. Deshalb gehört zu jedem neuen Eintrag im selben Arbeitsgang:
+**Was passiert, wenn eine Zeile dazukommt.** Gemeint sind die künftigen Texte und die
+vorhandenen gleichermaßen. Deshalb gehört zu jedem neuen Eintrag im selben Arbeitsgang:
 
 1. Die Zeile in die Tabelle schreiben, mit Grund und Ersatz.
 2. Die Prüfung laufen lassen und **alle** Fundstellen in den bestehenden Modulen bereinigen.
@@ -234,7 +243,7 @@ wird sie genannt — mit Autor und Jahr, nicht mit einer Fundstelle in einem Kur
 **Keine Herkunftsetiketten am Inhalt.** Ein Modul bekommt keine Kennzeichnung, aus welcher Quelle
 ein Block stammt — weder `FACHLITERATUR` noch `FOLIE N` noch `ERGÄNZUNG`. Die Module stehen für
 sich; wer sie liest, soll sich mit dem Gegenstand befassen und nicht mit seiner Provenienz.
-Abbildungen werden **nicht reproduziert**, sondern eigenständig neu aufgebaut.
+Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 
 **Wo eine Aussage auf einen Autor zurückgeht, wird er im Fließtext genannt** — als Zitat mit
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
