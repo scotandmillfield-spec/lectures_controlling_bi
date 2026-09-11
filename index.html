@@ -346,6 +346,28 @@ const UI = {
    ===================================================================== */
 const TOPICS = [
   {
+    id:"werkstatt",
+    title:{de:"Die Werkstatt — wie diese Plattform gebaut ist",
+           en:"The workshop — how this platform is built"},
+    sub:{de:"Für alle, die Inhalte beisteuern: die drei Ebenen Lernpfad, Modul und Lektion, der Bauplan eines Moduls und die Regeln, die nicht verhandelbar sind. Durchgehend auf Deutsch.",
+         en:"For everyone who contributes content: the three levels of path, module and lesson, the blueprint of a module and the rules that are not up for negotiation. In German throughout."},
+    track:"meta", status:"ready", accent:"navy", glyph:"scaffold",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Die drei Ebenen als Landkarte, in der ein Modul sichtbar an zwei Lernpfaden hängt",
+       en:"The three levels as a map, with one module visibly hanging from two learning paths"},
+      {de:"Ein Planer, der aus Textmenge, Abschnitten und Interaktion die Bearbeitungszeit einer Lektion schätzt",
+       en:"A planner that estimates a lesson's working time from text volume, sections and interaction"},
+      {de:"Der Kanon des Falls als Aufdeckkarten: zwei Kaffeehäuser, keine Nachnamen, 145.500 €",
+       en:"The canon of the case as flip cards: two coffee houses, no surnames, 145,500 €"},
+      {de:"Ein Briefing-Bogen, der aus Deinen Antworten den Text erzeugt, den Du mit dem Material abgibst",
+       en:"A briefing sheet that turns your answers into the text you hand in with your material"}
+    ],
+    links:[{kind:"html",file:"content-werkstatt.html",
+            label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
+  },
+  
+  {
     id:"case",
     title:{de:"Sofias Coffee Dream — der Fall", en:"Sofia's Coffee Dream — the case"},
     sub:{de:"Vor den Sternschemata: ein Mensch, ein Fahrrad und eine Espressomaschine. Wer Sofia ist, wie das Geschäft gewachsen ist, und der Nachmittag, an dem ein Diagramm sie zehntausend Euro gekostet hat.",
@@ -613,27 +635,6 @@ const TOPICS = [
        en:"Data quality dimensions with real failure cases"}
     ],
     links:[]
-  },
-  {
-    id:"werkstatt",
-    title:{de:"Die Werkstatt — wie diese Plattform gebaut ist",
-           en:"The workshop — how this platform is built"},
-    sub:{de:"Für alle, die Inhalte beisteuern: die drei Ebenen Lernpfad, Modul und Lektion, der Bauplan eines Moduls und die Regeln, die nicht verhandelbar sind. Durchgehend auf Deutsch.",
-         en:"For everyone who contributes content: the three levels of path, module and lesson, the blueprint of a module and the rules that are not up for negotiation. In German throughout."},
-    track:"meta", status:"ready", accent:"navy", glyph:"scaffold",
-    langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Die drei Ebenen als Landkarte, in der ein Modul sichtbar an zwei Lernpfaden hängt",
-       en:"The three levels as a map, with one module visibly hanging from two learning paths"},
-      {de:"Ein Planer, der aus Textmenge, Abschnitten und Interaktion die Bearbeitungszeit einer Lektion schätzt",
-       en:"A planner that estimates a lesson's working time from text volume, sections and interaction"},
-      {de:"Der Kanon des Falls als Aufdeckkarten: zwei Kaffeehäuser, keine Nachnamen, 145.500 €",
-       en:"The canon of the case as flip cards: two coffee houses, no surnames, 145,500 €"},
-      {de:"Ein Briefing-Bogen, der aus Deinen Antworten den Text erzeugt, den Du mit dem Material abgibst",
-       en:"A briefing sheet that turns your answers into the text you hand in with your material"}
-    ],
-    links:[{kind:"html",file:"content-werkstatt.html",
-            label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
   },
   {
     id:"cyber-intro",
