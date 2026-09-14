@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jahresabschlussanalyse mit Kennzahlen · geplant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2; --canvas:#F4F3F0;
+  --green:#2E9E6B; --red:#D9534F;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.1rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:20ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:clamp(1.08rem,1.78vw,1.32rem);font-weight:300;color:#3d3d40;line-height:1.55;margin:0}
+
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+
+.claim{font-size:clamp(1.2rem,2.35vw,1.6rem);font-weight:300;line-height:1.42;margin:0 0 26px;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--teal-dk)}
+h2.sec{font-size:1.34rem;font-weight:600;letter-spacing:-.014em;margin:34px 0 4px}
+h2.sec:first-child{margin-top:0}
+p.sub{margin:0 0 18px;color:var(--grey);font-size:1.06rem;line-height:1.6}
+.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:14px 0 0}
+
+/* ---------- Schaltflaechen ---------- */
+.bar{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;justify-content:space-between;margin:0 0 16px}
+.seg{display:inline-flex;border:1px solid var(--grey-xl);background:var(--paper);border-radius:var(--r);padding:4px;gap:4px;flex-wrap:wrap}
+.seg button{appearance:none;border:0;background:transparent;cursor:pointer;font-family:var(--sans);
+  font-size:.88rem;font-weight:600;color:var(--grey);padding:9px 16px;border-radius:7px;transition:.16s}
+.seg button:hover{color:var(--teal-dk)}
+.seg button[aria-pressed="true"]{background:var(--teal-dk);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.84rem;color:#4a4a4d}
+.key{display:inline-flex;align-items:center;gap:8px}
+.sw{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.06)}
+.sw.q1{background:#FDE8D3} .sw.q2{background:#E1F0F6}
+.sw.q3{background:#F2EBD8}   .sw.q4{background:#EAEAE8}
+
+.btn{appearance:none;border:1px solid var(--teal-dk);background:transparent;color:var(--teal-dk);
+  font-family:var(--sans);font-size:.88rem;font-weight:600;cursor:pointer;
+  padding:10px 16px;border-radius:8px;transition:.16s}
+.btn:hover{background:var(--teal-dk);color:#fff}
+.btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+/* ---------- Karten ---------- */
+.card{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px}
+.card .ck{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 4px}
+.card h3{margin:0 0 8px;font-size:1.06rem;font-weight:700;letter-spacing:-.015em}
+.card p{margin:0 0 10px;font-size:.9rem;color:#3d3d40;line-height:1.52}
+.card p:last-child{margin-bottom:0}
+.card ul{margin:10px 0 0;padding-left:18px;font-size:.88rem;color:#3d3d40;line-height:1.5}
+.card li{margin-bottom:5px}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.duo>*{min-width:0}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
+.trio>*{min-width:0}
+.quad{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:stretch}
+.quad>*{min-width:0}
+
+/* ---------- Aufdeckkarten: Wortherkunft, Aufgaben, Denkfehler ---------- */
+.flipgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.flipgrid>*{min-width:0}
+.flip{appearance:none;text-align:left;width:100%;cursor:pointer;font-family:var(--sans);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px 16px 14px;transition:.2s var(--ease);color:var(--ink)}
+.flip:hover{border-color:var(--teal);transform:translateY(-2px)}
+.flip:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.flip .lang{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+.flip .word{font-family:var(--mono);font-size:1.02rem;font-weight:600;color:var(--teal-dk);margin:5px 0 0}
+.flip .mean{font-size:.88rem;color:#3d3d40;margin:9px 0 0;line-height:1.45}
+.flip[aria-expanded="false"] .mean{display:none}
+.flip[aria-expanded="false"]::after{content:"umdrehen";display:block;margin-top:9px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal)}
+.flip[aria-expanded="true"]{border-color:var(--teal);background:var(--teal-xl)}
+
+.deck{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.deck>*{min-width:0}
+.task{appearance:none;text-align:left;width:100%;cursor:pointer;font-family:var(--sans);color:var(--ink);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px;transition:.2s var(--ease);display:flex;flex-direction:column;gap:7px}
+.task:hover{border-color:var(--ochre);transform:translateY(-2px)}
+.task:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.task .no{font-family:var(--mono);font-size:.72rem;font-weight:600;color:var(--ochre);letter-spacing:.08em}
+.task .hd{font-size:.95rem;font-weight:600;line-height:1.34}
+.task .bd{font-size:.86rem;color:#3d3d40;line-height:1.5}
+.task[aria-expanded="false"] .bd{display:none}
+.task[aria-expanded="true"]{border-color:var(--ochre);background:var(--ochre-xl)}
+.counter{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:12px 0 0}
+
+.acc{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.acc button{appearance:none;width:100%;text-align:left;cursor:pointer;font-family:var(--sans);
+  background:transparent;border:0;border-bottom:1px solid var(--grey-xl);padding:15px 18px;
+  font-size:.95rem;font-weight:600;color:var(--ink);display:flex;gap:12px;align-items:flex-start;transition:background .16s}
+.acc button:hover{background:var(--sand-xl)}
+.acc button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.acc button .mk{font-family:var(--mono);color:var(--red);flex:none;font-size:.9rem;line-height:1.5}
+.acc .ans{padding:0 18px 16px 42px;font-size:.9rem;color:#3d3d40;line-height:1.55;
+  border-bottom:1px solid var(--grey-xl);background:var(--sand-xl)}
+.acc .ans[hidden]{display:none}
+.acc .ans b{color:var(--green)}
+.acc>*:last-child{border-bottom:0}
+
+/* ---------- Tabellen ---------- */
+.tscroll{overflow-x:auto;border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper)}
+table.tbl{width:100%;min-width:560px;border-collapse:collapse;font-size:.85rem}
+table.tbl th{background:#F7F7F5;text-align:left;padding:9px 12px;font-family:var(--mono);
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid);white-space:nowrap}
+table.tbl td{padding:9px 12px;border-bottom:1px solid var(--grey-xl);vertical-align:top;line-height:1.45}
+table.tbl tr:last-child td{border-bottom:0}
+table.tbl td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.tbl td.m{font-family:var(--mono);font-size:.8rem}
+table.tbl td.crit{font-weight:600}
+table.tbl tr.dim td{color:var(--grey-mid);transition:color .3s var(--ease)}
+table.tbl tr.hi td{background:var(--teal-xl)}
+table.tbl tbody tr:hover td{background:var(--sand-xl)}
+.fmark{display:inline-block;width:22px;height:22px;line-height:20px;text-align:center;
+  border-radius:5px;font-family:var(--mono);font-size:.76rem;font-weight:600;border:1px solid rgba(0,0,0,.08)}
+.fmark.f1{background:var(--orange-xl);color:#A85B00}
+.fmark.f2{background:var(--teal-xl);color:var(--teal-dk)}
+.fmark.f3{background:var(--sand-xl);color:#8A6417}
+.fmark.f4{background:var(--grey-xl);color:#5a5a5c}
+/* ---------- Risk-Map ----------
+   Die drei Zonenfarben sind die einzige Stelle, an der Signalfarben
+   auftreten. Dekorativ erscheinen sie nirgends, und die Bedeutung
+   hängt nie an ihnen allein: jede Zone hat ihren Namen, jeder Punkt seine
+   Kennung, jede rote Position zusaetzlich das Warndreieck.          */
+.mapwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.mapwrap>*{min-width:0}
+.mapstage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:12px 10px 6px;overflow-x:auto}
+.mapstage:focus-visible,.stage:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+svg.rm{width:100%;min-width:340px;height:auto;display:block}
+svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.rm .zone{stroke:#fff;stroke-width:1.5}
+.rm .zg{fill:#E6F1E5} .rm .zy{fill:#FBF2D9} .rm .zr{fill:#FBE4DC}
+.rm .zlab{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.07em;
+  text-anchor:middle;opacity:.62}
+.rm .zlab.g{fill:#2E7D4F} .rm .zlab.y{fill:#8A6417} .rm .zlab.r{fill:#B23C2C}
+.rm .gr{stroke:#fff;stroke-width:1;opacity:.85}
+.rm .ax{stroke:var(--grey-mid);stroke-width:1.4}
+.rm .tol{fill:none;stroke:#B23C2C;stroke-width:2;stroke-dasharray:7 5}
+.rm .iso{fill:none;stroke:var(--teal-dk);stroke-width:1.8;stroke-dasharray:3 4}
+.rm .tickX{font-family:var(--mono);font-size:10.5px;fill:var(--grey);text-anchor:middle}
+.rm .tickY{font-family:var(--mono);font-size:10.5px;fill:var(--grey);text-anchor:end}
+.rm .stufe{font-size:9px;fill:var(--grey);text-anchor:middle}
+.rm .stufeY{font-size:9px;fill:var(--grey);text-anchor:end}
+.rm .atitle{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;fill:var(--teal-dk);
+  text-transform:uppercase;font-weight:600;text-anchor:middle}
+.rm .pt{cursor:pointer}
+.rm .pt:focus-visible{outline:none}
+.rm .pt .dot{fill:var(--navy);stroke:#fff;stroke-width:2.5;transition:r .2s var(--ease)}
+.rm .pt:hover .dot,.rm .pt:focus-visible .dot{r:13}
+.rm .pt .id{font-family:var(--mono);font-size:10px;font-weight:600;fill:#fff;text-anchor:middle;
+  pointer-events:none}
+.rm .pt .lab{font-size:11.5px;font-weight:600}
+.rm .pt.sel .dot{fill:var(--orange);stroke:var(--orange-xl);stroke-width:4}
+.rm .pt.own .dot{fill:var(--teal);stroke:#fff}
+.rm .pt.ref .dot{fill:var(--ochre);stroke:#fff}
+.rm .pt.ghost .dot{fill:var(--grey-mid)}
+.rm .pt.ziel .dot{fill:#fff;stroke:var(--grey);stroke-width:2.4;stroke-dasharray:3 3}
+.rm .pt.ghost .lab{opacity:.5}
+.rm .pt.live .dot{fill:var(--orange);stroke:#fff;stroke-width:3}
+.rm .pt.split .dot{fill:var(--teal-dk);stroke:#fff}
+.rm .link{stroke:var(--grey);stroke-width:1.4;stroke-dasharray:3 3}
+.rm .warn{fill:#B23C2C}
+.rm .warn text{fill:#fff;font-family:var(--mono);font-size:9px;font-weight:700;text-anchor:middle}
+.rm .mv{fill:none;stroke:var(--orange);stroke-width:3}
+.rm .mv.pre{stroke:#2E7D4F}
+.rm .ghostpath{fill:none;stroke:var(--grey-mid);stroke-width:1.6;stroke-dasharray:4 4}
+
+/* ---------- Zonenlegende und Kennzahlleiste ---------- */
+.zonekey{display:flex;gap:16px;flex-wrap:wrap;font-size:.84rem;color:#4a4a4d}
+.zonekey .k{display:inline-flex;align-items:center;gap:8px}
+.zonekey i{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.08)}
+.zonekey i.g{background:#E6F1E5} .zonekey i.y{background:#FBF2D9} .zonekey i.r{background:#FBE4DC}
+
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:10px;margin:0 0 14px}
+.figs>*{min-width:0}
+.fig{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 15px}
+.fig .fk{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 5px;line-height:1.3}
+.fig .fv{font-family:var(--mono);font-size:1.45rem;font-weight:600;font-variant-numeric:tabular-nums;
+  color:var(--teal-dk);line-height:1}
+.fig .fn{font-size:.76rem;color:var(--grey);margin:5px 0 0;line-height:1.3}
+.fig.hot{border-color:var(--orange);background:var(--orange-xl)}
+.fig.hot .fv{color:#A85B00}
+
+/* ---------- Regler ---------- */
+.rgrid{display:grid;gap:12px}
+.rrow{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 16px}
+.rrow .rl{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin:0 0 8px}
+.rrow .rn{font-size:.9rem;font-weight:600}
+.rrow .rv{font-family:var(--mono);font-size:.82rem;color:var(--teal-dk);font-weight:600;
+  text-align:right;flex:none}
+.rrow input[type=range]{width:100%;accent-color:var(--teal-dk);display:block}
+.rrow .ra{font-size:.78rem;color:var(--grey);margin:6px 0 0;line-height:1.35;min-height:2.1em}
+
+/* ---------- Prozesskreis ---------- */
+.stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:14px 10px 6px;overflow-x:auto}
+svg.proc{width:100%;min-width:560px;height:auto;display:block}
+svg.proc text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.proc .pbox{fill:var(--paper);stroke:var(--grey-mid);stroke-width:1.4;transition:.2s var(--ease)}
+.proc .ph{cursor:pointer}
+.proc .ph:focus-visible{outline:none}
+.proc .ph:hover .pbox,.proc .ph:focus-visible .pbox,.proc .ph.on .pbox{stroke:var(--teal-dk);stroke-width:2.6;fill:var(--teal-xl)}
+.proc .pk{font-family:var(--mono);font-size:9px;letter-spacing:.1em;fill:var(--grey);text-transform:uppercase}
+.proc .pt2{font-size:14px;font-weight:600}
+.proc .pq{font-size:11px;fill:#4a4a4d}
+.proc .arw{fill:none;stroke:var(--teal);stroke-width:2.4}
+.proc .arw.back{stroke:var(--orange);stroke-dasharray:6 4}
+.proc .clam{fill:none;stroke:var(--ochre);stroke-width:2.4;transition:opacity .3s}
+.proc .clamlab{font-family:var(--mono);font-size:10px;fill:var(--ochre);font-weight:600;text-anchor:middle}
+.proc .ctr{font-size:13px;font-weight:600;text-anchor:middle;fill:var(--teal-dk)}
+.proc .ctrs{font-size:11px;text-anchor:middle;fill:var(--grey)}
+
+/* ---------- Balanced Chance- und Risk-Card ---------- */
+svg.bcr{width:100%;min-width:760px;height:auto;display:block}
+svg.bcr text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.bcr .band{stroke:#fff;stroke-width:1.5}
+.bcr .bl{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.05em;fill:var(--teal-dk)}
+.bcr .cell{fill:var(--paper);stroke:var(--grey-xl);stroke-width:1}
+.bcr .ct{font-size:10.5px;fill:#3d3d40}
+.bcr .hd{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:600;text-anchor:middle}
+.bcr .hd.c{fill:#2E7D4F} .bcr .hd.r{fill:#B23C2C}
+.bcr .step{transition:opacity .45s var(--ease)}
+.bcr .step.off{opacity:0}
+.bcr .dash{stroke:var(--ochre);stroke-width:1.5;stroke-dasharray:5 4;fill:none;opacity:.85}
+
+/* ---------- Vergleichsliste Modus A ---------- */
+.cmp{display:grid;grid-template-columns:44px 1fr 108px 108px 64px;gap:8px 12px;align-items:center;
+  padding:10px 0;border-bottom:1px solid var(--grey-xl);font-size:.86rem}
+.cmp>*{min-width:0}
+.cmp:last-child{border-bottom:0}
+.cmp .cid{font-family:var(--mono);font-size:.8rem;font-weight:600;color:var(--teal-dk)}
+.cmp .cn{line-height:1.35}
+.cmp .cw{font-family:var(--mono);font-size:.8rem;font-variant-numeric:tabular-nums;text-align:right}
+.cmp .cw.own{color:var(--teal)} .cmp .cw.ref{color:var(--ochre)}
+.cmp .cd{font-family:var(--mono);font-size:.8rem;font-weight:600;text-align:right}
+.cmp .cd.up{color:#B23C2C} .cmp .cd.dn{color:#2E7D4F} .cmp .cd.eq{color:var(--grey)}
+.cmphead{display:grid;grid-template-columns:44px 1fr 108px 108px 64px;gap:12px;font-family:var(--mono);
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  padding-bottom:7px;border-bottom:1px solid var(--grey-mid)}
+.cmphead>*{min-width:0}
+.cmphead span:nth-child(n+3){text-align:right}
+
+/* ---------- Massnahmen und Strategien ---------- */
+.mlist{display:grid;gap:10px}
+.mopt{display:flex;gap:12px;align-items:flex-start;background:var(--paper);cursor:pointer;
+  border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 16px;transition:.16s var(--ease)}
+.mopt:hover{border-color:var(--teal)}
+.mopt:focus-within{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal-xl)}
+.mopt input{accent-color:var(--teal-dk);width:17px;height:17px;flex:none;margin-top:2px}
+.mopt .mt{display:block;font-size:.92rem;font-weight:600;line-height:1.3}
+.mopt .mm{display:block;font-family:var(--mono);font-size:.76rem;color:var(--grey);margin:4px 0 0}
+.mopt .tag{display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.09em;
+  text-transform:uppercase;font-weight:600;border-radius:4px;padding:3px 7px;margin-left:8px;
+  vertical-align:middle}
+.mopt .tag.pre{background:#E6F1E5;color:#2E7D4F}
+.mopt .tag.kor{background:var(--orange-xl);color:#A85B00}
+.mopt.on{border-color:var(--teal-dk);background:var(--teal-xl)}
+
+.strat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.strat>*{min-width:0}
+.sbtn{appearance:none;cursor:pointer;font-family:var(--sans);text-align:left;color:var(--ink);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:14px 16px;transition:.18s var(--ease)}
+.sbtn:hover{border-color:var(--teal);transform:translateY(-2px)}
+.sbtn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.sbtn .sd{display:block;font-size:.98rem;font-weight:700;letter-spacing:-.01em}
+.sbtn .se{display:block;font-family:var(--mono);font-size:.74rem;color:var(--grey);margin:3px 0 7px;overflow-wrap:anywhere}
+.sbtn .sm{display:block;font-size:.78rem;color:#4a4a4d;line-height:1.35}
+.sbtn[aria-pressed="true"]{border-color:var(--teal-dk);background:var(--teal-xl)}
+.sbtn[aria-pressed="true"] .se{color:var(--teal-dk)}
+
+/* ---------- BAUM ---------- */
+.baum{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.baum>*{min-width:0}
+.bcard{background:var(--paper);border:1px solid var(--grey-xl);border-left:3px solid var(--teal-dk);
+  border-radius:var(--r);padding:16px 18px}
+.bcard .letter{font-family:var(--mono);font-size:1.5rem;font-weight:700;color:var(--teal-dk);line-height:1}
+.bcard h3{margin:8px 0 6px;font-size:.95rem;font-weight:700}
+.bcard p{margin:0;font-size:.85rem;color:#3d3d40;line-height:1.5}
+
+/* ---------- Merkblatt und Druck ---------- */
+.merk{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:24px 26px}
+.merk h3{margin:0 0 14px;font-size:1.1rem;font-weight:700}
+.merk dl{margin:0;display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr);gap:9px 18px;font-size:.87rem}
+.merk dt{font-weight:700;color:var(--teal-dk);line-height:1.4}
+.merk dd{margin:0;color:#3d3d40;line-height:1.45}
+.glos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px 22px;font-size:.85rem}
+.glos>*{min-width:0}
+.glos div{padding:7px 0;border-bottom:1px solid var(--grey-xl);line-height:1.45}
+.glos b{color:var(--teal-dk)}
+
+/* ---------- Werkstatt: Risiken erfassen ---------- */
+.wsbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:0 0 16px}
+.wsbar>*{min-width:0}
+.wslist{display:grid;gap:14px}
+.wscard{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px 20px;border-left:3px solid var(--teal-dk)}
+.wshead{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:0 0 14px}
+.wshead>*{min-width:0}
+.wsid{font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--teal-dk);
+  background:var(--teal-xl);border-radius:5px;padding:4px 9px;flex:none}
+.wsdel{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);cursor:pointer;
+  font-family:var(--sans);font-size:.78rem;font-weight:600;color:var(--grey);
+  padding:6px 11px;border-radius:7px;flex:none;transition:.16s}
+.wsdel:hover{border-color:var(--red);color:var(--red)}
+.wsdel:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.fld{margin:0 0 12px}
+.fld label{display:block;font-size:.8rem;font-weight:600;color:#3d3d40;margin:0 0 6px}
+.fld input[type=text],.fld textarea{width:100%;font-family:var(--sans);font-size:.9rem;
+  padding:9px 11px;border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper);
+  color:var(--ink);line-height:1.45}
+.fld textarea{resize:vertical;min-height:66px}
+.fld input:focus-visible,.fld textarea:focus-visible,.fld select:focus-visible{
+  outline:2px solid var(--orange);outline-offset:1px}
+.cnt{font-family:var(--mono);font-size:.72rem;color:var(--grey);text-align:right;margin:4px 0 0}
+.cnt.warn{color:#B25E00;font-weight:600}
+.wsduo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.wsduo>*{min-width:0}
+.wsax{background:var(--canvas);border-radius:9px;padding:13px 15px}
+.wsax .axh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin:0 0 8px}
+.wsax .axn{font-size:.82rem;font-weight:700}
+.wsax .axv{font-family:var(--mono);font-size:.78rem;font-weight:600;color:var(--teal-dk);text-align:right}
+.wsax input[type=range]{width:100%;accent-color:var(--teal-dk);display:block;margin:0 0 4px}
+.wsax .axa{font-size:.74rem;color:var(--grey);line-height:1.35;min-height:2em;margin:0 0 10px}
+.wsrf{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 0;
+  padding-top:12px;border-top:1px solid var(--grey-xl)}
+.wsrf .lbl{font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--grey)}
+.wsrf .val{font-family:var(--mono);font-size:1.05rem;font-weight:700;font-variant-numeric:tabular-nums}
+.zpill{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.09em;
+  text-transform:uppercase;font-weight:600;border-radius:4px;padding:4px 9px}
+.zpill.g{background:#E6F1E5;color:#2E7D4F}
+.zpill.y{background:#FBF2D9;color:#8A6417}
+.zpill.r{background:#FBE4DC;color:#B23C2C}
+
+/* ---------- Werkstatt: Strategie und Massnahme ---------- */
+.stgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stgrid>*{min-width:0}
+.fld select{width:100%;font-family:var(--sans);font-size:.9rem;padding:9px 11px;
+  border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper);color:var(--ink)}
+.mvhint{font-size:.78rem;color:#3d3d40;line-height:1.4;margin:8px 0 0;
+  background:var(--teal-xl);border-radius:7px;padding:9px 11px}
+.mvhint b{color:var(--teal-dk)}
+
+/* ---------- Werkstatt: Massnahmenplan ---------- */
+.plan{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:24px 26px}
+.plan h3{margin:0 0 4px;font-size:1.15rem;font-weight:700;letter-spacing:-.015em}
+.plan .pmeta{font-family:var(--mono);font-size:.74rem;color:var(--grey);margin:0 0 18px}
+table.sc{width:100%;min-width:760px;border-collapse:collapse;font-size:.84rem}
+table.sc th{background:#F7F7F5;text-align:left;padding:9px 11px;font-family:var(--mono);
+  font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid);vertical-align:bottom}
+table.sc th.r{text-align:right}
+table.sc td{padding:10px 11px;border-bottom:1px solid var(--grey-xl);vertical-align:top;line-height:1.4}
+table.sc td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.sc td.id{font-family:var(--mono);font-weight:700;color:var(--teal-dk)}
+table.sc tr.sum td{font-weight:700;background:var(--teal-xl);border-bottom:0}
+table.sc .dn{color:#2E7D4F;font-weight:700}
+table.sc .up{color:#B23C2C;font-weight:700}
+.pnote{font-size:.8rem;color:var(--grey);line-height:1.5;margin:16px 0 0;
+  padding-top:14px;border-top:1px solid var(--grey-xl)}
+.printonly{display:none}
+
+/* ---------- Checkliste ---------- */
+.ck10{display:grid;gap:11px;counter-reset:ck}
+.ckitem{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px 18px 16px 60px;position:relative}
+.ckitem::before{counter-increment:ck;content:counter(ck,decimal-leading-zero);
+  position:absolute;left:18px;top:16px;font-family:var(--mono);font-size:1rem;font-weight:700;
+  color:var(--teal-dk)}
+.ckitem h3{margin:0 0 6px;font-size:.98rem;font-weight:700;letter-spacing:-.01em}
+.ckitem p{margin:0 0 8px;font-size:.86rem;color:#3d3d40;line-height:1.5}
+.ckitem p:last-child{margin-bottom:0}
+.ckitem .trap{font-size:.82rem;color:#B25E00;line-height:1.45}
+.ckitem .trap b{font-weight:700}
+
+/* ---------- Quiz ---------- */
+.qwrap{display:grid;gap:14px}
+.qcard{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px 20px}
+.qcard .qn{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 7px}
+.qcard .qt{font-size:.98rem;font-weight:600;line-height:1.4;margin:0 0 13px}
+.qopts{display:grid;gap:8px}
+.qopt{appearance:none;text-align:left;cursor:pointer;font-family:var(--sans);font-size:.89rem;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--ink);
+  padding:11px 14px;border-radius:8px;transition:.16s;line-height:1.4}
+.qopt:hover:not(:disabled){border-color:var(--teal);background:var(--teal-xl)}
+.qopt:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.qopt:disabled{cursor:default}
+.qopt.right{background:#E8F5EE;border-color:var(--green);color:#1E6B47;font-weight:600}
+.qopt.wrong{background:#FBEAE9;border-color:var(--red);color:#9C2F2C;font-weight:600}
+.qfb{margin:13px 0 0;font-size:.86rem;color:#3d3d40;line-height:1.5;
+  padding-top:11px;border-top:1px solid var(--grey-xl)}
+.qfb[hidden]{display:none}
+.qscore{background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:18px 22px;
+  font-size:.98rem;line-height:1.5}
+.qscore b{font-weight:700}
+
+/* ---------- Auf- und zuklappbare Bloecke innerhalb einer Lektion ------
+   Die Bloecke entstehen zur Laufzeit aus der vorhandenen Gliederung:
+   jedes h2.sec eroeffnet einen Block, alles bis zum naechsten h2.sec
+   ist sein Inhalt. Am Markup ist dafuer nichts zu aendern.          */
+.blk{border-top:1px solid var(--grey-xl)}
+.blk:first-of-type{border-top:0}
+.blk h2.sec{margin:0}
+.blk-t{appearance:none;width:100%;background:transparent;border:0;cursor:pointer;
+  display:flex;align-items:center;gap:12px;text-align:left;padding:20px 0 18px;
+  font:inherit;color:inherit;letter-spacing:inherit;transition:color .16s}
+.blk-t:hover{color:var(--teal-dk)}
+.blk-t:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:4px}
+.blk-c{width:13px;height:13px;flex:none;color:var(--teal-dk);
+  transition:transform .22s var(--ease)}
+.blk[data-open="true"] .blk-c{transform:rotate(90deg)}
+.blk-b{padding:0 0 28px}
+.blk-b[hidden]{display:none}
+
+@media (max-width:760px){
+  .wsduo,.stgrid{grid-template-columns:1fr}
+}
+
+@media print{
+  /* Gedruckt wird nur der Bereich, den der Knopf gewaehlt hat. Alles
+     andere wird unsichtbar geschaltet, behaelt aber seinen Platz nicht -
+     der Zielbereich wird nach oben genommen.                          */
+  body{background:#fff}
+  body[data-print] *{visibility:hidden!important}
+  body[data-print="werk"] #wsPrint, body[data-print="werk"] #wsPrint *,
+  body[data-print="merk"] #merkblatt, body[data-print="merk"] #merkblatt *{visibility:visible!important}
+  body[data-print="werk"] #wsPrint,
+  body[data-print="merk"] #merkblatt{position:absolute;left:0;top:0;width:100%}
+  .panel[hidden]{display:none!important}
+  .blk-b[hidden]{display:block!important}
+  .printonly{display:block!important}
+  .plan{border:0;box-shadow:none;padding:0}
+  #merkblatt .merk{border:0;box-shadow:none;padding:0}
+  table.sc{min-width:0;font-size:9pt}
+  table.sc tr{page-break-inside:avoid}
+  .mapstage{border:0;box-shadow:none;padding:0;overflow:visible}
+  svg.rm{min-width:0}
+}
+/* ---------- Kernaussagen ---------- */
+.says{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.says>*{min-width:0}
+.say{background:var(--paper);border:1px solid var(--grey-xl);border-left:3px solid var(--teal-dk);
+  border-radius:var(--r);box-shadow:var(--shadow);padding:18px 20px}
+.say .sn{font-family:var(--mono);font-size:.72rem;font-weight:600;color:var(--teal-dk);letter-spacing:.1em}
+.say h3{margin:7px 0 8px;font-size:1rem;font-weight:700;line-height:1.3;letter-spacing:-.012em}
+.say p{margin:0;font-size:.88rem;color:#3d3d40;line-height:1.52}
+
+.readme{margin-top:18px;background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:20px 24px;
+  font-size:1rem;line-height:1.55}
+.readme.warn{background:var(--orange)}
+.readme b{font-weight:700}
+.readme code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.2);padding:1px 5px;border-radius:4px}
+.readme a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+blockquote.q{margin:0 0 14px;background:var(--paper);border:1px solid var(--grey-xl);
+  border-left:3px solid var(--teal);border-radius:var(--r);padding:16px 20px;
+  font-size:1.06rem;font-weight:300;line-height:1.62;color:#2c2c2f}
+blockquote.q cite{display:block;margin-top:9px;font-style:normal;font-family:var(--mono);
+  font-size:.74rem;letter-spacing:.06em;color:var(--grey)}
+
+.pointe{margin-top:34px;background:var(--orange);color:#fff;border-radius:var(--r);padding:26px 28px}
+.pointe .pk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin:0 0 10px}
+.pointe p{margin:0;font-size:clamp(1.12rem,2.1vw,1.45rem);font-weight:300;line-height:1.48}
+.pointe p b{font-weight:700}
+
+footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+footer a{color:var(--teal-dk)}
+
+.tip{position:fixed;z-index:60;pointer-events:none;opacity:0;transform:translateY(4px);
+  transition:opacity .14s,transform .14s;background:var(--ink);color:#fff;border-radius:9px;
+  padding:12px 14px;font-size:.82rem;line-height:1.5;max-width:320px;box-shadow:0 10px 30px -8px rgba(0,0,0,.45)}
+.tip.on{opacity:1;transform:translateY(0)}
+.tip .th{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#8FD4E6;margin:0 0 5px}
+.tip p{margin:0}
+.tip .extra{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.18);
+  color:var(--orange);font-weight:600;font-family:var(--mono);font-size:.76rem}
+
+.scrollhint{display:none}
+@media (max-width:980px){
+  .mapwrap{grid-template-columns:1fr}
+  .flipgrid{grid-template-columns:repeat(2,1fr)}
+  .quad{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:900px){
+  .scrollhint{display:block;color:var(--teal-dk)}
+  .duo,.trio{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  /* Die Vergleichsliste klappt in zwei Zeilen je Risiko um, statt
+     fuenf Spalten in eine Handybreite zu pressen.                 */
+  .cmphead{display:none}
+  .cmp{grid-template-columns:44px 1fr 60px;row-gap:4px}
+  .cmp .cn{grid-column:2 / span 2}
+  .cmp .cw{grid-column:2;text-align:left}
+  .cmp .cw.ref{grid-column:3;text-align:right}
+  .cmp .cd{grid-row:1;grid-column:3}
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px 56px}
+  .flipgrid,.quad{grid-template-columns:1fr}
+  .merk dl{grid-template-columns:1fr;gap:2px 0}
+  .merk dt{margin-top:9px}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+/* ---------- Die Bilanz zum Ausfuellen ----------
+   Zwei Seiten nebeneinander, wie das Konto es vorgibt. Auf schmalen
+   Fenstern stehen sie untereinander; die Summenzeile bleibt in beiden
+   Faellen unten stehen.                                            */
+.bil{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch}
+.bil>*{min-width:0}
+.bilseite{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.bilseite.aktiv{border-top:3px solid var(--teal-dk)}
+.bilseite.passiv{border-top:3px solid var(--ochre)}
+.bilkopf{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+  padding:13px 16px;border-bottom:1px solid var(--grey-xl);background:var(--canvas)}
+.bilkopf h3{margin:0;font-size:1.05rem;font-weight:700;letter-spacing:-.01em}
+.bilkopf .eh{font-family:var(--mono);font-size:.68rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--grey)}
+.bilzeile{display:grid;grid-template-columns:1fr 112px;gap:10px;align-items:center;
+  padding:5px 16px}
+.bilzeile>*{min-width:0}
+.bilzeile label{font-size:.9rem;color:#3d3d40;line-height:1.35}
+.bilzeile .rn{font-family:var(--mono);font-size:.72rem;color:var(--grey);margin-right:7px}
+.bilzeile.gruppe{background:var(--grey-xl);padding-top:9px;padding-bottom:9px;margin-top:4px}
+.bilzeile.gruppe label{font-weight:700;color:var(--ink);font-size:.94rem}
+.bilzeile.tief label{padding-left:20px}
+.bilzeile input{width:100%;font-family:var(--mono);font-size:.88rem;text-align:right;
+  font-variant-numeric:tabular-nums;color:var(--ink);background:var(--paper);
+  border:1px solid var(--grey-mid);border-radius:7px;padding:6px 9px}
+.bilzeile input:focus-visible{outline:2px solid var(--orange);outline-offset:1px;border-color:var(--teal)}
+.bilzeile .sum{font-family:var(--mono);font-size:.88rem;text-align:right;font-weight:600;
+  font-variant-numeric:tabular-nums;color:var(--ink);padding-right:9px}
+.bilende{display:grid;grid-template-columns:1fr 112px;gap:10px;align-items:center;
+  padding:12px 16px;border-top:2px solid var(--ink);margin-top:auto}
+.bilende label{font-weight:700;font-size:1rem}
+.bilende .sum{font-family:var(--mono);font-size:1rem;font-weight:700;text-align:right;
+  font-variant-numeric:tabular-nums;padding-right:9px}
+
+/* Die Waage: stimmt die Gleichung, oder wie weit ist sie daneben. */
+.bilwaage{margin:16px 0 0;border-radius:var(--r);padding:15px 18px;
+  border:1px solid var(--grey-xl);background:var(--paper);box-shadow:var(--shadow)}
+.bilwaage.gleich{border-color:var(--green);background:#F1F8F4}
+.bilwaage.schief{border-color:var(--orange);background:var(--orange-xl)}
+.bilwaage p{margin:0;font-size:.96rem;line-height:1.55;color:#3d3d40}
+.bilwaage b{color:var(--ink)}
+.bilwaage .gl{font-family:var(--mono);font-size:1.15rem;font-weight:700;
+  font-variant-numeric:tabular-nums;color:var(--ink);display:block;margin:0 0 6px}
+
+.bilkz{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin:16px 0 0}
+.bilkz>*{min-width:0}
+.bilkz .kz{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:14px 15px;box-shadow:var(--shadow);border-left:3px solid var(--teal)}
+.bilkz .kk{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 6px}
+.bilkz .kv{font-family:var(--mono);font-size:1.5rem;font-weight:700;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;color:var(--ink);margin:0 0 5px;line-height:1}
+.bilkz .kf{margin:0;font-size:.78rem;color:var(--grey);line-height:1.5}
+
+.bilh3{font-size:1.05rem;font-weight:700;letter-spacing:-.015em;margin:26px 0 6px}
+.bilout textarea{width:100%;min-height:180px;font-family:var(--mono);font-size:.75rem;line-height:1.62;
+  color:var(--ink);background:var(--canvas);border:1px solid var(--grey-xl);border-radius:8px;
+  padding:13px;resize:vertical}
+.bilout textarea:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
+.bilmsg{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--green);
+  margin:10px 0 0;min-height:1.2em}
+
+/* Zuordnungsuebung: Aktiv oder Passiv. */
+.zu{display:grid;gap:9px;margin:14px 0 0}
+.zuz{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:10px;
+  padding:11px 14px;box-shadow:var(--shadow)}
+.zuz>*{min-width:0}
+.zuz .zt{font-size:.94rem;color:var(--ink);line-height:1.4}
+.zuz .zb{display:flex;gap:6px;flex:none}
+.zub{appearance:none;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--grey);
+  border-radius:7px;padding:6px 12px;transition:.14s}
+.zub:hover:not(:disabled){border-color:var(--teal);color:var(--teal-dk)}
+.zub:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.zub:disabled{cursor:default}
+.zub.ok{background:#E8F4EC;border-color:var(--green);color:#1E6B47}
+.zub.no{background:#FBECEB;border-color:var(--red);color:#9C2F2C}
+.zuw{grid-column:1/-1;margin:2px 0 0;font-size:.86rem;color:#3d3d40;line-height:1.55}
+.zuw b{color:var(--ink)}
+
+@media (max-width:820px){
+  .bil{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .bilzeile,.bilende{grid-template-columns:1fr 92px;gap:8px;padding-left:12px;padding-right:12px}
+  .bilzeile.tief label{padding-left:12px}
+  .zuz{grid-template-columns:1fr}
+  .zuz .zb{justify-content:flex-start}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Bilanzanalyse · Modul 03 · in Planung</p>
+  <h1>Jahresabschluss<em>analyse</em></h1>
+  <p class="lede">Aus Bilanz und Gewinn- und Verlustrechnung werden Kennzahlen: Vermögens-, Kapital- und Ertragslage. Gerechnet wird wahlweise am Fall des Zulieferers oder an den Zahlen, die Du in den ersten beiden Modulen selbst eingetippt hast.</p>
+  <div class="readme" style="margin-top:18px"><b>Dieses Modul ist eine Hülle.</b> Die Lektionen stehen mit Namen und Absicht da, der Inhalt kommt noch. Die beiden Pflichtlektionen — Quiz und Praxiseinstieg — sind bereits angelegt und werden mit dem Inhalt gefüllt.</div>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Jahresabschlussanalyse mit Kennzahlen">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Was eine Kennzahl leisten kann</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Vermögens- und Kapitalstruktur</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Liquidität</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Rentabilität</button>
+  <button class="tab" role="tab" id="tab-e" aria-controls="p-e" aria-selected="false" tabindex="-1"><span class="num">05</span> Deine Zahlen auswerten</button>
+  <button class="tab" role="tab" id="tab-f" aria-controls="p-f" aria-selected="false" tabindex="-1"><span class="num">06</span> Quiz</button>
+  <button class="tab" role="tab" id="tab-g" aria-controls="p-g" aria-selected="false" tabindex="-1"><span class="num">07</span> Der erste Schritt</button>
+</div>
+
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <p class="claim">Verdichtung, Vergleich, Zeitreihe — und die drei Grenzen, an denen jede Kennzahl endet.</p>
+
+  <div class="readme"><b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.</div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+  </div>
+</section>
+
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
+  <p class="claim">Eigenkapitalquote, Anlagenintensität, Verschuldungsgrad, Anlagendeckung I und II.</p>
+
+  <div class="readme"><b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.</div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+  </div>
+</section>
+
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
+  <p class="claim">Die drei Liquiditätsgrade, Working Capital und warum eine gute Quote eine Zahlungsunfähigkeit nicht ausschließt.</p>
+
+  <div class="readme"><b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.</div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+  </div>
+</section>
+
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
+  <p class="claim">Eigenkapital-, Gesamtkapital- und Umsatzrentabilität, dazu das Du-Pont-Schema als Zerlegung.</p>
+
+  <div class="readme"><b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.</div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+  </div>
+</section>
+
+<section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e" hidden>
+  <p class="claim">Das Auswertungsblatt: eigene Werte eintragen oder aus den Vormodulen übernehmen, Kennzahlen im Zeitvergleich.</p>
+
+  <div class="readme"><b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.</div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+  </div>
+</section>
+
+<section class="panel" id="p-f" role="tabpanel" aria-labelledby="tab-f" hidden>
+  <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen — so wie im ersten Modul des Lernpfads.</p>
+
+  <div class="readme"><b>Der Fragenvorrat entsteht mit dem Inhalt.</b> Er umfasst am Ende mindestens zwanzig Fragen, aus denen beim Laden fünf gezogen werden.</div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+  </div>
+</section>
+
+<section class="panel" id="p-g" role="tabpanel" aria-labelledby="tab-g" hidden>
+  <p class="claim">Was jemand als Erstes tut, der das Gelernte im eigenen Haus anwenden will.</p>
+
+  <div class="readme"><b>Der Praxiseinstieg entsteht mit dem Inhalt.</b> Konkrete erste Schritte, dazu ein Glossar zum Nachschlagen.</div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+  </div>
+</section>
+
+<footer>
+Copyright Prof. Dr. Maik Drozdzynski, 2026
+</footer>
+
+</div>
+
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+
+const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","d","e","f","g"];
+function select(i){
+  tabs.forEach((t, j) => {
+    const on = i === j;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    $("p-" + keys[j]).hidden = !on;
+  });
+}
+tabs.forEach((t, i) => {
+  t.addEventListener("click", () => select(i));
+  t.addEventListener("keydown", e => {
+    const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if(!d) return; e.preventDefault();
+    const n = (i + d + tabs.length) % tabs.length; tabs[n].focus(); select(n);
+  });
+});
+select(0);
+</script>
+</body>
+</html>

@@ -426,6 +426,74 @@ const TOPICS = [
     ],
     links:[{kind:"html",file:"risikomanagement-werkstatt.html",
             label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
+  },
+  {
+    id:"bilanz-aufbau",
+    title:{de:"Die Bilanz nach HGB", en:"The balance sheet under German GAAP"},
+    sub:{de:"Zwei Fragen an einem Stichtag: Worin steckt das Geld, und wem gehört es. Zweck, Gliederung nach § 266 HGB und der Unterschied der beiden Seiten — am Ende tippst Du eine eigene Bilanz ein, in voller Gliederung und mit laufender Summe. Durchgehend HGB, ohne IFRS und US-GAAP. Eigener Fall: ein Zulieferer für Nutzfahrzeugkomponenten.",
+         en:"Two questions on one date: where the money sits, and whom it belongs to. Purpose, the layout of § 266 German Commercial Code, and the difference between the two sides — at the end you type in a balance sheet of your own, fully laid out and adding up as you go. German GAAP throughout. Its own case: a supplier of commercial vehicle components."},
+    track:"bilanz", status:"ready", accent:"teal", glyph:"rows",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Die sechs Bewertungsgrundsätze des § 252 HGB und warum aus ihnen fast jede Regel folgt",
+       en:"The six valuation principles of § 252 and why nearly every rule follows from them"},
+      {de:"Aktiv- und Passivseite Posten für Posten, mit dem Ordnungsprinzip hinter der Reihenfolge",
+       en:"Both sides item by item, with the ordering principle behind the sequence"},
+      {de:"Zehn Positionen selbst einordnen, mit Begründung nach jeder Antwort",
+       en:"Assign ten items yourself, with a reason after every answer"},
+      {de:"Das Formular in der Gliederung des § 266 HGB: eigene Zahlen in T€, laufende Summen, Waage und drei erste Kennzahlen",
+       en:"The form laid out to § 266: your own figures in thousands, running totals, a balance check and three first ratios"}
+    ],
+    links:[{kind:"html",file:"bilanz-aufbau.html",
+            label:{de:"Interaktiv öffnen", en:"Open interactive"}}]
+  },
+  {
+    id:"bilanz-guv",
+    title:{de:"Die Gewinn- und Verlustrechnung", en:"The income statement"},
+    sub:{de:"Die Stromgröße neben der Bilanz: Was in zwölf Monaten erwirtschaftet und verbraucht wurde. Gliederung nach § 275 HGB, Gesamtkosten- und Umsatzkostenverfahren nebeneinander, und ein Formular zum eigenen Eintippen.",
+         en:"The flow figure beside the balance sheet: what was earned and consumed over twelve months. Laid out to § 275, both permitted formats side by side, and a form to type your own."},
+    track:"bilanz", status:"planned", accent:"ochre", glyph:"layers",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Bestandsgröße und Stromgröße — wo die beiden Rechnungen zusammenhängen",
+       en:"Stock and flow — where the two statements meet"},
+      {de:"Gesamtkostenverfahren und Umsatzkostenverfahren an derselben Zahl",
+       en:"Both permitted formats applied to the same figure"}
+    ],
+    links:[{kind:"html",file:"bilanz-guv.html",
+            label:{de:"Hülle ansehen", en:"Look at the shell"}}]
+  },
+  {
+    id:"bilanz-kennzahlen",
+    title:{de:"Jahresabschlussanalyse mit Kennzahlen", en:"Analysing the annual accounts"},
+    sub:{de:"Aus Bilanz und Gewinn- und Verlustrechnung werden Kennzahlen: Vermögens-, Kapital- und Ertragslage. Gerechnet wird am Fall des Zulieferers oder an den Zahlen, die Du in den ersten beiden Modulen selbst eingetippt hast.",
+         en:"Balance sheet and income statement turned into ratios: assets, capital and earnings. Computed on the supplier case or on the figures you typed in yourself in the first two modules."},
+    track:"bilanz", status:"planned", accent:"navy", glyph:"quadrants",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Vermögens- und Kapitalstruktur, Liquidität, Rentabilität",
+       en:"Asset and capital structure, liquidity, profitability"},
+      {de:"Das Auswertungsblatt mit den eigenen Zahlen aus den Vormodulen",
+       en:"An analysis sheet fed by your own figures from the earlier modules"}
+    ],
+    links:[{kind:"html",file:"bilanz-kennzahlen.html",
+            label:{de:"Hülle ansehen", en:"Look at the shell"}}]
+  },
+  {
+    id:"bilanz-buchungssaetze",
+    title:{de:"Buchungssätze und ihre Wirkung", en:"Journal entries and what they do"},
+    sub:{de:"Ein Buchungssatz ist eine Anweisung an zwei Konten. Eigene Sätze eintippen und sofort sehen, wie sich die Bilanz verändert — Aktivtausch, Passivtausch, Bilanzverlängerung, Bilanzverkürzung.",
+         en:"A journal entry is an instruction to two accounts. Type your own and watch the balance sheet move — the four basic cases, one at a time."},
+    track:"bilanz", status:"planned", accent:"green", glyph:"loop",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Die vier Grundfälle an je einem Beispiel",
+       en:"The four basic cases, one example each"},
+      {de:"Eigene Sätze buchen, mit der Bilanz daneben, die mitwandert",
+       en:"Post your own entries with the balance sheet moving alongside"}
+    ],
+    links:[{kind:"html",file:"bilanz-buchungssaetze.html",
+            label:{de:"Hülle ansehen", en:"Look at the shell"}}]
   }
 ];
 
@@ -443,12 +511,20 @@ const PATHS = [
     sub:{de:"Vom Begriff über die vier Phasen bis zur eigenen Anwendung: wie aus einem Bauchgefühl eine Position in einer Karte wird, warum die Karte ordnet und nicht entscheidet — und was davon am Montag im eigenen Haus übrig bleibt.",
          en:"From the term through the four phases to your own application: how a gut feeling becomes a position on a map, why the map orders things without deciding them — and what survives of it on Monday in your own organisation."},
     steps:["risiko-intro","risiko","risiko-werkstatt"]
+  },
+  {
+    id:"bilanzanalyse",
+    title:{de:"Bilanzanalyse", en:"Financial statement analysis"},
+    sub:{de:"Vom Aufbau der Bilanz über die Gewinn- und Verlustrechnung bis zu den Kennzahlen und den einzelnen Buchungssätzen. Durchgehend nach HGB, und in jedem Modul tippst Du eigene Zahlen ein.",
+         en:"From the layout of the balance sheet through the income statement to the ratios and the individual journal entries. German GAAP throughout, and in every module you type in figures of your own."},
+    steps:["bilanz-aufbau","bilanz-guv","bilanz-kennzahlen","bilanz-buchungssaetze"]
   }
 ];
 /* ===================== end of the editable lists ===================== */
 
 const ACCENT={teal:"#209CBD",navy:"#0F4C5C",orange:"#FF922B",ochre:"#B5852C",green:"#4C8B3F"};
 const TRACK={bi:["Business Intelligence",""],ctrl:["Controlling","ctrl"],
+             bilanz:[{de:"Bilanzanalyse",en:"Financial statement analysis"},"case"],
              case:[{de:"Fallstudie",en:"Case study"},"case"],
              meta:[{de:"Werkstatt",en:"Workshop"},"meta"],
              sec:["Cyber-Security","sec"]};
