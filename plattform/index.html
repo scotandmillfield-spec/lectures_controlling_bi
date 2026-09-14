@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sofia's Coffee Dream · BI &amp; Controlling teaching materials</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2;
+  --r:12px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --lift:0 2px 4px rgba(29,29,31,.05), 0 22px 44px -20px rgba(22,105,128,.45);
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 80px}
+
+/* ---------- masthead ---------- */
+.masthead{padding:60px 0 30px}
+.topbar{display:flex;gap:18px;align-items:center;margin:0 0 20px}
+.topbar .eyebrow{margin:0;flex:1;min-width:0}
+.langsw{display:inline-flex;border:1px solid var(--grey-xl);background:var(--paper);
+  border-radius:20px;padding:3px;gap:3px;flex:none}
+.langsw a{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.1em;
+  color:var(--grey);text-decoration:none;padding:6px 12px;border-radius:20px;transition:.16s}
+.langsw a:hover{color:var(--teal-dk)}
+.langsw a[aria-current="true"]{background:var(--teal-dk);color:#fff}
+.langsw a:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.b-lang{background:var(--grey-xl);color:var(--grey)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 20px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2.2rem,5.4vw,3.7rem);font-weight:700;letter-spacing:-.03em;line-height:1.02;margin:0 0 16px;max-width:15ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:clamp(1.08rem,1.78vw,1.32rem);font-weight:300;color:#3d3d40;line-height:1.55;margin:0}
+
+/* ---------- toolbar ---------- */
+.toolbar{display:flex;gap:14px 20px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  margin:34px 0 8px;padding-top:26px;border-top:1px solid var(--grey-xl)}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);cursor:pointer;
+  font-family:var(--sans);font-size:.86rem;font-weight:600;color:var(--grey);
+  padding:9px 15px;border-radius:20px;transition:.18s var(--ease)}
+.chip:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.chip[aria-pressed="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.chip:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.search{position:relative}
+.search input{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);border-radius:20px;
+  padding:10px 16px 10px 38px;font-family:var(--sans);font-size:.9rem;color:var(--ink);width:246px;
+  transition:border-color .18s,width .25s var(--ease)}
+.search input:focus{outline:none;border-color:var(--teal);width:280px}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:14px;height:14px;
+  stroke:var(--grey);fill:none;stroke-width:2}
+.count{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--grey);margin:16px 0 20px}
+
+/* ---------- Lernpfade ---------- */
+.pathrow{display:flex;gap:10px 14px;flex-wrap:wrap;align-items:center;margin:18px 0 0}
+.pathrow .pl{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);flex:none}
+.pathchips{display:flex;gap:7px;flex-wrap:wrap;min-width:0}
+.pathchip{appearance:none;border:1px dashed var(--grey-mid);background:transparent;cursor:pointer;
+  font-family:var(--sans);font-size:.86rem;font-weight:600;color:var(--grey);
+  padding:9px 15px;border-radius:20px;display:inline-flex;align-items:center;gap:8px;
+  transition:.18s var(--ease)}
+.pathchip .n{font-family:var(--mono);font-size:.68rem;opacity:.8}
+.pathchip:hover{border-color:var(--teal);border-style:solid;color:var(--teal-dk);transform:translateY(-1px)}
+.pathchip[aria-pressed="true"]{background:var(--teal-dk);border-color:var(--teal-dk);
+  border-style:solid;color:#fff}
+.pathchip[aria-pressed="true"] .n{color:#8FD4E6;opacity:1}
+.pathchip:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+.pathbar{display:none;margin:20px 0 0;background:var(--teal-xl);border:1px solid #BFE2EC;
+  border-radius:var(--r);padding:18px 22px}
+.pathbar.on{display:block}
+.pathbar .pk{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--teal-dk);margin:0 0 6px}
+.pathbar h2{margin:0 0 6px;font-size:1.25rem;font-weight:700;letter-spacing:-.018em}
+.pathbar p{margin:0;font-size:1.02rem;color:#3d3d40;line-height:1.55}
+.pathbar .clear{appearance:none;border:1px solid var(--teal-dk);background:transparent;
+  color:var(--teal-dk);font-family:var(--sans);font-size:.84rem;font-weight:600;cursor:pointer;
+  padding:8px 14px;border-radius:8px;margin-top:12px;transition:.16s}
+.pathbar .clear:hover{background:var(--teal-dk);color:#fff}
+.pathbar .clear:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+.stepno{position:absolute;top:0;left:0;background:var(--teal-dk);color:#fff;
+  font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
+  padding:5px 10px;border-radius:0 0 8px 0;z-index:2}
+.tile.first .stepno{background:var(--orange)}
+
+/* ---------- tiles ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
+.tile{position:relative;background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:24px 24px 20px;overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .28s var(--ease),box-shadow .28s var(--ease),border-color .2s}
+.tile::before{content:"";position:absolute;top:0;left:0;height:3px;width:100%;
+  background:var(--accent,var(--teal));transform:scaleX(0);transform-origin:left;
+  transition:transform .4s var(--ease)}
+.tile:hover,.tile:focus-within{transform:translateY(-4px);box-shadow:var(--lift);border-color:transparent}
+.tile:hover::before,.tile:focus-within::before{transform:scaleX(1)}
+.tile.planned{background:transparent;border-style:dashed;border-color:var(--grey-mid)}
+.tile.planned:hover{transform:none;box-shadow:none;border-color:var(--grey-mid)}
+.tile[hidden]{display:none}
+
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:18px}
+.glyph{width:60px;height:60px;flex:none;color:var(--accent,var(--teal))}
+.badges{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;
+  padding:4px 9px;border-radius:20px;white-space:nowrap;font-weight:600}
+.b-track{background:var(--teal-xl);color:var(--teal-dk)}
+.b-track.ctrl{background:var(--sand-xl);color:#8A6417}
+.b-track.case{background:#EDF5E9;color:#3F7233}
+.b-track.meta{background:var(--grey-xl);color:#5A5A58}
+.b-track.sec{background:var(--navy-xl);color:var(--navy)}
+.b-plan{background:var(--grey-xl);color:var(--grey)}
+
+.tile h2{font-size:1.24rem;font-weight:700;letter-spacing:-.018em;line-height:1.2;margin:0 0 7px}
+.tile .sub{font-size:.93rem;font-weight:300;color:#4a4a4d;margin:0 0 16px;line-height:1.45}
+
+.feat{list-style:none;margin:0 0 18px;padding:0;display:grid;grid-template-rows:0fr;
+  opacity:0;transition:grid-template-rows .38s var(--ease),opacity .28s,margin .38s var(--ease)}
+.feat>div{overflow:hidden}
+.tile:hover .feat,.tile:focus-within .feat{grid-template-rows:1fr;opacity:1}
+.feat li{font-size:.85rem;color:#4a4a4d;padding-left:16px;position:relative;margin-bottom:5px;line-height:1.4}
+.feat li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:2px;background:var(--accent,var(--teal))}
+
+.links{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap;padding-top:4px}
+.lnk{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:.86rem;font-weight:600;
+  padding:9px 15px;border-radius:8px;transition:.18s var(--ease)}
+.lnk.primary{background:var(--teal-dk);color:#fff}
+.lnk.primary:hover{background:var(--teal);transform:translateY(-1px)}
+.lnk.ghost{background:var(--paper);color:var(--teal-dk);border:1px solid var(--grey-xl)}
+.lnk.ghost:hover{border-color:var(--teal);transform:translateY(-1px)}
+.lnk:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.lnk .ic{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;flex:none}
+.soon{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  padding:9px 0}
+
+.empty{display:none;padding:44px 24px;text-align:center;color:var(--grey);
+  border:1px dashed var(--grey-mid);border-radius:var(--r)}
+.empty.on{display:block}
+
+/* ---------- how to extend ---------- */
+.howto{margin-top:52px;border-top:1px solid var(--grey-xl);padding-top:34px}
+.howto h3{font-size:1.3rem;font-weight:600;letter-spacing:-.015em;margin:0 0 6px}
+.howto p{margin:0 0 16px;color:#3d3d40;font-size:1.04rem;line-height:1.6}
+.howto ol{margin:0 0 18px;padding-left:22px;color:#3d3d40;font-size:1.02rem;line-height:1.6}
+.howto li{margin-bottom:7px}
+pre{background:var(--ink);color:#E8E8E6;border-radius:var(--r);padding:20px 22px;overflow-x:auto;
+  font-family:var(--mono);font-size:.78rem;line-height:1.65;margin:0}
+pre .k{color:#8FD4E6}
+pre .s{color:#FFC895}
+pre .c{color:#7F7F7E}
+.tree{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:18px 22px;font-family:var(--mono);font-size:.8rem;line-height:1.85;color:#3d3d40;
+  margin:0 0 20px;white-space:pre;overflow-x:auto}
+.tree b{color:var(--teal-dk);font-weight:600}
+
+footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+
+@media (max-width:640px){
+  .wrap{padding:0 16px 56px}
+  .grid{grid-template-columns:1fr}
+  .search input,.search input:focus{width:100%}
+  .search{flex:1 1 100%}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="topbar">
+    <p class="eyebrow" data-t="eyebrow"></p>
+    <nav class="langsw" id="langsw" aria-label="Sprache · Language">
+      <a href="?lang=de" data-lang="de">DE</a><a href="?lang=en" data-lang="en">EN</a>
+    </nav>
+  </div>
+  <h1>Die <em>Lernplattform</em></h1>
+  <p class="lede" data-t="lede"></p>
+</header>
+
+<div class="toolbar">
+  <div class="chips" id="chips"></div>
+  <div class="search">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+    <input id="q" type="search" data-tp="search">
+  </div>
+</div>
+
+<div class="pathrow">
+  <span class="pl" data-t="pathLabel"></span>
+  <div class="pathchips" id="pathchips"></div>
+</div>
+
+<section class="pathbar" id="pathbar" aria-live="polite"></section>
+
+<p class="count" id="count"></p>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" data-t="empty"></div>
+
+<section class="howto">
+  <h3 data-t="howH"></h3>
+  <p data-t="howP"></p>
+
+  <div class="tree">
+<b>lernplattform/</b>
+├── index.html          <span style="color:#8A8A89" data-t="treeA"></span>
+├── reihenfolge.js      <span style="color:#8A8A89" data-t="treeB"></span>
+├── content-werkstatt.html
+├── risikomanagement-einfuehrung.html
+├── risikomanagement-prozess.html
+└── risikomanagement-werkstatt.html
+  </div>
+
+  <ol>
+    <li data-t="step1"></li>
+    <li data-t="step2"></li>
+    <li data-t="step3"></li>
+    <li data-t="step4"></li>
+    <li data-t="step5"></li>
+  </ol>
+
+<pre><span class="c">// paste inside const TOPICS = [ ... ]</span>
+{
+  <span class="k">id</span>:      <span class="s">"etl"</span>,
+  <span class="k">title</span>:   <span class="s">"ETL and data quality"</span>,
+  <span class="k">sub</span>:     <span class="s">"How three sales points become one truth — and what breaks on the way."</span>,
+  <span class="k">track</span>:   <span class="s">"bi"</span>,          <span class="c">// "bi", "ctrl" or "case"</span>
+  <span class="k">status</span>:  <span class="s">"ready"</span>,       <span class="c">// "ready" or "planned"</span>
+  <span class="k">accent</span>:  <span class="s">"orange"</span>,
+  <span class="k">glyph</span>:   <span class="s">"layers"</span>,
+  <span class="k">features</span>: [
+    <span class="s">"Extract, transform, load walked through step by step"</span>,
+    <span class="s">"Six data quality dimensions on Sofia's receipts"</span>
+  ],
+  <span class="k">links</span>: [
+    { <span class="k">kind</span>:<span class="s">"html"</span>, <span class="k">file</span>:<span class="s">"etl-dashboard.html"</span>,               <span class="k">label</span>:<span class="s">"Open interactive"</span> },
+    { <span class="k">kind</span>:<span class="s">"deck"</span>, <span class="k">file</span>:<span class="s">"decks/ETL_Sofias_Coffee_World.pptx"</span>, <span class="k">label</span>:<span class="s">"Slide deck"</span> }
+  ]
+},</pre>
+
+<pre><span class="c">// reihenfolge.js — eine Zeile je Modul, die Folge ist die Folge auf der Seite</span>
+<span class="k">const</span> REIHENFOLGE = [
+  <span class="s">"werkstatt"</span>,
+  <span class="s">"case"</span>,
+  <span class="s">"etl"</span>          <span class="c">// neu — hier einsortieren</span>
+];</pre>
+
+  <p data-t="howPaths"></p>
+
+<pre><span class="c">// paste inside const PATHS = [ ... ]</span>
+{
+  <span class="k">id</span>:    <span class="s">"bi-basics"</span>,
+  <span class="k">title</span>: { <span class="k">de</span>:<span class="s">"Grundlagen Business Intelligence"</span>, <span class="k">en</span>:<span class="s">"Business Intelligence foundations"</span> },
+  <span class="k">sub</span>:   { <span class="k">de</span>:<span class="s">"Der Einstieg …"</span>, <span class="k">en</span>:<span class="s">"The way in …"</span> },
+  <span class="k">steps</span>: [<span class="s">"arch"</span>, <span class="s">"scd"</span>, <span class="s">"olap"</span>]   <span class="c">// ids aus TOPICS, in dieser Reihenfolge</span>
+},</pre>
+</section>
+
+<footer data-t="footer"></footer>
+
+</div>
+
+<!-- Die Reihenfolge der Kacheln. Fehlt die Datei, gilt die Folge der Liste. -->
+<script src="reihenfolge.js"></script>
+<script>
+"use strict";
+
+/* =====================================================================
+   SPRACHE
+   Deutsch ist die Grundfassung. ?lang=en schaltet auf Englisch um.
+   Kein localStorage - die Wahl reist als URL-Parameter mit, auch von
+   dieser Seite in die Module hinein.
+   Ein Textfeld ist entweder ein String (in beiden Sprachen gleich) oder
+   {de:"...", en:"..."}. Fehlt de, wird en gezeigt.
+   ===================================================================== */
+const LANG = new URLSearchParams(location.search).get("lang")==="en" ? "en" : "de";
+document.documentElement.lang = LANG;
+const L = v => typeof v==="string" ? v : (v && (v[LANG] ?? v.en)) || "";
+
+const UI = {
+  title:{de:"Lernplattform \u00b7 Controlling und Business Intelligence",
+         en:"Learning platform \u00b7 Controlling and Business Intelligence"},
+  eyebrow:{de:"Lernplattform \u00b7 Module zum Selbststudium", en:"Learning platform \u00b7 modules for self-study"},
+  lede:{de:"Module zum Selbststudium \u2014 Risikomanagement von den Begriffen \u00fcber den Regelkreis bis zur eigenen Risikokarte, dazu die Werkstatt, in der steht, wie diese Module gebaut werden.",
+        en:"Modules for self-study \u2014 risk management from the terms through the control loop to your own risk map, plus the workshop that explains how these modules are built."},
+  chipAll:{de:"Alle", en:"All"},
+  chipPlan:{de:"Geplant", en:"Planned"},
+  search:{de:"Module durchsuchen\u2026", en:"Search modules\u2026"},
+  empty:{de:"Dazu passt gerade nichts.", en:"Nothing matches that filter yet."},
+  soon:{de:"In Arbeit", en:"In preparation"},
+  howH:{de:"Ein neues Modul aufnehmen", en:"Adding a new module"},
+  howP:{de:"Diese Seite wird von einer einzigen Liste in ihrem eigenen <code>&lt;script&gt;</code>-Block getrieben \u2014 kein Build-Schritt, kein Server. F\u00fcr ein neues Thema die Datei danebenlegen und einen Eintrag in diese Liste einf\u00fcgen.",
+        en:"This page is driven by one list inside its own <code>&lt;script&gt;</code> block \u2014 no build step, no server needed. To add a topic, drop the new file next to this one and paste one entry into that list."},
+  treeA:{de:"\u2190 diese Seite", en:"\u2190 this page"},
+  treeB:{de:"\u2190 die Folge der Kacheln", en:"\u2190 the order of the tiles"},
+  step1:{de:"Die neue Datei in den Ordner legen (HTML neben <code>index.html</code>, Foliens\u00e4tze nach <code>decks/</code>).",
+         en:"Put the new file in the folder (HTML next to <code>index.html</code>, slide decks in <code>decks/</code>)."},
+  step2:{de:"<code>index.html</code> im Texteditor \u00f6ffnen und die Modulliste suchen.",
+         en:"Open <code>index.html</code> in a text editor and find the module list."},
+  step3:{de:"Einen Block wie unten einf\u00fcgen. Wo die Liste ihn hat, ist gleich \u2014 die Folge der Kacheln steht in <code>reihenfolge.js</code>. Fehlt die Kennung dort, rutscht die Kachel ans Ende und die Konsole sagt es.",
+         en:"Paste a block like the one below. Where it sits in the list makes no difference \u2014 the order of the tiles lives in <code>reihenfolge.js</code>. If the id is missing there, the tile goes to the end and the console says so."},
+  step4:{de:"<code>accent</code> f\u00e4rbt die Kachel: <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> oder <code>green</code>. <code>glyph</code> w\u00e4hlt die Zeichnung: <code>rows</code>, <code>cube</code>, <code>cells</code>, <code>chain</code>, <code>riskmap</code>, <code>layers</code>, <code>quadrants</code>, <code>star</code>, <code>pyramid</code>, <code>loop</code>, <code>tree</code> oder <code>scaffold</code>.",
+         en:"<code>accent</code> tints the tile: use <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> or <code>green</code>. <code>glyph</code> picks the drawing: <code>rows</code>, <code>cube</code>, <code>cells</code>, <code>chain</code>, <code>riskmap</code>, <code>layers</code>, <code>quadrants</code>, <code>star</code>, <code>pyramid</code>, <code>loop</code>, <code>tree</code> or <code>scaffold</code>."},
+  step5:{de:"Jedes Textfeld darf ein einfacher String sein (dann gilt er in beiden Sprachen) oder ein Paar aus deutscher und englischer Fassung. Fehlt die deutsche, erscheint die englische. <code>langBadge</code> setzt den Hinweis auf die Sprache des Moduls selbst.",
+         en:"Every text field may be a plain string (used in both languages) or a pair of a German and an English version. If the German one is missing, the English one is shown. <code>langBadge</code> sets the note about the module's own language."},
+  howPaths:{de:"<b>Lernpfade</b> stehen in einer zweiten Liste, <code>const PATHS</code>, direkt darunter. Ein Pfad verweist nur auf die <code>id</code> eines Moduls; die Reihenfolge in <code>steps</code> ist die Reihenfolge im Pfad. Ein Modul geh\u00f6rt zu mehreren Pfaden, indem es in mehreren <code>steps</code> steht \u2014 am Modul selbst ist daf\u00fcr nichts zu \u00e4ndern. Zeigt ein Pfad auf eine unbekannte <code>id</code>, meldet die Konsole das beim Laden. Mit <code>?path=bi-basics</code> l\u00e4sst sich ein Pfad direkt verlinken.",
+            en:"<b>Learning paths</b> live in a second list, <code>const PATHS</code>, right below. A path only refers to a module's <code>id</code>; the order in <code>steps</code> is the order of the path. A module belongs to several paths by appearing in several <code>steps</code> arrays \u2014 nothing on the module itself has to change. If a path points at an unknown <code>id</code>, the console says so on load. Use <code>?path=bi-basics</code> to link straight to a path."},
+  footer:{de:"Lehrmaterial \u00b7 Corporate Design der IU. Alle Zahlen in den Modulen sind illustrativ. <code>PROJECT-CANON.md</code> geh\u00f6rt in denselben Ordner \u2014 dort stehen die Namen, Zahlen und Gestaltungsregeln, die die Module untereinander stimmig halten.",
+          en:"Teaching material \u00b7 IU corporate identity. All figures in the modules are illustrative. Keep <code>PROJECT-CANON.md</code> with this folder \u2014 it holds the names, numbers and design conventions that keep the modules consistent with one another."},
+  pathLabel:{de:"Lernpfade", en:"Learning paths"},
+  pathKicker:{de:"Lernpfad", en:"Learning path"},
+  pathClear:{de:"Pfad verlassen \u00b7 alle Module zeigen", en:"Leave the path \u00b7 show all modules"},
+  pathSteps:{de:n=>n===1?"1 Modul":n+" Module", en:n=>n===1?"1 module":n+" modules"},
+  countPath:{de:(k,n)=>k+" von "+n+(n===1?" Modul":" Modulen")+" des Pfades",
+             en:(k,n)=>k+" of "+n+(n===1?" module":" modules")+" in this path"},
+  /* Der zweite Teil erscheint nur, wo es wirklich etwas herunterzuladen gibt. */
+  countAll:{de:(n,r)=>n+" Module"+(r?" \u00b7 "+r+" Foliens\u00e4tze zum Herunterladen":""),
+            en:(n,r)=>n+" modules"+(r?" \u00b7 "+r+" slide decks to download":"")},
+  countSome:{de:(k,n)=>k+" von "+n+" Modulen angezeigt",
+             en:(k,n)=>k+" of "+n+" modules shown"}
+};
+
+/* =====================================================================
+   THE ONLY THING YOU NEED TO EDIT — see "Adding a new module" below.
+   ===================================================================== */
+const TOPICS = [
+  {
+    id:"werkstatt",
+    title:{de:"Die Werkstatt — wie diese Plattform gebaut ist",
+           en:"The workshop — how this platform is built"},
+    sub:{de:"Für alle, die Inhalte beisteuern: die drei Ebenen Lernpfad, Modul und Lektion, der Bauplan eines Moduls und die Regeln, die nicht verhandelbar sind. Durchgehend auf Deutsch.",
+         en:"For everyone who contributes content: the three levels of path, module and lesson, the blueprint of a module and the rules that are not up for negotiation. In German throughout."},
+    track:"meta", status:"ready", accent:"navy", glyph:"scaffold",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Die drei Ebenen als Landkarte, in der ein Modul sichtbar an zwei Lernpfaden hängt",
+       en:"The three levels as a map, with one module visibly hanging from two learning paths"},
+      {de:"Ein Planer, der aus Textmenge, Abschnitten und Interaktion die Bearbeitungszeit einer Lektion schätzt",
+       en:"A planner that estimates a lesson's working time from text volume, sections and interaction"},
+      {de:"Der Kanon des Falls als Aufdeckkarten: zwei Kaffeehäuser, keine Nachnamen, 145.500 €",
+       en:"The canon of the case as flip cards: two coffee houses, no surnames, 145,500 €"},
+      {de:"Ein Briefing-Bogen, der aus Deinen Antworten den Text erzeugt, den Du mit dem Material abgibst",
+       en:"A briefing sheet that turns your answers into the text you hand in with your material"}
+    ],
+    links:[{kind:"html",file:"content-werkstatt.html",
+            label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
+  },
+  {
+    id:"risiko-intro",
+    title:{de:"Risikomanagement: der Begriff", en:"Risk management: the term"},
+    sub:{de:"Ein Risiko ist ein bewertetes Ereignis: Ohne Bezugspunkt und ohne Bewertung bleibt es bloße Ungewissheit. Was das genau heißt, woher Risiken in einer Lieferkette kommen und wie der Regelkreis aussieht, in den sie gehören. Eigener Fall: ein Zulieferer für Nutzfahrzeugkomponenten.",
+         en:"A risk is an assessed event: without a reference point and without an assessment it stays plain uncertainty. What that means exactly, where risks in a supply chain come from, and the control loop they belong to. Its own case: a supplier of commercial vehicle components."},
+    track:"ctrl", status:"ready", accent:"teal", glyph:"riskmap",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Drei Definitionen von Reichmann, der ISO 31000 und Gleißner gegeneinander gelesen — mit der Frage, was allen dreien gemeinsam ist",
+       en:"Three definitions by Reichmann, ISO 31000 and Gleißner read against one another — with the question of what all three share"},
+      {de:"Gefahr oder Risiko: warum sich das eine in keine Karte eintragen lässt und das andere schon",
+       en:"Hazard or risk: why one of them cannot be plotted on any map and the other can"},
+      {de:"Fünf Risikoquellen nach dem Ort ihrer Entstehung, umschaltbar auf endogen und exogen",
+       en:"Five sources of risk by place of origin, switchable to endogenous and exogenous"},
+      {de:"Der Regelkreis mit vier Phasen, anklickbar, dazu die gröbere Dreiteilung als zweite Sicht",
+       en:"The four-phase control loop, clickable, with the coarser three-part view as a second reading"},
+      {de:"Ein Quiz mit fünf zufälligen Fragen und sechs Punkte, die vor der ersten Bewertung liegen",
+       en:"A quiz drawing five random questions and six steps that come before any assessment"}
+    ],
+    links:[{kind:"html",file:"risikomanagement-einfuehrung.html",
+            label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
+  },
+  {
+    id:"risiko",
+    title:{de:"Der Risikomanagement-Prozess", en:"The risk management process"},
+    sub:{de:"Die vier Phasen einzeln: identifizieren, bewerten, steuern, überwachen. Zwei Achsen, ein Produkt, drei Zonen — und eine Toleranzlinie, die keine Diagonale ist. Beginnt mit Deiner eigenen Schätzung und legt sie am Ende neben die begründete. Eigener Fall: ein Zulieferer für Nutzfahrzeugkomponenten.",
+         en:"The four phases one by one: identify, assess, control, monitor. Two axes, one product, three zones — and a tolerance line that is no diagonal. It starts with your own estimate and ends by placing it beside the reasoned one."},
+    track:"ctrl", status:"ready", accent:"navy", glyph:"loop",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Zwei Risiken selbst einschätzen, bevor eine einzige Zahl verraten wird — danach der Vergleich mit der begründeten Einschätzung, ohne Note",
+       en:"Rate two risks yourself before a single number is revealed — then compare with the reasoned assessment, ungraded"},
+      {de:"Die Risikotoleranzlinie als Hyperbel gezeichnet: W × S = 12 sieht anders aus, als alle erwarten",
+       en:"The risk tolerance line drawn as a hyperbola: W × S = 12 looks nothing like what everyone expects"},
+      {de:"Vier Maßnahmen zuschalten und sehen, wie präventiv senkrecht und korrektiv waagerecht wirkt — und warum sich Wirkungen nicht addieren",
+       en:"Switch on four measures and watch prevention move vertically and correction horizontally — and why the effects never add up"},
+      {de:"Die fünf Steuerungsstrategien als Bewegungsvektoren: erst der Pfeil, dann die Bewegung",
+       en:"The five control strategies as movement vectors: first the arrow, then the move"},
+      {de:"Die Balanced Chance- und Risk-Card in vier Schritten, dazu ein Merkblatt zum Ausdrucken",
+       en:"The Balanced Chance and Risk Card in four steps, plus a one-page summary to print"},
+      {de:"Zehn Punkte für den Start im eigenen Haus, ein Glossar und eine Übung, die fünf aus 23 Fragen zieht",
+       en:"Ten steps for starting in your own organisation, a glossary, and a drill that draws five of 23 questions"}
+    ],
+    links:[{kind:"html",file:"risikomanagement-prozess.html",
+            label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
+  },
+  {
+    id:"risiko-werkstatt",
+    title:{de:"Die Risikoanalyse-Werkstatt", en:"The risk analysis workshop"},
+    sub:{de:"Dieselbe Methode auf einen eigenen Fall angewandt: beliebig viele Risiken erfassen, bewerten, in die Karte legen, Normstrategie und Maßnahme wählen und einen Maßnahmenplan als PDF mitnehmen. Gespeichert wird nichts. Eigener Fall: ein Zulieferer für Nutzfahrzeugkomponenten.",
+         en:"The same method applied to a case of your own: record any number of risks, rate them, plot them, pick a strategy and a measure, and take an action plan away as a PDF. Nothing is stored."},
+    track:"ctrl", status:"ready", accent:"ochre", glyph:"quadrants",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Beliebig viele eigene Risiken mit Kurzbeschreibung, Bewertung und Begründung je Achse",
+       en:"Any number of your own risks with a short description, a rating and a reason per axis"},
+      {de:"Die Risk-Map zeichnet sich mit, während Du die Regler bewegst — mit derselben Toleranzlinie wie im Prozessmodul",
+       en:"The risk map redraws as you move the sliders — with the same tolerance line as in the process module"},
+      {de:"Normstrategie und Maßnahme wählen und die geplante Position gleich daneben sehen",
+       en:"Pick a strategy and a measure and see the planned position right beside it"},
+      {de:"Ein Maßnahmenplan als Scorecard, mit aktuellem und geplantem Risikofaktor, zum Ausdrucken als PDF",
+       en:"An action plan as a scorecard with current and planned risk factor, printable as a PDF"},
+      {de:"Ein Quiz mit Anwendungsfragen zum Rechnen und Entscheiden, dazu sieben Punkte für den ersten eigenen Workshop",
+       en:"A quiz of applied questions on calculating and deciding, plus seven steps for your first own workshop"}
+    ],
+    links:[{kind:"html",file:"risikomanagement-werkstatt.html",
+            label:{de:"Interaktiv öffnen",en:"Open interactive"}}]
+  }
+];
+
+/* =====================================================================
+   LERNPFADE - die zweite Liste, die du bearbeitest.
+   Ein Pfad verweist nur auf die ids aus TOPICS. Die Reihenfolge in
+   steps ist die Reihenfolge im Pfad. Ein Modul gehört zu mehreren
+   Pfaden, indem es in mehreren steps steht — am Modul selbst ist
+   dafür nichts zu ändern.
+   ===================================================================== */
+const PATHS = [
+  {
+    id:"risk-intro",
+    title:{de:"Einführung in das Risikomanagement", en:"Introduction to risk management"},
+    sub:{de:"Vom Begriff über die vier Phasen bis zur eigenen Anwendung: wie aus einem Bauchgefühl eine Position in einer Karte wird, warum die Karte ordnet und nicht entscheidet — und was davon am Montag im eigenen Haus übrig bleibt.",
+         en:"From the term through the four phases to your own application: how a gut feeling becomes a position on a map, why the map orders things without deciding them — and what survives of it on Monday in your own organisation."},
+    steps:["risiko-intro","risiko","risiko-werkstatt"]
+  }
+];
+/* ===================== end of the editable lists ===================== */
+
+const ACCENT={teal:"#209CBD",navy:"#0F4C5C",orange:"#FF922B",ochre:"#B5852C",green:"#4C8B3F"};
+const TRACK={bi:["Business Intelligence",""],ctrl:["Controlling","ctrl"],
+             case:[{de:"Fallstudie",en:"Case study"},"case"],
+             meta:[{de:"Werkstatt",en:"Workshop"},"meta"],
+             sec:["Cyber-Security","sec"]};
+
+const GLYPH={
+  rows:`<rect x="8" y="10" width="44" height="10" rx="2" fill="currentColor" opacity=".9"/>
+        <rect x="8" y="25" width="44" height="10" rx="2" fill="currentColor" opacity=".35"/>
+        <rect class="g-move" x="8" y="40" width="44" height="10" rx="2" fill="currentColor" opacity=".6"/>
+        <path class="g-fade" d="M56 45 L56 22" stroke="#FF922B" stroke-width="2.4" fill="none" marker-end="url(#gm)"/>`,
+  cube:`<path d="M14 24 L30 15 L50 24 L34 33 Z" fill="currentColor" opacity=".35"/>
+        <path d="M14 24 L34 33 L34 51 L14 42 Z" fill="currentColor" opacity=".9"/>
+        <path class="g-move" d="M50 24 L34 33 L34 51 L50 42 Z" fill="currentColor" opacity=".6"/>`,
+  cells:`<path d="M12 22 L24 14 L52 14 L40 22 Z" fill="currentColor" opacity=".3"/>
+         <path class="g-move" d="M40 22 L52 14 L52 42 L40 50 Z" fill="currentColor" opacity=".5"/>
+         <rect x="12.5" y="23" width="8" height="8" rx="1" fill="currentColor" opacity=".85"/>
+         <rect x="21.5" y="23" width="8" height="8" rx="1" fill="currentColor" opacity=".85"/>
+         <rect x="30.5" y="23" width="8" height="8" rx="1" fill="currentColor" opacity=".85"/>
+         <rect x="12.5" y="32" width="8" height="8" rx="1" fill="currentColor" opacity=".85"/>
+         <rect class="g-pulse" x="21.5" y="32" width="8" height="8" rx="1" fill="#FF922B"/>
+         <rect x="30.5" y="32" width="8" height="8" rx="1" fill="currentColor" opacity=".85"/>
+         <rect x="12.5" y="41" width="8" height="8" rx="1" fill="currentColor" opacity=".85"/>
+         <rect x="21.5" y="41" width="8" height="8" rx="1" fill="currentColor" opacity=".85"/>
+         <rect x="30.5" y="41" width="8" height="8" rx="1" fill="currentColor" opacity=".85"/>`,
+  chain:`<rect x="7"  y="23" width="21" height="17" rx="8.5" fill="none" stroke="currentColor" stroke-width="3.6" opacity=".8"/>
+         <rect x="34" y="23" width="21" height="17" rx="8.5" fill="none" stroke="currentColor" stroke-width="3.6" opacity=".8"/>
+         <rect class="g-pulse" x="20.5" y="23" width="21" height="17" rx="8.5" fill="none" stroke="#FF922B" stroke-width="3.6"/>`,
+  riskmap:`<rect x="8" y="7" width="47" height="47" rx="3" fill="currentColor" opacity=".12"/>
+           <path d="M8 54 H55 M8 7 V54" stroke="currentColor" stroke-width="2.4" fill="none" opacity=".6"/>
+           <path d="M20 8 C25 27 34 37 54 42" fill="none" stroke="currentColor" stroke-width="2.2"
+                 stroke-dasharray="4 3" opacity=".75"/>
+           <circle cx="18" cy="44" r="4.5" fill="currentColor" opacity=".5"/>
+           <circle cx="30" cy="32" r="4.5" fill="currentColor" opacity=".65"/>
+           <circle class="g-pulse" cx="45" cy="18" r="6" fill="#FF922B"/>`,
+  layers:`<rect x="10" y="42" width="40" height="9" rx="2" fill="currentColor" opacity=".9"/>
+          <rect x="14" y="30" width="32" height="9" rx="2" fill="currentColor" opacity=".65"/>
+          <rect x="18" y="18" width="24" height="9" rx="2" fill="currentColor" opacity=".45"/>
+          <path class="g-fade" d="M30 46 L30 12" stroke="#FF922B" stroke-width="2.4" fill="none" marker-end="url(#gm)"/>`,
+  quadrants:`<rect x="9" y="9" width="20" height="20" rx="3" fill="currentColor" opacity=".85"/>
+             <rect x="33" y="9" width="20" height="20" rx="3" fill="currentColor" opacity=".45"/>
+             <rect x="9" y="33" width="20" height="20" rx="3" fill="currentColor" opacity=".45"/>
+             <rect x="33" y="33" width="20" height="20" rx="3" fill="currentColor" opacity=".85"/>
+             <circle class="g-pulse" cx="31" cy="31" r="6" fill="#FF922B"/>`,
+  star:`<rect x="23" y="23" width="16" height="16" rx="2" fill="currentColor"/>
+        <rect x="25" y="3" width="12" height="11" rx="2" fill="currentColor" opacity=".55"/>
+        <rect class="g-move" x="25" y="48" width="12" height="11" rx="2" fill="currentColor" opacity=".45"/>
+        <rect x="3" y="26" width="12" height="11" rx="2" fill="currentColor" opacity=".55"/>
+        <rect x="47" y="26" width="12" height="11" rx="2" fill="currentColor" opacity=".55"/>
+        <path class="g-fade" d="M31 14 V23 M31 39 V48 M15 31.5 H23 M39 31.5 H47"
+              stroke="#FF922B" stroke-width="2.2" fill="none" stroke-linecap="round"/>`,
+  loop:`<circle cx="31" cy="31" r="19" fill="none" stroke="currentColor" stroke-width="4" opacity=".26"/>
+        <path class="g-fade" d="M31 12 A19 19 0 0 1 50 31" fill="none" stroke="#FF922B"
+              stroke-width="4" stroke-linecap="round"/>
+        <circle cx="31" cy="12" r="5.5" fill="currentColor" opacity=".9"/>
+        <circle class="g-move" cx="50" cy="31" r="5.5" fill="currentColor" opacity=".6"/>
+        <circle cx="31" cy="50" r="5.5" fill="currentColor" opacity=".45"/>
+        <circle cx="12" cy="31" r="5.5" fill="currentColor" opacity=".6"/>`,
+  pyramid:`<path d="M31 6 L48 24 L14 24 Z" fill="currentColor" opacity=".9"/>
+           <path class="g-fade" d="M48 24 L57 15 L40 15 Z" fill="#FF922B"/>
+           <rect x="12" y="28" width="38" height="8" rx="1.5" fill="currentColor" opacity=".55"/>
+           <rect x="12" y="39" width="38" height="8" rx="1.5" fill="currentColor" opacity=".4"/>
+           <rect class="g-move" x="12" y="50" width="38" height="8" rx="1.5" fill="currentColor" opacity=".28"/>`,
+  tree:`<rect x="22" y="8" width="18" height="10" rx="2" fill="currentColor" opacity=".9"/>
+        <rect x="8" y="30" width="18" height="10" rx="2" fill="currentColor" opacity=".6"/>
+        <rect x="36" y="30" width="18" height="10" rx="2" fill="currentColor" opacity=".6"/>
+        <rect class="g-move" x="36" y="48" width="18" height="9" rx="2" fill="currentColor" opacity=".4"/>
+        <path d="M31 18 L31 25 M17 30 L17 25 L45 25 L45 30 M45 40 L45 48" stroke="currentColor"
+              stroke-width="2" fill="none" opacity=".55"/>`,
+  shield:`<path d="M31 6 L52 14 V32 C52 44 42 52 31 56 C20 52 10 44 10 32 V14 Z"
+          fill="none" stroke="currentColor" stroke-width="3" opacity=".85"/>
+        <path class="g-move" d="M31 6 L52 14 V32 C52 44 42 52 31 56 Z" fill="currentColor" opacity=".14"/>
+        <path class="g-pulse" d="M22 30 L28.5 37 L41 24" fill="none" stroke="#FF922B"
+          stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`,
+  scaffold:`<rect x="9" y="7" width="20" height="9" rx="2" fill="currentColor" opacity=".85"/>
+        <rect x="33" y="7" width="20" height="9" rx="2" fill="currentColor" opacity=".85"/>
+        <rect class="g-pulse" x="21" y="26" width="20" height="10" rx="2" fill="#FF922B"/>
+        <rect x="9" y="46" width="13" height="8" rx="2" fill="currentColor" opacity=".45"/>
+        <rect x="24.5" y="46" width="13" height="8" rx="2" fill="currentColor" opacity=".45"/>
+        <rect class="g-move" x="40" y="46" width="13" height="8" rx="2" fill="currentColor" opacity=".45"/>
+        <path d="M19 16 L31 26 M43 16 L31 26 M31 36 L15.5 46 M31 36 L31 46 M31 36 L46.5 46"
+              stroke="currentColor" stroke-width="1.8" fill="none" opacity=".5"/>`
+};
+
+const ICON={
+  html:`<path d="M4 12h16M14 6l6 6-6 6"/>`,
+  deck:`<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v3M8 20h8"/>`
+};
+
+const grid=document.getElementById("grid");
+
+/* Die Sprachwahl reist als Parameter in die Module mit */
+const qs = LANG==="de" ? "" : "?lang="+LANG;
+
+/* Die Reihenfolge der Kacheln steht in reihenfolge.js. Fehlt die Datei,
+   gilt die Folge der Liste — die Startseite laeuft dann allein weiter.
+   Ein Modul, das dort fehlt, rutscht ans Ende statt zu verschwinden:
+   Ein neues Modul ist sofort sichtbar, auch wenn die Datei vergessen
+   wurde. Beides meldet die Konsole. */
+const SORTIERT = (() => {
+  if(typeof REIHENFOLGE === "undefined"){
+    console.warn("reihenfolge.js fehlt — die Kacheln stehen in der Folge der Liste");
+    return TOPICS;
+  }
+  const rang = new Map(REIHENFOLGE.map((id,i)=>[id,i]));
+  REIHENFOLGE.forEach(id=>{
+    if(!TOPICS.some(t=>t.id===id)) console.warn(`reihenfolge.js: unbekanntes Modul "${id}"`);
+  });
+  TOPICS.forEach(t=>{
+    if(!rang.has(t.id)) console.warn(`reihenfolge.js: "${t.id}" fehlt — die Kachel steht am Ende`);
+  });
+  return TOPICS
+    .map((t,i)=>[t, rang.has(t.id) ? rang.get(t.id) : REIHENFOLGE.length + i])
+    .sort((a,b)=>a[1]-b[1])
+    .map(x=>x[0]);
+})();
+
+/* Die Spurfilter entstehen aus den Modulen, die es wirklich gibt: Eine
+   Spur ohne Modul bekommt keinen Knopf, eine neue Spur bekommt ihren von
+   selbst. Die Folge ist die der Kacheln. Geplant erscheint nur, wenn
+   etwas geplant ist. */
+{
+  const spuren = [];
+  for(const t of SORTIERT) if(TRACK[t.track] && !spuren.includes(t.track)) spuren.push(t.track);
+  document.getElementById("chips").innerHTML =
+    `<button class="chip" data-f="all" aria-pressed="true" type="button">${L(UI.chipAll)}</button>` +
+    spuren.map(k=>`<button class="chip" data-f="${k}" aria-pressed="false" type="button">${L(TRACK[k][0])}</button>`).join("") +
+    (SORTIERT.some(t=>t.status==="planned")
+      ? `<button class="chip" data-f="planned" aria-pressed="false" type="button">${L(UI.chipPlan)}</button>` : "");
+}
+
+grid.innerHTML=SORTIERT.map(t=>{
+  const planned=t.status==="planned";
+  const [trackName,trackCls]=TRACK[t.track];
+  const title=L(t.title), sub=L(t.sub), feats=t.features.map(L), lb=L(t.langBadge);
+  const links=t.links.length
+    ? t.links.map((l,i)=>`<a class="lnk ${i===0?"primary":"ghost"}"
+         href="${l.file}${l.kind==="deck"?"":qs}" ${l.kind==="deck"?"download":""}>
+         <svg class="ic" viewBox="0 0 24 24">${ICON[l.kind]}</svg>${L(l.label)}</a>`).join("")
+    : `<span class="soon">${L(UI.soon)}</span>`;
+  /* Gesucht wird in der angezeigten Sprache und zusaetzlich in der englischen Fassung */
+  const alt=[t.title,t.sub,...t.features].map(v=>typeof v==="object"&&v?v.en:"").join(" ");
+  const hay=(title+" "+sub+" "+feats.join(" ")+" "+L(trackName)+" "+alt)
+            .toLowerCase().replace(/"/g,"");
+  return `<article class="tile ${planned?"planned":""}" data-id="${t.id}"
+      data-track="${t.track}" data-status="${t.status}"
+      data-search="${hay}"
+      style="--accent:${ACCENT[t.accent]||ACCENT.teal}">
+    <span class="stepno" hidden></span>
+    <div class="top">
+      <svg class="glyph" viewBox="0 0 62 62" aria-hidden="true">
+        <defs><marker id="gm" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5"
+          orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="#FF922B"/></marker></defs>
+        ${GLYPH[t.glyph]||GLYPH.rows}
+      </svg>
+      <div class="badges">
+        <span class="badge b-track ${trackCls}">${L(trackName)}</span>
+        ${planned?`<span class="badge b-plan">${L(UI.chipPlan)}</span>`:``}
+        ${lb?`<span class="badge b-lang">${lb}</span>`:``}
+      </div>
+    </div>
+    <h2>${title}</h2>
+    <p class="sub">${sub}</p>
+    <ul class="feat"><div>${feats.map(f=>`<li>${f}</li>`).join("")}</div></ul>
+    <div class="links">${links}</div>
+  </article>`;
+}).join("");
+
+/* glyph motion, hover only */
+const style=document.createElement("style");
+style.textContent=`
+  .g-move,.g-fade,.g-pulse{transition:transform .45s var(--ease),opacity .35s;transform-box:fill-box;transform-origin:center}
+  .g-fade{opacity:0}
+  .g-pulse{opacity:.35}
+  .tile:hover .g-move,.tile:focus-within .g-move{transform:translateY(-5px)}
+  .tile:hover .g-fade,.tile:focus-within .g-fade{opacity:1}
+  .tile:hover .g-pulse,.tile:focus-within .g-pulse{opacity:1;transform:scale(1.25)}
+  @media (prefers-reduced-motion:reduce){.g-move,.g-fade,.g-pulse{transition:none}}`;
+document.head.appendChild(style);
+
+/* ---------------------------------------------------------------- Lernpfade */
+const pathchips=document.getElementById("pathchips"), pathbar=document.getElementById("pathbar");
+
+/* Ein Pfad, der auf eine unbekannte id zeigt, ist ein Tippfehler - laut sagen. */
+PATHS.forEach(p=>p.steps.forEach(id=>{
+  if(!TOPICS.some(t=>t.id===id)) console.warn(`Lernpfad "${p.id}": unbekanntes Modul "${id}"`);
+}));
+
+let activePath = new URLSearchParams(location.search).get("path") || null;
+if(activePath && !PATHS.some(p=>p.id===activePath)) activePath=null;
+
+pathchips.innerHTML = PATHS.map(p=>
+  `<button class="pathchip" type="button" data-p="${p.id}" aria-pressed="false">
+     <span class="n">${p.steps.length}</span>${L(p.title)}</button>`).join("");
+
+function renderPathBar(){
+  const p = activePath ? PATHS.find(x=>x.id===activePath) : null;
+  pathbar.classList.toggle("on", !!p);
+  if(!p) return;
+  pathbar.innerHTML =
+    `<p class="pk">${L(UI.pathKicker)} \u00b7 ${L(UI.pathSteps)(p.steps.length)}</p>
+     <h2>${L(p.title)}</h2><p>${L(p.sub)}</p>
+     <button class="clear" type="button" id="pathClear">${L(UI.pathClear)}</button>`;
+  document.getElementById("pathClear").addEventListener("click",()=>setPath(null));
+}
+
+function setPath(id){
+  activePath = (id && id!==activePath) ? id : null;
+  if(activePath){                      /* ein Pfad ist seine eigene Sicht */
+    filter="all";
+    document.querySelectorAll(".chip").forEach(c=>
+      c.setAttribute("aria-pressed", String(c.dataset.f==="all")));
+  }
+  pathchips.querySelectorAll(".pathchip").forEach(c=>
+    c.setAttribute("aria-pressed", String(c.dataset.p===activePath)));
+  renderPathBar();
+  apply();
+}
+pathchips.addEventListener("click",e=>{
+  const b=e.target.closest(".pathchip"); if(b) setPath(b.dataset.p);
+});
+
+/* filtering */
+let filter="all", query="";
+const countEl=document.getElementById("count"), emptyEl=document.getElementById("empty");
+
+function apply(){
+  const path = activePath ? PATHS.find(p=>p.id===activePath) : null;
+  let shown=0;
+  [...grid.children].forEach(tile=>{
+    const idx = path ? path.steps.indexOf(tile.dataset.id) : -1;
+    const okF = path ? idx>=0
+      : (filter==="all"
+         || (filter==="planned" ? tile.dataset.status==="planned" : tile.dataset.track===filter));
+    const okQ = !query || tile.dataset.search.includes(query);
+    const on = okF && okQ;
+    tile.hidden=!on;
+    /* Die Reihenfolge im Pfad schlaegt die Reihenfolge der Liste */
+    tile.style.order = idx>=0 ? idx : 0;
+    tile.classList.toggle("first", idx===0);
+    const no=tile.querySelector(".stepno");
+    no.hidden = idx<0;
+    no.textContent = idx>=0 ? String(idx+1).padStart(2,"0") : "";
+    if(on) shown++;
+  });
+  const res=TOPICS.reduce((s,t)=>s+t.links.filter(l=>l.kind==="deck").length,0);
+  countEl.textContent = path
+    ? L(UI.countPath)(shown,path.steps.length)
+    : (shown===TOPICS.length ? L(UI.countAll)(TOPICS.length,res)
+                             : L(UI.countSome)(shown,TOPICS.length));
+  emptyEl.classList.toggle("on",shown===0);
+}
+
+document.getElementById("chips").addEventListener("click",e=>{
+  const b=e.target.closest(".chip"); if(!b) return;
+  if(activePath) setPath(null);          /* Spur und Pfad sind zwei Sichten, nicht zwei Filter */
+  filter=b.dataset.f;
+  document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",String(c===b)));
+  apply();
+});
+document.getElementById("q").addEventListener("input",e=>{
+  query=e.target.value.trim().toLowerCase(); apply();
+});
+/* statische Texte aus dem Woerterbuch fuellen */
+document.title = L(UI.title);
+document.querySelectorAll("[data-t]").forEach(el=>{ el.innerHTML = L(UI[el.dataset.t]); });
+document.querySelectorAll("[data-tp]").forEach(el=>{
+  const v=L(UI[el.dataset.tp]); el.placeholder=v; el.setAttribute("aria-label",v);
+});
+document.querySelectorAll("#langsw a").forEach(a=>{
+  a.setAttribute("aria-current", String(a.dataset.lang===LANG));
+});
+
+/* Beim Laden wird gesetzt, nicht umgeschaltet: erst leeren, dann anwenden */
+const deepLink = activePath; activePath = null; setPath(deepLink);
+</script>
+</body>
+</html>

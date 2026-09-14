@@ -42,7 +42,7 @@ nicht gestaucht. Das ist die einzige Größenregel, die es gibt.
 **Warum die zwei Pflichtlektionen:** Die Module richten sich an Praktiker, nicht an Theoretiker.
 Auch wo Theorie unumgänglich ist, muss am Ende etwas stehen, das jemand am Montag anfassen kann.
 
-**`content-werkstatt.html` erklärt all das von innen** — die drei Ebenen, den Modulvertrag, den
+**`plattform/content-werkstatt.html` erklärt all das von innen** — die drei Ebenen, den Modulvertrag, den
 Kanon und die Regeln, mit einem Briefing-Bogen für Zuarbeit von außen. Es ist zugleich das
 Muster: Wer wissen will, wie ein Modul nach diesen Regeln aussieht, sieht dort nach. Ändert
 sich eine Festlegung hier, wird sie dort mitgezogen — sonst widersprechen sich die beiden.
@@ -145,7 +145,7 @@ vorhandenen gleichermaßen. Deshalb gehört zu jedem neuen Eintrag im selben Arb
 4. Das Ergebnis in der Pull-Request-Beschreibung nennen: welche Zeile neu ist und wie viele
    Stellen sie berührt hat.
 
-**Wo die Liste gilt.** In allen `*.html` — Fließtext, Beschriftungen, Tooltips, Fußzeilen,
+**Wo die Liste gilt.** In allen `*.html` beider Verzeichnisse — Fließtext, Beschriftungen, Tooltips, Fußzeilen,
 Klassennamen und Kommentare. Für Commit-Nachrichten und Pull-Request-Beschreibungen gilt sie
 sinngemäß, wird dort aber nicht maschinell geprüft.
 
@@ -223,7 +223,7 @@ Besonders leicht zu übersehen:
 ### Wenn ein Modul einen eigenen Fall braucht
 
 **Sofia ist der Normalfall, ein eigener Fall die begründete Ausnahme.**
-`supply-chain-controlling.html` gehört zum Thema Supply Chain und arbeitet mit vier Vorlieferanten eines
+`vorlesung/supply-chain-controlling.html` gehört zum Thema Supply Chain und arbeitet mit vier Vorlieferanten eines
 Nutzfahrzeugherstellers. Der Grund: Sofias Betrieb hat keine benannten Lieferanten, und der
 Kanon soll nicht um welche erweitert werden, nur damit ein Portfolio vier Punkte bekommt —
 lieber ein sichtbar getrennter Fall als ein stillschweigend gedehnter Kanon. Wo das nötig ist,
@@ -255,22 +255,42 @@ Quellenverzeichnisse, keine Legenden, keine Versionsangaben.
 ## Aufbau
 
 ```
-index.html                       Startseite mit allen Modulen, Filter und Suche
-reihenfolge.js                   die Folge der Kacheln, eine Zeile je Modul
-PROJECT-CANON.md                 Namen, Zahlen, Festlegungen
-<thema>.html                     je ein Modul, in sich geschlossen
-decks/*.pptx                     Foliensätze zum Herunterladen
+index.html                       die Weiche — nur für die Entwicklung
+CLAUDE.md                        diese Datei
+PROJECT-CANON.md                 Namen, Zahlen, Festlegungen des Falls
+
+vorlesung/                       der Stoff für die Lehrveranstaltungen
+  index.html                     Startseite mit Filter und Suche
+  reihenfolge.js                 die Folge der Kacheln
+  <thema>.html                   je ein Modul, in sich geschlossen
+  decks/*.pptx                   Foliensätze zum Herunterladen
+
+plattform/                       die unabhängige Lernplattform
+  index.html
+  reihenfolge.js
+  <thema>.html
 ```
+
+**Die beiden Verzeichnisse sind getrennte Auslieferungen.** Jedes wird für sich auf einen
+geschützten Webspace hochgeladen und ist darin vollständig. Deshalb gilt:
+
+- **Kein Verweis über die Grenze.** Ein Modul in `vorlesung/` verlinkt nichts in `plattform/`
+  und umgekehrt. Beim Ausrollen läge das Ziel nicht auf demselben Server.
+- **Kein gemeinsamer Inhalt.** Was beide Seiten brauchen, wird kopiert und darf auseinander-
+  laufen. Die Ansprache ist verschieden, und das ist der Zweck der Trennung.
+- **`index.html` im Wurzelverzeichnis wird nie hochgeladen.** Es ist die Weiche für die
+  Entwicklung und sagt das auch im Kopf der Seite.
 
 Jede HTML-Datei läuft **ohne Build und ohne Server**. Einzige externe Abhängigkeit sind
 Google Fonts mit Fallback-Stack. Diese Eigenschaft nicht aufgeben: kein npm, kein Bundler,
 keine Frameworks, keine geteilten CSS- oder JS-Dateien. Doppelklick muss genügen.
 
-**Die eine Ausnahme ist `reihenfolge.js`**, und sie ist eng geschnitten. Nur `index.html` lädt
-sie, über einen klassischen `<script src>` — der funktioniert über `file://`, anders als `fetch`.
-Sie ist **optional**: Fehlt sie, meldet die Konsole das und die Startseite nimmt die Folge der
-Liste in `TOPICS`. Ein Modul bleibt davon unberührt und wird weiterhin einzeln
-weitergegeben. Eine zweite solche Datei kommt nicht dazu, ohne dass diese Regel neu
+**Die eine Ausnahme ist `reihenfolge.js`**, und sie ist eng geschnitten. Jedes der beiden
+Verzeichnisse hat seine eigene; geladen wird sie allein von der Startseite daneben, über einen
+klassischen `<script src>` — der funktioniert über `file://`, anders als `fetch`. Sie ist
+**optional**: Fehlt sie, meldet die Konsole das und die Startseite nimmt die Folge der Liste in
+`TOPICS`. Ein Modul bleibt davon unberührt und wird weiterhin einzeln weitergegeben. Eine
+Datei dieser Art über die Startseite hinaus kommt nicht dazu, ohne dass diese Regel neu
 verhandelt wird.
 
 ## Lernpfade
@@ -318,7 +338,7 @@ gemacht — dafür ist diese Datei da.
 
 ### Der Pfadplaner
 
-Lektion 04 in `content-werkstatt.html` ist das Werkzeug, mit dem ein Autor die Gliederung
+Lektion 04 in `plattform/content-werkstatt.html` ist das Werkzeug, mit dem ein Autor die Gliederung
 baut, bevor eine Zeile Text entsteht. Sie liegt als **Bühne** vor ihm: Pfad, Module, Lektionen
 und aufklappbare Blöcke als Kästen auf einer Fläche, mit Pfeilen verbunden. Ein Klick auf einen
 Kasten öffnet daneben seine Stammdaten — Bezeichnung, Kurzinhalt, bei einem Modul auch Spur und
@@ -354,7 +374,7 @@ vorhandenen Modul bekommt deshalb ein eigenes Präfix und wird vor dem Anlegen d
 geprüft:
 
 ```bash
-grep -c "\bpfp" content-werkstatt.html   # Präfix schon vergeben?
+grep -c "\bpfp" plattform/content-werkstatt.html   # Präfix schon vergeben?
 ```
 
 ## Harte Regeln
@@ -408,12 +428,12 @@ erste ist offen, die übrigen zu.
   und ein `.pointe` am Ende. Der Sammelvorgang hält vor dem Pointe-Kasten an.
 - **Wer seine Zeichnung aus dem Layout misst, muss auf `resize` hören.** In einem zugeklappten
   Block liefert `getBoundingClientRect` nur Nullen; die Zeichnung entartet auf einen Punkt. Beim
-  Aufklappen wird deshalb ein `resize` ausgelöst. Die Strategy Map in `balanced-scorecard.html`
+  Aufklappen wird deshalb ein `resize` ausgelöst. Die Strategy Map in `vorlesung/balanced-scorecard.html`
   ist der Fall, an dem das aufgefallen ist — sie zeichnete zugeklappt `0,0,0,0`.
 - **Im Druck sind alle Blöcke offen** (`.blk-b[hidden]{display:block!important}`), sonst fehlt
   im PDF, was gerade zugeklappt war.
-- **Module ohne `h2.sec` bleiben unverändert.** `bi-reference-architecture.html` und
-  `scd-dashboard.html` gliedern ihre Lektionen nicht in Abschnitte; dort gibt es nichts zu klappen.
+- **Module ohne `h2.sec` bleiben unverändert.** `vorlesung/bi-reference-architecture.html` und
+  `vorlesung/scd-dashboard.html` gliedern ihre Lektionen nicht in Abschnitte; dort gibt es nichts zu klappen.
 
 ## Gestaltung
 
@@ -443,7 +463,8 @@ import pathlib, glob
 BASE = pathlib.Path(".").resolve()
 with sync_playwright() as p:
     b = p.chromium.launch()
-    for f in sorted(glob.glob("*.html")):
+    # Beide Auslieferungen und die Weiche im Wurzelverzeichnis.
+    for f in sorted(glob.glob("*.html") + glob.glob("vorlesung/*.html") + glob.glob("plattform/*.html")):
         for w in (390, 1300):
             pg = b.new_page(viewport={"width": w, "height": 900})
             errs = []
@@ -454,9 +475,12 @@ with sync_playwright() as p:
             ov = pg.evaluate("document.documentElement.scrollWidth - document.documentElement.clientWidth")
             print(f"{f:34s} {w:5d}px  Ueberlauf {ov:3d}  {errs or 'ok'}")
             pg.close()
-    pg = b.new_page(); pg.goto((BASE / "index.html").as_uri()); pg.wait_for_timeout(500)
-    for h in pg.eval_on_selector_all(".lnk", "e=>e.map(x=>x.getAttribute('href'))"):
-        print(("OK   " if (BASE / h).exists() else "FEHLT"), h)
+    # Die Verweise jeder Startseite gelten relativ zu ihrem eigenen Verzeichnis.
+    for ordner in ("vorlesung", "plattform"):
+        pg = b.new_page(); pg.goto((BASE / ordner / "index.html").as_uri()); pg.wait_for_timeout(500)
+        for h in pg.eval_on_selector_all(".lnk", "e=>e.map(x=>x.getAttribute('href'))"):
+            print(("OK   " if (BASE / ordner / h).exists() else "FEHLT"), ordner + "/" + h)
+        pg.close()
     b.close()
 EOF
 ```
@@ -496,7 +520,7 @@ ESC = re.compile(r"\\u([0-9a-fA-F]{4})")
 klar = lambda z: ESC.sub(lambda m: chr(int(m.group(1), 16)), z)
 
 hart = weich = 0
-for datei in sorted(glob.glob("*.html")):
+for datei in sorted(glob.glob("*.html") + glob.glob("vorlesung/*.html") + glob.glob("plattform/*.html")):
     zeilen = io.open(datei, encoding="utf-8").read().split("\n")
     for nr, z in enumerate(zeilen, 1):
         if "sprache:ok" in z:
@@ -521,7 +545,7 @@ entweder geändert oder mit `<!-- sprache:ok -->` in derselben Zeile stehen gela
 Zusätzlich nach Resten einer früheren Fassung suchen, wenn sich Namen geändert haben:
 
 ```bash
-grep -rn -E "Schönbrunn|Anna Berger|four outlets|bakery" *.html
+grep -rn -E "Schönbrunn|Anna Berger|four outlets|bakery" *.html vorlesung/*.html plattform/*.html
 ```
 
 Ohne Netzzugriff die Prüfung überspringen und das im Pull Request ausdrücklich vermerken,
