@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Die Bilanz nach HGB · Aufbau und eigene Eingabe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2; --canvas:#F4F3F0;
+  --green:#2E9E6B; --red:#D9534F;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.1rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:20ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:clamp(1.08rem,1.78vw,1.32rem);font-weight:300;color:#3d3d40;line-height:1.55;margin:0}
+
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+
+.claim{font-size:clamp(1.2rem,2.35vw,1.6rem);font-weight:300;line-height:1.42;margin:0 0 26px;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--teal-dk)}
+h2.sec{font-size:1.34rem;font-weight:600;letter-spacing:-.014em;margin:34px 0 4px}
+h2.sec:first-child{margin-top:0}
+p.sub{margin:0 0 18px;color:var(--grey);font-size:1.06rem;line-height:1.6}
+.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:14px 0 0}
+
+/* ---------- Schaltflaechen ---------- */
+.bar{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;justify-content:space-between;margin:0 0 16px}
+.seg{display:inline-flex;border:1px solid var(--grey-xl);background:var(--paper);border-radius:var(--r);padding:4px;gap:4px;flex-wrap:wrap}
+.seg button{appearance:none;border:0;background:transparent;cursor:pointer;font-family:var(--sans);
+  font-size:.88rem;font-weight:600;color:var(--grey);padding:9px 16px;border-radius:7px;transition:.16s}
+.seg button:hover{color:var(--teal-dk)}
+.seg button[aria-pressed="true"]{background:var(--teal-dk);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.84rem;color:#4a4a4d}
+.key{display:inline-flex;align-items:center;gap:8px}
+.sw{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.06)}
+.sw.q1{background:#FDE8D3} .sw.q2{background:#E1F0F6}
+.sw.q3{background:#F2EBD8}   .sw.q4{background:#EAEAE8}
+
+.btn{appearance:none;border:1px solid var(--teal-dk);background:transparent;color:var(--teal-dk);
+  font-family:var(--sans);font-size:.88rem;font-weight:600;cursor:pointer;
+  padding:10px 16px;border-radius:8px;transition:.16s}
+.btn:hover{background:var(--teal-dk);color:#fff}
+.btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+/* ---------- Karten ---------- */
+.card{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px}
+.card .ck{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 4px}
+.card h3{margin:0 0 8px;font-size:1.06rem;font-weight:700;letter-spacing:-.015em}
+.card p{margin:0 0 10px;font-size:.9rem;color:#3d3d40;line-height:1.52}
+.card p:last-child{margin-bottom:0}
+.card ul{margin:10px 0 0;padding-left:18px;font-size:.88rem;color:#3d3d40;line-height:1.5}
+.card li{margin-bottom:5px}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.duo>*{min-width:0}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
+.trio>*{min-width:0}
+.quad{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:stretch}
+.quad>*{min-width:0}
+
+/* ---------- Aufdeckkarten: Wortherkunft, Aufgaben, Denkfehler ---------- */
+.flipgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.flipgrid>*{min-width:0}
+.flip{appearance:none;text-align:left;width:100%;cursor:pointer;font-family:var(--sans);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px 16px 14px;transition:.2s var(--ease);color:var(--ink)}
+.flip:hover{border-color:var(--teal);transform:translateY(-2px)}
+.flip:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.flip .lang{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+.flip .word{font-family:var(--mono);font-size:1.02rem;font-weight:600;color:var(--teal-dk);margin:5px 0 0}
+.flip .mean{font-size:.88rem;color:#3d3d40;margin:9px 0 0;line-height:1.45}
+.flip[aria-expanded="false"] .mean{display:none}
+.flip[aria-expanded="false"]::after{content:"umdrehen";display:block;margin-top:9px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal)}
+.flip[aria-expanded="true"]{border-color:var(--teal);background:var(--teal-xl)}
+
+.deck{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.deck>*{min-width:0}
+.task{appearance:none;text-align:left;width:100%;cursor:pointer;font-family:var(--sans);color:var(--ink);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px;transition:.2s var(--ease);display:flex;flex-direction:column;gap:7px}
+.task:hover{border-color:var(--ochre);transform:translateY(-2px)}
+.task:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.task .no{font-family:var(--mono);font-size:.72rem;font-weight:600;color:var(--ochre);letter-spacing:.08em}
+.task .hd{font-size:.95rem;font-weight:600;line-height:1.34}
+.task .bd{font-size:.86rem;color:#3d3d40;line-height:1.5}
+.task[aria-expanded="false"] .bd{display:none}
+.task[aria-expanded="true"]{border-color:var(--ochre);background:var(--ochre-xl)}
+.counter{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:12px 0 0}
+
+.acc{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.acc button{appearance:none;width:100%;text-align:left;cursor:pointer;font-family:var(--sans);
+  background:transparent;border:0;border-bottom:1px solid var(--grey-xl);padding:15px 18px;
+  font-size:.95rem;font-weight:600;color:var(--ink);display:flex;gap:12px;align-items:flex-start;transition:background .16s}
+.acc button:hover{background:var(--sand-xl)}
+.acc button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.acc button .mk{font-family:var(--mono);color:var(--red);flex:none;font-size:.9rem;line-height:1.5}
+.acc .ans{padding:0 18px 16px 42px;font-size:.9rem;color:#3d3d40;line-height:1.55;
+  border-bottom:1px solid var(--grey-xl);background:var(--sand-xl)}
+.acc .ans[hidden]{display:none}
+.acc .ans b{color:var(--green)}
+.acc>*:last-child{border-bottom:0}
+
+/* ---------- Tabellen ---------- */
+.tscroll{overflow-x:auto;border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper)}
+table.tbl{width:100%;min-width:560px;border-collapse:collapse;font-size:.85rem}
+table.tbl th{background:#F7F7F5;text-align:left;padding:9px 12px;font-family:var(--mono);
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid);white-space:nowrap}
+table.tbl td{padding:9px 12px;border-bottom:1px solid var(--grey-xl);vertical-align:top;line-height:1.45}
+table.tbl tr:last-child td{border-bottom:0}
+table.tbl td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.tbl td.m{font-family:var(--mono);font-size:.8rem}
+table.tbl td.crit{font-weight:600}
+table.tbl tr.dim td{color:var(--grey-mid);transition:color .3s var(--ease)}
+table.tbl tr.hi td{background:var(--teal-xl)}
+table.tbl tbody tr:hover td{background:var(--sand-xl)}
+.fmark{display:inline-block;width:22px;height:22px;line-height:20px;text-align:center;
+  border-radius:5px;font-family:var(--mono);font-size:.76rem;font-weight:600;border:1px solid rgba(0,0,0,.08)}
+.fmark.f1{background:var(--orange-xl);color:#A85B00}
+.fmark.f2{background:var(--teal-xl);color:var(--teal-dk)}
+.fmark.f3{background:var(--sand-xl);color:#8A6417}
+.fmark.f4{background:var(--grey-xl);color:#5a5a5c}
+/* ---------- Risk-Map ----------
+   Die drei Zonenfarben sind die einzige Stelle, an der Signalfarben
+   auftreten. Dekorativ erscheinen sie nirgends, und die Bedeutung
+   hängt nie an ihnen allein: jede Zone hat ihren Namen, jeder Punkt seine
+   Kennung, jede rote Position zusaetzlich das Warndreieck.          */
+.mapwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.mapwrap>*{min-width:0}
+.mapstage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:12px 10px 6px;overflow-x:auto}
+.mapstage:focus-visible,.stage:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+svg.rm{width:100%;min-width:340px;height:auto;display:block}
+svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.rm .zone{stroke:#fff;stroke-width:1.5}
+.rm .zg{fill:#E6F1E5} .rm .zy{fill:#FBF2D9} .rm .zr{fill:#FBE4DC}
+.rm .zlab{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.07em;
+  text-anchor:middle;opacity:.62}
+.rm .zlab.g{fill:#2E7D4F} .rm .zlab.y{fill:#8A6417} .rm .zlab.r{fill:#B23C2C}
+.rm .gr{stroke:#fff;stroke-width:1;opacity:.85}
+.rm .ax{stroke:var(--grey-mid);stroke-width:1.4}
+.rm .tol{fill:none;stroke:#B23C2C;stroke-width:2;stroke-dasharray:7 5}
+.rm .iso{fill:none;stroke:var(--teal-dk);stroke-width:1.8;stroke-dasharray:3 4}
+.rm .tickX{font-family:var(--mono);font-size:10.5px;fill:var(--grey);text-anchor:middle}
+.rm .tickY{font-family:var(--mono);font-size:10.5px;fill:var(--grey);text-anchor:end}
+.rm .stufe{font-size:9px;fill:var(--grey);text-anchor:middle}
+.rm .stufeY{font-size:9px;fill:var(--grey);text-anchor:end}
+.rm .atitle{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;fill:var(--teal-dk);
+  text-transform:uppercase;font-weight:600;text-anchor:middle}
+.rm .pt{cursor:pointer}
+.rm .pt:focus-visible{outline:none}
+.rm .pt .dot{fill:var(--navy);stroke:#fff;stroke-width:2.5;transition:r .2s var(--ease)}
+.rm .pt:hover .dot,.rm .pt:focus-visible .dot{r:13}
+.rm .pt .id{font-family:var(--mono);font-size:10px;font-weight:600;fill:#fff;text-anchor:middle;
+  pointer-events:none}
+.rm .pt .lab{font-size:11.5px;font-weight:600}
+.rm .pt.sel .dot{fill:var(--orange);stroke:var(--orange-xl);stroke-width:4}
+.rm .pt.own .dot{fill:var(--teal);stroke:#fff}
+.rm .pt.ref .dot{fill:var(--ochre);stroke:#fff}
+.rm .pt.ghost .dot{fill:var(--grey-mid)}
+.rm .pt.ziel .dot{fill:#fff;stroke:var(--grey);stroke-width:2.4;stroke-dasharray:3 3}
+.rm .pt.ghost .lab{opacity:.5}
+.rm .pt.live .dot{fill:var(--orange);stroke:#fff;stroke-width:3}
+.rm .pt.split .dot{fill:var(--teal-dk);stroke:#fff}
+.rm .link{stroke:var(--grey);stroke-width:1.4;stroke-dasharray:3 3}
+.rm .warn{fill:#B23C2C}
+.rm .warn text{fill:#fff;font-family:var(--mono);font-size:9px;font-weight:700;text-anchor:middle}
+.rm .mv{fill:none;stroke:var(--orange);stroke-width:3}
+.rm .mv.pre{stroke:#2E7D4F}
+.rm .ghostpath{fill:none;stroke:var(--grey-mid);stroke-width:1.6;stroke-dasharray:4 4}
+
+/* ---------- Zonenlegende und Kennzahlleiste ---------- */
+.zonekey{display:flex;gap:16px;flex-wrap:wrap;font-size:.84rem;color:#4a4a4d}
+.zonekey .k{display:inline-flex;align-items:center;gap:8px}
+.zonekey i{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.08)}
+.zonekey i.g{background:#E6F1E5} .zonekey i.y{background:#FBF2D9} .zonekey i.r{background:#FBE4DC}
+
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:10px;margin:0 0 14px}
+.figs>*{min-width:0}
+.fig{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 15px}
+.fig .fk{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 5px;line-height:1.3}
+.fig .fv{font-family:var(--mono);font-size:1.45rem;font-weight:600;font-variant-numeric:tabular-nums;
+  color:var(--teal-dk);line-height:1}
+.fig .fn{font-size:.76rem;color:var(--grey);margin:5px 0 0;line-height:1.3}
+.fig.hot{border-color:var(--orange);background:var(--orange-xl)}
+.fig.hot .fv{color:#A85B00}
+
+/* ---------- Regler ---------- */
+.rgrid{display:grid;gap:12px}
+.rrow{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 16px}
+.rrow .rl{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin:0 0 8px}
+.rrow .rn{font-size:.9rem;font-weight:600}
+.rrow .rv{font-family:var(--mono);font-size:.82rem;color:var(--teal-dk);font-weight:600;
+  text-align:right;flex:none}
+.rrow input[type=range]{width:100%;accent-color:var(--teal-dk);display:block}
+.rrow .ra{font-size:.78rem;color:var(--grey);margin:6px 0 0;line-height:1.35;min-height:2.1em}
+
+/* ---------- Prozesskreis ---------- */
+.stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:14px 10px 6px;overflow-x:auto}
+svg.proc{width:100%;min-width:560px;height:auto;display:block}
+svg.proc text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.proc .pbox{fill:var(--paper);stroke:var(--grey-mid);stroke-width:1.4;transition:.2s var(--ease)}
+.proc .ph{cursor:pointer}
+.proc .ph:focus-visible{outline:none}
+.proc .ph:hover .pbox,.proc .ph:focus-visible .pbox,.proc .ph.on .pbox{stroke:var(--teal-dk);stroke-width:2.6;fill:var(--teal-xl)}
+.proc .pk{font-family:var(--mono);font-size:9px;letter-spacing:.1em;fill:var(--grey);text-transform:uppercase}
+.proc .pt2{font-size:14px;font-weight:600}
+.proc .pq{font-size:11px;fill:#4a4a4d}
+.proc .arw{fill:none;stroke:var(--teal);stroke-width:2.4}
+.proc .arw.back{stroke:var(--orange);stroke-dasharray:6 4}
+.proc .clam{fill:none;stroke:var(--ochre);stroke-width:2.4;transition:opacity .3s}
+.proc .clamlab{font-family:var(--mono);font-size:10px;fill:var(--ochre);font-weight:600;text-anchor:middle}
+.proc .ctr{font-size:13px;font-weight:600;text-anchor:middle;fill:var(--teal-dk)}
+.proc .ctrs{font-size:11px;text-anchor:middle;fill:var(--grey)}
+
+/* ---------- Balanced Chance- und Risk-Card ---------- */
+svg.bcr{width:100%;min-width:760px;height:auto;display:block}
+svg.bcr text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.bcr .band{stroke:#fff;stroke-width:1.5}
+.bcr .bl{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.05em;fill:var(--teal-dk)}
+.bcr .cell{fill:var(--paper);stroke:var(--grey-xl);stroke-width:1}
+.bcr .ct{font-size:10.5px;fill:#3d3d40}
+.bcr .hd{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:600;text-anchor:middle}
+.bcr .hd.c{fill:#2E7D4F} .bcr .hd.r{fill:#B23C2C}
+.bcr .step{transition:opacity .45s var(--ease)}
+.bcr .step.off{opacity:0}
+.bcr .dash{stroke:var(--ochre);stroke-width:1.5;stroke-dasharray:5 4;fill:none;opacity:.85}
+
+/* ---------- Vergleichsliste Modus A ---------- */
+.cmp{display:grid;grid-template-columns:44px 1fr 108px 108px 64px;gap:8px 12px;align-items:center;
+  padding:10px 0;border-bottom:1px solid var(--grey-xl);font-size:.86rem}
+.cmp>*{min-width:0}
+.cmp:last-child{border-bottom:0}
+.cmp .cid{font-family:var(--mono);font-size:.8rem;font-weight:600;color:var(--teal-dk)}
+.cmp .cn{line-height:1.35}
+.cmp .cw{font-family:var(--mono);font-size:.8rem;font-variant-numeric:tabular-nums;text-align:right}
+.cmp .cw.own{color:var(--teal)} .cmp .cw.ref{color:var(--ochre)}
+.cmp .cd{font-family:var(--mono);font-size:.8rem;font-weight:600;text-align:right}
+.cmp .cd.up{color:#B23C2C} .cmp .cd.dn{color:#2E7D4F} .cmp .cd.eq{color:var(--grey)}
+.cmphead{display:grid;grid-template-columns:44px 1fr 108px 108px 64px;gap:12px;font-family:var(--mono);
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  padding-bottom:7px;border-bottom:1px solid var(--grey-mid)}
+.cmphead>*{min-width:0}
+.cmphead span:nth-child(n+3){text-align:right}
+
+/* ---------- Massnahmen und Strategien ---------- */
+.mlist{display:grid;gap:10px}
+.mopt{display:flex;gap:12px;align-items:flex-start;background:var(--paper);cursor:pointer;
+  border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 16px;transition:.16s var(--ease)}
+.mopt:hover{border-color:var(--teal)}
+.mopt:focus-within{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal-xl)}
+.mopt input{accent-color:var(--teal-dk);width:17px;height:17px;flex:none;margin-top:2px}
+.mopt .mt{display:block;font-size:.92rem;font-weight:600;line-height:1.3}
+.mopt .mm{display:block;font-family:var(--mono);font-size:.76rem;color:var(--grey);margin:4px 0 0}
+.mopt .tag{display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.09em;
+  text-transform:uppercase;font-weight:600;border-radius:4px;padding:3px 7px;margin-left:8px;
+  vertical-align:middle}
+.mopt .tag.pre{background:#E6F1E5;color:#2E7D4F}
+.mopt .tag.kor{background:var(--orange-xl);color:#A85B00}
+.mopt.on{border-color:var(--teal-dk);background:var(--teal-xl)}
+
+.strat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.strat>*{min-width:0}
+.sbtn{appearance:none;cursor:pointer;font-family:var(--sans);text-align:left;color:var(--ink);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:14px 16px;transition:.18s var(--ease)}
+.sbtn:hover{border-color:var(--teal);transform:translateY(-2px)}
+.sbtn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.sbtn .sd{display:block;font-size:.98rem;font-weight:700;letter-spacing:-.01em}
+.sbtn .se{display:block;font-family:var(--mono);font-size:.74rem;color:var(--grey);margin:3px 0 7px;overflow-wrap:anywhere}
+.sbtn .sm{display:block;font-size:.78rem;color:#4a4a4d;line-height:1.35}
+.sbtn[aria-pressed="true"]{border-color:var(--teal-dk);background:var(--teal-xl)}
+.sbtn[aria-pressed="true"] .se{color:var(--teal-dk)}
+
+/* ---------- BAUM ---------- */
+.baum{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.baum>*{min-width:0}
+.bcard{background:var(--paper);border:1px solid var(--grey-xl);border-left:3px solid var(--teal-dk);
+  border-radius:var(--r);padding:16px 18px}
+.bcard .letter{font-family:var(--mono);font-size:1.5rem;font-weight:700;color:var(--teal-dk);line-height:1}
+.bcard h3{margin:8px 0 6px;font-size:.95rem;font-weight:700}
+.bcard p{margin:0;font-size:.85rem;color:#3d3d40;line-height:1.5}
+
+/* ---------- Merkblatt und Druck ---------- */
+.merk{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:24px 26px}
+.merk h3{margin:0 0 14px;font-size:1.1rem;font-weight:700}
+.merk dl{margin:0;display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr);gap:9px 18px;font-size:.87rem}
+.merk dt{font-weight:700;color:var(--teal-dk);line-height:1.4}
+.merk dd{margin:0;color:#3d3d40;line-height:1.45}
+.glos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px 22px;font-size:.85rem}
+.glos>*{min-width:0}
+.glos div{padding:7px 0;border-bottom:1px solid var(--grey-xl);line-height:1.45}
+.glos b{color:var(--teal-dk)}
+
+/* ---------- Werkstatt: Risiken erfassen ---------- */
+.wsbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:0 0 16px}
+.wsbar>*{min-width:0}
+.wslist{display:grid;gap:14px}
+.wscard{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px 20px;border-left:3px solid var(--teal-dk)}
+.wshead{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:0 0 14px}
+.wshead>*{min-width:0}
+.wsid{font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--teal-dk);
+  background:var(--teal-xl);border-radius:5px;padding:4px 9px;flex:none}
+.wsdel{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);cursor:pointer;
+  font-family:var(--sans);font-size:.78rem;font-weight:600;color:var(--grey);
+  padding:6px 11px;border-radius:7px;flex:none;transition:.16s}
+.wsdel:hover{border-color:var(--red);color:var(--red)}
+.wsdel:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.fld{margin:0 0 12px}
+.fld label{display:block;font-size:.8rem;font-weight:600;color:#3d3d40;margin:0 0 6px}
+.fld input[type=text],.fld textarea{width:100%;font-family:var(--sans);font-size:.9rem;
+  padding:9px 11px;border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper);
+  color:var(--ink);line-height:1.45}
+.fld textarea{resize:vertical;min-height:66px}
+.fld input:focus-visible,.fld textarea:focus-visible,.fld select:focus-visible{
+  outline:2px solid var(--orange);outline-offset:1px}
+.cnt{font-family:var(--mono);font-size:.72rem;color:var(--grey);text-align:right;margin:4px 0 0}
+.cnt.warn{color:#B25E00;font-weight:600}
+.wsduo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.wsduo>*{min-width:0}
+.wsax{background:var(--canvas);border-radius:9px;padding:13px 15px}
+.wsax .axh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin:0 0 8px}
+.wsax .axn{font-size:.82rem;font-weight:700}
+.wsax .axv{font-family:var(--mono);font-size:.78rem;font-weight:600;color:var(--teal-dk);text-align:right}
+.wsax input[type=range]{width:100%;accent-color:var(--teal-dk);display:block;margin:0 0 4px}
+.wsax .axa{font-size:.74rem;color:var(--grey);line-height:1.35;min-height:2em;margin:0 0 10px}
+.wsrf{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 0;
+  padding-top:12px;border-top:1px solid var(--grey-xl)}
+.wsrf .lbl{font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--grey)}
+.wsrf .val{font-family:var(--mono);font-size:1.05rem;font-weight:700;font-variant-numeric:tabular-nums}
+.zpill{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.09em;
+  text-transform:uppercase;font-weight:600;border-radius:4px;padding:4px 9px}
+.zpill.g{background:#E6F1E5;color:#2E7D4F}
+.zpill.y{background:#FBF2D9;color:#8A6417}
+.zpill.r{background:#FBE4DC;color:#B23C2C}
+
+/* ---------- Werkstatt: Strategie und Massnahme ---------- */
+.stgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stgrid>*{min-width:0}
+.fld select{width:100%;font-family:var(--sans);font-size:.9rem;padding:9px 11px;
+  border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper);color:var(--ink)}
+.mvhint{font-size:.78rem;color:#3d3d40;line-height:1.4;margin:8px 0 0;
+  background:var(--teal-xl);border-radius:7px;padding:9px 11px}
+.mvhint b{color:var(--teal-dk)}
+
+/* ---------- Werkstatt: Massnahmenplan ---------- */
+.plan{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:24px 26px}
+.plan h3{margin:0 0 4px;font-size:1.15rem;font-weight:700;letter-spacing:-.015em}
+.plan .pmeta{font-family:var(--mono);font-size:.74rem;color:var(--grey);margin:0 0 18px}
+table.sc{width:100%;min-width:760px;border-collapse:collapse;font-size:.84rem}
+table.sc th{background:#F7F7F5;text-align:left;padding:9px 11px;font-family:var(--mono);
+  font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid);vertical-align:bottom}
+table.sc th.r{text-align:right}
+table.sc td{padding:10px 11px;border-bottom:1px solid var(--grey-xl);vertical-align:top;line-height:1.4}
+table.sc td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.sc td.id{font-family:var(--mono);font-weight:700;color:var(--teal-dk)}
+table.sc tr.sum td{font-weight:700;background:var(--teal-xl);border-bottom:0}
+table.sc .dn{color:#2E7D4F;font-weight:700}
+table.sc .up{color:#B23C2C;font-weight:700}
+.pnote{font-size:.8rem;color:var(--grey);line-height:1.5;margin:16px 0 0;
+  padding-top:14px;border-top:1px solid var(--grey-xl)}
+.printonly{display:none}
+
+/* ---------- Checkliste ---------- */
+.ck10{display:grid;gap:11px;counter-reset:ck}
+.ckitem{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px 18px 16px 60px;position:relative}
+.ckitem::before{counter-increment:ck;content:counter(ck,decimal-leading-zero);
+  position:absolute;left:18px;top:16px;font-family:var(--mono);font-size:1rem;font-weight:700;
+  color:var(--teal-dk)}
+.ckitem h3{margin:0 0 6px;font-size:.98rem;font-weight:700;letter-spacing:-.01em}
+.ckitem p{margin:0 0 8px;font-size:.86rem;color:#3d3d40;line-height:1.5}
+.ckitem p:last-child{margin-bottom:0}
+.ckitem .trap{font-size:.82rem;color:#B25E00;line-height:1.45}
+.ckitem .trap b{font-weight:700}
+
+/* ---------- Quiz ---------- */
+.qwrap{display:grid;gap:14px}
+.qcard{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px 20px}
+.qcard .qn{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 7px}
+.qcard .qt{font-size:.98rem;font-weight:600;line-height:1.4;margin:0 0 13px}
+.qopts{display:grid;gap:8px}
+.qopt{appearance:none;text-align:left;cursor:pointer;font-family:var(--sans);font-size:.89rem;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--ink);
+  padding:11px 14px;border-radius:8px;transition:.16s;line-height:1.4}
+.qopt:hover:not(:disabled){border-color:var(--teal);background:var(--teal-xl)}
+.qopt:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.qopt:disabled{cursor:default}
+.qopt.right{background:#E8F5EE;border-color:var(--green);color:#1E6B47;font-weight:600}
+.qopt.wrong{background:#FBEAE9;border-color:var(--red);color:#9C2F2C;font-weight:600}
+.qfb{margin:13px 0 0;font-size:.86rem;color:#3d3d40;line-height:1.5;
+  padding-top:11px;border-top:1px solid var(--grey-xl)}
+.qfb[hidden]{display:none}
+.qscore{background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:18px 22px;
+  font-size:.98rem;line-height:1.5}
+.qscore b{font-weight:700}
+
+/* ---------- Auf- und zuklappbare Bloecke innerhalb einer Lektion ------
+   Die Bloecke entstehen zur Laufzeit aus der vorhandenen Gliederung:
+   jedes h2.sec eroeffnet einen Block, alles bis zum naechsten h2.sec
+   ist sein Inhalt. Am Markup ist dafuer nichts zu aendern.          */
+.blk{border-top:1px solid var(--grey-xl)}
+.blk:first-of-type{border-top:0}
+.blk h2.sec{margin:0}
+.blk-t{appearance:none;width:100%;background:transparent;border:0;cursor:pointer;
+  display:flex;align-items:center;gap:12px;text-align:left;padding:20px 0 18px;
+  font:inherit;color:inherit;letter-spacing:inherit;transition:color .16s}
+.blk-t:hover{color:var(--teal-dk)}
+.blk-t:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:4px}
+.blk-c{width:13px;height:13px;flex:none;color:var(--teal-dk);
+  transition:transform .22s var(--ease)}
+.blk[data-open="true"] .blk-c{transform:rotate(90deg)}
+.blk-b{padding:0 0 28px}
+.blk-b[hidden]{display:none}
+
+@media (max-width:760px){
+  .wsduo,.stgrid{grid-template-columns:1fr}
+}
+
+@media print{
+  /* Gedruckt wird nur der Bereich, den der Knopf gewaehlt hat. Alles
+     andere wird unsichtbar geschaltet, behaelt aber seinen Platz nicht -
+     der Zielbereich wird nach oben genommen.                          */
+  body{background:#fff}
+  body[data-print] *{visibility:hidden!important}
+  body[data-print="werk"] #wsPrint, body[data-print="werk"] #wsPrint *,
+  body[data-print="merk"] #merkblatt, body[data-print="merk"] #merkblatt *{visibility:visible!important}
+  body[data-print="werk"] #wsPrint,
+  body[data-print="merk"] #merkblatt{position:absolute;left:0;top:0;width:100%}
+  .panel[hidden]{display:none!important}
+  .blk-b[hidden]{display:block!important}
+  .printonly{display:block!important}
+  .plan{border:0;box-shadow:none;padding:0}
+  #merkblatt .merk{border:0;box-shadow:none;padding:0}
+  table.sc{min-width:0;font-size:9pt}
+  table.sc tr{page-break-inside:avoid}
+  .mapstage{border:0;box-shadow:none;padding:0;overflow:visible}
+  svg.rm{min-width:0}
+}
+/* ---------- Kernaussagen ---------- */
+.says{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.says>*{min-width:0}
+.say{background:var(--paper);border:1px solid var(--grey-xl);border-left:3px solid var(--teal-dk);
+  border-radius:var(--r);box-shadow:var(--shadow);padding:18px 20px}
+.say .sn{font-family:var(--mono);font-size:.72rem;font-weight:600;color:var(--teal-dk);letter-spacing:.1em}
+.say h3{margin:7px 0 8px;font-size:1rem;font-weight:700;line-height:1.3;letter-spacing:-.012em}
+.say p{margin:0;font-size:.88rem;color:#3d3d40;line-height:1.52}
+
+.readme{margin-top:18px;background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:20px 24px;
+  font-size:1rem;line-height:1.55}
+.readme.warn{background:var(--orange)}
+.readme b{font-weight:700}
+.readme code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.2);padding:1px 5px;border-radius:4px}
+.readme a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+blockquote.q{margin:0 0 14px;background:var(--paper);border:1px solid var(--grey-xl);
+  border-left:3px solid var(--teal);border-radius:var(--r);padding:16px 20px;
+  font-size:1.06rem;font-weight:300;line-height:1.62;color:#2c2c2f}
+blockquote.q cite{display:block;margin-top:9px;font-style:normal;font-family:var(--mono);
+  font-size:.74rem;letter-spacing:.06em;color:var(--grey)}
+
+.pointe{margin-top:34px;background:var(--orange);color:#fff;border-radius:var(--r);padding:26px 28px}
+.pointe .pk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin:0 0 10px}
+.pointe p{margin:0;font-size:clamp(1.12rem,2.1vw,1.45rem);font-weight:300;line-height:1.48}
+.pointe p b{font-weight:700}
+
+footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+footer a{color:var(--teal-dk)}
+
+.tip{position:fixed;z-index:60;pointer-events:none;opacity:0;transform:translateY(4px);
+  transition:opacity .14s,transform .14s;background:var(--ink);color:#fff;border-radius:9px;
+  padding:12px 14px;font-size:.82rem;line-height:1.5;max-width:320px;box-shadow:0 10px 30px -8px rgba(0,0,0,.45)}
+.tip.on{opacity:1;transform:translateY(0)}
+.tip .th{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#8FD4E6;margin:0 0 5px}
+.tip p{margin:0}
+.tip .extra{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.18);
+  color:var(--orange);font-weight:600;font-family:var(--mono);font-size:.76rem}
+
+.scrollhint{display:none}
+@media (max-width:980px){
+  .mapwrap{grid-template-columns:1fr}
+  .flipgrid{grid-template-columns:repeat(2,1fr)}
+  .quad{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:900px){
+  .scrollhint{display:block;color:var(--teal-dk)}
+  .duo,.trio{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  /* Die Vergleichsliste klappt in zwei Zeilen je Risiko um, statt
+     fuenf Spalten in eine Handybreite zu pressen.                 */
+  .cmphead{display:none}
+  .cmp{grid-template-columns:44px 1fr 60px;row-gap:4px}
+  .cmp .cn{grid-column:2 / span 2}
+  .cmp .cw{grid-column:2;text-align:left}
+  .cmp .cw.ref{grid-column:3;text-align:right}
+  .cmp .cd{grid-row:1;grid-column:3}
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px 56px}
+  .flipgrid,.quad{grid-template-columns:1fr}
+  .merk dl{grid-template-columns:1fr;gap:2px 0}
+  .merk dt{margin-top:9px}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+/* ---------- Die Bilanz zum Ausfuellen ----------
+   Zwei Seiten nebeneinander, wie das Konto es vorgibt. Auf schmalen
+   Fenstern stehen sie untereinander; die Summenzeile bleibt in beiden
+   Faellen unten stehen.                                            */
+.bil{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch}
+.bil>*{min-width:0}
+.bilseite{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.bilseite.aktiv{border-top:3px solid var(--teal-dk)}
+.bilseite.passiv{border-top:3px solid var(--ochre)}
+.bilkopf{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+  padding:13px 16px;border-bottom:1px solid var(--grey-xl);background:var(--canvas)}
+.bilkopf h3{margin:0;font-size:1.05rem;font-weight:700;letter-spacing:-.01em}
+.bilkopf .eh{font-family:var(--mono);font-size:.68rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--grey)}
+.bilzeile{display:grid;grid-template-columns:1fr 112px;gap:10px;align-items:center;
+  padding:5px 16px}
+.bilzeile>*{min-width:0}
+.bilzeile label{font-size:.9rem;color:#3d3d40;line-height:1.35}
+.bilzeile .rn{font-family:var(--mono);font-size:.72rem;color:var(--grey);margin-right:7px}
+.bilzeile.gruppe{background:var(--grey-xl);padding-top:9px;padding-bottom:9px;margin-top:4px}
+.bilzeile.gruppe label{font-weight:700;color:var(--ink);font-size:.94rem}
+.bilzeile.tief label{padding-left:20px}
+.bilzeile input{width:100%;font-family:var(--mono);font-size:.88rem;text-align:right;
+  font-variant-numeric:tabular-nums;color:var(--ink);background:var(--paper);
+  border:1px solid var(--grey-mid);border-radius:7px;padding:6px 9px}
+.bilzeile input:focus-visible{outline:2px solid var(--orange);outline-offset:1px;border-color:var(--teal)}
+.bilzeile .sum{font-family:var(--mono);font-size:.88rem;text-align:right;font-weight:600;
+  font-variant-numeric:tabular-nums;color:var(--ink);padding-right:9px}
+.bilende{display:grid;grid-template-columns:1fr 112px;gap:10px;align-items:center;
+  padding:12px 16px;border-top:2px solid var(--ink);margin-top:auto}
+.bilende label{font-weight:700;font-size:1rem}
+.bilende .sum{font-family:var(--mono);font-size:1rem;font-weight:700;text-align:right;
+  font-variant-numeric:tabular-nums;padding-right:9px}
+
+/* Die Waage: stimmt die Gleichung, oder wie weit ist sie daneben. */
+.bilwaage{margin:16px 0 0;border-radius:var(--r);padding:15px 18px;
+  border:1px solid var(--grey-xl);background:var(--paper);box-shadow:var(--shadow)}
+.bilwaage.gleich{border-color:var(--green);background:#F1F8F4}
+.bilwaage.schief{border-color:var(--orange);background:var(--orange-xl)}
+.bilwaage p{margin:0;font-size:.96rem;line-height:1.55;color:#3d3d40}
+.bilwaage b{color:var(--ink)}
+.bilwaage .gl{font-family:var(--mono);font-size:1.15rem;font-weight:700;
+  font-variant-numeric:tabular-nums;color:var(--ink);display:block;margin:0 0 6px}
+
+.bilkz{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin:16px 0 0}
+.bilkz>*{min-width:0}
+.bilkz .kz{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:14px 15px;box-shadow:var(--shadow);border-left:3px solid var(--teal)}
+.bilkz .kk{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 6px}
+.bilkz .kv{font-family:var(--mono);font-size:1.5rem;font-weight:700;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;color:var(--ink);margin:0 0 5px;line-height:1}
+.bilkz .kf{margin:0;font-size:.78rem;color:var(--grey);line-height:1.5}
+
+.bilh3{font-size:1.05rem;font-weight:700;letter-spacing:-.015em;margin:26px 0 6px}
+.bilout textarea{width:100%;min-height:180px;font-family:var(--mono);font-size:.75rem;line-height:1.62;
+  color:var(--ink);background:var(--canvas);border:1px solid var(--grey-xl);border-radius:8px;
+  padding:13px;resize:vertical}
+.bilout textarea:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
+.bilmsg{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--green);
+  margin:10px 0 0;min-height:1.2em}
+
+/* Zuordnungsuebung: Aktiv oder Passiv. */
+.zu{display:grid;gap:9px;margin:14px 0 0}
+.zuz{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:10px;
+  padding:11px 14px;box-shadow:var(--shadow)}
+.zuz>*{min-width:0}
+.zuz .zt{font-size:.94rem;color:var(--ink);line-height:1.4}
+.zuz .zb{display:flex;gap:6px;flex:none}
+.zub{appearance:none;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--grey);
+  border-radius:7px;padding:6px 12px;transition:.14s}
+.zub:hover:not(:disabled){border-color:var(--teal);color:var(--teal-dk)}
+.zub:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.zub:disabled{cursor:default}
+.zub.ok{background:#E8F4EC;border-color:var(--green);color:#1E6B47}
+.zub.no{background:#FBECEB;border-color:var(--red);color:#9C2F2C}
+.zuw{grid-column:1/-1;margin:2px 0 0;font-size:.86rem;color:#3d3d40;line-height:1.55}
+.zuw b{color:var(--ink)}
+
+@media (max-width:820px){
+  .bil{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .bilzeile,.bilende{grid-template-columns:1fr 92px;gap:8px;padding-left:12px;padding-right:12px}
+  .bilzeile.tief label{padding-left:12px}
+  .zuz{grid-template-columns:1fr}
+  .zuz .zb{justify-content:flex-start}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Bilanzanalyse · Modul 01</p>
+  <h1>Die Bilanz nach <em>HGB</em></h1>
+  <p class="lede">Zwei Fragen an einem Stichtag: Worin steckt das Geld, und wem gehört es. Dieses Modul klärt Zweck und Gliederung einer Bilanz nach deutschem Handelsrecht, zeigt den Unterschied der beiden Seiten und lässt Dich am Ende eine eigene Bilanz eintippen — in der Gliederung des § 266 HGB, mit laufender Summe und drei ersten Kennzahlen. Gerechnet wird hier in vollen Tausend Euro. Die Module dieses Lernpfads arbeiten mit einem eigenen Fall: einem Zulieferer für Nutzfahrzeugkomponenten, wie ihn auch die Risikomodule verwenden.</p>
+  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Durchgehend <b>HGB</b>. IFRS und US-GAAP kommen hier nicht vor — weder als Vergleich noch als Nebenbemerkung. Sie folgen anderen Grundsätzen und gehören in ein eigenes Modul.</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Die Bilanz nach HGB">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Wozu eine Bilanz da ist</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Wie sie gegliedert ist</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Aktiv und Passiv</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Deine eigene Bilanz</button>
+  <button class="tab" role="tab" id="tab-e" aria-controls="p-e" aria-selected="false" tabindex="-1"><span class="num">05</span> Quiz</button>
+  <button class="tab" role="tab" id="tab-f" aria-controls="p-f" aria-selected="false" tabindex="-1"><span class="num">06</span> Der erste Schritt</button>
+</div>
+
+<!-- ==================== LEKTION 01 · WOZU EINE BILANZ DA IST ==================== -->
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <p class="claim">Eine Bilanz ist eine <b>Gegenüberstellung zu einem Stichtag</b>: links das Vermögen, rechts seine Finanzierung. Beide Seiten zeigen dieselbe Summe, weil sie dieselbe Sache aus zwei Richtungen ansehen. Wer diesen Satz verstanden hat, kann sich die Gliederung herleiten.</p>
+
+  <h2 class="sec">Drei Adressaten, drei Zwecke</h2>
+  <p class="sub">Die Gliederung des Handelsrechts wirkt willkürlich, solange die Frage offen bleibt, für wen sie gemacht ist. Sie ist für drei Gruppen gemacht, und deren Interessen laufen auseinander.</p>
+  <div class="trio">
+    <div class="card" style="border-left:3px solid var(--teal)">
+      <p class="ck">Adressat 1</p><h3>Die Eigentümer</h3>
+      <p>Sie haben Kapital hineingegeben und wollen wissen, was daraus geworden ist. Die Bilanz legt darüber <b>Rechenschaft</b> ab, und zwar in vergleichbarer Form: Dieselbe Gliederung, dasselbe Jahr, derselbe Maßstab.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ochre)">
+      <p class="ck">Adressat 2</p><h3>Die Gläubiger</h3>
+      <p>Banken und Lieferanten haben Geld vorgestreckt und wollen es zurück. Für sie zählt, ob genug Substanz da ist. Deshalb <b>schützt das Handelsrecht sie durch Vorsicht</b>: Im Zweifel wird niedriger bewertet.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--navy)">
+      <p class="ck">Adressat 3</p><h3>Das Finanzamt</h3>
+      <p>Über das Maßgeblichkeitsprinzip (§ 5 Abs. 1 EStG) wirkt die Handelsbilanz in die Steuerbilanz hinein. Was handelsrechtlich als Aufwand gilt, mindert im Grundsatz auch den steuerlichen Gewinn.</p>
+    </div>
+  </div>
+  <div class="readme" style="margin-top:16px">
+    <b>Warum das die Bewertung erklärt.</b> Die drei Interessen ziehen in verschiedene Richtungen. Eigentümer sähen gern hohe Werte, Gläubiger niedrige, das Finanzamt hätte gern einen hohen Gewinn. Das Handelsrecht entscheidet diesen Konflikt zugunsten der Gläubiger. Genau daraus folgt das <b>Vorsichtsprinzip</b>, und daraus wiederum folgen die meisten Bewertungsregeln, über die später gestritten wird.
+  </div>
+
+  <h2 class="sec">Wer eine Bilanz aufstellen muss</h2>
+  <p class="sub">Die Pflicht hängt an der Kaufmannseigenschaft und an der Rechtsform, nicht am guten Willen.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Pflichten nach HGB, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th>Norm</th><th>Wen es betrifft</th><th>Was verlangt wird</th></tr></thead>
+    <tbody>
+      <tr><td class="m">§ 238 HGB</td><td>Jeder Kaufmann</td><td>Bücher führen und die Handelsgeschäfte ersichtlich machen</td></tr>
+      <tr><td class="m">§ 240 HGB</td><td>Jeder Kaufmann</td><td>Inventar aufstellen: Vermögen und Schulden einzeln verzeichnen und bewerten</td></tr>
+      <tr><td class="m">§ 242 HGB</td><td>Jeder Kaufmann</td><td>Eröffnungsbilanz und zum Schluss jedes Geschäftsjahres eine Bilanz; dazu die Gewinn- und Verlustrechnung. Beides zusammen ist der Jahresabschluss.</td></tr>
+      <tr><td class="m">§ 241a HGB</td><td>Kleine Einzelkaufleute</td><td>Befreiung von §§ 238 bis 241, wenn zwei Schwellen an zwei aufeinanderfolgenden Stichtagen unterschritten werden. Die Beträge wurden zuletzt angehoben — der geltende Stand steht im Gesetzestext.</td></tr>
+      <tr><td class="m">§ 264 HGB</td><td>Kapitalgesellschaften</td><td>Zusätzlich Anhang, bei größeren Gesellschaften auch Lagebericht. Die Gliederung wird verbindlich.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="sub" style="margin-top:12px">Für den Rest dieses Moduls gilt der Fall einer <b>Kapitalgesellschaft</b>. Dort ist die Gliederung in § 266 HGB vorgeschrieben, und nur deshalb lässt sich ein Formular bauen, das für alle gleich aussieht.</p>
+
+  <h2 class="sec">Bestand und Strom</h2>
+  <p class="sub">Der häufigste Denkfehler am Anfang: Die Bilanz als Zusammenfassung des Jahres zu lesen. Sie ist eine Momentaufnahme.</p>
+  <div class="duo">
+    <div class="card" style="border-left:3px solid var(--teal-dk)">
+      <p class="ck">Bestandsgröße</p><h3>Die Bilanz</h3>
+      <p>Ein <b>Stichtag</b>, meist der 31. Dezember. Sie sagt, was an diesem einen Tag da war und wem es gehörte. Was am 30. Dezember geschah, sieht man ihr nicht an.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ochre)">
+      <p class="ck">Stromgröße</p><h3>Die Gewinn- und Verlustrechnung</h3>
+      <p>Ein <b>Zeitraum</b>, meist zwölf Monate. Sie sagt, was in dieser Zeit erwirtschaftet und verbraucht wurde. Ihr Ergebnis heißt Jahresüberschuss oder Jahresfehlbetrag.</p>
+    </div>
+  </div>
+  <div class="merk" style="margin-top:16px">
+    <h3>Das Bindeglied</h3>
+    <dl>
+      <dt>Jahresüberschuss</dt><dd>Das Ergebnis der Gewinn- und Verlustrechnung erscheint auf der Passivseite der Bilanz im Eigenkapital (§ 266 Abs. 3 A. V.). Die beiden Rechnungen hängen an dieser einen Zahl zusammen.</dd>
+      <dt>Bilanzidentität</dt><dd>Die Eröffnungsbilanz eines Jahres stimmt mit der Schlussbilanz des Vorjahres überein (§ 252 Abs. 1 Nr. 1 HGB). Ohne diese Regel ließe sich kein Ergebnis über die Jahre hinweg nachvollziehen.</dd>
+    </dl>
+  </div>
+
+  <h2 class="sec">Die sechs Grundsätze, aus denen der Rest folgt</h2>
+  <p class="sub">§ 252 Abs. 1 HGB nennt die allgemeinen Bewertungsgrundsätze. Sie erklären fast jede Regel, die später kommt.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Bewertungsgrundsätze, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th>Grundsatz</th><th>Was er verlangt</th><th>Wirkung in der Bilanz</th></tr></thead>
+    <tbody>
+      <tr><td class="crit">Fortführung</td><td>Bewertet wird unter der Annahme, dass der Betrieb weiterläuft</td><td>Keine Zerschlagungswerte, solange nichts dagegen spricht</td></tr>
+      <tr><td class="crit">Bilanzidentität</td><td>Die Eröffnungswerte entsprechen den Schlusswerten des Vorjahres</td><td>Die Jahre lassen sich lückenlos aneinanderreihen</td></tr>
+      <tr><td class="crit">Einzelbewertung</td><td>Jeder Gegenstand und jede Schuld wird für sich bewertet</td><td>Gewinne aus einer Position dürfen Verluste einer anderen nicht verdecken</td></tr>
+      <tr><td class="crit">Vorsicht</td><td>Im Zweifel der ungünstigere Wert</td><td>Der Kern des Gläubigerschutzes; daraus folgen die nächsten beiden Zeilen</td></tr>
+      <tr><td class="crit">Realisation</td><td>Gewinne erst, wenn sie am Stichtag verwirklicht sind</td><td>Eine erwartete Marge steht nirgends in der Bilanz</td></tr>
+      <tr><td class="crit">Imparität</td><td>Verluste schon, wenn sie vorhersehbar sind</td><td>Rückstellungen und außerplanmäßige Abschreibungen</td></tr>
+      <tr><td class="crit">Stetigkeit</td><td>Die einmal gewählte Methode wird beibehalten</td><td>Zwei Jahre werden vergleichbar</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="readme" style="margin-top:16px">
+    <b>Realisation und Imparität sind das ungleiche Paar.</b> Ein noch nicht verwirklichter Gewinn bleibt draußen, ein noch nicht eingetretener Verlust kommt hinein. Diese Ungleichbehandlung ist gewollt. Sie sorgt dafür, dass ein handelsrechtlicher Abschluss das Vermögen eher zu niedrig als zu hoch zeigt — und genau das wollen Gläubiger sehen.
+  </div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Wer wissen will, warum eine Bilanzregel so lautet, wie sie lautet, fragt zuerst: <b>Wem nützt die Vorsicht hier?</b> In neun von zehn Fällen steht die Antwort schon im Vorsichtsprinzip.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 02 · WIE SIE GEGLIEDERT IST ==================== -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
+  <p class="claim">Für Kapitalgesellschaften schreibt <b>§ 266 HGB</b> die Gliederung vor — Buchstabe für Buchstabe, in dieser Reihenfolge. Das ist der Grund, warum sich zwei fremde Bilanzen überhaupt vergleichen lassen.</p>
+
+  <h2 class="sec">Die Gleichung</h2>
+  <p class="sub">Alles, was folgt, ist Verfeinerung dieser einen Zeile.</p>
+  <div class="merk">
+    <h3>Summe Aktiva = Summe Passiva</h3>
+    <dl>
+      <dt>Links: Aktiva</dt><dd>Wofür das Geld ausgegeben wurde. Maschinen, Vorräte, Forderungen, Bankguthaben. Die <b>Mittelverwendung</b>.</dd>
+      <dt>Rechts: Passiva</dt><dd>Woher das Geld kam. Von den Eigentümern, aus einbehaltenen Gewinnen, von Banken, von Lieferanten. Die <b>Mittelherkunft</b>.</dd>
+      <dt>Warum das aufgeht</dt><dd>Jeder Euro, der im Unternehmen steckt, muss irgendwoher stammen. Die beiden Seiten zählen denselben Betrag, einmal nach Verwendung und einmal nach Quelle. Die Gleichheit folgt deshalb aus der Betrachtungsweise. Die Buchhaltung stellt sie fest, sie stellt sie nicht her.</dd>
+    </dl>
+  </div>
+
+  <h2 class="sec">Die Aktivseite</h2>
+  <p class="sub">§ 266 Abs. 2 HGB. Geordnet nach zunehmender Liquidierbarkeit: Oben steht, was langfristig gebunden ist, unten das Bargeld.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Gliederung der Aktivseite, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th>Posten</th><th>Was hineingehört</th><th>Merkmal</th></tr></thead>
+    <tbody>
+      <tr><td class="crit">A. Anlagevermögen</td><td>Alles, was dem Geschäftsbetrieb dauernd dienen soll (§ 247 Abs. 2 HGB)</td><td>Bleibt über Jahre</td></tr>
+      <tr><td class="m">A. I.</td><td>Immaterielle Vermögensgegenstände: Lizenzen, Software, entgeltlich erworbener Geschäfts- oder Firmenwert</td><td>Ohne Substanz</td></tr>
+      <tr><td class="m">A. II.</td><td>Sachanlagen: Grundstücke, Gebäude, technische Anlagen, Maschinen, Betriebs- und Geschäftsausstattung</td><td>Anfassbar</td></tr>
+      <tr><td class="m">A. III.</td><td>Finanzanlagen: Anteile an verbundenen Unternehmen, Beteiligungen, langfristige Ausleihungen</td><td>Beteiligungen</td></tr>
+      <tr><td class="crit">B. Umlaufvermögen</td><td>Alles Übrige: was verbraucht, verarbeitet oder verkauft wird</td><td>Dreht sich um</td></tr>
+      <tr><td class="m">B. I.</td><td>Vorräte: Roh-, Hilfs- und Betriebsstoffe, unfertige und fertige Erzeugnisse, Waren</td><td>Lager</td></tr>
+      <tr><td class="m">B. II.</td><td>Forderungen und sonstige Vermögensgegenstände: vor allem Forderungen aus Lieferungen und Leistungen</td><td>Noch nicht bezahlt</td></tr>
+      <tr><td class="m">B. III.</td><td>Wertpapiere des Umlaufvermögens</td><td>Kurzfristig gehalten</td></tr>
+      <tr><td class="m">B. IV.</td><td>Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten, Schecks</td><td>Sofort verfügbar</td></tr>
+      <tr><td class="crit">C. Rechnungsabgrenzungsposten</td><td>Ausgaben vor dem Stichtag, die Aufwand nach dem Stichtag sind — die im Dezember gezahlte Januarmiete</td><td>Zeitliche Zuordnung</td></tr>
+      <tr><td class="crit">D. Aktive latente Steuern</td><td>Steuerentlastung, die aus Unterschieden zwischen Handels- und Steuerbilanz künftig erwartet wird (§ 274 HGB)</td><td>Wahlrecht</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="sub" style="margin-top:12px">§ 266 Abs. 2 kennt noch einen Posten E, den aktiven Unterschiedsbetrag aus der Vermögensverrechnung. Er kommt selten vor und bleibt in diesem Modul außen vor.</p>
+
+  <h2 class="sec">Die Passivseite</h2>
+  <p class="sub">§ 266 Abs. 3 HGB. Geordnet nach abnehmender Fristigkeit: Oben das Kapital, das niemand zurückfordern kann, unten die kurzfristigen Schulden.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Gliederung der Passivseite, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th>Posten</th><th>Was hineingehört</th><th>Merkmal</th></tr></thead>
+    <tbody>
+      <tr><td class="crit">A. Eigenkapital</td><td>Das, was nach Abzug aller Schulden vom Vermögen übrig bleibt</td><td>Keine Rückzahlungspflicht</td></tr>
+      <tr><td class="m">A. I.</td><td>Gezeichnetes Kapital: das im Handelsregister eingetragene Stamm- oder Grundkapital</td><td>Feste Größe</td></tr>
+      <tr><td class="m">A. II.</td><td>Kapitalrücklage: was Gesellschafter über den Nennbetrag hinaus eingezahlt haben</td><td>Von außen</td></tr>
+      <tr><td class="m">A. III.</td><td>Gewinnrücklagen: einbehaltene Gewinne früherer Jahre</td><td>Von innen</td></tr>
+      <tr><td class="m">A. IV.</td><td>Gewinnvortrag oder Verlustvortrag: der Rest aus dem Vorjahr, über den noch nicht entschieden wurde</td><td>Kann negativ sein</td></tr>
+      <tr><td class="m">A. V.</td><td>Jahresüberschuss oder Jahresfehlbetrag: das Ergebnis des abgelaufenen Jahres</td><td>Kann negativ sein</td></tr>
+      <tr><td class="crit">B. Rückstellungen</td><td>Verpflichtungen, die dem Grunde nach feststehen, deren Höhe oder Fälligkeit aber offen ist: Pensionen, Steuern, Gewährleistung, Prozesse (§ 249 HGB)</td><td>Ungewiss</td></tr>
+      <tr><td class="crit">C. Verbindlichkeiten</td><td>Schulden, die nach Betrag und Fälligkeit feststehen: Anleihen, Bankdarlehen, Lieferantenschulden</td><td>Sicher</td></tr>
+      <tr><td class="crit">D. Rechnungsabgrenzungsposten</td><td>Einnahmen vor dem Stichtag, die Ertrag nach dem Stichtag sind — die im Dezember kassierte Januarmiete</td><td>Zeitliche Zuordnung</td></tr>
+      <tr><td class="crit">E. Passive latente Steuern</td><td>Steuerbelastung, die aus Unterschieden zwischen Handels- und Steuerbilanz künftig erwartet wird</td><td>Pflicht bei Überhang</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="readme" style="margin-top:16px">
+    <b>Rückstellung und Verbindlichkeit werden am häufigsten verwechselt.</b> Eine Verbindlichkeit ist dem Betrag und dem Termin nach bekannt: Die Rechnung liegt vor, sie ist am 15. fällig. Bei einer Rückstellung steht nur fest, <i>dass</i> etwas zu zahlen sein wird. Wie viel der Prozess kostet und wann er endet, weiß am Stichtag niemand. Das Imparitätsprinzip verlangt trotzdem, ihn zu passivieren.
+  </div>
+
+  <h2 class="sec">Wie tief gegliedert wird</h2>
+  <p class="sub">Nicht jede Gesellschaft zeigt alle Posten. § 266 Abs. 1 HGB knüpft die Gliederungstiefe an die Größenklasse.</p>
+  <div class="trio">
+    <div class="card" style="border-left:3px solid var(--grey-mid)">
+      <p class="ck">§ 267a HGB</p><h3>Kleinstgesellschaften</h3>
+      <p>Eine stark verkürzte Bilanz genügt: nur die mit Buchstaben bezeichneten Posten. Auf einen Anhang darf unter Bedingungen verzichtet werden.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ochre)">
+      <p class="ck">§ 267 Abs. 1</p><h3>Kleine Gesellschaften</h3>
+      <p>Verkürzte Bilanz mit Buchstaben und römischen Ziffern. Genau diese Tiefe verwendet das Formular in Lektion 04.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--teal-dk)">
+      <p class="ck">§ 267 Abs. 2 und 3</p><h3>Mittelgroße und große</h3>
+      <p>Die vollständige Gliederung bis auf die Ebene der arabischen Zahlen, dazu Anhang und Lagebericht.</p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:12px">Die Schwellenwerte für Bilanzsumme, Umsatzerlöse und Arbeitnehmerzahl wurden zuletzt angehoben. Wer sie braucht, sieht im geltenden Gesetzestext nach — eine Zahl aus einem alten Skript führt hier direkt in die falsche Größenklasse.</p>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Die Reihenfolge der Posten ist kein Zufall und keine Konvention. Beide Seiten sind nach <b>Zeit</b> sortiert — links nach der Zeit bis zum Geld, rechts nach der Zeit bis zur Rückzahlung.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 03 · AKTIV UND PASSIV ==================== -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
+  <p class="claim">Die beiden Seiten zeigen dieselbe Summe und beantworten <b>zwei verschiedene Fragen</b>. Links steht, worin das Geld steckt. Rechts steht, wem es zusteht. Wer diese Zuordnung sicher beherrscht, liest jede Bilanz.</p>
+
+  <h2 class="sec">Mittelverwendung und Mittelherkunft</h2>
+  <p class="sub">Derselbe Euro, zweimal betrachtet.</p>
+  <div class="duo">
+    <div class="card" style="border-left:3px solid var(--teal-dk)">
+      <p class="ck">Aktiva · links</p><h3>Mittelverwendung</h3>
+      <p>Die Frage lautet: <b>Worin steckt das Geld?</b> In einer Maschine, im Lager, in einer offenen Kundenrechnung, auf dem Bankkonto.</p>
+      <p>Die Aktivseite beschreibt also <b>Vermögen</b> — und zwar nach seiner Erscheinungsform, ohne eine Aussage darüber, wer es finanziert hat.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ochre)">
+      <p class="ck">Passiva · rechts</p><h3>Mittelherkunft</h3>
+      <p>Die Frage lautet: <b>Wem steht es zu?</b> Den Gesellschaftern, einer Bank, einem Lieferanten, dem Finanzamt.</p>
+      <p>Die Passivseite beschreibt also <b>Ansprüche</b> gegen das Unternehmen — und zwar ohne eine Aussage darüber, worin die Mittel gerade stecken.</p>
+    </div>
+  </div>
+  <div class="readme" style="margin-top:16px">
+    <b>Der Denkfehler, der am längsten hält.</b> Viele lesen die Passivseite als „Schulden“ und die Aktivseite als „Besitz“. Das geht schief, sobald das Eigenkapital ins Spiel kommt: Es steht rechts, ist aber keine Schuld gegenüber Dritten. Die saubere Lesart lautet Herkunft gegen Verwendung. Dann bleibt das Eigenkapital genau das, was es ist — der Anspruch der Eigentümer auf den Rest.
+  </div>
+
+  <h2 class="sec">Zwei Ordnungen, zwei Richtungen</h2>
+  <p class="sub">Beide Seiten sind nach Zeit sortiert. Die Zeit meint links und rechts etwas anderes.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Ordnungsprinzipien beider Seiten, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th>Seite</th><th>Ordnungsprinzip</th><th>Oben steht</th><th>Unten steht</th></tr></thead>
+    <tbody>
+      <tr><td class="crit">Aktiva</td><td>Liquidierbarkeit, zunehmend</td><td>Das Grundstück — Jahre bis zum Geld</td><td>Der Kassenbestand — schon Geld</td></tr>
+      <tr><td class="crit">Passiva</td><td>Fristigkeit, abnehmend</td><td>Das gezeichnete Kapital — nie fällig</td><td>Die Lieferantenrechnung — in 30 Tagen fällig</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="sub" style="margin-top:12px">Daraus ergibt sich eine Faustregel der späteren Analyse: Was oben links steht, sollte durch das finanziert sein, was oben rechts steht. Langfristiges Vermögen gehört langfristig finanziert. Diese Regel heißt <b>Anlagendeckung</b> und kommt im Kennzahlenmodul zurück.</p>
+
+  <h2 class="sec">Das Eigenkapital ist ein Rest</h2>
+  <p class="sub">Kein eigenständiger Betrag, den jemand festlegt. Eine Differenz, die sich ergibt.</p>
+  <div class="merk">
+    <h3>Eigenkapital = Vermögen − Schulden</h3>
+    <dl>
+      <dt>Warum das zählt</dt><dd>Jede Abwertung auf der Aktivseite verringert unmittelbar das Eigenkapital. Eine uneinbringliche Forderung von 500 T€ kostet 500 T€ Eigenkapital, ohne dass jemand eine Zahlung geleistet hätte.</dd>
+      <dt>Wenn es negativ wird</dt><dd>Übersteigen die Schulden das Vermögen, entsteht ein <b>nicht durch Eigenkapital gedeckter Fehlbetrag</b>. Er steht nach § 268 Abs. 3 HGB auf der Aktivseite. Für eine GmbH ist das ein Alarmsignal mit Rechtsfolgen.</dd>
+      <dt>Was es nicht ist</dt><dd>Eigenkapital ist kein Bargeldbestand. Ein Unternehmen mit hoher Eigenkapitalquote kann zahlungsunfähig sein, wenn das Kapital in Maschinen und Vorräten steckt.</dd>
+    </dl>
+  </div>
+
+  <h2 class="sec">Das Saldierungsverbot</h2>
+  <p class="sub">§ 246 Abs. 2 HGB. Eine kurze Regel mit großer Wirkung.</p>
+  <p>Posten der Aktivseite dürfen mit Posten der Passivseite <b>nicht verrechnet</b> werden. Wer einer Bank 2.000 T€ schuldet und bei derselben Bank 800 T€ Guthaben hat, zeigt beide Beträge: 800 T€ links, 2.000 T€ rechts. Eine Nettozahl von 1.200 T€ wäre unzulässig.</p>
+  <p>Der Grund ist wieder der Gläubigerschutz. Eine Verrechnung verkürzt die Bilanzsumme und lässt die Verschuldung geringer aussehen. Beides verändert jede daraus abgeleitete Kennzahl, ohne dass sich am Unternehmen etwas geändert hätte.</p>
+
+  <h2 class="sec">Zehn Positionen einordnen</h2>
+  <p class="sub">Die Begründung erscheint nach jeder Antwort, auch nach der richtigen. Wer alle zehn auf Anhieb trifft, kann zu Lektion 04 weitergehen.</p>
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Übung">
+      <button id="zuNew" type="button">Von vorn</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="zuStand"></span></p>
+  </div>
+  <div class="zu" id="zuListe"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Die Frage „Aktiv oder Passiv?“ lässt sich immer auf eine einfachere zurückführen: <b>Habe ich hier etwas, oder schulde ich hier etwas?</b> Das Eigenkapital ist der Fall, in dem beides zugleich gilt — und deshalb der einzige, den man sich merken muss.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 04 · DEINE EIGENE BILANZ ==================== -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
+  <p class="claim">Hier steht die Gliederung des § 266 HGB als Formular. Trag Deine Zahlen in <b>vollen Tausend Euro</b> ein — die Summen rechnen mit, und die Waage darunter sagt Dir sofort, ob die Gleichung aufgeht.</p>
+
+  <h2 class="sec">Das Formular</h2>
+  <p class="sub">Beide Seiten stehen nebeneinander, wie das Konto es vorgibt. Auf einem schmalen Bildschirm rutscht die Passivseite unter die Aktivseite. Negative Beträge sind bei Verlustvortrag und Jahresfehlbetrag zulässig und richtig — schreib dort ein Minus davor.</p>
+
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Formular">
+      <button id="bilBsp" type="button">Beispiel laden</button>
+      <button id="bilLeer" type="button">Leeren</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="bilStand"></span></p>
+  </div>
+
+  <div class="bil" id="bilForm">
+    <div class="bilseite aktiv">
+      <div class="bilkopf"><h3>Aktiva</h3><span class="eh">in T€</span></div>
+      <div id="bilA"></div>
+      <div class="bilende"><label>Summe Aktiva</label><span class="sum" id="bilSummeA">0</span></div>
+    </div>
+    <div class="bilseite passiv">
+      <div class="bilkopf"><h3>Passiva</h3><span class="eh">in T€</span></div>
+      <div id="bilP"></div>
+      <div class="bilende"><label>Summe Passiva</label><span class="sum" id="bilSummeP">0</span></div>
+    </div>
+  </div>
+
+  <div class="bilwaage" id="bilWaage" role="status" aria-live="polite"></div>
+
+  <h3 class="bilh3">Drei erste Kennzahlen</h3>
+  <p class="sub">Sie rechnen mit, sobald beide Seiten stehen. Was sie bedeuten und wo ihre Grenzen liegen, nimmt das Modul zur Jahresabschlussanalyse auseinander.</p>
+  <div class="bilkz" id="bilKz"></div>
+  <div class="readme" style="margin-top:16px">
+    <b>Eine Kennzahl allein sagt nichts.</b> Eine Eigenkapitalquote von 25 Prozent ist für einen Maschinenbauer dünn und für einen Handelsbetrieb auskömmlich. Erst der Vergleich macht sie lesbar: gegen das Vorjahr, gegen die Branche, gegen den eigenen Plan. Nimm die drei Zahlen hier deshalb als Rechenübung und noch nicht als Urteil.
+  </div>
+
+  <h2 class="sec">Die Bilanz mitnehmen</h2>
+  <p class="sub">Diese Seite speichert nichts. Kein Konto, keine Datenbank, kein Browserspeicher — schließt Du das Fenster, sind die Zahlen weg.</p>
+  <div class="bilout">
+    <div class="wsbar" style="margin-bottom:12px">
+      <div class="seg" role="group" aria-label="Ausgabe">
+        <button id="bilGo" type="button">Bilanz als Text</button>
+        <button id="bilCopy" type="button">In die Zwischenablage</button>
+      </div>
+    </div>
+    <label class="hint" for="bilOut" style="margin:0 0 6px;display:block">Ergebnis</label>
+    <textarea id="bilOut" readonly aria-label="Die eingetragene Bilanz als Text"></textarea>
+    <p class="bilmsg" id="bilMsg"></p>
+  </div>
+
+  <h2 class="sec">Was das Formular weglässt</h2>
+  <p class="sub">Damit Du weißt, wo die Übung endet und der Ernstfall anfängt.</p>
+  <ul>
+    <li><b>Die arabische Gliederungsebene.</b> Das Formular verwendet die Tiefe, die § 266 Abs. 1 HGB kleinen Gesellschaften erlaubt: Buchstaben und römische Ziffern. Eine große Gesellschaft gliedert Sachanlagen weiter auf in Grundstücke, technische Anlagen, andere Anlagen und Anlagen im Bau.</li>
+    <li><b>Den Vorjahresvergleich.</b> § 265 Abs. 2 HGB verlangt zu jedem Posten den Betrag des Vorjahres. Eine Bilanz ohne Vorjahresspalte ist unvollständig, und ohne sie fehlt der wichtigste Maßstab.</li>
+    <li><b>Die Angaben unter der Bilanz.</b> Haftungsverhältnisse nach § 251 HGB, Restlaufzeiten der Verbindlichkeiten, davon-Vermerke. Vieles davon steht bei Kapitalgesellschaften im Anhang.</li>
+    <li><b>Den aktiven Unterschiedsbetrag aus der Vermögensverrechnung</b> (§ 266 Abs. 2 E) und den Sonderposten aus der Deckung von Altersversorgungsverpflichtungen. Beides kommt selten vor.</li>
+  </ul>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Eine Bilanz, die nicht aufgeht, hat einen Fehler — sie hat nie eine Meinungsverschiedenheit. Genau darin liegt der Wert der doppelten Betrachtung: <b>Die Gleichung prüft sich selbst.</b></p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 05 · QUIZ ==================== -->
+<section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e" hidden>
+  <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen. Kein Zeitdruck, keine Bewertung, die irgendwo landet — die Begründung steht nach jeder Antwort da, auch nach der richtigen.</p>
+
+  <h2 class="sec">Übung</h2>
+  <p class="sub">Wer eine Frage verfehlt, hat meist eine Zuordnung zu schnell getroffen. Am Wissen liegt es selten. Genau darum steht die Begründung dabei.</p>
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Übung">
+      <button id="qNew" type="button">Fünf neue Fragen</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="qStand"></span></p>
+  </div>
+  <div class="qwrap" id="quiz"></div>
+  <div id="qResult" style="margin-top:16px"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Die meisten Fehlantworten hier drehen sich um zwei Grenzen: die zwischen <b>Anlage- und Umlaufvermögen</b> und die zwischen <b>Rückstellung und Verbindlichkeit</b>. Wer beide sauber zieht, hat den Aufbau verstanden.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 06 · DER ERSTE SCHRITT ==================== -->
+<section class="panel" id="p-f" role="tabpanel" aria-labelledby="tab-f" hidden>
+  <p class="claim">Du willst die Bilanz Deines eigenen Hauses lesen und weißt nicht, wo Du anfängst? Sieben Schritte, für die Du nichts weiter brauchst als den letzten Jahresabschluss und zwei Stunden.</p>
+
+  <h2 class="sec">Sieben Schritte mit dem eigenen Abschluss</h2>
+  <p class="sub">Jeder Schritt mit dem Grund dahinter und dem Fehler, der an dieser Stelle am häufigsten gemacht wird. Keiner davon braucht Software.</p>
+  <div class="ck10" id="ck7"></div>
+
+  <div class="readme" style="margin-top:18px">
+    <b>Warum der eigene Abschluss der beste Übungsfall ist.</b> Ein fremdes Beispiel bleibt abstrakt, weil die Zahlen für niemanden eine Bedeutung haben. Beim eigenen Haus weißt Du, welche Maschine hinter den Sachanlagen steht und welcher Kunde hinter den Forderungen. Genau dieses Wissen macht aus einer Zahlenreihe eine Aussage — und es fehlt jedem externen Analysten.
+  </div>
+
+  <h2 class="sec">Glossar</h2>
+  <p class="sub">Zum Nachschlagen während der Arbeit. Keine Prüfungsliste.</p>
+  <div class="glos" id="glos"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Die erste Bilanz, die Du wirklich verstehst, ist die Deines eigenen Arbeitgebers. Alles davor ist <b>Vokabeln lernen</b>.</p>
+  </div>
+</section>
+
+<footer>
+Copyright Prof. Dr. Maik Drozdzynski, 2026
+</footer>
+
+</div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s)
+  .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+
+/* =====================================================================
+   1 · Die Bilanz zum Ausfuellen
+
+   Die Gliederung folgt § 266 HGB in der Tiefe, die Absatz 1 kleinen
+   Kapitalgesellschaften erlaubt: Buchstaben und roemische Ziffern.
+
+   Jede Zeile ist ein Tripel aus Art, Kennung und Bezeichnung:
+     "g"  Gruppenkopf mit gerechneter Summe (A. Anlagevermoegen)
+     "f"  eingeruecktes Eingabefeld, das zur Gruppe darueber zaehlt
+     "e"  Eingabefeld auf Buchstabenebene, ohne Gruppe
+   Gerechnet wird in vollen Tausend Euro. Negative Betraege sind bei
+   Verlustvortrag und Jahresfehlbetrag zulaessig.
+   ===================================================================== */
+const SEITE_A = [
+  ["g", "A.",   "Anlagevermögen",                                  "sAV"],
+  ["f", "I.",   "Immaterielle Vermögensgegenstände",               "aIVG"],
+  ["f", "II.",  "Sachanlagen",                                     "aSAN"],
+  ["f", "III.", "Finanzanlagen",                                   "aFIN"],
+  ["g", "B.",   "Umlaufvermögen",                                  "sUV"],
+  ["f", "I.",   "Vorräte",                                         "aVOR"],
+  ["f", "II.",  "Forderungen und sonstige Vermögensgegenstände",   "aFOR"],
+  ["f", "III.", "Wertpapiere",                                     "aWP"],
+  ["f", "IV.",  "Kassenbestand, Guthaben bei Kreditinstituten",    "aKAS"],
+  ["e", "C.",   "Rechnungsabgrenzungsposten",                      "aRAP"],
+  ["e", "D.",   "Aktive latente Steuern",                          "aLAT"]
+];
+const SEITE_P = [
+  ["g", "A.",   "Eigenkapital",                                    "sEK"],
+  ["f", "I.",   "Gezeichnetes Kapital",                            "pGK"],
+  ["f", "II.",  "Kapitalrücklage",                                 "pKR"],
+  ["f", "III.", "Gewinnrücklagen",                                 "pGR"],
+  ["f", "IV.",  "Gewinnvortrag / Verlustvortrag",                  "pGV"],
+  ["f", "V.",   "Jahresüberschuss / Jahresfehlbetrag",             "pJU"],
+  ["e", "B.",   "Rückstellungen",                                  "pRST"],
+  ["e", "C.",   "Verbindlichkeiten",                               "pVBL"],
+  ["e", "D.",   "Rechnungsabgrenzungsposten",                      "pRAP"],
+  ["e", "E.",   "Passive latente Steuern",                         "pLAT"]
+];
+
+/* Die Felder einer Gruppe sind die "f"-Zeilen, die ihr folgen. */
+function gruppen(seite){
+  const g = {};
+  let aktuell = null;
+  for(const [art, , , id] of seite){
+    if(art === "g"){ aktuell = id; g[id] = []; }
+    else if(art === "f" && aktuell) g[aktuell].push(id);
+  }
+  return g;
+}
+const GRP = Object.assign(gruppen(SEITE_A), gruppen(SEITE_P));
+
+/* Zahlen deutsch lesen und schreiben. Punkte und Leerzeichen sind
+   Tausendertrenner, das Minus bleibt. */
+function lesen(s){
+  const t = String(s).replace(/[.\s]/g, "").replace(",", ".").trim();
+  if(t === "" || t === "-") return 0;
+  const v = Number(t);
+  return Number.isFinite(v) ? Math.round(v) : 0;
+}
+const zahl = v => v.toLocaleString("de-DE", {maximumFractionDigits:0});
+const proz = v => v.toLocaleString("de-DE", {minimumFractionDigits:1, maximumFractionDigits:1}) + " %";
+
+function zeileHtml([art, rn, name, id]){
+  if(art === "g") return `<div class="bilzeile gruppe">
+      <label><span class="rn">${rn}</span>${esc(name)}</label>
+      <span class="sum" id="${id}">0</span></div>`;
+  return `<div class="bilzeile${art === "f" ? " tief" : ""}">
+      <label for="${id}"><span class="rn">${rn}</span>${esc(name)}</label>
+      <input type="text" inputmode="numeric" id="${id}" data-bil="1" value=""
+             aria-label="${esc(name)} in Tausend Euro"></div>`;
+}
+$("bilA").innerHTML = SEITE_A.map(zeileHtml).join("");
+$("bilP").innerHTML = SEITE_P.map(zeileHtml).join("");
+
+const FELDER = [...SEITE_A, ...SEITE_P].filter(z => z[0] !== "g").map(z => z[3]);
+const wert = id => lesen($(id).value);
+
+function summe(ids){ return ids.reduce((s, id) => s + wert(id), 0); }
+
+function bilRechne(){
+  const sAV = summe(GRP.sAV), sUV = summe(GRP.sUV), sEK = summe(GRP.sEK);
+  $("sAV").textContent = zahl(sAV);
+  $("sUV").textContent = zahl(sUV);
+  $("sEK").textContent = zahl(sEK);
+  const aktiva  = sAV + sUV + wert("aRAP") + wert("aLAT");
+  const passiva = sEK + wert("pRST") + wert("pVBL") + wert("pRAP") + wert("pLAT");
+  $("bilSummeA").textContent = zahl(aktiva);
+  $("bilSummeP").textContent = zahl(passiva);
+
+  const gefuellt = FELDER.filter(id => $(id).value.trim() !== "").length;
+  $("bilStand").textContent = gefuellt === 0
+    ? FELDER.length + " Positionen, alle noch leer"
+    : gefuellt + " von " + FELDER.length + " Positionen ausgefüllt";
+
+  const w = $("bilWaage"), diff = aktiva - passiva;
+  w.classList.remove("gleich", "schief");
+  if(aktiva === 0 && passiva === 0){
+    w.innerHTML = "<p>Trag Deine Zahlen ein, oder lade das Beispiel. Die Waage rechnet bei jeder Eingabe mit.</p>";
+  } else if(diff === 0){
+    w.classList.add("gleich");
+    w.innerHTML = `<p><span class="gl">${zahl(aktiva)} T€ = ${zahl(passiva)} T€</span>
+      <b>Die Bilanz geht auf.</b> Beide Seiten zeigen dieselbe Summe — das ist die Bilanzsumme.</p>`;
+  } else {
+    w.classList.add("schief");
+    const schwer = diff > 0 ? "Aktivseite" : "Passivseite";
+    w.innerHTML = `<p><span class="gl">${zahl(aktiva)} T€ ≠ ${zahl(passiva)} T€</span>
+      <b>Die ${schwer} ist um ${zahl(Math.abs(diff))} T€ schwerer.</b>
+      Eine Differenz bedeutet immer einen fehlenden oder doppelten Posten. Häufigste Ursachen:
+      der Jahresüberschuss steht noch nicht im Eigenkapital, ein Darlehen wurde nur auf einer Seite
+      erfasst, oder ein Verlustvortrag wurde ohne Minuszeichen eingetragen.</p>`;
+  }
+
+  const fk = aktiva - sEK;
+  const kz = [
+    ["Eigenkapitalquote", aktiva > 0 ? proz(sEK / aktiva * 100) : "—",
+     "Eigenkapital ÷ Bilanzsumme. Wie viel des Vermögens den Eigentümern zusteht."],
+    ["Anlagendeckung I", sAV > 0 ? proz(sEK / sAV * 100) : "—",
+     "Eigenkapital ÷ Anlagevermögen. Ob das langfristig Gebundene langfristig finanziert ist."],
+    ["Verschuldungsgrad", sEK > 0 ? (fk / sEK).toLocaleString("de-DE", {minimumFractionDigits:2, maximumFractionDigits:2}) : "—",
+     "Fremdkapital ÷ Eigenkapital. Wie viel Euro Schulden auf einen Euro Eigenkapital kommen."]
+  ];
+  $("bilKz").innerHTML = kz.map(([k, v, f]) =>
+    `<div class="kz"><p class="kk">${k}</p><p class="kv">${v}</p><p class="kf">${f}</p></div>`).join("");
+}
+
+$("bilForm").addEventListener("input", e => { if(e.target.dataset.bil) bilRechne(); });
+
+/* Der Fall: ein Zulieferer für Nutzfahrzeugkomponenten, mittelgross,
+   Zahlen in T€. Dieselbe Firma wie in den Risikomodulen. */
+const BEISPIEL = {
+  aIVG:1200, aSAN:28400, aFIN:2100, aVOR:14800, aFOR:11300, aWP:500, aKAS:3900,
+  aRAP:320, aLAT:480,
+  pGK:10000, pKR:4500, pGR:8200, pGV:1400, pJU:2300,
+  pRST:9700, pVBL:25800, pRAP:600, pLAT:500
+};
+$("bilBsp").addEventListener("click", () => {
+  FELDER.forEach(id => { $(id).value = BEISPIEL[id] == null ? "" : zahl(BEISPIEL[id]); });
+  $("bilOut").value = ""; $("bilMsg").textContent = "";
+  bilRechne();
+});
+$("bilLeer").addEventListener("click", () => {
+  FELDER.forEach(id => { $(id).value = ""; });
+  $("bilOut").value = ""; $("bilMsg").textContent = "";
+  bilRechne();
+});
+
+/* ---------- Die Bilanz als Text mitnehmen ---------- */
+function bilText(){
+  const br = (a, b) => a + " ".repeat(Math.max(1, 52 - a.length - b.length)) + b;
+  const zeile = ([art, rn, name, id]) => {
+    const t = (art === "f" ? "    " : "  ") + rn + " " + name;
+    const v = art === "g" ? $(id).textContent : zahl(wert(id));
+    return br(t, v);
+  };
+  let s = "BILANZ ZUM STICHTAG            in T€\n" + "=".repeat(52) + "\n\n";
+  s += "AKTIVA\n" + SEITE_A.map(zeile).join("\n") + "\n" + "-".repeat(52) + "\n";
+  s += br("  SUMME AKTIVA", $("bilSummeA").textContent) + "\n\n";
+  s += "PASSIVA\n" + SEITE_P.map(zeile).join("\n") + "\n" + "-".repeat(52) + "\n";
+  s += br("  SUMME PASSIVA", $("bilSummeP").textContent) + "\n\n";
+  s += "=".repeat(52) + "\nKENNZAHLEN\n";
+  [...$("bilKz").children].forEach(k => {
+    s += br("  " + k.querySelector(".kk").textContent, k.querySelector(".kv").textContent) + "\n";
+  });
+  s += "\nGliederung nach § 266 HGB, verkürzt auf Buchstaben und römische\nZiffern. Erzeugt im Modul „Die Bilanz nach HGB“.\n";
+  return s;
+}
+$("bilGo").addEventListener("click", () => {
+  $("bilOut").value = bilText();
+  $("bilMsg").textContent = "";
+});
+$("bilCopy").addEventListener("click", () => {
+  if(!$("bilOut").value) $("bilOut").value = bilText();
+  const feld = $("bilOut");
+  feld.removeAttribute("readonly");
+  feld.select(); feld.setSelectionRange(0, feld.value.length);
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch(err) { ok = false; }
+  feld.setAttribute("readonly", "");
+  if(ok){ $("bilMsg").textContent = "Kopiert."; return; }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(feld.value)
+      .then(() => { $("bilMsg").textContent = "Kopiert."; })
+      .catch(() => { $("bilMsg").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand."; });
+  } else {
+    $("bilMsg").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand.";
+  }
+});
+bilRechne();
+
+/* =====================================================================
+   2 · Zuordnungsuebung: Aktiv oder Passiv
+   ===================================================================== */
+const ZU_POS = [
+  ["Eine Produktionshalle im Eigentum des Unternehmens", "a",
+   "Aktiva A. II. Sachanlagen. Sie dient dem Betrieb dauernd, gehört also ins Anlagevermögen."],
+  ["Ein Bankdarlehen über 2.000 T€ mit fünf Jahren Restlaufzeit", "p",
+   "Passiva C. Verbindlichkeiten. Betrag und Fälligkeit stehen fest, deshalb keine Rückstellung."],
+  ["Offene Rechnungen an Kunden aus dem Dezember", "a",
+   "Aktiva B. II. Forderungen aus Lieferungen und Leistungen. Das Geld steht noch aus, der Anspruch gehört dem Unternehmen."],
+  ["Eine Rückstellung für einen laufenden Gewährleistungsfall", "p",
+   "Passiva B. Rückstellungen. Dass gezahlt wird, steht fest; wie viel und wann, ist offen."],
+  ["Das im Handelsregister eingetragene Stammkapital", "p",
+   "Passiva A. I. Gezeichnetes Kapital. Es steht rechts, weil es die Herkunft der Mittel beschreibt — als Anspruch der Gesellschafter."],
+  ["Rohstoffe im Lager, noch nicht verarbeitet", "a",
+   "Aktiva B. I. Vorräte. Sie werden verbraucht und gehören deshalb ins Umlaufvermögen."],
+  ["Die im Dezember gezahlte Miete für den Januar", "a",
+   "Aktiva C. Rechnungsabgrenzungsposten. Die Ausgabe fiel vor dem Stichtag an, der Aufwand gehört in das Jahr danach."],
+  ["Eine Beteiligung von 30 Prozent an einem Zulieferer", "a",
+   "Aktiva A. III. Finanzanlagen. Sie soll dauernd gehalten werden, deshalb Anlage- und nicht Umlaufvermögen."],
+  ["Der Jahresüberschuss des abgelaufenen Geschäftsjahres", "p",
+   "Passiva A. V. Er erhöht das Eigenkapital. Genau hier hängen Bilanz und Gewinn- und Verlustrechnung zusammen."],
+  ["Noch nicht abgeführte Umsatzsteuer aus dem Dezember", "p",
+   "Passiva C. Verbindlichkeiten, hier gegenüber dem Finanzamt. Der Betrag steht fest und ist im Januar fällig."]
+];
+let zuStand = [];
+function zuZiehen(){
+  zuStand = ZU_POS.map((p, i) => ({i, gewaehlt:null}));
+  zuRender();
+}
+function zuRender(){
+  $("zuListe").innerHTML = zuStand.map((z, n) => {
+    const [text, richtig, begr] = ZU_POS[z.i];
+    const kl = s => z.gewaehlt === null ? "" :
+      (s === richtig ? " ok" : (s === z.gewaehlt ? " no" : ""));
+    return `<div class="zuz">
+      <p class="zt">${esc(text)}</p>
+      <div class="zb">
+        <button class="zub${kl("a")}" type="button" data-z="${n}" data-s="a"${z.gewaehlt !== null ? " disabled" : ""}>Aktiva</button>
+        <button class="zub${kl("p")}" type="button" data-z="${n}" data-s="p"${z.gewaehlt !== null ? " disabled" : ""}>Passiva</button>
+      </div>
+      ${z.gewaehlt === null ? "" : `<p class="zuw">${
+        z.gewaehlt === richtig ? "<b style='color:#1E6B47'>Richtig.</b> " : "<b style='color:#9C2F2C'>Daneben.</b> "}${begr}</p>`}
+    </div>`;
+  }).join("");
+  const fertig  = zuStand.filter(z => z.gewaehlt !== null).length;
+  const treffer = zuStand.filter(z => z.gewaehlt === ZU_POS[z.i][1]).length;
+  $("zuStand").textContent = fertig === 0
+    ? ZU_POS.length + " Positionen"
+    : fertig + " von " + ZU_POS.length + " eingeordnet · " + treffer + " richtig";
+}
+$("zuListe").addEventListener("click", e => {
+  const b = e.target.closest(".zub"); if(!b || b.disabled) return;
+  const z = zuStand[+b.dataset.z]; if(!z || z.gewaehlt !== null) return;
+  z.gewaehlt = b.dataset.s;
+  zuRender();
+});
+$("zuNew").addEventListener("click", zuZiehen);
+zuZiehen();
+
+/* =====================================================================
+   3 · Sieben Schritte mit dem eigenen Abschluss
+   ===================================================================== */
+const CHECK7 = [
+  ["Besorg Dir den letzten Jahresabschluss",
+   "Bei einer Kapitalgesellschaft steht er im Unternehmensregister, sonst fragst Du die Buchhaltung. Du brauchst Bilanz und Gewinn- und Verlustrechnung, bei größeren Gesellschaften auch den Anhang.",
+   "Es wird mit einer Summen- und Saldenliste aus dem Buchhaltungssystem gearbeitet. Die ist nach Konten geordnet und folgt der Gliederung des § 266 HGB gerade nicht."],
+  ["Übertrag die Zahlen in das Formular aus Lektion 04",
+   "Zwanzig Minuten Tipparbeit, die mehr bringen als zwei Stunden Lesen. Beim Übertragen fällt Dir auf, welchen Posten Du nicht zuordnen kannst — und genau der ist Dein Lernstoff.",
+   "Die Zahlen werden überflogen statt übertragen. Danach glaubt man, die Bilanz gelesen zu haben, und könnte keinen einzigen Posten benennen."],
+  ["Lies die fünf größten Posten und nur die",
+   "In fast jeder Bilanz machen fünf Positionen über achtzig Prozent der Summe aus. Bei einem Maschinenbauer sind das Sachanlagen, Vorräte, Forderungen, Eigenkapital und Bankverbindlichkeiten.",
+   "Es wird oben angefangen und Zeile für Zeile gelesen. Nach dem immateriellen Vermögen ist die Aufmerksamkeit weg, obwohl dort ein halbes Prozent der Summe steht."],
+  ["Frag zu jedem großen Posten, was konkret dahintersteckt",
+   "Hinter „Sachanlagen 28.400“ steht eine bestimmte Halle und eine bestimmte Anlage. Wer das benennen kann, versteht die Zahl. Die Antworten stehen im Anlagenspiegel oder kommen aus der Buchhaltung.",
+   "Die Zahl bleibt eine Zahl. Beim nächsten Gespräch mit der Bank fehlt genau die Erklärung, die aus einem Posten ein Argument macht."],
+  ["Hol Dir das Vorjahr dazu",
+   "Eine einzelne Bilanz sagt wenig. Erst die Veränderung zeigt etwas: Vorräte plus vierzig Prozent bei gleichem Umsatz ist eine Frage, keine Zahl. § 265 Abs. 2 HGB verlangt die Vorjahresspalte ohnehin.",
+   "Es wird nur das aktuelle Jahr angesehen, weil es das aktuelle ist. Der interessanteste Teil der Information liegt in der Differenz."],
+  ["Rechne die drei Kennzahlen aus Lektion 04 für beide Jahre",
+   "Eigenkapitalquote, Anlagendeckung, Verschuldungsgrad. Drei Zahlen, zweimal. Die Richtung der Veränderung ist die eigentliche Aussage.",
+   "Es werden fünfzehn Kennzahlen gerechnet, weil eine Liste im Umlauf ist. Niemand kann danach sagen, welche davon eine Entscheidung geändert hätte."],
+  ["Schreib drei Fragen auf, die Du dem Finanzchef stellen würdest",
+   "Damit endet die Zahlenarbeit und beginnt das Controlling. Gute Fragen klingen wie: „Warum sind die Rückstellungen gestiegen, obwohl kein Prozess läuft?“",
+   "Es bleibt bei der Auswertung. Eine Analyse ohne Frage an einen Menschen ist eine Fleißarbeit, die niemand liest."]
+];
+$("ck7").innerHTML = CHECK7.map(([t, p, f]) =>
+  `<div class="ckitem"><h3>${esc(t)}</h3><p>${p}</p>
+     <p class="trap"><b>Typischer Fehler:</b> ${f}</p></div>`).join("");
+
+/* =====================================================================
+   4 · Glossar
+   ===================================================================== */
+const GLOSSAR = [
+  ["Aktiva", "Die linke Seite der Bilanz. Sie zeigt die Mittelverwendung: worin das Geld steckt."],
+  ["Passiva", "Die rechte Seite. Sie zeigt die Mittelherkunft: wem die Mittel zustehen."],
+  ["Bilanzsumme", "Die Summe einer Seite. Beide Seiten zeigen denselben Betrag."],
+  ["Anlagevermögen", "Gegenstände, die dem Geschäftsbetrieb dauernd dienen sollen (§ 247 Abs. 2 HGB)."],
+  ["Umlaufvermögen", "Alles übrige Vermögen: Vorräte, Forderungen, Wertpapiere, Bankguthaben."],
+  ["Eigenkapital", "Vermögen minus Schulden. Ein Rest, kein eigenständig festgelegter Betrag."],
+  ["Rückstellung", "Verpflichtung, die dem Grunde nach feststeht, in Höhe oder Fälligkeit aber offen ist (§ 249 HGB)."],
+  ["Verbindlichkeit", "Schuld, die nach Betrag und Fälligkeit feststeht."],
+  ["Rechnungsabgrenzungsposten", "Zahlung vor dem Stichtag, Aufwand oder Ertrag danach (§ 250 HGB)."],
+  ["Latente Steuern", "Künftige Steuerbe- oder -entlastung aus Unterschieden zwischen Handels- und Steuerbilanz (§ 274 HGB)."],
+  ["Vorsichtsprinzip", "Im Zweifel der ungünstigere Wert (§ 252 Abs. 1 Nr. 4 HGB). Der Kern des Gläubigerschutzes."],
+  ["Realisationsprinzip", "Gewinne erst ausweisen, wenn sie am Stichtag verwirklicht sind."],
+  ["Imparitätsprinzip", "Vorhersehbare Verluste schon vor ihrem Eintritt ausweisen."],
+  ["Saldierungsverbot", "Posten der Aktivseite mit Posten der Passivseite nicht verrechnen (§ 246 Abs. 2 HGB)."],
+  ["Bilanzidentität", "Die Eröffnungsbilanz stimmt mit der Schlussbilanz des Vorjahres überein (§ 252 Abs. 1 Nr. 1 HGB)."],
+  ["Maßgeblichkeit", "Die Handelsbilanz wirkt über § 5 Abs. 1 EStG in die Steuerbilanz hinein."],
+  ["Eigenkapitalquote", "Eigenkapital ÷ Bilanzsumme. Der Anteil des Vermögens, der den Eigentümern zusteht."],
+  ["Anlagendeckung I", "Eigenkapital ÷ Anlagevermögen. Prüft, ob langfristig Gebundenes langfristig finanziert ist."]
+];
+$("glos").innerHTML = GLOSSAR.map(([b, t]) => `<div><b>${esc(b)}</b> — ${t}</div>`).join("");
+
+/* =====================================================================
+   5 · Uebung: fuenf Fragen, zufaellig aus dem Vorrat
+   ===================================================================== */
+const FRAGEN = [
+  ["Was zeigt die Aktivseite einer Bilanz?",
+   ["Die Mittelverwendung: worin das Geld steckt","Die Mittelherkunft: wem die Mittel zustehen","Die Erträge des Geschäftsjahres","Die Zahlungsströme des Geschäftsjahres"], 0,
+   "Links steht das Vermögen nach seiner Erscheinungsform. Wem es zusteht, sagt die Passivseite; was im Jahr erwirtschaftet wurde, sagt die Gewinn- und Verlustrechnung."],
+  ["Warum sind Summe Aktiva und Summe Passiva immer gleich?",
+   ["Weil beide Seiten denselben Betrag aus zwei Richtungen ansehen","Weil das Handelsrecht es in § 266 HGB anordnet","Weil die Differenz ins Eigenkapital gebucht wird","Weil der Wirtschaftsprüfer sie angleicht"], 0,
+   "Jeder Euro im Unternehmen muss irgendwoher stammen. Verwendung und Herkunft zählen denselben Betrag. Die Gleichheit ist eine Folge der Betrachtungsweise."],
+  ["Welcher Posten gehört in das Anlagevermögen?",
+   ["Eine Beteiligung, die dauernd gehalten werden soll","Fertige Erzeugnisse im Lager","Forderungen aus Lieferungen und Leistungen","Das Guthaben auf dem Geschäftskonto"], 0,
+   "Entscheidend ist die Zweckbestimmung: dem Geschäftsbetrieb dauernd dienen (§ 247 Abs. 2 HGB). Die anderen drei Posten werden verbraucht, verkauft oder eingelöst."],
+  ["Worin unterscheiden sich Rückstellung und Verbindlichkeit?",
+   ["Bei der Rückstellung sind Höhe oder Fälligkeit noch offen","Die Rückstellung steht auf der Aktivseite","Die Verbindlichkeit wird nicht verzinst","Die Rückstellung betrifft nur Pensionen"], 0,
+   "Bei einer Verbindlichkeit stehen Betrag und Termin fest. Bei einer Rückstellung steht nur fest, dass gezahlt werden wird."],
+  ["Was besagt das Saldierungsverbot des § 246 Abs. 2 HGB?",
+   ["Posten der Aktivseite dürfen nicht mit Posten der Passivseite verrechnet werden","Gewinne dürfen nicht mit Verlusten verrechnet werden","Rückstellungen dürfen nicht aufgelöst werden","Abschreibungen dürfen nicht nachgeholt werden"], 0,
+   "Bankguthaben und Bankschuld stehen beide in voller Höhe da. Eine Verrechnung würde die Bilanzsumme verkürzen und jede daraus abgeleitete Kennzahl verfälschen."],
+  ["Nach welchem Prinzip ist die Aktivseite geordnet?",
+   ["Nach zunehmender Liquidierbarkeit","Nach abnehmender Liquidierbarkeit","Nach der Höhe der Beträge","Alphabetisch nach Postenbezeichnung"], 0,
+   "Oben steht, was am längsten bis zum Geld braucht, unten der Kassenbestand. Auf der Passivseite läuft es umgekehrt: nach abnehmender Fristigkeit."],
+  ["Wo erscheint der Jahresüberschuss in der Bilanz?",
+   ["Im Eigenkapital auf der Passivseite","Im Umlaufvermögen auf der Aktivseite","Unter den Verbindlichkeiten","Er erscheint ausschließlich in der Gewinn- und Verlustrechnung"], 0,
+   "§ 266 Abs. 3 A. V. HGB. Genau an dieser Zahl hängen Bilanz und Gewinn- und Verlustrechnung zusammen."],
+  ["Was verlangt das Realisationsprinzip?",
+   ["Gewinne erst auszuweisen, wenn sie am Stichtag verwirklicht sind","Verluste erst auszuweisen, wenn sie eingetreten sind","Jeden Gegenstand einzeln zu bewerten","Die Bewertungsmethode beizubehalten"], 0,
+   "Eine erwartete Marge steht nirgends in der Bilanz. Das Gegenstück ist das Imparitätsprinzip: Vorhersehbare Verluste kommen schon vorher hinein."],
+  ["Eine Bilanz ist eine Bestandsgröße. Was heißt das?",
+   ["Sie zeigt einen Zustand an einem Stichtag","Sie zeigt die Entwicklung über zwölf Monate","Sie zeigt nur bestandsgeprüfte Positionen","Sie zeigt ausschließlich Vorräte"], 0,
+   "Die Bilanz ist eine Momentaufnahme. Die Gewinn- und Verlustrechnung ist die Stromgröße und deckt einen Zeitraum ab."],
+  ["Wie ist das Eigenkapital definiert?",
+   ["Vermögen minus Schulden","Gezeichnetes Kapital plus Bankguthaben","Die Summe der Einlagen der Gesellschafter","Der Kassenbestand am Stichtag"], 0,
+   "Es ist ein Rest. Jede Abwertung auf der Aktivseite verringert es unmittelbar, ohne dass eine Zahlung geflossen wäre."],
+  ["Die im Dezember gezahlte Miete für Januar steht als …",
+   ["aktiver Rechnungsabgrenzungsposten","passiver Rechnungsabgrenzungsposten","sonstige Verbindlichkeit","sonstiger betrieblicher Aufwand"], 0,
+   "Ausgabe vor dem Stichtag, Aufwand danach: § 250 Abs. 1 HGB, Aktivseite C. Umgekehrt wäre es die im Dezember kassierte Januarmiete."],
+  ["Welche Rechtsgrundlage gibt die Bilanzgliederung für Kapitalgesellschaften vor?",
+   ["§ 266 HGB","§ 242 HGB","§ 252 HGB","§ 5 EStG"], 0,
+   "§ 242 regelt die Aufstellungspflicht, § 252 die Bewertungsgrundsätze, § 5 EStG die Maßgeblichkeit. Die Gliederung selbst steht in § 266."],
+  ["Ein Unternehmen hat 63.000 T€ Bilanzsumme und 26.400 T€ Eigenkapital. Wie hoch ist die Eigenkapitalquote?",
+   ["rund 42 Prozent","rund 24 Prozent","rund 58 Prozent","rund 2,4"], 0,
+   "26.400 ÷ 63.000 = 0,419. Die Quote misst den Anteil des Vermögens, der den Eigentümern zusteht."],
+  ["Was bedeutet der Grundsatz der Bilanzidentität?",
+   ["Die Eröffnungsbilanz stimmt mit der Schlussbilanz des Vorjahres überein","Beide Bilanzseiten sind gleich hoch","Handels- und Steuerbilanz sind identisch","Alle Posten werden einzeln bewertet"], 0,
+   "§ 252 Abs. 1 Nr. 1 HGB. Ohne diese Regel ließe sich kein Ergebnis über mehrere Jahre nachvollziehen. Die Gleichheit der Seiten ist etwas anderes."],
+  ["Wo steht ein nicht durch Eigenkapital gedeckter Fehlbetrag?",
+   ["Auf der Aktivseite","Auf der Passivseite unter dem Eigenkapital","Unter den Rückstellungen","Nur im Anhang"], 0,
+   "§ 268 Abs. 3 HGB. Übersteigen die Schulden das Vermögen, erscheint der Betrag am Ende der Aktivseite — für eine GmbH ein Signal mit Rechtsfolgen."],
+  ["Welche Aussage über das Vorsichtsprinzip trifft zu?",
+   ["Es dient dem Schutz der Gläubiger","Es dient der möglichst realistischen Bewertung","Es gilt nur für das Anlagevermögen","Es wurde durch die latenten Steuern ersetzt"], 0,
+   "Im Zweifel der ungünstigere Wert. Eigentümer sähen gern höhere Werte, das Handelsrecht entscheidet den Konflikt zugunsten der Gläubiger."],
+  ["Ein Bankdarlehen über 2.000 T€ und ein Guthaben von 800 T€ bei derselben Bank erscheinen in der Bilanz …",
+   ["getrennt: 800 T€ links, 2.000 T€ rechts","saldiert als 1.200 T€ auf der Passivseite","saldiert als 1.200 T€ auf der Aktivseite","wahlweise saldiert oder getrennt"], 0,
+   "Das Saldierungsverbot lässt keine Wahl. Eine Nettodarstellung würde die Verschuldung geringer erscheinen lassen."],
+  ["Welcher Posten gehört in das Umlaufvermögen?",
+   ["Unfertige Erzeugnisse","Ein Firmenwagen","Eine Lizenz mit zehn Jahren Laufzeit","Ein Grundstück"], 0,
+   "Unfertige Erzeugnisse werden verarbeitet und verkauft. Die anderen drei sollen dem Betrieb dauernd dienen."],
+  ["Was regelt § 265 Abs. 2 HGB?",
+   ["Zu jedem Posten ist der Vorjahresbetrag anzugeben","Die Reihenfolge der Aktivposten","Die Bewertung von Rückstellungen","Die Pflicht zur Aufstellung eines Lageberichts"], 0,
+   "Ohne Vorjahresspalte fehlt der wichtigste Maßstab. Eine einzelne Bilanz sagt deutlich weniger als die Veränderung zweier Jahre."],
+  ["Wovon hängt die Gliederungstiefe einer Bilanz ab?",
+   ["Von der Größenklasse nach §§ 267 und 267a HGB","Von der Branche","Von der Rechtsform allein","Von der Entscheidung des Wirtschaftsprüfers"], 0,
+   "§ 266 Abs. 1 HGB knüpft die Tiefe an die Größenklasse. Kleine Gesellschaften zeigen Buchstaben und römische Ziffern, große die volle Gliederung."],
+  ["Was kennzeichnet eine Kapitalrücklage?",
+   ["Sie stammt aus Einzahlungen der Gesellschafter über den Nennbetrag hinaus","Sie entsteht aus einbehaltenen Gewinnen","Sie ist eine Rückstellung für künftige Investitionen","Sie steht auf der Aktivseite"], 0,
+   "Kapitalrücklage kommt von außen, Gewinnrücklage von innen. Beide stehen im Eigenkapital, ihre Herkunft ist verschieden."],
+  ["Ein Unternehmen weist 31.700 T€ Anlagevermögen und 26.400 T€ Eigenkapital aus. Wie hoch ist die Anlagendeckung I?",
+   ["rund 83 Prozent","rund 120 Prozent","rund 42 Prozent","rund 58 Prozent"], 0,
+   "26.400 ÷ 31.700 = 0,833. Unter 100 Prozent heißt: Ein Teil des Anlagevermögens ist mit Fremdkapital finanziert."],
+  ["Welcher Grundsatz verbietet es, den Gewinn einer Position mit dem Verlust einer anderen zu verrechnen?",
+   ["Die Einzelbewertung","Die Stetigkeit","Die Fortführung","Die Bilanzidentität"], 0,
+   "§ 252 Abs. 1 Nr. 3 HGB. Jeder Gegenstand und jede Schuld wird für sich bewertet, damit ein Verlust nicht hinter einem Gewinn verschwindet."]
+];
+let qAktuell = [];
+const QZAHL = 5;
+const mischen = a => {
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+/* Auch die Antworten werden gemischt. Stuenden sie in der Reihenfolge
+   des Vorrats, waere die richtige immer die erste — und der Vorrat
+   liesse sich auswendig lernen, ohne eine Frage zu lesen. */
+function qZiehen(){
+  qAktuell = mischen(FRAGEN.map((f, i) => i)).slice(0, QZAHL)
+    .map(i => ({i, ord:mischen(FRAGEN[i][1].map((o, j) => j)), gewaehlt:null}));
+  qRender();
+}
+function qRender(){
+  $("quiz").innerHTML = qAktuell.map((q, n) => {
+    const [text, opts, richtig, begr] = FRAGEN[q.i];
+    return `<div class="qcard">
+      <p class="qn">Frage ${n + 1} von ${QZAHL}</p>
+      <p class="qt">${text}</p>
+      <div class="qopts">${q.ord.map(j => {
+        let kl = "";
+        if(q.gewaehlt !== null) kl = j === richtig ? " right" : (j === q.gewaehlt ? " wrong" : "");
+        return `<button class="qopt${kl}" type="button" data-q="${n}" data-o="${j}"${q.gewaehlt !== null ? " disabled" : ""}>${opts[j]}</button>`;
+      }).join("")}</div>
+      <p class="qfb"${q.gewaehlt === null ? " hidden" : ""}>${
+        q.gewaehlt === null ? "" :
+        (q.gewaehlt === richtig ? "<b style='color:#1E6B47'>Richtig.</b> " : "<b style='color:#9C2F2C'>Daneben.</b> ") + begr}</p>
+    </div>`;
+  }).join("");
+  const fertig  = qAktuell.filter(q => q.gewaehlt !== null).length;
+  const treffer = qAktuell.filter(q => q.gewaehlt === FRAGEN[q.i][2]).length;
+  $("qStand").textContent = fertig === 0
+    ? QZAHL + " Fragen aus einem Vorrat von " + FRAGEN.length
+    : fertig + " von " + QZAHL + " beantwortet · " + treffer + " richtig";
+  $("qResult").innerHTML = fertig < QZAHL ? "" :
+    `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
+      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen — der Vorrat hat " + FRAGEN.length + "." :
+      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben; sie sind der eigentliche Lernstoff." :
+      "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind die Grenze zwischen Anlage- und Umlaufvermögen, der Unterschied zwischen Rückstellung und Verbindlichkeit und das Saldierungsverbot."}</div>`;
+}
+$("quiz").addEventListener("click", e => {
+  const b = e.target.closest(".qopt"); if(!b || b.disabled) return;
+  const q = qAktuell[+b.dataset.q]; if(!q || q.gewaehlt !== null) return;
+  q.gewaehlt = +b.dataset.o;
+  qRender();
+});
+$("qNew").addEventListener("click", qZiehen);
+qZiehen();
+
+/* =====================================================================
+   6 · Lektionen
+   ===================================================================== */
+const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","d","e","f"];
+function select(i){
+  tabs.forEach((t, j) => {
+    const on = i === j;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    $("p-" + keys[j]).hidden = !on;
+  });
+}
+tabs.forEach((t, i) => {
+  t.addEventListener("click", () => select(i));
+  t.addEventListener("keydown", e => {
+    const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if(!d) return; e.preventDefault();
+    const n = (i + d + tabs.length) % tabs.length; tabs[n].focus(); select(n);
+  });
+});
+select(0);
+
+/* =====================================================================
+   7 · Bloecke zum Auf- und Zuklappen
+   Baut die Abschnitte einer Lektion zur Laufzeit aus der vorhandenen
+   Gliederung: jedes h2.sec eroeffnet einen Block, alles danach bis zum
+   naechsten h2.sec ist sein Inhalt. Was vor dem ersten h2.sec steht -
+   die Kernaussage der Lektion - bleibt immer sichtbar, ebenso ein
+   Pointe-Kasten am Ende. Der erste Block ist offen, die uebrigen zu.
+   ===================================================================== */
+function makeBlocks(panel){
+  if(!panel) return 0;
+  const kinder = [...panel.children];
+  const istKopf = n => n.tagName === "H2" && n.classList.contains("sec");
+  const istEnde = n => n.classList.contains("pointe");
+  let i = 0, nr = 0;
+
+  while(i < kinder.length){
+    if(!istKopf(kinder[i])){ i++; continue; }
+    const h2 = kinder[i], inhalt = [];
+    let j = i + 1;
+    while(j < kinder.length && !istKopf(kinder[j]) && !istEnde(kinder[j])){
+      inhalt.push(kinder[j]); j++;
+    }
+    nr++;
+    const offen = nr === 1, bid = "blk-" + (panel.id || "p") + "-" + nr;
+    const wrap = document.createElement("section");
+    wrap.className = "blk";
+    wrap.dataset.open = String(offen);
+    panel.insertBefore(wrap, h2);
+
+    h2.innerHTML =
+      `<button class="blk-t" type="button" aria-expanded="${offen}" aria-controls="${bid}">
+         <svg class="blk-c" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2 L8.5 6 L4.5 10"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+         <span>${h2.innerHTML}</span>
+       </button>`;
+    wrap.appendChild(h2);
+
+    const body = document.createElement("div");
+    body.className = "blk-b"; body.id = bid;
+    body.hidden = !offen;
+    inhalt.forEach(n => body.appendChild(n));
+    wrap.appendChild(body);
+    i = j;
+  }
+
+  if(nr) panel.addEventListener("click", e => {
+    const b = e.target.closest(".blk-t"); if(!b) return;
+    const wrap = b.closest(".blk"), body = document.getElementById(b.getAttribute("aria-controls"));
+    const offen = wrap.dataset.open === "true";
+    wrap.dataset.open = String(!offen);
+    b.setAttribute("aria-expanded", String(!offen));
+    body.hidden = offen;
+    if(!offen) dispatchEvent(new Event("resize"));
+  });
+  return nr;
+}
+
+document.querySelectorAll(".panel").forEach(makeBlocks);
+</script>
+</body>
+</html>

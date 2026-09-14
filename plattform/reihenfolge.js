@@ -20,5 +20,9 @@ const REIHENFOLGE = [
   "werkstatt",         // Die Werkstatt — wie diese Plattform gebaut ist
   "risiko-intro",      // Risikomanagement: der Begriff
   "risiko",            // Der Risikomanagement-Prozess
-  "risiko-werkstatt"   // Die Risikoanalyse-Werkstatt
+  "risiko-werkstatt",  // Die Risikoanalyse-Werkstatt
+  "bilanz-aufbau",     // Die Bilanz nach HGB
+  "bilanz-guv",        // Die Gewinn- und Verlustrechnung
+  "bilanz-kennzahlen", // Jahresabschlussanalyse mit Kennzahlen
+  "bilanz-buchungssaetze" // Buchungssätze und ihre Wirkung
 ];
