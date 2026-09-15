@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Die Gewinn- und Verlustrechnung · geplant</title>
+<title>Die Gewinn- und Verlustrechnung nach HGB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -573,6 +573,9 @@ footer a{color:var(--teal-dk)}
 .bilzeile.gruppe{background:var(--grey-xl);padding-top:9px;padding-bottom:9px;margin-top:4px}
 .bilzeile.gruppe label{font-weight:700;color:var(--ink);font-size:.94rem}
 .bilzeile.tief label{padding-left:20px}
+.bilzeile.tiefer label{padding-left:40px;font-size:.85rem;color:#4a4a4d}
+.bilzeile.gruppe.tief{background:#F5F5F3}
+.bilzeile.gruppe.tief label{font-size:.9rem;font-weight:600}
 .bilzeile input{width:100%;font-family:var(--mono);font-size:.88rem;text-align:right;
   font-variant-numeric:tabular-nums;color:var(--ink);background:var(--paper);
   border:1px solid var(--grey-mid);border-radius:7px;padding:6px 9px}
@@ -638,93 +641,356 @@ footer a{color:var(--teal-dk)}
 @media (max-width:560px){
   .bilzeile,.bilende{grid-template-columns:1fr 92px;gap:8px;padding-left:12px;padding-right:12px}
   .bilzeile.tief label{padding-left:12px}
+  .bilzeile.tiefer label{padding-left:24px}
   .zuz{grid-template-columns:1fr}
   .zuz .zb{justify-content:flex-start}
 }
+
+/* ---------- Die Gewinn- und Verlustrechnung ----------
+   § 275 HGB schreibt die Staffelform vor: eine Spalte, von oben nach
+   unten gerechnet. Deshalb steht hier nur ein Kasten statt der zwei
+   Seiten der Bilanz; die Zeilenklassen sind dieselben.            */
+.guv{max-width:820px}
+.guvzeile{display:grid;grid-template-columns:34px 1fr 118px;gap:10px;align-items:center;
+  padding:6px 16px}
+.guvzeile>*{min-width:0}
+.guvzeile .nr{font-family:var(--mono);font-size:.72rem;color:var(--grey);text-align:right}
+.guvzeile label{font-size:.9rem;color:#3d3d40;line-height:1.35}
+.guvzeile.tief label{padding-left:18px}
+.guvzeile .vz{color:var(--grey-mid);font-weight:700;margin-right:5px;font-family:var(--mono)}
+.guvzeile .vz.ab{color:var(--red)}
+.guvzeile input{width:100%;font-family:var(--mono);font-size:.88rem;text-align:right;
+  font-variant-numeric:tabular-nums;color:var(--ink);background:var(--paper);
+  border:1px solid var(--grey-mid);border-radius:7px;padding:6px 9px}
+.guvzeile input:focus-visible{outline:2px solid var(--orange);outline-offset:1px;border-color:var(--teal)}
+.guvzeile .sum{font-family:var(--mono);font-size:.88rem;text-align:right;font-weight:600;
+  font-variant-numeric:tabular-nums;color:var(--ink);padding-right:9px}
+.guvzeile.zwischen{background:var(--grey-xl);margin-top:4px;padding-top:9px;padding-bottom:9px}
+.guvzeile.zwischen label{font-weight:700;color:var(--ink);font-size:.94rem}
+.guvzeile.summe{background:var(--teal-xl);border-top:1px solid #BFE2EC;border-bottom:1px solid #BFE2EC;
+  margin:4px 0;padding-top:10px;padding-bottom:10px}
+.guvzeile.summe label{font-weight:700;color:var(--teal-dk);font-size:.94rem}
+.guvzeile.summe .sum{color:var(--teal-dk)}
+.guvende{display:grid;grid-template-columns:34px 1fr 118px;gap:10px;align-items:center;
+  padding:13px 16px;border-top:2px solid var(--ink);margin-top:6px}
+.guvende label{font-weight:700;font-size:1rem}
+.guvende .sum{font-family:var(--mono);font-size:1.05rem;font-weight:700;text-align:right;
+  font-variant-numeric:tabular-nums;padding-right:9px}
+.guvende .sum.minus{color:var(--red)}
+.guvhin{font-size:.78rem;color:var(--grey);line-height:1.45;margin:2px 0 0;grid-column:2/-1}
+
+@media (max-width:560px){
+  .guvzeile,.guvende{grid-template-columns:26px 1fr 94px;gap:7px;padding-left:12px;padding-right:12px}
+  .guvzeile.tief label{padding-left:10px}
+}
+
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <header class="masthead">
-  <p class="eyebrow">Bilanzanalyse · Modul 02 · in Planung</p>
+  <p class="eyebrow">Bilanzanalyse · Modul 02</p>
   <h1>Die <em>Gewinn- und Verlustrechnung</em></h1>
-  <p class="lede">Die Stromgröße neben der Bilanz: Was in zwölf Monaten erwirtschaftet und verbraucht wurde. Gliederung nach § 275 HGB, Gesamtkosten- und Umsatzkostenverfahren nebeneinander, und am Ende ein Formular zum eigenen Eintippen — analog zur Bilanz im ersten Modul.</p>
-  <div class="readme" style="margin-top:18px"><b>Dieses Modul ist eine Hülle.</b> Die Lektionen stehen mit Namen und Absicht da, der Inhalt kommt noch. Die beiden Pflichtlektionen — Quiz und Praxiseinstieg — sind bereits angelegt und werden mit dem Inhalt gefüllt.</div>
+  <p class="lede">Die Bilanz zeigt einen Stichtag, diese Rechnung zeigt zwölf Monate. Sie sagt, was erwirtschaftet und was verbraucht wurde, und endet bei einer Zahl, die Du aus dem ersten Modul schon kennst: dem Jahresüberschuss, der im Eigenkapital steht. Hier klärst Du Zweck und Gliederung nach § 275 HGB, siehst beide zulässigen Verfahren nebeneinander und tippst am Ende eine eigene Rechnung ein.</p>
+  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Durchgehend <b>HGB</b>. IFRS und US-GAAP kommen hier nicht vor. Der Fall ist derselbe wie im ersten Modul: ein Zulieferer für Nutzfahrzeugkomponenten, Zahlen in vollen Tausend Euro.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Die Gewinn- und Verlustrechnung">
   <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Wozu die Rechnung da ist</button>
-  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Gesamtkosten- und Umsatzkostenverfahren</button>
-  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Vom Umsatz zum Jahresüberschuss</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Die zwei Verfahren</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Vom Umsatz zum Ergebnis</button>
   <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Deine eigene Rechnung</button>
   <button class="tab" role="tab" id="tab-e" aria-controls="p-e" aria-selected="false" tabindex="-1"><span class="num">05</span> Quiz</button>
   <button class="tab" role="tab" id="tab-f" aria-controls="p-f" aria-selected="false" tabindex="-1"><span class="num">06</span> Der erste Schritt</button>
 </div>
 
+<!-- ==================== LEKTION 01 · WOZU DIE RECHNUNG DA IST ==================== -->
 <section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
-  <p class="claim">Was eine Stromgröße von einer Bestandsgröße unterscheidet und warum beide Rechnungen zusammengehören.</p>
+  <p class="claim">Die Bilanz beantwortet die Frage <b>„Wie steht es?"</b>, die Gewinn- und Verlustrechnung die Frage <b>„Wie lief es?"</b>. Zusammen bilden sie den Jahresabschluss, und sie hängen an genau einer Zahl zusammen.</p>
 
-  <div class="readme"><b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.</div>
+  <h2 class="sec">Bestand und Strom, noch einmal genau</h2>
+  <p class="sub">Der Unterschied klingt formal und entscheidet darüber, welche Frage sich mit welcher Rechnung beantworten lässt.</p>
+  <div class="duo">
+    <div class="card" style="border-left:3px solid var(--teal-dk)">
+      <p class="ck">Bestandsgröße</p><h3>Bilanz</h3>
+      <p>Ein <b>Stichtag</b>. Sie sagt, was an diesem Tag da war und wem es gehörte. Vermögen und Kapital, in zwei Spalten gegenübergestellt.</p>
+      <p>Aus ihr lässt sich ablesen, wie solide ein Unternehmen finanziert ist. Ob es im vergangenen Jahr Geld verdient hat, sieht man ihr nur an einer einzigen Zeile an.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ochre)">
+      <p class="ck">Stromgröße</p><h3>Gewinn- und Verlustrechnung</h3>
+      <p>Ein <b>Zeitraum</b>, meist zwölf Monate. Sie sagt, welche Erträge angefallen sind und welche Aufwendungen dagegenstanden.</p>
+      <p>Aus ihr lässt sich ablesen, woher ein Ergebnis kommt: aus dem Geschäft, aus Finanzanlagen, aus einem einmaligen Verkauf.</p>
+    </div>
+  </div>
+  <div class="merk" style="margin-top:16px">
+    <h3>Die eine Zahl, die beide verbindet</h3>
+    <dl>
+      <dt>Jahresüberschuss</dt><dd>Das Ergebnis der Gewinn- und Verlustrechnung erscheint auf der Passivseite der Bilanz im Eigenkapital, § 266 Abs. 3 A. V. HGB. Im Fall dieses Lernpfads sind das <b>2.300 T€</b> — dieselbe Zahl, die im ersten Modul schon im Formular stand.</dd>
+      <dt>Was daraus folgt</dt><dd>Ein Gewinn erhöht das Eigenkapital, ein Verlust verringert es. Das gilt auch dann, wenn keine einzige Zahlung geflossen ist: Eine Abschreibung kostet Ergebnis und damit Eigenkapital, ohne dass Geld das Haus verlässt.</dd>
+      <dt>Ertrag und Einzahlung</dt><dd>Beides fällt selten zusammen. Eine Rechnung vom 20. Dezember ist Ertrag des alten Jahres und Einzahlung des neuen. Deshalb sagt ein hoher Jahresüberschuss nichts über den Kontostand.</dd>
+    </dl>
+  </div>
+
+  <h2 class="sec">Wer sie aufstellen muss und wie sie aussieht</h2>
+  <p class="sub">Die Pflicht hängt an denselben Normen wie die Bilanz, die Form an einer eigenen.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Pflichten und Form, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th>Norm</th><th>Was sie verlangt</th></tr></thead>
+    <tbody>
+      <tr><td class="m">§ 242 Abs. 2 HGB</td><td>Jeder Kaufmann stellt für den Schluss eines Geschäftsjahres eine Gegenüberstellung der Aufwendungen und Erträge auf</td></tr>
+      <tr><td class="m">§ 242 Abs. 3 HGB</td><td>Bilanz und Gewinn- und Verlustrechnung zusammen bilden den Jahresabschluss</td></tr>
+      <tr><td class="m">§ 264 Abs. 1 HGB</td><td>Kapitalgesellschaften erweitern ihn um den Anhang, größere zusätzlich um den Lagebericht</td></tr>
+      <tr><td class="m">§ 275 Abs. 1 HGB</td><td>Die Rechnung steht in <b>Staffelform</b> — eine Spalte, von oben nach unten. Die Kontoform der Bilanz gibt es hier nicht.</td></tr>
+      <tr><td class="m">§ 276 HGB</td><td>Kleine und mittelgroße Gesellschaften dürfen die ersten Posten zu einem <b>Rohergebnis</b> zusammenfassen</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="sub" style="margin-top:12px">Die Staffelform ist keine Äußerlichkeit. Sie erlaubt Zwischenergebnisse an jeder Stelle, und genau davon lebt die spätere Analyse: Ein Ergebnis wird lesbar, wenn man sieht, auf welcher Stufe es entstanden ist.</p>
+
+  <h2 class="sec">Was seit 2016 nicht mehr drinsteht</h2>
+  <p class="sub">Hier gehen ältere Unterlagen am häufigsten fehl. Wer eine Gliederung aus einem alten Skript übernimmt, baut zwei Posten ein, die es nicht mehr gibt.</p>
+  <div class="duo">
+    <div class="card" style="border-left:3px solid var(--red)">
+      <p class="ck">Gestrichen</p><h3>Das außerordentliche Ergebnis</h3>
+      <p>Außerordentliche Erträge und Aufwendungen sind als eigene Posten aus § 275 HGB verschwunden. Was darunter fiel, steht heute in den betrieblichen Posten.</p>
+      <p>Berichtet wird darüber im <b>Anhang</b>: Betrag und Art außergewöhnlicher Posten nach § 285 Nr. 31 HGB.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--red)">
+      <p class="ck">Gestrichen</p><h3>Das Ergebnis der gewöhnlichen Geschäftstätigkeit</h3>
+      <p>Diese Zwischensumme gibt es in der gesetzlichen Gliederung nicht mehr. An ihre Stelle ist das <b>Ergebnis nach Steuern</b> gerückt.</p>
+      <p>Wer sie trotzdem braucht, rechnet sie selbst — als eigene Kennzahl, ohne sie als gesetzlichen Posten auszugeben.</p>
+    </div>
+  </div>
+  <div class="readme" style="margin-top:16px">
+    <b>Warum das für die Analyse zählt.</b> Die beiden Posten waren die Stelle, an der ein Unternehmen Einmaliges vom Laufenden trennen musste. Seit sie fehlen, steckt der Verkaufsgewinn aus einer Immobilie in den sonstigen betrieblichen Erträgen und hebt das Betriebsergebnis, ohne dass etwas Betriebliches besser geworden wäre. Wer eine Ertragslage beurteilt, sieht deshalb heute im Anhang nach, bevor er eine Zeitreihe bildet.
+  </div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Die Bilanz zeigt das Ergebnis als <b>eine Zeile</b>. Die Gewinn- und Verlustrechnung zeigt, wie diese Zeile zustande kam. Deshalb ist sie die interessantere der beiden Rechnungen — und die, in der mehr Gestaltungsspielraum steckt.</p>
   </div>
 </section>
 
+
+<!-- ==================== LEKTION 02 · DIE ZWEI VERFAHREN ==================== -->
 <section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
-  <p class="claim">Zwei zulässige Gliederungen nach § 275 HGB, dieselbe Zahl am Ende — und warum die Wahl trotzdem etwas ändert.</p>
+  <p class="claim">§ 275 HGB lässt <b>zwei Gliederungen</b> zu. Beide beginnen beim Umsatz, beide enden beim selben Jahresüberschuss — und dazwischen ordnen sie den Aufwand nach völlig verschiedenen Gesichtspunkten.</p>
 
-  <div class="readme"><b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.</div>
+  <h2 class="sec">Die Wahl und ihre Bindung</h2>
+  <p class="sub">Frei ist die Wahl nur einmal.</p>
+  <div class="merk">
+    <h3>§ 275 Abs. 1 Satz 2 HGB</h3>
+    <dl>
+      <dt>Gesamtkostenverfahren</dt><dd>Der Aufwand wird nach <b>Arten</b> gegliedert: Material, Personal, Abschreibungen, Sonstiges. Die Frage lautet: Was wurde im Jahr verbraucht?</dd>
+      <dt>Umsatzkostenverfahren</dt><dd>Der Aufwand wird nach <b>Funktionen</b> gegliedert: Herstellung, Vertrieb, Verwaltung. Die Frage lautet: Wofür wurde es verbraucht?</dd>
+      <dt>Einmal gewählt</dt><dd>Der Grundsatz der Stetigkeit aus § 252 Abs. 1 Nr. 6 HGB bindet an die einmal gewählte Darstellung. Ein Wechsel braucht einen Grund und gehört in den Anhang, sonst wären zwei Jahre nicht mehr vergleichbar.</dd>
+    </dl>
+  </div>
+
+  <h2 class="sec">Wo der Unterschied wirklich liegt</h2>
+  <p class="sub">Die beiden Verfahren behandeln eine Frage verschieden: Was passiert mit dem, was produziert und noch nicht verkauft wurde?</p>
+  <div class="duo">
+    <div class="card" style="border-left:3px solid var(--teal-dk)">
+      <p class="ck">Gesamtkostenverfahren</p><h3>Alles Produzierte zählt</h3>
+      <p>Auf der Ertragsseite steht die <b>gesamte Leistung</b> des Jahres: der Umsatz plus die Bestandserhöhung an fertigen und unfertigen Erzeugnissen plus die aktivierten Eigenleistungen.</p>
+      <p>Dem steht der gesamte Aufwand des Jahres gegenüber — auch der, der in noch unverkaufter Ware steckt. Deshalb braucht es Posten 2 und 3: Sie gleichen die Zeitverschiebung aus.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ochre)">
+      <p class="ck">Umsatzkostenverfahren</p><h3>Nur das Verkaufte zählt</h3>
+      <p>Dem Umsatz stehen allein die <b>Herstellungskosten der verkauften Leistungen</b> gegenüber. Was im Lager liegt, erscheint in dieser Rechnung gar nicht.</p>
+      <p>Bestandsveränderungen und Eigenleistungen brauchen deshalb keinen eigenen Posten. Sie stecken rechnerisch in den Herstellungskosten, die nur das Verkaufte umfassen.</p>
+    </div>
+  </div>
+  <div class="readme" style="margin-top:16px">
+    <b>Deshalb ist die Differenz kein Zufall.</b> Im Fall dieses Moduls stehen im Gesamtkostenverfahren 96.450 T€ betrieblicher Aufwand gegen 95.450 T€ im Umsatzkostenverfahren. Die Lücke von 1.000 T€ entspricht genau der Bestandserhöhung von 400 T€ und den aktivierten Eigenleistungen von 600 T€, die im Gesamtkostenverfahren als Ertrag oben stehen. Das Betriebsergebnis ist in beiden Fällen 4.450 T€. Wer das einmal durchgerechnet hat, verwechselt die Verfahren nicht mehr.
+  </div>
+
+  <h2 class="sec">Was für welches spricht</h2>
+  <p class="sub">Beide sind zulässig, beide sind üblich. Die Wahl hängt daran, wofür die Zahlen im Haus gebraucht werden.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Vergleich der Verfahren, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th></th><th>Gesamtkostenverfahren</th><th>Umsatzkostenverfahren</th></tr></thead>
+    <tbody>
+      <tr><td class="crit">Aufwand gegliedert nach</td><td>Kostenarten</td><td>Funktionsbereichen</td></tr>
+      <tr><td class="crit">Bestandsveränderung</td><td>eigener Posten, sichtbar</td><td>in den Herstellungskosten, unsichtbar</td></tr>
+      <tr><td class="crit">Erforderliche Vorarbeit</td><td>Die Buchhaltung liefert die Zahlen ohne Zusatzaufwand</td><td>Braucht eine Kostenrechnung, die Aufwand den Funktionen zuordnet</td></tr>
+      <tr><td class="crit">Was ein Leser erkennt</td><td>Personalintensität, Materialquote, Abschreibungslast</td><td>Bruttomarge, Gewicht von Vertrieb und Verwaltung</td></tr>
+      <tr><td class="crit">Was ein Leser vermisst</td><td>Wie teuer der Vertrieb ist</td><td>Wie hoch der Personalaufwand insgesamt war</td></tr>
+      <tr><td class="crit">Verbreitet bei</td><td>Mittelstand, Fertigung in Deutschland</td><td>Konzernen, international ausgerichteten Häusern</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="sub" style="margin-top:12px">Was im Umsatzkostenverfahren fehlt, holt der Anhang nach: § 285 Nr. 8 HGB verlangt dort die Angabe von Material- und Personalaufwand. Die Information geht also nicht verloren, sie steht nur woanders.</p>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Beide Verfahren führen zum selben Jahresüberschuss. Sie unterscheiden sich darin, <b>welche Frage sich ohne Rückfrage beantworten lässt</b> — und genau das ist der Grund, warum die Wahl eine Entscheidung ist.</p>
   </div>
 </section>
 
+<!-- ==================== LEKTION 03 · VOM UMSATZ ZUM ERGEBNIS ==================== -->
 <section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
-  <p class="claim">Die Stufen der Ergebnisrechnung, vom Rohergebnis bis zum Jahresüberschuss.</p>
+  <p class="claim">Die Staffel läuft in Stufen. Auf jeder Stufe entsteht ein Zwischenergebnis, und jedes davon beantwortet eine eigene Frage. Wer nur auf die letzte Zeile sieht, verschenkt den halben Informationsgehalt.</p>
 
-  <div class="readme"><b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.</div>
+  <h2 class="sec">Die vier Stufen</h2>
+  <p class="sub">Zwei davon weist § 275 HGB ausdrücklich aus, zwei rechnet man selbst.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Die Stufen der Ergebnisrechnung, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th>Stufe</th><th>Was hineinfließt</th><th>Welche Frage sie beantwortet</th><th>Im Gesetz?</th></tr></thead>
+    <tbody>
+      <tr><td class="crit">Betriebsergebnis</td><td>Alles aus dem eigentlichen Geschäft: Umsatz, Bestandsveränderung, sonstige betriebliche Erträge gegen Material, Personal, Abschreibungen, sonstige betriebliche Aufwendungen</td><td>Verdient das Unternehmen mit dem, wofür es da ist?</td><td>Nein, selbst gerechnet</td></tr>
+      <tr><td class="crit">Finanzergebnis</td><td>Beteiligungserträge, Zinserträge, Abschreibungen auf Finanzanlagen, Zinsaufwendungen</td><td>Was kostet oder bringt die Finanzierung?</td><td>Nein, selbst gerechnet</td></tr>
+      <tr><td class="crit">Ergebnis nach Steuern</td><td>Betriebs- und Finanzergebnis abzüglich der Steuern vom Einkommen und vom Ertrag</td><td>Was bleibt nach dem Zugriff des Finanzamts auf den Gewinn?</td><td>Ja, Posten 15 bzw. 14</td></tr>
+      <tr><td class="crit">Jahresüberschuss</td><td>Ergebnis nach Steuern abzüglich der sonstigen Steuern</td><td>Was steht am Ende im Eigenkapital?</td><td>Ja, letzter Posten</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="readme" style="margin-top:16px">
+    <b>Betriebsergebnis und Finanzergebnis stehen nirgends im Gesetz.</b> Das macht sie nicht falsch — es macht sie nur zu etwas, das jeder selbst bildet. Wer zwei Unternehmen vergleicht, muss deshalb nachsehen, ob beide dieselben Posten hineingerechnet haben. Die häufigste Abweichung liegt bei den sonstigen betrieblichen Erträgen, in denen auch einmalige Verkaufsgewinne stecken können.
+  </div>
+
+  <h2 class="sec">Zwei Paare, die verwechselt werden</h2>
+  <p class="sub">Beide Unterscheidungen kosten in Prüfungen und in der Praxis regelmäßig Punkte.</p>
+  <div class="duo">
+    <div class="card" style="border-left:3px solid var(--teal)">
+      <p class="ck">Erste Falle</p><h3>Steuern vom Einkommen gegen sonstige Steuern</h3>
+      <p><b>Vom Einkommen und vom Ertrag:</b> Körperschaftsteuer, Gewerbesteuer, Solidaritätszuschlag. Sie hängen am Gewinn und stehen deshalb kurz vor dem Ende.</p>
+      <p><b>Sonstige Steuern:</b> Grundsteuer, Kfz-Steuer, Versicherungsteuer. Sie fallen unabhängig vom Gewinn an. Umsatzsteuer gehört in keine der beiden Zeilen — sie ist ein durchlaufender Posten.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ochre)">
+      <p class="ck">Zweite Falle</p><h3>Umsatzerlöse gegen sonstige betriebliche Erträge</h3>
+      <p><b>Umsatzerlöse</b> umfassen seit der Neufassung des § 277 Abs. 1 HGB die Erlöse aus dem Verkauf, der Vermietung und aus Dienstleistungen — ohne dass es noch auf die gewöhnliche Geschäftstätigkeit ankommt. Abgezogen werden Erlösschmälerungen und die Umsatzsteuer.</p>
+      <p><b>Sonstige betriebliche Erträge</b> sind der Rest: Auflösung von Rückstellungen, Gewinn aus dem Verkauf einer Maschine, Versicherungsentschädigungen.</p>
+    </div>
+  </div>
+
+  <h2 class="sec">Zwölf Positionen einordnen</h2>
+  <p class="sub">Ertrag, Aufwand oder gar kein Posten der Gewinn- und Verlustrechnung? Die Begründung erscheint nach jeder Antwort, auch nach der richtigen.</p>
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Übung">
+      <button id="zuNew" type="button">Von vorn</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="zuStand"></span></p>
+  </div>
+  <div class="zu" id="zuListe"></div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Ein Jahresüberschuss von null kann bedeuten, dass das Geschäft gut lief und die Zinsen alles auffraßen — oder umgekehrt. <b>Erst die Stufen sagen, was los war.</b></p>
   </div>
 </section>
 
+
+<!-- ==================== LEKTION 04 · DEINE EIGENE RECHNUNG ==================== -->
 <section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
-  <p class="claim">Das Formular in der Gliederung des § 275 HGB, mit laufender Summe und dem Ergebnis, das in die Bilanz wandert.</p>
+  <p class="claim">Hier steht die Staffel des § 275 HGB als Formular, in beiden Verfahren. Trag Deine Zahlen in <b>vollen Tausend Euro</b> ein — die Zwischenergebnisse rechnen mit, und unten steht der Jahresüberschuss, der in die Bilanz gehört.</p>
 
-  <div class="readme"><b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.</div>
+  <h2 class="sec">Das Formular</h2>
+  <p class="sub"><b>Alle Beträge positiv eintragen.</b> Ob ein Posten addiert oder abgezogen wird, sagt das Gesetz und nicht Dein Vorzeichen; das Formular zeigt es mit einem Plus oder Minus vor der Bezeichnung. Die einzige Ausnahme ist die Bestandsveränderung im Gesamtkostenverfahren: Eine Verminderung bekommt ein Minus.</p>
+  <p class="sub"><b>Zwei Verfahren, zwei Zahlenvorräte.</b> Das Umschalten verliert nichts. Das Beispiel füllt beide und ist so gerechnet, dass am Ende in beiden Fällen dieselben 2.300 T€ stehen — dieselbe Zahl wie im Eigenkapital des ersten Moduls.</p>
+
+  <div class="wsbar">
+    <div class="seg" id="guvVerf" role="group" aria-label="Verfahren">
+      <button type="button" data-verf="gkv" aria-pressed="true">Gesamtkostenverfahren</button>
+      <button type="button" data-verf="ukv" aria-pressed="false">Umsatzkostenverfahren</button>
+    </div>
+    <div class="seg" role="group" aria-label="Formular">
+      <button id="guvBsp" type="button">Beispiel laden</button>
+      <button id="guvLeer" type="button">Leeren</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="guvStand"></span></p>
+  </div>
+
+  <div class="guv">
+    <div class="bilseite aktiv" id="guvForm">
+      <div class="bilkopf"><h3 id="guvTitel">Gewinn- und Verlustrechnung</h3><span class="eh">in T€</span></div>
+      <div id="guvZeilen"></div>
+      <div class="guvende"><span class="nr"></span><label id="guvEndeLabel">Jahresüberschuss</label><span class="sum" id="guvJUE">0</span></div>
+    </div>
+  </div>
+
+  <div class="bilwaage" id="guvHinweis" role="status" aria-live="polite"></div>
+
+  <h3 class="bilh3">Die vier Stufen</h3>
+  <p class="sub">Betriebs- und Finanzergebnis stehen in keinem Gesetz. Sie sind hier mitgerechnet, weil eine Ertragslage ohne sie nicht lesbar ist.</p>
+  <div class="bilkz" id="guvStufen"></div>
+
+  <h2 class="sec">Die Rechnung mitnehmen</h2>
+  <p class="sub">Diese Seite speichert von selbst nichts: kein Konto, keine Datenbank, kein Browserspeicher. Was Du behalten willst, nimmst Du als <b>Datei</b> mit — im selben Format wie die Bilanz aus dem ersten Modul.</p>
+  <div class="bilout">
+    <div class="wsbar" style="margin-bottom:12px">
+      <div class="seg" role="group" aria-label="Datei">
+        <button id="guvSave" type="button">Als JSON speichern</button>
+        <button id="guvLoad" type="button">JSON laden</button>
+      </div>
+      <div class="seg" role="group" aria-label="Text">
+        <button id="guvGo" type="button">Rechnung als Text</button>
+        <button id="guvCopy" type="button">In die Zwischenablage</button>
+      </div>
+    </div>
+    <input type="file" id="guvDatei" accept="application/json,.json" hidden aria-hidden="true">
+    <p class="sub" style="margin:0 0 12px">Die Datei enthält beide Verfahren, also auch die Zahlen, die gerade nicht zu sehen sind. Das Kennzahlenmodul liest später Bilanz und Rechnung aus je einer solchen Datei.</p>
+    <label class="hint" for="guvOut" style="margin:0 0 6px;display:block">Ergebnis</label>
+    <textarea id="guvOut" readonly aria-label="Die eingetragene Rechnung als Text"></textarea>
+    <p class="bilmsg" id="guvMsg"></p>
+  </div>
+
+  <h2 class="sec">Was das Formular weglässt</h2>
+  <p class="sub">Damit Du weißt, wo die Übung endet und der Ernstfall anfängt.</p>
+  <ul>
+    <li><b>Die „davon"-Vermerke.</b> § 275 HGB verlangt an mehreren Stellen eine Zusatzangabe: bei den Aufwendungen für Altersversorgung, bei Erträgen und Zinsen aus verbundenen Unternehmen. Sie ändern keine Summe und gehören trotzdem dazu.</li>
+    <li><b>Die Vorjahresspalte.</b> § 265 Abs. 2 HGB verlangt zu jedem Posten den Betrag des Vorjahres. Ohne sie fehlt der wichtigste Maßstab, und eine einzelne Rechnung sagt wenig.</li>
+    <li><b>Das Rohergebnis.</b> § 276 HGB erlaubt kleinen und mittelgroßen Gesellschaften, die ersten Posten zusammenzufassen. Das Formular zeigt immer die volle Staffel.</li>
+    <li><b>Die Ergebnisverwendung.</b> Was nach dem Jahresüberschuss kommt — Gewinnvortrag, Einstellungen in Rücklagen, Bilanzgewinn — steht in § 158 AktG und gehört zur Verwendung, nicht zur Entstehung des Ergebnisses.</li>
+  </ul>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Wenn Du im Formular das Verfahren wechselst und unten dieselbe Zahl stehen bleibt, hast Du den Kern dieses Moduls gesehen: <b>Die Darstellung ändert den Blick, nicht das Ergebnis.</b></p>
   </div>
 </section>
 
+<!-- ==================== LEKTION 05 · QUIZ ==================== -->
 <section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e" hidden>
-  <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen — so wie im ersten Modul des Lernpfads.</p>
+  <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen. Kein Zeitdruck, keine Bewertung, die irgendwo landet — die Begründung steht nach jeder Antwort da, auch nach der richtigen.</p>
 
-  <div class="readme"><b>Der Fragenvorrat entsteht mit dem Inhalt.</b> Er umfasst am Ende mindestens zwanzig Fragen, aus denen beim Laden fünf gezogen werden.</div>
+  <h2 class="sec">Übung</h2>
+  <p class="sub">Wer eine Frage verfehlt, hat meist einen Posten in die falsche Stufe gelegt. Am Wissen liegt es selten. Genau darum steht die Begründung dabei.</p>
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Übung">
+      <button id="qNew" type="button">Fünf neue Fragen</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="qStand"></span></p>
+  </div>
+  <div class="qwrap" id="quiz"></div>
+  <div id="qResult" style="margin-top:16px"></div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Die meisten Fehlantworten drehen sich um zwei Grenzen: die zwischen <b>Umsatzerlösen und sonstigen betrieblichen Erträgen</b> und die zwischen <b>Steuern vom Einkommen und sonstigen Steuern</b>. Beide entscheiden, auf welcher Stufe ein Betrag landet.</p>
   </div>
 </section>
 
+<!-- ==================== LEKTION 06 · DER ERSTE SCHRITT ==================== -->
 <section class="panel" id="p-f" role="tabpanel" aria-labelledby="tab-f" hidden>
-  <p class="claim">Was jemand als Erstes tut, der das Gelernte im eigenen Haus anwenden will.</p>
+  <p class="claim">Du hast die Gewinn- und Verlustrechnung Deines Hauses vor Dir und willst mehr daraus holen als die letzte Zeile? Sieben Schritte, für die Du den Abschluss von zwei Jahren brauchst und sonst nichts.</p>
 
-  <div class="readme"><b>Der Praxiseinstieg entsteht mit dem Inhalt.</b> Konkrete erste Schritte, dazu ein Glossar zum Nachschlagen.</div>
+  <h2 class="sec">Sieben Schritte mit dem eigenen Abschluss</h2>
+  <p class="sub">Jeder Schritt mit dem Grund dahinter und dem Fehler, der an dieser Stelle am häufigsten gemacht wird. Keiner davon braucht Software.</p>
+  <div class="ck10" id="ck7"></div>
+
+  <div class="readme" style="margin-top:18px">
+    <b>Warum zwei Jahre das Minimum sind.</b> Eine einzelne Gewinn- und Verlustrechnung zeigt Beträge. Erst zwei nebeneinander zeigen Bewegung, und Bewegung ist das, worüber sich reden lässt. Ein Materialaufwand von 53.200 T€ ist eine Zahl; ein Materialaufwand, der bei gleichem Umsatz um sechs Prozent gestiegen ist, ist eine Frage an den Einkauf.
+  </div>
+
+  <h2 class="sec">Glossar</h2>
+  <p class="sub">Zum Nachschlagen während der Arbeit. Keine Prüfungsliste.</p>
+  <div class="glos" id="glos"></div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Die Gewinn- und Verlustrechnung ist die einzige Rechnung im Abschluss, die <b>erklärt</b> statt nur zu zeigen. Wer sie in Stufen liest, kann nach jedem Zwischenergebnis eine Frage stellen — und genau daraus wird Controlling.</p>
   </div>
 </section>
 
@@ -736,8 +1002,679 @@ Copyright Prof. Dr. Maik Drozdzynski, 2026
 
 <script>
 "use strict";
-const $ = id => document.getElementById(id);
 
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s)
+  .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+
+/* =====================================================================
+   1 · Die Gewinn- und Verlustrechnung zum Ausfuellen
+
+   § 275 HGB schreibt die Staffelform vor: eine Spalte, von oben nach
+   unten gerechnet. Absatz 2 gliedert den Aufwand nach Arten
+   (Gesamtkostenverfahren), Absatz 3 nach Funktionen
+   (Umsatzkostenverfahren). Beide stehen hier nebeneinander.
+
+   Jede Zeile ist eine von vier Arten:
+     "feld"     Eingabefeld mit Vorzeichen: + zaehlt hinzu, - zieht ab
+     "gruppe"   Sammelposten, dessen Betrag aus seinen Kindern entsteht
+     "summe"    gerechnete Zeile, die im Gesetz als Posten steht
+     "zwischen" gerechnete Zeile, die es im Gesetz nicht gibt
+   Die gerechneten Zeilen lesen den laufenden Saldo der Staffel; die
+   einzige Ausnahme ist das Finanzergebnis, das den Saldo seit dem
+   Betriebsergebnis zeigt. Gerechnet wird in vollen Tausend Euro.
+   ===================================================================== */
+/* Zahlen deutsch lesen und schreiben. Punkte und Leerzeichen sind
+   Tausendertrenner, das Minus bleibt: die Bestandsveraenderung darf
+   negativ sein. */
+function lesen(s){
+  const t = String(s).replace(/[.\s]/g, "").replace(",", ".").trim();
+  if(t === "" || t === "-") return 0;
+  const v = Number(t);
+  return Number.isFinite(v) ? Math.round(v) : 0;
+}
+const zahl = v => v.toLocaleString("de-DE", {maximumFractionDigits:0});
+const proz = v => v.toLocaleString("de-DE", {minimumFractionDigits:1, maximumFractionDigits:1}) + " %";
+
+/* Der Finanzteil und der Steuerschluss sind in beiden Verfahren
+   derselbe Text; nur die Postennummern verschieben sich. Deshalb wird
+   er einmal geschrieben und mit dem Praefix des Verfahrens und der
+   Nummer des ersten Postens erzeugt. */
+function schluss(p, n){
+  const nr = i => (n + i) + ".";
+  return [
+    {art:"feld", nr:nr(0), name:"Erträge aus Beteiligungen", id:p+"BET", vz:"+"},
+    {art:"feld", nr:nr(1), name:"Erträge aus anderen Wertpapieren und Ausleihungen des Finanzanlagevermögens", id:p+"WPA", vz:"+"},
+    {art:"feld", nr:nr(2), name:"Sonstige Zinsen und ähnliche Erträge", id:p+"ZIE", vz:"+"},
+    {art:"feld", nr:nr(3), name:"Abschreibungen auf Finanzanlagen und auf Wertpapiere des Umlaufvermögens", id:p+"AFA", vz:"−"},
+    {art:"feld", nr:nr(4), name:"Zinsen und ähnliche Aufwendungen", id:p+"ZIA", vz:"−"},
+    {art:"zwischen", name:"Finanzergebnis", id:"zFE", modus:"seitBE",
+     hin:"Steht in keinem Gesetz. Erträge aus Beteiligungen und Zinsen abzüglich der Zinsaufwendungen und der Abschreibungen auf Finanzanlagen."},
+    {art:"feld", nr:nr(5), name:"Steuern vom Einkommen und vom Ertrag", id:p+"STE", vz:"−",
+     hin:"Körperschaftsteuer, Gewerbesteuer, Solidaritätszuschlag — alles, was am Gewinn hängt."},
+    {art:"summe", nr:nr(6), name:"Ergebnis nach Steuern", id:"zNS"},
+    {art:"feld", nr:nr(7), name:"Sonstige Steuern", id:p+"SOS", vz:"−",
+     hin:"Grundsteuer, Kfz-Steuer, Versicherungsteuer. Sie fallen unabhängig vom Gewinn an."}
+  ];
+}
+
+const GKV = [
+  {art:"feld", nr:"1.", name:"Umsatzerlöse", id:"gkUMS", vz:"+",
+   hin:"Erlöse aus Verkauf, Vermietung und Dienstleistungen, abzüglich Erlösschmälerungen und Umsatzsteuer (§ 277 Abs. 1 HGB)."},
+  {art:"feld", nr:"2.", name:"Erhöhung oder Verminderung des Bestands an fertigen und unfertigen Erzeugnissen", id:"gkBES", vz:"+",
+   hin:"Die einzige Zeile mit Vorzeichen: Eine Verminderung bekommt ein Minus."},
+  {art:"feld", nr:"3.", name:"Andere aktivierte Eigenleistungen", id:"gkEIG", vz:"+"},
+  {art:"feld", nr:"4.", name:"Sonstige betriebliche Erträge", id:"gkSBE", vz:"+"},
+  {art:"gruppe", nr:"5.", name:"Materialaufwand", id:"gkMAT", vz:"−", kinder:[
+    {art:"feld", nr:"a)", name:"Aufwendungen für Roh-, Hilfs- und Betriebsstoffe und für bezogene Waren", id:"gkMAT1"},
+    {art:"feld", nr:"b)", name:"Aufwendungen für bezogene Leistungen", id:"gkMAT2"}
+  ]},
+  {art:"gruppe", nr:"6.", name:"Personalaufwand", id:"gkPER", vz:"−", kinder:[
+    {art:"feld", nr:"a)", name:"Löhne und Gehälter", id:"gkPER1"},
+    {art:"feld", nr:"b)", name:"Soziale Abgaben und Aufwendungen für Altersversorgung und für Unterstützung", id:"gkPER2"}
+  ]},
+  {art:"gruppe", nr:"7.", name:"Abschreibungen", id:"gkABS", vz:"−", kinder:[
+    {art:"feld", nr:"a)", name:"Auf immaterielle Vermögensgegenstände des Anlagevermögens und Sachanlagen", id:"gkABS1"},
+    {art:"feld", nr:"b)", name:"Auf Vermögensgegenstände des Umlaufvermögens, soweit sie die üblichen Abschreibungen überschreiten", id:"gkABS2"}
+  ]},
+  {art:"feld", nr:"8.", name:"Sonstige betriebliche Aufwendungen", id:"gkSBA", vz:"−"},
+  {art:"zwischen", name:"Betriebsergebnis", id:"zBE",
+   hin:"Steht in keinem Gesetz. Alles aus dem eigentlichen Geschäft, bevor Finanzierung und Steuern dazukommen."}
+].concat(schluss("gk", 9));
+
+const UKV = [
+  {art:"feld", nr:"1.", name:"Umsatzerlöse", id:"ukUMS", vz:"+"},
+  {art:"feld", nr:"2.", name:"Herstellungskosten der zur Erzielung der Umsatzerlöse erbrachten Leistungen", id:"ukHK", vz:"−",
+   hin:"Nur das Verkaufte. Was im Lager liegt, erscheint in dieser Rechnung gar nicht."},
+  {art:"summe", nr:"3.", name:"Bruttoergebnis vom Umsatz", id:"zBR"},
+  {art:"feld", nr:"4.", name:"Vertriebskosten", id:"ukVER", vz:"−"},
+  {art:"feld", nr:"5.", name:"Allgemeine Verwaltungskosten", id:"ukVWL", vz:"−"},
+  {art:"feld", nr:"6.", name:"Sonstige betriebliche Erträge", id:"ukSBE", vz:"+"},
+  {art:"feld", nr:"7.", name:"Sonstige betriebliche Aufwendungen", id:"ukSBA", vz:"−"},
+  {art:"zwischen", name:"Betriebsergebnis", id:"zBE",
+   hin:"Steht in keinem Gesetz. Hier der Saldo aus Bruttoergebnis, den beiden Funktionsblöcken und dem sonstigen betrieblichen Bereich."}
+].concat(schluss("uk", 8));
+
+const VERF = {gkv:{liste:GKV, name:"Gesamtkostenverfahren", norm:"§ 275 Abs. 2 HGB", jue:"17."},
+              ukv:{liste:UKV, name:"Umsatzkostenverfahren",  norm:"§ 275 Abs. 3 HGB", jue:"16."}};
+let AKT = "gkv";
+
+/* Die Zahlen leben hier, nicht im DOM. Beim Umschalten des Verfahrens
+   wird das Formular neu gebaut; laege der Wert im Feld, waere er beim
+   naechsten Umschalten weg. Weil die Kennungen der beiden Verfahren
+   verschieden beginnen, passen beide Vorraete in denselben Speicher. */
+const GWERTE = {};
+
+function felderVon(liste, out){
+  out = out || [];
+  for(const z of liste){
+    if(z.art === "feld") out.push(z.id);
+    if(z.kinder) felderVon(z.kinder, out);
+  }
+  return out;
+}
+const IDS_GKV = felderVon(GKV), IDS_UKV = felderVon(UKV);
+const ALLE_IDS = IDS_GKV.concat(IDS_UKV);
+
+const feldWert = id => lesen(GWERTE[id]);
+const zeilenWert = z => z.art === "gruppe"
+  ? z.kinder.reduce((s, k) => s + feldWert(k.id), 0)
+  : feldWert(z.id);
+
+/* Der Durchlauf der Staffel: ein Posten mit Vorzeichen veraendert den
+   Saldo, eine gerechnete Zeile liest ihn. Genau so laeuft die Staffel
+   auch auf dem Papier. */
+function rechneStaffel(liste){
+  const st = {};
+  let lauf = 0;
+  for(const z of liste){
+    if(z.art === "feld" || z.art === "gruppe"){
+      lauf += (z.vz === "−" ? -1 : 1) * zeilenWert(z);
+    } else {
+      st[z.id] = z.modus === "seitBE" ? lauf - st.zBE : lauf;
+    }
+  }
+  st.zJUE = lauf;
+  return st;
+}
+
+function zeileHtml(z, tief){
+  const kl = tief ? " tief" : "";
+  const hin = z.hin ? `<p class="guvhin">${z.hin}</p>` : "";
+  if(z.art === "feld"){
+    const vz = z.vz ? `<span class="vz${z.vz === "−" ? " ab" : ""}">${z.vz}</span>` : "";
+    return `<div class="guvzeile${kl}">
+      <span class="nr">${z.nr}</span>
+      <label for="${z.id}">${vz}${esc(z.name)}</label>
+      <input type="text" inputmode="numeric" id="${z.id}" data-guv="1"
+             value="${esc(GWERTE[z.id] == null ? "" : GWERTE[z.id])}"
+             aria-label="${esc(z.name)} in Tausend Euro">${hin}</div>`;
+  }
+  if(z.art === "gruppe"){
+    return `<div class="guvzeile${kl}">
+      <span class="nr">${z.nr}</span>
+      <label><span class="vz ab">−</span>${esc(z.name)}</label>
+      <span class="sum" id="s_${z.id}">0</span>${hin}</div>`
+      + z.kinder.map(k => zeileHtml(k, true)).join("");
+  }
+  const art = z.art === "summe" ? "summe" : "zwischen";
+  return `<div class="guvzeile ${art}">
+    <span class="nr">${z.nr || ""}</span>
+    <label>${esc(z.name)}</label>
+    <span class="sum" id="s_${z.id}">0</span>${hin}</div>`;
+}
+
+function guvZeichnen(){
+  const v = VERF[AKT];
+  $("guvTitel").textContent = "Gewinn- und Verlustrechnung · " + v.name;
+  $("guvEndeLabel").textContent = v.jue + " Jahresüberschuss / Jahresfehlbetrag";
+  $("guvZeilen").innerHTML = v.liste.map(z => zeileHtml(z, false)).join("");
+  guvRechne();
+}
+
+function guvRechne(){
+  const v = VERF[AKT], st = rechneStaffel(v.liste);
+  v.liste.forEach(z => {
+    const e = $("s_" + z.id);
+    if(e) e.textContent = zahl(z.art === "gruppe" ? zeilenWert(z) : st[z.id]);
+  });
+  const jue = $("guvJUE");
+  jue.textContent = zahl(st.zJUE);
+  jue.classList.toggle("minus", st.zJUE < 0);
+
+  const ids = AKT === "gkv" ? IDS_GKV : IDS_UKV;
+  const voll = ids.filter(id => String(GWERTE[id] == null ? "" : GWERTE[id]).trim() !== "").length;
+  $("guvStand").textContent = (voll === 0
+    ? ids.length + " Positionen, alle noch leer"
+    : voll + " von " + ids.length + " Positionen ausgefüllt") + " · " + v.norm;
+
+  /* Der Quervergleich ist die Pointe der Lektion: Sind beide Verfahren
+     gefuellt, muss unten dieselbe Zahl stehen. */
+  const stG = rechneStaffel(GKV), stU = rechneStaffel(UKV);
+  const gefuellt = p => (p === "gkv" ? IDS_GKV : IDS_UKV)
+    .some(id => String(GWERTE[id] == null ? "" : GWERTE[id]).trim() !== "");
+  const h = $("guvHinweis"), beide = gefuellt("gkv") && gefuellt("ukv");
+  h.classList.remove("gleich", "schief");
+  if(!gefuellt(AKT)){
+    h.innerHTML = "<p>Trag Deine Zahlen ein, oder lade das Beispiel. Die Stufen rechnen bei jeder Eingabe mit.</p>";
+  } else if(!beide){
+    h.innerHTML = `<p><span class="gl">${zahl(st.zJUE)} T€</span>
+      <b>${st.zJUE < 0 ? "Jahresfehlbetrag" : "Jahresüberschuss"}.</b>
+      Diese Zahl gehört in die Bilanz, auf die Passivseite ins Eigenkapital
+      (§ 266 Abs. 3 A. V. HGB). Füll auch das andere Verfahren aus, und hier steht der Quervergleich.</p>`;
+  } else if(stG.zJUE === stU.zJUE){
+    h.classList.add("gleich");
+    h.innerHTML = `<p><span class="gl">${zahl(stG.zJUE)} T€ = ${zahl(stU.zJUE)} T€</span>
+      <b>Beide Verfahren enden gleich.</b> So muss es sein: Die Gliederung ordnet den Aufwand
+      anders, am Ergebnis ändert sie nichts.</p>`;
+  } else {
+    h.classList.add("schief");
+    const d = stG.zJUE - stU.zJUE;
+    h.innerHTML = `<p><span class="gl">${zahl(stG.zJUE)} T€ ≠ ${zahl(stU.zJUE)} T€</span>
+      <b>Die beiden Verfahren enden ${zahl(Math.abs(d))} T€ auseinander.</b>
+      Wenn beide dieselbe Firma und dasselbe Jahr abbilden sollen, steckt ein Fehler darin.
+      Häufigste Ursache: Bestandserhöhung und aktivierte Eigenleistungen stehen im
+      Gesamtkostenverfahren als Ertrag oben, im Umsatzkostenverfahren müssen sie in den
+      Herstellungskosten fehlen.</p>`;
+  }
+
+  const ums = feldWert(AKT === "gkv" ? "gkUMS" : "ukUMS");
+  const stufen = [
+    ["Betriebsergebnis", zahl(st.zBE) + " T€", "Das Ergebnis aus dem eigentlichen Geschäft. Steht in keinem Gesetz."],
+    ["Finanzergebnis", zahl(st.zFE) + " T€", "Was die Finanzierung kostet oder bringt. Steht ebenfalls in keinem Gesetz."],
+    ["Ergebnis nach Steuern", zahl(st.zNS) + " T€", "Gesetzlicher Posten. Nach den Steuern, die am Gewinn hängen."],
+    ["Umsatzrendite", ums > 0 ? proz(st.zJUE / ums * 100) : "—", "Jahresüberschuss ÷ Umsatzerlöse. Wie viel Cent je Euro Umsatz übrig bleiben."]
+  ];
+  $("guvStufen").innerHTML = stufen.map(([k, w, f]) =>
+    `<div class="kz"><p class="kk">${k}</p><p class="kv">${w}</p><p class="kf">${f}</p></div>`).join("");
+}
+
+$("guvForm").addEventListener("input", e => {
+  if(!e.target.dataset.guv) return;
+  GWERTE[e.target.id] = e.target.value;
+  guvRechne();
+});
+
+$("guvVerf").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  AKT = b.dataset.verf;
+  [...$("guvVerf").querySelectorAll("button")].forEach(x =>
+    x.setAttribute("aria-pressed", String(x.dataset.verf === AKT)));
+  guvZeichnen();
+});
+
+/* Der Fall ist derselbe wie im ersten Modul: ein Zulieferer fuer
+   Nutzfahrzeugkomponenten. Beide Verfahren sind so gerechnet, dass sie
+   bei 2.300 T€ enden — genau der Betrag, der dort im Eigenkapital als
+   Jahresueberschuss steht. */
+const BEISPIEL = {
+  gkUMS:98000, gkBES:400, gkEIG:600, gkSBE:1900,
+  gkMAT1:49700, gkMAT2:3500,
+  gkPER1:24800, gkPER2:5400,
+  gkABS1:4900, gkABS2:0,
+  gkSBA:8150,
+  gkBET:120, gkWPA:60, gkZIE:40, gkAFA:20, gkZIA:1000,
+  gkSTE:1100, gkSOS:250,
+
+  ukUMS:98000, ukHK:78300, ukVER:9400, ukVWL:6700, ukSBE:1900, ukSBA:1050,
+  ukBET:120, ukWPA:60, ukZIE:40, ukAFA:20, ukZIA:1000,
+  ukSTE:1100, ukSOS:250
+};
+$("guvBsp").addEventListener("click", () => {
+  ALLE_IDS.forEach(id => { GWERTE[id] = BEISPIEL[id] == null ? "" : zahl(BEISPIEL[id]); });
+  $("guvOut").value = ""; $("guvMsg").textContent = "";
+  guvZeichnen();
+});
+$("guvLeer").addEventListener("click", () => {
+  ALLE_IDS.forEach(id => { GWERTE[id] = ""; });
+  $("guvOut").value = ""; $("guvMsg").textContent = "";
+  guvZeichnen();
+});
+
+/* ---------- Die Rechnung als Text mitnehmen ---------- */
+function guvText(){
+  /* Breiter als die Bilanz mit ihren 88 Zeichen: Die laengste
+     Bezeichnung des § 275 HGB — die Abschreibungen auf
+     Vermoegensgegenstaende des Umlaufvermoegens — misst allein 98
+     Zeichen. Bei 88 reichte die Spalte nicht, und zwei Zeilen stuenden
+     schief. */
+  const BR = 116;
+  const br = (a, b) => a + " ".repeat(Math.max(2, BR - a.length - b.length)) + b;
+  const strich = n => "".padEnd(BR, n);
+  const v = VERF[AKT], st = rechneStaffel(v.liste);
+  let s = br("GEWINN- UND VERLUSTRECHNUNG", "in T€") + "\n" + strich("=") + "\n";
+  s += v.name + ", " + v.norm + ".\n\n";
+  for(const z of v.liste){
+    if(z.art === "feld"){
+      s += br("  " + z.nr + " " + (z.vz || " ") + " " + z.name, zahl(zeilenWert(z))) + "\n";
+    } else if(z.art === "gruppe"){
+      s += br("  " + z.nr + " − " + z.name, zahl(zeilenWert(z))) + "\n";
+      z.kinder.forEach(k => { s += br("      " + k.nr + " " + k.name, zahl(feldWert(k.id))) + "\n"; });
+    } else {
+      s += strich("-") + "\n" + br("  " + (z.nr ? z.nr + " " : "") + z.name, zahl(st[z.id])) + "\n";
+    }
+  }
+  s += strich("=") + "\n";
+  s += br("  " + v.jue + " JAHRESÜBERSCHUSS / JAHRESFEHLBETRAG", zahl(st.zJUE)) + "\n";
+  s += strich("=") + "\n\nSTUFEN\n";
+  [...$("guvStufen").children].forEach(k => {
+    s += br("  " + k.querySelector(".kk").textContent, k.querySelector(".kv").textContent) + "\n";
+  });
+  s += "\nErzeugt im Modul „Die Gewinn- und Verlustrechnung nach HGB“.\n";
+  return s;
+}
+
+/* ---------- Als Datei speichern und wieder laden ----------
+   Wie im ersten Modul: Ueber file:// gibt es keinen Server, an den sich
+   etwas schicken liesse, und localStorage ist im ganzen Projekt
+   ausgeschlossen. Ein Blob als Download und ein FileReader beim Laden
+   kommen ohne beides aus.
+
+   Die Datei enthaelt immer beide Verfahren, auch das gerade unsichtbare.
+   Das Kennzahlenmodul liest spaeter Bilanz und Rechnung aus je einer
+   solchen Datei und erkennt sie an Kennung und Fassung. */
+const GUV_FORMAT = "guv-hgb", GUV_FASSUNG = 1;
+
+function guvDaten(){
+  const werte = {};
+  ALLE_IDS.forEach(id => {
+    const roh = GWERTE[id];
+    if(roh != null && String(roh).trim() !== "") werte[id] = lesen(roh);
+  });
+  return {
+    format: GUV_FORMAT,
+    fassung: GUV_FASSUNG,
+    erzeugt: new Date().toISOString().slice(0, 10),
+    einheit: "T€",
+    verfahren: AKT,
+    werte
+  };
+}
+
+$("guvSave").addEventListener("click", () => {
+  const d = guvDaten();
+  const anzahl = Object.keys(d.werte).length;
+  if(anzahl === 0){
+    $("guvMsg").textContent = "Noch keine Zahl eingetragen — es gäbe nichts zu speichern.";
+    return;
+  }
+  const blob = new Blob([JSON.stringify(d, null, 2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "guv-" + d.erzeugt + ".json";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+  $("guvMsg").textContent = "Gespeichert als " + a.download + " · " + anzahl + " Positionen.";
+});
+
+$("guvLoad").addEventListener("click", () => { $("guvDatei").value = ""; $("guvDatei").click(); });
+
+$("guvDatei").addEventListener("change", e => {
+  const datei = e.target.files && e.target.files[0];
+  if(!datei) return;
+  const leser = new FileReader();
+  leser.onerror = () => { $("guvMsg").textContent = "Die Datei ließ sich nicht lesen."; };
+  leser.onload = () => {
+    let d;
+    try { d = JSON.parse(leser.result); }
+    catch(err){ $("guvMsg").textContent = "Das ist kein lesbares JSON."; return; }
+    if(!d || typeof d !== "object" || !d.werte || typeof d.werte !== "object"){
+      $("guvMsg").textContent = "In der Datei steht kein Feld „werte“ — sie stammt wohl aus etwas anderem.";
+      return;
+    }
+    if(d.format === "bilanz-hgb"){
+      $("guvMsg").textContent = "Das ist eine Bilanz. Sie gehört in das Formular des ersten Moduls.";
+      return;
+    }
+    const bekannt = Object.keys(d.werte).filter(k => ALLE_IDS.includes(k));
+    if(bekannt.length === 0){
+      $("guvMsg").textContent = "Keine der Positionen in der Datei gehört zu diesem Formular.";
+      return;
+    }
+    ALLE_IDS.forEach(id => { GWERTE[id] = ""; });
+    bekannt.forEach(id => {
+      const v = Number(d.werte[id]);
+      GWERTE[id] = Number.isFinite(v) ? zahl(Math.round(v)) : "";
+    });
+    if(d.verfahren === "gkv" || d.verfahren === "ukv"){
+      AKT = d.verfahren;
+      [...$("guvVerf").querySelectorAll("button")].forEach(x =>
+        x.setAttribute("aria-pressed", String(x.dataset.verf === AKT)));
+    }
+    $("guvOut").value = "";
+    guvZeichnen();
+    const fremd = Object.keys(d.werte).length - bekannt.length;
+    $("guvMsg").textContent = "Geladen: " + bekannt.length + " Positionen"
+      + (d.erzeugt ? " vom " + d.erzeugt : "")
+      + (fremd ? " · " + fremd + " unbekannte übergangen" : "")
+      + (d.format === GUV_FORMAT ? "" : " · ohne Kennung, trotzdem übernommen")
+      + ".";
+  };
+  leser.readAsText(datei);
+});
+
+$("guvGo").addEventListener("click", () => {
+  $("guvOut").value = guvText();
+  $("guvMsg").textContent = "";
+});
+$("guvCopy").addEventListener("click", () => {
+  if(!$("guvOut").value) $("guvOut").value = guvText();
+  const feld = $("guvOut");
+  feld.removeAttribute("readonly");
+  feld.select(); feld.setSelectionRange(0, feld.value.length);
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch(err) { ok = false; }
+  feld.setAttribute("readonly", "");
+  if(ok){ $("guvMsg").textContent = "Kopiert."; return; }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(feld.value)
+      .then(() => { $("guvMsg").textContent = "Kopiert."; })
+      .catch(() => { $("guvMsg").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand."; });
+  } else {
+    $("guvMsg").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand.";
+  }
+});
+guvZeichnen();
+
+/* =====================================================================
+   2 · Zuordnungsuebung: Ertrag, Aufwand oder gar kein Posten
+   ===================================================================== */
+const ZU_POS = [
+  ["Der Verkauf von 200 Getrieben an einen Nutzfahrzeughersteller", "e",
+   "Ertrag, Posten 1 Umsatzerlöse. Der Verkauf von Erzeugnissen ist der Kernfall des § 277 Abs. 1 HGB."],
+  ["Die Miete für eine nicht mehr benötigte Lagerhalle, die vermietet wurde", "e",
+   "Ertrag, und zwar Umsatzerlöse. Seit der Neufassung des § 277 Abs. 1 HGB gehören Vermietungserlöse dorthin, auch wenn Vermieten nicht das Geschäft des Hauses ist."],
+  ["Die Auflösung einer Rückstellung, weil der Prozess gewonnen wurde", "e",
+   "Ertrag, Posten 4 sonstige betriebliche Erträge. Kein Umsatz — es wurde nichts verkauft, eine Verpflichtung ist nur weggefallen."],
+  ["Der Gewinn aus dem Verkauf einer alten Werkzeugmaschine über Buchwert", "e",
+   "Ertrag, sonstige betriebliche Erträge. Genau solche Einmaleffekte hoben früher das außerordentliche Ergebnis; seit 2016 stecken sie hier."],
+  ["Die vom Kunden in Rechnung gestellte Umsatzsteuer", "k",
+   "Gar kein Posten. Die Umsatzsteuer ist ein durchlaufender Posten: Sie wird vom Umsatzerlös abgezogen (§ 277 Abs. 1 HGB) und erscheint in der Bilanz als Verbindlichkeit gegenüber dem Finanzamt."],
+  ["Die Einzahlung eines Kunden auf eine Rechnung aus dem Vorjahr", "k",
+   "Gar kein Posten. Der Ertrag ist im Vorjahr entstanden; jetzt wandelt sich nur eine Forderung in Bankguthaben. Ein reiner Aktivtausch in der Bilanz."],
+  ["Die Aufnahme eines Bankdarlehens über 5.000 T€", "k",
+   "Gar kein Posten. Geld kommt herein, aber kein Ertrag entsteht — es steht als Verbindlichkeit in der Bilanz. Nur die Zinsen darauf sind Aufwand."],
+  ["Die Ausschüttung einer Dividende an die Gesellschafter", "k",
+   "Gar kein Posten. Das ist Ergebnisverwendung und liegt hinter dem Jahresüberschuss. § 158 AktG regelt, was danach kommt."],
+  ["Die planmäßige Abschreibung auf eine CNC-Maschine", "a",
+   "Aufwand, Posten 7 a). Sie kostet Ergebnis, ohne dass Geld das Haus verlässt — der Klassiker unter den zahlungsunwirksamen Aufwendungen."],
+  ["Die Grundsteuer für das Betriebsgrundstück", "a",
+   "Aufwand, und zwar sonstige Steuern ganz unten. Sie hängt nicht am Gewinn und steht deshalb nach dem Ergebnis nach Steuern."],
+  ["Der Arbeitgeberanteil zur Sozialversicherung", "a",
+   "Aufwand, Posten 6 b) soziale Abgaben. Im Umsatzkostenverfahren steckt er je nach Abteilung in den Herstellungskosten, den Vertriebs- oder den Verwaltungskosten."],
+  ["Die Gewerbesteuer des laufenden Jahres", "a",
+   "Aufwand, Steuern vom Einkommen und vom Ertrag. Sie hängt am Gewinn und steht deshalb kurz vor dem Ende der Staffel."]
+];
+let zuStand = [];
+const ZU_NAME = {e:"Ertrag", a:"Aufwand", k:"Kein Posten"};
+function zuZiehen(){
+  zuStand = ZU_POS.map((p, i) => ({i, gewaehlt:null}));
+  zuRender();
+}
+function zuRender(){
+  $("zuListe").innerHTML = zuStand.map((z, n) => {
+    const [text, richtig, begr] = ZU_POS[z.i];
+    const kl = s => z.gewaehlt === null ? "" :
+      (s === richtig ? " ok" : (s === z.gewaehlt ? " no" : ""));
+    return `<div class="zuz">
+      <p class="zt">${esc(text)}</p>
+      <div class="zb">${["e","a","k"].map(s =>
+        `<button class="zub${kl(s)}" type="button" data-z="${n}" data-s="${s}"${
+          z.gewaehlt !== null ? " disabled" : ""}>${ZU_NAME[s]}</button>`).join("")}</div>
+      ${z.gewaehlt === null ? "" : `<p class="zuw">${
+        z.gewaehlt === richtig ? "<b style='color:#1E6B47'>Richtig.</b> " : "<b style='color:#9C2F2C'>Daneben.</b> "}${begr}</p>`}
+    </div>`;
+  }).join("");
+  const fertig  = zuStand.filter(z => z.gewaehlt !== null).length;
+  const treffer = zuStand.filter(z => z.gewaehlt === ZU_POS[z.i][1]).length;
+  $("zuStand").textContent = fertig === 0
+    ? ZU_POS.length + " Positionen"
+    : fertig + " von " + ZU_POS.length + " eingeordnet · " + treffer + " richtig";
+}
+$("zuListe").addEventListener("click", e => {
+  const b = e.target.closest(".zub"); if(!b || b.disabled) return;
+  const z = zuStand[+b.dataset.z]; if(!z || z.gewaehlt !== null) return;
+  z.gewaehlt = b.dataset.s;
+  zuRender();
+});
+$("zuNew").addEventListener("click", zuZiehen);
+zuZiehen();
+
+/* =====================================================================
+   3 · Sieben Schritte mit dem eigenen Abschluss
+   ===================================================================== */
+const CHECK7 = [
+  ["Stell fest, welches Verfahren Dein Haus benutzt",
+   "Ein Blick auf den zweiten Posten genügt: Steht dort eine Bestandsveränderung, ist es das Gesamtkostenverfahren; stehen dort Herstellungskosten, ist es das Umsatzkostenverfahren. Alles Weitere hängt an dieser Antwort.",
+   "Es wird mit einer Kennzahlenliste losgelegt, die ein anderes Verfahren voraussetzt. Eine Materialquote lässt sich im Umsatzkostenverfahren aus der Rechnung selbst gar nicht bilden — sie steht im Anhang."],
+  ["Übertrag zwei Jahre in das Formular aus Lektion 04",
+   "Zweimal zwanzig Minuten Tipparbeit. Beim Übertragen fällt Dir auf, welchen Posten Du nicht erklären kannst, und genau der ist Dein Lernstoff. Das Formular rechnet die Stufen mit, die im Abschluss fehlen.",
+   "Es wird nur das laufende Jahr erfasst, weil es das aktuelle ist. Eine einzelne Rechnung zeigt Beträge; erst zwei nebeneinander zeigen Bewegung."],
+  ["Rechne die vier Stufen für beide Jahre aus",
+   "Betriebsergebnis, Finanzergebnis, Ergebnis nach Steuern, Jahresüberschuss. Vier Zahlen, zweimal. Wenn der Jahresüberschuss steigt und das Betriebsergebnis fällt, hat sich das Geschäft verschlechtert und etwas anderes hat es überdeckt.",
+   "Es wird auf die letzte Zeile gesehen und sonst nichts. Die letzte Zeile ist die Zahl mit dem geringsten Aussagewert in der ganzen Rechnung."],
+  ["Bild die Quoten zum Umsatz, nicht die absoluten Differenzen",
+   "Materialaufwand, Personalaufwand und Abschreibungen jeweils durch den Umsatz. Ein Materialaufwand, der um sechs Prozent gestiegen ist, sagt wenig; eine Materialquote, die von 52 auf 55 Prozent gestiegen ist, ist eine Frage an den Einkauf.",
+   "Die Beträge werden verglichen, obwohl der Umsatz sich verändert hat. Bei zehn Prozent mehr Umsatz muss auch der Materialaufwand steigen; interessant ist allein, ob er stärker gestiegen ist."],
+  ["Sieh im Anhang nach, was in den sonstigen betrieblichen Erträgen steckt",
+   "Seit das außerordentliche Ergebnis aus § 275 HGB verschwunden ist, landen Einmaleffekte in diesem Posten. § 285 Nr. 31 HGB verlangt die Angabe außergewöhnlicher Beträge im Anhang.",
+   "Ein um 2.000 T€ gestiegenes Betriebsergebnis wird als Erfolg gemeldet, obwohl 1.800 T€ davon aus dem Verkauf eines Grundstücks stammen. Im nächsten Jahr fehlt der Effekt und niemand hat ihn angekündigt."],
+  ["Prüf das Verhältnis von Jahresüberschuss und Zahlungsmitteln",
+   "Der Jahresüberschuss sagt nichts über den Kontostand: Abschreibungen kosten Ergebnis ohne Auszahlung, ein wachsender Forderungsbestand kostet Geld ohne Aufwand. Die Bilanz aus dem ersten Modul liefert beide Gegenprüfungen.",
+   "Aus einem guten Ergebnis wird auf eine gute Liquidität geschlossen. Die meisten Insolvenzen betreffen Unternehmen, die zuletzt einen Gewinn ausgewiesen haben."],
+  ["Schreib drei Fragen auf, die Du der Geschäftsführung stellen würdest",
+   "Damit endet die Zahlenarbeit und beginnt das Controlling. Gute Fragen klingen wie: „Warum ist der Personalaufwand um acht Prozent gestiegen, obwohl die Zahl der Beschäftigten gleich blieb?“",
+   "Es bleibt bei der Auswertung. Eine Analyse ohne Frage an einen Menschen ist eine Fleißarbeit, die niemand liest."]
+];
+$("ck7").innerHTML = CHECK7.map(([t, p, f]) =>
+  `<div class="ckitem"><h3>${esc(t)}</h3><p>${p}</p>
+     <p class="trap"><b>Typischer Fehler:</b> ${f}</p></div>`).join("");
+
+/* =====================================================================
+   4 · Glossar
+   ===================================================================== */
+const GLOSSAR = [
+  ["Ertrag", "Wertzuwachs einer Periode, unabhängig davon, ob Geld geflossen ist."],
+  ["Aufwand", "Wertverzehr einer Periode, unabhängig davon, ob Geld geflossen ist."],
+  ["Einzahlung / Auszahlung", "Bewegung auf dem Konto. Fällt mit Ertrag und Aufwand selten zeitlich zusammen."],
+  ["Staffelform", "Die Darstellung in einer Spalte von oben nach unten (§ 275 Abs. 1 HGB). Sie erlaubt Zwischenergebnisse."],
+  ["Gesamtkostenverfahren", "Gliederung des Aufwands nach Arten: Material, Personal, Abschreibungen (§ 275 Abs. 2 HGB)."],
+  ["Umsatzkostenverfahren", "Gliederung des Aufwands nach Funktionen: Herstellung, Vertrieb, Verwaltung (§ 275 Abs. 3 HGB)."],
+  ["Umsatzerlöse", "Erlöse aus Verkauf, Vermietung und Dienstleistungen, ohne Erlösschmälerungen und Umsatzsteuer (§ 277 Abs. 1 HGB)."],
+  ["Bestandsveränderung", "Zu- oder Abnahme an fertigen und unfertigen Erzeugnissen. Die einzige Zeile der Staffel mit eigenem Vorzeichen."],
+  ["Aktivierte Eigenleistungen", "Selbst hergestellte Anlagen, die im Anlagevermögen landen. Der Aufwand dafür steht oben, also braucht es einen Gegenposten."],
+  ["Herstellungskosten der verkauften Leistungen", "Der Aufwand, der auf das Verkaufte entfällt. Nur im Umsatzkostenverfahren, und dort der größte Posten."],
+  ["Bruttoergebnis vom Umsatz", "Umsatzerlöse minus Herstellungskosten (§ 275 Abs. 3 Nr. 3 HGB). Der erste gesetzliche Zwischenwert."],
+  ["Betriebsergebnis", "Das Ergebnis aus dem eigentlichen Geschäft. Steht in keinem Gesetz und wird selbst gebildet."],
+  ["Finanzergebnis", "Beteiligungs- und Zinserträge abzüglich Zinsaufwendungen und Abschreibungen auf Finanzanlagen. Ebenfalls selbst gebildet."],
+  ["Ergebnis nach Steuern", "Gesetzlicher Posten seit 2016. Er ist an die Stelle des Ergebnisses der gewöhnlichen Geschäftstätigkeit gerückt."],
+  ["Steuern vom Einkommen und vom Ertrag", "Körperschaftsteuer, Gewerbesteuer, Solidaritätszuschlag. Sie hängen am Gewinn."],
+  ["Sonstige Steuern", "Grundsteuer, Kfz-Steuer, Versicherungsteuer. Sie fallen unabhängig vom Gewinn an."],
+  ["Jahresüberschuss", "Die letzte Zeile der Staffel. Sie erscheint in der Bilanz im Eigenkapital (§ 266 Abs. 3 A. V. HGB)."],
+  ["Rohergebnis", "Zusammenfassung der ersten Posten, die § 276 HGB kleinen und mittelgroßen Gesellschaften erlaubt."],
+  ["Umsatzrendite", "Jahresüberschuss ÷ Umsatzerlöse. Wie viel Cent je Euro Umsatz übrig bleiben."],
+  ["Stetigkeit", "Die einmal gewählte Darstellung wird beibehalten (§ 252 Abs. 1 Nr. 6 HGB). Sie macht zwei Jahre vergleichbar."]
+];
+$("glos").innerHTML = GLOSSAR.map(([b, t]) => `<div><b>${esc(b)}</b> — ${t}</div>`).join("");
+
+/* =====================================================================
+   5 · Uebung: fuenf Fragen, zufaellig aus dem Vorrat
+   ===================================================================== */
+const FRAGEN = [
+  ["Worin unterscheiden sich Bilanz und Gewinn- und Verlustrechnung grundsätzlich?",
+   ["Die Bilanz zeigt einen Stichtag, die Rechnung einen Zeitraum","Die Bilanz zeigt einen Zeitraum, die Rechnung einen Stichtag","Beide zeigen einen Stichtag, nur mit anderer Gliederung","Beide zeigen einen Zeitraum, nur mit anderer Gliederung"], 0,
+   "Die Bilanz ist eine Bestandsrechnung zu einem Tag, die Gewinn- und Verlustrechnung eine Stromrechnung über zwölf Monate. An einer Zahl hängen sie zusammen: dem Jahresüberschuss."],
+  ["An welcher Stelle der Bilanz erscheint der Jahresüberschuss?",
+   ["Passivseite, im Eigenkapital","Aktivseite, im Umlaufvermögen","Passivseite, unter den Rückstellungen","Aktivseite, unter den Rechnungsabgrenzungsposten"], 0,
+   "§ 266 Abs. 3 A. V. HGB. Ein Gewinn erhöht das Eigenkapital, ein Verlust verringert es — auch dann, wenn keine Zahlung geflossen ist."],
+  ["Welche Form schreibt § 275 Abs. 1 HGB für die Gewinn- und Verlustrechnung vor?",
+   ["Die Staffelform","Die Kontoform","Beide sind frei wählbar","Die Kontoform bei Kapitalgesellschaften, sonst die Staffelform"], 0,
+   "Eine Spalte, von oben nach unten. Die Kontoform mit zwei Seiten gibt es nur bei der Bilanz. Die Staffel erlaubt Zwischenergebnisse, und davon lebt die Analyse."],
+  ["Wonach gliedert das Gesamtkostenverfahren den Aufwand?",
+   ["Nach Kostenarten: Material, Personal, Abschreibungen","Nach Funktionsbereichen: Herstellung, Vertrieb, Verwaltung","Nach Fristigkeit: kurz-, mittel-, langfristig","Nach Zahlungswirksamkeit"], 0,
+   "Die Frage lautet: Was wurde verbraucht? Das Umsatzkostenverfahren fragt stattdessen: Wofür wurde es verbraucht?"],
+  ["Wonach gliedert das Umsatzkostenverfahren den Aufwand?",
+   ["Nach Funktionsbereichen","Nach Kostenarten","Nach Steuerpflicht","Nach Betriebsteilen"], 0,
+   "Herstellung, Vertrieb, Verwaltung. Deshalb steht dort kein Personalaufwand als eigener Posten — er verteilt sich auf die drei Funktionen."],
+  ["Warum braucht das Gesamtkostenverfahren die Posten Bestandsveränderung und aktivierte Eigenleistungen?",
+   ["Weil ihm der gesamte Aufwand des Jahres gegenübersteht, auch der für noch Unverkauftes","Weil das Gesetz eine Mindestzahl an Posten verlangt","Weil sie die Umsatzsteuer ausgleichen","Weil sie das Finanzergebnis vorbereiten"], 0,
+   "Oben steht die gesamte Leistung des Jahres, unten der gesamte Aufwand. Die beiden Posten gleichen die Zeitverschiebung zwischen Produktion und Verkauf aus."],
+  ["Eine Maschine wurde selbst gebaut und ins Anlagevermögen übernommen. Wo steht das im Gesamtkostenverfahren?",
+   ["Bei den anderen aktivierten Eigenleistungen","Bei den Umsatzerlösen","Bei den sonstigen betrieblichen Erträgen","Gar nicht, es ist ein reiner Bilanzvorgang"], 0,
+   "Material und Löhne dafür stecken bereits im Aufwand. Ohne den Gegenposten wäre das Ergebnis um die Herstellungskosten zu niedrig."],
+  ["Beide Verfahren werden für dieselbe Firma und dasselbe Jahr aufgestellt. Was gilt für den Jahresüberschuss?",
+   ["Er ist in beiden gleich","Er ist im Gesamtkostenverfahren höher","Er ist im Umsatzkostenverfahren höher","Das hängt von der Bestandsveränderung ab"], 0,
+   "Die Gliederung ordnet den Aufwand anders, am Ergebnis ändert sie nichts. Wenn im Formular in Lektion 04 zwei verschiedene Zahlen stehen, steckt ein Fehler in den Eingaben."],
+  ["Darf ein Unternehmen jedes Jahr zwischen den Verfahren wechseln?",
+   ["Nein, § 252 Abs. 1 Nr. 6 HGB bindet an die einmal gewählte Darstellung","Ja, die Wahl ist jedes Jahr frei","Ja, aber nur nach Zustimmung des Finanzamts","Nein, § 275 HGB verbietet jeden Wechsel ausnahmslos"], 0,
+   "Der Grundsatz der Stetigkeit. Ein Wechsel braucht einen Grund und gehört in den Anhang, weil sonst zwei Jahre nicht mehr vergleichbar wären."],
+  ["Was ist seit dem Bilanzrichtlinie-Umsetzungsgesetz aus § 275 HGB verschwunden?",
+   ["Das außerordentliche Ergebnis","Die Umsatzerlöse","Die sonstigen betrieblichen Erträge","Das Finanzergebnis"], 0,
+   "Außerordentliche Erträge und Aufwendungen sind als eigene Posten gestrichen. Berichtet wird darüber im Anhang nach § 285 Nr. 31 HGB."],
+  ["Welche Zwischensumme ist an die Stelle des Ergebnisses der gewöhnlichen Geschäftstätigkeit gerückt?",
+   ["Das Ergebnis nach Steuern","Das Betriebsergebnis","Das Bruttoergebnis vom Umsatz","Das Rohergebnis"], 0,
+   "Das Ergebnis der gewöhnlichen Geschäftstätigkeit gibt es in der gesetzlichen Gliederung nicht mehr. Wer es braucht, rechnet es selbst und weist es als eigene Kennzahl aus."],
+  ["Welche der vier Stufen steht ausdrücklich im Gesetz?",
+   ["Das Ergebnis nach Steuern","Das Betriebsergebnis","Das Finanzergebnis","Keine von ihnen"], 0,
+   "Betriebs- und Finanzergebnis sind nützlich und gesetzlich nicht vorgesehen. Wer zwei Unternehmen vergleicht, prüft deshalb, ob beide dieselben Posten hineingerechnet haben."],
+  ["Die Gewerbesteuer des laufenden Jahres gehört in welchen Posten?",
+   ["Steuern vom Einkommen und vom Ertrag","Sonstige Steuern","Sonstige betriebliche Aufwendungen","Sie ist kein Aufwand"], 0,
+   "Sie hängt am Gewinn und steht deshalb vor dem Ergebnis nach Steuern. Grundsteuer und Kfz-Steuer stehen als sonstige Steuern darunter."],
+  ["Die Grundsteuer für das Betriebsgrundstück gehört in welchen Posten?",
+   ["Sonstige Steuern","Steuern vom Einkommen und vom Ertrag","Sonstige betriebliche Erträge","Abschreibungen"], 0,
+   "Sie fällt unabhängig vom Gewinn an und steht deshalb ganz unten, nach dem Ergebnis nach Steuern."],
+  ["Wie wird die vom Kunden vereinnahmte Umsatzsteuer in der Rechnung behandelt?",
+   ["Gar nicht, sie ist ein durchlaufender Posten","Als Umsatzerlös","Als sonstiger betrieblicher Ertrag","Als sonstige Steuer"], 0,
+   "§ 277 Abs. 1 HGB zieht sie von den Umsatzerlösen ab. In der Bilanz steht sie als Verbindlichkeit gegenüber dem Finanzamt."],
+  ["Eine Rückstellung wird aufgelöst, weil der Prozess gewonnen wurde. Wo steht der Betrag?",
+   ["Sonstige betriebliche Erträge","Umsatzerlöse","Finanzergebnis","Er ist kein Ertrag"], 0,
+   "Es wurde nichts verkauft, eine Verpflichtung ist weggefallen. Das ist ein Ertrag ohne Umsatz und gehört in den Sammelposten."],
+  ["Ein Unternehmen vermietet eine freie Lagerhalle. Wo stehen die Mieteinnahmen?",
+   ["Bei den Umsatzerlösen","Bei den sonstigen betrieblichen Erträgen","Im Finanzergebnis","Bei den aktivierten Eigenleistungen"], 0,
+   "Seit der Neufassung des § 277 Abs. 1 HGB gehören Erlöse aus Vermietung zu den Umsatzerlösen, auch wenn Vermieten nicht das Geschäft des Hauses ist. Vorher kam es auf die gewöhnliche Geschäftstätigkeit an."],
+  ["Ein Kunde zahlt eine Rechnung aus dem Vorjahr. Was macht das mit dem Ergebnis?",
+   ["Nichts, der Ertrag ist im Vorjahr entstanden","Es erhöht die Umsatzerlöse","Es erhöht die sonstigen betrieblichen Erträge","Es erhöht das Finanzergebnis"], 0,
+   "Ertrag und Einzahlung fallen selten zusammen. Hier wandelt sich nur eine Forderung in Bankguthaben — ein reiner Aktivtausch in der Bilanz."],
+  ["Warum sagt ein hoher Jahresüberschuss wenig über den Kontostand?",
+   ["Weil Erträge und Einzahlungen zeitlich auseinanderfallen","Weil der Jahresüberschuss nach Steuern gerechnet wird","Weil die Umsatzsteuer herausgerechnet ist","Weil er erst im Folgejahr festgestellt wird"], 0,
+   "Eine Dezemberrechnung ist Ertrag des alten Jahres und Einzahlung des neuen. Umgekehrt kostet eine Abschreibung Ergebnis, ohne dass Geld das Haus verlässt."],
+  ["Was erlaubt § 276 HGB kleinen und mittelgroßen Kapitalgesellschaften?",
+   ["Die ersten Posten zu einem Rohergebnis zusammenzufassen","Auf die Gewinn- und Verlustrechnung ganz zu verzichten","Die Kontoform zu verwenden","Die Steuern nicht auszuweisen"], 0,
+   "Eine Erleichterung bei der Offenlegung: Der Leser sieht dann nicht mehr, wie hoch Umsatz und Materialaufwand einzeln waren."],
+  ["Was verlangt § 285 Nr. 8 HGB von Gesellschaften mit Umsatzkostenverfahren?",
+   ["Material- und Personalaufwand im Anhang anzugeben","Zusätzlich eine Rechnung nach dem Gesamtkostenverfahren aufzustellen","Die Herstellungskosten aufzugliedern","Die Vorjahreszahlen wegzulassen"], 0,
+   "Die Information geht also nicht verloren, sie steht nur woanders. Wer eine Personalkostenquote braucht, sieht im Anhang nach."],
+  ["Warum verlangt § 265 Abs. 2 HGB zu jedem Posten den Vorjahresbetrag?",
+   ["Weil erst die Veränderung eine Aussage ergibt","Weil das Finanzamt zwei Jahre prüft","Weil die Bilanz sonst nicht aufgeht","Weil die Stetigkeit es erzwingt"], 0,
+   "Eine einzelne Rechnung zeigt Beträge. Ein Materialaufwand von 53.200 T€ ist eine Zahl; einer, der bei gleichem Umsatz um sechs Prozent gestiegen ist, ist eine Frage an den Einkauf."],
+  ["Wo landet im Umsatzkostenverfahren das Gehalt eines Vertriebsmitarbeiters?",
+   ["In den Vertriebskosten","Im Personalaufwand","In den Herstellungskosten","In den allgemeinen Verwaltungskosten"], 0,
+   "Der Aufwand wird nach Funktionen geordnet. Einen Posten Personalaufwand gibt es dort gar nicht — deshalb braucht dieses Verfahren eine Kostenrechnung, die zuordnet."],
+  ["Was ist das Bruttoergebnis vom Umsatz?",
+   ["Umsatzerlöse minus Herstellungskosten der verkauften Leistungen","Umsatzerlöse minus alle betrieblichen Aufwendungen","Umsatzerlöse plus Bestandsveränderung","Das Ergebnis vor Zinsen und Steuern"], 0,
+   "§ 275 Abs. 3 Nr. 3 HGB, der erste gesetzliche Zwischenwert des Umsatzkostenverfahrens. Im Gesamtkostenverfahren gibt es ihn nicht."],
+  ["Das Betriebsergebnis steigt kräftig, weil ein Grundstück mit Gewinn verkauft wurde. Was folgt daraus für die Analyse?",
+   ["Der Effekt ist einmalig und gehört aus der Zeitreihe herausgerechnet","Das Geschäft hat sich verbessert","Die Umsatzrendite ist aussagekräftiger geworden","Es folgt daraus nichts, der Posten ist gesetzlich geregelt"], 0,
+   "Seit das außerordentliche Ergebnis fehlt, stecken solche Gewinne in den sonstigen betrieblichen Erträgen. Der Anhang nennt sie nach § 285 Nr. 31 HGB."]
+];
+let qAktuell = [];
+const QZAHL = 5;
+const mischen = a => {
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+/* Auch die Antworten werden gemischt. Stuenden sie in der Reihenfolge
+   des Vorrats, waere die richtige immer die erste — und der Vorrat
+   liesse sich auswendig lernen, ohne eine Frage zu lesen. */
+function qZiehen(){
+  qAktuell = mischen(FRAGEN.map((f, i) => i)).slice(0, QZAHL)
+    .map(i => ({i, ord:mischen(FRAGEN[i][1].map((o, j) => j)), gewaehlt:null}));
+  qRender();
+}
+function qRender(){
+  $("quiz").innerHTML = qAktuell.map((q, n) => {
+    const [text, opts, richtig, begr] = FRAGEN[q.i];
+    return `<div class="qcard">
+      <p class="qn">Frage ${n + 1} von ${QZAHL}</p>
+      <p class="qt">${text}</p>
+      <div class="qopts">${q.ord.map(j => {
+        let kl = "";
+        if(q.gewaehlt !== null) kl = j === richtig ? " right" : (j === q.gewaehlt ? " wrong" : "");
+        return `<button class="qopt${kl}" type="button" data-q="${n}" data-o="${j}"${q.gewaehlt !== null ? " disabled" : ""}>${opts[j]}</button>`;
+      }).join("")}</div>
+      <p class="qfb"${q.gewaehlt === null ? " hidden" : ""}>${
+        q.gewaehlt === null ? "" :
+        (q.gewaehlt === richtig ? "<b style='color:#1E6B47'>Richtig.</b> " : "<b style='color:#9C2F2C'>Daneben.</b> ") + begr}</p>
+    </div>`;
+  }).join("");
+  const fertig  = qAktuell.filter(q => q.gewaehlt !== null).length;
+  const treffer = qAktuell.filter(q => q.gewaehlt === FRAGEN[q.i][2]).length;
+  $("qStand").textContent = fertig === 0
+    ? QZAHL + " Fragen aus einem Vorrat von " + FRAGEN.length
+    : fertig + " von " + QZAHL + " beantwortet · " + treffer + " richtig";
+  $("qResult").innerHTML = fertig < QZAHL ? "" :
+    `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
+      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen — der Vorrat hat " + FRAGEN.length + "." :
+      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben; sie sind der eigentliche Lernstoff." :
+      "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind die Grenze zwischen Umsatzerlösen und sonstigen betrieblichen Erträgen, die zwischen Steuern vom Einkommen und sonstigen Steuern und die Frage, welche Stufe im Gesetz steht."}</div>`;
+}
+$("quiz").addEventListener("click", e => {
+  const b = e.target.closest(".qopt"); if(!b || b.disabled) return;
+  const q = qAktuell[+b.dataset.q]; if(!q || q.gewaehlt !== null) return;
+  q.gewaehlt = +b.dataset.o;
+  qRender();
+});
+$("qNew").addEventListener("click", qZiehen);
+qZiehen();
+/* =====================================================================
+   6 · Lektionen
+   ===================================================================== */
 const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","d","e","f"];
 function select(i){
   tabs.forEach((t, j) => {
@@ -756,6 +1693,65 @@ tabs.forEach((t, i) => {
   });
 });
 select(0);
+
+/* =====================================================================
+   7 · Bloecke zum Auf- und Zuklappen
+   Baut die Abschnitte einer Lektion zur Laufzeit aus der vorhandenen
+   Gliederung: jedes h2.sec eroeffnet einen Block, alles danach bis zum
+   naechsten h2.sec ist sein Inhalt. Was vor dem ersten h2.sec steht -
+   die Kernaussage der Lektion - bleibt immer sichtbar, ebenso ein
+   Pointe-Kasten am Ende. Der erste Block ist offen, die uebrigen zu.
+   ===================================================================== */
+function makeBlocks(panel){
+  if(!panel) return 0;
+  const kinder = [...panel.children];
+  const istKopf = n => n.tagName === "H2" && n.classList.contains("sec");
+  const istEnde = n => n.classList.contains("pointe");
+  let i = 0, nr = 0;
+
+  while(i < kinder.length){
+    if(!istKopf(kinder[i])){ i++; continue; }
+    const h2 = kinder[i], inhalt = [];
+    let j = i + 1;
+    while(j < kinder.length && !istKopf(kinder[j]) && !istEnde(kinder[j])){
+      inhalt.push(kinder[j]); j++;
+    }
+    nr++;
+    const offen = nr === 1, bid = "blk-" + (panel.id || "p") + "-" + nr;
+    const wrap = document.createElement("section");
+    wrap.className = "blk";
+    wrap.dataset.open = String(offen);
+    panel.insertBefore(wrap, h2);
+
+    h2.innerHTML =
+      `<button class="blk-t" type="button" aria-expanded="${offen}" aria-controls="${bid}">
+         <svg class="blk-c" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2 L8.5 6 L4.5 10"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+         <span>${h2.innerHTML}</span>
+       </button>`;
+    wrap.appendChild(h2);
+
+    const body = document.createElement("div");
+    body.className = "blk-b"; body.id = bid;
+    body.hidden = !offen;
+    inhalt.forEach(n => body.appendChild(n));
+    wrap.appendChild(body);
+    i = j;
+  }
+
+  if(nr) panel.addEventListener("click", e => {
+    const b = e.target.closest(".blk-t"); if(!b) return;
+    const wrap = b.closest(".blk"), body = document.getElementById(b.getAttribute("aria-controls"));
+    const offen = wrap.dataset.open === "true";
+    wrap.dataset.open = String(!offen);
+    b.setAttribute("aria-expanded", String(!offen));
+    body.hidden = offen;
+    if(!offen) dispatchEvent(new Event("resize"));
+  });
+  return nr;
+}
+
+document.querySelectorAll(".panel").forEach(makeBlocks);
 </script>
 </body>
 </html>
