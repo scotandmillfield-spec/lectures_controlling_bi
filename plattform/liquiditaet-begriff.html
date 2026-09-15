@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liquidität: der Begriff</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2; --canvas:#F4F3F0;
+  --green:#2E9E6B; --red:#D9534F;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.1rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:20ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:clamp(1.08rem,1.78vw,1.32rem);font-weight:300;color:#3d3d40;line-height:1.55;margin:0}
+
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+
+.claim{font-size:clamp(1.2rem,2.35vw,1.6rem);font-weight:300;line-height:1.42;margin:0 0 26px;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--teal-dk)}
+h2.sec{font-size:1.34rem;font-weight:600;letter-spacing:-.014em;margin:34px 0 4px}
+h2.sec:first-child{margin-top:0}
+p.sub{margin:0 0 18px;color:var(--grey);font-size:1.06rem;line-height:1.6}
+.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:14px 0 0}
+
+/* ---------- Schaltflaechen ---------- */
+.bar{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;justify-content:space-between;margin:0 0 16px}
+.seg{display:inline-flex;border:1px solid var(--grey-xl);background:var(--paper);border-radius:var(--r);padding:4px;gap:4px;flex-wrap:wrap}
+.seg button{appearance:none;border:0;background:transparent;cursor:pointer;font-family:var(--sans);
+  font-size:.88rem;font-weight:600;color:var(--grey);padding:9px 16px;border-radius:7px;transition:.16s}
+.seg button:hover{color:var(--teal-dk)}
+.seg button[aria-pressed="true"]{background:var(--teal-dk);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.84rem;color:#4a4a4d}
+.key{display:inline-flex;align-items:center;gap:8px}
+.sw{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.06)}
+.sw.q1{background:#FDE8D3} .sw.q2{background:#E1F0F6}
+.sw.q3{background:#F2EBD8}   .sw.q4{background:#EAEAE8}
+
+.btn{appearance:none;border:1px solid var(--teal-dk);background:transparent;color:var(--teal-dk);
+  font-family:var(--sans);font-size:.88rem;font-weight:600;cursor:pointer;
+  padding:10px 16px;border-radius:8px;transition:.16s}
+.btn:hover{background:var(--teal-dk);color:#fff}
+.btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+/* ---------- Karten ---------- */
+.card{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px}
+.card .ck{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 4px}
+.card h3{margin:0 0 8px;font-size:1.06rem;font-weight:700;letter-spacing:-.015em}
+.card p{margin:0 0 10px;font-size:.9rem;color:#3d3d40;line-height:1.52}
+.card p:last-child{margin-bottom:0}
+.card ul{margin:10px 0 0;padding-left:18px;font-size:.88rem;color:#3d3d40;line-height:1.5}
+.card li{margin-bottom:5px}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.duo>*{min-width:0}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
+.trio>*{min-width:0}
+.quad{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:stretch}
+.quad>*{min-width:0}
+
+/* ---------- Aufdeckkarten: Wortherkunft, Aufgaben, Denkfehler ---------- */
+.flipgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.flipgrid>*{min-width:0}
+.flip{appearance:none;text-align:left;width:100%;cursor:pointer;font-family:var(--sans);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px 16px 14px;transition:.2s var(--ease);color:var(--ink)}
+.flip:hover{border-color:var(--teal);transform:translateY(-2px)}
+.flip:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.flip .lang{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+.flip .word{font-family:var(--mono);font-size:1.02rem;font-weight:600;color:var(--teal-dk);margin:5px 0 0}
+.flip .mean{font-size:.88rem;color:#3d3d40;margin:9px 0 0;line-height:1.45}
+.flip[aria-expanded="false"] .mean{display:none}
+.flip[aria-expanded="false"]::after{content:"umdrehen";display:block;margin-top:9px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal)}
+.flip[aria-expanded="true"]{border-color:var(--teal);background:var(--teal-xl)}
+
+.deck{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.deck>*{min-width:0}
+.task{appearance:none;text-align:left;width:100%;cursor:pointer;font-family:var(--sans);color:var(--ink);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px;transition:.2s var(--ease);display:flex;flex-direction:column;gap:7px}
+.task:hover{border-color:var(--ochre);transform:translateY(-2px)}
+.task:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.task .no{font-family:var(--mono);font-size:.72rem;font-weight:600;color:var(--ochre);letter-spacing:.08em}
+.task .hd{font-size:.95rem;font-weight:600;line-height:1.34}
+.task .bd{font-size:.86rem;color:#3d3d40;line-height:1.5}
+.task[aria-expanded="false"] .bd{display:none}
+.task[aria-expanded="true"]{border-color:var(--ochre);background:var(--ochre-xl)}
+.counter{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:12px 0 0}
+
+.acc{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.acc button{appearance:none;width:100%;text-align:left;cursor:pointer;font-family:var(--sans);
+  background:transparent;border:0;border-bottom:1px solid var(--grey-xl);padding:15px 18px;
+  font-size:.95rem;font-weight:600;color:var(--ink);display:flex;gap:12px;align-items:flex-start;transition:background .16s}
+.acc button:hover{background:var(--sand-xl)}
+.acc button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.acc button .mk{font-family:var(--mono);color:var(--red);flex:none;font-size:.9rem;line-height:1.5}
+.acc .ans{padding:0 18px 16px 42px;font-size:.9rem;color:#3d3d40;line-height:1.55;
+  border-bottom:1px solid var(--grey-xl);background:var(--sand-xl)}
+.acc .ans[hidden]{display:none}
+.acc .ans b{color:var(--green)}
+.acc>*:last-child{border-bottom:0}
+
+/* ---------- Tabellen ---------- */
+.tscroll{overflow-x:auto;border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper)}
+table.tbl{width:100%;min-width:560px;border-collapse:collapse;font-size:.85rem}
+table.tbl th{background:#F7F7F5;text-align:left;padding:9px 12px;font-family:var(--mono);
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid);white-space:nowrap}
+table.tbl td{padding:9px 12px;border-bottom:1px solid var(--grey-xl);vertical-align:top;line-height:1.45}
+table.tbl tr:last-child td{border-bottom:0}
+table.tbl td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.tbl td.m{font-family:var(--mono);font-size:.8rem}
+table.tbl td.crit{font-weight:600}
+table.tbl tr.dim td{color:var(--grey-mid);transition:color .3s var(--ease)}
+table.tbl tr.hi td{background:var(--teal-xl)}
+table.tbl tbody tr:hover td{background:var(--sand-xl)}
+.fmark{display:inline-block;width:22px;height:22px;line-height:20px;text-align:center;
+  border-radius:5px;font-family:var(--mono);font-size:.76rem;font-weight:600;border:1px solid rgba(0,0,0,.08)}
+.fmark.f1{background:var(--orange-xl);color:#A85B00}
+.fmark.f2{background:var(--teal-xl);color:var(--teal-dk)}
+.fmark.f3{background:var(--sand-xl);color:#8A6417}
+.fmark.f4{background:var(--grey-xl);color:#5a5a5c}
+/* ---------- Risk-Map ----------
+   Die drei Zonenfarben sind die einzige Stelle, an der Signalfarben
+   auftreten. Dekorativ erscheinen sie nirgends, und die Bedeutung
+   hängt nie an ihnen allein: jede Zone hat ihren Namen, jeder Punkt seine
+   Kennung, jede rote Position zusaetzlich das Warndreieck.          */
+.mapwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.mapwrap>*{min-width:0}
+.mapstage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:12px 10px 6px;overflow-x:auto}
+.mapstage:focus-visible,.stage:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+svg.rm{width:100%;min-width:340px;height:auto;display:block}
+svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.rm .zone{stroke:#fff;stroke-width:1.5}
+.rm .zg{fill:#E6F1E5} .rm .zy{fill:#FBF2D9} .rm .zr{fill:#FBE4DC}
+.rm .zlab{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.07em;
+  text-anchor:middle;opacity:.62}
+.rm .zlab.g{fill:#2E7D4F} .rm .zlab.y{fill:#8A6417} .rm .zlab.r{fill:#B23C2C}
+.rm .gr{stroke:#fff;stroke-width:1;opacity:.85}
+.rm .ax{stroke:var(--grey-mid);stroke-width:1.4}
+.rm .tol{fill:none;stroke:#B23C2C;stroke-width:2;stroke-dasharray:7 5}
+.rm .iso{fill:none;stroke:var(--teal-dk);stroke-width:1.8;stroke-dasharray:3 4}
+.rm .tickX{font-family:var(--mono);font-size:10.5px;fill:var(--grey);text-anchor:middle}
+.rm .tickY{font-family:var(--mono);font-size:10.5px;fill:var(--grey);text-anchor:end}
+.rm .stufe{font-size:9px;fill:var(--grey);text-anchor:middle}
+.rm .stufeY{font-size:9px;fill:var(--grey);text-anchor:end}
+.rm .atitle{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;fill:var(--teal-dk);
+  text-transform:uppercase;font-weight:600;text-anchor:middle}
+.rm .pt{cursor:pointer}
+.rm .pt:focus-visible{outline:none}
+.rm .pt .dot{fill:var(--navy);stroke:#fff;stroke-width:2.5;transition:r .2s var(--ease)}
+.rm .pt:hover .dot,.rm .pt:focus-visible .dot{r:13}
+.rm .pt .id{font-family:var(--mono);font-size:10px;font-weight:600;fill:#fff;text-anchor:middle;
+  pointer-events:none}
+.rm .pt .lab{font-size:11.5px;font-weight:600}
+.rm .pt.sel .dot{fill:var(--orange);stroke:var(--orange-xl);stroke-width:4}
+.rm .pt.own .dot{fill:var(--teal);stroke:#fff}
+.rm .pt.ref .dot{fill:var(--ochre);stroke:#fff}
+.rm .pt.ghost .dot{fill:var(--grey-mid)}
+.rm .pt.ziel .dot{fill:#fff;stroke:var(--grey);stroke-width:2.4;stroke-dasharray:3 3}
+.rm .pt.ghost .lab{opacity:.5}
+.rm .pt.live .dot{fill:var(--orange);stroke:#fff;stroke-width:3}
+.rm .pt.split .dot{fill:var(--teal-dk);stroke:#fff}
+.rm .link{stroke:var(--grey);stroke-width:1.4;stroke-dasharray:3 3}
+.rm .warn{fill:#B23C2C}
+.rm .warn text{fill:#fff;font-family:var(--mono);font-size:9px;font-weight:700;text-anchor:middle}
+.rm .mv{fill:none;stroke:var(--orange);stroke-width:3}
+.rm .mv.pre{stroke:#2E7D4F}
+.rm .ghostpath{fill:none;stroke:var(--grey-mid);stroke-width:1.6;stroke-dasharray:4 4}
+
+/* ---------- Zonenlegende und Kennzahlleiste ---------- */
+.zonekey{display:flex;gap:16px;flex-wrap:wrap;font-size:.84rem;color:#4a4a4d}
+.zonekey .k{display:inline-flex;align-items:center;gap:8px}
+.zonekey i{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.08)}
+.zonekey i.g{background:#E6F1E5} .zonekey i.y{background:#FBF2D9} .zonekey i.r{background:#FBE4DC}
+
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:10px;margin:0 0 14px}
+.figs>*{min-width:0}
+.fig{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 15px}
+.fig .fk{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 5px;line-height:1.3}
+.fig .fv{font-family:var(--mono);font-size:1.45rem;font-weight:600;font-variant-numeric:tabular-nums;
+  color:var(--teal-dk);line-height:1}
+.fig .fn{font-size:.76rem;color:var(--grey);margin:5px 0 0;line-height:1.3}
+.fig.hot{border-color:var(--orange);background:var(--orange-xl)}
+.fig.hot .fv{color:#A85B00}
+
+/* ---------- Regler ---------- */
+.rgrid{display:grid;gap:12px}
+.rrow{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 16px}
+.rrow .rl{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin:0 0 8px}
+.rrow .rn{font-size:.9rem;font-weight:600}
+.rrow .rv{font-family:var(--mono);font-size:.82rem;color:var(--teal-dk);font-weight:600;
+  text-align:right;flex:none}
+.rrow input[type=range]{width:100%;accent-color:var(--teal-dk);display:block}
+.rrow .ra{font-size:.78rem;color:var(--grey);margin:6px 0 0;line-height:1.35;min-height:2.1em}
+
+/* ---------- Prozesskreis ---------- */
+.stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:14px 10px 6px;overflow-x:auto}
+svg.proc{width:100%;min-width:560px;height:auto;display:block}
+svg.proc text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.proc .pbox{fill:var(--paper);stroke:var(--grey-mid);stroke-width:1.4;transition:.2s var(--ease)}
+.proc .ph{cursor:pointer}
+.proc .ph:focus-visible{outline:none}
+.proc .ph:hover .pbox,.proc .ph:focus-visible .pbox,.proc .ph.on .pbox{stroke:var(--teal-dk);stroke-width:2.6;fill:var(--teal-xl)}
+.proc .pk{font-family:var(--mono);font-size:9px;letter-spacing:.1em;fill:var(--grey);text-transform:uppercase}
+.proc .pt2{font-size:14px;font-weight:600}
+.proc .pq{font-size:11px;fill:#4a4a4d}
+.proc .arw{fill:none;stroke:var(--teal);stroke-width:2.4}
+.proc .arw.back{stroke:var(--orange);stroke-dasharray:6 4}
+.proc .clam{fill:none;stroke:var(--ochre);stroke-width:2.4;transition:opacity .3s}
+.proc .clamlab{font-family:var(--mono);font-size:10px;fill:var(--ochre);font-weight:600;text-anchor:middle}
+.proc .ctr{font-size:13px;font-weight:600;text-anchor:middle;fill:var(--teal-dk)}
+.proc .ctrs{font-size:11px;text-anchor:middle;fill:var(--grey)}
+
+/* ---------- Balanced Chance- und Risk-Card ---------- */
+svg.bcr{width:100%;min-width:760px;height:auto;display:block}
+svg.bcr text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.bcr .band{stroke:#fff;stroke-width:1.5}
+.bcr .bl{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.05em;fill:var(--teal-dk)}
+.bcr .cell{fill:var(--paper);stroke:var(--grey-xl);stroke-width:1}
+.bcr .ct{font-size:10.5px;fill:#3d3d40}
+.bcr .hd{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:600;text-anchor:middle}
+.bcr .hd.c{fill:#2E7D4F} .bcr .hd.r{fill:#B23C2C}
+.bcr .step{transition:opacity .45s var(--ease)}
+.bcr .step.off{opacity:0}
+.bcr .dash{stroke:var(--ochre);stroke-width:1.5;stroke-dasharray:5 4;fill:none;opacity:.85}
+
+/* ---------- Vergleichsliste Modus A ---------- */
+.cmp{display:grid;grid-template-columns:44px 1fr 108px 108px 64px;gap:8px 12px;align-items:center;
+  padding:10px 0;border-bottom:1px solid var(--grey-xl);font-size:.86rem}
+.cmp>*{min-width:0}
+.cmp:last-child{border-bottom:0}
+.cmp .cid{font-family:var(--mono);font-size:.8rem;font-weight:600;color:var(--teal-dk)}
+.cmp .cn{line-height:1.35}
+.cmp .cw{font-family:var(--mono);font-size:.8rem;font-variant-numeric:tabular-nums;text-align:right}
+.cmp .cw.own{color:var(--teal)} .cmp .cw.ref{color:var(--ochre)}
+.cmp .cd{font-family:var(--mono);font-size:.8rem;font-weight:600;text-align:right}
+.cmp .cd.up{color:#B23C2C} .cmp .cd.dn{color:#2E7D4F} .cmp .cd.eq{color:var(--grey)}
+.cmphead{display:grid;grid-template-columns:44px 1fr 108px 108px 64px;gap:12px;font-family:var(--mono);
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  padding-bottom:7px;border-bottom:1px solid var(--grey-mid)}
+.cmphead>*{min-width:0}
+.cmphead span:nth-child(n+3){text-align:right}
+
+/* ---------- Massnahmen und Strategien ---------- */
+.mlist{display:grid;gap:10px}
+.mopt{display:flex;gap:12px;align-items:flex-start;background:var(--paper);cursor:pointer;
+  border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 16px;transition:.16s var(--ease)}
+.mopt:hover{border-color:var(--teal)}
+.mopt:focus-within{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal-xl)}
+.mopt input{accent-color:var(--teal-dk);width:17px;height:17px;flex:none;margin-top:2px}
+.mopt .mt{display:block;font-size:.92rem;font-weight:600;line-height:1.3}
+.mopt .mm{display:block;font-family:var(--mono);font-size:.76rem;color:var(--grey);margin:4px 0 0}
+.mopt .tag{display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.09em;
+  text-transform:uppercase;font-weight:600;border-radius:4px;padding:3px 7px;margin-left:8px;
+  vertical-align:middle}
+.mopt .tag.pre{background:#E6F1E5;color:#2E7D4F}
+.mopt .tag.kor{background:var(--orange-xl);color:#A85B00}
+.mopt.on{border-color:var(--teal-dk);background:var(--teal-xl)}
+
+.strat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.strat>*{min-width:0}
+.sbtn{appearance:none;cursor:pointer;font-family:var(--sans);text-align:left;color:var(--ink);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:14px 16px;transition:.18s var(--ease)}
+.sbtn:hover{border-color:var(--teal);transform:translateY(-2px)}
+.sbtn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.sbtn .sd{display:block;font-size:.98rem;font-weight:700;letter-spacing:-.01em}
+.sbtn .se{display:block;font-family:var(--mono);font-size:.74rem;color:var(--grey);margin:3px 0 7px;overflow-wrap:anywhere}
+.sbtn .sm{display:block;font-size:.78rem;color:#4a4a4d;line-height:1.35}
+.sbtn[aria-pressed="true"]{border-color:var(--teal-dk);background:var(--teal-xl)}
+.sbtn[aria-pressed="true"] .se{color:var(--teal-dk)}
+
+/* ---------- BAUM ---------- */
+.baum{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.baum>*{min-width:0}
+.bcard{background:var(--paper);border:1px solid var(--grey-xl);border-left:3px solid var(--teal-dk);
+  border-radius:var(--r);padding:16px 18px}
+.bcard .letter{font-family:var(--mono);font-size:1.5rem;font-weight:700;color:var(--teal-dk);line-height:1}
+.bcard h3{margin:8px 0 6px;font-size:.95rem;font-weight:700}
+.bcard p{margin:0;font-size:.85rem;color:#3d3d40;line-height:1.5}
+
+/* ---------- Merkblatt und Druck ---------- */
+.merk{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:24px 26px}
+.merk h3{margin:0 0 14px;font-size:1.1rem;font-weight:700}
+.merk dl{margin:0;display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr);gap:9px 18px;font-size:.87rem}
+.merk dt{font-weight:700;color:var(--teal-dk);line-height:1.4}
+.merk dd{margin:0;color:#3d3d40;line-height:1.45}
+.glos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px 22px;font-size:.85rem}
+.glos>*{min-width:0}
+.glos div{padding:7px 0;border-bottom:1px solid var(--grey-xl);line-height:1.45}
+.glos b{color:var(--teal-dk)}
+
+/* ---------- Werkstatt: Risiken erfassen ---------- */
+.wsbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:0 0 16px}
+.wsbar>*{min-width:0}
+.wslist{display:grid;gap:14px}
+.wscard{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px 20px;border-left:3px solid var(--teal-dk)}
+.wshead{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:0 0 14px}
+.wshead>*{min-width:0}
+.wsid{font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--teal-dk);
+  background:var(--teal-xl);border-radius:5px;padding:4px 9px;flex:none}
+.wsdel{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);cursor:pointer;
+  font-family:var(--sans);font-size:.78rem;font-weight:600;color:var(--grey);
+  padding:6px 11px;border-radius:7px;flex:none;transition:.16s}
+.wsdel:hover{border-color:var(--red);color:var(--red)}
+.wsdel:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.fld{margin:0 0 12px}
+.fld label{display:block;font-size:.8rem;font-weight:600;color:#3d3d40;margin:0 0 6px}
+.fld input[type=text],.fld textarea{width:100%;font-family:var(--sans);font-size:.9rem;
+  padding:9px 11px;border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper);
+  color:var(--ink);line-height:1.45}
+.fld textarea{resize:vertical;min-height:66px}
+.fld input:focus-visible,.fld textarea:focus-visible,.fld select:focus-visible{
+  outline:2px solid var(--orange);outline-offset:1px}
+.cnt{font-family:var(--mono);font-size:.72rem;color:var(--grey);text-align:right;margin:4px 0 0}
+.cnt.warn{color:#B25E00;font-weight:600}
+.wsduo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.wsduo>*{min-width:0}
+.wsax{background:var(--canvas);border-radius:9px;padding:13px 15px}
+.wsax .axh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin:0 0 8px}
+.wsax .axn{font-size:.82rem;font-weight:700}
+.wsax .axv{font-family:var(--mono);font-size:.78rem;font-weight:600;color:var(--teal-dk);text-align:right}
+.wsax input[type=range]{width:100%;accent-color:var(--teal-dk);display:block;margin:0 0 4px}
+.wsax .axa{font-size:.74rem;color:var(--grey);line-height:1.35;min-height:2em;margin:0 0 10px}
+.wsrf{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 0;
+  padding-top:12px;border-top:1px solid var(--grey-xl)}
+.wsrf .lbl{font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--grey)}
+.wsrf .val{font-family:var(--mono);font-size:1.05rem;font-weight:700;font-variant-numeric:tabular-nums}
+.zpill{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.09em;
+  text-transform:uppercase;font-weight:600;border-radius:4px;padding:4px 9px}
+.zpill.g{background:#E6F1E5;color:#2E7D4F}
+.zpill.y{background:#FBF2D9;color:#8A6417}
+.zpill.r{background:#FBE4DC;color:#B23C2C}
+
+/* ---------- Werkstatt: Strategie und Massnahme ---------- */
+.stgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stgrid>*{min-width:0}
+.fld select{width:100%;font-family:var(--sans);font-size:.9rem;padding:9px 11px;
+  border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper);color:var(--ink)}
+.mvhint{font-size:.78rem;color:#3d3d40;line-height:1.4;margin:8px 0 0;
+  background:var(--teal-xl);border-radius:7px;padding:9px 11px}
+.mvhint b{color:var(--teal-dk)}
+
+/* ---------- Werkstatt: Massnahmenplan ---------- */
+.plan{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:24px 26px}
+.plan h3{margin:0 0 4px;font-size:1.15rem;font-weight:700;letter-spacing:-.015em}
+.plan .pmeta{font-family:var(--mono);font-size:.74rem;color:var(--grey);margin:0 0 18px}
+table.sc{width:100%;min-width:760px;border-collapse:collapse;font-size:.84rem}
+table.sc th{background:#F7F7F5;text-align:left;padding:9px 11px;font-family:var(--mono);
+  font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid);vertical-align:bottom}
+table.sc th.r{text-align:right}
+table.sc td{padding:10px 11px;border-bottom:1px solid var(--grey-xl);vertical-align:top;line-height:1.4}
+table.sc td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.sc td.id{font-family:var(--mono);font-weight:700;color:var(--teal-dk)}
+table.sc tr.sum td{font-weight:700;background:var(--teal-xl);border-bottom:0}
+table.sc .dn{color:#2E7D4F;font-weight:700}
+table.sc .up{color:#B23C2C;font-weight:700}
+.pnote{font-size:.8rem;color:var(--grey);line-height:1.5;margin:16px 0 0;
+  padding-top:14px;border-top:1px solid var(--grey-xl)}
+.printonly{display:none}
+
+/* ---------- Checkliste ---------- */
+.ck10{display:grid;gap:11px;counter-reset:ck}
+.ckitem{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px 18px 16px 60px;position:relative}
+.ckitem::before{counter-increment:ck;content:counter(ck,decimal-leading-zero);
+  position:absolute;left:18px;top:16px;font-family:var(--mono);font-size:1rem;font-weight:700;
+  color:var(--teal-dk)}
+.ckitem h3{margin:0 0 6px;font-size:.98rem;font-weight:700;letter-spacing:-.01em}
+.ckitem p{margin:0 0 8px;font-size:.86rem;color:#3d3d40;line-height:1.5}
+.ckitem p:last-child{margin-bottom:0}
+.ckitem .trap{font-size:.82rem;color:#B25E00;line-height:1.45}
+.ckitem .trap b{font-weight:700}
+
+/* ---------- Quiz ---------- */
+.qwrap{display:grid;gap:14px}
+.qcard{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px 20px}
+.qcard .qn{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 7px}
+.qcard .qt{font-size:.98rem;font-weight:600;line-height:1.4;margin:0 0 13px}
+.qopts{display:grid;gap:8px}
+.qopt{appearance:none;text-align:left;cursor:pointer;font-family:var(--sans);font-size:.89rem;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--ink);
+  padding:11px 14px;border-radius:8px;transition:.16s;line-height:1.4}
+.qopt:hover:not(:disabled){border-color:var(--teal);background:var(--teal-xl)}
+.qopt:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.qopt:disabled{cursor:default}
+.qopt.right{background:#E8F5EE;border-color:var(--green);color:#1E6B47;font-weight:600}
+.qopt.wrong{background:#FBEAE9;border-color:var(--red);color:#9C2F2C;font-weight:600}
+.qfb{margin:13px 0 0;font-size:.86rem;color:#3d3d40;line-height:1.5;
+  padding-top:11px;border-top:1px solid var(--grey-xl)}
+.qfb[hidden]{display:none}
+.qscore{background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:18px 22px;
+  font-size:.98rem;line-height:1.5}
+.qscore b{font-weight:700}
+
+/* ---------- Auf- und zuklappbare Bloecke innerhalb einer Lektion ------
+   Die Bloecke entstehen zur Laufzeit aus der vorhandenen Gliederung:
+   jedes h2.sec eroeffnet einen Block, alles bis zum naechsten h2.sec
+   ist sein Inhalt. Am Markup ist dafuer nichts zu aendern.          */
+.blk{border-top:1px solid var(--grey-xl)}
+.blk:first-of-type{border-top:0}
+.blk h2.sec{margin:0}
+.blk-t{appearance:none;width:100%;background:transparent;border:0;cursor:pointer;
+  display:flex;align-items:center;gap:12px;text-align:left;padding:20px 0 18px;
+  font:inherit;color:inherit;letter-spacing:inherit;transition:color .16s}
+.blk-t:hover{color:var(--teal-dk)}
+.blk-t:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:4px}
+.blk-c{width:13px;height:13px;flex:none;color:var(--teal-dk);
+  transition:transform .22s var(--ease)}
+.blk[data-open="true"] .blk-c{transform:rotate(90deg)}
+.blk-b{padding:0 0 28px}
+.blk-b[hidden]{display:none}
+
+@media (max-width:760px){
+  .wsduo,.stgrid{grid-template-columns:1fr}
+}
+
+@media print{
+  /* Gedruckt wird nur der Bereich, den der Knopf gewaehlt hat. Alles
+     andere wird unsichtbar geschaltet, behaelt aber seinen Platz nicht -
+     der Zielbereich wird nach oben genommen.                          */
+  body{background:#fff}
+  body[data-print] *{visibility:hidden!important}
+  body[data-print="werk"] #wsPrint, body[data-print="werk"] #wsPrint *,
+  body[data-print="merk"] #merkblatt, body[data-print="merk"] #merkblatt *{visibility:visible!important}
+  body[data-print="werk"] #wsPrint,
+  body[data-print="merk"] #merkblatt{position:absolute;left:0;top:0;width:100%}
+  .panel[hidden]{display:none!important}
+  .blk-b[hidden]{display:block!important}
+  .printonly{display:block!important}
+  .plan{border:0;box-shadow:none;padding:0}
+  #merkblatt .merk{border:0;box-shadow:none;padding:0}
+  table.sc{min-width:0;font-size:9pt}
+  table.sc tr{page-break-inside:avoid}
+  .mapstage{border:0;box-shadow:none;padding:0;overflow:visible}
+  svg.rm{min-width:0}
+}
+/* ---------- Kernaussagen ---------- */
+.says{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.says>*{min-width:0}
+.say{background:var(--paper);border:1px solid var(--grey-xl);border-left:3px solid var(--teal-dk);
+  border-radius:var(--r);box-shadow:var(--shadow);padding:18px 20px}
+.say .sn{font-family:var(--mono);font-size:.72rem;font-weight:600;color:var(--teal-dk);letter-spacing:.1em}
+.say h3{margin:7px 0 8px;font-size:1rem;font-weight:700;line-height:1.3;letter-spacing:-.012em}
+.say p{margin:0;font-size:.88rem;color:#3d3d40;line-height:1.52}
+
+.readme{margin-top:18px;background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:20px 24px;
+  font-size:1rem;line-height:1.55}
+.readme.warn{background:var(--orange)}
+.readme b{font-weight:700}
+.readme code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.2);padding:1px 5px;border-radius:4px}
+.readme a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+blockquote.q{margin:0 0 14px;background:var(--paper);border:1px solid var(--grey-xl);
+  border-left:3px solid var(--teal);border-radius:var(--r);padding:16px 20px;
+  font-size:1.06rem;font-weight:300;line-height:1.62;color:#2c2c2f}
+blockquote.q cite{display:block;margin-top:9px;font-style:normal;font-family:var(--mono);
+  font-size:.74rem;letter-spacing:.06em;color:var(--grey)}
+
+.pointe{margin-top:34px;background:var(--orange);color:#fff;border-radius:var(--r);padding:26px 28px}
+.pointe .pk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin:0 0 10px}
+.pointe p{margin:0;font-size:clamp(1.12rem,2.1vw,1.45rem);font-weight:300;line-height:1.48}
+.pointe p b{font-weight:700}
+
+footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+footer a{color:var(--teal-dk)}
+
+.tip{position:fixed;z-index:60;pointer-events:none;opacity:0;transform:translateY(4px);
+  transition:opacity .14s,transform .14s;background:var(--ink);color:#fff;border-radius:9px;
+  padding:12px 14px;font-size:.82rem;line-height:1.5;max-width:320px;box-shadow:0 10px 30px -8px rgba(0,0,0,.45)}
+.tip.on{opacity:1;transform:translateY(0)}
+.tip .th{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#8FD4E6;margin:0 0 5px}
+.tip p{margin:0}
+.tip .extra{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.18);
+  color:var(--orange);font-weight:600;font-family:var(--mono);font-size:.76rem}
+
+.scrollhint{display:none}
+@media (max-width:980px){
+  .mapwrap{grid-template-columns:1fr}
+  .flipgrid{grid-template-columns:repeat(2,1fr)}
+  .quad{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:900px){
+  .scrollhint{display:block;color:var(--teal-dk)}
+  .duo,.trio{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  /* Die Vergleichsliste klappt in zwei Zeilen je Risiko um, statt
+     fuenf Spalten in eine Handybreite zu pressen.                 */
+  .cmphead{display:none}
+  .cmp{grid-template-columns:44px 1fr 60px;row-gap:4px}
+  .cmp .cn{grid-column:2 / span 2}
+  .cmp .cw{grid-column:2;text-align:left}
+  .cmp .cw.ref{grid-column:3;text-align:right}
+  .cmp .cd{grid-row:1;grid-column:3}
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px 56px}
+  .flipgrid,.quad{grid-template-columns:1fr}
+  .merk dl{grid-template-columns:1fr;gap:2px 0}
+  .merk dt{margin-top:9px}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+/* ---------- Die Bilanz zum Ausfuellen ----------
+   Zwei Seiten nebeneinander, wie das Konto es vorgibt. Auf schmalen
+   Fenstern stehen sie untereinander; die Summenzeile bleibt in beiden
+   Faellen unten stehen.                                            */
+.bil{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch}
+.bil>*{min-width:0}
+.bilseite{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.bilseite.aktiv{border-top:3px solid var(--teal-dk)}
+.bilseite.passiv{border-top:3px solid var(--ochre)}
+.bilkopf{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+  padding:13px 16px;border-bottom:1px solid var(--grey-xl);background:var(--canvas)}
+.bilkopf h3{margin:0;font-size:1.05rem;font-weight:700;letter-spacing:-.01em}
+.bilkopf .eh{font-family:var(--mono);font-size:.68rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--grey)}
+.bilzeile{display:grid;grid-template-columns:1fr 112px;gap:10px;align-items:center;
+  padding:5px 16px}
+.bilzeile>*{min-width:0}
+.bilzeile label{font-size:.9rem;color:#3d3d40;line-height:1.35}
+.bilzeile .rn{font-family:var(--mono);font-size:.72rem;color:var(--grey);margin-right:7px}
+.bilzeile.gruppe{background:var(--grey-xl);padding-top:9px;padding-bottom:9px;margin-top:4px}
+.bilzeile.gruppe label{font-weight:700;color:var(--ink);font-size:.94rem}
+.bilzeile.tief label{padding-left:20px}
+.bilzeile.tiefer label{padding-left:40px;font-size:.85rem;color:#4a4a4d}
+.bilzeile.gruppe.tief{background:#F5F5F3}
+.bilzeile.gruppe.tief label{font-size:.9rem;font-weight:600}
+.bilzeile input{width:100%;font-family:var(--mono);font-size:.88rem;text-align:right;
+  font-variant-numeric:tabular-nums;color:var(--ink);background:var(--paper);
+  border:1px solid var(--grey-mid);border-radius:7px;padding:6px 9px}
+.bilzeile input:focus-visible{outline:2px solid var(--orange);outline-offset:1px;border-color:var(--teal)}
+.bilzeile .sum{font-family:var(--mono);font-size:.88rem;text-align:right;font-weight:600;
+  font-variant-numeric:tabular-nums;color:var(--ink);padding-right:9px}
+.bilende{display:grid;grid-template-columns:1fr 112px;gap:10px;align-items:center;
+  padding:12px 16px;border-top:2px solid var(--ink);margin-top:auto}
+.bilende label{font-weight:700;font-size:1rem}
+.bilende .sum{font-family:var(--mono);font-size:1rem;font-weight:700;text-align:right;
+  font-variant-numeric:tabular-nums;padding-right:9px}
+
+/* Die Waage: stimmt die Gleichung, oder wie weit ist sie daneben. */
+.bilwaage{margin:16px 0 0;border-radius:var(--r);padding:15px 18px;
+  border:1px solid var(--grey-xl);background:var(--paper);box-shadow:var(--shadow)}
+.bilwaage.gleich{border-color:var(--green);background:#F1F8F4}
+.bilwaage.schief{border-color:var(--orange);background:var(--orange-xl)}
+.bilwaage p{margin:0;font-size:.96rem;line-height:1.55;color:#3d3d40}
+.bilwaage b{color:var(--ink)}
+.bilwaage .gl{font-family:var(--mono);font-size:1.15rem;font-weight:700;
+  font-variant-numeric:tabular-nums;color:var(--ink);display:block;margin:0 0 6px}
+
+.bilkz{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin:16px 0 0}
+.bilkz>*{min-width:0}
+.bilkz .kz{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:14px 15px;box-shadow:var(--shadow);border-left:3px solid var(--teal)}
+.bilkz .kk{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 6px}
+.bilkz .kv{font-family:var(--mono);font-size:1.5rem;font-weight:700;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;color:var(--ink);margin:0 0 5px;line-height:1}
+.bilkz .kf{margin:0;font-size:.78rem;color:var(--grey);line-height:1.5}
+
+.bilh3{font-size:1.05rem;font-weight:700;letter-spacing:-.015em;margin:26px 0 6px}
+.bilout textarea{width:100%;min-height:180px;font-family:var(--mono);font-size:.75rem;line-height:1.62;
+  color:var(--ink);background:var(--canvas);border:1px solid var(--grey-xl);border-radius:8px;
+  padding:13px;resize:vertical}
+.bilout textarea:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
+.bilmsg{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--green);
+  margin:10px 0 0;min-height:1.2em}
+
+/* Zuordnungsuebung: Aktiv oder Passiv. */
+.zu{display:grid;gap:9px;margin:14px 0 0}
+.zuz{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:10px;
+  padding:11px 14px;box-shadow:var(--shadow)}
+.zuz>*{min-width:0}
+.zuz .zt{font-size:.94rem;color:var(--ink);line-height:1.4}
+.zuz .zb{display:flex;gap:6px;flex:none}
+.zub{appearance:none;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--grey);
+  border-radius:7px;padding:6px 12px;transition:.14s}
+.zub:hover:not(:disabled){border-color:var(--teal);color:var(--teal-dk)}
+.zub:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.zub:disabled{cursor:default}
+.zub.ok{background:#E8F4EC;border-color:var(--green);color:#1E6B47}
+.zub.no{background:#FBECEB;border-color:var(--red);color:#9C2F2C}
+.zuw{grid-column:1/-1;margin:2px 0 0;font-size:.86rem;color:#3d3d40;line-height:1.55}
+.zuw b{color:var(--ink)}
+
+@media (max-width:820px){
+  .bil{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .bilzeile,.bilende{grid-template-columns:1fr 92px;gap:8px;padding-left:12px;padding-right:12px}
+  .bilzeile.tief label{padding-left:12px}
+  .bilzeile.tiefer label{padding-left:24px}
+  .zuz{grid-template-columns:1fr}
+  .zuz .zb{justify-content:flex-start}
+}
+
+/* ---------- Die Vier-Felder-Tafel ----------
+   Zwei Achsen, vier Quadranten. Die Achsenbeschriftung steht aussen,
+   damit die Felder selbst nur ihren Inhalt zeigen. Unter 620px wird
+   aus dem Kreuz eine Spalte — ein 2x2-Raster mit Text darin ist auf
+   dem Telefon unlesbar.                                             */
+.tafel{display:grid;grid-template-columns:30px 1fr 1fr;gap:10px;align-items:stretch;margin:16px 0 0}
+.tafel>*{min-width:0}
+.tafelx{grid-column:2/-1;display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--grey);text-align:center;padding-bottom:2px}
+.tafely{display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--grey);writing-mode:vertical-rl;transform:rotate(180deg);padding:4px 0}
+.feld{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:14px 16px}
+.feld.beides{border-top:3px solid var(--green)}
+.feld.erfolg{border-top:3px solid var(--teal-dk)}
+.feld.zahlung{border-top:3px solid var(--ochre)}
+.feld.keins{border-top:3px solid var(--grey-mid)}
+.feld h4{margin:0 0 4px;font-size:.98rem;font-weight:700;letter-spacing:-.01em}
+.feld .fk{font-family:var(--mono);font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 7px}
+.feld p{margin:0 0 9px;font-size:.86rem;color:#3d3d40;line-height:1.5}
+.feld ul{margin:0;padding-left:17px;font-size:.84rem;color:#3d3d40;line-height:1.5}
+.feld li{margin-bottom:4px}
+@media (max-width:620px){
+  .tafel{grid-template-columns:1fr}
+  .tafelx,.tafely{display:none}
+}
+
+/* ---------- Die Geldumschlagsdauer ----------
+   Drei Regler und ein Band, das die Tage nebeneinanderlegt.        */
+.ccc{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:18px 20px 20px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.cczeile{display:grid;grid-template-columns:minmax(0,1fr) 210px 96px;gap:14px;align-items:center;margin:0 0 13px}
+.cczeile>*{min-width:0}
+.cczeile label{font-size:.89rem;color:#3d3d40;line-height:1.35}
+.cczeile label em{font-style:normal;display:block;font-size:.76rem;color:var(--grey);margin-top:2px}
+.cczeile .wert{font-family:var(--mono);font-size:.92rem;text-align:right;font-weight:600;
+  font-variant-numeric:tabular-nums;color:var(--teal-dk)}
+.cczeile input[type="range"]{width:100%;accent-color:var(--teal-dk);cursor:pointer}
+.cczeile input[type="range"]:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+
+/* Das Band: drei Abschnitte, der letzte zieht nach links zurueck. */
+.ccband{margin:18px 0 0}
+.ccb{display:flex;align-items:stretch;height:34px;border-radius:7px;overflow:hidden;
+  background:var(--grey-xl)}
+.ccb i{display:block;font-style:normal;font-family:var(--mono);font-size:.68rem;color:#fff;
+  display:flex;align-items:center;justify-content:center;transition:width .25s}
+.ccb i.dio{background:var(--teal-dk)}
+.ccb i.dso{background:var(--teal-lt);color:var(--ink)}
+.ccb i.dpo{background:var(--ochre)}
+.cclegend{display:flex;gap:16px;flex-wrap:wrap;margin:9px 0 0;font-size:.78rem;color:var(--grey)}
+.cclegend span{display:flex;align-items:center;gap:6px}
+.cclegend b{width:11px;height:11px;border-radius:3px;display:inline-block}
+.ccerg{display:grid;grid-template-columns:repeat(auto-fit,minmax(176px,1fr));gap:12px;margin:18px 0 0}
+.ccerg>*{min-width:0}
+.ccerg .k{background:var(--teal-xl);border-radius:var(--r);padding:13px 15px}
+.ccerg .k.warn{background:var(--orange-xl)}
+.ccerg .kk{font-family:var(--mono);font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 6px}
+.ccerg .kv{font-family:var(--mono);font-size:1.38rem;font-weight:700;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;color:var(--teal-dk);margin:0 0 5px}
+.ccerg .k.warn .kv{color:var(--ochre)}
+.ccerg .kf{margin:0;font-size:.78rem;color:var(--grey);line-height:1.45}
+
+@media (max-width:620px){
+  .cczeile{grid-template-columns:minmax(0,1fr) 78px;gap:8px}
+  .cczeile input[type="range"]{grid-column:1/-1}
+}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Liquiditätsplanung · Modul 01</p>
+  <h1>Liquidität: <em>der Begriff</em></h1>
+  <p class="lede">Zahlungsunfähigkeit ist der häufigste Grund für die Eröffnung eines Insolvenzverfahrens, § 17 InsO. Die meisten betroffenen Unternehmen haben im letzten Abschluss einen Gewinn ausgewiesen. Dieses Modul klärt, wie das zusammengeht: warum ein Ertrag keine Einzahlung ist, an welchen fünf Stellen beides auseinanderfällt, und wie lange das Geld im eigenen Haus unterwegs ist.</p>
+  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Der Fall ist derselbe wie im Lernpfad Bilanzanalyse: ein Zulieferer für Nutzfahrzeugkomponenten, Zahlen in vollen Tausend Euro. Die Bilanz und die Gewinn- und Verlustrechnung aus den Modulen dort sind hier die Rechengrundlage.</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Liquidität: der Begriff">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Gewinn ist kein Geld</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Die Vier-Felder-Tafel</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Wie lange das Geld unterwegs ist</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Quiz</button>
+  <button class="tab" role="tab" id="tab-e" aria-controls="p-e" aria-selected="false" tabindex="-1"><span class="num">05</span> Der erste Schritt</button>
+</div>
+
+<!-- ==================== LEKTION 01 · GEWINN IST KEIN GELD ==================== -->
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <p class="claim">Ein Unternehmen geht nicht an Verlusten zugrunde. Es geht daran zugrunde, dass an einem bestimmten Dienstag <b>das Konto nicht reicht</b>. Verluste sind der häufigste Weg dorthin und keineswegs der einzige.</p>
+
+  <h2 class="sec">Die vier Begriffspaare</h2>
+  <p class="sub">Die Betriebswirtschaft unterscheidet vier Ebenen. Für die Liquiditätsplanung zählen vor allem die erste und die dritte — und der Abstand zwischen ihnen.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Die vier Begriffspaare, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th>Begriffspaar</th><th>Bezugsgröße</th><th>Wann es gebucht wird</th><th>Beispiel</th></tr></thead>
+    <tbody>
+      <tr><td class="crit">Einzahlung und Auszahlung</td><td class="m">Zahlungsmittelbestand</td><td>Wenn Geld das Konto oder die Kasse berührt. <b>Das ist Liquidität.</b></td><td>Der Kunde überweist am 14. März</td></tr>
+      <tr><td class="crit">Einnahme und Ausgabe</td><td class="m">Geldvermögen</td><td>Wenn eine Forderung entsteht oder erlischt, auch ohne Zahlung</td><td>Die Rechnung geht am 2. Februar raus</td></tr>
+      <tr><td class="crit">Ertrag und Aufwand</td><td class="m">Reinvermögen</td><td>Wenn der Wert entsteht oder verzehrt wird. <b>Das ist Erfolg.</b></td><td>Die Leistung wird im Januar erbracht</td></tr>
+      <tr><td class="crit">Leistung und Kosten</td><td class="m">betriebsbedingtes Vermögen</td><td>Wenn der Verzehr dem eigentlichen Betriebszweck dient</td><td>Der Materialverbrauch in der Fertigung</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="sub" style="margin-top:12px">Im Beispiel liegen zwischen dem Ertrag im Januar und der Einzahlung im März <b>rund siebzig Tage</b>. Das Ergebnis des Jahres ändert sich dadurch nicht. Die Frage, ob im Februar die Löhne bezahlt werden können, hängt allein an der Einzahlung.</p>
+
+  <h2 class="sec">Fünf Stellen, an denen beides auseinanderfällt</h2>
+  <p class="sub">Wer diese fünf kennt, kann jede Differenz zwischen Gewinn und Kontostand erklären.</p>
+  <div class="merk">
+    <h3>Warum der Gewinn nicht auf dem Konto liegt</h3>
+    <dl>
+      <dt>Zeitverschiebung</dt><dd>Ertrag bei Rechnungsstellung, Einzahlung nach dem Zahlungsziel. Bei dreißig Tagen Ziel und einem üblichen Zahlungsverhalten liegen leicht fünfzig Tage dazwischen. Dasselbe auf der Aufwandsseite, nur mit umgekehrtem Vorzeichen.</dd>
+      <dt>Bestandsaufbau</dt><dd>Material, das gekauft und noch nicht verbraucht wurde, ist bezahlt und noch kein Aufwand. Jeder Euro mehr im Lager ist ein Euro weniger auf dem Konto, ohne dass das Ergebnis es merkt.</dd>
+      <dt>Zahlungslose Aufwendungen</dt><dd>Abschreibungen und die Bildung von Rückstellungen mindern das Ergebnis, ohne dass Geld fließt. Deshalb ist ein Unternehmen mit hohen Abschreibungen liquider, als sein Gewinn vermuten lässt.</dd>
+      <dt>Zahlungslose Erträge</dt><dd>Die Auflösung einer Rückstellung oder eine Zuschreibung erhöhen das Ergebnis, ohne dass Geld hereinkommt. Der umgekehrte Fall, und der unangenehmere.</dd>
+      <dt>Vorgänge ganz ohne Erfolg</dt><dd>Investition, Darlehenstilgung, Privatentnahme, Ausschüttung. Große Beträge verlassen das Haus und erscheinen in keiner Gewinn- und Verlustrechnung. Diese Gruppe wird beim Planen am häufigsten vergessen.</dd>
+    </dl>
+  </div>
+
+  <h2 class="sec">Das Wachstumsparadox</h2>
+  <p class="sub">Die unangenehmste Folge, und der Grund, aus dem gesunde Unternehmen an guten Aufträgen scheitern.</p>
+  <div class="duo">
+    <div class="card" style="border-left:3px solid var(--green)">
+      <p class="ck">Was in der Rechnung steht</p><h3>Wachstum bringt Ergebnis</h3>
+      <p>Der Umsatz steigt um dreißig Prozent, die Fixkosten bleiben. Das Betriebsergebnis wächst überproportional, die Umsatzrentabilität steigt, jede Kennzahl des dritten Moduls sieht besser aus.</p>
+      <p>Auf dem Papier ist das ein gutes Jahr, und im Rückblick wird es das auch gewesen sein.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--red)">
+      <p class="ck">Was auf dem Konto geschieht</p><h3>Wachstum kostet Geld</h3>
+      <p>Dreißig Prozent mehr Umsatz heißt dreißig Prozent mehr Forderungen und mehr Vorräte. Material und Löhne werden sofort fällig, die Kunden zahlen in zwei Monaten.</p>
+      <p>Je schneller das Wachstum, desto größer die Lücke. Sie wächst mit dem Erfolg und schließt sich erst, wenn das Wachstum aufhört.</p>
+    </div>
+  </div>
+  <div class="readme" style="margin-top:16px">
+    <b>Beim Zulieferer in Zahlen.</b> Bei 98.000 T€ Umsatz stecken 9.600 T€ in Forderungen und 14.800 T€ in Vorräten, denen 7.900 T€ Lieferantenverbindlichkeiten gegenüberstehen — rund 16.500 T€ gebundenes Umlaufvermögen. Bei dreißig Prozent Wachstum wären es etwa 5.000 T€ mehr. Dieses Geld muss aus dem Ergebnis kommen, aus dem Kontokorrent oder von der Bank. Der Jahresüberschuss des Jahres liegt bei 2.300 T€.
+  </div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Der Gewinn sagt, ob sich das Geschäft <b>gelohnt</b> hat. Die Liquidität sagt, ob es <b>weitergeht</b>. Die zweite Frage hat kürzere Fristen und keinen Aufschub.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 02 · DIE VIER-FELDER-TAFEL ==================== -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b">
+  <p class="claim">Zwei Fragen an jeden Geschäftsvorfall, und sie sind <b>voneinander unabhängig</b>: Berührt er den Erfolg? Berührt er das Geld? Vier Antworten sind möglich, und jede hat einen Namen.</p>
+
+  <h2 class="sec">Die vier Felder</h2>
+  <p class="sub">Die Achse nach rechts fragt nach dem Geld, die Achse nach unten nach dem Erfolg. Wer einen Vorfall in eines dieser Felder legen kann, weiß, was er in der Planung damit anfangen muss.</p>
+  <div class="tafel">
+    <span></span>
+    <div class="tafelx"><span>zahlungswirksam</span><span>nicht zahlungswirksam</span></div>
+    <span class="tafely">erfolgswirksam</span>
+    <div class="feld beides">
+      <p class="fk">Feld 1</p><h4>Beides zugleich</h4>
+      <p>Ergebnis und Konto bewegen sich im selben Zeitraum. Der einfache Fall, und in der Industrie der seltenere.</p>
+      <ul>
+        <li>Barverkauf über die Ladenkasse</li>
+        <li>Eine Rechnung, die im selben Monat bezahlt wird</li>
+        <li>Löhne, überwiesen im Monat der Leistung</li>
+        <li>Zinsen, die bei Fälligkeit abgebucht werden</li>
+      </ul>
+    </div>
+    <div class="feld erfolg">
+      <p class="fk">Feld 2</p><h4>Nur Erfolg</h4>
+      <p>Das Ergebnis bewegt sich, das Konto nicht. Entweder noch nicht — oder überhaupt nie.</p>
+      <ul>
+        <li>Rechnung auf Ziel geschrieben (noch nicht)</li>
+        <li>Eingangsrechnung erhalten (noch nicht)</li>
+        <li>Abschreibung auf eine Maschine (nie)</li>
+        <li>Bildung einer Rückstellung (nie)</li>
+        <li>Auflösung einer Rückstellung (nie)</li>
+      </ul>
+    </div>
+    <span class="tafely">nicht erfolgswirksam</span>
+    <div class="feld zahlung">
+      <p class="fk">Feld 3</p><h4>Nur Zahlung</h4>
+      <p>Das Konto bewegt sich, das Ergebnis nicht. <b>Das Feld, das beim Planen am häufigsten fehlt.</b></p>
+      <ul>
+        <li>Ein Kunde zahlt eine alte Rechnung</li>
+        <li>Anzahlung eines Kunden</li>
+        <li>Kauf einer Maschine</li>
+        <li>Aufnahme und Tilgung eines Darlehens</li>
+        <li>Privatentnahme, Ausschüttung</li>
+        <li>Umsatzsteuer-Zahllast an das Finanzamt</li>
+      </ul>
+    </div>
+    <div class="feld keins">
+      <p class="fk">Feld 4</p><h4>Weder noch</h4>
+      <p>Weder Ergebnis noch Konto. Für die Planung bedeutungslos, für die Buchführung nicht.</p>
+      <ul>
+        <li>Umbuchung zwischen zwei Konten</li>
+        <li>Eine Bestellung, solange nichts geliefert ist</li>
+        <li>Umgliederung im Eigenkapital</li>
+        <li>Ein Bürgschaftsversprechen</li>
+      </ul>
+    </div>
+  </div>
+  <div class="readme" style="margin-top:16px">
+    <b>Feld 2 und Feld 3 sind die ganze Arbeit.</b> Feld 1 plant sich von selbst, Feld 4 kommt gar nicht vor. Eine Liquiditätsvorschau ist im Kern die Antwort auf zwei Fragen: Wann wird aus Feld 2 eine Zahlung, und was liegt in Feld 3, das in keiner Auswertung steht. Genau darum geht es in den folgenden Modulen dieses Pfads.
+  </div>
+
+  <h2 class="sec">Der Abstand zwischen beiden</h2>
+  <p class="sub">In Feld 2 heißt der Eintrag meistens „noch nicht“ und selten „nie“. Für die Planung ist dieser Abstand die eigentliche Größe.</p>
+  <div class="trio">
+    <div class="card" style="border-left:3px solid var(--teal-dk)">
+      <p class="ck">Auf der Ertragsseite</p><h3>Zahlungsziel und Zahlungsverhalten</h3>
+      <p>Dreißig Tage Ziel heißt nicht, dass nach dreißig Tagen gezahlt wird. Ein Teil zahlt früher mit Skonto, ein Teil pünktlich, ein Teil verspätet. Die Planung braucht deshalb eine <b>Verteilung</b> und keinen einzelnen Tag.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ochre)">
+      <p class="ck">Auf der Aufwandsseite</p><h3>Fester Tag oder eigener Rhythmus</h3>
+      <p>Löhne am 25., Miete am 3., Versicherung einmal im Januar, Steuervorauszahlung viermal im Jahr. Hier ist der Zahlungszeitpunkt meist genau bekannt — deshalb ist die Aufwandsseite einer Vorschau die verlässlichere.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--red)">
+      <p class="ck">Die Falle dazwischen</p><h3>Die Umsatzsteuer</h3>
+      <p>Bei der <b>Soll-Versteuerung</b> entsteht sie mit der Rechnung, nicht mit der Zahlung. Du führst also Umsatzsteuer auf Geld ab, das noch nicht da ist — und zwar am 10. des Folgemonats.</p>
+    </div>
+  </div>
+
+  <h2 class="sec">Vierzehn Vorfälle einordnen</h2>
+  <p class="sub">In welches der vier Felder gehört der Vorfall? Die Begründung erscheint nach jeder Antwort, auch nach der richtigen.</p>
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Übung">
+      <button id="zuNew" type="button">Von vorn</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="zuStand"></span></p>
+  </div>
+  <div class="zu" id="zuListe"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Die beiden Fragen sind unabhängig, und deshalb gibt es vier Felder und keine zwei. <b>Wer nur eine Achse kennt, plant die Hälfte.</b></p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 03 · WIE LANGE DAS GELD UNTERWEGS IST ==================== -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c">
+  <p class="claim">Der Abstand aus Lektion 02 lässt sich messen. Die <b>Geldumschlagsdauer</b> sagt in Tagen, wie lange ein Euro zwischen der Zahlung an den Lieferanten und dem Eingang vom Kunden im Unternehmen festliegt. Beim Zulieferer sind es <b>84 Tage</b>.</p>
+
+  <h2 class="sec">Woher Liquidität kommt und wohin sie geht</h2>
+  <p class="sub">Drei Quellen, und nur die erste erzeugt Geld aus eigener Kraft. Die Gliederung ist dieselbe wie in einer Kapitalflussrechnung.</p>
+  <div class="trio">
+    <div class="card" style="border-left:3px solid var(--green)">
+      <p class="ck">Erste Quelle</p><h3>Aus dem Geschäft</h3>
+      <p>Das Ergebnis, bereinigt um zahlungslose Posten und um die Veränderung des Umlaufvermögens. Die einzige Quelle, die sich aus sich selbst erneuert und auf die es deshalb ankommt.</p>
+      <p>Sie ist zugleich die, an der sich mit eigenen Mitteln etwas ändern lässt — daran arbeitet der Rest dieser Lektion.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--teal-dk)">
+      <p class="ck">Zweite Quelle</p><h3>Aus Investition</h3>
+      <p>Meist ein Abfluss: Maschinen, Gebäude, Beteiligungen. Ein Zufluss entsteht beim Verkauf von Anlagevermögen.</p>
+      <p>Wer hier dauerhaft Geld einnimmt, verkauft seine Substanz. Das hält ein Unternehmen eine Weile über Wasser und beendet es danach.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ochre)">
+      <p class="ck">Dritte Quelle</p><h3>Aus Finanzierung</h3>
+      <p>Darlehensaufnahme und Kapitalerhöhung bringen Geld, Tilgung und Ausschüttung nehmen es. Zinsen stehen im operativen Teil.</p>
+      <p>Diese Quelle verschafft Zeit. Sie erzeugt nichts, sie verschiebt — und sie kostet.</p>
+    </div>
+  </div>
+
+  <h2 class="sec">Die drei Bausteine der Geldumschlagsdauer</h2>
+  <p class="sub">Drei Kennzahlen in Tagen, die sich aus Bilanz und Erfolgsrechnung bilden lassen. Zwei verlängern den Weg des Geldes, eine verkürzt ihn.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Die drei Bausteine, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th>Baustein</th><th>Formel</th><th>Was sie misst</th><th>Beim Zulieferer</th></tr></thead>
+    <tbody>
+      <tr><td class="crit">Lagerdauer</td><td class="m">Vorräte ÷ Materialaufwand × 365</td><td>Wie lange Material und Erzeugnisse im Haus liegen, bevor sie verkauft sind</td><td class="m">14.800 ÷ 53.200 × 365 = <b>102 Tage</b></td></tr>
+      <tr><td class="crit">Debitorenlaufzeit</td><td class="m">Forderungen aus LuL ÷ Umsatzerlöse × 365</td><td>Wie lange die Kunden im Schnitt brauchen, bis sie zahlen</td><td class="m">9.600 ÷ 98.000 × 365 = <b>36 Tage</b></td></tr>
+      <tr><td class="crit">Kreditorenlaufzeit</td><td class="m">Verbindlichkeiten aus LuL ÷ Materialaufwand × 365</td><td>Wie lange Du selbst brauchst, bis Du Deine Lieferanten bezahlst — Dein zinsloser Kredit</td><td class="m">7.900 ÷ 53.200 × 365 = <b>54 Tage</b></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="sub" style="margin-top:12px"><b>Geldumschlagsdauer = Lagerdauer + Debitorenlaufzeit − Kreditorenlaufzeit.</b> Beim Zulieferer also 102 + 36 − 54 = <b>84 Tage</b>. So lange finanziert das Unternehmen sein eigenes Geschäft, bevor der erste Euro daraus zurückkommt.</p>
+
+  <h2 class="sec">Der Rechner</h2>
+  <p class="sub">Schieb die drei Regler und sieh zu, was passiert. Rechts steht, was jeder einzelne Tag in Euro wert ist — gerechnet am Tagesumsatz von 268 T€ und am Tagesmaterialaufwand von 146 T€.</p>
+  <div class="ccc" id="ccForm">
+    <div class="cczeile">
+      <label for="ccDIO">Lagerdauer<em>Vorräte, gemessen am Materialaufwand</em></label>
+      <input type="range" id="ccDIO" min="10" max="180" step="1" value="102" aria-label="Lagerdauer in Tagen">
+      <span class="wert" id="ccDIOw">102 T</span>
+    </div>
+    <div class="cczeile">
+      <label for="ccDSO">Debitorenlaufzeit<em>Forderungen, gemessen am Umsatz</em></label>
+      <input type="range" id="ccDSO" min="0" max="120" step="1" value="36" aria-label="Debitorenlaufzeit in Tagen">
+      <span class="wert" id="ccDSOw">36 T</span>
+    </div>
+    <div class="cczeile">
+      <label for="ccDPO">Kreditorenlaufzeit<em>Eigene Verbindlichkeiten, gemessen am Materialaufwand</em></label>
+      <input type="range" id="ccDPO" min="0" max="120" step="1" value="54" aria-label="Kreditorenlaufzeit in Tagen">
+      <span class="wert" id="ccDPOw">54 T</span>
+    </div>
+
+    <div class="ccband">
+      <div class="ccb" id="ccBand"></div>
+      <p class="cclegend">
+        <span><b style="background:var(--teal-dk)"></b>Lagerdauer</span>
+        <span><b style="background:var(--teal-lt)"></b>Debitorenlaufzeit</span>
+        <span><b style="background:var(--ochre)"></b>Kreditorenlaufzeit, zieht zurück</span>
+      </p>
+    </div>
+
+    <div class="ccerg" id="ccErg"></div>
+  </div>
+
+  <h2 class="sec">Was daraus folgt</h2>
+  <p class="sub">Die drei Regler sind drei Gespräche mit drei verschiedenen Abteilungen — und das ist der praktische Wert der Zerlegung.</p>
+  <ul>
+    <li><b>Die Lagerdauer</b> gehört dem Einkauf und der Fertigung. 102 Tage sind für einen Zulieferer mit Variantenfertigung erklärbar und selten optimal. Jeder Tag weniger setzt rund 146 T€ frei.</li>
+    <li><b>Die Debitorenlaufzeit</b> gehört dem Vertrieb und der Buchhaltung: Zahlungsziele, Mahnwesen, Skonto, Anzahlungen bei langen Projekten. Jeder Tag weniger setzt rund 268 T€ frei — der wirksamste der drei Hebel.</li>
+    <li><b>Die Kreditorenlaufzeit</b> ist ein zinsloser Lieferantenkredit, und sie hat eine Grenze. Wer sie über das vereinbarte Ziel hinaus dehnt, zahlt am Ende mit schlechteren Konditionen oder mit der Lieferbereitschaft.</li>
+    <li><b>Skonto rechnet sich fast immer.</b> Drei Prozent bei zehn Tagen gegen dreißig Tage netto entsprechen einem Jahreszins von über fünfzig Prozent. Wer Skonto ziehen kann und es lässt, finanziert sich teurer als bei jeder Bank.</li>
+  </ul>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>84 Tage Geldumschlagsdauer heißen: Das Unternehmen finanziert <b>ein Vierteljahr seines eigenen Geschäfts</b> vor. Wer diese Zahl senkt, bekommt Geld, ohne jemanden darum zu bitten.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 04 · QUIZ ==================== -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d">
+  <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen. Kein Zeitdruck, keine Bewertung, die irgendwo landet — die Begründung steht nach jeder Antwort da, auch nach der richtigen.</p>
+
+  <h2 class="sec">Übung</h2>
+  <p class="sub">Die meisten Fehlantworten drehen sich um Feld 3: um Vorgänge, die Geld bewegen und im Ergebnis nicht vorkommen.</p>
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Übung">
+      <button id="qNew" type="button">Fünf neue Fragen</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="qStand"></span></p>
+  </div>
+  <div class="qwrap" id="quiz"></div>
+  <div id="qResult" style="margin-top:16px"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Wer bei jedem Vorfall zwei Fragen stellt statt einer, hat den Begriff verstanden. <b>Alles Weitere in diesem Pfad ist Buchhaltung dieser beiden Fragen.</b></p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 05 · DER ERSTE SCHRITT ==================== -->
+<section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e">
+  <p class="claim">Du willst wissen, wie es um die Liquidität Deines Hauses steht, und hast noch keine Planung? Sieben Schritte, für die Du einen Abschluss, einen Kontoauszug und einen Vormittag brauchst.</p>
+
+  <h2 class="sec">Sieben Schritte mit den eigenen Zahlen</h2>
+  <p class="sub">Jeder Schritt mit dem Grund dahinter und dem Fehler, der an dieser Stelle am häufigsten gemacht wird.</p>
+  <div class="ck10" id="ck7"></div>
+
+  <div class="readme" style="margin-top:18px">
+    <b>Warum das vor jeder Software kommt.</b> Es gibt gute Programme für Liquiditätsplanung, und sie helfen alle erst, wenn die sieben Schritte einmal von Hand gegangen sind. Ein Werkzeug rechnet die Regeln, die jemand gesetzt hat. Wer sie nicht setzen kann, bekommt eine Vorschau, der er nicht widersprechen kann — und die er deshalb auch nicht verantworten kann.
+  </div>
+
+  <h2 class="sec">Glossar</h2>
+  <p class="sub">Zum Nachschlagen während der Arbeit. Keine Prüfungsliste.</p>
+  <div class="glos" id="glos"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Die Liquiditätsplanung ist die einzige Rechnung im Controlling, deren Ergebnis sich <b>jeden Morgen überprüfen lässt</b> — auf dem Kontoauszug. Das macht sie unbequem und ehrlich.</p>
+  </div>
+</section>
+
+<footer>
+Copyright Prof. Dr. Maik Drozdzynski, 2026
+</footer>
+
+</div>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s)
+  .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const zahl = v => v.toLocaleString("de-DE", {maximumFractionDigits:0});
+
+/* =====================================================================
+   1 · Die Geldumschlagsdauer
+
+   Drei Bausteine in Tagen, gerechnet an den Zahlen des Zulieferers aus
+   dem Lernpfad Bilanzanalyse. Die beiden Bezugsgroessen sind
+   verschieden, und genau darauf kommt es an: Die Debitorenlaufzeit
+   misst am Umsatz, Lager- und Kreditorenlaufzeit am Materialaufwand.
+   Ein Tag ist deshalb nicht ueberall gleich viel Geld wert.
+
+   Umsatz 98.000 T€ und Materialaufwand 53.200 T€ stehen so in der
+   Gewinn- und Verlustrechnung des zweiten Moduls.
+   ===================================================================== */
+const UMSATZ = 98000, MATERIAL = 53200;
+const TAG_UMS = UMSATZ / 365;      /* rund 268 T€ je Tag Debitorenlaufzeit */
+const TAG_MAT = MATERIAL / 365;    /* rund 146 T€ je Tag Lager oder Kreditoren */
+
+/* Der Ausgangspunkt sind die Werte des Falls, auf ganze Tage gerundet:
+   Vorraete 14.800, Forderungen aus LuL 9.600, Verbindlichkeiten aus
+   LuL 7.900. */
+const START = {dio:102, dso:36, dpo:54};
+
+function ccRechne(){
+  const dio = +$("ccDIO").value, dso = +$("ccDSO").value, dpo = +$("ccDPO").value;
+  $("ccDIOw").textContent = dio + " T";
+  $("ccDSOw").textContent = dso + " T";
+  $("ccDPOw").textContent = dpo + " T";
+
+  const ccc = dio + dso - dpo;
+  const gebunden = dio * TAG_MAT + dso * TAG_UMS - dpo * TAG_MAT;
+  const startCcc = START.dio + START.dso - START.dpo;
+  const startGeb = START.dio * TAG_MAT + START.dso * TAG_UMS - START.dpo * TAG_MAT;
+  const frei = startGeb - gebunden;
+
+  /* Das Band legt die drei Abschnitte nebeneinander. Die
+     Kreditorenlaufzeit zieht zurueck, bekommt aber trotzdem eine
+     sichtbare Breite — ein Balken der Breite null erklaert nichts. */
+  const summe = Math.max(1, dio + dso + dpo);
+  const br = t => (t / summe * 100).toFixed(1) + "%";
+  $("ccBand").innerHTML =
+    `<i class="dio" style="width:${br(dio)}">${dio > 12 ? dio : ""}</i>` +
+    `<i class="dso" style="width:${br(dso)}">${dso > 12 ? dso : ""}</i>` +
+    `<i class="dpo" style="width:${br(dpo)}">${dpo > 12 ? "−" + dpo : ""}</i>`;
+
+  const karten = [
+    ["Geldumschlagsdauer", ccc + " Tage",
+     ccc === startCcc ? "Der Ausgangswert des Zulieferers."
+     : ccc < startCcc ? (startCcc - ccc) + " Tage kürzer als im Ausgangsfall."
+     : (ccc - startCcc) + " Tage länger als im Ausgangsfall.",
+     ccc > startCcc],
+    ["Gebundenes Kapital", zahl(Math.round(gebunden)) + " T€",
+     "So viel Geld liegt im Umlaufvermögen fest, bevor der erste Euro zurückkommt.",
+     gebunden > startGeb],
+    [frei >= 0 ? "Freigesetzt" : "Zusätzlich gebunden",
+     zahl(Math.round(Math.abs(frei))) + " T€",
+     frei >= 0 ? "Dieses Geld steht zur Verfügung, ohne dass jemand darum gebeten werden musste."
+               : "Dieses Geld muss zusätzlich finanziert werden.",
+     frei < 0],
+    ["Ein Tag Debitorenlaufzeit", zahl(Math.round(TAG_UMS)) + " T€",
+     "Der wirksamste der drei Hebel — ein Tag am Umsatz gemessen.", false]
+  ];
+  $("ccErg").innerHTML = karten.map(([k, v, f, warn]) =>
+    `<div class="k${warn ? " warn" : ""}"><p class="kk">${esc(k)}</p>
+       <p class="kv">${v}</p><p class="kf">${f}</p></div>`).join("");
+}
+$("ccForm").addEventListener("input", e => { if(e.target.type === "range") ccRechne(); });
+ccRechne();
+
+/* =====================================================================
+   2 · Zuordnungsuebung: die vier Felder
+   ===================================================================== */
+const ZU_POS = [
+  ["Ein Kunde zahlt bar an der Kasse, die Ware geht sofort mit", "be",
+   "Feld 1, beides zugleich. Ertrag und Einzahlung fallen im selben Augenblick an — der einfache Fall, und in der Industrie der seltene."],
+  ["Eine Rechnung über 40 T€ wird geschrieben, Zahlungsziel 30 Tage", "er",
+   "Feld 2, nur Erfolg. Der Ertrag entsteht mit der Rechnung, das Geld kommt später. Genau dieser Abstand ist der Gegenstand einer Liquiditätsvorschau."],
+  ["Die planmäßige Abschreibung auf eine Maschine wird gebucht", "er",
+   "Feld 2, nur Erfolg — und hier dauerhaft. Eine Abschreibung kostet Ergebnis und wird nie zu einer Zahlung. Bezahlt wurde die Maschine beim Kauf."],
+  ["Eine Rückstellung für einen drohenden Prozess wird gebildet", "er",
+   "Feld 2. Aufwand ohne jede Zahlung. Zahlungswirksam wird es erst, wenn der Prozess verloren geht und gezahlt werden muss."],
+  ["Eine Rückstellung wird aufgelöst, weil der Prozess gewonnen wurde", "er",
+   "Feld 2, in der anderen Richtung: Ertrag ohne Einzahlung. Das Ergebnis steigt, auf dem Konto bewegt sich nichts."],
+  ["Ein Kunde zahlt eine Rechnung aus dem Vorjahr", "za",
+   "Feld 3, nur Zahlung. Der Ertrag ist im Vorjahr entstanden. Jetzt wird eine Forderung zu Bankguthaben — für die Liquidität der wichtigste Vorgang überhaupt."],
+  ["Ein Kunde leistet eine Anzahlung auf einen Auftrag", "za",
+   "Feld 3. Geld kommt herein, geleistet ist noch nichts — also entsteht kein Ertrag. In der Bilanz steht eine erhaltene Anzahlung als Verbindlichkeit."],
+  ["Eine CNC-Maschine wird für 900 T€ gekauft und bezahlt", "za",
+   "Feld 3. Die größte Auszahlung des Jahres taucht im Ergebnis mit null auf. Aufwand wird sie erst über die Abschreibungen der kommenden Jahre."],
+  ["Ein Darlehen über 5.000 T€ wird aufgenommen", "za",
+   "Feld 3. Geld kommt herein und eine Schuld entsteht — kein Ertrag. Nur die Zinsen darauf sind Aufwand, und die sind eine eigene Buchung."],
+  ["Eine Darlehensrate von 200 T€ wird getilgt", "za",
+   "Feld 3. Die Tilgung steht in keiner Gewinn- und Verlustrechnung. Sie ist einer der Posten, die beim Planen am häufigsten vergessen werden."],
+  ["Der Gesellschafter bekommt eine Ausschüttung von 800 T€", "za",
+   "Feld 3. Ergebnisverwendung, kein Aufwand. Das Geld verlässt das Haus, das Ergebnis des Jahres bleibt unverändert."],
+  ["Die Umsatzsteuer-Zahllast für März wird am 10. April überwiesen", "za",
+   "Feld 3. Die Umsatzsteuer ist ein durchlaufender Posten und nie Aufwand. Für die Liquidität ist sie einer der größten monatlichen Abflüsse."],
+  ["Geld wird von der Kasse auf das Bankkonto eingezahlt", "ke",
+   "Feld 4, weder noch. Ein Aktivtausch zwischen zwei Zahlungsmittelkonten. Der Zahlungsmittelbestand insgesamt ändert sich nicht."],
+  ["Eine Bestellung über 300 T€ wird ausgelöst, geliefert ist noch nichts", "ke",
+   "Feld 4. Ein schwebendes Geschäft: weder Ertrag noch Aufwand, weder Ein- noch Auszahlung. Für die Vorschau ist es trotzdem interessant — es kündigt eine Auszahlung an."]
+];
+let zuStand = [];
+const ZU_NAME = {be:"Beides", er:"Nur Erfolg", za:"Nur Zahlung", ke:"Weder noch"};
+function zuZiehen(){ zuStand = ZU_POS.map((p, i) => ({i, gewaehlt:null})); zuRender(); }
+function zuRender(){
+  $("zuListe").innerHTML = zuStand.map((z, n) => {
+    const [text, richtig, begr] = ZU_POS[z.i];
+    const kl = s => z.gewaehlt === null ? "" : (s === richtig ? " ok" : (s === z.gewaehlt ? " no" : ""));
+    return `<div class="zuz">
+      <p class="zt">${esc(text)}</p>
+      <div class="zb">${["be","er","za","ke"].map(s =>
+        `<button class="zub${kl(s)}" type="button" data-z="${n}" data-s="${s}"${
+          z.gewaehlt !== null ? " disabled" : ""}>${ZU_NAME[s]}</button>`).join("")}</div>
+      ${z.gewaehlt === null ? "" : `<p class="zuw">${
+        z.gewaehlt === richtig ? "<b style='color:#1E6B47'>Richtig.</b> " : "<b style='color:#9C2F2C'>Daneben.</b> "}${begr}</p>`}
+    </div>`;
+  }).join("");
+  const fertig  = zuStand.filter(z => z.gewaehlt !== null).length;
+  const treffer = zuStand.filter(z => z.gewaehlt === ZU_POS[z.i][1]).length;
+  $("zuStand").textContent = fertig === 0
+    ? ZU_POS.length + " Vorfälle"
+    : fertig + " von " + ZU_POS.length + " eingeordnet · " + treffer + " richtig";
+}
+$("zuListe").addEventListener("click", e => {
+  const b = e.target.closest(".zub"); if(!b || b.disabled) return;
+  const z = zuStand[+b.dataset.z]; if(!z || z.gewaehlt !== null) return;
+  z.gewaehlt = b.dataset.s; zuRender();
+});
+$("zuNew").addEventListener("click", zuZiehen);
+zuZiehen();
+
+/* =====================================================================
+   3 · Sieben Schritte mit den eigenen Zahlen
+   ===================================================================== */
+const CHECK7 = [
+  ["Schreib den Kontostand von heute auf, alle Konten zusammen",
+   "Bankkonten, Kasse, und daneben die freie Kontokorrentlinie. Das ist der Anfangsbestand jeder Planung und die einzige Zahl darin, die sicher stimmt.",
+   "Es wird mit dem Saldo des Hauptkontos gearbeitet. Ein zweites Konto mit einem Guthaben oder eine ausgeschöpfte Linie verschiebt das Bild um einen sechsstelligen Betrag."],
+  ["Rechne Deine Geldumschlagsdauer aus dem letzten Abschluss",
+   "Drei Divisionen, zehn Minuten. Du brauchst Vorräte, Forderungen aus Lieferungen und Leistungen, Verbindlichkeiten aus Lieferungen und Leistungen, Umsatz und Materialaufwand — alle fünf stehen im Abschluss.",
+   "Es wird mit Durchschnittsbeständen und Branchenformeln angefangen. Die einfache Rechnung aus den Stichtagswerten reicht für die erste Orientierung völlig."],
+  ["Lies die offenen Posten der Debitoren nach Alter",
+   "Jedes Buchhaltungssystem kann das. Interessant ist die Spalte über 60 Tage: Das ist Geld, das Du verdient hast und nicht bekommst. Oft steckt dort mehr als der Jahresüberschuss.",
+   "Man sieht auf die Gesamtsumme der Forderungen. Die sagt nichts darüber, welcher Teil davon in Gefahr ist."],
+  ["Notier alle wiederkehrenden Zahlungen mit ihrem Tag im Monat",
+   "Löhne, Mieten, Leasing, Versicherungen, Darlehensraten, Steuervorauszahlungen. Zwanzig Zeilen, und Du hast die Hälfte einer Liquiditätsvorschau schon beisammen — den verlässlichen Teil.",
+   "Es wird bei den großen Beträgen aufgehört. Zwölf kleine Daueraufträge summieren sich auf einen großen, und sie kommen alle in derselben Woche."],
+  ["Such die Posten, die in keiner Auswertung stehen",
+   "Investitionen, Tilgungen, Entnahmen, Ausschüttungen, Steuernachzahlungen. Das ist Feld 3 aus Lektion 02. Wer diese Liste nicht führt, plant eine Firma, die nie investiert und nie tilgt.",
+   "Man verlässt sich auf die Zahlen aus der Buchhaltung. Genau diese Posten kommen dort nicht vor, und genau sie sind die großen."],
+  ["Stell die nächsten dreizehn Wochen auf ein Blatt",
+   "Anfangsbestand, dann je Woche Eingänge und Ausgänge aus den drei Listen oben. Dreizehn Zeilen. Wenn der Bestand irgendwo unter die Kreditlinie fällt, hast Du gefunden, wonach Du gesucht hast.",
+   "Es wird sofort ein Jahr geplant. Die ersten dreizehn Wochen sind die, die belastbar sind und über die entschieden wird."],
+  ["Häng einen Termin für nächsten Monat in den Kalender",
+   "Eine Vorschau ist eine Reihe und kein Dokument. Ihr Wert entsteht dadurch, dass Du beim nächsten Mal siehst, wo Du danebenlagst — und woran es lag.",
+   "Die Planung wird einmal gemacht und abgelegt. Eine einzelne Vorschau ist eine Vermutung; erst die dritte ist ein Instrument."]
+];
+$("ck7").innerHTML = CHECK7.map(([t, p, f]) =>
+  `<div class="ckitem"><h3>${esc(t)}</h3><p>${p}</p>
+     <p class="trap"><b>Typischer Fehler:</b> ${f}</p></div>`).join("");
+
+/* =====================================================================
+   4 · Glossar
+   ===================================================================== */
+const GLOSSAR = [
+  ["Liquidität", "Die Fähigkeit, fällige Zahlungsverpflichtungen jederzeit erfüllen zu können."],
+  ["Zahlungsunfähigkeit", "Der Schuldner kann fällige Zahlungspflichten nicht erfüllen (§ 17 InsO). Der häufigste Eröffnungsgrund eines Insolvenzverfahrens."],
+  ["Einzahlung / Auszahlung", "Bewegung des Zahlungsmittelbestands. Die Ebene, um die es in der Liquiditätsplanung geht."],
+  ["Einnahme / Ausgabe", "Bewegung des Geldvermögens, also einschließlich Forderungen und Verbindlichkeiten."],
+  ["Ertrag / Aufwand", "Bewegung des Reinvermögens. Die Ebene der Gewinn- und Verlustrechnung."],
+  ["Leistung / Kosten", "Der betriebsbedingte Teil von Ertrag und Aufwand. Die Ebene der Kostenrechnung."],
+  ["Erfolgswirksam", "Ein Vorgang, der das Ergebnis verändert — unabhängig davon, ob Geld fließt."],
+  ["Zahlungswirksam", "Ein Vorgang, der den Zahlungsmittelbestand verändert — unabhängig vom Ergebnis."],
+  ["Zahlungsziel", "Die eingeräumte Frist bis zur Fälligkeit. Sie sagt, wann gezahlt werden darf, und nicht, wann gezahlt wird."],
+  ["Zahlungsverhalten", "Die tatsächliche Verteilung der Eingänge über die Zeit. Die Größe, mit der eine Vorschau rechnet."],
+  ["Skonto", "Abzug für schnelle Zahlung. Drei Prozent bei zehn statt dreißig Tagen entsprechen über fünfzig Prozent Jahreszins."],
+  ["Lagerdauer", "Vorräte ÷ Materialaufwand × 365. Wie lange Material und Erzeugnisse im Haus liegen."],
+  ["Debitorenlaufzeit", "Forderungen ÷ Umsatzerlöse × 365. Wie lange die Kunden im Schnitt brauchen."],
+  ["Kreditorenlaufzeit", "Verbindlichkeiten ÷ Materialaufwand × 365. Der zinslose Kredit der Lieferanten."],
+  ["Geldumschlagsdauer", "Lagerdauer + Debitorenlaufzeit − Kreditorenlaufzeit. Wie lange ein Euro im Unternehmen festliegt."],
+  ["Working Capital", "Umlaufvermögen − kurzfristiges Fremdkapital. Der langfristig finanzierte Teil des Umlaufvermögens."],
+  ["Kontokorrentlinie", "Der eingeräumte Rahmen auf dem Geschäftskonto. Die tatsächliche Untergrenze einer Planung, nicht die Null."],
+  ["Soll-Versteuerung", "Die Umsatzsteuer entsteht mit der Rechnung, unabhängig von der Zahlung (§ 16 UStG). Der Regelfall."],
+  ["Ist-Versteuerung", "Die Umsatzsteuer entsteht mit der Zahlung (§ 20 UStG). Auf Antrag und nur unterhalb bestimmter Grenzen."],
+  ["Rollierende Planung", "Eine Vorschau, die in festem Rhythmus fortgeschrieben wird und dabei immer denselben Horizont behält."]
+];
+$("glos").innerHTML = GLOSSAR.map(([b, t]) => `<div><b>${esc(b)}</b> — ${t}</div>`).join("");
+
+/* =====================================================================
+   5 · Uebung: fuenf Fragen, zufaellig aus dem Vorrat
+   ===================================================================== */
+const FRAGEN = [
+  ["Was besagt § 17 InsO?",
+   ["Zahlungsunfähigkeit ist ein Eröffnungsgrund für ein Insolvenzverfahren","Überschuldung führt zur Liquidation","Ein Verlust muss angezeigt werden","Die Bilanz ist binnen drei Monaten aufzustellen"], 0,
+   "Der Schuldner kann fällige Zahlungspflichten nicht erfüllen. Das ist der häufigste Eröffnungsgrund — und er hat mit dem ausgewiesenen Gewinn wenig zu tun."],
+  ["Welche Ebene meint der Begriff Liquidität?",
+   ["Den Zahlungsmittelbestand","Das Reinvermögen","Das Geldvermögen","Das betriebsnotwendige Vermögen"], 0,
+   "Einzahlung und Auszahlung bewegen den Zahlungsmittelbestand. Ertrag und Aufwand bewegen das Reinvermögen — das ist der Erfolg und eine andere Frage."],
+  ["Eine Rechnung wird geschrieben, das Geld kommt in zwei Monaten. Was entsteht sofort?",
+   ["Ein Ertrag","Eine Einzahlung","Beides","Keines von beiden"], 0,
+   "Der Ertrag entsteht mit der Leistung und der Rechnung. Die Einzahlung folgt später — und genau dieser Abstand ist der Gegenstand einer Liquiditätsvorschau."],
+  ["Warum ist ein Unternehmen mit hohen Abschreibungen liquider, als sein Gewinn vermuten lässt?",
+   ["Weil Abschreibungen das Ergebnis mindern, ohne dass Geld fließt","Weil Abschreibungen steuerlich absetzbar sind","Weil sie die Bilanzsumme erhöhen","Weil sie erst am Jahresende gebucht werden"], 0,
+   "Ein zahlungsloser Aufwand. Deshalb liegt der Cashflow eines anlagenintensiven Unternehmens regelmäßig deutlich über seinem Jahresüberschuss."],
+  ["In welches Feld gehört der Kauf einer Maschine?",
+   ["Nur Zahlung","Nur Erfolg","Beides","Weder noch"], 0,
+   "Die größte Auszahlung des Jahres erscheint im Ergebnis mit null. Aufwand wird der Kaufpreis erst über die Abschreibungen der kommenden Jahre."],
+  ["In welches Feld gehört die Bildung einer Rückstellung?",
+   ["Nur Erfolg","Nur Zahlung","Beides","Weder noch"], 0,
+   "Aufwand ohne jede Zahlung. Zahlungswirksam wird es erst, wenn die Verpflichtung tatsächlich zu erfüllen ist."],
+  ["In welches Feld gehört die Tilgung eines Darlehens?",
+   ["Nur Zahlung","Nur Erfolg","Beides","Weder noch"], 0,
+   "Die Tilgung steht in keiner Gewinn- und Verlustrechnung. Nur die Zinsen sind Aufwand — und Tilgungen gehören zu den Posten, die beim Planen am häufigsten vergessen werden."],
+  ["In welches Feld gehört eine Anzahlung, die ein Kunde leistet?",
+   ["Nur Zahlung","Nur Erfolg","Beides","Weder noch"], 0,
+   "Geld kommt herein, geleistet ist noch nichts. In der Bilanz steht eine erhaltene Anzahlung als Verbindlichkeit, kein Ertrag."],
+  ["Warum verbraucht ein schnell wachsendes Unternehmen Geld?",
+   ["Weil Forderungen und Vorräte mit dem Umsatz wachsen und vorfinanziert werden müssen","Weil die Fixkosten überproportional steigen","Weil die Steuerlast vorgezogen wird","Weil die Abschreibungen steigen"], 0,
+   "Material und Löhne sind sofort fällig, die Kunden zahlen später. Die Lücke wächst mit dem Erfolg und schließt sich erst, wenn das Wachstum aufhört."],
+  ["Wie wird die Geldumschlagsdauer gebildet?",
+   ["Lagerdauer + Debitorenlaufzeit − Kreditorenlaufzeit","Lagerdauer + Debitorenlaufzeit + Kreditorenlaufzeit","Debitorenlaufzeit − Lagerdauer","Umsatz ÷ Bilanzsumme"], 0,
+   "Zwei Bausteine verlängern den Weg des Geldes, einer verkürzt ihn. Der Lieferantenkredit ist der einzige Teil, der arbeitet, ohne etwas zu kosten."],
+  ["Was misst die Debitorenlaufzeit?",
+   ["Wie lange die Kunden im Schnitt brauchen, bis sie zahlen","Wie lange das Material im Lager liegt","Wie lange Du Deine Lieferanten hinhältst","Wie lange ein Auftrag in der Fertigung ist"], 0,
+   "Forderungen aus Lieferungen und Leistungen ÷ Umsatzerlöse × 365. Weil sie am Umsatz misst, ist ein Tag hier mehr Geld wert als ein Tag Lagerdauer."],
+  ["Welcher der drei Bausteine ist beim Zulieferer der größte Hebel je Tag?",
+   ["Die Debitorenlaufzeit","Die Lagerdauer","Die Kreditorenlaufzeit","Alle drei gleich"], 0,
+   "Sie misst am Umsatz von 98.000 T€, die anderen beiden am Materialaufwand von 53.200 T€. Ein Tag weniger setzt rund 268 T€ frei statt 146 T€."],
+  ["Warum ist die Kreditorenlaufzeit nach oben begrenzt?",
+   ["Weil das Dehnen über das Ziel hinaus Konditionen und Lieferbereitschaft kostet","Weil das HGB eine Höchstfrist vorschreibt","Weil sie sonst die Bilanzsumme sprengt","Weil sie steuerlich nicht anerkannt wird"], 0,
+   "Der Lieferantenkredit ist zinslos und nicht kostenlos. Wer verspätet zahlt, verliert Skonto, bekommt schlechtere Preise oder wird nachrangig beliefert."],
+  ["Drei Prozent Skonto bei zehn Tagen gegen dreißig Tage netto — was entspricht das?",
+   ["Über fünfzig Prozent Jahreszins","Etwa drei Prozent Jahreszins","Etwa zehn Prozent Jahreszins","Das lässt sich nicht umrechnen"], 0,
+   "Drei Prozent für zwanzig Tage gewonnene Zeit, hochgerechnet auf ein Jahr. Wer Skonto ziehen kann und es lässt, finanziert sich teurer als bei jeder Bank."],
+  ["Wann entsteht die Umsatzsteuer bei der Soll-Versteuerung?",
+   ["Mit der Rechnungsstellung, unabhängig von der Zahlung","Mit dem Zahlungseingang","Am Jahresende","Mit der Bestellung"], 0,
+   "§ 16 UStG, der Regelfall. Du führst Umsatzsteuer auf Geld ab, das noch nicht eingegangen ist — für die Liquidität einer der unangenehmsten Effekte überhaupt."],
+  ["Welche der drei Quellen erzeugt Liquidität aus eigener Kraft?",
+   ["Der operative Bereich","Der Investitionsbereich","Der Finanzierungsbereich","Alle drei gleichermaßen"], 0,
+   "Investition verzehrt in der Regel, Finanzierung verschiebt und kostet. Wer dauerhaft aus Investition Geld einnimmt, verkauft seine Substanz."],
+  ["In welches Feld gehört eine Umbuchung von der Kasse auf das Bankkonto?",
+   ["Weder erfolgs- noch zahlungswirksam","Nur zahlungswirksam","Nur erfolgswirksam","Beides"], 0,
+   "Ein Aktivtausch zwischen zwei Zahlungsmittelkonten. Der Zahlungsmittelbestand insgesamt bleibt gleich, also passiert für die Planung nichts."],
+  ["Was sagt ein Zahlungsziel von 30 Tagen über den Zahlungseingang?",
+   ["Es sagt, wann gezahlt werden darf, und nicht, wann gezahlt wird","Das Geld kommt nach genau 30 Tagen","Das Geld kommt spätestens nach 30 Tagen","Nichts, es ist unverbindlich"], 0,
+   "Ein Teil zahlt früher mit Skonto, ein Teil pünktlich, ein Teil später. Eine Vorschau braucht deshalb eine Verteilung und keinen einzelnen Tag."],
+  ["Warum ist die Aufwandsseite einer Vorschau verlässlicher als die Ertragsseite?",
+   ["Weil viele Auszahlungen an festen Tagen erfolgen, während Eingänge vom Verhalten der Kunden abhängen","Weil Aufwendungen kleiner sind","Weil sie gesetzlich geregelt sind","Weil sie seltener vorkommen"], 0,
+   "Löhne am 25., Miete am 3., Versicherung im Januar. Der Zahlungszeitpunkt ist bekannt — beim Kunden ist er eine Annahme."],
+  ["Was ist bei einer Liquiditätsplanung die tatsächliche Untergrenze?",
+   ["Die Kontokorrentlinie","Die Null","Das Eigenkapital","Das Working Capital"], 0,
+   "Null ist selten die relevante Grenze. Interessant ist der Tag, an dem der Bestand den eingeräumten Rahmen reißt."],
+  ["Warum reicht eine einzelne Liquiditätsvorschau nicht?",
+   ["Weil ihr Wert erst entsteht, wenn man beim nächsten Mal sieht, wo man danebenlag","Weil sie gesetzlich jährlich zu erstellen ist","Weil sie sonst zu ungenau ist","Weil die Bank mehrere verlangt"], 0,
+   "Eine Vorschau ist eine Reihe und kein Dokument. Erst die dritte ist ein Instrument, weil man dann die eigene Trefferquote kennt."],
+  ["Was gehört zu den Posten, die in keiner Gewinn- und Verlustrechnung stehen?",
+   ["Investition, Tilgung, Entnahme und Umsatzsteuer-Zahllast","Abschreibungen und Rückstellungen","Material- und Personalaufwand","Zinsen und Steuern vom Einkommen"], 0,
+   "Feld 3 der Vier-Felder-Tafel. Große Beträge, die das Konto bewegen und im Ergebnis nicht vorkommen — die am häufigsten vergessene Gruppe."],
+  ["Ein Unternehmen weist einen Jahresüberschuss von 2.300 T€ aus und braucht 5.000 T€ für Wachstum. Was folgt daraus?",
+   ["Das Wachstum muss zusätzlich finanziert werden","Der Gewinn reicht aus","Das Wachstum ist unrentabel","Die Bilanz geht nicht auf"], 0,
+   "Der Gewinn deckt weniger als die Hälfte der zusätzlichen Kapitalbindung. Der Rest kommt aus dem Kontokorrent, von der Bank oder aus einer kürzeren Geldumschlagsdauer."],
+  ["Wie lässt sich die Geldumschlagsdauer senken, ohne jemanden um Geld zu bitten?",
+   ["Lager verkleinern, Forderungen schneller einziehen, Zahlungsziele bei Lieferanten nutzen","Den Umsatz steigern","Die Abschreibungen erhöhen","Eine Rückstellung bilden"], 0,
+   "Drei Regler, drei Gespräche mit drei Abteilungen. Jeder Tag weniger setzt Geld frei, das vorher im eigenen Geschäft festlag."],
+  ["Was misst die Lagerdauer beim Zulieferer mit 102 Tagen?",
+   ["Wie lange Material und Erzeugnisse im Haus liegen, bevor sie verkauft sind","Wie lange eine Maschine genutzt wird","Wie lange ein Auftrag dauert","Wie lange die Garantie läuft"], 0,
+   "Vorräte ÷ Materialaufwand × 365. Für einen Zulieferer mit Variantenfertigung erklärbar — und der größte der drei Bausteine."]
+];
+let qAktuell = [];
+const QZAHL = 5;
+const mischen = a => {
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+/* Auch die Antworten werden gemischt. Stuenden sie in der Reihenfolge
+   des Vorrats, waere die richtige immer die erste. */
+function qZiehen(){
+  qAktuell = mischen(FRAGEN.map((f, i) => i)).slice(0, QZAHL)
+    .map(i => ({i, ord:mischen(FRAGEN[i][1].map((o, j) => j)), gewaehlt:null}));
+  qRender();
+}
+function qRender(){
+  $("quiz").innerHTML = qAktuell.map((q, n) => {
+    const [text, opts, richtig, begr] = FRAGEN[q.i];
+    return `<div class="qcard">
+      <p class="qn">Frage ${n + 1} von ${QZAHL}</p>
+      <p class="qt">${text}</p>
+      <div class="qopts">${q.ord.map(j => {
+        let kl = "";
+        if(q.gewaehlt !== null) kl = j === richtig ? " right" : (j === q.gewaehlt ? " wrong" : "");
+        return `<button class="qopt${kl}" type="button" data-q="${n}" data-o="${j}"${q.gewaehlt !== null ? " disabled" : ""}>${opts[j]}</button>`;
+      }).join("")}</div>
+      <p class="qfb"${q.gewaehlt === null ? " hidden" : ""}>${
+        q.gewaehlt === null ? "" :
+        (q.gewaehlt === richtig ? "<b style='color:#1E6B47'>Richtig.</b> " : "<b style='color:#9C2F2C'>Daneben.</b> ") + begr}</p>
+    </div>`;
+  }).join("");
+  const fertig  = qAktuell.filter(q => q.gewaehlt !== null).length;
+  const treffer = qAktuell.filter(q => q.gewaehlt === FRAGEN[q.i][2]).length;
+  $("qStand").textContent = fertig === 0
+    ? QZAHL + " Fragen aus einem Vorrat von " + FRAGEN.length
+    : fertig + " von " + QZAHL + " beantwortet · " + treffer + " richtig";
+  $("qResult").innerHTML = fertig < QZAHL ? "" :
+    `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
+      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen — der Vorrat hat " + FRAGEN.length + "." :
+      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben; sie sind der eigentliche Lernstoff." :
+      "Geh die Begründungen oben in Ruhe durch. Die häufigste Stolperstelle ist Feld 3: Vorgänge, die Geld bewegen und im Ergebnis nicht vorkommen."}</div>`;
+}
+$("quiz").addEventListener("click", e => {
+  const b = e.target.closest(".qopt"); if(!b || b.disabled) return;
+  const q = qAktuell[+b.dataset.q]; if(!q || q.gewaehlt !== null) return;
+  q.gewaehlt = +b.dataset.o;
+  qRender();
+});
+$("qNew").addEventListener("click", qZiehen);
+qZiehen();
+/* =====================================================================
+   6 · Lektionen
+   ===================================================================== */
+const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","d","e"];
+function select(i){
+  tabs.forEach((t, j) => {
+    const on = i === j;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    $("p-" + keys[j]).hidden = !on;
+  });
+}
+tabs.forEach((t, i) => {
+  t.addEventListener("click", () => select(i));
+  t.addEventListener("keydown", e => {
+    const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if(!d) return; e.preventDefault();
+    const n = (i + d + tabs.length) % tabs.length; tabs[n].focus(); select(n);
+  });
+});
+select(0);
+
+/* =====================================================================
+   7 · Bloecke zum Auf- und Zuklappen
+   Baut die Abschnitte einer Lektion zur Laufzeit aus der vorhandenen
+   Gliederung: jedes h2.sec eroeffnet einen Block, alles danach bis zum
+   naechsten h2.sec ist sein Inhalt. Was vor dem ersten h2.sec steht -
+   die Kernaussage der Lektion - bleibt immer sichtbar, ebenso ein
+   Pointe-Kasten am Ende. Der erste Block ist offen, die uebrigen zu.
+   ===================================================================== */
+function makeBlocks(panel){
+  if(!panel) return 0;
+  const kinder = [...panel.children];
+  const istKopf = n => n.tagName === "H2" && n.classList.contains("sec");
+  const istEnde = n => n.classList.contains("pointe");
+  let i = 0, nr = 0;
+
+  while(i < kinder.length){
+    if(!istKopf(kinder[i])){ i++; continue; }
+    const h2 = kinder[i], inhalt = [];
+    let j = i + 1;
+    while(j < kinder.length && !istKopf(kinder[j]) && !istEnde(kinder[j])){
+      inhalt.push(kinder[j]); j++;
+    }
+    nr++;
+    const offen = nr === 1, bid = "blk-" + (panel.id || "p") + "-" + nr;
+    const wrap = document.createElement("section");
+    wrap.className = "blk";
+    wrap.dataset.open = String(offen);
+    panel.insertBefore(wrap, h2);
+
+    h2.innerHTML =
+      `<button class="blk-t" type="button" aria-expanded="${offen}" aria-controls="${bid}">
+         <svg class="blk-c" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2 L8.5 6 L4.5 10"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+         <span>${h2.innerHTML}</span>
+       </button>`;
+    wrap.appendChild(h2);
+
+    const body = document.createElement("div");
+    body.className = "blk-b"; body.id = bid;
+    body.hidden = !offen;
+    inhalt.forEach(n => body.appendChild(n));
+    wrap.appendChild(body);
+    i = j;
+  }
+
+  if(nr) panel.addEventListener("click", e => {
+    const b = e.target.closest(".blk-t"); if(!b) return;
+    const wrap = b.closest(".blk"), body = document.getElementById(b.getAttribute("aria-controls"));
+    const offen = wrap.dataset.open === "true";
+    wrap.dataset.open = String(!offen);
+    b.setAttribute("aria-expanded", String(!offen));
+    body.hidden = offen;
+    if(!offen) dispatchEvent(new Event("resize"));
+  });
+  return nr;
+}
+
+document.querySelectorAll(".panel").forEach(makeBlocks);
+</script>
+</body>
+</html>
