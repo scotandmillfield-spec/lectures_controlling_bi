@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<!-- Rahmen: fallfrei — Rechercheergebnis, Stand 15.09.2026, dritte Fassung: Antragsteller ist ein Wirtschaftsunternehmen -->
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fördermittel-Radar — E-Learning-Plattform, Unternehmensfassung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* THEME — Standardpalette. Für ein CI des Betreiberhauses genügt der Austausch dieses Blocks. */
+  --primary:#209CBD; --primary-dk:#166980; --primary-lt:#5FBBD3; --primary-xl:#E6F4F8;
+  --signal:#FF922B;  --signal-xl:#FFF1E0;
+  --soft:#B5852C;    --soft-dk:#8A6417;   --soft-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2;
+  --sans:"Source Sans 3",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(29,29,31,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;
+  font-variant-numeric:tabular-nums}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--primary-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.2rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:21ch}
+h1 em{font-style:normal;color:var(--primary)}
+.lede{font-size:clamp(1rem,1.6vw,1.18rem);font-weight:300;color:#3d3d40;max-width:66ch;margin:0}
+
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--primary);color:var(--primary-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--primary-dk);border-color:var(--primary-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+
+.claim{font-size:clamp(1.12rem,2.2vw,1.45rem);font-weight:300;line-height:1.36;
+  margin:0 0 24px;max-width:60ch;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--primary-dk)}
+h2.sec{font-size:1.2rem;font-weight:600;letter-spacing:-.012em;margin:36px 0 4px}
+h2.sec:first-of-type{margin-top:8px}
+p.sub{margin:0 0 16px;color:var(--grey);font-size:.92rem;max-width:76ch}
+.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:14px 0 0}
+
+/* ---------- Fristentabelle ---------- */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+.fbtn{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);cursor:pointer;
+  font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;font-weight:600;
+  color:var(--grey);padding:8px 13px;border-radius:99px;transition:all .16s}
+.fbtn:hover{border-color:var(--primary);color:var(--primary-dk)}
+.fbtn[aria-pressed="true"]{background:var(--primary-dk);border-color:var(--primary-dk);color:#fff}
+.fbtn:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--grey-xl);
+  border-radius:var(--r);background:var(--paper);box-shadow:var(--shadow)}
+.tscroll:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+table{border-collapse:collapse;width:100%;min-width:820px;font-size:.92rem}
+thead th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--primary-dk);font-weight:600;
+  padding:14px 16px;border-bottom:1px solid var(--grey-xl);white-space:nowrap}
+tbody td{padding:13px 16px;border-bottom:1px solid var(--grey-xl);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--primary-xl)}
+td.dl{font-family:var(--mono);font-size:.84rem;white-space:nowrap;font-weight:500}
+td.vol{font-family:var(--mono);font-size:.84rem;white-space:nowrap;color:#3d3d40}
+.nm{font-weight:600;display:block;line-height:1.25}
+.nm small{display:block;font-weight:400;color:var(--grey);font-size:.82rem;margin-top:2px}
+.pill{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;
+  text-transform:uppercase;padding:4px 9px;border-radius:99px;font-weight:600;white-space:nowrap}
+.p-hoch{background:var(--signal-xl);color:#A8551A;border:1px solid #F4C795}
+.p-mittel{background:var(--primary-xl);color:var(--primary-dk);border:1px solid #AEDBE7}
+.p-niedrig{background:var(--grey-xl);color:var(--grey);border:1px solid var(--grey-mid)}
+.p-pruefen{background:var(--soft-xl);color:var(--soft-dk);border:1px solid #E3D3AC}
+.t-direkt{background:#EFF4EA;color:#4E6B36;border:1px solid #CBDCB8}
+.t-verbund{background:var(--primary-xl);color:var(--primary-dk);border:1px solid #AEDBE7}
+.t-markt{background:var(--grey-xl);color:#5c5c5b;border:1px solid var(--grey-mid)}
+.urg{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;
+  color:#fff;background:var(--signal);padding:3px 7px;border-radius:5px;margin-left:8px;
+  text-transform:uppercase;vertical-align:1px}
+
+/* ---------- Ausschreibungskarten ---------- */
+.card{min-width:0;background:var(--paper);border:1px solid var(--grey-xl);
+  border-radius:var(--r);box-shadow:var(--shadow);margin:0 0 18px}
+.card-h{padding:16px 22px;border-bottom:1px solid var(--grey-xl);
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.card-t{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--primary-dk);font-weight:600}
+.card-b{padding:20px 22px 22px;min-width:0}
+.card-b h3{margin:0 0 10px;font-size:1.16rem;font-weight:700;letter-spacing:-.015em;line-height:1.25}
+.card-b p.body{margin:0 0 16px;font-size:.96rem;color:#3d3d40;max-width:82ch}
+dl.facts{display:grid;grid-template-columns:max-content 1fr;gap:7px 18px;margin:0 0 14px;
+  padding:14px 16px;background:var(--shell);border-radius:8px;border:1px solid var(--grey-xl)}
+dl.facts dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);padding-top:3px}
+dl.facts dd{margin:0;font-size:.92rem;min-width:0;overflow-wrap:anywhere}
+.flag{margin:0;padding:11px 14px;border-left:3px solid var(--soft);background:var(--soft-xl);
+  border-radius:0 8px 8px 0;font-size:.9rem;color:#4a4a3c}
+.flag b{color:var(--soft-dk)}
+a.src{font-family:var(--mono);font-size:.8rem;color:var(--primary-dk);word-break:break-all}
+a.src:hover{color:var(--signal)}
+
+ul.lean{margin:0 0 18px;padding-left:20px;max-width:82ch}
+ul.lean li{margin:0 0 10px;font-size:.96rem;color:#3d3d40}
+ul.lean li b{color:var(--ink)}
+
+.doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:0 0 8px}
+.doors>*{min-width:0}
+.door{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px 20px}
+.door .dk{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 6px}
+.door h4{margin:0 0 9px;font-size:1.02rem;font-weight:700;line-height:1.25}
+.door p{margin:0 0 10px;font-size:.9rem;color:#3d3d40}
+.door ul{margin:0;padding-left:17px}
+.door li{font-size:.86rem;color:#3d3d40;margin:0 0 5px}
+
+/* ---------- Linkverzeichnis ---------- */
+.lgroup{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);margin:0 0 18px;padding:18px 22px 20px}
+.lgroup h3{margin:0 0 4px;font-size:1.06rem;font-weight:700;letter-spacing:-.012em}
+.lgroup p.gsub{margin:0 0 14px;font-size:.88rem;color:var(--grey)}
+.lgroup ul{list-style:none;margin:0;padding:0}
+.lgroup li{padding:9px 0;border-top:1px solid var(--grey-xl);display:grid;
+  grid-template-columns:minmax(180px,.42fr) 1fr;gap:4px 18px;align-items:baseline}
+.lgroup li>*{min-width:0}
+.lgroup li:first-child{border-top:none}
+.lgroup .ln{font-size:.93rem;font-weight:600;line-height:1.3}
+.lgroup .ln small{display:block;font-weight:400;color:var(--grey);font-size:.8rem;margin-top:1px}
+.lgroup a{font-family:var(--mono);font-size:.78rem;color:var(--primary-dk);
+  word-break:break-all;text-decoration:none;border-bottom:1px solid transparent}
+.lgroup a:hover{color:var(--signal);border-bottom-color:var(--signal)}
+.lgroup a:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+@media (max-width:720px){ .lgroup li{grid-template-columns:1fr} }
+
+.payoff{margin-top:30px;background:var(--signal);color:#fff;border-radius:var(--r);
+  padding:20px 24px;font-size:1.02rem;line-height:1.55}
+.payoff.calm{background:var(--primary-dk)}
+.payoff b{font-weight:700}
+
+footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px;max-width:90ch}
+
+@media (max-width:620px){
+  .wrap{padding:0 16px 56px}
+  dl.facts{grid-template-columns:1fr;gap:2px 0}
+  dl.facts dd{margin-bottom:9px}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Fördermittel-Recherche · Stand 15. September 2026 · Unternehmensfassung</p>
+  <h1>Fördertöpfe für eine <em>E-Learning-Plattform</em> — Antragsteller ist ein Unternehmen</h1>
+  <p class="lede">Wenn nicht die Hochschule, sondern das Unternehmen den Antrag stellt, ändert sich die Landkarte: Die reine Lehrförderung fällt weg, dafür rücken die technologie- und arbeitsmarktorientierten Töpfe nach vorn. Sortiert ist diese Fassung deshalb nicht nach Thema, sondern nach der Frage, wer einreichen darf.</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Fördermittel-Radar">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Fristenlage</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Direkt beantragbar</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Verbund nötig</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Aufhänger &amp; Strategie</button>
+  <button class="tab" role="tab" id="tab-e" aria-controls="p-e" aria-selected="false" tabindex="-1"><span class="num">05</span> Links</button>
+</div>
+
+<!-- =============================================== 01 FRISTENLAGE -->
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <p class="claim">15 Zugänge, die einem Wirtschaftsunternehmen offenstehen. Drei haben eine Frist in den nächsten <b>vier Wochen</b>, einer läuft völlig fristfrei.</p>
+
+  <div class="filters" role="group" aria-label="Nach Antragskonstellation filtern">
+    <button class="fbtn" data-f="alle" aria-pressed="true">Alle</button>
+    <button class="fbtn" data-f="direkt" aria-pressed="false">Direkt beantragbar</button>
+    <button class="fbtn" data-f="verbund" aria-pressed="false">Verbund nötig</button>
+    <button class="fbtn" data-f="markt" aria-pressed="false">Erlösseite</button>
+  </div>
+
+  <div class="tscroll" tabindex="0" aria-label="Übersicht aller Fördermöglichkeiten nach Frist">
+    <table id="fristen">
+      <thead>
+        <tr><th>Frist</th><th>Programm / Ausschreibung</th><th>Volumen</th><th>Konstellation</th><th>Passung</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <p class="hint">Passung = Einschätzung zum beschriebenen Vorhaben, keine Aussage über Förderfähigkeit</p>
+
+  <h2 class="sec">Was in den nächsten vier Wochen zu entscheiden ist</h2>
+  <ul class="lean">
+    <li><b>Jederzeit, ohne Wettbewerb:</b> Forschungszulage. Wirkt rückwirkend auf bereits angefallene Entwicklungskosten, bis 35 % für KMU. Der einzige Weg, geleistete Arbeit noch zu monetarisieren — und als Steuerinstrument ohne Antragsrisiko.</li>
+    <li><b>14.10.2026 — PROKIWA (BMAS).</b> Inhaltlich der nächste Treffer: Handlungsfeld 1 sucht skalierbare Unterstützungsangebote, die betriebliche KI-Vorhaben mit der Kompetenzentwicklung der Beschäftigten verzahnen. Vor jedem Aufwand aber die Antragsberechtigung klären, siehe Karte.</li>
+    <li><b>15.10.2026 — zwei Bundes-Skizzen.</b> KMU-innovativ IKT für den technischen Kern, „Cyberresiliente Gesellschaft“ für den verhaltens- und organisationsbezogenen. Beide verlangen nur eine Skizze von 11 bis 13 Seiten, beide wollen ein echtes Forschungsrisiko sehen.</li>
+    <li><b>Laufend, kleine Summe, schneller Weg:</b> MID-Digitalisierung in NRW. 50 % bis 15.000 €, monatliche Losziehung, danach 28 Tage für den Antrag. Wenig Geld, aber kalkulierbarer Aufwand.</li>
+    <li><b>Gesperrt:</b> ZIM nimmt seit dem 07.07.2026 keine Anträge an. Unterlagen trotzdem jetzt vorbereiten — bei Wiederöffnung ist mit einem Antragsstau zu rechnen.</li>
+  </ul>
+
+  <h2 class="sec">Was mit der Hochschulschiene entfällt — und was davon bleibt</h2>
+  <p class="sub">Drei Programme sind aus dieser Fassung gestrichen, weil ein Unternehmen dort nicht antragsberechtigt ist.</p>
+  <ul class="lean">
+    <li><b>Gestrichen:</b> Freiraum und Fokus Netzwerke der Stiftung Innovation in der Hochschullehre — antragsberechtigt sind ausschließlich hauptberuflich an einer deutschen Hochschule beschäftigte Personen. Ebenfalls gestrichen: die Bund-Länder-Initiative „Digitales Lehren und Lernen“ (schulische Lehrkräftebildung) und Horizont Europa Cluster 2 (sozialwissenschaftliche Bildungsforschung, keine Produktentwicklung).</li>
+    <li><b>Was bleibt:</b> In KMU-innovativ, in beiden BMFTR-Richtlinien und in den Erasmus+-Aktionen kann eine Hochschule <b>Verbundpartner</b> sein und wird dort bis zu 100 % gefördert, bei nichtwirtschaftlichen Vorhaben zuzüglich 20 % Projektpauschale. Der didaktische und empirische Teil des Vorhabens bleibt also finanzierbar — nur nicht über den eigenen Antrag, sondern über einen Partner im selben Verbund.</li>
+    <li><b>Der Preis dafür:</b> Es gibt keinen Unternehmenstopf, der Didaktik ohne Technologienachweis fördert. Wer als Unternehmen einreicht, muss in jedem einzelnen Programm entweder ein <b>Forschungsrisiko</b> oder eine <b>Schlüsseltechnologie</b> nachweisen. Die Qualität der Lehre allein trägt keinen Antrag.</li>
+  </ul>
+</section>
+
+<!-- =============================================== 02 DIREKT -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
+  <p class="claim">Hier ist das Unternehmen selbst Zuwendungsempfänger. Gemeinsamer Nenner: Es muss ein <b>Risiko oder eine Technologie</b> nachgewiesen werden, nicht ein Bildungsbedarf.</p>
+  <div id="direkt-cards"></div>
+</section>
+
+<!-- =============================================== 03 VERBUND -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
+  <p class="claim">Hier geht nichts allein. Die Frage ist nicht, ob man förderfähig ist, sondern ob man in <b>drei bis sechs Monaten</b> ein tragfähiges Konsortium zusammenbekommt.</p>
+  <div id="verbund-cards"></div>
+</section>
+
+<!-- =============================================== 04 STRATEGIE -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
+  <p class="claim">Förderprogramme fördern Themen, nicht Produkte. Dieselbe Plattform passt durch <b>vier Türen</b> — alle vier stehen einem Unternehmen offen.</p>
+
+  <h2 class="sec">Vier Aufhänger, vier Türen</h2>
+  <p class="sub">Keiner davon ist unehrlich, solange der gewählte Aufhänger tatsächlich der Projektschwerpunkt ist. Unehrlich wird es, wenn derselbe Antrag viermal mit anderem Deckblatt eingereicht wird.</p>
+  <div class="doors">
+    <div class="door">
+      <p class="dk">Aufhänger 1</p>
+      <h4>Lerntechnologie als Softwareinnovation</h4>
+      <p>Adaptive Lernpfade, automatisierte Kompetenzdiagnostik, Verknüpfung von Lernstandsdaten mit Controlling-Kennzahlen.</p>
+      <ul>
+        <li>KMU-innovativ IKT</li>
+        <li>Forschungszulage</li>
+        <li>ZIM (nach Wiederöffnung)</li>
+      </ul>
+    </div>
+    <div class="door">
+      <p class="dk">Aufhänger 2</p>
+      <h4>KI in der Arbeitswelt</h4>
+      <p>Wie befähigt man kaufmännische Beschäftigte, KI im Controlling produktiv und beschäftigungssichernd zu nutzen?</p>
+      <ul>
+        <li>PROKIWA (14.10.2026)</li>
+        <li>MID-Digitalisierung NRW</li>
+        <li>KMU-innovativ IKT</li>
+      </ul>
+    </div>
+    <div class="door">
+      <p class="dk">Aufhänger 3</p>
+      <h4>Neues Berufsfeld und Fachkräfte</h4>
+      <p>Welche Kompetenzen braucht ein Berufsbild, das es curricular noch nicht gibt — und wer definiert sie europäisch?</p>
+      <ul>
+        <li>Erasmus+ Blueprint (bis 4 Mio. €)</li>
+        <li>Erasmus+ CoVE</li>
+        <li>ESF Plus (Erlösseite)</li>
+      </ul>
+    </div>
+    <div class="door">
+      <p class="dk">Aufhänger 4</p>
+      <h4>Cybersicherheit</h4>
+      <p>Warum scheitert Cybersicherheit an Menschen und Prozessen statt an Technik? Ein Teilthema — aber das mit den größten Töpfen.</p>
+      <ul>
+        <li>BMFTR Cyberresiliente Gesellschaft</li>
+        <li>DEP CYBER-11 (96 Mio. €)</li>
+        <li>BMWE Transferstelle (ausgesetzt)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="sec">Fünf Fallstricke der Unternehmensschiene</h2>
+  <ul class="lean">
+    <li><b>Der Eigenanteil ist echtes Geld.</b> 40 bis 60 % Förderquote heißt, dass 40 bis 60 % aus Eigenmitteln kommen müssen — als Liquidität, nicht als kalkulatorische Eigenleistung. Die BMFTR-Richtlinie setzt eine „angemessene Eigenbeteiligung“ ausdrücklich voraus und prüft die Bonität. Vor der Skizze klären, wer diesen Anteil trägt.</li>
+    <li><b>Abo-Modell gegen Offenheitspflicht.</b> Erasmus+ verlangt für geförderte Bildungsmaterialien in der Regel offene Lizenzen; die BMFTR-Richtlinie zur cyberresilienten Gesellschaft erwartet Ergebnisse „wo immer möglich in quelloffener Form“, Ausnahmen sind zu begründen. Praktikabel: gefördert werden Methodik, Kompetenzrahmen und Evaluation — nicht die auslieferungsfertige Produktversion.</li>
+    <li><b>Vorhabenbeginn.</b> Vor dem Bescheid darf nicht begonnen werden. Ist die Plattform bereits in Entwicklung, fällt dieser Teil heraus; förderfähig bleibt nur ein klar abgegrenztes neues Arbeitspaket. Ausnahmen: die Forschungszulage wirkt rückwirkend, im ZIM darf nach bestätigtem Antragseingang auf eigenes Risiko begonnen werden.</li>
+    <li><b>KMU-Status.</b> KMU-innovativ, die erhöhten Fördersätze und der 35-%-Satz der Forschungszulage hängen daran. Bei verbundenen Unternehmen, Beteiligungen und Holdingstrukturen kippt der Status schneller als erwartet — die Prüfung gehört an den Anfang, nicht ans Ende.</li>
+    <li><b>Kumulierungsverbot und mittelbare Beihilfe.</b> Dieselben Kosten dürfen nicht zweimal gefördert werden. In Verbundprojekten ist zusätzlich sicherzustellen, dass über den Hochschulpartner keine mittelbare Beihilfe an das Unternehmen fließt — das wird im Antragsverfahren ausdrücklich geprüft und ist bei personeller Verflechtung zwischen Partnern erklärungsbedürftig.</li>
+  </ul>
+
+  <h2 class="sec">Empfohlene Reihenfolge</h2>
+  <ul class="lean">
+    <li><b>Sofort:</b> FuE-Anteil der bisherigen Entwicklung prüfen und die Forschungszulage über die BSFZ ansteuern. Kein Wettbewerb, kein Stichtag, rückwirkend — und der Bescheid der BSFZ ist zugleich ein brauchbarer Härtetest dafür, ob das Vorhaben als Forschung durchgeht.</li>
+    <li><b>Diese Woche:</b> Bei der KBS-Fachstelle klären, ob ein Beratungs- oder Bildungsunternehmen in PROKIWA Handlungsfeld 1 antragsberechtigt ist oder nur als Partner auftreten kann. Die Antwort entscheidet, ob sich der Aufwand bis zum 14.10. lohnt.</li>
+    <li><b>Bis 15.10.2026:</b> Eine Skizze, nicht zwei. Liegt der Kern in der Software, ist KMU-innovativ IKT richtig; liegt er in Verhalten und Organisation, die Richtlinie zur cyberresilienten Gesellschaft. Für letztere wird ein Hochschulpartner gebraucht — der lässt sich kurzfristig gewinnen, wenn das Thema fachlich anschlussfähig ist.</li>
+    <li><b>Parallel:</b> MID-Digitalisierung ins Losverfahren geben. Geringer Aufwand, und der geforderte Technologienachweis zwingt ohnehin dazu, den KI- oder Datenanteil der Plattform sauber zu beschreiben — das braucht man für jeden anderen Antrag auch.</li>
+    <li><b>Ab November 2026:</b> Erasmus+ Programmleitfaden 2027 auswerten und Partnersuche starten. Der Aufruf 2027 ist der letzte dieser Programmgeneration.</li>
+  </ul>
+
+  <h2 class="sec">Prüfhinweise zu dieser Recherche</h2>
+  <ul class="lean">
+    <li>Deutsche Förderrichtlinien nennen üblicherweise <b>kein</b> Gesamtvolumen. Wo „nicht ausgewiesen“ steht, ist das die Regel, keine Recherchelücke.</li>
+    <li>Bei PROKIWA weichen die Quellen zur Antragsberechtigung voneinander ab — die amtliche Meldung nennt beim Einreichen ausdrücklich Forschungseinrichtungen, während KMU als Zielgruppe der zu entwickelnden Angebote beschrieben werden. Das ist vor jeder Antragsarbeit zu klären.</li>
+    <li>Als „voraussichtlich“ gekennzeichnete Fristen für 2027 sind Fortschreibungen der Vorjahre und noch nicht amtlich.</li>
+  </ul>
+
+  <div class="payoff calm">
+    <b>Kernbefund.</b> Als Unternehmen bekommt man Geld für Risiko und Technologie, nicht für gute Lehre. Der didaktische Anspruch bleibt trotzdem finanzierbar — über einen Hochschulpartner im selben Verbund, der dort bis zu 100 % gefördert wird.
+  </div>
+</section>
+
+<!-- =============================================== 05 LINKS -->
+<section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e" hidden>
+  <p class="claim">Alle Programmseiten an einer Stelle — jeweils die <b>Programmseite</b> für den Überblick und, wo vorhanden, die konkrete Ausschreibung oder das Antragsportal.</p>
+
+  <div class="lgroup">
+    <h3>Direkt beantragbar</h3>
+    <p class="gsub">Das Unternehmen ist Zuwendungsempfänger.</p>
+    <ul>
+      <li><span class="ln">Bescheinigungsstelle Forschungszulage (BSFZ)<small>Stufe 1 der Forschungszulage, Online-Antrag</small></span><a href="https://www.bescheinigung-forschungszulage.de" target="_blank" rel="noopener">bescheinigung-forschungszulage.de</a></li>
+      <li><span class="ln">Forschungszulage — Förderdatenbank<small>Verfahren, Voraussetzungen, Rechtsgrundlagen</small></span><a href="https://www.foerderdatenbank.de/FDB/Content/DE/Foerderprogramm/Bund/BMBF/zulage-forschung-entwicklung.html" target="_blank" rel="noopener">foerderdatenbank.de/…/zulage-forschung-entwicklung.html</a></li>
+      <li><span class="ln">PROKIWA — BMAS-Meldung<small>beide Handlungsfelder, Frist 14.10.2026</small></span><a href="https://www.bmas.de/DE/Service/Presse/Meldungen/2026/bmas-foerdert-ki-projekte-von-unternehmen.html" target="_blank" rel="noopener">bmas.de/…/bmas-foerdert-ki-projekte-von-unternehmen.html</a></li>
+      <li><span class="ln">PROKIWA — Förderrichtlinie<small>Volltext auf der Denkfabrik-Seite des BMAS</small></span><a href="https://www.denkfabrik-bmas.de/schwerpunkte/kuenstliche-intelligenz/weitere-artikel/foerderrichtlinie-veroeffentlicht-produktiver-und-beschaeftigungsorientierter-einsatz-von-ki-in-wirtschaft-und-arbeit" target="_blank" rel="noopener">denkfabrik-bmas.de/…/foerderrichtlinie-veroeffentlicht-…</a></li>
+      <li><span class="ln">PROKIWA — Förderaufruf bei der KBS<small>Projektträger, Ansprechstelle für die Antragsberechtigung</small></span><a href="https://fachstelle-foerdermittel.kbs.de/DE/Aktuelles/F%C3%B6rderaufrufe/node" target="_blank" rel="noopener">fachstelle-foerdermittel.kbs.de/DE/Aktuelles/Förderaufrufe/node</a></li>
+      <li><span class="ln">BMAS-Förderportal<small>Antragstellung PROKIWA</small></span><a href="https://www.foerderportal-bmas.de/bund/#/login" target="_blank" rel="noopener">foerderportal-bmas.de/bund/</a></li>
+      <li><span class="ln">KMU-innovativ: IKT<small>Fördermaßnahme mit Stichtagen und Themenfeldern</small></span><a href="https://ki-und-softwaresysteme.de/foerderschwerpunkte/kmu-foerderung/kmu-innovativ-ikt/" target="_blank" rel="noopener">ki-und-softwaresysteme.de/…/kmu-innovativ-ikt/</a></li>
+      <li><span class="ln">KMU-innovativ — alle Technologielinien<small>Übersicht der Förderberatung des Bundes</small></span><a href="https://www.foerderinfo.bund.de/foerderinfo/de/foerderung/bund/kmu/kmu-innovativ/kmu-innovativ_node.html" target="_blank" rel="noopener">foerderinfo.bund.de/…/kmu-innovativ_node.html</a></li>
+      <li><span class="ln">MID-Digitalisierung (NRW.BANK)<small>Losverfahren, Antrag, FAQ</small></span><a href="https://www.nrwbank.de/de/foerderung/foerderprodukte/60348/mittelstand-innovativ--digital-mid---digitalisierung.html" target="_blank" rel="noopener">nrwbank.de/…/mittelstand-innovativ--digital-mid---digitalisierung.html</a></li>
+      <li><span class="ln">MID — alle vier Teilprogramme<small>Übersicht der NRW.BANK</small></span><a href="https://www.nrwbank.de/de/foerderung/foerderprodukte/60382/mittelstand-innovativ-und-digital-mid.html" target="_blank" rel="noopener">nrwbank.de/…/mittelstand-innovativ-und-digital-mid.html</a></li>
+      <li><span class="ln">ZIM — Programmseite<small>Projektformen, Projektträger, Kontakt</small></span><a href="https://www.zim.de/" target="_blank" rel="noopener">zim.de</a></li>
+      <li><span class="ln">ZIM — Meldung zum Antragsstopp<small>gültig seit 07.07.2026</small></span><a href="https://www.zim.de/ZIM/Redaktion/DE/Meldungen/2026/3/2026-07-07-befristeter-antragsstopp.html" target="_blank" rel="noopener">zim.de/…/2026-07-07-befristeter-antragsstopp.html</a></li>
+      <li><span class="ln">ZIM-Richtlinie 2025<small>maßgebliche Rechtsgrundlage</small></span><a href="https://www.zim.de/ZIM/Redaktion/DE/Publikationen/Richtlinien/zim-richtlinie-ab-2025.html" target="_blank" rel="noopener">zim.de/…/zim-richtlinie-ab-2025.html</a></li>
+      <li><span class="ln">EIC Accelerator<small>Portal des European Innovation Council</small></span><a href="https://eic.ec.europa.eu/" target="_blank" rel="noopener">eic.ec.europa.eu</a></li>
+      <li><span class="ln">NKS EIC Accelerator<small>deutsche Kontaktstelle, Fristen erklärt</small></span><a href="https://www.nks-eic-accelerator.de/en/eic-accelerator-when-can-i-submit-my-application-503.php" target="_blank" rel="noopener">nks-eic-accelerator.de/…/503.php</a></li>
+    </ul>
+  </div>
+
+  <div class="lgroup">
+    <h3>Verbund nötig</h3>
+    <p class="gsub">Das Unternehmen kann einreichen, braucht aber Partner aus Wissenschaft, Bildung oder anderen Mitgliedstaaten.</p>
+    <ul>
+      <li><span class="ln">BMFTR — Cyberresiliente Gesellschaft<small>Bekanntmachung im Volltext, Frist 15.10.2026</small></span><a href="https://www.bmftr.bund.de/SharedDocs/Bekanntmachungen/DE/2026/08/2026-08-24-bekanntmachung-cyberresiliente-gesellschaft.html" target="_blank" rel="noopener">bmftr.bund.de/…/2026-08-24-bekanntmachung-cyberresiliente-gesellschaft.html</a></li>
+      <li><span class="ln">BMFTR — Souveräne Innovationsökosysteme<small>Bekanntmachung im Volltext, Frist 15.10.2026</small></span><a href="https://www.bmftr.bund.de/SharedDocs/Bekanntmachungen/DE/2026/08/2026-08-24-bekanntmachung-innovationsoekosysteme.html" target="_blank" rel="noopener">bmftr.bund.de/…/2026-08-24-bekanntmachung-innovationsoekosysteme.html</a></li>
+      <li><span class="ln">Projektträger VDI/VDE-IT<small>alle offenen Bekanntmachungen IT-Sicherheit</small></span><a href="https://www.forschung-it-sicherheit-kommunikationssysteme.de/foerderung/bekanntmachungen" target="_blank" rel="noopener">forschung-it-sicherheit-kommunikationssysteme.de/foerderung/bekanntmachungen</a></li>
+      <li><span class="ln">ECCC — Aufruf CYBER-11<small>Meldung mit allen Topics und Budgets</small></span><a href="https://cybersecurity-centre.europa.eu/news/new-eccc-call-proposals-under-digital-europe-programme-open-applications-2026-09-01_en" target="_blank" rel="noopener">cybersecurity-centre.europa.eu/news/…-2026-09-01_en</a></li>
+      <li><span class="ln">ECCC — Aufrufdokument<small>DIGITAL-ECCC-2027-DEPLOY-CYBER-11</small></span><a href="https://cybersecurity-centre.europa.eu/document/8e1d6074-95ed-4b23-8bd3-2ca42b096411_en" target="_blank" rel="noopener">cybersecurity-centre.europa.eu/document/8e1d6074-…_en</a></li>
+      <li><span class="ln">ECCC — alle Aufrufe<small>laufende Übersicht</small></span><a href="https://cybersecurity-centre.europa.eu/funding-opportunities/calls-proposals_en" target="_blank" rel="noopener">cybersecurity-centre.europa.eu/funding-opportunities/calls-proposals_en</a></li>
+      <li><span class="ln">DIGITAL — EdTech Accelerator<small>Topic DIGITAL-2026-SKILLS-10-EDTECH</small></span><a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-2026-SKILLS-10-EDTECH" target="_blank" rel="noopener">ec.europa.eu/…/topic-details/DIGITAL-2026-SKILLS-10-EDTECH</a></li>
+      <li><span class="ln">HaDEA — Ankündigung des 10. DIGITAL-Aufrufs<small>alle Skills-Topics mit Budgets</small></span><a href="https://hadea.ec.europa.eu/news/new-calls-proposals-under-digital-europe-programme-published-2026-04-10_en" target="_blank" rel="noopener">hadea.ec.europa.eu/news/…-2026-04-10_en</a></li>
+      <li><span class="ln">Erasmus+ Programmleitfaden<small>verbindliche Grundlage, 24 Sprachfassungen</small></span><a href="https://erasmus-plus.ec.europa.eu/de/programme-guide" target="_blank" rel="noopener">erasmus-plus.ec.europa.eu/de/programme-guide</a></li>
+      <li><span class="ln">Erasmus+ Allianzen für Innovation<small>Lot 1 und Lot 2 (Blueprint)</small></span><a href="https://erasmus-plus.ec.europa.eu/programme-guide/part-b/key-action-2/alliances-innovation" target="_blank" rel="noopener">erasmus-plus.ec.europa.eu/…/alliances-innovation</a></li>
+      <li><span class="ln">EACEA — Hinweise zur Antragstellung<small>Allianzen für Innovation, Do’s und Don’ts</small></span><a href="https://www.eacea.ec.europa.eu/news-events/news/erasmus-alliances-innovation-2026-how-apply-2026-02-02_en" target="_blank" rel="noopener">eacea.ec.europa.eu/news-events/news/…</a></li>
+      <li><span class="ln">Zentren der beruflichen Exzellenz (CoVE)<small>Aktionsseite mit Aufrufunterlagen</small></span><a href="https://pact-for-skills.ec.europa.eu/stakeholders-and-business/funding-opportunities/centres-vocational-excellence-1_en" target="_blank" rel="noopener">pact-for-skills.ec.europa.eu/…/centres-vocational-excellence-1_en</a></li>
+      <li><span class="ln">NA beim BIBB — Antragsverfahren<small>Kooperationspartnerschaften Berufs- und Erwachsenenbildung</small></span><a href="https://www.na-bibb.de/erasmus-erwachsenenbildung/partnerschaften-fuer-eine-zusammenarbeit/antragsverfahren" target="_blank" rel="noopener">na-bibb.de/…/antragsverfahren</a></li>
+      <li><span class="ln">Förderinfo Bund — IT-Sicherheit<small>alle Bundesrichtlinien zur IT-Sicherheit</small></span><a href="https://www.foerderinfo.bund.de/foerderinfo/de/foerderung/bund/sicherheit/it-sicherheit/it-sicherheit_node.html" target="_blank" rel="noopener">foerderinfo.bund.de/…/it-sicherheit_node.html</a></li>
+    </ul>
+  </div>
+
+  <div class="lgroup">
+    <h3>Erlösseite und Portale</h3>
+    <p class="gsub">Kein Entwicklungsgeld, aber relevant für Absatz und eigene Recherche.</p>
+    <ul>
+      <li><span class="ln">ESF Plus — offene und geplante Aufrufe<small>laufend aktualisierte Bundesübersicht</small></span><a href="https://esf.de/portal/DE/ESF-Plus-2021-2027/Aufrufe/inhalt.html" target="_blank" rel="noopener">esf.de/portal/DE/ESF-Plus-2021-2027/Aufrufe/inhalt.html</a></li>
+      <li><span class="ln">Z-EU-S<small>Förderportal für ESF-Plus-Bundesprogramme</small></span><a href="https://www.foerderportal-zeus.de" target="_blank" rel="noopener">foerderportal-zeus.de</a></li>
+      <li><span class="ln">Förderdatenbank des Bundes<small>Volltextsuche über Bund-, Länder- und EU-Programme</small></span><a href="https://www.foerderdatenbank.de/" target="_blank" rel="noopener">foerderdatenbank.de</a></li>
+      <li><span class="ln">Förderberatung „Forschung und Innovation“<small>alle offenen Bekanntmachungen des Bundes</small></span><a href="https://www.foerderinfo.bund.de/foerderinfo/de/home/home_node.html" target="_blank" rel="noopener">foerderinfo.bund.de</a></li>
+      <li><span class="ln">easy-Online<small>Antragssystem für Skizzen und Anträge des Bundes</small></span><a href="https://foerderportal.bund.de/easyonline" target="_blank" rel="noopener">foerderportal.bund.de/easyonline</a></li>
+      <li><span class="ln">EU-Portal für Aufforderungen zur Einreichung<small>alle EU-Aufrufe, Partnersuche, Einreichung</small></span><a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals" target="_blank" rel="noopener">ec.europa.eu/info/funding-tenders/opportunities/portal</a></li>
+      <li><span class="ln">Nordrhein-Westfalen fördert<small>Landesportal für NRW-Förderprogramme</small></span><a href="https://www.nordrhein-westfalen-foerdert.nrw/" target="_blank" rel="noopener">nordrhein-westfalen-foerdert.nrw</a></li>
+    </ul>
+  </div>
+
+  <div class="payoff calm">
+    <b>Zwei Lesezeichen genügen für den Alltag.</b> foerderinfo.bund.de für alles Nationale, das EU-Portal für alles Europäische — beide zeigen den amtlichen Stand, während Beratungsseiten im Netz oft veraltete Fristen führen.
+  </div>
+</section>
+
+<div class="payoff" id="mainPayoff">
+  <b>Mitte Oktober entscheidet das Jahr.</b> Drei Stichtage zwischen dem 14. und 15. Oktober, überall nur Skizzen gefordert. Danach schließt sich das Fenster bis Frühjahr 2027.
+</div>
+
+<footer>
+  Recherchestand 15.09.2026, dritte Fassung. Zusammengestellt aus Veröffentlichungen von BMFTR, BMAS, BMWE, HaDEA, ECCC, EACEA und der NRW.BANK sowie den EU-Portalen für Aufforderungen zur Einreichung von Vorschlägen. Programme, für die ausschließlich Hochschulen antragsberechtigt sind, wurden bewusst entfernt. Alle Angaben ohne Gewähr; Fristen, Budgets und Förderquoten sind vor Antragstellung gegen die jeweils verlinkte Originalquelle zu prüfen. Diese Übersicht ersetzt keine Förder- oder Rechtsberatung.
+</footer>
+
+</div>
+
+<script>
+"use strict";
+
+/* =================================================== Inhalt an einer Stelle */
+const CALLS = [
+
+/* ======================= DIREKT BEANTRAGBAR ======================= */
+{
+ track:"direkt", kicker:"Bund · Steuerrecht", fit:"hoch",
+ deadline:"fristfrei", dsort:"2026-09-15", urgent:false,
+ name:"Forschungszulage (FZulG)",
+ sub:"laufend, rückwirkend möglich",
+ vol:"bis 4,2 Mio. € je Unternehmen und Jahr",
+ title:"Forschungszulage — kein Wettbewerb, kein Stichtag, rückwirkend",
+ body:"Die steuerliche Forschungsförderung ist branchenoffen und unabhängig von der Gewinnsituation: Ein verbleibender Überhang wird ausgezahlt, was sie auch für verlustträchtige Aufbauphasen tragfähig macht. Seit 2026 beträgt die maximale Bemessungsgrundlage 12 Mio. € pro Wirtschaftsjahr, der KMU-Fördersatz 35 % (sonst 25 %). Neu ab 2026 ist eine <b>pauschale Gemeinkostenberücksichtigung von 20 %</b> auf förderfähige Personalkosten und Eigenleistungen ohne gesonderten Nachweis; Eigenleistungen von Mitunternehmern sind mit 100 € je Stunde ansetzbar. Die BSFZ prüft Neuartigkeit, Risiko beziehungsweise Unwägbarkeit und Planmäßigkeit; die Bescheinigung kann vor, während oder nach Abschluss des Vorhabens beantragt werden.",
+ facts:[
+  ["Frist","<b>keine</b> — laufende Antragstellung, wirkt auf bereits angefallene Kosten"],
+  ["Volumen","max. 12 Mio. € Bemessungsgrundlage, daraus bis 4,2 Mio. € Zulage je Jahr (KMU)"],
+  ["Fördersatz","35 % für KMU, 25 % für größere Unternehmen"],
+  ["Verfahren","zweistufig: Bescheinigung der BSFZ (kostenfrei), anschließend Antrag beim Finanzamt"],
+  ["Formales","Antrag je FuE-Vorhaben einzeln, digital signiert per ELSTER-Zertifikat; Bearbeitung in der Regel rund drei Monate"]
+ ],
+ flag:"Das <b>erste, was zu tun ist</b> — und zugleich der ehrlichste Härtetest: Erteilt die BSFZ keine Bescheinigung, wird das Vorhaben auch in KMU-innovativ oder beim BMFTR nicht als Forschung durchgehen. Content-Produktion, LMS-Konfiguration und Videoschnitt zählen nicht.",
+ links:[["BSFZ — Antragsportal","https://www.bescheinigung-forschungszulage.de"],["Förderdatenbank — Verfahren und Voraussetzungen","https://www.foerderdatenbank.de/FDB/Content/DE/Foerderprogramm/Bund/BMBF/zulage-forschung-entwicklung.html"]]
+},
+{
+ track:"direkt", kicker:"BMAS · PROKIWA", fit:"pruefen",
+ deadline:"14.10.2026", dsort:"2026-10-14", urgent:true,
+ name:"PROKIWA",
+ sub:"KI in Wirtschaft und Arbeit, Handlungsfeld 1",
+ vol:"nicht ausgewiesen",
+ title:"PROKIWA — Kompetenz- und Praxisräume für KI im Betrieb",
+ body:"Die Förderrichtlinie vom 2. September 2026 unterstützt insbesondere KMU und ihre Beschäftigten bei Einführung und Nutzung konkreter KI-Anwendungen. Handlungsfeld 1 „Kompetenz- und Praxisräume KI und Arbeit im Betrieb“ fördert Unterstützungsangebote, die betriebliche Aspekte — etwa das Testen von KI-Komponenten oder Veränderungen der Arbeitsorganisation — mit der <b>Kompetenzentwicklung der Beschäftigten</b> verzahnen. Gesucht werden ausdrücklich „innovative, bundesweit skalierbare Lösungen“, die betriebliche und qualifikationsbezogene Anforderungen strukturell berücksichtigen und branchenübergreifend einsetzbar sind. Handlungsfeld 2 fördert wissenschaftliche Analysen zu KI, Produktivität und Arbeitswelt.",
+ facts:[
+  ["Frist","<b>14. Oktober 2026</b>, 16:00 Uhr"],
+  ["Volumen","nicht ausgewiesen"],
+  ["Projektträger","DRV Knappschaft-Bahn-See (KBS), Fachstelle für Fördermittel des Bundes"],
+  ["Antragsweg","BMAS-Förderportal, Vorhabenantrag direkt (nicht zweistufig)"],
+  ["Zu klären","Antragsberechtigung für Unternehmen"]
+ ],
+ flag:"Inhaltlich die nächste Passung von allen offenen Töpfen — mit einem <b>offenen Punkt</b>: Die amtliche Meldung nennt beim Einreichen ausdrücklich Forschungseinrichtungen, während KMU als Zielgruppe der zu entwickelnden Angebote beschrieben sind. Sekundärquellen behaupten dagegen, Unternehmen jeder Größe könnten einreichen. Vor jedem Aufwand bei der KBS-Fachstelle klären. Da kein zweistufiges Verfahren vorgesehen ist, wäre sofort der vollständige Vorhabenantrag fällig.",
+ links:[["BMAS-Meldung mit beiden Handlungsfeldern","https://www.bmas.de/DE/Service/Presse/Meldungen/2026/bmas-foerdert-ki-projekte-von-unternehmen.html"],["Förderaufruf bei der KBS-Fachstelle","https://fachstelle-foerdermittel.kbs.de/DE/Aktuelles/F%C3%B6rderaufrufe/node"]]
+},
+{
+ track:"direkt", kicker:"BMFTR · KMU-innovativ", fit:"hoch",
+ deadline:"15.10.2026", dsort:"2026-10-15", urgent:true,
+ name:"KMU-innovativ: IKT",
+ sub:"Informations- und Kommunikationstechnologie",
+ vol:"nicht ausgewiesen",
+ title:"KMU-innovativ IKT — themenoffen, halbjährliche Stichtage",
+ body:"Die Bekanntmachung ist ausdrücklich <b>themenoffen</b> und fördert risikoreiche, vorwettbewerbliche und unternehmensgetriebene Forschungs- und Entwicklungsvorhaben. Sie ist der naheliegendste Weg, wenn der Innovationskern in der Software liegt — adaptive Lernpfade, automatisierte Kompetenzdiagnostik, die Verknüpfung von Lernstandsdaten mit Controlling-Kennzahlen. Stichtage sind der 15. April und der 15. Oktober. Die Technologielinie Kommunikationssysteme und IT-Sicherheit (KIS) nimmt seit dem 15. April 2026 keine neuen Skizzen mehr an; für dieses Vorhaben ist die IKT-Linie der richtige Adressat.",
+ facts:[
+  ["Frist Skizze","<b>15. Oktober 2026</b>, danach 15.04.2027"],
+  ["Volumen","nicht ausgewiesen"],
+  ["Förderquote","KMU 60 %, mittelständische Unternehmen 50 %, Forschungseinrichtungen bis 100 %"],
+  ["Antragsberechtigt","KMU nach EU-Definition mit Betriebsstätte in Deutschland; Einzel- oder Verbundvorhaben"],
+  ["Bearbeitungsdauer","typisch 9 bis 12 Monate von der Skizze bis zur Bewilligung"]
+ ],
+ flag:"Auch als <b>Einzelvorhaben</b> möglich — einer der wenigen anspruchsvollen Bundestöpfe, für die kein Konsortium zwingend ist. Vor der Skizze die KMU-Kriterien prüfen: Bei verbundenen Unternehmen, Beteiligungen und Holdingstrukturen kippt der Status schnell, und mit ihm die Antragsberechtigung.",
+ links:[["Fördermaßnahme KMU-innovativ IKT","https://ki-und-softwaresysteme.de/foerderschwerpunkte/kmu-foerderung/kmu-innovativ-ikt/"],["Übersicht aller KMU-innovativ-Linien","https://www.foerderinfo.bund.de/foerderinfo/de/foerderung/bund/kmu/kmu-innovativ/kmu-innovativ_node.html"]]
+},
+{
+ track:"direkt", kicker:"Land NRW · NRW.BANK", fit:"mittel",
+ deadline:"monatliche Losziehung", dsort:"2026-10-05", urgent:false,
+ name:"MID-Digitalisierung",
+ sub:"Mittelstand Innovativ &amp; Digital",
+ vol:"max. 15.000 € je Fall",
+ title:"MID-Digitalisierung — klein, schnell, mit Technologienachweis",
+ body:"Das NRW-Teilprogramm fördert seit dem 1. Januar 2026 ausschließlich die Entwicklung oder Weiterentwicklung <b>marktgängiger digitaler Produkte</b> mit hohem Innovationspotenzial. Gefördert werden nur Produkte, die mindestens eine dieser Schlüsseltechnologien einsetzen: Künstliche Intelligenz, maschinelles Lernen, Data Mining, Echtzeitverarbeitung, Augmented oder Virtual Reality. Das Produkt muss eine konkrete Zielgruppe adressieren und eine realistische Marktverwertung erwarten lassen — für ein Abo-Modell gut begründbar. Die Vergabe läuft über ein algorithmusbasiertes Losverfahren mit monatlicher Ziehung.",
+ facts:[
+  ["Frist","<b>laufend</b>, monatliche Losziehung; nach Ziehung 28 Tage für den Antrag"],
+  ["Volumen","50 % der förderfähigen Kosten, maximal 15.000 €"],
+  ["Sperrfrist","einmalige Inanspruchnahme je Unternehmen in zwei Jahren"],
+  ["Bewilligungsstelle","NRW.BANK (seit 01.01.2026, zuvor Projektträger Jülich)"],
+  ["Ergänzend","MID-Digitale Sicherheit, ebenfalls 50 % bis 15.000 €"]
+ ],
+ flag:"Der Betrag ist klein, der Nutzen liegt woanders: Der geforderte <b>Technologienachweis</b> zwingt dazu, den KI- oder Datenanteil der Plattform sauber zu beschreiben — genau das braucht man für jeden anderen Antrag ebenfalls. Vor dem Zuwendungsbescheid darf nicht begonnen werden.",
+ links:[["MID-Digitalisierung bei der NRW.BANK","https://www.nrwbank.de/de/foerderung/foerderprodukte/60348/mittelstand-innovativ--digital-mid---digitalisierung.html"],["MID — alle Teilprogramme","https://www.nrwbank.de/de/foerderung/foerderprodukte/60382/mittelstand-innovativ-und-digital-mid.html"]]
+},
+{
+ track:"direkt", kicker:"BMWE · ZIM", fit:"mittel",
+ deadline:"gesperrt", dsort:"2027-12-30", urgent:false,
+ name:"Zentrales Innovationsprogramm Mittelstand",
+ sub:"Antragsstopp seit 07.07.2026",
+ vol:"rund 0,5 Mrd. € p. a.",
+ title:"ZIM — technologieoffen, aber derzeit geschlossen",
+ body:"Das ZIM ist das bundesweite, technologie- und branchenoffene Förderprogramm für anspruchsvolle FuE-Projekte mittelständischer Unternehmen, als Einzel- oder Kooperationsprojekt. Seit dem <b>7. Juli 2026, 12:00 Uhr</b> werden wegen erheblich gestiegener Nachfrage bei begrenzten Haushaltsmitteln vorübergehend keine Anträge mehr angenommen — für alle Projektformen einschließlich Projektskizzen. Ausgenommen sind ausschließlich Anträge mit internationalen Partnern in offenen bilateralen und multilateralen Ausschreibungen.",
+ facts:[
+  ["Frist","normalerweise <b>laufend</b> ohne Stichtag — derzeit ausgesetzt"],
+  ["Volumen","je nach Quelle rund 523 bis 630 Mio. € pro Jahr"],
+  ["Förderquote","25 bis 55 % je nach Unternehmensgröße, Region und Projektform"],
+  ["Besonderheit","Projektbeginn auf eigenes Risiko unmittelbar nach bestätigtem Antragseingang möglich"],
+  ["Ergänzend","Durchführbarkeitsstudien vorab und Leistungen zur Markteinführung nach Projektende beantragbar"]
+ ],
+ flag:"Die Sperre ist als <b>befristet</b> angekündigt, ein Wiederöffnungstermin fehlt. Konzept und Antragsunterlagen jetzt ausarbeiten, um bei Wiederöffnung sofort einreichen zu können — danach ist mit einem Antragsstau zu rechnen.",
+ links:[["Meldung zum Antragsstopp","https://www.zim.de/ZIM/Redaktion/DE/Meldungen/2026/3/2026-07-07-befristeter-antragsstopp.html"],["Programmseite","https://www.zim.de/"]]
+},
+{
+ track:"direkt", kicker:"Horizont Europa · EIC", fit:"niedrig",
+ deadline:"03.02.2027", dsort:"2027-02-03", urgent:false,
+ name:"EIC Accelerator",
+ sub:"Kurzantrag laufend, Vollantrag zu Stichtagen",
+ vol:"414 Mio. € (2026)",
+ title:"EIC Accelerator — hohe Summen, enger Zuschnitt",
+ body:"Zuschuss bis 2,5 Mio. € plus Eigenkapitalbeteiligung von 0,5 bis 15 Mio. € über den EIC-Fonds, beantragbar von einzelnen KMU ohne Konsortium. Das Budget lag 2026 bei 414 Mio. € mit sechs Stichtagen für Vollanträge. Der Entwurf des Arbeitsprogramms 2027 sieht vier Stichtage vor: 3. Februar, 1. April, 1. September und 3. November 2027. Der Kurzantrag kann jederzeit eingereicht werden.",
+ facts:[
+  ["Frist","Kurzantrag laufend · Vollantrag vsl. <b>03.02.2027</b> und drei weitere Stichtage"],
+  ["Volumen","414 Mio. € im Jahr 2026; Budget 2027 im Entwurf noch offen"],
+  ["Förderung","bis 2,5 Mio. € Zuschuss, zusätzlich Beteiligung bis 15 Mio. €"]
+ ],
+ flag:"Der EIC sucht <b>Deep-Tech-Durchbrüche</b> mit hohem technologischem Risiko und globalem Skalierungspotenzial. Eine Lernplattform fällt nur darunter, wenn ein wirklich neuartiger technischer Kern nachweisbar ist. Andernfalls ist der Aufwand verloren.",
+ links:[["EIC-Portal","https://eic.ec.europa.eu/"],["NKS EIC Accelerator — Fristenerklärung","https://www.nks-eic-accelerator.de/en/eic-accelerator-when-can-i-submit-my-application-503.php"]]
+},
+
+/* ======================= VERBUND NÖTIG ======================= */
+{
+ track:"verbund", kicker:"BMFTR · Hightech Agenda", fit:"hoch",
+ deadline:"15.10.2026", dsort:"2026-10-16", urgent:true,
+ name:"Cyberresiliente Gesellschaft",
+ sub:"„Sicher in die digitale Zukunft — sichere menschenzentrierte IT-Systeme“",
+ vol:"nicht ausgewiesen",
+ title:"Cyberresiliente Gesellschaft — Verhalten und Organisation statt Technik",
+ body:"Die Richtlinie vom 24. Juli 2026 fördert Forschung und Entwicklung zu benutzbarer, menschenzentrierter Cybersicherheit in <b>interdisziplinären Verbünden</b>, die technische Cybersicherheitsforschung mit Sozial- und Kommunikationswissenschaften sowie Psychologie verbinden. Genannte Forschungsaspekte sind unter anderem Hindernisse beim Etablieren einer Sicherheitskultur im Umgang mit IT-Systemen und die gezielte Unterstützung von Verhaltensänderungen. Antragsberechtigt sind ausdrücklich auch Unternehmen der gewerblichen Wirtschaft; die Verwertung muss durch angemessene Beteiligung von Anwendungspartnern gesichert sein.",
+ facts:[
+  ["Frist Skizze","<b>15. Oktober 2026</b>, zweistufiges Verfahren"],
+  ["Skizzenumfang","maximal 13 DIN-A4-Seiten inklusive Deckblatt und Anlagen"],
+  ["Förderquote","Unternehmen max. 40 %, KMU max. 60 %; Hochschulen bis 100 % zuzüglich 20 % Projektpauschale"],
+  ["Laufzeit","in der Regel drei Jahre"],
+  ["Projektträger","VDI/VDE Innovation + Technik GmbH, Berlin"],
+  ["Auflage","Ergebnisverwertung nur in Deutschland, dem EWR und der Schweiz"]
+ ],
+ flag:"Zwei harte Anforderungen: Die Aufgaben müssen den <b>Stand der Technik deutlich übertreffen</b> und ein hohes wissenschaftlich-technisches sowie wirtschaftliches Risiko aufweisen. Ergebnisse sollen „wo immer möglich in quelloffener Form“ verfügbar sein, Ausnahmen sind zu begründen — mit einem geschlossenen Abo-Produkt nur vereinbar, wenn Forschungsergebnis und Produkt sauber getrennt sind.",
+ links:[["Bekanntmachung im Volltext","https://www.bmftr.bund.de/SharedDocs/Bekanntmachungen/DE/2026/08/2026-08-24-bekanntmachung-cyberresiliente-gesellschaft.html"],["Projektträgerseite","https://www.forschung-it-sicherheit-kommunikationssysteme.de/foerderung/bekanntmachungen"]]
+},
+{
+ track:"verbund", kicker:"BMFTR · Hightech Agenda", fit:"mittel",
+ deadline:"15.10.2026", dsort:"2026-10-17", urgent:true,
+ name:"Souveräne Innovationsökosysteme",
+ sub:"Cybersicherheit und Kommunikationstechnologien",
+ vol:"nicht ausgewiesen",
+ title:"Souveräne Innovationsökosysteme — Transfer in marktfähige Produkte",
+ body:"Die Richtlinie vom 24. Juli 2026 zielt auf den Transfer von Spitzenforschung in die wirtschaftliche Anwendung. Gefördert werden <b>unternehmensgeführte Verbundprojekte</b>, die innovative Technologien gemeinsam mit Hochschulen oder Forschungseinrichtungen weiterentwickeln und für den Markteinsatz vorbereiten. Die Federführung liegt also ausdrücklich beim Unternehmen.",
+ facts:[
+  ["Frist Skizze","<b>15. Oktober 2026</b>, zweistufiges Verfahren"],
+  ["Volumen","nicht ausgewiesen"],
+  ["Konstellation","unternehmensgeführter Verbund mit Wissenschaftspartner"],
+  ["Veröffentlicht","Bundesanzeiger vom 24.08.2026"]
+ ],
+ flag:"Näher am Produkt, dafür stärker auf <b>Technologie</b> als auf Bildung ausgerichtet. Passt, wenn der Kern eine technische Lösung ist — etwa eine Kennzahlen- und Steuerungskomponente, an die die Lerninhalte andocken. Passt nicht, wenn der Kern das Curriculum ist.",
+ links:[["Bekanntmachung im Volltext","https://www.bmftr.bund.de/SharedDocs/Bekanntmachungen/DE/2026/08/2026-08-24-bekanntmachung-innovationsoekosysteme.html"]]
+},
+{
+ track:"verbund", kicker:"Digital Europe · ECCC", fit:"mittel",
+ deadline:"14.01.2027", dsort:"2027-01-14", urgent:false,
+ name:"DEP CYBER-11",
+ sub:"DIGITAL-ECCC-2027-DEPLOY-CYBER-11",
+ vol:"96 Mio. €",
+ title:"Europäischer Cybersicherheits-Aufruf — 96 Mio. €, zwei anschlussfähige Topics",
+ body:"Das Europäische Kompetenzzentrum für Cybersicherheit eröffnete am 1. September 2026 einen Aufruf über bis zu 96 Mio. €. Für ein Ausbildungsangebot sind zwei Topics einschlägig: <b>CYBER-11-EULEG</b> (20 Mio. €) unterstützt die Umsetzung des Regulierungsrahmens aus Cyber Resilience Act, NIS-2-Richtlinie, DSGVO, DORA, Cybersecurity Act und KI-Verordnung, auch durch organisatorische Unterstützung der Betroffenen. <b>CYBER-11-COORDPREP</b> (15 Mio. €) umfasst neben Bereitschaftstests auch Übungen und Schulungen. Weitere Topics: AI4SME (20 Mio. €), CYBERAI (15 Mio. €), NCC (11 Mio. €), DUALUSE (10 Mio. €), REGCABH (5 Mio. €).",
+ facts:[
+  ["Frist","<b>14. Januar 2027</b>, 17:00 Uhr MEZ (offen seit 01.09.2026)"],
+  ["Volumen","bis zu 96 Mio. €; davon einschlägig EULEG 20 Mio. € und COORDPREP 15 Mio. €"],
+  ["Antragsweg","EU-Portal für Aufforderungen zur Einreichung, Konsortium"]
+ ],
+ flag:"Die Vorhaben unterliegen <b>Artikel 12 Absatz 5 der DIGITAL-Verordnung</b>; beteiligte Einrichtungen müssen EU-Sicherheitsanforderungen erfüllen. Realistisch ist der Einstieg als Partner in einem bestehenden Konsortium. Regulatorik-Kompetenz aus dem Controlling ist dort ein gefragtes Gut — und eine Beratungsgesellschaft ist dafür ein plausiblerer Partner als eine Hochschule.",
+ links:[["Ankündigung mit allen Topics und Budgets","https://cybersecurity-centre.europa.eu/news/new-eccc-call-proposals-under-digital-europe-programme-open-applications-2026-09-01_en"],["Aufrufdokument","https://cybersecurity-centre.europa.eu/document/8e1d6074-95ed-4b23-8bd3-2ca42b096411_en"]]
+},
+{
+ track:"verbund", kicker:"Erasmus+ · EACEA", fit:"hoch",
+ deadline:"vsl. März 2027", dsort:"2027-03-10", urgent:false,
+ name:"Allianzen für Innovation",
+ sub:"Lot 1 Bildung &amp; Unternehmen · Lot 2 Blueprint",
+ vol:"bis 4 Mio. € je Projekt",
+ title:"Allianzen für Innovation — Unternehmen sind hier ausdrücklich vorgesehen",
+ body:"Lot 1 bringt <b>Unternehmen</b> mit Hochschulen und beruflicher Bildung zusammen, um gemeinsam neue Curricula zu entwerfen; belastbare und nachhaltige Beziehungen zwischen den Partnern sind erklärtes Ziel. Lot 2, die Allianzen für sektorale Kompetenzzusammenarbeit („Blueprint“), entwickelt sektorweite Kompetenzstrategien und Ausbildungsrahmen. 2026 adressiert die Aktion zusätzlich gravierende Kompetenzlücken in Sektoren, die für Europas Wettbewerbsfähigkeit zentral sind.",
+ facts:[
+  ["Frist","<b>voraussichtlich März 2027</b> (2026: 10.03., 17:00 Brüsseler Zeit)"],
+  ["Volumen","Lot 2 bis 4 Mio. € je Projekt, 4 Jahre, Förderquote 80 % · Lot 1 bis 1,0 Mio. € (2 Jahre) bzw. 1,5 Mio. € (3 Jahre)"],
+  ["Finanzierung","Pauschalbetrag (Lump Sum)"],
+  ["Konsortium","mindestens je eine Einrichtung der Berufsbildung und eine Hochschule; Unternehmen als Partner oder Koordinator"],
+  ["Antragsweg","zentral bei der EACEA über das EU-Portal"]
+ ],
+ flag:"Die einzige Bildungsschiene, in der ein Unternehmen <b>nicht Bittsteller, sondern Zielpartner</b> ist. Gegenleistung: Erasmus+-Ergebnisse sind grundsätzlich offen zu lizenzieren. Sinnvoller Zuschnitt: Kompetenzrahmen und Referenzcurriculum gefördert und offen, das Produkt darauf aufgesetzt und geschlossen.",
+ links:[["Aktionsbeschreibung im Programmleitfaden","https://erasmus-plus.ec.europa.eu/programme-guide/part-b/key-action-2/alliances-innovation"],["EACEA — Hinweise zur Antragstellung","https://www.eacea.ec.europa.eu/news-events/news/erasmus-alliances-innovation-2026-how-apply-2026-02-02_en"]]
+},
+{
+ track:"verbund", kicker:"Erasmus+ · EACEA", fit:"mittel",
+ deadline:"vsl. Sept. 2027", dsort:"2027-09-03", urgent:false,
+ name:"Zentren der beruflichen Exzellenz (CoVE)",
+ sub:"Runde 2026 abgelaufen",
+ vol:"68 Mio. € (Runde 2026)",
+ title:"Zentren der beruflichen Exzellenz — Micro-Credentials europäisch verankern",
+ body:"CoVE fördert transnationale Netzwerke, die Kompetenzangebote schnell an neue wirtschaftliche Bedarfe anpassen. Förderfähig sind ausdrücklich arbeitsmarktrelevante Kompetenzen, Curricula und Qualifikationen einschließlich <b>Micro-Credentials</b> sowie innovative lernerzentrierte Materialien wie MOOCs und VR-, AR- oder KI-gestützte Formate. Die Runde 2026 schloss am 3. September 2026 mit 68 Mio. € und maximal 4 Mio. € je Projekt. Jedes beteiligte Land muss zwingend ein Unternehmen beziehungsweise einen Branchenvertreter stellen — Unternehmen sind hier Pflichtbestandteil, nicht Beiwerk.",
+ facts:[
+  ["Frist","Runde 2026 <b>abgelaufen</b> (03.09.2026); nächste Runde vsl. Sommer/Herbst 2027"],
+  ["Volumen","68 Mio. € in der Runde 2026, max. 4 Mio. € je Projekt (Pauschalbetrag)"],
+  ["Konsortium","mindestens vier Länder; je Land ein Unternehmen <em>und</em> ein Berufsbildungsanbieter"]
+ ],
+ flag:"Interessant, wenn die Plattform <b>Abschlüsse unterhalb eines Studiengangs</b> vergeben soll: CoVE finanziert deren europäische Anerkennung mit. Für die aktuelle Planung ein Vormerkposten mit Vorlauf ab Frühjahr 2027.",
+ links:[["Aktionsseite mit Aufrufunterlagen","https://pact-for-skills.ec.europa.eu/stakeholders-and-business/funding-opportunities/centres-vocational-excellence-1_en"]]
+},
+{
+ track:"verbund", kicker:"Erasmus+ · Nationale Agenturen", fit:"mittel",
+ deadline:"vsl. März 2027", dsort:"2027-03-11", urgent:false,
+ name:"Kooperationspartnerschaften KA220",
+ sub:"Berufsbildung (VET) und Erwachsenenbildung (ADU)",
+ vol:"120.000–400.000 € je Projekt",
+ title:"Kooperationspartnerschaften — der pragmatische Einstieg nach Europa",
+ body:"Mindestens drei Einrichtungen aus drei Programmländern arbeiten zwölf bis 36 Monate an einem selbstgewählten Thema, sofern es mindestens eine Programmpriorität adressiert; Digitalisierung gehört dazu. Beantragt wird bei der nationalen Agentur, für Berufs- und Erwachsenenbildung beim BIBB. Deutlich weniger Aufwand als eine Allianz, dafür kleinere Beträge und pauschalierte Abrechnung.",
+ facts:[
+  ["Frist","<b>voraussichtlich März 2027</b> (2026: 05.03., 12:00 Brüsseler Zeit)"],
+  ["Volumen","Pauschalen von 120.000 €, 250.000 € oder 400.000 € je Projekt"],
+  ["Antragsrunden","eine pro Jahr, keine zweite Runde"],
+  ["Vorlauf","antragstellende Organisation muss seit mindestens zwei Jahren bestehen"]
+ ],
+ flag:"Der <b>günstigste Weg, europäische Partner kennenzulernen</b>, bevor man eine Allianz mit Millionenbudget aufsetzt. Die offene Lizenzierung der Ergebnisse gilt auch hier — für Vorarbeiten und Erprobung unproblematisch, für den Produktkern nicht.",
+ links:[["NA beim BIBB — Antragsverfahren","https://www.na-bibb.de/erasmus-erwachsenenbildung/partnerschaften-fuer-eine-zusammenarbeit/antragsverfahren"],["Erasmus+ Programmleitfaden","https://erasmus-plus.ec.europa.eu/de/programme-guide"]]
+},
+{
+ track:"verbund", kicker:"Digital Europe Programme · HaDEA", fit:"niedrig",
+ deadline:"01.10.2026", dsort:"2026-10-01", urgent:true,
+ name:"EdTech Accelerator",
+ sub:"DIGITAL-2026-SKILLS-10-EDTECH",
+ vol:"2,7 Mio. €",
+ title:"EdTech Accelerator — als Antrag zu spät, als Bezugsquelle interessant",
+ body:"Das Topic unterstützt europäische EdTech-Startups und KMU dabei, Konzepte für Bildungslösungen in ausgereifte und vollständig getestete Anwendungen zu überführen. Es gehört zum 10. DIGITAL-Aufruf mit insgesamt 12,5 Mio. € für drei Kompetenz-Topics.",
+ facts:[
+  ["Frist","<b>1. Oktober 2026</b>, 17:00 Uhr Brüsseler Zeit"],
+  ["Volumen","2,7 Mio. € (Aufruf gesamt 12,5 Mio. €)"],
+  ["Programmvolumen","DIGITAL insgesamt rund 7,5 Mrd. € für 2021–2027"]
+ ],
+ flag:"Für einen eigenen Antrag <b>zu spät</b>. Der geförderte Accelerator vergibt anschließend Kaskadenmittel an EdTech-KMU — das ist der eigentlich interessante Weg. Ausgang der Ausschreibung im Frühjahr 2027 verfolgen und sich dann als begünstigtes Unternehmen bewerben.",
+ links:[["Topic im EU-Portal","https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-2026-SKILLS-10-EDTECH"],["HaDEA-Ankündigung","https://hadea.ec.europa.eu/news/new-calls-proposals-under-digital-europe-programme-published-2026-04-10_en"]]
+},
+{
+ track:"verbund", kicker:"BMWE · IT-Sicherheit in der Wirtschaft", fit:"mittel",
+ deadline:"vsl. 01.02.2027", dsort:"2027-02-01", urgent:false,
+ name:"Transferstelle Cybersicherheit — Fokusprojekte",
+ sub:"Stichtag 01.08.2026 ausgesetzt",
+ vol:"nicht ausgewiesen",
+ title:"Fokusprojekte Cybersicherheit im Mittelstand — Stichtag ausgesetzt",
+ body:"Gefördert wird eine Transferstelle Cybersicherheit, ergänzt um Fokusprojekte, in denen Lösungen für Problemstellungen von KMU im Schwerpunkt IT- und Cybersicherheit erarbeitet werden — inhaltlich genau das Zielpublikum. Die Skizzenfristen liegen normalerweise am 1. Februar und 1. August; die Einreichung zum 1. August 2026 wurde mit der dritten Änderung der Bekanntmachung ausgesetzt. Geförderte Themen werden vier Monate vor den Fristen auf mittelstand-digital.de veröffentlicht.",
+ facts:[
+  ["Frist","01.08.2026 <b>ausgesetzt</b> · nächster regulärer Stichtag wäre 01.02.2027"],
+  ["Volumen","nicht ausgewiesen"],
+  ["Status","Wiederaufnahme der Stichtage vor Planung prüfen"]
+ ],
+ flag:"Beobachtungsposten. Ob der Februar-Stichtag 2027 stattfindet, ist <b>nicht bestätigt</b> — die Aussetzung deutet auf dieselbe Haushaltslage hin wie beim ZIM.",
+ links:[["Übersicht IT-Sicherheit auf foerderinfo.bund.de","https://www.foerderinfo.bund.de/foerderinfo/de/foerderung/bund/sicherheit/it-sicherheit/it-sicherheit_node.html"]]
+},
+
+/* ======================= ERLÖSSEITE ======================= */
+{
+ track:"markt", kicker:"EU-Fonds über Bund und Länder", fit:"mittel",
+ deadline:"aufrufabhängig", dsort:"2027-06-30", urgent:false,
+ name:"ESF Plus",
+ sub:"Europäischer Sozialfonds Plus 2021–2027",
+ vol:"6,56 Mrd. € für Deutschland",
+ title:"ESF Plus — fördert die Teilnahme, nicht die Plattform",
+ body:"Deutschland erhält rund 6,56 Mrd. € aus dem ESF Plus, davon etwa 2,22 Mrd. € für das Bundesprogramm und rund 4,34 Mrd. € für die Länderprogramme. Der Fonds finanziert <b>Qualifizierung von Menschen</b>, nicht die Entwicklung von Bildungsprodukten. Für ein kommerzielles Abo-Modell ist er deshalb kein Entwicklungsgeld, sondern ein Absatzkanal: Bei AZAV-Zertifizierung von Träger und Maßnahme können Teilnehmende über ESF- und SGB-Programme gefördert werden. Der Schwerpunkt hat sich zuletzt in Richtung digitale Transformation und Fachkräftesicherung verschoben; Weiterbildungen zu KI und Digitalisierung werden bevorzugt behandelt.",
+ facts:[
+  ["Frist","je Förderaufruf verschieden, laufend aktualisierte Übersicht auf esf.de"],
+  ["Volumen","2,22 Mrd. € Bund, 4,34 Mrd. € Länder"],
+  ["Rolle","Finanzierung der Teilnahme, nicht der Entwicklung"],
+  ["Voraussetzung","in der Regel AZAV-Zertifizierung von Träger und Maßnahme"],
+  ["NRW-Schwerpunkt","Fachkräftesicherung und Potentialberatung"]
+ ],
+ flag:"Für ein Wirtschaftsunternehmen der <b>wirtschaftlich interessanteste Punkt der ganzen Liste</b>: Die AZAV-Zertifizierung ist keine Förderung, öffnet aber öffentlich finanzierte Nachfrage — und ist damit für das Abo-Modell womöglich mehr wert als ein einmaliger Zuschuss. Der Prozess dauert mehrere Monate und sollte parallel laufen.",
+ links:[["Offene und geplante ESF-Plus-Aufrufe des Bundes","https://esf.de/portal/DE/ESF-Plus-2021-2027/Aufrufe/inhalt.html"]]
+}
+];
+
+/* =================================================== Fristentabelle mit Filter */
+const TRACK_LABEL = {direkt:"Direkt", verbund:"Verbund", markt:"Erlösseite"};
+const tbody = document.querySelector("#fristen tbody");
+const sorted = [...CALLS].sort((a,b) => a.dsort.localeCompare(b.dsort));
+
+function renderTable(filter){
+  const rows = filter === "alle" ? sorted : sorted.filter(c => c.track === filter);
+  tbody.innerHTML = rows.map(c => `
+    <tr>
+      <td class="dl">${c.deadline}${c.urgent ? '<span class="urg">eilig</span>' : ''}</td>
+      <td><span class="nm">${c.name}<small>${c.sub}</small></span></td>
+      <td class="vol">${c.vol}</td>
+      <td><span class="pill t-${c.track}">${TRACK_LABEL[c.track]}</span></td>
+      <td><span class="pill p-${c.fit}">${c.fit}</span></td>
+    </tr>`).join("");
+}
+renderTable("alle");
+
+const fbtns = [...document.querySelectorAll(".fbtn")];
+fbtns.forEach(b => b.addEventListener("click", () => {
+  fbtns.forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  renderTable(b.dataset.f);
+}));
+
+/* =================================================== Detailkarten */
+function card(c){
+  return `<article class="card">
+    <div class="card-h">
+      <span class="card-t">${c.kicker}</span>
+      <span class="pill p-${c.fit}">Passung ${c.fit}</span>
+    </div>
+    <div class="card-b">
+      <h3>${c.title}</h3>
+      <p class="body">${c.body}</p>
+      <dl class="facts">
+        ${c.facts.map(([k,v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}
+        <dt>Quellen</dt><dd>${c.links.map(([t,u]) => `<a class="src" href="${u}" target="_blank" rel="noopener">${t}</a>`).join("<br>")}</dd>
+      </dl>
+      <p class="flag">${c.flag}</p>
+    </div>
+  </article>`;
+}
+document.getElementById("direkt-cards").innerHTML  = CALLS.filter(c => c.track === "direkt").map(card).join("");
+document.getElementById("verbund-cards").innerHTML = CALLS.filter(c => c.track !== "direkt").map(card).join("");
+
+/* =================================================== Reiter */
+const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","d","e"];
+const mainPayoff = document.getElementById("mainPayoff");
+function select(i){
+  tabs.forEach((t,j) => {
+    const on = i === j;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    document.getElementById("p-" + keys[j]).hidden = !on;
+  });
+  mainPayoff.hidden = (i >= 3);   /* Reiter 04 und 05 tragen eine eigene Pointe */
+}
+tabs.forEach((t,i) => {
+  t.addEventListener("click", () => select(i));
+  t.addEventListener("keydown", e => {
+    const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if(!d) return; e.preventDefault();
+    const n = (i + d + tabs.length) % tabs.length;
+    tabs[n].focus(); select(n);
+  });
+});
+select(0);
+</script>
+</body>
+</html>
