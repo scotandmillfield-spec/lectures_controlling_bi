@@ -560,8 +560,8 @@ const TOPICS = [
   {
     id:"liqui-vorschau",
     title:{de:"Die Liquiditätsvorschau", en:"The cash forecast"},
-    sub:{de:"Eine Tabelle, zwei Hälften: oben die Plan-BWA, unten die Zahlungen, die daraus werden. Ein Startmonat teilt das Jahr in Ist und Plan. Darunter die Posten, die keine BWA kennt — Investition, Tilgung, Entnahme, Steuern — und der Bestand gegen die Kreditlinie.",
-         en:"One table, two halves: the planned BWA on top, the payments it turns into below. A starting month splits the year into actuals and plan. Underneath, what no BWA knows — investment, repayment, drawings, taxes — and the balance against the credit line."},
+    sub:{de:"Eine Tabelle, zwei Hälften: oben die BWA, unten die Zahlungen, die daraus werden. Ein Startmonat teilt das Jahr — davor die gebuchte Ist-Reihe, danach der Plan. Der abgelaufene Teil wird mitgerechnet und am Kontoauszug gemessen.",
+         en:"One table, two halves: the BWA on top, the payments it turns into below. A starting month splits the year — actuals before it, plan after. The elapsed part is computed too, and measured against the bank statement."},
     track:"liqui", status:"ready", accent:"ochre", glyph:"layers",
     langBadge:{de:"", en:"DE"},
     features:[
@@ -571,8 +571,10 @@ const TOPICS = [
        en:"Five kinds of rule for eighteen positions: payment behaviour, fixed day, annual rhythm, quarterly, never cash-effective"},
       {de:"Die Umsatzsteuer als eigener Zahlungsstrom, mit Soll-Versteuerung und der Vorsteuer aus der Investition",
        en:"VAT as its own payment stream, on the accrual basis and with the input tax from the investment"},
-      {de:"Ein wählbarer Startmonat: alles davor ist Ist und geht als offener Posten ein, alles danach ist Plan — und nur dort greifen die Szenarien",
-       en:"A selectable starting month: everything before it is actual and enters as an open item, everything after is plan — and only there do the scenarios bite"},
+      {de:"Zwei Zahlenreihen — zwölf gebuchte Ist-Monate und zwölf Planmonate; ein wählbarer Startmonat entscheidet, welche in welcher Spalte steht",
+       en:"Two data series — twelve booked months and twelve planned ones; a selectable starting month decides which stands in which column"},
+      {de:"Der abgelaufene Teil wird mitgerechnet: die Bestandslinie läuft über das ganze Jahr, und der Sprung an der Naht ist die Prognosegüte",
+       en:"The elapsed part is computed too: the balance line runs across the whole year, and the step at the seam is the forecast’s accuracy"},
       {de:"Achtzehn BWA-Zeilen und dreiundzwanzig Zahlungszeilen in einer Tabelle, mit markierter Naht, Bestandskurve und Kreditlinie",
        en:"Eighteen BWA rows and twenty-three payment rows in one table, with the seam marked, a balance curve and the credit line"},
       {de:"Jede Zahl sagt auf Zeigen, wohin sie fließt oder woher sie kommt — mit Quellmonat, Anteil und Betrag",
