@@ -742,8 +742,13 @@ footer a{color:var(--teal-dk)}
   text-transform:uppercase;color:var(--grey);padding-top:2px;padding-bottom:6px;font-weight:600}
 .vsz.phase .z:not(.vor){color:var(--teal-dk)}
 /* Der obere Teil laesst sich wegklappen, wenn nur die Zahlungen
-   interessieren. */
+   interessieren; und die Positionen, die nie zu einer Zahlung fuehren,
+   lassen sich aus der BWA nehmen. In der Schulung steht dann nur noch
+   da, was wirklich Geld bewegt. */
 .vs.ohne .bwa{display:none}
+.vs.nurzahl .bwa.stumm{display:none}
+.seg button[disabled]{opacity:.4;cursor:default}
+.seg button[disabled]:hover{color:var(--ink)}
 .vsz.block.unter .n{padding-top:10px}
 
 /* Der Startpunkt. */
@@ -1123,7 +1128,8 @@ footer a{color:var(--teal-dk)}
 
   <div class="wsbar">
     <div class="seg" role="group" aria-label="Der obere Teil der Tabelle">
-      <button id="vBwaAus" type="button" aria-pressed="false">BWA ausblenden</button>
+      <button id="vBwaAus" type="button">BWA ausblenden</button>
+      <button id="vNurZahl" type="button">Nur zahlungswirksame</button>
     </div>
     <p class="legend" style="margin:0"><span class="key" id="vFenster"></span></p>
   </div>
@@ -1140,6 +1146,7 @@ footer a{color:var(--teal-dk)}
   <div class="vsk" tabindex="0" role="group" aria-label="Die Liquiditätsvorschau, seitlich scrollbar" style="margin-top:14px">
     <div class="vs" id="vTafel"></div>
   </div>
+  <p class="sub" id="vNurH" style="margin:10px 0 0"></p>
 
   <h2 class="sec">Drei Szenarien</h2>
   <p class="sub">Jeder Regler verändert eine einzige Annahme. Sieh dabei auf die Kurve und auf den Tiefpunkt im Befund.</p>
@@ -1396,8 +1403,8 @@ const REGEL_START = {
   UMS:{richt:"ein", ust:19, typ:"vert",  par:{teile:[[0,20],[1,55],[2,25]]}},
   SBE:{richt:"ein", ust:19, typ:"vert",  par:{teile:[[0,50],[1,50]]}},
   NEE:{richt:"ein", ust:0,  typ:"vert",  par:{teile:[[0,100]]}},
-  BES:{richt:"aus", ust:0,  typ:"nie",   par:{}},
-  EIG:{richt:"aus", ust:0,  typ:"nie",   par:{}},
+  BES:{richt:"ein", ust:0,  typ:"nie",   par:{}},
+  EIG:{richt:"ein", ust:0,  typ:"nie",   par:{}},
   ABS:{richt:"aus", ust:0,  typ:"nie",   par:{}},
   NEA:{richt:"aus", ust:0,  typ:"nie",   par:{}},
   MAT:{richt:"aus", ust:19, typ:"vert",  par:{teile:[[0,40],[1,60]]}},
@@ -1428,9 +1435,11 @@ let START = 0;
 /* Das Jahr steht nur in den Beschriftungen — gerechnet wird mit
    Monatsindizes. */
 let JAHR = 2026;
-/* Nur eine Ansichtssache: Die BWA bleibt gerechnet, sie wird nur nicht
-   gezeigt. Deshalb eine CSS-Klasse und kein Neuaufbau der Tabelle. */
-let BWA_AUS = false;
+/* Zwei Ansichtssachen: Die BWA bleibt gerechnet, sie wird nur nicht
+   gezeigt; und die Positionen, die nie zu einer Zahlung führen, lassen
+   sich wegblenden. Deshalb CSS-Klassen und kein Neuaufbau der Tabelle. */
+let BWA_AUS = false, NUR_ZAHL = false;
+const tafelKlassen = () => "vs" + (BWA_AUS ? " ohne" : "") + (NUR_ZAHL ? " nurzahl" : "");
 
 /* Eine Verteilung um t Tage verschieben. Ein Monat sind dreißig Tage;
    der gebrochene Teil wandert anteilig in den naechsten Monat. So
@@ -1560,16 +1569,25 @@ function stroeme(id){
    nicht aus den Zahlungszeitpunkten der oberen Haelfte. Das ist die
    Soll-Versteuerung nach § 16 UStG und der Gegenstand von Lektion 03.
    ===================================================================== */
+/* Jede der achtzehn Positionen hat eine Zeile, in der ihr Geld landet —
+   auch die vier, deren Regel „nie zahlungswirksam“ lautet. Solange sie
+   nie zahlen, steuern sie null bei und sind nur grau hinterlegt. Wer
+   aber im Regelwerk eine von ihnen auf eine zahlende Regel stellt, um
+   die Wirkung zu zeigen, muss den Betrag auch wiederfinden; ohne einen
+   Platz verschwände er still aus dem Saldo. Bestandsveränderung und
+   aktivierte Eigenleistungen sind Erträge und gehen deshalb in die
+   sonstigen Einzahlungen, Abschreibungen und neutraler Aufwand in die
+   übrigen Betriebskosten. */
 const GRUPPEN = [
   {art:"block", name:"Einzahlungen"},
   {id:"gALT", name:"Aus offenen Posten", vz:1},
   {id:"gUMS", name:"Aus Umsatzerlösen (brutto)", teile:["UMS"], vz:1},
-  {id:"gSON", name:"Sonstige Einzahlungen (brutto)", teile:["SBE","NEE"], vz:1},
+  {id:"gSON", name:"Sonstige Einzahlungen (brutto)", teile:["SBE","NEE","BES","EIG"], vz:1},
   {art:"block", name:"Auszahlungen"},
   {id:"aALT", name:"Für offene Posten", vz:-1},
   {id:"gMAT", name:"Material (brutto)", teile:["MAT"], vz:-1},
   {id:"gPER", name:"Personal", teile:["PER"], vz:-1},
-  {id:"gBET", name:"Übrige Betriebskosten (brutto)", teile:["RAU","BST","VER","FZG","WER","REP","SON"], vz:-1},
+  {id:"gBET", name:"Übrige Betriebskosten (brutto)", teile:["RAU","BST","VER","FZG","WER","REP","SON","ABS","NEA"], vz:-1},
   {id:"gZIN", name:"Zinsen", teile:["ZIA"], vz:-1},
   {id:"gEST", name:"Ertragsteuern", teile:["EST"], vz:-1},
   {id:"sBET", art:"summe", name:"Saldo aus dem Geschäft"},
@@ -2031,8 +2049,19 @@ function tipDaten(gid, m){
   if(m == null){
     let p = ZEILENTEXT[gid] || "";
     if(g.teile){
-      p = "Speist sich aus: " + g.teile.map(id => BWA[id].name).join(", ") + ".";
-      if(g.teile.length === 1) p += " Regel: " + regelSatz(g.teile[0]) + ".";
+      /* Aufgezählt wird, was zahlt. Die Positionen mit der Regel „nie
+         zahlungswirksam“ gehören zwar in diese Zeile — sie hätten hier
+         ihren Platz, wenn jemand ihnen eine Regel gibt —, steuern aber
+         nichts bei, und sie ohne Hinweis mitzuzählen wäre irreführend. */
+      const zahlend = g.teile.filter(id => REGEL[id].typ !== "nie");
+      const stumm = g.teile.filter(id => REGEL[id].typ === "nie");
+      p = zahlend.length
+        ? "Speist sich aus: " + zahlend.map(id => BWA[id].name).join(", ") + "."
+        : "Im Augenblick speist sich diese Zeile aus nichts.";
+      if(zahlend.length === 1) p += " Regel: " + regelSatz(zahlend[0]) + ".";
+      if(stumm.length)
+        p += " Ohne " + stumm.map(id => BWA[id].name).join(", ")
+           + " — deren Regel lautet „nie zahlungswirksam“.";
     }
     const zeigSumme = g.art !== "bestand" && g.art !== "linie";
     return {th:g.name, p, hz:null,
@@ -2214,7 +2243,10 @@ function vZeichnen(){
     }).join("") + `<span class="j">${zeigSumme ? zahl(summe) : ""}</span></div>`;
   }
   $("vTafel").innerHTML = h;
-  $("vTafel").className = "vs" + (BWA_AUS ? " ohne" : "");
+  /* Setzt die Ansichtsklassen und schreibt den Hinweis unter der
+     Tabelle neu — er nennt die Positionen beim Namen, und die ändern
+     sich mit dem Regelwerk. */
+  ansichtSetzen();
 
   /* Der Befund. */
   const bisDez = START === 0 ? "das ganze Jahr" : "bis zum Jahresende";
@@ -2362,12 +2394,34 @@ $("vJahr").addEventListener("input", e => {
   JAHR = (j >= 1900 && j <= 2999) ? j : JAHR;
   vZeichnen(); vqZeichnen();
 });
-$("vBwaAus").addEventListener("click", e => {
-  BWA_AUS = !BWA_AUS;
-  e.target.setAttribute("aria-pressed", BWA_AUS ? "true" : "false");
-  e.target.textContent = BWA_AUS ? "BWA einblenden" : "BWA ausblenden";
-  $("vTafel").className = "vs" + (BWA_AUS ? " ohne" : "");
-});
+/* Beide Schalter sagen im Text, was ein Klick tut. Deshalb kein
+   aria-pressed daneben: Ein Knopf, der „Alle Positionen“ heißt und
+   zugleich als gedrückt markiert ist, behauptet zwei verschiedene
+   Dinge — und die Vorlesetechnik liest beide vor. */
+function ansichtSetzen(){
+  $("vTafel").className = tafelKlassen();
+  $("vBwaAus").textContent = BWA_AUS ? "BWA einblenden" : "BWA ausblenden";
+  $("vNurZahl").textContent = NUR_ZAHL ? "Alle Positionen zeigen" : "Nur zahlungswirksame";
+  /* Ist die BWA ganz ausgeblendet, hat der zweite Schalter nichts zu
+     tun. Ein Knopf ohne Wirkung ist schlimmer als keiner. */
+  $("vNurZahl").disabled = BWA_AUS;
+
+  /* Welche Positionen es trifft, gehört dazu — eine Zeile, die
+     verschwindet, ohne dass jemand ihren Namen gelesen hat, ist eine
+     Lücke und keine Vereinfachung. */
+  const nie = BWA_IDS.filter(id => REGEL[id].typ === "nie");
+  const namen = nie.map(id => BWA[id].name).join(", ");
+  $("vNurH").innerHTML = !nie.length
+    ? `Im Augenblick führt jede Position zu einer Zahlung. Der Schalter hat nichts auszublenden.`
+    : (NUR_ZAHL && !BWA_AUS)
+      ? `<b>${nie.length} von ${BWA_IDS.length} Positionen sind ausgeblendet:</b> ${esc(namen)}. `
+        + `Sie stehen in der BWA und in der Vorschau mit null — Aufwand und Ertrag ohne jede Zahlung.`
+      : `<b>${nie.length} von ${BWA_IDS.length} Positionen führen nie zu einer Zahlung:</b> `
+        + `${esc(namen)}. In der Tabelle sind sie grau hinterlegt; der Schalter nimmt sie ganz heraus.`;
+}
+$("vBwaAus").addEventListener("click", () => { BWA_AUS = !BWA_AUS; ansichtSetzen(); });
+$("vNurZahl").addEventListener("click", () => { NUR_ZAHL = !NUR_ZAHL; ansichtSetzen(); });
+ansichtSetzen();
 
 $("vrTafel").addEventListener("change", e => {
   const el = e.target, id = el.dataset.id;
