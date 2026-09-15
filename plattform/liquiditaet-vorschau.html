@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Die Liquiditätsvorschau · geplant</title>
+<title>Die Liquiditätsvorschau</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -645,18 +645,131 @@ footer a{color:var(--teal-dk)}
   .zuz{grid-template-columns:1fr}
   .zuz .zb{justify-content:flex-start}
 }
+
+/* ---------- Der Regel-Editor ----------
+   Je Position eine Zeile: Bezeichnung, Umsatzsteuersatz, Regeltyp und
+   die Parameter dazu. Die Parameter wechseln mit dem Typ, deshalb
+   werden sie bei jeder Auswahl neu gezeichnet.                      */
+.reg{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:0 0 12px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.regkopf{display:grid;grid-template-columns:minmax(0,1fr) 54px 150px minmax(0,220px);gap:10px;
+  padding:14px 18px 9px;border-bottom:1px solid var(--grey-xl);align-items:end}
+.regkopf>*{min-width:0}
+.regkopf h3{margin:0;font-size:1.02rem;font-weight:700;letter-spacing:-.01em}
+.regkopf span{font-family:var(--mono);font-size:.62rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--grey)}
+.regz{display:grid;grid-template-columns:minmax(0,1fr) 54px 150px minmax(0,220px);gap:10px;
+  padding:6px 18px;align-items:center;border-bottom:1px solid var(--grey-xl)}
+.regz:last-child{border-bottom:0}
+.regz>*{min-width:0}
+.regz label{font-size:.85rem;color:#3d3d40;line-height:1.3}
+.regz select{width:100%;font-family:var(--sans);font-size:.8rem;color:var(--ink);
+  background:var(--paper);border:1px solid var(--grey-mid);border-radius:6px;padding:5px 7px}
+.regz select:focus-visible{outline:2px solid var(--orange);outline-offset:1px;border-color:var(--teal)}
+.regz .par{display:flex;gap:5px;align-items:center;flex-wrap:wrap;
+  font-family:var(--mono);font-size:.74rem;color:var(--grey)}
+.regz .par input{width:46px;font-family:var(--mono);font-size:.76rem;text-align:right;
+  font-variant-numeric:tabular-nums;color:var(--ink);background:var(--paper);
+  border:1px solid var(--grey-mid);border-radius:5px;padding:3px 5px}
+.regz .par input:focus-visible{outline:2px solid var(--orange);outline-offset:1px;border-color:var(--teal)}
+.regz.nie label,.regz.nie .par{color:var(--grey)}
+.regz .ust{font-family:var(--mono);font-size:.78rem;text-align:right;
+  font-variant-numeric:tabular-nums;color:var(--grey)}
+.regz .ust b{color:var(--teal-dk);font-weight:600}
+.reghin{grid-column:1/-1;margin:2px 0 4px;font-size:.76rem;color:var(--grey);line-height:1.45}
+
+/* ---------- Die Vorschau ----------
+   Dreizehn Spalten: Bezeichnung und zwoelf Monate. Breiter als der
+   Lesebereich, deshalb in einem eigenen Scrollcontainer.            */
+.vsk{overflow-x:auto;border:1px solid var(--grey-xl);border-radius:var(--r);
+  background:var(--paper);box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.vsk:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.vs{min-width:1020px}
+.vsz{display:grid;grid-template-columns:232px repeat(12,1fr);gap:0;align-items:center}
+.vsz>*{min-width:0}
+.vsz .n{font-size:.83rem;color:#3d3d40;line-height:1.3;padding:5px 12px}
+.vsz .z{font-family:var(--mono);font-size:.76rem;text-align:right;padding:5px 7px;
+  font-variant-numeric:tabular-nums;color:var(--ink)}
+.vsz .z.neg{color:var(--red)}
+.vsz.kopf{border-bottom:1px solid var(--grey-xl);position:sticky;top:0;background:var(--paper);z-index:1}
+.vsz.kopf .n{font-family:var(--mono);font-size:.62rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--grey)}
+.vsz.kopf .z{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--grey);font-weight:600}
+.vsz.block .n{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--grey);padding-top:13px;padding-bottom:3px}
+.vsz.summe{background:var(--grey-xl)}
+.vsz.summe .n,.vsz.summe .z{font-weight:700}
+.vsz.bestand{background:var(--teal-xl);border-top:1px solid #BFE2EC;border-bottom:1px solid #BFE2EC}
+.vsz.bestand .n,.vsz.bestand .z{font-weight:700;color:var(--teal-dk)}
+.vsz.bestand .z.unter{color:var(--red)}
+.vsz.linie .n,.vsz.linie .z{color:var(--grey);font-size:.72rem}
+
+/* Die Bestandslinie als Kurve, damit der Tiefpunkt ins Auge faellt. */
+.kurve{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:16px 18px 10px;margin:14px 0 0}
+.kurve svg{display:block;width:100%;height:190px}
+.kurvem{display:grid;grid-template-columns:repeat(12,1fr);font-family:var(--mono);
+  font-size:.64rem;color:var(--grey);text-align:center;padding-top:6px;border-top:1px solid var(--grey-xl)}
+
+/* Die drei Regler fuer Szenarien. */
+.szen{display:grid;grid-template-columns:repeat(auto-fit,minmax(252px,1fr));gap:14px;margin:16px 0 0}
+.szen>*{min-width:0}
+.szk{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:14px 16px}
+.szk p.t{margin:0 0 3px;font-size:.9rem;font-weight:600;color:var(--ink)}
+.szk p.u{margin:0 0 10px;font-size:.78rem;color:var(--grey);line-height:1.45}
+.szk .zeile{display:grid;grid-template-columns:minmax(0,1fr) 68px;gap:10px;align-items:center}
+.szk input[type="range"]{width:100%;accent-color:var(--ochre);cursor:pointer}
+.szk input[type="range"]:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.szk select{width:100%;font-family:var(--sans);font-size:.8rem;color:var(--ink);
+  background:var(--paper);border:1px solid var(--grey-mid);border-radius:6px;padding:5px 7px}
+.szk select:focus-visible{outline:2px solid var(--orange);outline-offset:1px;border-color:var(--teal)}
+.szk .w{font-family:var(--mono);font-size:.86rem;text-align:right;font-weight:600;
+  font-variant-numeric:tabular-nums;color:var(--ochre)}
+
+/* Der Befund: drei Zahlen, auf die es ankommt. */
+.befund{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:12px;margin:16px 0 0}
+.befund>*{min-width:0}
+.befund .b{background:var(--teal-xl);border-radius:var(--r);padding:13px 15px}
+.befund .b.warn{background:var(--orange-xl)}
+.befund .b.rot{background:#FBECEB}
+.befund .bk{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 6px}
+.befund .bv{font-family:var(--mono);font-size:1.32rem;font-weight:700;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;color:var(--teal-dk);margin:0 0 5px}
+.befund .b.warn .bv{color:var(--ochre)}
+.befund .b.rot .bv{color:var(--red)}
+.befund .bf{margin:0;font-size:.77rem;color:var(--grey);line-height:1.45}
+
+/* Der untere Teil zum Eintippen. */
+.unten{display:grid;grid-template-columns:minmax(0,1fr) 90px 150px;gap:10px;align-items:center;
+  padding:6px 0}
+.unten>*{min-width:0}
+.unten label{font-size:.85rem;color:#3d3d40}
+.unten input{width:100%;font-family:var(--mono);font-size:.82rem;text-align:right;
+  font-variant-numeric:tabular-nums;color:var(--ink);background:var(--paper);
+  border:1px solid var(--grey-mid);border-radius:6px;padding:5px 8px}
+.unten input:focus-visible{outline:2px solid var(--orange);outline-offset:1px;border-color:var(--teal)}
+.unten select{width:100%;font-family:var(--sans);font-size:.8rem;color:var(--ink);
+  background:var(--paper);border:1px solid var(--grey-mid);border-radius:6px;padding:5px 7px}
+
+@media (max-width:720px){
+  .regkopf,.regz{grid-template-columns:minmax(0,1fr) 44px;gap:7px;padding-left:12px;padding-right:12px}
+  .regkopf span.rt,.regkopf span.rp{display:none}
+  .regz select,.regz .par{grid-column:1/-1}
+  .unten{grid-template-columns:minmax(0,1fr) 74px;gap:7px}
+  .unten select{grid-column:1/-1}
+}
+
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <header class="masthead">
-  <p class="eyebrow">Liquiditätsplanung · Modul 03 · in Planung</p>
+  <p class="eyebrow">Liquiditätsplanung · Modul 04</p>
   <h1>Die <em>Liquiditätsvorschau</em></h1>
-  <p class="lede">Aus der BWA wird eine Vorschau über zwölf Monate. Jede Position bekommt eine Regel, wann sie zahlungswirksam wird — und darunter steht, was keine BWA kennt.</p>
-  <div class="readme" style="margin-top:20px">
-    <b>Dieses Modul ist eine Hülle.</b> Die Lektionen stehen mit Namen und Absicht da, der Inhalt kommt noch. Die beiden Pflichtlektionen — Quiz und Praxiseinstieg — sind bereits angelegt und werden mit dem Inhalt gefüllt.
-  </div>
+  <p class="lede">Die BWA sagt, was geschehen ist. Die Vorschau sagt, wann daraus Geld wird. Dazwischen liegt eine Regel je Position — und darunter vier Posten, die in keiner Auswertung stehen. Hier baust Du beides zusammen und siehst zu, wie die Bestandslinie darauf reagiert.</p>
+  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Grundlage sind die zwölf Monate aus dem Modul „Die BWA lesen“. Der Anfangsbestand von 3.900 T€ ist der Posten „Kassenbestand und Guthaben bei Kreditinstituten“ aus der Bilanz des ersten Moduls im Lernpfad Bilanzanalyse.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Die Liquiditätsvorschau">
@@ -668,64 +781,339 @@ footer a{color:var(--teal-dk)}
   <button class="tab" role="tab" id="tab-f" aria-controls="p-f" aria-selected="false" tabindex="-1"><span class="num">06</span> Der erste Schritt</button>
 </div>
 
+<!-- ==================== LEKTION 01 · VOM ERGEBNIS ZUR ZAHLUNG ==================== -->
 <section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
-  <p class="claim">Der Aufbau einer Vorschau: oben die BWA über Regeln, unten das BWA-Fremde, darunter der Bestand.</p>
-  <div class="readme">
-    <b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.
+  <p class="claim">Eine Liquiditätsvorschau hat <b>drei Teile</b>, und die meisten Fehler entstehen daraus, dass jemand nur den ersten baut.</p>
+
+  <h2 class="sec">Der Aufbau</h2>
+  <p class="sub">Oben das Geschäft, in der Mitte das Finanzamt, unten alles Übrige. Darunter der Bestand.</p>
+  <div class="trio">
+    <div class="card" style="border-left:3px solid var(--teal-dk)">
+      <p class="ck">Oberer Teil</p><h3>Aus der BWA, über Regeln</h3>
+      <p>Jede Position der BWA bekommt eine Regel: wann wird aus diesem Ertrag eine Einzahlung, wann aus diesem Aufwand eine Auszahlung. Aus achtzehn Zeilen mit Monatsbeträgen werden achtzehn Zahlungsströme.</p>
+      <p>Drei Positionen bekommen die Regel „nie“ — Abschreibungen, Bestandsveränderung und aktivierte Eigenleistungen. Sie sind Aufwand oder Ertrag ohne jede Zahlung.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ochre)">
+      <p class="ck">Mittelteil</p><h3>Die Umsatzsteuer</h3>
+      <p>Sie hat ihren eigenen Rhythmus und ihre eigene Logik. In der BWA ist sie unsichtbar, auf dem Konto ist sie einer der größten monatlichen Posten.</p>
+      <p>Beim Zulieferer sind es 7.794 T€ im Jahr allein aus dem Geschäft — mehr als das Dreifache des Jahresüberschusses.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--red)">
+      <p class="ck">Unterer Teil</p><h3>Was keine BWA kennt</h3>
+      <p>Investition, Darlehensaufnahme, Tilgung, Entnahme. Vier Zeilen, die in keiner Aufwandsposition vorkommen und das Konto erheblich bewegen.</p>
+      <p>Dieser Teil wird von Hand gepflegt. Er lässt sich aus keiner Buchhaltung ableiten, weil er zum Teil aus Entscheidungen besteht, die noch nicht getroffen sind.</p>
+    </div>
   </div>
+  <div class="readme" style="margin-top:16px">
+    <b>Und darunter die beiden Zeilen, auf die es ankommt.</b> Der <b>Endbestand</b> je Monat und die <b>Kontokorrentlinie</b> als Bezugsgröße. Null ist selten die relevante Grenze; interessant ist der Monat, in dem der Bestand den eingeräumten Rahmen reißt. Die ganze Tabelle darüber existiert, um diese eine Zeile zu erzeugen.
+  </div>
+
+  <h2 class="sec">Was diese Vorschau leistet und was nicht</h2>
+  <p class="sub">Eine Monatsvorschau ist ein Frühwarnsystem und kein Zahlungsplan.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Leistung und Grenze, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th>Frage</th><th>Monatsvorschau</th><th>Was stattdessen hilft</th></tr></thead>
+    <tbody>
+      <tr><td class="crit">Reicht das Geld im September?</td><td>Ja, dafür ist sie gebaut</td><td>—</td></tr>
+      <tr><td class="crit">Reicht es am 28. September?</td><td>Nein, sie kennt keine Tage</td><td>Die Tagesvorschau, das folgende Modul</td></tr>
+      <tr><td class="crit">Wann brauche ich eine größere Kreditlinie?</td><td>Ja, mit ein paar Monaten Vorlauf</td><td>—</td></tr>
+      <tr><td class="crit">Welche Rechnung zahle ich zuerst?</td><td>Nein</td><td>Die offenen Posten und ihre Fälligkeiten</td></tr>
+      <tr><td class="crit">Was passiert, wenn ein Großkunde ausfällt?</td><td>Ja, über ein Szenario</td><td>—</td></tr>
+      <tr><td class="crit">Stimmt meine Planung?</td><td>Erst im Rückblick</td><td>Der Soll-Ist-Vergleich der Vorschau selbst</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2 class="sec">Der Vortrag aus dem Vorjahr</h2>
+  <p class="sub">Die erste Zeile der Vorschau ist die unscheinbarste und eine der wichtigsten.</p>
+  <div class="merk">
+    <h3>Woher der Januar sein Geld bekommt</h3>
+    <dl>
+      <dt>Das Problem</dt><dd>Der Januar bekommt Einzahlungen aus Rechnungen, die im November und Dezember des Vorjahres geschrieben wurden. Diese Rechnungen stehen in keiner BWA dieses Jahres — und beim Zulieferer sind es <b>7.195 T€</b>, mehr als vier Fünftel aller Januar-Eingänge.</dd>
+      <dt>In der Wirklichkeit</dt><dd>Das sind die <b>offenen Posten</b>: konkrete Rechnungen mit konkreten Fälligkeiten, die in der Debitoren- und Kreditorenbuchhaltung stehen. Für die ersten Wochen sind sie die bessere Quelle als jede BWA.</dd>
+      <dt>In diesem Blatt</dt><dd>Es nimmt an, dass das Vorjahr wie dieses Jahr verlief, und rechnet den Vortrag aus den Regeln. Dieselbe Rechnung läuft auf der Auszahlungsseite: Die Dezember-Rechnung des Lieferanten wird im Januar bezahlt.</dd>
+      <dt>Warum das kein Detail ist</dt><dd>Der Vortrag entsteht unter den <b>alten</b> Bedingungen. Zahlen Deine Kunden künftig später, kommen die alten Rechnungen trotzdem zur alten Zeit — und die Umstellung kostet einmalig die Differenz. Wer das Jahr im Kreis rechnet, sieht diesen Verlust nicht und hält eine Verschlechterung des Zahlungsverhaltens für folgenlos.</dd>
+    </dl>
+  </div>
+
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Der obere Teil ist die Fleißarbeit, der untere entscheidet. <b>Eine Vorschau ohne Investition, Tilgung und Entnahme ist keine Vorschau</b> — sie ist eine umgerechnete BWA.</p>
   </div>
 </section>
-<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
-  <p class="claim">Zahlungsverhalten, fester Stichtag, Jahres- und Quartalsrhythmus, nie zahlungswirksam.</p>
-  <div class="readme">
-    <b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.
+
+<!-- ==================== LEKTION 02 · DAS REGELWERK ==================== -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b">
+  <p class="claim">Vier Regeltypen reichen für jede Position einer BWA. Sie sind der eigentliche Inhalt einer Liquiditätsplanung — <b>und sie sind Annahmen, die jemand verantwortet.</b></p>
+
+  <h2 class="sec">Die vier Typen</h2>
+  <p class="sub">Jede Zeile der BWA bekommt genau einen davon. Mehr braucht es nicht, und weniger reicht nicht.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Die vier Regeltypen, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th>Typ</th><th>Was er tut</th><th>Wofür er gedacht ist</th><th>Beispiel</th></tr></thead>
+    <tbody>
+      <tr><td class="crit">Zahlungsverhalten</td><td>Verteilt den Monatsbetrag auf mehrere Monate, nach Anteilen</td><td>Alles, was über Rechnungen läuft und deshalb nach dem Verhalten der Gegenseite fließt</td><td class="m">20 % sofort, 55 % im Folgemonat, 25 % im zweiten</td></tr>
+      <tr><td class="crit">Fester Tag</td><td>Zahlt den ganzen Monatsbetrag an einem festen Tag, wahlweise einen Monat später</td><td>Verträge und Abrechnungen mit bekanntem Termin</td><td class="m">Personal am 25., Miete am 3.</td></tr>
+      <tr><td class="crit">Jahresrhythmus</td><td>Zahlt die Jahressumme einmal, in einem bestimmten Monat</td><td>Jahresprämien und Beiträge</td><td class="m">Versicherungen am 15. Januar</td></tr>
+      <tr><td class="crit">Nie</td><td>Erzeugt keine Zahlung</td><td>Aufwand und Ertrag ohne Zahlung</td><td class="m">Abschreibungen, Bestandsveränderung</td></tr>
+    </tbody>
+  </table>
   </div>
+  <p class="sub" style="margin-top:12px">Dazu kommt der <b>Quartalsrhythmus</b> als Sonderfall des dritten Typs — für die Vorauszahlungen auf die Ertragsteuern, die viermal im Jahr fällig werden.</p>
+
+  <h2 class="sec">Zahlungsziel und Zahlungsverhalten</h2>
+  <p class="sub">Der wichtigste der vier Typen, und der einzige, bei dem eine einzelne Zahl nicht genügt.</p>
+  <div class="duo">
+    <div class="card" style="border-left:3px solid var(--red)">
+      <p class="ck">Was nicht funktioniert</p><h3>Ein Zahlungsziel als Termin</h3>
+      <p>„Dreißig Tage Ziel, also kommt das Geld nach dreißig Tagen“ ergibt eine Vorschau, die jeden Monat um denselben Betrag danebenliegt.</p>
+      <p>Ein Teil der Kunden zahlt früher und zieht Skonto, ein Teil pünktlich, ein Teil deutlich später. Der Mittelwert liegt fast immer über dem Ziel.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--green)">
+      <p class="ck">Was funktioniert</p><h3>Eine Verteilung aus der Vergangenheit</h3>
+      <p>Die Debitorenbuchhaltung weiß, wie Deine Kunden zahlen. Aus zwölf Monaten Zahlungseingängen lässt sich ablesen, welcher Anteil im Rechnungsmonat, im Folgemonat und im zweiten Monat kommt.</p>
+      <p>Drei Zahlen, die sich einmal im Jahr überprüfen lassen — und die aus einer Vermutung eine Messung machen.</p>
+    </div>
+  </div>
+
+  <h2 class="sec">Das Regelwerk des Zulieferers</h2>
+  <p class="sub">Achtzehn Positionen, achtzehn Regeln. Änder eine, und der Planer in Lektion 04 rechnet neu. Die rechte Spalte zeigt, was die Regel bewirkt.</p>
+
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Regelwerk">
+      <button id="vrStandard" type="button">Standardregeln</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="vrStand"></span></p>
+  </div>
+
+  <div class="reg" id="vrTafel">
+    <div class="regkopf">
+      <h3>Zahlungsregeln</h3>
+      <span>USt</span>
+      <span class="rt">Regeltyp</span>
+      <span class="rp">Parameter</span>
+    </div>
+    <div id="vrZeilen"></div>
+  </div>
+
+  <div class="readme" style="margin-top:18px">
+    <b>Der Tag im Monat steht da und wirkt hier nicht.</b> Auf einem Monatsraster entscheidet allein der Monatsversatz: Ob das Personal am 25. desselben Monats oder am 5. des Folgemonats gezahlt wird, ist ein Unterschied von einem Monat. Ob es am 3. oder am 25. gezahlt wird, sieht diese Vorschau nicht. Der Tag steht trotzdem in der Regel — er wird im nächsten Modul gebraucht, wenn dieselben Regeln auf Tage aufgelöst werden.
+  </div>
+
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Eine Regel, die dasteht, ist eine Annahme, die jemand verantworten kann. <b>Eine Vorschau, deren Regeln niemand kennt, ist eine Zahl ohne Adressaten.</b></p>
   </div>
 </section>
-<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
-  <p class="claim">Ein eigener Zahlungsstrom mit eigenem Rhythmus, entstanden mit der Rechnung.</p>
-  <div class="readme">
-    <b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.
+
+<!-- ==================== LEKTION 03 · DIE UMSATZSTEUER ==================== -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c">
+  <p class="claim">Die Umsatzsteuer ist in der BWA nicht vorhanden und auf dem Konto einer der größten Posten. Beim Zulieferer sind es <b>7.794 T€</b> im Jahr aus dem laufenden Geschäft — bei einem Jahresüberschuss von 2.300 T€.</p>
+
+  <h2 class="sec">Drei Bewegungen, die eine BWA nicht zeigt</h2>
+  <p class="sub">Eine BWA rechnet netto. Das Konto bewegt sich brutto.</p>
+  <div class="trio">
+    <div class="card" style="border-left:3px solid var(--green)">
+      <p class="ck">Erste Bewegung</p><h3>Vom Kunden kommt brutto</h3>
+      <p>Auf 98.000 T€ Umsatz kommen 18.620 T€ Umsatzsteuer. Der Kunde überweist 116.620 T€, und der Mehrbetrag gehört dem Finanzamt.</p>
+      <p>Für ein paar Wochen liegt er trotzdem auf Deinem Konto — ein zinsloser Kredit, den man leicht für eigenes Geld hält.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--red)">
+      <p class="ck">Zweite Bewegung</p><h3>An den Lieferanten geht brutto</h3>
+      <p>Auf den Materialaufwand und einen Teil der übrigen Kosten zahlst Du Vorsteuer — beim Zulieferer 11.187 T€ im Jahr.</p>
+      <p>Auch hier gilt: Das Geld ist weg, bevor das Finanzamt es erstattet. Die Zeitverschiebung geht in beide Richtungen.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ochre)">
+      <p class="ck">Dritte Bewegung</p><h3>Die Zahllast geht raus</h3>
+      <p>Umsatzsteuer minus Vorsteuer, fällig am 10. des Folgemonats. Aus dem Geschäft sind das 7.794 T€ im Jahr, im Schnitt 650 T€ im Monat.</p>
+      <p>Die Vorsteuer auf die Investition von 6.000 T€ senkt die Zahllast des Jahres noch einmal um 1.140 T€ auf <b>6.654 T€</b> — und auch das steht in keiner BWA. Mit Dauerfristverlängerung nach § 46 UStDV verschiebt sich die Fälligkeit um einen weiteren Monat, gegen eine Sondervorauszahlung von einem Elftel.</p>
+    </div>
   </div>
+
+  <h2 class="sec">Die Falle: Soll-Versteuerung</h2>
+  <p class="sub">Der Regelfall nach § 16 UStG, und für die Liquidität der unangenehmste Satz im ganzen Umsatzsteuerrecht.</p>
+  <div class="merk">
+    <h3>Die Steuer entsteht mit der Rechnung</h3>
+    <dl>
+      <dt>Was das heißt</dt><dd>Du schreibst am 20. März eine Rechnung über 100 T€ netto. Die Umsatzsteuer von 19 T€ ist am 10. April fällig. Ob der Kunde bis dahin gezahlt hat, spielt keine Rolle.</dd>
+      <dt>Warum das weh tut</dt><dd>Bei einem Zahlungsverhalten wie beim Zulieferer sind am 10. April erst zwanzig Prozent der Märzrechnungen bezahlt. Die Umsatzsteuer auf die übrigen achtzig Prozent wird aus eigenem Geld vorgestreckt.</dd>
+      <dt>Bei einem Zahlungsausfall</dt><dd>Wird die Forderung uneinbringlich, lässt sich die Umsatzsteuer nach § 17 UStG berichtigen. Das Geld kommt zurück — später, und nach einer Anzeige an das Finanzamt.</dd>
+      <dt>Die Ausnahme</dt><dd>Die <b>Ist-Versteuerung</b> nach § 20 UStG knüpft an die Zahlung statt an die Rechnung. Sie ist auf Antrag möglich und an Umsatzgrenzen gebunden — für kleine Unternehmen ein erheblicher Liquiditätsvorteil und für den Zulieferer nicht erreichbar.</dd>
+      <dt>Was in der Vorschau steht</dt><dd>Die Zahllast wird deshalb aus den <b>BWA-Monaten</b> gerechnet und nicht aus den Zahlungszeitpunkten. Das ist der eine Punkt, an dem dieses Blatt die Regeln der oberen Hälfte ausdrücklich übergeht.</dd>
+    </dl>
+  </div>
+
+  <h2 class="sec">Vierzehn Aussagen einordnen</h2>
+  <p class="sub">Wirkt der Vorgang auf den Bestand, auf das Ergebnis, auf beides oder auf keines? Die Begründung erscheint nach jeder Antwort.</p>
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Übung">
+      <button id="zuNew" type="button">Von vorn</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="zuStand"></span></p>
+  </div>
+  <div class="zu" id="zuListe"></div>
+
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Die Umsatzsteuer ist kein Aufwand und für die Liquidität <b>größer als der Gewinn</b>. Wer sie in einer Vorschau vergisst, plant um den größten monatlichen Abfluss herum.</p>
   </div>
 </section>
-<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
-  <p class="claim">Zwölf Monate, Bestand gegen Kreditlinie, drei Regler für Szenarien.</p>
-  <div class="readme">
-    <b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.
+
+<!-- ==================== LEKTION 04 · DER PLANER ==================== -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d">
+  <p class="claim">Zwölf Monate, drei Teile, eine Bestandslinie. Im Grundfall rutscht der Bestand im März kurz unter null und fängt sich wieder. <b>Die drei Regler daneben brechen ihn richtig</b> — genau dafür sind sie da.</p>
+
+  <h2 class="sec">Der untere Teil</h2>
+  <p class="sub">Die vier Posten, die in keiner BWA stehen. Trag Deine eigenen ein, oder lass die des Falls stehen.</p>
+  <div class="bilout" id="vuForm">
+    <div class="unten">
+      <label for="vuBest">Anfangsbestand (Kasse und Bank)</label>
+      <input type="text" id="vuBest" inputmode="numeric" value="3.900" aria-label="Anfangsbestand in Tausend Euro">
+      <span class="m" style="font-family:var(--mono);font-size:.74rem;color:var(--grey)">aus der Bilanz</span>
+    </div>
+    <div class="unten">
+      <label for="vuLinie">Kontokorrentlinie</label>
+      <input type="text" id="vuLinie" inputmode="numeric" value="2.000" aria-label="Kontokorrentlinie in Tausend Euro">
+      <span class="m" style="font-family:var(--mono);font-size:.74rem;color:var(--grey)">der Bestand darf so weit ins Minus</span>
+    </div>
+    <div class="unten">
+      <label for="vuInv">Investitionen</label>
+      <input type="text" id="vuInv" inputmode="numeric" value="6.000" aria-label="Investitionen im Jahr in Tausend Euro">
+      <select id="vuInvM" aria-label="Monat der Investitionen"></select>
+    </div>
+    <div class="unten">
+      <label for="vuDar">Darlehensaufnahme</label>
+      <input type="text" id="vuDar" inputmode="numeric" value="3.000" aria-label="Darlehensaufnahme in Tausend Euro">
+      <select id="vuDarM" aria-label="Monat der Darlehensaufnahme"></select>
+    </div>
+    <div class="unten">
+      <label for="vuTil">Tilgung, monatlich</label>
+      <input type="text" id="vuTil" inputmode="numeric" value="250" aria-label="Tilgung je Monat in Tausend Euro">
+      <span class="m" style="font-family:var(--mono);font-size:.74rem;color:var(--grey)">jeden Monat</span>
+    </div>
+    <div class="unten">
+      <label for="vuEnt">Entnahme oder Ausschüttung</label>
+      <input type="text" id="vuEnt" inputmode="numeric" value="1.500" aria-label="Entnahme in Tausend Euro">
+      <select id="vuEntM" aria-label="Monat der Entnahme"></select>
+    </div>
+    <p class="sub" style="margin:12px 0 0">Die Investition erhöht zugleich die Vorsteuer des gewählten Monats — auch das steht in keiner BWA.</p>
   </div>
+
+  <h2 class="sec">Die Vorschau</h2>
+  <p class="sub">Alle Beträge in T€. Die Tabelle ist breiter als der Lesebereich; sie lässt sich seitlich schieben und mit den Pfeiltasten bewegen.</p>
+
+  <div class="befund" id="vBefund"></div>
+
+  <div class="kurve">
+    <svg id="vKurve" viewBox="0 0 1200 190" preserveAspectRatio="none" role="img"
+         aria-labelledby="vKurveT"><title id="vKurveT">Der Zahlungsmittelbestand über zwölf Monate</title></svg>
+    <div class="kurvem" id="vKurveM"></div>
+  </div>
+
+  <div class="vsk" tabindex="0" role="group" aria-label="Die Liquiditätsvorschau, seitlich scrollbar" style="margin-top:14px">
+    <div class="vs" id="vTafel"></div>
+  </div>
+
+  <h2 class="sec">Drei Szenarien</h2>
+  <p class="sub">Jeder Regler verändert eine einzige Annahme. Sieh dabei auf die Kurve und auf den Tiefpunkt im Befund.</p>
+  <div class="szen" id="vSzen">
+    <div class="szk">
+      <p class="t">Zahlungsverhalten</p>
+      <p class="u">Die Kunden zahlen später. Der Regler verschiebt die Verteilung aller Einzahlungen um so viele Tage.</p>
+      <div class="zeile">
+        <input type="range" id="szZiel" min="0" max="60" step="5" value="0" aria-label="Verzögerung der Zahlungseingänge in Tagen">
+        <span class="w" id="szZielW">+0 T</span>
+      </div>
+    </div>
+    <div class="szk">
+      <p class="t">Umsatz</p>
+      <p class="u">Der Umsatz bricht ein. Materialaufwand geht anteilig mit, die Fixkosten bleiben stehen.</p>
+      <div class="zeile">
+        <input type="range" id="szUms" min="-30" max="10" step="1" value="0" aria-label="Veränderung des Umsatzes in Prozent">
+        <span class="w" id="szUmsW">0 %</span>
+      </div>
+    </div>
+    <div class="szk">
+      <p class="t">Großkunde fällt aus</p>
+      <p class="u">Eine Forderung wird uneinbringlich. Der Betrag fehlt im gewählten Monat, die Umsatzsteuer darauf kommt später zurück.</p>
+      <div class="zeile">
+        <input type="range" id="szAus" min="0" max="4000" step="100" value="0" aria-label="Höhe des Zahlungsausfalls in Tausend Euro">
+        <span class="w" id="szAusW">0 T€</span>
+      </div>
+      <div class="zeile" style="margin-top:9px">
+        <select id="szAusM" aria-label="Monat des Zahlungsausfalls"></select>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <p class="bilmsg" id="vMsg" style="margin-top:12px"></p>
+
+  <h2 class="sec">Die Vorschau mitnehmen</h2>
+  <p class="sub">Regeln, unterer Teil und Ergebnis als Datei; die Tabelle als Text.</p>
+  <div class="bilout">
+    <div class="wsbar" style="margin-bottom:12px">
+      <div class="seg" role="group" aria-label="Datei">
+        <button id="vSave" type="button">Als JSON speichern</button>
+        <button id="vLoad" type="button">JSON laden</button>
+      </div>
+      <div class="seg" role="group" aria-label="Text">
+        <button id="vGo" type="button">Vorschau als Text</button>
+        <button id="vCopy" type="button">In die Zwischenablage</button>
+      </div>
+    </div>
+    <input type="file" id="vDatei" accept="application/json,.json" hidden aria-hidden="true">
+    <p class="sub" style="margin:0 0 12px">Die Datei kennt die Kennung <span class="m" style="font-family:var(--mono)">liqui-vorschau</span> und enthält das Regelwerk samt unterem Teil. Eine <span class="m" style="font-family:var(--mono)">bwa-monate</span>-Datei aus dem Vormodul lässt sich ebenfalls hier einlesen — dann rechnet das Blatt mit Deinen Zahlen.</p>
+    <label class="hint" for="vOut" style="margin:0 0 6px;display:block">Ergebnis</label>
+    <textarea id="vOut" readonly aria-label="Die Vorschau als Text"></textarea>
+    <p class="bilmsg" id="vMsg2"></p>
+  </div>
+
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Zwanzig Tage später zahlende Kunden kosten mehr Liquidität als zehn Prozent weniger Umsatz. <b>Das überrascht jeden beim ersten Mal</b> — und es steht in keiner Gewinn- und Verlustrechnung.</p>
   </div>
 </section>
-<section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e" hidden>
-  <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen — so wie in den übrigen Modulen des Pfads.</p>
-  <div class="readme">
-    <b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.
+
+<!-- ==================== LEKTION 05 · QUIZ ==================== -->
+<section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e">
+  <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen. Kein Zeitdruck, keine Bewertung, die irgendwo landet — die Begründung steht nach jeder Antwort da, auch nach der richtigen.</p>
+
+  <h2 class="sec">Übung</h2>
+  <p class="sub">Die meisten Fehlantworten drehen sich um die Umsatzsteuer und um den unteren Teil der Vorschau.</p>
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Übung">
+      <button id="qNew" type="button">Fünf neue Fragen</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="qStand"></span></p>
   </div>
+  <div class="qwrap" id="quiz"></div>
+  <div id="qResult" style="margin-top:16px"></div>
+
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Wer eine Vorschau liest, liest zwei Dinge: die Zahl und die Regel dahinter. <b>Die Regel ist die Stelle, an der sich streiten lässt</b> — und darum geht es.</p>
   </div>
 </section>
-<section class="panel" id="p-f" role="tabpanel" aria-labelledby="tab-f" hidden>
-  <p class="claim">Was jemand als Erstes tut, der das Gelernte im eigenen Haus anwenden will.</p>
-  <div class="readme">
-    <b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.
+
+<!-- ==================== LEKTION 06 · DER ERSTE SCHRITT ==================== -->
+<section class="panel" id="p-f" role="tabpanel" aria-labelledby="tab-f">
+  <p class="claim">Du willst eine Liquiditätsvorschau für Dein Haus bauen? Sieben Schritte, für die Du zwei Jahre BWA, einen Kontoauszug und einen Tag brauchst.</p>
+
+  <h2 class="sec">Sieben Schritte mit den eigenen Zahlen</h2>
+  <p class="sub">Jeder Schritt mit dem Grund dahinter und dem Fehler, der an dieser Stelle am häufigsten gemacht wird.</p>
+  <div class="ck10" id="ck7"></div>
+
+  <div class="readme" style="margin-top:18px">
+    <b>Warum keine Software am Anfang.</b> Jedes Programm für Liquiditätsplanung rechnet Regeln, die jemand gesetzt hat. Wer die Regeln nicht selbst einmal aufgeschrieben hat, bekommt eine Kurve, der er nicht widersprechen kann — und die er deshalb auch nicht verantworten kann. Die sieben Schritte gehen einmal von Hand; danach ist jedes Werkzeug eine Erleichterung statt einer Blackbox.
   </div>
+
+  <h2 class="sec">Glossar</h2>
+  <p class="sub">Zum Nachschlagen während der Arbeit. Keine Prüfungsliste.</p>
+  <div class="glos" id="glos"></div>
+
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Eine Liquiditätsvorschau ist die einzige Planung im Controlling, die sich <b>jeden Morgen widerlegen lässt</b>. Das macht sie unbequem — und zur einzigen, aus der man wirklich etwas lernt.</p>
   </div>
 </section>
 
@@ -734,12 +1122,855 @@ Copyright Prof. Dr. Maik Drozdzynski, 2026
 </footer>
 
 </div>
+
 <script>
 "use strict";
+
 const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s)
+  .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const zahl = v => Math.round(v).toLocaleString("de-DE");
+function lesen(s){
+  const t = String(s).replace(/[.\s]/g, "").replace(",", ".").trim();
+  if(t === "" || t === "-") return 0;
+  const v = Number(t);
+  return Number.isFinite(v) ? Math.round(v) : 0;
+}
 
 /* =====================================================================
-   6 · Lektionen
+   1 · Die Ausgangsdaten
+
+   Die zwoelf BWA-Monate des Zulieferers, unveraendert aus dem Modul
+   „Die BWA lesen“. Eine Datei von dort laesst sich hier einlesen und
+   ersetzt sie.
+   ===================================================================== */
+const MONATE = ["Jan","Feb","Mrz","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
+const LANG = ["Januar","Februar","März","April","Mai","Juni","Juli","August",
+              "September","Oktober","November","Dezember"];
+
+const BWA_START = {
+  UMS:{name:"Umsatzerlöse", werte:[7100,7600,8900,8400,8700,9100,8800,5900,8600,9200,8900,6800]},
+  BES:{name:"Bestandsveränderung", werte:[120,-60,-180,90,140,-210,60,380,-90,110,-140,180]},
+  EIG:{name:"Aktivierte Eigenleistungen", werte:[20,30,60,50,40,65,35,110,45,55,50,40]},
+  SBE:{name:"Sonstige betriebliche Erträge", werte:[158,158,158,158,158,158,158,158,158,158,158,162]},
+  NEE:{name:"Neutraler Ertrag", werte:[8,8,8,8,8,128,8,8,8,8,8,12]},
+  MAT:{name:"Materialaufwand", werte:[3940,4171,4773,4541,4680,4865,4726,3384,4634,4912,4773,3801]},
+  PER:{name:"Personalkosten", werte:[2341,2341,2341,2341,2341,2341,3395,2341,2341,2341,3395,2341]},
+  RAU:{name:"Raumkosten", werte:[154,154,154,154,154,154,154,154,154,154,154,156]},
+  BST:{name:"Betriebliche Steuern", werte:[21,21,21,21,21,21,21,21,21,21,21,19]},
+  VER:{name:"Versicherungen und Beiträge", werte:[52,52,52,52,52,52,52,52,52,52,52,48]},
+  FZG:{name:"Fahrzeugkosten", werte:[62,62,62,62,62,62,62,62,62,62,62,58]},
+  WER:{name:"Werbe- und Reisekosten", werte:[33,49,98,82,65,106,57,180,74,90,82,64]},
+  ABS:{name:"Abschreibungen", werte:[408,408,408,408,408,408,408,408,408,408,408,412]},
+  REP:{name:"Reparatur und Instandhaltung", werte:[44,66,131,109,87,142,76,240,98,120,109,88]},
+  SON:{name:"Sonstige Kosten", werte:[221,221,221,221,221,221,221,221,221,221,221,219]},
+  ZIA:{name:"Zinsaufwand", werte:[83,83,83,83,83,83,83,83,83,83,83,87]},
+  NEA:{name:"Neutraler Aufwand", werte:[0,0,0,0,0,20,0,0,0,0,0,0]},
+  EST:{name:"Steuern Einkommen und Ertrag", werte:[92,92,92,92,92,92,92,92,92,92,92,88]}
+};
+const BWA = JSON.parse(JSON.stringify(BWA_START));
+
+/* =====================================================================
+   2 · Das Regelwerk
+
+   richt : "ein" oder "aus" — auf welcher Seite die Zahlung steht
+   ust   : der Steuersatz, mit dem der Nettobetrag brutto wird
+   typ   : "vert" | "stich" | "jahr" | "quartal" | "nie"
+   par   : die Parameter des Typs
+
+   Die Anteile einer Verteilung muessen sich auf hundert summieren;
+   wo sie es nicht tun, sagt es die Zeile. Gerundet wird erst bei der
+   Ausgabe — sonst sammelt sich der Rundungsfehler ueber zwoelf Monate
+   zu einem sichtbaren Betrag.
+   ===================================================================== */
+const TYPEN = {
+  vert:    "Zahlungsverhalten",
+  stich:   "Fester Tag",
+  jahr:    "Jahresrhythmus",
+  quartal: "Quartalsrhythmus",
+  nie:     "Nie zahlungswirksam"
+};
+
+const REGEL_START = {
+  UMS:{richt:"ein", ust:19, typ:"vert",  par:{teile:[[0,20],[1,55],[2,25]]}},
+  SBE:{richt:"ein", ust:19, typ:"vert",  par:{teile:[[0,50],[1,50]]}},
+  NEE:{richt:"ein", ust:0,  typ:"vert",  par:{teile:[[0,100]]}},
+  BES:{richt:"aus", ust:0,  typ:"nie",   par:{}},
+  EIG:{richt:"aus", ust:0,  typ:"nie",   par:{}},
+  ABS:{richt:"aus", ust:0,  typ:"nie",   par:{}},
+  NEA:{richt:"aus", ust:0,  typ:"nie",   par:{}},
+  MAT:{richt:"aus", ust:19, typ:"vert",  par:{teile:[[0,40],[1,60]]}},
+  PER:{richt:"aus", ust:0,  typ:"stich", par:{versatz:0, tag:25}},
+  RAU:{richt:"aus", ust:0,  typ:"stich", par:{versatz:0, tag:3}},
+  BST:{richt:"aus", ust:0,  typ:"stich", par:{versatz:0, tag:15}},
+  VER:{richt:"aus", ust:0,  typ:"jahr",  par:{monat:1, tag:15}},
+  FZG:{richt:"aus", ust:19, typ:"stich", par:{versatz:1, tag:10}},
+  WER:{richt:"aus", ust:19, typ:"vert",  par:{teile:[[0,30],[1,70]]}},
+  REP:{richt:"aus", ust:19, typ:"vert",  par:{teile:[[0,50],[1,50]]}},
+  SON:{richt:"aus", ust:19, typ:"vert",  par:{teile:[[0,60],[1,40]]}},
+  ZIA:{richt:"aus", ust:0,  typ:"stich", par:{versatz:0, tag:30}},
+  EST:{richt:"aus", ust:0,  typ:"quartal", par:{versatz:0, tag:10}}
+};
+let REGEL = JSON.parse(JSON.stringify(REGEL_START));
+const IDS = Object.keys(REGEL_START);
+
+/* Der untere Teil und die beiden Eckwerte. */
+let UNTEN = {best:3900, linie:2000, inv:6000, invM:2, dar:3000, darM:2, til:250, ent:1500, entM:5};
+/* Die drei Szenarien. */
+let SZEN = {ziel:0, ums:0, aus:0, ausM:8};
+
+/* Eine Verteilung um t Tage verschieben. Ein Monat sind dreißig Tage;
+   der gebrochene Teil wandert anteilig in den naechsten Monat. So
+   laesst sich ein Zahlungsziel stufenlos veraendern, ohne dass die
+   Verteilung in Spruenge zerfaellt. */
+function verschoben(teile, tage){
+  if(!tage) return teile;
+  const s = tage / 30, ganz = Math.floor(s), rest = s - ganz;
+  const out = new Map();
+  for(const [v, a] of teile){
+    const dazu = (k, w) => out.set(k, (out.get(k) || 0) + w);
+    dazu(v + ganz, a * (1 - rest));
+    if(rest > 0) dazu(v + ganz + 1, a * rest);
+  }
+  return [...out.entries()].sort((x, y) => x[0] - y[0]);
+}
+
+/* Der Nettobetrag einer Position im Monat m, nach Szenario. Der
+   Umsatzruecklauf zieht den Materialaufwand anteilig mit; die
+   Fixkosten bleiben, wo sie sind. */
+function netto(id, m){
+  const w = BWA[id].werte[m];
+  if(id === "UMS" || id === "MAT") return w * (1 + SZEN.ums / 100);
+  return w;
+}
+
+/* Alle Zahlungen einer Position, auf einer Zeitachse ohne Jahresgrenze:
+   Der Schluessel ist der Monat, gerechnet ab Januar dieses Jahres. Ein
+   Wert von 12 oder mehr faellt ins Folgejahr.
+
+   "verzug" ist die Verschiebung des Zahlungsverhaltens aus dem Szenario,
+   "skaliert" sagt, ob der Umsatzruecklauf mitgerechnet wird. Beides
+   gilt fuer das laufende Jahr und nicht fuer das Vorjahr — dessen
+   Rechnungen sind laengst geschrieben.                              */
+function zahlungen(id, verzug, skaliert){
+  const r = REGEL[id], out = new Map();
+  if(r.typ === "nie") return out;
+  const f = 1 + r.ust / 100;
+  const betrag = m => skaliert ? netto(id, m) : BWA[id].werte[m];
+  const dazu = (k, w) => out.set(k, (out.get(k) || 0) + w);
+  if(r.typ === "vert"){
+    const teile = (r.richt === "ein" && verzug) ? verschoben(r.par.teile, verzug) : r.par.teile;
+    for(let m = 0; m < 12; m++)
+      for(const [v, a] of teile) dazu(m + v, betrag(m) * a / 100 * f);
+  } else if(r.typ === "stich"){
+    for(let m = 0; m < 12; m++) dazu(m + r.par.versatz, betrag(m) * f);
+  } else if(r.typ === "jahr"){
+    let s = 0; for(let m = 0; m < 12; m++) s += betrag(m);
+    dazu(r.par.monat - 1, s * f);
+  } else if(r.typ === "quartal"){
+    for(let q = 0; q < 4; q++){
+      let s = 0; for(let m = q * 3; m < q * 3 + 3; m++) s += betrag(m);
+      dazu(q * 3 + 2 + r.par.versatz, s * f);
+    }
+  }
+  return out;
+}
+
+/* Der Zahlungsstrom dieses Jahres aus den Rechnungen dieses Jahres.
+   Was ueber den Dezember hinausfaellt, gehoert ins Folgejahr und steht
+   hier nicht. */
+function strom(id){
+  const out = new Array(12).fill(0);
+  for(const [k, w] of zahlungen(id, SZEN.ziel, true)) if(k >= 0 && k < 12) out[k] += w;
+  return out;
+}
+
+/* Der Vortrag aus dem Vorjahr: die offenen Posten zum Jahreswechsel.
+   Das Vorjahr wird als Wiederholung dieses Jahres angenommen, aber zu
+   den Bedingungen von damals — ohne Szenario. Genau darin steckt der
+   Effekt, um den es geht: Zahlen die Kunden kuenftig spaeter, kommen
+   die alten Rechnungen trotzdem zur alten Zeit, und das Jahr verliert
+   die Differenz einmalig. Ein zyklisch gerechnetes Jahr wuerde diesen
+   Verlust verschlucken und ein spaeteres Zahlungsverhalten als
+   folgenlos ausweisen. */
+function vortrag(id){
+  const out = new Array(12).fill(0);
+  for(const [k, w] of zahlungen(id, 0, false)){
+    const z = k - 12;
+    if(z >= 0 && z < 12) out[z] += w;
+  }
+  return out;
+}
+
+/* =====================================================================
+   3 · Die Vorschau rechnen
+
+   Die Umsatzsteuer geht einen eigenen Weg: Sie entsteht mit der
+   Rechnung, also im BWA-Monat, und wird am 10. des Folgemonats faellig.
+   Deshalb wird sie aus den Nettobetraegen der Monate gerechnet und
+   nicht aus den Zahlungszeitpunkten der oberen Haelfte. Das ist die
+   Soll-Versteuerung nach § 16 UStG und der Gegenstand von Lektion 03.
+   ===================================================================== */
+const GRUPPEN = [
+  {art:"block", name:"Einzahlungen"},
+  {id:"gALT", name:"Aus offenen Posten des Vorjahres", vz:1},
+  {id:"gUMS", name:"Aus Umsatzerlösen (brutto)", teile:["UMS"], vz:1},
+  {id:"gSON", name:"Sonstige Einzahlungen (brutto)", teile:["SBE","NEE"], vz:1},
+  {art:"block", name:"Auszahlungen"},
+  {id:"aALT", name:"Für offene Posten des Vorjahres", vz:-1},
+  {id:"gMAT", name:"Material (brutto)", teile:["MAT"], vz:-1},
+  {id:"gPER", name:"Personal", teile:["PER"], vz:-1},
+  {id:"gBET", name:"Übrige Betriebskosten (brutto)", teile:["RAU","BST","VER","FZG","WER","REP","SON"], vz:-1},
+  {id:"gZIN", name:"Zinsen", teile:["ZIA"], vz:-1},
+  {id:"gEST", name:"Ertragsteuern", teile:["EST"], vz:-1},
+  {id:"sBET", art:"summe", name:"Saldo aus dem Geschäft"},
+  {art:"block", name:"Finanzamt"},
+  {id:"gUST", name:"Umsatzsteuer-Zahllast", vz:-1},
+  {art:"block", name:"Nicht in der BWA"},
+  {id:"uINV", name:"Investitionen (brutto)", vz:-1},
+  {id:"uDAR", name:"Darlehensaufnahme", vz:1},
+  {id:"uTIL", name:"Tilgung", vz:-1},
+  {id:"uENT", name:"Entnahme, Ausschüttung", vz:-1},
+  {id:"sGES", art:"summe", name:"Saldo gesamt"},
+  {id:"bEND", art:"bestand", name:"Bestand am Monatsende"},
+  {id:"bLIN", art:"linie", name:"Kontokorrentlinie"}
+];
+
+function rechne(){
+  const z = {};
+  const leer = () => new Array(12).fill(0);
+
+  /* Obere Haelfte: die Gruppen aus den Positionsstroemen. */
+  for(const g of GRUPPEN){
+    if(!g.teile) continue;
+    z[g.id] = leer();
+    for(const id of g.teile){ const s = strom(id); for(let m = 0; m < 12; m++) z[g.id][m] += s[m]; }
+  }
+
+  /* Der Vortrag aus dem Vorjahr, getrennt nach Seiten. In der
+     Wirklichkeit steht er in der Debitoren- und Kreditorenbuchhaltung
+     als Liste offener Rechnungen — hier wird er aus den Regeln
+     gerechnet, weil ein Lehrmodul keine offenen Posten hat. */
+  z.gALT = leer(); z.aALT = leer();
+  for(const id of IDS){
+    const v = vortrag(id), ziel = REGEL[id].richt === "ein" ? z.gALT : z.aALT;
+    for(let m = 0; m < 12; m++) ziel[m] += v[m];
+  }
+
+  /* Umsatzsteuer aus den BWA-Monaten, faellig im Folgemonat. Die
+     Vorsteuer auf die Investition kommt dazu — sie steht in keiner
+     BWA und ist trotzdem abziehbar. */
+  z.gUST = leer();
+  for(let m = 0; m < 12; m++){
+    let u = 0, v = 0;
+    for(const id of IDS){
+      const r = REGEL[id];
+      if(!r.ust || r.typ === "nie") continue;
+      const betrag = netto(id, m) * r.ust / 100;
+      if(r.richt === "ein") u += betrag; else v += betrag;
+    }
+    if(m === UNTEN.invM) v += UNTEN.inv * 0.19;
+    /* Ein Zahlungsausfall gibt die Umsatzsteuer nach § 17 UStG zurueck,
+       und zwar im Monat der Berichtigung — hier der Folgemonat. */
+    if(SZEN.aus && m === SZEN.ausM) u -= SZEN.aus * 19 / 119;
+    /* Die Zahllast des Dezembers wird im Januar des Folgejahres
+       faellig. Weil das Vorjahr als Wiederholung angenommen wird,
+       bekommt der Januar die Zahllast des Dezembers — sonst fehlte
+       ihm ein Abfluss, den es in Wirklichkeit gibt. */
+    z.gUST[m === 11 ? 0 : m + 1] += u - v;
+  }
+
+  /* Unterer Teil. */
+  z.uINV = leer(); z.uINV[UNTEN.invM] = UNTEN.inv * 1.19;
+  z.uDAR = leer(); z.uDAR[UNTEN.darM] = UNTEN.dar;
+  z.uTIL = leer(); for(let m = 0; m < 12; m++) z.uTIL[m] = UNTEN.til;
+  z.uENT = leer(); z.uENT[UNTEN.entM] = UNTEN.ent;
+
+  /* Der Zahlungsausfall mindert die Einzahlung aus Umsatzerloesen im
+     gewaehlten Monat, und zwar brutto. */
+  if(SZEN.aus) z.gUMS[SZEN.ausM] -= SZEN.aus;
+
+  /* Salden und Bestand. */
+  z.sBET = leer(); z.sGES = leer(); z.bEND = leer(); z.bLIN = leer();
+  let best = UNTEN.best;
+  for(let m = 0; m < 12; m++){
+    let betrieb = z.gALT[m] - z.aALT[m];
+    for(const g of GRUPPEN) if(g.teile) betrieb += g.vz * z[g.id][m];
+    z.sBET[m] = betrieb;
+    z.sGES[m] = betrieb - z.gUST[m] - z.uINV[m] + z.uDAR[m] - z.uTIL[m] - z.uENT[m];
+    best += z.sGES[m];
+    z.bEND[m] = best;
+    z.bLIN[m] = -UNTEN.linie;
+  }
+  return z;
+}
+
+/* Der Befund: die drei Zahlen, wegen derer die Tabelle existiert. */
+function befund(z){
+  let tiefM = 0, tief = Infinity, reissM = -1;
+  for(let m = 0; m < 12; m++){
+    if(z.bEND[m] < tief){ tief = z.bEND[m]; tiefM = m; }
+    if(reissM < 0 && z.bEND[m] < -UNTEN.linie) reissM = m;
+  }
+  return {tiefM, tief, reissM, ende:z.bEND[11], jahr:z.sGES.reduce((a, b) => a + b, 0)};
+}
+
+/* =====================================================================
+   4 · Zeichnen
+   ===================================================================== */
+function parFeld(id){
+  const r = REGEL[id];
+  if(r.typ === "nie") return `<span class="par">erzeugt keine Zahlung</span>`;
+  if(r.typ === "vert"){
+    const summe = r.par.teile.reduce((a, [, x]) => a + x, 0);
+    return `<span class="par">` + r.par.teile.map(([v, a], i) =>
+      `<input type="text" inputmode="numeric" data-id="${id}" data-t="${i}" value="${a}"
+              aria-label="Anteil im Monat ${v}"> % nach ${v} M`).join(" · ")
+      + (Math.abs(summe - 100) > 0.5
+        ? ` <b style="color:var(--red)">Summe ${Math.round(summe)} %</b>` : "") + `</span>`;
+  }
+  if(r.typ === "stich")
+    return `<span class="par">am <input type="text" inputmode="numeric" data-id="${id}" data-f="tag"
+      value="${r.par.tag}" aria-label="Tag im Monat">. · Versatz
+      <input type="text" inputmode="numeric" data-id="${id}" data-f="versatz"
+      value="${r.par.versatz}" aria-label="Monatsversatz"> M</span>`;
+  if(r.typ === "jahr")
+    return `<span class="par">im Monat <input type="text" inputmode="numeric" data-id="${id}" data-f="monat"
+      value="${r.par.monat}" aria-label="Monat"> am <input type="text" inputmode="numeric"
+      data-id="${id}" data-f="tag" value="${r.par.tag}" aria-label="Tag">.</span>`;
+  return `<span class="par">Quartalsende + <input type="text" inputmode="numeric" data-id="${id}"
+    data-f="versatz" value="${r.par.versatz}" aria-label="Monatsversatz"> M, am
+    <input type="text" inputmode="numeric" data-id="${id}" data-f="tag" value="${r.par.tag}"
+    aria-label="Tag">.</span>`;
+}
+
+function vrZeichnen(){
+  $("vrZeilen").innerHTML = IDS.map(id => {
+    const r = REGEL[id];
+    const s = strom(id), jahr = s.reduce((a, b) => a + b, 0);
+    const hin = r.typ === "nie"
+      ? `<p class="reghin">Diese Position verlässt das Konto nie. In der Vorschau steht sie deshalb mit null.</p>`
+      : `<p class="reghin">${r.richt === "ein" ? "Einzahlung" : "Auszahlung"} von
+         <b>${zahl(jahr)} T€</b> im Jahr${r.ust ? ", brutto mit " + r.ust + " % Umsatzsteuer" : ""}.</p>`;
+    return `<div class="regz${r.typ === "nie" ? " nie" : ""}">
+      <label for="t_${id}">${esc(BWA[id].name)}</label>
+      <span class="ust">${r.ust ? "<b>" + r.ust + " %</b>" : "—"}</span>
+      <select id="t_${id}" data-id="${id}" data-typ="1" aria-label="Regeltyp für ${esc(BWA[id].name)}">
+        ${Object.entries(TYPEN).map(([k, v]) =>
+          `<option value="${k}"${k === r.typ ? " selected" : ""}>${v}</option>`).join("")}
+      </select>
+      ${parFeld(id)}${hin}</div>`;
+  }).join("");
+  const nie = IDS.filter(id => REGEL[id].typ === "nie").length;
+  $("vrStand").textContent = IDS.length + " Positionen · " + nie + " davon nie zahlungswirksam";
+}
+
+function vZeichnen(){
+  const z = rechne(), b = befund(z);
+
+  /* Die Tabelle. */
+  let h = `<div class="vsz kopf"><span class="n">in T€</span>`
+    + MONATE.map(m => `<span class="z">${m}</span>`).join("") + `</div>`;
+  for(const g of GRUPPEN){
+    if(g.art === "block"){
+      h += `<div class="vsz block"><span class="n">${esc(g.name)}</span>`
+        + MONATE.map(() => `<span class="z"></span>`).join("") + `</div>`;
+      continue;
+    }
+    const kl = g.art === "summe" ? " summe" : g.art === "bestand" ? " bestand"
+             : g.art === "linie" ? " linie" : "";
+    h += `<div class="vsz${kl}"><span class="n">${esc(g.name)}</span>` + z[g.id].map((v, m) => {
+      const unter = g.art === "bestand" && v < -UNTEN.linie;
+      return `<span class="z${v < 0 ? " neg" : ""}${unter ? " unter" : ""}">${zahl(v)}</span>`;
+    }).join("") + `</div>`;
+  }
+  $("vTafel").innerHTML = h;
+
+  /* Der Befund. */
+  const karten = [
+    ["Tiefpunkt", zahl(b.tief) + " T€",
+     "im " + LANG[b.tiefM] + ". Das ist der Monat, über den zu reden ist.",
+     b.tief < -UNTEN.linie ? "rot" : b.tief < 0 ? "warn" : ""],
+    ["Unterdeckung", b.reissM < 0 ? "keine" : LANG[b.reissM],
+     b.reissM < 0 ? "Der Bestand bleibt das ganze Jahr über der Kontokorrentlinie."
+       : "Ab hier reicht der eingeräumte Rahmen nicht mehr. Mit " + (b.reissM) + " Monaten Vorlauf zu klären.",
+     b.reissM < 0 ? "" : "rot"],
+    ["Bestand am Jahresende", zahl(b.ende) + " T€",
+     "Anfangsbestand " + zahl(UNTEN.best) + " T€, Veränderung " + (b.jahr >= 0 ? "+" : "−")
+       + zahl(Math.abs(b.jahr)) + " T€.", b.ende < 0 ? "warn" : ""]
+  ];
+  $("vBefund").innerHTML = karten.map(([k, v, f, kl]) =>
+    `<div class="b${kl ? " " + kl : ""}"><p class="bk">${esc(k)}</p>
+       <p class="bv">${v}</p><p class="bf">${f}</p></div>`).join("");
+
+  /* Die Kurve. Gerechnet und nicht gemessen — in einem zugeklappten
+     Block liefert getBoundingClientRect nur Nullen. */
+  const W = 1200, H = 190, PAD = 14;
+  const alle = z.bEND.concat([-UNTEN.linie, 0]);
+  const min = Math.min(...alle), max = Math.max(...alle);
+  const spanne = Math.max(1, max - min);
+  const y = v => PAD + (max - v) / spanne * (H - 2 * PAD);
+  const x = m => (m + 0.5) / 12 * W;
+  const punkte = z.bEND.map((v, m) => `${x(m).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
+  const flaeche = `${x(0).toFixed(1)},${y(0).toFixed(1)} ${punkte} ${x(11).toFixed(1)},${y(0).toFixed(1)}`;
+  $("vKurve").innerHTML =
+    `<polygon points="${flaeche}" fill="var(--teal-xl)"/>
+     <line x1="0" y1="${y(0).toFixed(1)}" x2="${W}" y2="${y(0).toFixed(1)}"
+           stroke="var(--grey-mid)" stroke-width="1"/>
+     <line x1="0" y1="${y(-UNTEN.linie).toFixed(1)}" x2="${W}" y2="${y(-UNTEN.linie).toFixed(1)}"
+           stroke="var(--red)" stroke-width="1.5" stroke-dasharray="7 5"/>
+     <polyline points="${punkte}" fill="none" stroke="var(--teal-dk)" stroke-width="2.5"
+               stroke-linejoin="round"/>` +
+    z.bEND.map((v, m) => `<circle cx="${x(m).toFixed(1)}" cy="${y(v).toFixed(1)}" r="${m === b.tiefM ? 5 : 3.5}"
+       fill="${v < -UNTEN.linie ? "var(--red)" : "var(--teal-dk)"}"/>`).join("");
+  $("vKurveM").innerHTML = MONATE.map(m => `<span>${m}</span>`).join("");
+
+  const teile = [];
+  if(SZEN.ziel) teile.push("Zahlungseingänge " + SZEN.ziel + " Tage später");
+  if(SZEN.ums)  teile.push("Umsatz " + (SZEN.ums > 0 ? "+" : "") + SZEN.ums + " %");
+  if(SZEN.aus)  teile.push("Ausfall von " + zahl(SZEN.aus) + " T€ im " + LANG[SZEN.ausM]);
+  $("vMsg").textContent = teile.length
+    ? "Szenario: " + teile.join(" · ")
+    : "Grundfall ohne Szenario. Schieb einen Regler und sieh auf den Tiefpunkt.";
+}
+
+function alles(){ vrZeichnen(); vZeichnen(); }
+
+/* =====================================================================
+   5 · Bedienung
+   ===================================================================== */
+const monatsWahl = (id, wert) => MONATE.map((m, i) =>
+  `<option value="${i}"${i === wert ? " selected" : ""}>${LANG[i]}</option>`).join("");
+["vuInvM","vuDarM","vuEntM"].forEach(id => {
+  const feld = {vuInvM:"invM", vuDarM:"darM", vuEntM:"entM"}[id];
+  $(id).innerHTML = monatsWahl(id, UNTEN[feld]);
+});
+$("szAusM").innerHTML = monatsWahl("szAusM", SZEN.ausM);
+
+$("vrTafel").addEventListener("change", e => {
+  const el = e.target, id = el.dataset.id;
+  if(!id) return;
+  if(el.dataset.typ){
+    REGEL[id].typ = el.value;
+    /* Beim Wechsel bekommt der neue Typ brauchbare Ausgangswerte —
+       ein leeres Parameterfeld waere nur eine Fehlerquelle. */
+    REGEL[id].par = el.value === "vert" ? {teile:[[0,100]]}
+      : el.value === "stich" ? {versatz:0, tag:15}
+      : el.value === "jahr" ? {monat:1, tag:15}
+      : el.value === "quartal" ? {versatz:0, tag:10} : {};
+  } else if(el.dataset.t !== undefined){
+    REGEL[id].par.teile[+el.dataset.t][1] = lesen(el.value);
+  } else if(el.dataset.f){
+    REGEL[id].par[el.dataset.f] = lesen(el.value);
+  }
+  $("vOut").value = ""; $("vMsg2").textContent = "";
+  alles();
+});
+
+$("vrStandard").addEventListener("click", () => {
+  REGEL = JSON.parse(JSON.stringify(REGEL_START));
+  $("vOut").value = ""; $("vMsg2").textContent = "";
+  alles();
+});
+
+$("vuForm").addEventListener("input", e => {
+  const m = {vuBest:"best", vuLinie:"linie", vuInv:"inv", vuDar:"dar", vuTil:"til", vuEnt:"ent"}[e.target.id];
+  if(m) UNTEN[m] = lesen(e.target.value);
+  $("vOut").value = ""; $("vMsg2").textContent = "";
+  vZeichnen();
+});
+$("vuForm").addEventListener("change", e => {
+  const m = {vuInvM:"invM", vuDarM:"darM", vuEntM:"entM"}[e.target.id];
+  if(m){ UNTEN[m] = +e.target.value; $("vOut").value = ""; vZeichnen(); }
+});
+
+$("vSzen").addEventListener("change", e => {
+  if(e.target.id !== "szAusM") return;
+  SZEN.ausM = +e.target.value;
+  $("vOut").value = ""; vZeichnen();
+});
+$("vSzen").addEventListener("input", e => {
+  if(e.target.type !== "range") return;
+  SZEN.ziel = +$("szZiel").value;
+  SZEN.ums  = +$("szUms").value;
+  SZEN.aus  = +$("szAus").value;
+  $("szZielW").textContent = "+" + SZEN.ziel + " T";
+  $("szUmsW").textContent  = (SZEN.ums > 0 ? "+" : "") + SZEN.ums + " %";
+  $("szAusW").textContent  = zahl(SZEN.aus) + " T€";
+  $("vOut").value = ""; $("vMsg2").textContent = "";
+  vZeichnen();
+});
+
+/* =====================================================================
+   6 · Mitnehmen
+   ===================================================================== */
+const V_FORMAT = "liqui-vorschau", V_FASSUNG = 1;
+const BR = 200;
+
+function vText(){
+  const z = rechne(), b = befund(z);
+  const n = 34;
+  const zeile = (name, werte) => name.padEnd(n).slice(0, n)
+    + werte.map(v => String(v).padStart(9)).join("");
+  let s = "LIQUIDITÄTSVORSCHAU, alle Beträge in T€\n";
+  s += "".padEnd(n + 12 * 9, "=") + "\n";
+  s += zeile("", MONATE) + "\n" + "".padEnd(n + 12 * 9, "-") + "\n";
+  for(const g of GRUPPEN){
+    if(g.art === "block"){ s += "\n" + g.name.toUpperCase() + "\n"; continue; }
+    /* Eine Zwischensumme bekommt ihren Strich, wie in der Tafel ihren Rand. */
+    if(g.art === "summe") s += "".padEnd(n + 12 * 9, "-") + "\n";
+    s += zeile("  " + g.name, z[g.id].map(v => zahl(v))) + "\n";
+  }
+  s += "\n" + "".padEnd(n + 12 * 9, "=") + "\n";
+  s += "Tiefpunkt: " + zahl(b.tief) + " T€ im " + LANG[b.tiefM] + "\n";
+  s += "Unterdeckung: " + (b.reissM < 0 ? "keine" : "ab " + LANG[b.reissM]) + "\n";
+  s += "Bestand am Jahresende: " + zahl(b.ende) + " T€\n";
+  s += "\nErzeugt im Modul „Die Liquiditätsvorschau“.\n";
+  return s;
+}
+
+function lade(d, name){
+  const blob = new Blob([JSON.stringify(d, null, 2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
+
+$("vSave").addEventListener("click", () => {
+  const d = {format:V_FORMAT, fassung:V_FASSUNG,
+             erzeugt:new Date().toISOString().slice(0, 10), einheit:"T€",
+             regeln:REGEL, unten:UNTEN, szenario:SZEN};
+  lade(d, "vorschau-" + d.erzeugt + ".json");
+  $("vMsg2").textContent = "Gespeichert als vorschau-" + d.erzeugt
+    + ".json · " + IDS.length + " Regeln und der untere Teil.";
+});
+
+$("vLoad").addEventListener("click", () => { $("vDatei").value = ""; $("vDatei").click(); });
+$("vDatei").addEventListener("change", e => {
+  const datei = e.target.files && e.target.files[0];
+  if(!datei) return;
+  const leser = new FileReader();
+  leser.onerror = () => { $("vMsg2").textContent = "Die Datei ließ sich nicht lesen."; };
+  leser.onload = () => {
+    let d;
+    try { d = JSON.parse(leser.result); }
+    catch(err){ $("vMsg2").textContent = "Das ist kein lesbares JSON."; return; }
+    if(d && d.format === "bwa-monate" && d.positionen){
+      let uebernommen = 0;
+      for(const [id, p] of Object.entries(d.positionen)){
+        if(BWA[id] && Array.isArray(p.werte) && p.werte.length === 12){
+          BWA[id].werte = p.werte.map(v => Math.round(Number(v) || 0));
+          uebernommen++;
+        }
+      }
+      if(!uebernommen){ $("vMsg2").textContent = "Keine der Positionen passt zu diesem Blatt."; return; }
+      $("vOut").value = ""; alles();
+      $("vMsg2").textContent = "BWA übernommen: " + uebernommen + " Positionen"
+        + (d.erzeugt ? " vom " + d.erzeugt : "") + ". Die Regeln bleiben, wie sie sind.";
+      return;
+    }
+    if(!d || d.format !== V_FORMAT || !d.regeln){
+      $("vMsg2").textContent = "Die Kennung in der Datei sagt nichts, das dieses Blatt kennt.";
+      return;
+    }
+    let n = 0;
+    for(const id of IDS) if(d.regeln[id] && TYPEN[d.regeln[id].typ]){ REGEL[id] = d.regeln[id]; n++; }
+    if(d.unten) Object.keys(UNTEN).forEach(k => { if(typeof d.unten[k] === "number") UNTEN[k] = d.unten[k]; });
+    if(d.szenario) Object.keys(SZEN).forEach(k => { if(typeof d.szenario[k] === "number") SZEN[k] = d.szenario[k]; });
+    ["vuBest","vuLinie","vuInv","vuDar","vuTil","vuEnt"].forEach(f => {
+      $(f).value = zahl(UNTEN[{vuBest:"best", vuLinie:"linie", vuInv:"inv",
+                               vuDar:"dar", vuTil:"til", vuEnt:"ent"}[f]]);
+    });
+    ["vuInvM","vuDarM","vuEntM"].forEach(f => {
+      $(f).value = UNTEN[{vuInvM:"invM", vuDarM:"darM", vuEntM:"entM"}[f]];
+    });
+    $("szZiel").value = SZEN.ziel; $("szUms").value = SZEN.ums;
+    $("szAus").value = SZEN.aus; $("szAusM").value = SZEN.ausM;
+    $("szZielW").textContent = "+" + SZEN.ziel + " T";
+    $("szUmsW").textContent = (SZEN.ums > 0 ? "+" : "") + SZEN.ums + " %";
+    $("szAusW").textContent = zahl(SZEN.aus) + " T€";
+    $("vOut").value = ""; alles();
+    $("vMsg2").textContent = "Geladen: " + n + " Regeln" + (d.erzeugt ? " vom " + d.erzeugt : "") + ".";
+  };
+  leser.readAsText(datei);
+});
+
+$("vGo").addEventListener("click", () => { $("vOut").value = vText(); $("vMsg2").textContent = ""; });
+$("vCopy").addEventListener("click", () => {
+  if(!$("vOut").value) $("vOut").value = vText();
+  const feld = $("vOut");
+  feld.removeAttribute("readonly");
+  feld.select(); feld.setSelectionRange(0, feld.value.length);
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch(err) { ok = false; }
+  feld.setAttribute("readonly", "");
+  if(ok){ $("vMsg2").textContent = "Kopiert."; return; }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(feld.value)
+      .then(() => { $("vMsg2").textContent = "Kopiert."; })
+      .catch(() => { $("vMsg2").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand."; });
+  } else {
+    $("vMsg2").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand.";
+  }
+});
+
+alles();
+
+/* =====================================================================
+   7 · Zuordnungsuebung: Bestand, Ergebnis, beides oder keines
+   ===================================================================== */
+const ZU_POS = [
+  ["Ein Kunde zahlt die Rechnung vom Vormonat über 400 T€ brutto", "b",
+   "Nur der Bestand. Der Ertrag ist im Vormonat entstanden. Für die Vorschau ist das der wichtigste Vorgang überhaupt — er ist das Ergebnis der Regel „Zahlungsverhalten“."],
+  ["Die Umsatzsteuer-Zahllast des Vormonats geht an das Finanzamt", "b",
+   "Nur der Bestand. Die Umsatzsteuer ist ein durchlaufender Posten und nie Aufwand. Beim Zulieferer der größte monatliche Abfluss nach dem Material."],
+  ["Eine Maschine für 900 T€ netto wird gekauft und bezahlt", "b",
+   "Nur der Bestand — und zwar mit 1.071 T€ brutto. Im Ergebnis erscheint nichts; die Abschreibung kommt in den Folgejahren."],
+  ["Eine Darlehensrate von 250 T€ Tilgung wird abgebucht", "b",
+   "Nur der Bestand. Die Tilgung steht in keiner Gewinn- und Verlustrechnung. Die Zinsen daneben sind Aufwand und eine eigene Zeile."],
+  ["Eine Ausschüttung von 1.500 T€ an die Gesellschafter", "b",
+   "Nur der Bestand. Ergebnisverwendung, kein Aufwand — und in manchen Häusern der größte einzelne Abfluss des Jahres."],
+  ["Die monatliche Abschreibung von 408 T€ wird gebucht", "e",
+   "Nur das Ergebnis. Die Regel für diese Zeile lautet „nie zahlungswirksam“, und das gehört ausdrücklich hingeschrieben."],
+  ["Eine Rechnung über 500 T€ netto wird an einen Kunden geschrieben", "e",
+   "Nur das Ergebnis — im Moment der Rechnung. Das Geld kommt nach der Verteilung später. Die Umsatzsteuer von 95 T€ ist trotzdem schon am 10. des Folgemonats fällig."],
+  ["Eine Rückstellung für Garantien wird mit 200 T€ gebildet", "e",
+   "Nur das Ergebnis. Aufwand ohne Zahlung. Zahlungswirksam wird es erst, wenn der Garantiefall eintritt."],
+  ["Die Bestandserhöhung an fertigen Erzeugnissen von 110 T€", "e",
+   "Nur das Ergebnis. Zahlungswirksam war der Einkauf, der dahintersteckt — und der steht im Materialaufwand."],
+  ["Die Löhne für den Monat werden am 25. überwiesen", "x",
+   "Beides, und im selben Monat. Deshalb bekommt die Position die Regel „Fester Tag“ mit dem Versatz null — eine der wenigen Zeilen, bei denen Ergebnis und Zahlung zusammenfallen."],
+  ["Die Miete wird am 3. für den laufenden Monat abgebucht", "x",
+   "Beides im selben Monat. Verträge mit festem Betrag und festem Termin sind der verlässlichste Teil jeder Vorschau."],
+  ["Die Zinsen für das Darlehen werden zum Monatsende belastet", "x",
+   "Beides. Zinsen sind Aufwand und Auszahlung zugleich — anders als die Tilgung daneben."],
+  ["Ein Darlehen über 3.000 T€ wird aufgenommen", "b",
+   "Nur der Bestand. Geld kommt herein und eine Schuld entsteht. Kein Ertrag, und deshalb in keiner BWA zu finden."],
+  ["Eine Bestellung über 600 T€ wird ausgelöst, geliefert ist nichts", "k",
+   "Weder noch. Ein schwebendes Geschäft. Für die Vorschau ist es trotzdem interessant: Es kündigt eine Auszahlung an, die noch in keiner Zeile steht."]
+];
+let zuStand = [];
+const ZU_NAME = {b:"Nur Bestand", e:"Nur Ergebnis", x:"Beides", k:"Weder noch"};
+function zuZiehen(){ zuStand = ZU_POS.map((p, i) => ({i, gewaehlt:null})); zuRender(); }
+function zuRender(){
+  $("zuListe").innerHTML = zuStand.map((z, n) => {
+    const [text, richtig, begr] = ZU_POS[z.i];
+    const kl = s => z.gewaehlt === null ? "" : (s === richtig ? " ok" : (s === z.gewaehlt ? " no" : ""));
+    return `<div class="zuz">
+      <p class="zt">${esc(text)}</p>
+      <div class="zb">${["b","e","x","k"].map(s =>
+        `<button class="zub${kl(s)}" type="button" data-z="${n}" data-s="${s}"${
+          z.gewaehlt !== null ? " disabled" : ""}>${ZU_NAME[s]}</button>`).join("")}</div>
+      ${z.gewaehlt === null ? "" : `<p class="zuw">${
+        z.gewaehlt === richtig ? "<b style='color:#1E6B47'>Richtig.</b> " : "<b style='color:#9C2F2C'>Daneben.</b> "}${begr}</p>`}
+    </div>`;
+  }).join("");
+  const fertig  = zuStand.filter(z => z.gewaehlt !== null).length;
+  const treffer = zuStand.filter(z => z.gewaehlt === ZU_POS[z.i][1]).length;
+  $("zuStand").textContent = fertig === 0
+    ? ZU_POS.length + " Vorfälle"
+    : fertig + " von " + ZU_POS.length + " eingeordnet · " + treffer + " richtig";
+}
+$("zuListe").addEventListener("click", e => {
+  const b = e.target.closest(".zub"); if(!b || b.disabled) return;
+  const z = zuStand[+b.dataset.z]; if(!z || z.gewaehlt !== null) return;
+  z.gewaehlt = b.dataset.s; zuRender();
+});
+$("zuNew").addEventListener("click", zuZiehen);
+zuZiehen();
+
+/* =====================================================================
+   8 · Sieben Schritte mit den eigenen Zahlen
+   ===================================================================== */
+const CHECK7 = [
+  ["Nimm die letzten zwölf BWA-Monate als Mengengerüst",
+   "Sie sind die einzige laufende Zahlenquelle, die Du sicher hast. Für die kommenden Monate wird daraus ein Plan — mit dem Saisonmuster, das Du im Vormodul abgeleitet hast.",
+   "Es wird ein Zwölftel des Jahresergebnisses fortgeschrieben. Damit verschwinden genau die Monate, in denen es eng wird."],
+  ["Schreib zu jeder Zeile eine Zahlungsregel auf, in einem Satz",
+   "„Kunden zahlen zu zwanzig Prozent im Monat der Rechnung, zu fünfundfünfzig im Folgemonat, zu fünfundzwanzig im zweiten.“ Achtzehn solche Sätze, und die halbe Arbeit ist getan.",
+   "Die Regeln bleiben im Kopf. Eine Regel, die nirgends steht, lässt sich nicht überprüfen und beim nächsten Mal nicht verbessern."],
+  ["Hol die Verteilung aus der Debitorenbuchhaltung statt aus dem Bauch",
+   "Zwölf Monate Zahlungseingänge, verglichen mit den Rechnungsmonaten. Daraus fallen die drei Prozentsätze heraus. Das ist eine Messung und dauert zwei Stunden.",
+   "Es wird das vereinbarte Zahlungsziel eingesetzt. Der tatsächliche Mittelwert liegt fast immer darüber, und die Vorschau ist dann jeden Monat um denselben Betrag zu optimistisch."],
+  ["Bau den unteren Teil, bevor Du den oberen verfeinerst",
+   "Investitionen, Tilgungen, Entnahmen, Steuervorauszahlungen. Vier Zeilen mit Beträgen und Fälligkeiten. Sie entscheiden über mehr als jede Verfeinerung der Materialquote.",
+   "Der obere Teil wird perfektioniert und der untere vergessen. Eine Vorschau ohne diese vier Zeilen ist eine umgerechnete BWA."],
+  ["Rechne die Umsatzsteuer als eigene Zeile",
+   "Umsatzsteuer aus den Rechnungen des Monats minus Vorsteuer, fällig am 10. des Folgemonats. Bei Soll-Versteuerung hängt sie an der Rechnung und nicht am Geldeingang.",
+   "Sie wird in den Nettobeträgen mitgeschleift. Beim Zulieferer sind das 7.794 T€ im Jahr — mehr als der dreifache Jahresüberschuss."],
+  ["Trag die Kontokorrentlinie ein und markier den ersten Monat darunter",
+   "Null ist selten die relevante Grenze. Die Zahl, die ein Gespräch mit der Bank auslöst, ist der Monat, in dem der Rahmen nicht mehr reicht — und wie viele Monate Vorlauf Du hast.",
+   "Es wird auf den Jahresendbestand gesehen. Der kann glänzend sein und im September trotzdem eine Lücke stehen."],
+  ["Rechne drei Szenarien und schreib sie neben den Grundfall",
+   "Zahlungseingänge zwanzig Tage später, Umsatz zehn Prozent weniger, ein Großkunde fällt aus. Drei Zeilen mit drei Tiefpunkten. Das ist die Vorlage für jedes Bankgespräch.",
+   "Es wird nur der wahrscheinliche Fall gerechnet. Eine Planung ohne Szenario beantwortet die einzige Frage nicht, die wirklich gestellt wird: Was, wenn es schlechter läuft?"]
+];
+$("ck7").innerHTML = CHECK7.map(([t, p, f]) =>
+  `<div class="ckitem"><h3>${esc(t)}</h3><p>${p}</p>
+     <p class="trap"><b>Typischer Fehler:</b> ${f}</p></div>`).join("");
+
+/* =====================================================================
+   9 · Glossar
+   ===================================================================== */
+const GLOSSAR = [
+  ["Liquiditätsvorschau", "Eine Fortschreibung des Zahlungsmittelbestands über einen festen Horizont, hier zwölf Monate."],
+  ["Zahlungsregel", "Die Annahme, wann aus einer Position der BWA eine Zahlung wird. Der eigentliche Inhalt einer Vorschau."],
+  ["Zahlungsverhalten", "Die Verteilung der Eingänge über mehrere Monate. Sie wird gemessen und nicht vereinbart."],
+  ["Zahlungsziel", "Die eingeräumte Frist bis zur Fälligkeit. Sie sagt, wann gezahlt werden darf."],
+  ["Monatsversatz", "Um wie viele Monate eine Zahlung gegenüber dem Aufwands- oder Ertragsmonat verschoben ist."],
+  ["Kontokorrentlinie", "Der eingeräumte Rahmen auf dem Geschäftskonto. Die tatsächliche Untergrenze einer Planung."],
+  ["Unterdeckung", "Der Zustand, in dem der Bestand die Kontokorrentlinie reißt. Die Zahl, wegen der eine Vorschau existiert."],
+  ["Anfangsbestand", "Kasse und Bankguthaben zum Startzeitpunkt. Die einzige Zahl einer Vorschau, die sicher stimmt."],
+  ["Soll-Versteuerung", "Die Umsatzsteuer entsteht mit der Rechnung, unabhängig von der Zahlung (§ 16 UStG). Der Regelfall."],
+  ["Ist-Versteuerung", "Die Umsatzsteuer entsteht mit der Zahlung (§ 20 UStG). Auf Antrag und nur unterhalb bestimmter Umsatzgrenzen."],
+  ["Vorsteuer", "Die Umsatzsteuer aus Eingangsrechnungen. Sie mindert die Zahllast des Monats, in dem die Rechnung vorliegt."],
+  ["Zahllast", "Umsatzsteuer minus Vorsteuer. Fällig am 10. des Folgemonats."],
+  ["Dauerfristverlängerung", "Ein Monat mehr Zeit für die Voranmeldung (§ 46 UStDV), gegen eine Sondervorauszahlung von einem Elftel."],
+  ["Berichtigung nach § 17 UStG", "Wird eine Forderung uneinbringlich, kommt die abgeführte Umsatzsteuer zurück — nach Anzeige und mit Verzug."],
+  ["Kapitaldienst", "Zins und Tilgung zusammen. Nur der Zins steht in der Gewinn- und Verlustrechnung."],
+  ["Szenario", "Eine Vorschau unter veränderten Annahmen. Drei Szenarien neben dem Grundfall sind der Standard für ein Bankgespräch."],
+  ["Rollierende Planung", "Eine Vorschau, die in festem Rhythmus fortgeschrieben wird und dabei denselben Horizont behält."],
+  ["Offene Posten", "Die noch unbezahlten Rechnungen mit ihren Fälligkeiten. Für die ersten Wochen die bessere Quelle als jede BWA."],
+  ["Mengengerüst", "Die geplanten Beträge je Position, bevor die Zahlungsregeln darauf angewendet werden."],
+  ["Bestandslinie", "Der fortgeschriebene Zahlungsmittelbestand über die Zeit. Die eine Zeile, wegen der die Tabelle darüber existiert."]
+];
+$("glos").innerHTML = GLOSSAR.map(([b, t]) => `<div><b>${esc(b)}</b> — ${t}</div>`).join("");
+
+/* =====================================================================
+   10 · Uebung: fuenf Fragen, zufaellig aus dem Vorrat
+   ===================================================================== */
+const FRAGEN = [
+  ["Aus welchen drei Teilen besteht eine Liquiditätsvorschau?",
+   ["Die BWA über Regeln, die Umsatzsteuer, und was in keiner BWA steht","Bilanz, Gewinn- und Verlustrechnung, Anhang","Ist, Plan und Abweichung","Einzahlungen, Auszahlungen und Zinsen"], 0,
+   "Der obere Teil ist die Fleißarbeit, der untere entscheidet. Eine Vorschau ohne Investition, Tilgung und Entnahme ist eine umgerechnete BWA."],
+  ["Welche Positionen der BWA bekommen die Regel „nie zahlungswirksam“?",
+   ["Abschreibungen, Bestandsveränderung und aktivierte Eigenleistungen","Nur die Abschreibungen","Personalkosten und Raumkosten","Die Steuern"], 0,
+   "Sie sind Aufwand oder Ertrag ohne jede Zahlung. Dass sie in der Vorschau mit null stehen, gehört ausdrücklich hingeschrieben."],
+  ["Warum genügt ein Zahlungsziel als Regel nicht?",
+   ["Weil ein Teil früher zahlt, ein Teil pünktlich und ein Teil später","Weil das Ziel gesetzlich nicht bindend ist","Weil es sich monatlich ändert","Weil es die Umsatzsteuer nicht berücksichtigt"], 0,
+   "Der tatsächliche Mittelwert liegt fast immer über dem Ziel. Eine Vorschau braucht eine Verteilung, und die steht in der Debitorenbuchhaltung."],
+  ["Wann entsteht die Umsatzsteuer bei der Soll-Versteuerung?",
+   ["Mit der Rechnungsstellung, unabhängig von der Zahlung","Mit dem Zahlungseingang","Am Quartalsende","Mit der Lieferung der Ware"], 0,
+   "§ 16 UStG, der Regelfall. Du führst Umsatzsteuer auf Geld ab, das noch nicht eingegangen ist — für die Liquidität der unangenehmste Satz im ganzen Umsatzsteuerrecht."],
+  ["Wann ist die Umsatzsteuer-Zahllast eines Monats fällig?",
+   ["Am 10. des Folgemonats","Am Monatsende","Am 10. des übernächsten Monats","Quartalsweise"], 0,
+   "Mit Dauerfristverlängerung nach § 46 UStDV verschiebt sich das um einen weiteren Monat — gegen eine Sondervorauszahlung von einem Elftel."],
+  ["Beim Zulieferer gehen 7.794 T€ Umsatzsteuer im Jahr an das Finanzamt. Wie verhält sich das zum Jahresüberschuss?",
+   ["Es ist mehr als das Dreifache","Es ist etwa gleich","Es ist die Hälfte","Es lässt sich nicht vergleichen"], 0,
+   "Der Jahresüberschuss liegt bei 2.300 T€. Wer die Umsatzsteuer in einer Vorschau vergisst, plant um den größten monatlichen Abfluss herum."],
+  ["Was macht ein Zahlungsausfall mit der bereits abgeführten Umsatzsteuer?",
+   ["Sie kommt nach § 17 UStG zurück — später und nach einer Anzeige","Sie ist verloren","Sie wird automatisch verrechnet","Sie war nie fällig"], 0,
+   "Die Berichtigung ist möglich und kostet Zeit. In der Vorschau steht die Rückerstattung deshalb im Folgemonat des Ausfalls."],
+  ["Was ist die tatsächliche Untergrenze einer Liquiditätsplanung?",
+   ["Die Kontokorrentlinie","Die Null","Das Working Capital","Das Eigenkapital"], 0,
+   "Interessant ist der Monat, in dem der eingeräumte Rahmen nicht mehr reicht — und wie viele Monate Vorlauf bis dahin bleiben."],
+  ["Warum steht der Kaufpreis einer Maschine in keiner BWA?",
+   ["Er wird aktiviert; im Ergebnis erscheint nur die Abschreibung","Er ist steuerfrei","Er wird im Anhang ausgewiesen","Er ist ein neutraler Aufwand"], 0,
+   "Die größte Auszahlung des Jahres taucht im Ergebnis mit null auf. Und brutto ist sie noch einmal 19 Prozent größer."],
+  ["Welcher Teil einer Darlehensrate steht in der Gewinn- und Verlustrechnung?",
+   ["Nur die Zinsen","Nur die Tilgung","Beide","Keiner von beiden"], 0,
+   "Die Tilgung ist keine Aufwandsposition. Bei einem Annuitätendarlehen ist sie mit fortschreitender Laufzeit der größere Teil der Rate."],
+  ["Was bewirkt der Regeltyp „Fester Tag“ mit dem Versatz 1?",
+   ["Der Betrag des Monats wird im Folgemonat gezahlt","Der Betrag wird auf zwei Monate verteilt","Der Betrag wird einen Tag später gezahlt","Der Betrag wird verdoppelt"], 0,
+   "Typisch für Abrechnungen, die erst im Folgemonat eintreffen — etwa Leasing- oder Tankkarten. Auf einem Monatsraster entscheidet allein der Monatsversatz."],
+  ["Warum steht der Tag im Monat trotzdem in der Regel?",
+   ["Er wird bei der Auflösung auf Tage gebraucht","Er ist gesetzlich vorgeschrieben","Er bestimmt die Umsatzsteuer","Er hat keine Funktion"], 0,
+   "Auf einem Monatsraster sieht man ihn nicht. Das folgende Modul löst dieselben Regeln auf Tage auf, und dort entscheidet er."],
+  ["Warum rechnet das Blatt den Jahreslauf zyklisch?",
+   ["Damit jeder Euro des Jahres auch im Jahr bezahlt wird","Weil die BWA zyklisch ist","Weil das Jahr zwölf Monate hat","Um Rundungsfehler zu vermeiden"], 0,
+   "In der Wirklichkeit stehen für den Januar die offenen Posten aus dem Vorjahr. Die hat ein Lehrmodul nicht, und die Vereinfachung steht deshalb ausdrücklich da."],
+  ["Was ist für die ersten Wochen die bessere Quelle als die BWA?",
+   ["Die offenen Posten mit ihren Fälligkeiten","Der letzte Jahresabschluss","Die Umsatzplanung","Der Anlagenspiegel"], 0,
+   "Konkrete Rechnungen mit konkreten Terminen. Die BWA-Ableitung wird ab Woche fünf besser — das ist der Gegenstand des folgenden Moduls."],
+  ["Zwanzig Tage später zahlende Kunden oder zehn Prozent weniger Umsatz — was kostet mehr Liquidität?",
+   ["Meist die späteren Zahlungen","Immer der Umsatzrückgang","Beides gleich viel","Das lässt sich nicht vergleichen"], 0,
+   "Die Verzögerung trifft den gesamten Bruttoumsatz auf einmal, der Rückgang nur einen Bruchteil davon je Monat. Probier es mit den Reglern aus."],
+  ["Was gehört in den unteren Teil einer Vorschau?",
+   ["Investition, Darlehensaufnahme, Tilgung und Entnahme","Material und Personal","Abschreibungen und Rückstellungen","Umsatz und sonstige Erträge"], 0,
+   "Vier Zeilen, die in keiner Aufwandsposition vorkommen und das Konto erheblich bewegen. Sie werden von Hand gepflegt."],
+  ["Warum lässt sich der untere Teil aus keiner Buchhaltung ableiten?",
+   ["Weil er zum Teil aus Entscheidungen besteht, die noch nicht getroffen sind","Weil die Buchhaltung ihn nicht erfasst","Weil er steuerlich irrelevant ist","Weil er zu klein ist"], 0,
+   "Eine geplante Investition steht in keinem System, bevor sie beschlossen ist. Genau deshalb ist dieser Teil Chefsache."],
+  ["Was zeigt die Zeile „Saldo aus dem Geschäft“?",
+   ["Ob das operative Geschäft für sich genommen Geld erzeugt","Den Jahresüberschuss","Das Betriebsergebnis","Den Bestand am Monatsende"], 0,
+   "Vor Umsatzsteuer, Investition, Tilgung und Entnahme. Wenn diese Zeile dauerhaft negativ ist, hilft keine Finanzierung mehr."],
+  ["Eine Investition erhöht welche Zeile außer der eigenen?",
+   ["Die Vorsteuer und damit die Umsatzsteuer-Zahllast","Die Abschreibungen sofort","Den Materialaufwand","Keine"], 0,
+   "Die Vorsteuer auf die Investition mindert die Zahllast des Monats. Auch das steht in keiner BWA."],
+  ["Wozu dienen drei Szenarien neben dem Grundfall?",
+   ["Sie beantworten die Frage, was bei schlechterem Verlauf passiert","Sie erhöhen die Genauigkeit","Sie ersetzen den Grundfall","Sie sind gesetzlich gefordert"], 0,
+   "Eine Planung ohne Szenario beantwortet die einzige Frage nicht, die in einem Bankgespräch wirklich gestellt wird."],
+  ["Was sagt eine Monatsvorschau über den 28. September?",
+   ["Nichts, sie kennt keine Tage","Den Bestand an diesem Tag","Ob die Löhne reichen","Die Fälligkeiten"], 0,
+   "Sie ist ein Frühwarnsystem und kein Zahlungsplan. Für den einzelnen Tag braucht es die Auflösung des folgenden Moduls."],
+  ["Was ist das Mengengerüst einer Vorschau?",
+   ["Die geplanten Beträge je Position, bevor die Regeln greifen","Die Zahl der Positionen","Der Anfangsbestand","Die Kontokorrentlinie"], 0,
+   "Es kommt aus der BWA und dem Saisonmuster. Die Regeln machen daraus erst Zahlungen."],
+  ["Warum ist die Aufwandsseite einer Vorschau verlässlicher als die Ertragsseite?",
+   ["Viele Auszahlungen haben feste Termine, die Eingänge hängen am Verhalten der Kunden","Weil sie kleiner ist","Weil sie gesetzlich geregelt ist","Weil sie seltener vorkommt"], 0,
+   "Löhne am 25., Miete am 3., Versicherung im Januar. Beim Kunden ist der Termin eine Annahme."],
+  ["Was bedeutet ein Anfangsbestand von 3.900 T€ in diesem Modul?",
+   ["Kasse und Bankguthaben aus der Bilanz des ersten Moduls","Das Eigenkapital","Das Working Capital","Die Kontokorrentlinie"], 0,
+   "Die einzige Zahl einer Vorschau, die sicher stimmt — und die sich jeden Morgen auf dem Kontoauszug überprüfen lässt."],
+  ["Was macht der Regeltyp „Jahresrhythmus“?",
+   ["Er zahlt die Jahressumme einmal in einem bestimmten Monat","Er verteilt gleichmäßig über zwölf Monate","Er zahlt jedes Jahr denselben Betrag","Er rechnet das Jahresergebnis"], 0,
+   "Für Jahresprämien und Beiträge. In der BWA stehen sie mit einem Zwölftel je Monat, auf dem Konto gehen sie an einem Tag ab."]
+];
+let qAktuell = [];
+const QZAHL = 5;
+const mischen = a => {
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+/* Auch die Antworten werden gemischt. Stuenden sie in der Reihenfolge
+   des Vorrats, waere die richtige immer die erste. */
+function qZiehen(){
+  qAktuell = mischen(FRAGEN.map((f, i) => i)).slice(0, QZAHL)
+    .map(i => ({i, ord:mischen(FRAGEN[i][1].map((o, j) => j)), gewaehlt:null}));
+  qRender();
+}
+function qRender(){
+  $("quiz").innerHTML = qAktuell.map((q, n) => {
+    const [text, opts, richtig, begr] = FRAGEN[q.i];
+    return `<div class="qcard">
+      <p class="qn">Frage ${n + 1} von ${QZAHL}</p>
+      <p class="qt">${text}</p>
+      <div class="qopts">${q.ord.map(j => {
+        let kl = "";
+        if(q.gewaehlt !== null) kl = j === richtig ? " right" : (j === q.gewaehlt ? " wrong" : "");
+        return `<button class="qopt${kl}" type="button" data-q="${n}" data-o="${j}"${q.gewaehlt !== null ? " disabled" : ""}>${opts[j]}</button>`;
+      }).join("")}</div>
+      <p class="qfb"${q.gewaehlt === null ? " hidden" : ""}>${
+        q.gewaehlt === null ? "" :
+        (q.gewaehlt === richtig ? "<b style='color:#1E6B47'>Richtig.</b> " : "<b style='color:#9C2F2C'>Daneben.</b> ") + begr}</p>
+    </div>`;
+  }).join("");
+  const fertig  = qAktuell.filter(q => q.gewaehlt !== null).length;
+  const treffer = qAktuell.filter(q => q.gewaehlt === FRAGEN[q.i][2]).length;
+  $("qStand").textContent = fertig === 0
+    ? QZAHL + " Fragen aus einem Vorrat von " + FRAGEN.length
+    : fertig + " von " + QZAHL + " beantwortet · " + treffer + " richtig";
+  $("qResult").innerHTML = fertig < QZAHL ? "" :
+    `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
+      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen — der Vorrat hat " + FRAGEN.length + "." :
+      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben; sie sind der eigentliche Lernstoff." :
+      "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind die Soll-Versteuerung und der untere Teil der Vorschau."}</div>`;
+}
+$("quiz").addEventListener("click", e => {
+  const b = e.target.closest(".qopt"); if(!b || b.disabled) return;
+  const q = qAktuell[+b.dataset.q]; if(!q || q.gewaehlt !== null) return;
+  q.gewaehlt = +b.dataset.o;
+  qRender();
+});
+$("qNew").addEventListener("click", qZiehen);
+qZiehen();
+/* =====================================================================
+  11 · Lektionen
    ===================================================================== */
 const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","d","e","f"];
 function select(i){
@@ -761,7 +1992,7 @@ tabs.forEach((t, i) => {
 select(0);
 
 /* =====================================================================
-   7 · Bloecke zum Auf- und Zuklappen
+  12 · Bloecke zum Auf- und Zuklappen
    Baut die Abschnitte einer Lektion zur Laufzeit aus der vorhandenen
    Gliederung: jedes h2.sec eroeffnet einen Block, alles danach bis zum
    naechsten h2.sec ist sein Inhalt. Was vor dem ersten h2.sec steht -
