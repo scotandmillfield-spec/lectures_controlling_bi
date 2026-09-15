@@ -452,16 +452,22 @@ const TOPICS = [
     title:{de:"Die Gewinn- und Verlustrechnung", en:"The income statement"},
     sub:{de:"Die Stromgröße neben der Bilanz: Was in zwölf Monaten erwirtschaftet und verbraucht wurde. Gliederung nach § 275 HGB, Gesamtkosten- und Umsatzkostenverfahren nebeneinander, und ein Formular zum eigenen Eintippen.",
          en:"The flow figure beside the balance sheet: what was earned and consumed over twelve months. Laid out to § 275, both permitted formats side by side, and a form to type your own."},
-    track:"bilanz", status:"planned", accent:"ochre", glyph:"layers",
+    track:"bilanz", status:"ready", accent:"ochre", glyph:"layers",
     langBadge:{de:"", en:"DE"},
     features:[
       {de:"Bestandsgröße und Stromgröße — wo die beiden Rechnungen zusammenhängen",
        en:"Stock and flow — where the two statements meet"},
-      {de:"Gesamtkostenverfahren und Umsatzkostenverfahren an derselben Zahl",
-       en:"Both permitted formats applied to the same figure"}
+      {de:"Gesamtkostenverfahren und Umsatzkostenverfahren an derselben Zahl, mit dem Grund für die Differenz im Aufwand",
+       en:"Both permitted formats applied to the same figure, with the reason for the difference in expenses"},
+      {de:"Die vier Stufen vom Umsatz zum Jahresüberschuss, und welche zwei davon in keinem Gesetz stehen",
+       en:"The four steps from revenue to net income, and which two of them appear in no statute"},
+      {de:"Zwölf Positionen einordnen: Ertrag, Aufwand oder gar kein Posten der Rechnung",
+       en:"Sort twelve items: income, expense, or no line of the statement at all"},
+      {de:"Das Formular in der Staffel des § 275 HGB, in beiden Verfahren, mit Quervergleich und Speichern als JSON",
+       en:"The form laid out to § 275 in both formats, with a cross-check and a JSON save"}
     ],
     links:[{kind:"html",file:"bilanz-guv.html",
-            label:{de:"Hülle ansehen", en:"Look at the shell"}}]
+            label:{de:"Interaktiv öffnen", en:"Open interactive"}}]
   },
   {
     id:"bilanz-kennzahlen",
