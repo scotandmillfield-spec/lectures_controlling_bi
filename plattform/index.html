@@ -562,16 +562,24 @@ const TOPICS = [
     title:{de:"Die Liquiditätsvorschau", en:"The cash forecast"},
     sub:{de:"Aus der BWA wird eine Vorschau über zwölf Monate: Zu jeder Position eine Regel, wann sie zahlungswirksam wird. Darunter die Posten, die keine BWA kennt — Investition, Tilgung, Entnahme, Steuern — und der Bestand gegen die Kreditlinie.",
          en:"The BWA turned into a twelve-month forecast: every position gets a rule for when it becomes cash. Below it what no BWA knows — investment, repayment, drawings, taxes — and the balance against the credit line."},
-    track:"liqui", status:"planned", accent:"ochre", glyph:"layers",
+    track:"liqui", status:"ready", accent:"ochre", glyph:"layers",
     langBadge:{de:"", en:"DE"},
     features:[
-      {de:"Das Regelwerk: Zahlungsverhalten, Stichtag, Jahresrhythmus, nie zahlungswirksam",
-       en:"The rule set: payment behaviour, fixed day, annual rhythm, never cash-effective"},
-      {de:"Die Umsatzsteuer als eigener Zahlungsstrom, mit Soll-Versteuerung",
-       en:"VAT as its own payment stream, on the accrual basis"}
+      {de:"Warum ein Ertrag und eine Einzahlung selten im selben Monat stehen, an vier Positionen des Falls durchgerechnet",
+       en:"Why revenue and cash receipt rarely fall in the same month, worked through on four positions of the case"},
+      {de:"Fünf Regelarten für achtzehn Positionen: Zahlungsverhalten, fester Tag, Jahresrhythmus, Quartal, nie zahlungswirksam",
+       en:"Five kinds of rule for eighteen positions: payment behaviour, fixed day, annual rhythm, quarterly, never cash-effective"},
+      {de:"Die Umsatzsteuer als eigener Zahlungsstrom, mit Soll-Versteuerung und der Vorsteuer aus der Investition",
+       en:"VAT as its own payment stream, on the accrual basis and with the input tax from the investment"},
+      {de:"Ein Planer über zwölf Monate: dreiundzwanzig Zeilen, Bestandskurve, Kreditlinie und der Vortrag aus dem Vorjahr",
+       en:"A twelve-month planner: twenty-three rows, balance curve, credit line and the carry-over from the previous year"},
+      {de:"Drei Szenarien am Regler — späteres Zahlungsverhalten, weniger Umsatz, ein Forderungsausfall",
+       en:"Three scenarios on sliders — slower payment, less revenue, a bad debt"},
+      {de:"Regeln und Ergebnis als Datei speichern und laden, die BWA aus dem vorigen Modul einlesen",
+       en:"Save and load rules and result as a file, and read in the BWA from the previous module"}
     ],
     links:[{kind:"html",file:"liquiditaet-vorschau.html",
-            label:{de:"Hülle ansehen", en:"Look at the shell"}}]
+            label:{de:"Interaktiv öffnen", en:"Open interactive"}}]
   },
   {
     id:"liqui-tagesplan",
