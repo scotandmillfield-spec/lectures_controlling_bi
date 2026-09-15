@@ -271,15 +271,36 @@ plattform/                       die unabhängige Lernplattform
   <thema>.html
 ```
 
-**Die beiden Verzeichnisse sind getrennte Auslieferungen.** Jedes wird für sich auf einen
-geschützten Webspace hochgeladen und ist darin vollständig. Deshalb gilt:
+**Die beiden Verzeichnisse sind getrennte Auslieferungen.** Jedes ist für sich vollständig.
+Deshalb gilt:
 
 - **Kein Verweis über die Grenze.** Ein Modul in `vorlesung/` verlinkt nichts in `plattform/`
   und umgekehrt. Beim Ausrollen läge das Ziel nicht auf demselben Server.
 - **Kein gemeinsamer Inhalt.** Was beide Seiten brauchen, wird kopiert und darf auseinander-
   laufen. Die Ansprache ist verschieden, und das ist der Zweck der Trennung.
-- **`index.html` im Wurzelverzeichnis wird nie hochgeladen.** Es ist die Weiche für die
-  Entwicklung und sagt das auch im Kopf der Seite.
+- **`index.html` im Wurzelverzeichnis gehört zu keiner der beiden.** Es ist die Weiche für die
+  Entwicklung und sagt das auch im Kopf der Seite. Auf einen Webspace, der eine der beiden
+  Auslieferungen aufnimmt, kommt es nicht mit.
+
+### Wie der Stand ins Web kommt
+
+**GitHub Pages ist eingeschaltet und baut bei jedem Push auf `main`.** Ausgeliefert wird das
+Wurzelverzeichnis des Repositorys — beide Ordner und die Weiche dazwischen. Die Einstellung
+steht in den Repository-Einstellungen und an keiner Datei im Repo. Wer nur nach einem Workflow,
+einer `CNAME` oder einem `gh-pages`-Branch sucht, findet nichts und schließt daraus falsch, es
+gebe keine Auslieferung. Genau dieser Fehlschluss hat schon einmal eine Sitzung gekostet.
+
+- **Der Bau heißt `pages build and deployment`** und steht unter Actions. Dort ist abzulesen,
+  welcher Commit zuletzt ausgeliefert wurde — die erste Frage, wenn die Seite einen alten Stand
+  zeigt.
+- **Ein alter Stand im Web bedeutet fast immer einen ausgebliebenen Bau** und nicht eine falsche
+  Datei. Bevor irgendetwas im Repo gesucht wird, wird diese Liste angesehen.
+- **Der Wiederholungslauf hilft dann nicht.** Er baut denselben alten Commit noch einmal. Was
+  hilft, ist ein neuer Commit auf `main` oder ein Umstellen und Zurückstellen der Quelle unter
+  Einstellungen → Pages.
+- **Ein Hochladen auf einen geschützten Webspace ist davon unabhängig** und geschieht von Hand.
+  Die beiden Wege können auseinanderlaufen; der Stand unter Pages sagt nichts über den Stand
+  dort und umgekehrt.
 
 Jede HTML-Datei läuft **ohne Build und ohne Server**. Einzige externe Abhängigkeit sind
 Google Fonts mit Fallback-Stack. Diese Eigenschaft nicht aufgeben: kein npm, kein Bundler,
@@ -558,3 +579,8 @@ geblieben ist oder eine Annahme getroffen wurde, das an den Anfang stellen — n
 
 Foliensätze sind Binärdateien; ihre Unterschiede sind im Diff nicht lesbar. Bei Änderungen
 an einem `.pptx` in der Beschreibung sagen, was sich inhaltlich geändert hat.
+
+**Nach dem Merge ist die Arbeit noch nicht im Web.** Der Bau `pages build and deployment` läuft
+von selbst an und braucht eine knappe Minute — er bleibt aber gelegentlich aus. Deshalb gehört
+zum Abschluss ein Blick unter Actions: Steht dort ein erfolgreicher Lauf auf dem Merge-Commit,
+ist der Stand draußen. Steht dort der Commit davor, siehe „Wie der Stand ins Web kommt“.
