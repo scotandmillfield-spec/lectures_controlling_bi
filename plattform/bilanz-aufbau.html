@@ -946,14 +946,20 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <h2 class="sec">Die Bilanz mitnehmen</h2>
-  <p class="sub">Diese Seite speichert nichts. Kein Konto, keine Datenbank, kein Browserspeicher — schließt Du das Fenster, sind die Zahlen weg.</p>
+  <p class="sub">Diese Seite speichert von selbst nichts: kein Konto, keine Datenbank, kein Browserspeicher. Was Du behalten willst, nimmst Du als <b>Datei</b> mit. Die JSON-Datei liegt danach bei Dir auf der Platte und lässt sich hier jederzeit wieder laden — auch in vier Wochen, auch auf einem anderen Rechner.</p>
   <div class="bilout">
     <div class="wsbar" style="margin-bottom:12px">
-      <div class="seg" role="group" aria-label="Ausgabe">
+      <div class="seg" role="group" aria-label="Datei">
+        <button id="bilSave" type="button">Als JSON speichern</button>
+        <button id="bilLoad" type="button">JSON laden</button>
+      </div>
+      <div class="seg" role="group" aria-label="Text">
         <button id="bilGo" type="button">Bilanz als Text</button>
         <button id="bilCopy" type="button">In die Zwischenablage</button>
       </div>
     </div>
+    <input type="file" id="bilDatei" accept="application/json,.json" hidden aria-hidden="true">
+    <p class="sub" style="margin:0 0 12px">Die Datei enthält beide Gliederungstiefen, also auch die Zahlen, die gerade nicht zu sehen sind. Sie ist das Format, mit dem die späteren Module dieses Lernpfads Deine Zahlen übernehmen.</p>
     <label class="hint" for="bilOut" style="margin:0 0 6px;display:block">Ergebnis</label>
     <textarea id="bilOut" readonly aria-label="Die eingetragene Bilanz als Text"></textarea>
     <p class="bilmsg" id="bilMsg"></p>
@@ -1316,6 +1322,93 @@ function bilText(){
   s += "\nErzeugt im Modul „Die Bilanz nach HGB“.\n";
   return s;
 }
+/* ---------- Als Datei speichern und wieder laden ----------
+   Ueber file:// gibt es keinen Server, an den sich etwas schicken liesse,
+   und localStorage ist im ganzen Projekt ausgeschlossen. Ein Blob als
+   Download und ein FileReader beim Laden kommen ohne beides aus; beide
+   laufen auch bei einem doppelgeklickten HTML.
+
+   Die Datei fuehrt ihren Namen mit. Ein spaeteres Modul liest sie an der
+   Kennung und der Fassung, ohne raten zu muessen, was es vor sich hat. */
+const BIL_FORMAT = "bilanz-hgb", BIL_FASSUNG = 1;
+
+function bilDaten(){
+  const werte = {};
+  ALLE_IDS.forEach(id => {
+    const roh = WERTE[id];
+    if(roh != null && String(roh).trim() !== "") werte[id] = lesen(roh);
+  });
+  return {
+    format: BIL_FORMAT,
+    fassung: BIL_FASSUNG,
+    erzeugt: new Date().toISOString().slice(0, 10),
+    einheit: "T€",
+    tiefe: VOLL ? "voll" : "verkuerzt",
+    werte
+  };
+}
+
+$("bilSave").addEventListener("click", () => {
+  const d = bilDaten();
+  const anzahl = Object.keys(d.werte).length;
+  if(anzahl === 0){
+    $("bilMsg").textContent = "Noch keine Zahl eingetragen — es gäbe nichts zu speichern.";
+    return;
+  }
+  const blob = new Blob([JSON.stringify(d, null, 2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "bilanz-" + d.erzeugt + ".json";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+  $("bilMsg").textContent = "Gespeichert als " + a.download + " · " + anzahl + " Positionen.";
+});
+
+$("bilLoad").addEventListener("click", () => { $("bilDatei").value = ""; $("bilDatei").click(); });
+
+$("bilDatei").addEventListener("change", e => {
+  const datei = e.target.files && e.target.files[0];
+  if(!datei) return;
+  const leser = new FileReader();
+  leser.onerror = () => { $("bilMsg").textContent = "Die Datei ließ sich nicht lesen."; };
+  leser.onload = () => {
+    let d;
+    try { d = JSON.parse(leser.result); }
+    catch(err){ $("bilMsg").textContent = "Das ist kein lesbares JSON."; return; }
+    if(!d || typeof d !== "object" || !d.werte || typeof d.werte !== "object"){
+      $("bilMsg").textContent = "In der Datei steht kein Feld „werte“ — sie stammt wohl aus etwas anderem.";
+      return;
+    }
+    const bekannt = Object.keys(d.werte).filter(k => ALLE_IDS.includes(k));
+    if(bekannt.length === 0){
+      $("bilMsg").textContent = "Keine der Positionen in der Datei gehört zu diesem Formular.";
+      return;
+    }
+    ALLE_IDS.forEach(id => { WERTE[id] = ""; });
+    bekannt.forEach(id => {
+      const v = Number(d.werte[id]);
+      WERTE[id] = Number.isFinite(v) ? zahl(Math.round(v)) : "";
+    });
+    if(d.tiefe === "voll" || d.tiefe === "verkuerzt"){
+      VOLL = d.tiefe === "voll";
+      [...$("bilTiefe").querySelectorAll("button")].forEach(x =>
+        x.setAttribute("aria-pressed", String((x.dataset.tiefe === "voll") === VOLL)));
+    }
+    $("bilOut").value = "";
+    bilZeichnen();
+    const fremd = Object.keys(d.werte).length - bekannt.length;
+    $("bilMsg").textContent = "Geladen: " + bekannt.length + " Positionen"
+      + (d.erzeugt ? " vom " + d.erzeugt : "")
+      + (fremd ? " · " + fremd + " unbekannte übergangen" : "")
+      + (d.format === BIL_FORMAT ? "" : " · ohne Kennung, trotzdem übernommen")
+      + ".";
+  };
+  leser.readAsText(datei);
+});
+
 $("bilGo").addEventListener("click", () => {
   $("bilOut").value = bilText();
   $("bilMsg").textContent = "";
