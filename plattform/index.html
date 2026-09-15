@@ -512,6 +512,76 @@ const TOPICS = [
     ],
     links:[{kind:"html",file:"bilanz-buchungssaetze.html",
             label:{de:"Interaktiv öffnen", en:"Open interactive"}}]
+  },
+  {
+    id:"liqui-begriff",
+    title:{de:"Liquidität: der Begriff", en:"Liquidity: the term"},
+    sub:{de:"Zahlungsunfähigkeit ist der häufigste Grund für ein Insolvenzverfahren, und die meisten betroffenen Unternehmen haben zuletzt einen Gewinn ausgewiesen. Hier klärst Du, warum Ertrag und Einzahlung zwei verschiedene Dinge sind — und wie lange das Geld im eigenen Haus unterwegs ist.",
+         en:"Inability to pay is the most common ground for insolvency proceedings, and most of the companies it hits last reported a profit. This module separates income from cash receipts — and measures how long money stays in transit."},
+    track:"liqui", status:"ready", accent:"teal", glyph:"quadrants",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Warum ein Gewinn kein Geld ist, und die fünf Gründe, aus denen beides auseinanderfällt",
+       en:"Why a profit is not cash, and the five reasons the two come apart"},
+      {de:"Die Vier-Felder-Tafel: erfolgswirksam und zahlungswirksam als zwei getrennte Fragen",
+       en:"The four-quadrant table: effect on profit and effect on cash as two separate questions"},
+      {de:"Vierzehn Vorfälle selbst einordnen, mit Begründung nach jeder Antwort",
+       en:"Sort fourteen events yourself, with a reason after every answer"},
+      {de:"Die Geldumschlagsdauer mit drei Reglern — und was ein Tag weniger in Euro wert ist",
+       en:"The cash conversion cycle on three sliders — and what one day less is worth in euros"},
+      {de:"Gerechnet am Zulieferer aus dem Lernpfad Bilanzanalyse: 84 Tage Geldumschlagsdauer",
+       en:"Computed on the supplier from the financial statement path: a cash conversion cycle of 84 days"}
+    ],
+    links:[{kind:"html",file:"liquiditaet-begriff.html",
+            label:{de:"Interaktiv öffnen", en:"Open interactive"}}]
+  },
+  {
+    id:"liqui-bwa",
+    title:{de:"Die BWA lesen", en:"Reading the monthly management report"},
+    sub:{de:"Die betriebswirtschaftliche Auswertung ist der Monatsbericht aus der Finanzbuchhaltung und der Ausgangspunkt jeder Liquiditätsvorschau. Was sie zeigt, worin sie sich von der Gewinn- und Verlustrechnung unterscheidet, und welche ihrer Zahlen vorläufig sind.",
+         en:"The BWA is the monthly report out of the bookkeeping system and the starting point of every cash forecast. What it shows, how it differs from the annual income statement, and which of its figures are provisional."},
+    track:"liqui", status:"planned", accent:"navy", glyph:"rows",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Aufbau von den Umsatzerlösen bis zum vorläufigen Ergebnis",
+       en:"The layout from revenue down to the provisional result"},
+      {de:"Wo die BWA vorläufig ist und was daraus für die Planung folgt",
+       en:"Where the BWA is provisional and what that means for planning"}
+    ],
+    links:[{kind:"html",file:"liquiditaet-bwa.html",
+            label:{de:"Hülle ansehen", en:"Look at the shell"}}]
+  },
+  {
+    id:"liqui-vorschau",
+    title:{de:"Die Liquiditätsvorschau", en:"The cash forecast"},
+    sub:{de:"Aus der BWA wird eine Vorschau über zwölf Monate: Zu jeder Position eine Regel, wann sie zahlungswirksam wird. Darunter die Posten, die keine BWA kennt — Investition, Tilgung, Entnahme, Steuern — und der Bestand gegen die Kreditlinie.",
+         en:"The BWA turned into a twelve-month forecast: every position gets a rule for when it becomes cash. Below it what no BWA knows — investment, repayment, drawings, taxes — and the balance against the credit line."},
+    track:"liqui", status:"planned", accent:"ochre", glyph:"layers",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Das Regelwerk: Zahlungsverhalten, Stichtag, Jahresrhythmus, nie zahlungswirksam",
+       en:"The rule set: payment behaviour, fixed day, annual rhythm, never cash-effective"},
+      {de:"Die Umsatzsteuer als eigener Zahlungsstrom, mit Soll-Versteuerung",
+       en:"VAT as its own payment stream, on the accrual basis"}
+    ],
+    links:[{kind:"html",file:"liquiditaet-vorschau.html",
+            label:{de:"Hülle ansehen", en:"Look at the shell"}}]
+  },
+  {
+    id:"liqui-tagesplan",
+    title:{de:"Tagesvorschau und Rollierung", en:"Daily view and rolling forecast"},
+    sub:{de:"Dieselbe Maschine, tageweise aufgelöst: dreizehn Wochen statt zwölf Monate. Woher die ersten Wochen wirklich kommen, in welchem Rhythmus eine Vorschau fortgeschrieben wird — und wie gut die eigene Vorschau bisher war.",
+         en:"The same engine resolved by day: thirteen weeks instead of twelve months. Where the first weeks really come from, how often a forecast is rolled forward — and how good your own forecast has been so far."},
+    track:"liqui", status:"planned", accent:"green", glyph:"loop",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Dreizehn Wochen aus offenen Posten statt aus der BWA",
+       en:"Thirteen weeks from open items rather than from the BWA"},
+      {de:"Die Güte der eigenen Vorschau messen",
+       en:"Measuring how good your own forecast was"}
+    ],
+    links:[{kind:"html",file:"liquiditaet-tagesplan.html",
+            label:{de:"Hülle ansehen", en:"Look at the shell"}}]
   }
 ];
 
@@ -536,6 +606,13 @@ const PATHS = [
     sub:{de:"Vom Aufbau der Bilanz über die Gewinn- und Verlustrechnung bis zu den Kennzahlen und den einzelnen Buchungssätzen. Durchgehend nach HGB, und in jedem Modul tippst Du eigene Zahlen ein.",
          en:"From the layout of the balance sheet through the income statement to the ratios and the individual journal entries. German GAAP throughout, and in every module you type in figures of your own."},
     steps:["bilanz-aufbau","bilanz-guv","bilanz-kennzahlen","bilanz-buchungssaetze"]
+  },
+  {
+    id:"liquiditaetsplanung",
+    title:{de:"Liquiditätsplanung", en:"Cash planning"},
+    sub:{de:"Die Bilanzanalyse sieht zurück, diese Reihe nach vorn. Vom Unterschied zwischen Ertrag und Einzahlung über die BWA als Ausgangspunkt bis zur Vorschau, die aus jeder Position eine Regel macht: wann wird daraus Geld. Die Gewinn- und Verlustrechnung aus dem ersten Pfad ist die Brücke.",
+         en:"Financial statement analysis looks back; this series looks forward. From the gap between income and cash receipt through the monthly report to a forecast that turns every position into a rule: when does this become money. The income statement from the first path is the bridge."},
+    steps:["bilanz-guv","liqui-begriff","liqui-bwa","liqui-vorschau","liqui-tagesplan"]
   }
 ];
 /* ===================== end of the editable lists ===================== */
@@ -543,6 +620,7 @@ const PATHS = [
 const ACCENT={teal:"#209CBD",navy:"#0F4C5C",orange:"#FF922B",ochre:"#B5852C",green:"#4C8B3F"};
 const TRACK={bi:["Business Intelligence",""],ctrl:["Controlling","ctrl"],
              bilanz:[{de:"Bilanzanalyse",en:"Financial statement analysis"},"case"],
+             liqui:[{de:"Liquidität",en:"Liquidity"},"ctrl"],
              case:[{de:"Fallstudie",en:"Case study"},"case"],
              meta:[{de:"Werkstatt",en:"Workshop"},"meta"],
              sec:["Cyber-Security","sec"]};
