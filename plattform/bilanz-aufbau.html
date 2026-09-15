@@ -573,6 +573,9 @@ footer a{color:var(--teal-dk)}
 .bilzeile.gruppe{background:var(--grey-xl);padding-top:9px;padding-bottom:9px;margin-top:4px}
 .bilzeile.gruppe label{font-weight:700;color:var(--ink);font-size:.94rem}
 .bilzeile.tief label{padding-left:20px}
+.bilzeile.tiefer label{padding-left:40px;font-size:.85rem;color:#4a4a4d}
+.bilzeile.gruppe.tief{background:#F5F5F3}
+.bilzeile.gruppe.tief label{font-size:.9rem;font-weight:600}
 .bilzeile input{width:100%;font-family:var(--mono);font-size:.88rem;text-align:right;
   font-variant-numeric:tabular-nums;color:var(--ink);background:var(--paper);
   border:1px solid var(--grey-mid);border-radius:7px;padding:6px 9px}
@@ -638,6 +641,7 @@ footer a{color:var(--teal-dk)}
 @media (max-width:560px){
   .bilzeile,.bilende{grid-template-columns:1fr 92px;gap:8px;padding-left:12px;padding-right:12px}
   .bilzeile.tief label{padding-left:12px}
+  .bilzeile.tiefer label{padding-left:24px}
   .zuz{grid-template-columns:1fr}
   .zuz .zb{justify-content:flex-start}
 }
@@ -817,11 +821,11 @@ footer a{color:var(--teal-dk)}
     </div>
     <div class="card" style="border-left:3px solid var(--ochre)">
       <p class="ck">§ 267 Abs. 1</p><h3>Kleine Gesellschaften</h3>
-      <p>Verkürzte Bilanz mit Buchstaben und römischen Ziffern. Genau diese Tiefe verwendet das Formular in Lektion 04.</p>
+      <p>Verkürzte Bilanz mit Buchstaben und römischen Ziffern. Das Formular in Lektion 04 startet in dieser Tiefe.</p>
     </div>
     <div class="card" style="border-left:3px solid var(--teal-dk)">
       <p class="ck">§ 267 Abs. 2 und 3</p><h3>Mittelgroße und große</h3>
-      <p>Die vollständige Gliederung bis auf die Ebene der arabischen Zahlen, dazu Anhang und Lagebericht.</p>
+      <p>Die vollständige Gliederung bis auf die Ebene der arabischen Zahlen, dazu Anhang und Lagebericht. Auch diese Tiefe lässt sich im Formular umschalten.</p>
     </div>
   </div>
   <p class="sub" style="margin-top:12px">Die Schwellenwerte für Bilanzsumme, Umsatzerlöse und Arbeitnehmerzahl wurden zuletzt angehoben. Wer sie braucht, sieht im geltenden Gesetzestext nach — eine Zahl aus einem alten Skript führt hier direkt in die falsche Größenklasse.</p>
@@ -905,8 +909,13 @@ footer a{color:var(--teal-dk)}
 
   <h2 class="sec">Das Formular</h2>
   <p class="sub">Beide Seiten stehen nebeneinander, wie das Konto es vorgibt. Auf einem schmalen Bildschirm rutscht die Passivseite unter die Aktivseite. Negative Beträge sind bei Verlustvortrag und Jahresfehlbetrag zulässig und richtig — schreib dort ein Minus davor.</p>
+  <p class="sub"><b>Zwei Tiefen.</b> <i>Verkürzt</i> zeigt Buchstaben und römische Ziffern, wie § 266 Abs. 1 HGB es kleinen Gesellschaften erlaubt: 18 Positionen. <i>Voll gegliedert</i> geht bis auf die arabischen Zahlen und öffnet 48 Positionen; die römischen Zeilen werden dann zu Summen. Jede Tiefe hat ihre eigenen Zahlen, das Umschalten verliert also nichts. Das Beispiel füllt beide.</p>
 
   <div class="wsbar">
+    <div class="seg" id="bilTiefe" role="group" aria-label="Gliederungstiefe">
+      <button type="button" data-tiefe="kurz" aria-pressed="true">Verkürzt</button>
+      <button type="button" data-tiefe="voll" aria-pressed="false">Voll gegliedert</button>
+    </div>
     <div class="seg" role="group" aria-label="Formular">
       <button id="bilBsp" type="button">Beispiel laden</button>
       <button id="bilLeer" type="button">Leeren</button>
@@ -953,7 +962,7 @@ footer a{color:var(--teal-dk)}
   <h2 class="sec">Was das Formular weglässt</h2>
   <p class="sub">Damit Du weißt, wo die Übung endet und der Ernstfall anfängt.</p>
   <ul>
-    <li><b>Die arabische Gliederungsebene.</b> Das Formular verwendet die Tiefe, die § 266 Abs. 1 HGB kleinen Gesellschaften erlaubt: Buchstaben und römische Ziffern. Eine große Gesellschaft gliedert Sachanlagen weiter auf in Grundstücke, technische Anlagen, andere Anlagen und Anlagen im Bau.</li>
+    <li><b>Die Untergliederung der arabischen Posten.</b> In der vollen Tiefe endet das Formular bei den arabischen Zahlen des § 266 HGB. Die „davon“-Vermerke gehen noch eine Stufe weiter: bei den Verbindlichkeiten etwa die Restlaufzeiten nach § 268 Abs. 5 HGB, bei den sonstigen Verbindlichkeiten die Anteile aus Steuern und aus der sozialen Sicherheit.</li>
     <li><b>Den Vorjahresvergleich.</b> § 265 Abs. 2 HGB verlangt zu jedem Posten den Betrag des Vorjahres. Eine Bilanz ohne Vorjahresspalte ist unvollständig, und ohne sie fehlt der wichtigste Maßstab.</li>
     <li><b>Die Angaben unter der Bilanz.</b> Haftungsverhältnisse nach § 251 HGB, Restlaufzeiten der Verbindlichkeiten, davon-Vermerke. Vieles davon steht bei Kapitalgesellschaften im Anhang.</li>
     <li><b>Den aktiven Unterschiedsbetrag aus der Vermögensverrechnung</b> (§ 266 Abs. 2 E) und den Sonderposten aus der Deckung von Altersversorgungsverpflichtungen. Beides kommt selten vor.</li>
@@ -1026,7 +1035,8 @@ const esc = s => String(s == null ? "" : s)
    1 · Die Bilanz zum Ausfuellen
 
    Die Gliederung folgt § 266 HGB in der Tiefe, die Absatz 1 kleinen
-   Kapitalgesellschaften erlaubt: Buchstaben und roemische Ziffern.
+   Kapitalgesellschaften erlaubt, und laesst sich auf die volle Tiefe des
+   § 266 mit den arabischen Zahlen umschalten.
 
    Jede Zeile ist ein Tripel aus Art, Kennung und Bezeichnung:
      "g"  Gruppenkopf mit gerechneter Summe (A. Anlagevermoegen)
@@ -1035,44 +1045,6 @@ const esc = s => String(s == null ? "" : s)
    Gerechnet wird in vollen Tausend Euro. Negative Betraege sind bei
    Verlustvortrag und Jahresfehlbetrag zulaessig.
    ===================================================================== */
-const SEITE_A = [
-  ["g", "A.",   "Anlagevermögen",                                  "sAV"],
-  ["f", "I.",   "Immaterielle Vermögensgegenstände",               "aIVG"],
-  ["f", "II.",  "Sachanlagen",                                     "aSAN"],
-  ["f", "III.", "Finanzanlagen",                                   "aFIN"],
-  ["g", "B.",   "Umlaufvermögen",                                  "sUV"],
-  ["f", "I.",   "Vorräte",                                         "aVOR"],
-  ["f", "II.",  "Forderungen und sonstige Vermögensgegenstände",   "aFOR"],
-  ["f", "III.", "Wertpapiere",                                     "aWP"],
-  ["f", "IV.",  "Kassenbestand, Guthaben bei Kreditinstituten",    "aKAS"],
-  ["e", "C.",   "Rechnungsabgrenzungsposten",                      "aRAP"],
-  ["e", "D.",   "Aktive latente Steuern",                          "aLAT"]
-];
-const SEITE_P = [
-  ["g", "A.",   "Eigenkapital",                                    "sEK"],
-  ["f", "I.",   "Gezeichnetes Kapital",                            "pGK"],
-  ["f", "II.",  "Kapitalrücklage",                                 "pKR"],
-  ["f", "III.", "Gewinnrücklagen",                                 "pGR"],
-  ["f", "IV.",  "Gewinnvortrag / Verlustvortrag",                  "pGV"],
-  ["f", "V.",   "Jahresüberschuss / Jahresfehlbetrag",             "pJU"],
-  ["e", "B.",   "Rückstellungen",                                  "pRST"],
-  ["e", "C.",   "Verbindlichkeiten",                               "pVBL"],
-  ["e", "D.",   "Rechnungsabgrenzungsposten",                      "pRAP"],
-  ["e", "E.",   "Passive latente Steuern",                         "pLAT"]
-];
-
-/* Die Felder einer Gruppe sind die "f"-Zeilen, die ihr folgen. */
-function gruppen(seite){
-  const g = {};
-  let aktuell = null;
-  for(const [art, , , id] of seite){
-    if(art === "g"){ aktuell = id; g[id] = []; }
-    else if(art === "f" && aktuell) g[aktuell].push(id);
-  }
-  return g;
-}
-const GRP = Object.assign(gruppen(SEITE_A), gruppen(SEITE_P));
-
 /* Zahlen deutsch lesen und schreiben. Punkte und Leerzeichen sind
    Tausendertrenner, das Minus bleibt. */
 function lesen(s){
@@ -1084,37 +1056,164 @@ function lesen(s){
 const zahl = v => v.toLocaleString("de-DE", {maximumFractionDigits:0});
 const proz = v => v.toLocaleString("de-DE", {minimumFractionDigits:1, maximumFractionDigits:1}) + " %";
 
-function zeileHtml([art, rn, name, id]){
-  if(art === "g") return `<div class="bilzeile gruppe">
-      <label><span class="rn">${rn}</span>${esc(name)}</label>
-      <span class="sum" id="${id}">0</span></div>`;
-  return `<div class="bilzeile${art === "f" ? " tief" : ""}">
-      <label for="${id}"><span class="rn">${rn}</span>${esc(name)}</label>
-      <input type="text" inputmode="numeric" id="${id}" data-bil="1" value=""
-             aria-label="${esc(name)} in Tausend Euro"></div>`;
+const SEITE_A = [
+  {art:"summe", rn:"A.", name:"Anlagevermögen", id:"sAV", kinder:[
+    {art:"beides", rn:"I.", name:"Immaterielle Vermögensgegenstände", id:"aIVG", kinder:[
+      {art:"feld", rn:"1.", name:"Selbst geschaffene gewerbliche Schutzrechte", id:"aIVG1"},
+      {art:"feld", rn:"2.", name:"Entgeltlich erworbene Konzessionen, Schutzrechte und Lizenzen", id:"aIVG2"},
+      {art:"feld", rn:"3.", name:"Geschäfts- oder Firmenwert", id:"aIVG3"},
+      {art:"feld", rn:"4.", name:"Geleistete Anzahlungen", id:"aIVG4"}
+    ]},
+    {art:"beides", rn:"II.", name:"Sachanlagen", id:"aSAN", kinder:[
+      {art:"feld", rn:"1.", name:"Grundstücke, grundstücksgleiche Rechte und Bauten", id:"aSAN1"},
+      {art:"feld", rn:"2.", name:"Technische Anlagen und Maschinen", id:"aSAN2"},
+      {art:"feld", rn:"3.", name:"Andere Anlagen, Betriebs- und Geschäftsausstattung", id:"aSAN3"},
+      {art:"feld", rn:"4.", name:"Geleistete Anzahlungen und Anlagen im Bau", id:"aSAN4"}
+    ]},
+    {art:"beides", rn:"III.", name:"Finanzanlagen", id:"aFIN", kinder:[
+      {art:"feld", rn:"1.", name:"Anteile an verbundenen Unternehmen", id:"aFIN1"},
+      {art:"feld", rn:"2.", name:"Ausleihungen an verbundene Unternehmen", id:"aFIN2"},
+      {art:"feld", rn:"3.", name:"Beteiligungen", id:"aFIN3"},
+      {art:"feld", rn:"4.", name:"Ausleihungen an Unternehmen mit Beteiligungsverhältnis", id:"aFIN4"},
+      {art:"feld", rn:"5.", name:"Wertpapiere des Anlagevermögens", id:"aFIN5"},
+      {art:"feld", rn:"6.", name:"Sonstige Ausleihungen", id:"aFIN6"}
+    ]}
+  ]},
+  {art:"summe", rn:"B.", name:"Umlaufvermögen", id:"sUV", kinder:[
+    {art:"beides", rn:"I.", name:"Vorräte", id:"aVOR", kinder:[
+      {art:"feld", rn:"1.", name:"Roh-, Hilfs- und Betriebsstoffe", id:"aVOR1"},
+      {art:"feld", rn:"2.", name:"Unfertige Erzeugnisse, unfertige Leistungen", id:"aVOR2"},
+      {art:"feld", rn:"3.", name:"Fertige Erzeugnisse und Waren", id:"aVOR3"},
+      {art:"feld", rn:"4.", name:"Geleistete Anzahlungen", id:"aVOR4"}
+    ]},
+    {art:"beides", rn:"II.", name:"Forderungen und sonstige Vermögensgegenstände", id:"aFOR", kinder:[
+      {art:"feld", rn:"1.", name:"Forderungen aus Lieferungen und Leistungen", id:"aFOR1"},
+      {art:"feld", rn:"2.", name:"Forderungen gegen verbundene Unternehmen", id:"aFOR2"},
+      {art:"feld", rn:"3.", name:"Forderungen gegen Unternehmen mit Beteiligungsverhältnis", id:"aFOR3"},
+      {art:"feld", rn:"4.", name:"Sonstige Vermögensgegenstände", id:"aFOR4"}
+    ]},
+    {art:"beides", rn:"III.", name:"Wertpapiere", id:"aWP", kinder:[
+      {art:"feld", rn:"1.", name:"Anteile an verbundenen Unternehmen", id:"aWP1"},
+      {art:"feld", rn:"2.", name:"Sonstige Wertpapiere", id:"aWP2"}
+    ]},
+    {art:"feld", rn:"IV.", name:"Kassenbestand, Guthaben bei Kreditinstituten", id:"aKAS"}
+  ]},
+  {art:"feld", rn:"C.", name:"Rechnungsabgrenzungsposten", id:"aRAP"},
+  {art:"feld", rn:"D.", name:"Aktive latente Steuern", id:"aLAT"}
+];
+const SEITE_P = [
+  {art:"summe", rn:"A.", name:"Eigenkapital", id:"sEK", kinder:[
+    {art:"feld", rn:"I.", name:"Gezeichnetes Kapital", id:"pGK"},
+    {art:"feld", rn:"II.", name:"Kapitalrücklage", id:"pKR"},
+    {art:"beides", rn:"III.", name:"Gewinnrücklagen", id:"pGR", kinder:[
+      {art:"feld", rn:"1.", name:"Gesetzliche Rücklage", id:"pGR1"},
+      {art:"feld", rn:"2.", name:"Rücklage für Anteile an einem herrschenden Unternehmen", id:"pGR2"},
+      {art:"feld", rn:"3.", name:"Satzungsmäßige Rücklagen", id:"pGR3"},
+      {art:"feld", rn:"4.", name:"Andere Gewinnrücklagen", id:"pGR4"}
+    ]},
+    {art:"feld", rn:"IV.", name:"Gewinnvortrag / Verlustvortrag", id:"pGV"},
+    {art:"feld", rn:"V.", name:"Jahresüberschuss / Jahresfehlbetrag", id:"pJU"}
+  ]},
+  {art:"beides", rn:"B.", name:"Rückstellungen", id:"pRST", kinder:[
+    {art:"feld", rn:"1.", name:"Rückstellungen für Pensionen und ähnliche Verpflichtungen", id:"pRST1"},
+    {art:"feld", rn:"2.", name:"Steuerrückstellungen", id:"pRST2"},
+    {art:"feld", rn:"3.", name:"Sonstige Rückstellungen", id:"pRST3"}
+  ]},
+  {art:"beides", rn:"C.", name:"Verbindlichkeiten", id:"pVBL", kinder:[
+    {art:"feld", rn:"1.", name:"Anleihen", id:"pVBL1"},
+    {art:"feld", rn:"2.", name:"Verbindlichkeiten gegenüber Kreditinstituten", id:"pVBL2"},
+    {art:"feld", rn:"3.", name:"Erhaltene Anzahlungen auf Bestellungen", id:"pVBL3"},
+    {art:"feld", rn:"4.", name:"Verbindlichkeiten aus Lieferungen und Leistungen", id:"pVBL4"},
+    {art:"feld", rn:"5.", name:"Verbindlichkeiten aus Wechseln", id:"pVBL5"},
+    {art:"feld", rn:"6.", name:"Verbindlichkeiten gegenüber verbundenen Unternehmen", id:"pVBL6"},
+    {art:"feld", rn:"7.", name:"Verbindlichkeiten gegenüber Unternehmen mit Beteiligungsverhältnis", id:"pVBL7"},
+    {art:"feld", rn:"8.", name:"Sonstige Verbindlichkeiten", id:"pVBL8"}
+  ]},
+  {art:"feld", rn:"D.", name:"Rechnungsabgrenzungsposten", id:"pRAP"},
+  {art:"feld", rn:"E.", name:"Passive latente Steuern", id:"pLAT"}
+];
+
+/* Zwei Tiefen, zwei getrennte Zahlenvorraete. Wer die verkuerzte Fassung
+   ausfuellt und umschaltet, verliert nichts — die Zahlen der anderen
+   Tiefe stehen beim Zurueckschalten wieder da. Gerechnet wird immer mit
+   der Tiefe, die gerade sichtbar ist. */
+let VOLL = false;
+
+/* Die Zahlen leben hier, nicht im DOM. Beim Umschalten der Tiefe werden
+   die Eingabefelder neu gebaut; laege der Wert im Feld, waere er beim
+   naechsten Umschalten weg. Gespeichert wird die Eingabe als Text, damit
+   sich waehrend des Tippens nichts unter den Fingern veraendert. */
+const WERTE = {};
+
+const hatAusbau = k => Array.isArray(k.kinder) && k.kinder.some(x => x.art === "feld" && /^\d/.test(x.rn));
+const istEingabe = k => k.art === "feld" || (k.art === "beides" && !VOLL);
+
+function alleKnoten(liste, out){
+  out = out || [];
+  for(const k of liste){ out.push(k); if(k.kinder) alleKnoten(k.kinder, out); }
+  return out;
 }
-$("bilA").innerHTML = SEITE_A.map(zeileHtml).join("");
-$("bilP").innerHTML = SEITE_P.map(zeileHtml).join("");
+const KNOTEN = alleKnoten(SEITE_A).concat(alleKnoten(SEITE_P));
+const ALLE_IDS = KNOTEN.filter(k => k.art !== "summe").map(k => k.id);
 
-const FELDER = [...SEITE_A, ...SEITE_P].filter(z => z[0] !== "g").map(z => z[3]);
-const wert = id => lesen($(id).value);
+/* Der Wert eines Knotens: ein Eingabefeld liest sich selbst, ein
+   Sammelposten addiert seine Kinder. */
+function wertVon(k){
+  if(istEingabe(k)) return lesen(WERTE[k.id]);
+  return (k.kinder || []).reduce((s, x) => s + wertVon(x), 0);
+}
 
-function summe(ids){ return ids.reduce((s, id) => s + wert(id), 0); }
+/* Welche Felder in der aktuellen Tiefe wirklich dastehen. Laeuft den
+   Baum genauso ab wie das Zeichnen: Wo ein roemischer Posten selbst ein
+   Feld ist, wird seine arabische Aufteilung nicht mitgezaehlt. */
+function eingabeIds(liste, out){
+  out = out || [];
+  for(const k of liste){
+    if(istEingabe(k)) out.push(k.id);
+    if(k.kinder && (VOLL || !hatAusbau(k))) eingabeIds(k.kinder, out);
+  }
+  return out;
+}
+
+function zeilenHtml(k, stufe){
+  const kl = stufe === 1 ? " tief" : stufe >= 2 ? " tiefer" : "";
+  let h;
+  if(istEingabe(k)){
+    h = `<div class="bilzeile${kl}">
+      <label for="${k.id}"><span class="rn">${k.rn}</span>${esc(k.name)}</label>
+      <input type="text" inputmode="numeric" id="${k.id}" data-bil="1"
+             value="${esc(WERTE[k.id] == null ? "" : WERTE[k.id])}"
+             aria-label="${esc(k.name)} in Tausend Euro"></div>`;
+  } else {
+    h = `<div class="bilzeile gruppe${kl}">
+      <label><span class="rn">${k.rn}</span>${esc(k.name)}</label>
+      <span class="sum" id="s_${k.id}">0</span></div>`;
+  }
+  if(k.kinder && (VOLL || !hatAusbau(k)))
+    h += k.kinder.map(x => zeilenHtml(x, stufe + 1)).join("");
+  return h;
+}
+
+function bilZeichnen(){
+  $("bilA").innerHTML = SEITE_A.map(k => zeilenHtml(k, 0)).join("");
+  $("bilP").innerHTML = SEITE_P.map(k => zeilenHtml(k, 0)).join("");
+  bilRechne();
+}
 
 function bilRechne(){
-  const sAV = summe(GRP.sAV), sUV = summe(GRP.sUV), sEK = summe(GRP.sEK);
-  $("sAV").textContent = zahl(sAV);
-  $("sUV").textContent = zahl(sUV);
-  $("sEK").textContent = zahl(sEK);
-  const aktiva  = sAV + sUV + wert("aRAP") + wert("aLAT");
-  const passiva = sEK + wert("pRST") + wert("pVBL") + wert("pRAP") + wert("pLAT");
+  KNOTEN.forEach(k => { const e = $("s_" + k.id); if(e) e.textContent = zahl(wertVon(k)); });
+  const sAV = wertVon(SEITE_A[0]), sUV = wertVon(SEITE_A[1]), sEK = wertVon(SEITE_P[0]);
+  const aktiva  = SEITE_A.reduce((s, k) => s + wertVon(k), 0);
+  const passiva = SEITE_P.reduce((s, k) => s + wertVon(k), 0);
   $("bilSummeA").textContent = zahl(aktiva);
   $("bilSummeP").textContent = zahl(passiva);
 
-  const gefuellt = FELDER.filter(id => $(id).value.trim() !== "").length;
-  $("bilStand").textContent = gefuellt === 0
-    ? FELDER.length + " Positionen, alle noch leer"
-    : gefuellt + " von " + FELDER.length + " Positionen ausgefüllt";
+  const sichtbar = eingabeIds(SEITE_A).concat(eingabeIds(SEITE_P));
+  const gefuellt = sichtbar.filter(id => String(WERTE[id] == null ? "" : WERTE[id]).trim() !== "").length;
+  $("bilStand").textContent = (gefuellt === 0
+    ? sichtbar.length + " Positionen, alle noch leer"
+    : gefuellt + " von " + sichtbar.length + " Positionen ausgefüllt")
+    + (VOLL ? " · voll gegliedert" : " · verkürzt");
 
   const w = $("bilWaage"), diff = aktiva - passiva;
   w.classList.remove("gleich", "schief");
@@ -1145,47 +1244,76 @@ function bilRechne(){
   ];
   $("bilKz").innerHTML = kz.map(([k, v, f]) =>
     `<div class="kz"><p class="kk">${k}</p><p class="kv">${v}</p><p class="kf">${f}</p></div>`).join("");
+  void sUV;
 }
 
-$("bilForm").addEventListener("input", e => { if(e.target.dataset.bil) bilRechne(); });
-
-/* Der Fall: ein Zulieferer für Nutzfahrzeugkomponenten, mittelgross,
-   Zahlen in T€. Dieselbe Firma wie in den Risikomodulen. */
-const BEISPIEL = {
-  aIVG:1200, aSAN:28400, aFIN:2100, aVOR:14800, aFOR:11300, aWP:500, aKAS:3900,
-  aRAP:320, aLAT:480,
-  pGK:10000, pKR:4500, pGR:8200, pGV:1400, pJU:2300,
-  pRST:9700, pVBL:25800, pRAP:600, pLAT:500
-};
-$("bilBsp").addEventListener("click", () => {
-  FELDER.forEach(id => { $(id).value = BEISPIEL[id] == null ? "" : zahl(BEISPIEL[id]); });
-  $("bilOut").value = ""; $("bilMsg").textContent = "";
+$("bilForm").addEventListener("input", e => {
+  if(!e.target.dataset.bil) return;
+  WERTE[e.target.id] = e.target.value;
   bilRechne();
 });
-$("bilLeer").addEventListener("click", () => {
-  FELDER.forEach(id => { $(id).value = ""; });
+
+$("bilTiefe").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  VOLL = b.dataset.tiefe === "voll";
+  [...$("bilTiefe").querySelectorAll("button")].forEach(x =>
+    x.setAttribute("aria-pressed", String((x.dataset.tiefe === "voll") === VOLL)));
+  bilZeichnen();
+});
+
+/* Der Fall: ein Zulieferer für Nutzfahrzeugkomponenten, mittelgross,
+   Zahlen in T€. Dieselbe Firma wie in den Risikomodulen. Das Beispiel
+   fuellt beide Tiefen, damit das Umschalten etwas zu zeigen hat; die
+   arabische Aufteilung summiert sich auf die roemischen Betraege. */
+const BEISPIEL = {
+  aIVG:1200,  aIVG1:0, aIVG2:900, aIVG3:300, aIVG4:0,
+  aSAN:28400, aSAN1:12600, aSAN2:13100, aSAN3:2100, aSAN4:600,
+  aFIN:2100,  aFIN1:1500, aFIN2:0, aFIN3:400, aFIN4:0, aFIN5:200, aFIN6:0,
+  aVOR:14800, aVOR1:5400, aVOR2:3900, aVOR3:5200, aVOR4:300,
+  aFOR:11300, aFOR1:9600, aFOR2:800, aFOR3:0, aFOR4:900,
+  aWP:500,    aWP1:0, aWP2:500,
+  aKAS:3900, aRAP:320, aLAT:480,
+  pGK:10000, pKR:4500,
+  pGR:8200,   pGR1:1000, pGR2:0, pGR3:0, pGR4:7200,
+  pGV:1400, pJU:2300,
+  pRST:9700,  pRST1:6200, pRST2:900, pRST3:2600,
+  pVBL:25800, pVBL1:0, pVBL2:14500, pVBL3:1200, pVBL4:7900, pVBL5:0, pVBL6:1600, pVBL7:0, pVBL8:600,
+  pRAP:600, pLAT:500
+};
+$("bilBsp").addEventListener("click", () => {
+  ALLE_IDS.forEach(id => { WERTE[id] = BEISPIEL[id] == null ? "" : zahl(BEISPIEL[id]); });
   $("bilOut").value = ""; $("bilMsg").textContent = "";
-  bilRechne();
+  bilZeichnen();
+});
+$("bilLeer").addEventListener("click", () => {
+  ALLE_IDS.forEach(id => { WERTE[id] = ""; });
+  $("bilOut").value = ""; $("bilMsg").textContent = "";
+  bilZeichnen();
 });
 
 /* ---------- Die Bilanz als Text mitnehmen ---------- */
 function bilText(){
-  const br = (a, b) => a + " ".repeat(Math.max(1, 52 - a.length - b.length)) + b;
-  const zeile = ([art, rn, name, id]) => {
-    const t = (art === "f" ? "    " : "  ") + rn + " " + name;
-    const v = art === "g" ? $(id).textContent : zahl(wert(id));
-    return br(t, v);
+  /* Die Postenbezeichnungen des § 266 werden lang; 88 Zeichen reichen
+     auch fuer die tiefste Einrueckung. */
+  const br = (a, b) => a + " ".repeat(Math.max(2, 88 - a.length - b.length)) + b;
+  const zeilen = (k, stufe, out) => {
+    const ein = "  ".repeat(stufe + 1);
+    out.push(br(ein + k.rn + " " + k.name, zahl(wertVon(k))));
+    if(k.kinder && (VOLL || !hatAusbau(k))) k.kinder.forEach(x => zeilen(x, stufe + 1, out));
+    return out;
   };
-  let s = "BILANZ ZUM STICHTAG            in T€\n" + "=".repeat(52) + "\n\n";
-  s += "AKTIVA\n" + SEITE_A.map(zeile).join("\n") + "\n" + "-".repeat(52) + "\n";
+  const strich = n => "".padEnd(88, n);
+  let s = br("BILANZ ZUM STICHTAG", "in T€") + "\n" + strich("=") + "\n";
+  s += (VOLL ? "Voll gegliedert nach § 266 HGB.\n" : "Verkürzt nach § 266 Abs. 1 HGB.\n") + "\n";
+  s += "AKTIVA\n" + SEITE_A.reduce((o, k) => zeilen(k, 0, o), []).join("\n") + "\n" + strich("-") + "\n";
   s += br("  SUMME AKTIVA", $("bilSummeA").textContent) + "\n\n";
-  s += "PASSIVA\n" + SEITE_P.map(zeile).join("\n") + "\n" + "-".repeat(52) + "\n";
+  s += "PASSIVA\n" + SEITE_P.reduce((o, k) => zeilen(k, 0, o), []).join("\n") + "\n" + strich("-") + "\n";
   s += br("  SUMME PASSIVA", $("bilSummeP").textContent) + "\n\n";
-  s += "=".repeat(52) + "\nKENNZAHLEN\n";
+  s += strich("=") + "\nKENNZAHLEN\n";
   [...$("bilKz").children].forEach(k => {
     s += br("  " + k.querySelector(".kk").textContent, k.querySelector(".kv").textContent) + "\n";
   });
-  s += "\nGliederung nach § 266 HGB, verkürzt auf Buchstaben und römische\nZiffern. Erzeugt im Modul „Die Bilanz nach HGB“.\n";
+  s += "\nErzeugt im Modul „Die Bilanz nach HGB“.\n";
   return s;
 }
 $("bilGo").addEventListener("click", () => {
@@ -1209,7 +1337,7 @@ $("bilCopy").addEventListener("click", () => {
     $("bilMsg").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand.";
   }
 });
-bilRechne();
+bilZeichnen();
 
 /* =====================================================================
    2 · Zuordnungsuebung: Aktiv oder Passiv
