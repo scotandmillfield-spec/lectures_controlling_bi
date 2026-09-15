@@ -704,6 +704,55 @@ footer a{color:var(--teal-dk)}
 .vsz.bestand .z.unter{color:var(--red)}
 .vsz.linie .n,.vsz.linie .z{color:var(--grey);font-size:.72rem}
 
+/* Die Tafel erklaert ihre Herkunft. Der Zeilenname ist mit der Tastatur
+   erreichbar, die einzelne Zelle mit der Maus. 276 Tabstopps waeren ein
+   Hindernis; der Zeilenname sagt dasselbe in 23. */
+.vsz .n.q{cursor:help}
+.vsz .n.q:focus-visible{outline:2px solid var(--orange);outline-offset:-2px;border-radius:5px}
+.vsz .z.q{cursor:help}
+.vsz .z.q:hover{background:var(--teal-xl);border-radius:4px}
+.vsz.bestand .z.q:hover,.vsz.summe .z.q:hover{background:rgba(255,255,255,.55)}
+.tip .hz{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;margin-top:8px;
+  font-family:var(--mono);font-size:.74rem;line-height:1.45}
+.tip .hz span:nth-child(even){text-align:right;font-variant-numeric:tabular-nums}
+
+/* Die beiden Quellen des Planers, sichtbar statt behauptet. */
+.qkopf{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:flex-start;
+  justify-content:space-between;margin:0 0 12px}
+.qkopf>*{min-width:0}
+.qtt{margin:0 0 4px;font-size:.95rem;font-weight:600;color:var(--ink)}
+.qh{margin:0;font-family:var(--mono);font-size:.73rem;line-height:1.5;color:var(--grey)}
+.qh b{color:var(--teal-dk);font-weight:600}
+.qh.eigen b{color:var(--orange)}
+.vs.q{min-width:1090px}
+.vs.q .vsz{grid-template-columns:214px repeat(12,1fr) 84px}
+.vsz .j{font-family:var(--mono);font-size:.76rem;text-align:right;padding:5px 12px 5px 7px;
+  font-variant-numeric:tabular-nums;font-weight:600;color:var(--teal-dk);background:var(--teal-xl)}
+.vsz.kopf .j{font-size:.68rem;letter-spacing:.06em;color:var(--grey);font-weight:600;background:var(--paper)}
+.vsz.stumm .n,.vsz.stumm .z{color:var(--grey)}
+.vsz.stumm{background:var(--grey-xl)}
+.vsz.stumm .j{color:var(--grey);background:var(--grey-xl)}
+
+/* Der Auszug aus der Bilanz: vier Zeilen, damit die eine einen Ort hat. */
+.bilaus{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:14px 16px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.baz{display:grid;grid-template-columns:52px minmax(0,1fr) 108px;gap:4px 12px;align-items:baseline;
+  padding:5px 8px;border-radius:5px}
+.baz>*{min-width:0}
+.baz .rn{font-family:var(--mono);font-size:.7rem;color:var(--grey)}
+.baz .nm{font-size:.85rem;color:#3d3d40;line-height:1.3}
+.baz .bw{font-family:var(--mono);font-size:.82rem;text-align:right;font-variant-numeric:tabular-nums}
+.baz.gruppe .nm,.baz.gruppe .bw{font-weight:700}
+.baz.treffer{background:var(--teal-xl)}
+.baz.treffer .nm,.baz.treffer .bw,.baz.treffer .rn{color:var(--teal-dk);font-weight:700}
+.bapfeil{font-family:var(--mono);font-size:.73rem;color:var(--teal-dk);
+  margin:8px 0 0;padding:0 8px;line-height:1.5}
+.bapfeil.weicht{color:var(--orange)}
+@media (max-width:620px){
+  .baz{grid-template-columns:44px minmax(0,1fr);gap:2px 8px}
+  .baz .bw{grid-column:2;text-align:left}
+}
+
 /* Die Bestandslinie als Kurve, damit der Tiefpunkt ins Auge faellt. */
 .kurve{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   padding:16px 18px 10px;margin:14px 0 0}
@@ -961,7 +1010,38 @@ footer a{color:var(--teal-dk)}
 
 <!-- ==================== LEKTION 04 · DER PLANER ==================== -->
 <section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d">
-  <p class="claim">Zwölf Monate, drei Teile, eine Bestandslinie. Im Grundfall rutscht der Bestand im März kurz unter null und fängt sich wieder. <b>Die drei Regler daneben brechen ihn richtig</b> — genau dafür sind sie da.</p>
+  <p class="claim">Zwölf Monate, drei Teile, eine Bestandslinie — und darüber die beiden Quellen, aus denen alles kommt. Im Grundfall rutscht der Bestand im März kurz unter null und fängt sich wieder. <b>Die drei Regler daneben brechen ihn richtig</b> — genau dafür sind sie da.</p>
+
+  <h2 class="sec">Die Grundlage</h2>
+  <p class="sub">Eine Vorschau ist so gut wie das, worauf sie steht. Beide Quellen liegen deshalb offen: die zwölf BWA-Monate und die eine Zeile aus der Bilanz. Beide lassen sich durch Deine eigenen ersetzen.</p>
+
+  <div class="qkopf">
+    <div>
+      <p class="qtt">Die BWA · achtzehn Positionen, zwölf Monate</p>
+      <p class="qh" id="vqHerkunft"></p>
+    </div>
+    <div class="seg" role="group" aria-label="Die BWA austauschen">
+      <button id="vqLoad" type="button">Eigene BWA laden</button>
+      <button id="vqDemo" type="button">Demodaten zurück</button>
+    </div>
+  </div>
+  <div class="vsk" tabindex="0" role="group" aria-label="Die zugrunde liegende BWA, seitlich scrollbar">
+    <div class="vs q" id="vqTafel"></div>
+  </div>
+  <p class="sub" style="margin:10px 0 0">Grau hinterlegt sind die Positionen, deren Regel <span class="m" style="font-family:var(--mono)">nie zahlungswirksam</span> lautet. Sie stehen in der BWA und in der Vorschau mit null.</p>
+
+  <div class="qkopf" style="margin-top:28px">
+    <div>
+      <p class="qtt">Der Anfangsbestand · eine Zeile aus der Bilanz</p>
+      <p class="qh" id="vqBilH"></p>
+    </div>
+    <div class="seg" role="group" aria-label="Die Bilanz austauschen">
+      <button id="vqBil" type="button">Eigene Bilanz laden</button>
+    </div>
+  </div>
+  <div class="bilaus" id="vqBilAus"></div>
+  <p class="sub" style="margin:10px 0 0">Die drei Zeilen darüber stehen nur dabei, damit die eine einen Ort bekommt: <b>B. IV. auf der Aktivseite, ganz unten im Umlaufvermögen</b>. Weiter oben steht Vermögen, das erst über Umwege zu Geld wird — genau darum geht es im ersten Modul dieses Lernpfads.</p>
+  <p class="bilmsg" id="vqMsg"></p>
 
   <h2 class="sec">Der untere Teil</h2>
   <p class="sub">Die vier Posten, die in keiner BWA stehen. Trag Deine eigenen ein, oder lass die des Falls stehen.</p>
@@ -1000,7 +1080,7 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <h2 class="sec">Die Vorschau</h2>
-  <p class="sub">Alle Beträge in T€. Die Tabelle ist breiter als der Lesebereich; sie lässt sich seitlich schieben und mit den Pfeiltasten bewegen.</p>
+  <p class="sub">Alle Beträge in T€. Die Tabelle ist breiter als der Lesebereich; sie lässt sich seitlich schieben und mit den Pfeiltasten bewegen. <b>Zeig auf eine Zahl</b>, und sie sagt, aus welcher Erfolgsgröße welchen Monats sie stammt — mit Anteil und Betrag. Der Zeilenname sagt dasselbe für die ganze Zeile und ist mit der Tabulatortaste erreichbar.</p>
 
   <div class="befund" id="vBefund"></div>
 
@@ -1049,7 +1129,7 @@ footer a{color:var(--teal-dk)}
   <p class="bilmsg" id="vMsg" style="margin-top:12px"></p>
 
   <h2 class="sec">Die Vorschau mitnehmen</h2>
-  <p class="sub">Regeln, unterer Teil und Ergebnis als Datei; die Tabelle als Text.</p>
+  <p class="sub">Regeln, Grundlage und unterer Teil als Datei; die Tabelle als Text.</p>
   <div class="bilout">
     <div class="wsbar" style="margin-bottom:12px">
       <div class="seg" role="group" aria-label="Datei">
@@ -1062,7 +1142,7 @@ footer a{color:var(--teal-dk)}
       </div>
     </div>
     <input type="file" id="vDatei" accept="application/json,.json" hidden aria-hidden="true">
-    <p class="sub" style="margin:0 0 12px">Die Datei kennt die Kennung <span class="m" style="font-family:var(--mono)">liqui-vorschau</span> und enthält das Regelwerk samt unterem Teil. Eine <span class="m" style="font-family:var(--mono)">bwa-monate</span>-Datei aus dem Vormodul lässt sich ebenfalls hier einlesen — dann rechnet das Blatt mit Deinen Zahlen.</p>
+    <p class="sub" style="margin:0 0 12px">Die Datei kennt die Kennung <span class="m" style="font-family:var(--mono)">liqui-vorschau</span> und enthält alles, was dieses Blatt ausmacht: das Regelwerk, den unteren Teil und die Grundlage, mit der gerechnet wird. Dasselbe Feld nimmt auch eine <span class="m" style="font-family:var(--mono)">bwa-monate</span>-Datei aus dem Vormodul und eine <span class="m" style="font-family:var(--mono)">bilanz-hgb</span>-Datei aus dem Lernpfad Bilanzanalyse; welche es ist, entscheidet die Kennung darin. Oben unter „Die Grundlage“ stehen dieselben beiden Wege noch einmal an der Stelle, an der sie wirken.</p>
     <label class="hint" for="vOut" style="margin:0 0 6px;display:block">Ergebnis</label>
     <textarea id="vOut" readonly aria-label="Die Vorschau als Text"></textarea>
     <p class="bilmsg" id="vMsg2"></p>
@@ -1117,6 +1197,8 @@ footer a{color:var(--teal-dk)}
   </div>
 </section>
 
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
 <footer>
 Copyright Prof. Dr. Maik Drozdzynski, 2026
 </footer>
@@ -1169,6 +1251,24 @@ const BWA_START = {
   EST:{name:"Steuern Einkommen und Ertrag", werte:[92,92,92,92,92,92,92,92,92,92,92,88]}
 };
 const BWA = JSON.parse(JSON.stringify(BWA_START));
+
+/* Der Anfangsbestand kommt aus dem Umlaufvermoegen der Bilanz, und
+   zwar aus B. IV. Die drei Zeilen darueber stehen nur dabei, damit die
+   eine einen Ort hat — die Vorschau rechnet allein mit aKAS. Die Werte
+   sind die des ersten Moduls im Lernpfad Bilanzanalyse. */
+const BIL_START = {
+  aVOR:{rn:"B. I.",   name:"Vorräte", wert:14800},
+  aFOR:{rn:"B. II.",  name:"Forderungen und sonstige Vermögensgegenstände", wert:11300},
+  aWP: {rn:"B. III.", name:"Wertpapiere", wert:500},
+  aKAS:{rn:"B. IV.",  name:"Kassenbestand, Guthaben bei Kreditinstituten", wert:3900}
+};
+const BIL = JSON.parse(JSON.stringify(BIL_START));
+
+/* Woher die Zahlen gerade kommen. Ohne diese beiden Angaben ist am
+   Blatt nicht zu erkennen, ob der Leser die Demodaten vor sich hat
+   oder seine eigenen — und dann ist jede Aussage daraus wertlos. */
+let BWA_QUELLE = {eigen:false, erzeugt:"", n:0};
+let BIL_QUELLE = {eigen:false, erzeugt:""};
 
 /* =====================================================================
    2 · Das Regelwerk
@@ -1244,35 +1344,48 @@ function netto(id, m){
   return w;
 }
 
-/* Alle Zahlungen einer Position, auf einer Zeitachse ohne Jahresgrenze:
-   Der Schluessel ist der Monat, gerechnet ab Januar dieses Jahres. Ein
-   Wert von 12 oder mehr faellt ins Folgejahr.
+/* Alle Zahlungen einer Position mit ihrer Herkunft, auf einer Zeitachse
+   ohne Jahresgrenze:
+   Der Schluessel ist der Zahlungsmonat, gerechnet ab Januar dieses
+   Jahres. Ein Wert von 12 oder mehr faellt ins Folgejahr. Der Wert ist
+   eine Liste von {von, anteil, w}: aus welchem BWA-Monat der Betrag
+   stammt, mit welchem Anteil und wie hoch er brutto ist.
 
    "verzug" ist die Verschiebung des Zahlungsverhaltens aus dem Szenario,
    "skaliert" sagt, ob der Umsatzruecklauf mitgerechnet wird. Beides
    gilt fuer das laufende Jahr und nicht fuer das Vorjahr — dessen
    Rechnungen sind laengst geschrieben.                              */
-function zahlungen(id, verzug, skaliert){
+function beitraege(id, verzug, skaliert){
   const r = REGEL[id], out = new Map();
   if(r.typ === "nie") return out;
   const f = 1 + r.ust / 100;
   const betrag = m => skaliert ? netto(id, m) : BWA[id].werte[m];
-  const dazu = (k, w) => out.set(k, (out.get(k) || 0) + w);
+  const dazu = (k, von, anteil, w) => {
+    if(!out.has(k)) out.set(k, []);
+    out.get(k).push({von, anteil, w});
+  };
   if(r.typ === "vert"){
     const teile = (r.richt === "ein" && verzug) ? verschoben(r.par.teile, verzug) : r.par.teile;
     for(let m = 0; m < 12; m++)
-      for(const [v, a] of teile) dazu(m + v, betrag(m) * a / 100 * f);
+      for(const [v, a] of teile) dazu(m + v, m, a, betrag(m) * a / 100 * f);
   } else if(r.typ === "stich"){
-    for(let m = 0; m < 12; m++) dazu(m + r.par.versatz, betrag(m) * f);
+    for(let m = 0; m < 12; m++) dazu(m + r.par.versatz, m, 100, betrag(m) * f);
   } else if(r.typ === "jahr"){
-    let s = 0; for(let m = 0; m < 12; m++) s += betrag(m);
-    dazu(r.par.monat - 1, s * f);
+    for(let m = 0; m < 12; m++) dazu(r.par.monat - 1, m, 100, betrag(m) * f);
   } else if(r.typ === "quartal"){
-    for(let q = 0; q < 4; q++){
-      let s = 0; for(let m = q * 3; m < q * 3 + 3; m++) s += betrag(m);
-      dazu(q * 3 + 2 + r.par.versatz, s * f);
-    }
+    for(let q = 0; q < 4; q++)
+      for(let m = q * 3; m < q * 3 + 3; m++) dazu(q * 3 + 2 + r.par.versatz, m, 100, betrag(m) * f);
   }
+  return out;
+}
+
+/* Dieselbe Rechnung, nur zusammengezaehlt. Die Tafel nimmt diese
+   Funktion, der Mouseover-Text die Liste darueber — deshalb koennen
+   Zahl und Erklaerung nicht auseinanderlaufen. */
+function zahlungen(id, verzug, skaliert){
+  const out = new Map();
+  for(const [k, liste] of beitraege(id, verzug, skaliert))
+    out.set(k, liste.reduce((a, x) => a + x.w, 0));
   return out;
 }
 
@@ -1465,8 +1578,296 @@ function vrZeichnen(){
   $("vrStand").textContent = IDS.length + " Positionen · " + nie + " davon nie zahlungswirksam";
 }
 
+/* ---------------------------------------------------------------------
+   Die Grundlage sichtbar machen.
+
+   Solange die BWA nur im Speicher steht, ist jede Zahl der Vorschau
+   eine Behauptung. Deshalb liegt sie auf demselben Reiter offen, mit
+   Jahresspalte und mit einer Zeile, die sagt, ob es Demodaten sind
+   oder eine eingelesene Datei.
+   --------------------------------------------------------------------- */
+const GESAMT = ["UMS","BES","EIG"];   /* die drei Zeilen der Gesamtleistung */
+/* Die Tafel folgt der Reihenfolge der BWA und nicht der des Regelwerks.
+   Wer sie neben seine eigene Auswertung legt, soll Zeile für Zeile
+   vergleichen können. */
+const BWA_IDS = Object.keys(BWA_START);
+
+function vqZeichnen(){
+  let h = `<div class="vsz kopf"><span class="n">in T€</span>`
+    + MONATE.map(m => `<span class="z">${m}</span>`).join("")
+    + `<span class="j">Jahr</span></div>`;
+  for(const id of BWA_IDS){
+    const w = BWA[id].werte, j = w.reduce((a, b) => a + b, 0);
+    const nie = REGEL[id].typ === "nie";
+    h += `<div class="vsz${nie ? " stumm" : ""}"><span class="n">${esc(BWA[id].name)}</span>`
+      + w.map(v => `<span class="z${v < 0 ? " neg" : ""}">${zahl(v)}</span>`).join("")
+      + `<span class="j">${zahl(j)}</span></div>`;
+  }
+  $("vqTafel").innerHTML = h;
+
+  const gl = GESAMT.reduce((a, id) => a + BWA[id].werte.reduce((x, y) => x + y, 0), 0);
+  $("vqHerkunft").className = "qh" + (BWA_QUELLE.eigen ? " eigen" : "");
+  $("vqHerkunft").innerHTML = BWA_QUELLE.eigen
+    ? `<b>Deine Datei</b>${BWA_QUELLE.erzeugt ? " vom " + esc(BWA_QUELLE.erzeugt) : ""} · `
+      + `${BWA_QUELLE.n} Positionen übernommen · Gesamtleistung <b>${zahl(gl)} T€</b>`
+    : `<b>Demodaten</b> aus dem Modul „Die BWA lesen“ · Gesamtleistung <b>${zahl(gl)} T€</b>`;
+
+  vqBilZeichnen();
+}
+
+function vqBilZeichnen(){
+  const zeilen = Object.entries(BIL).map(([id, b]) =>
+    `<div class="baz${id === "aKAS" ? " treffer" : ""}"><span class="rn">${esc(b.rn)}</span>`
+    + `<span class="nm">${esc(b.name)}</span><span class="bw">${zahl(b.wert)}</span></div>`).join("");
+  /* Wer den Anfangsbestand von Hand überschreibt, soll das hier sehen.
+     Eine stille Abweichung zwischen Bilanz und Planer wäre genau der
+     Fehler, gegen den dieser Abschnitt gebaut ist. */
+  const weicht = UNTEN.best !== BIL.aKAS.wert;
+  $("vqBilAus").innerHTML = zeilen + `<p class="bapfeil${weicht ? " weicht" : ""}">` + (weicht
+    ? `↓ Im unteren Teil steht abweichend <b>${zahl(UNTEN.best)} T€</b> — dort überschrieben.`
+    : `↓ Diese Zeile ist der Anfangsbestand der Vorschau: <b>${zahl(BIL.aKAS.wert)} T€</b>.`) + `</p>`;
+  $("vqBilH").className = "qh" + (BIL_QUELLE.eigen ? " eigen" : "");
+  $("vqBilH").innerHTML = (BIL_QUELLE.eigen
+    ? `<b>Deine Bilanz</b>${BIL_QUELLE.erzeugt ? " vom " + esc(BIL_QUELLE.erzeugt) : ""}`
+    : `<b>Demodaten</b> aus dem Modul „Die Bilanz und ihr Aufbau“`)
+    + ` · Aktivseite, Umlaufvermögen`;
+}
+
+/* ---------------------------------------------------------------------
+   Woher eine Zahl kommt.
+
+   Der Zeilenname sagt, aus welcher Erfolgsgröße die Zeile gespeist wird;
+   die einzelne Zelle sagt es für ihren Monat, mit Anteil und Betrag.
+   Beides liest dieselbe Liste, aus der die Tafel gerechnet ist — eine
+   Erklärung, die von ihrer Zahl abweichen kann, wäre schlimmer als gar
+   keine.
+   --------------------------------------------------------------------- */
+let ZLETZT = null;   /* das zuletzt gerechnete Blatt, für die Tooltips */
+
+const ANT = a => (Math.round(a * 10) / 10).toLocaleString("de-DE");
+
+function regelSatz(id){
+  const r = REGEL[id];
+  if(r.typ === "nie") return "nie zahlungswirksam";
+  if(r.typ === "vert") return "Zahlungsverhalten — " + r.par.teile.map(([v, a]) =>
+    ANT(a) + " % " + (v === 0 ? "im Monat der Rechnung"
+      : "nach " + v + (v === 1 ? " Monat" : " Monaten"))).join(", ");
+  if(r.typ === "stich") return "fester Tag — am " + r.par.tag + "."
+    + (r.par.versatz ? " des " + r.par.versatz + ". Folgemonats" : " desselben Monats");
+  if(r.typ === "jahr"){
+    const m = Math.min(12, Math.max(1, r.par.monat));
+    return "einmal im Jahr — die Summe aller zwölf Monate im " + LANG[m - 1] + ", am " + r.par.tag + ".";
+  }
+  return "je Quartal — die Summe der drei Monate"
+    + (r.par.versatz ? ", " + r.par.versatz + " Monate nach dem Quartalsende" : " zum Quartalsende")
+    + ", am " + r.par.tag + ".";
+}
+
+const ZEILENTEXT = {
+  gALT:"Die Rechnungen des Vorjahres, die erst in diesem Jahr bezahlt werden. Sie stehen in keiner BWA dieses Jahres und sind trotzdem Geld auf dem Konto.",
+  aALT:"Die Rechnungen des Vorjahres, die in diesem Jahr noch zu bezahlen sind. Dieselbe Sache auf der anderen Seite.",
+  gUST:"Umsatzsteuer minus Vorsteuer des Vormonats, fällig am 10. Weder Aufwand noch Ertrag — ein durchlaufender Posten, der trotzdem den größten Abfluss nach dem Material ausmacht.",
+  uINV:"Aus dem unteren Teil: die Investition, brutto. Im Ergebnis erscheint in diesem Jahr allein die Abschreibung.",
+  uDAR:"Aus dem unteren Teil: die Darlehensaufnahme. Eine reine Bestandsbewegung; im Ergebnis erscheint allein der Zins.",
+  uTIL:"Aus dem unteren Teil: die Tilgung. Sie ist kein Aufwand und steht deshalb in keiner BWA.",
+  uENT:"Aus dem unteren Teil: Entnahme oder Ausschüttung. Ergebnisverwendung, kein Aufwand.",
+  sBET:"Alle Ein- und Auszahlungen des laufenden Geschäfts, ohne Umsatzsteuer und ohne den unteren Teil.",
+  sGES:"Der Saldo aus dem Geschäft, vermindert um die Umsatzsteuer-Zahllast und verrechnet mit dem unteren Teil. Das ist die Veränderung des Kontostands.",
+  bEND:"Der Bestand des Vormonats plus der Saldo dieses Monats. Im Januar beginnt er beim Anfangsbestand aus der Bilanz.",
+  bLIN:"Der eingeräumte Kontokorrentrahmen. Er steht im Kreditvertrag und in keiner Auswertung."
+};
+
+/* Die Einzelbeträge werden so gerundet, dass sie die erklärte Zahl
+   ergeben. Ein Tooltip, dessen Zeilen sich zu etwas anderem addieren
+   als zu der Zahl darüber, erklärt nichts — er sät Zweifel. Die
+   Rundungsdifferenz bekommt der größte Posten, weil sie dort am
+   wenigsten ins Gewicht fällt. */
+function rundAuf(zeilen, summe){
+  const out = zeilen.map(x => ({t:x.t, w:Math.round(x.w)}));
+  if(!out.length) return out;
+  const diff = Math.round(summe) - out.reduce((a, x) => a + x.w, 0);
+  if(diff){
+    let gross = 0;
+    for(let i = 1; i < out.length; i++) if(Math.abs(out[i].w) > Math.abs(out[gross].w)) gross = i;
+    out[gross].w += diff;
+  }
+  return out;
+}
+
+/* Mehr als sieben Zeilen liest niemand in einem Tooltip. Was darüber
+   hinausgeht, wird zu einer Zeile zusammengefasst. */
+function kuerzen(zeilen){
+  if(zeilen.length <= 7) return zeilen;
+  const rest = zeilen.slice(6);
+  return zeilen.slice(0, 6).concat([{t:"und " + rest.length + " weitere",
+                                     w: rest.reduce((a, x) => a + x.w, 0)}]);
+}
+
+const quelleName = (id, von, anteil, zusatz) => BWA[id].name + " · " + LANG[von]
+  + (zusatz || "") + (anteil < 99.95 ? " · " + ANT(anteil) + " %" : "");
+
+/* Eine Zeile, die aus mehreren Positionen gespeist wird, sagt je
+   Position einen Betrag und die Spanne der Monate, aus denen er stammt.
+   Die Aufschlüsselung nach Monat bleibt den Zeilen vorbehalten, hinter
+   denen genau eine Position steht — dort ist sie die eigentliche
+   Auskunft. */
+function proPosition(g, m){
+  return g.teile.map(id => {
+    const liste = beitraege(id, SZEN.ziel, true).get(m) || [];
+    if(!liste.length) return null;
+    const w = liste.reduce((a, x) => a + x.w, 0);
+    const von = Math.min(...liste.map(x => x.von)), bis = Math.max(...liste.map(x => x.von));
+    return {t:BWA[id].name + " · " + (von === bis ? LANG[von] : LANG[von] + " bis " + LANG[bis]), w};
+  }).filter(Boolean);
+}
+
+function zellHerkunft(g, m){
+  const zeilen = [];
+  if(g.teile){
+    if(g.teile.length > 1) return proPosition(g, m);
+    for(const id of g.teile)
+      for(const b of (beitraege(id, SZEN.ziel, true).get(m) || []))
+        zeilen.push({t:quelleName(id, b.von, b.anteil, ""), w:b.w});
+    if(g.id === "gUMS" && SZEN.aus && m === SZEN.ausM)
+      zeilen.push({t:"Forderungsausfall (Szenario)", w:-SZEN.aus});
+    return zeilen;
+  }
+  if(g.id === "gALT" || g.id === "aALT"){
+    const seite = g.id === "gALT" ? "ein" : "aus";
+    for(const id of IDS){
+      if(REGEL[id].richt !== seite) continue;
+      for(const [k, liste] of beitraege(id, 0, false)){
+        if(k - 12 !== m) continue;
+        for(const b of liste)
+          zeilen.push({t:quelleName(id, b.von, b.anteil, " des Vorjahres"), w:b.w});
+      }
+    }
+    return zeilen;
+  }
+  if(g.id === "gUST"){
+    /* Die Zahllast eines Monats entsteht im Vormonat; der Januar bekommt
+       die des Dezembers. Genau ein Quellmonat je Zelle. */
+    const q = m === 0 ? 11 : m - 1;
+    let u = 0, v = 0;
+    for(const id of IDS){
+      const r = REGEL[id];
+      if(!r.ust || r.typ === "nie") continue;
+      const b = netto(id, q) * r.ust / 100;
+      if(r.richt === "ein") u += b; else v += b;
+    }
+    zeilen.push({t:"Umsatzsteuer aus " + LANG[q], w:u});
+    if(SZEN.aus && q === SZEN.ausM)
+      zeilen.push({t:"Berichtigung § 17 UStG", w:-SZEN.aus * 19 / 119});
+    zeilen.push({t:"Vorsteuer aus " + LANG[q], w:-v});
+    if(q === UNTEN.invM && UNTEN.inv)
+      zeilen.push({t:"Vorsteuer aus der Investition", w:-UNTEN.inv * 0.19});
+    return zeilen;
+  }
+  if(g.id === "sBET"){
+    for(const x of GRUPPEN){
+      if(x.id === "gALT") zeilen.push({t:x.name, w:ZLETZT.gALT[m]});
+      else if(x.id === "aALT") zeilen.push({t:x.name, w:-ZLETZT.aALT[m]});
+      else if(x.teile) zeilen.push({t:x.name, w:x.vz * ZLETZT[x.id][m]});
+    }
+    return zeilen;
+  }
+  if(g.id === "sGES"){
+    zeilen.push({t:"Saldo aus dem Geschäft", w:ZLETZT.sBET[m]});
+    zeilen.push({t:"Umsatzsteuer-Zahllast", w:-ZLETZT.gUST[m]});
+    for(const id of ["uINV","uDAR","uTIL","uENT"]){
+      const x = GRUPPEN.find(y => y.id === id);
+      if(ZLETZT[id][m]) zeilen.push({t:x.name, w:x.vz * ZLETZT[id][m]});
+    }
+    return zeilen;
+  }
+  if(g.id === "bEND"){
+    zeilen.push({t:m === 0 ? "Anfangsbestand aus der Bilanz" : "Bestand Ende " + LANG[m - 1],
+                 w:m === 0 ? UNTEN.best : ZLETZT.bEND[m - 1]});
+    zeilen.push({t:"Saldo " + LANG[m], w:ZLETZT.sGES[m]});
+    return zeilen;
+  }
+  return zeilen;
+}
+
+function tipDaten(gid, m){
+  const g = GRUPPEN.find(x => x.id === gid);
+  if(!g || !ZLETZT) return null;
+  if(m == null){
+    const jahr = ZLETZT[gid].reduce((a, b) => a + b, 0);
+    let p = ZEILENTEXT[gid] || "";
+    if(g.teile){
+      p = "Speist sich aus: " + g.teile.map(id => BWA[id].name).join(", ") + ".";
+      if(g.teile.length === 1) p += " Regel: " + regelSatz(g.teile[0]) + ".";
+    }
+    const zeigJahr = g.art !== "bestand" && g.art !== "linie";
+    return {th:g.name, p, hz:null, extra: zeigJahr ? "Im Jahr: " + zahl(jahr) + " T€" : null};
+  }
+  const hz = zellHerkunft(g, m);
+  /* Aufgerundet wird nur dort, wo die Einzelposten sonst nirgends
+     stehen. Bei den drei Summenzeilen sind die Posten selbst Zeilen der
+     Tafel — würden sie hier um eins verschoben, widerspräche der
+     Tooltip der Tabelle, und das wäre schlimmer als die Rundung. */
+  const rund = gid !== "sBET" && gid !== "sGES" && gid !== "bEND";
+  /* Wo es nichts aufzuschlüsseln gibt — Tilgung, Kreditlinie —, steht
+     der Satz der Zeile da. Ein leerer Kasten wäre eine Zumutung. */
+  return {th:LANG[m] + " · " + g.name, p:zahl(ZLETZT[gid][m]) + " T€",
+          nach: hz.length ? null : (ZEILENTEXT[gid] || null),
+          hz, rund, summe:ZLETZT[gid][m],
+          extra: g.teile && g.teile.length === 1 ? "Regel: " + regelSatz(g.teile[0]) : null};
+}
+
+const tip = $("tip");
+function zeigTip(el, ev){
+  const d = tipDaten(el.dataset.g, el.dataset.m === undefined ? null : +el.dataset.m);
+  if(!d) return;
+  let h = `<p class="th">${esc(d.th)}</p>` + (d.p ? `<p>${esc(d.p)}</p>` : "");
+  if(d.hz && d.hz.length)
+    h += `<div class="hz">` + kuerzen(d.rund === false ? d.hz : rundAuf(d.hz, d.summe)).map(x =>
+      `<span>${esc(x.t)}</span><span>${zahl(x.w)}</span>`).join("") + `</div>`;
+  if(d.nach) h += `<p style="margin-top:8px">${esc(d.nach)}</p>`;
+  if(d.extra) h += `<p class="extra">${esc(d.extra)}</p>`;
+  tip.innerHTML = h;
+  tip.classList.add("on");
+  ziehTip(el, ev);
+}
+function ziehTip(el, ev){
+  let x, y;
+  if(ev && ev.clientX){ x = ev.clientX + 16; y = ev.clientY + 16; }
+  else { const r = el.getBoundingClientRect(); x = r.left; y = r.bottom + 8; }
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  if(x + w > innerWidth - 12) x = innerWidth - w - 12;
+  if(y + h > innerHeight - 12) y = y - h - 32;
+  if(y < 8) y = 8;
+  if(x < 8) x = 8;
+  tip.style.left = x + "px"; tip.style.top = y + "px";
+}
+function wegTip(){ tip.classList.remove("on"); }
+
+/* Beim pointerout prüfen, ob das Ziel noch dieselbe Zelle ist — sonst
+   flackert der Kasten beim Wandern über die Tabelle. */
+const QSEL = "[data-g]";
+document.addEventListener("pointerover", e => {
+  const n = e.target.closest && e.target.closest(QSEL); if(n) zeigTip(n, e);
+});
+document.addEventListener("pointermove", e => {
+  const n = e.target.closest && e.target.closest(QSEL); if(n) ziehTip(n, e);
+});
+document.addEventListener("pointerout", e => {
+  const von = e.target.closest && e.target.closest(QSEL); if(!von) return;
+  const zu = e.relatedTarget && e.relatedTarget.closest ? e.relatedTarget.closest(QSEL) : null;
+  if(zu !== von) wegTip();
+});
+document.addEventListener("focusin",  e => {
+  const n = e.target.closest && e.target.closest(QSEL); if(n) zeigTip(n, null);
+});
+document.addEventListener("focusout", e => {
+  if(e.target.closest && e.target.closest(QSEL)) wegTip();
+});
+addEventListener("scroll", wegTip, {passive:true});
+
 function vZeichnen(){
   const z = rechne(), b = befund(z);
+  ZLETZT = z;
 
   /* Die Tabelle. */
   let h = `<div class="vsz kopf"><span class="n">in T€</span>`
@@ -1479,9 +1880,13 @@ function vZeichnen(){
     }
     const kl = g.art === "summe" ? " summe" : g.art === "bestand" ? " bestand"
              : g.art === "linie" ? " linie" : "";
-    h += `<div class="vsz${kl}"><span class="n">${esc(g.name)}</span>` + z[g.id].map((v, m) => {
+    /* Der Zeilenname ist mit der Tastatur erreichbar, die Zelle mit der
+       Maus. Beide sagen, woher die Zahl kommt. */
+    h += `<div class="vsz${kl}"><span class="n q" tabindex="0" data-g="${g.id}">${esc(g.name)}</span>`
+      + z[g.id].map((v, m) => {
       const unter = g.art === "bestand" && v < -UNTEN.linie;
-      return `<span class="z${v < 0 ? " neg" : ""}${unter ? " unter" : ""}">${zahl(v)}</span>`;
+      return `<span class="z q${v < 0 ? " neg" : ""}${unter ? " unter" : ""}"
+        data-g="${g.id}" data-m="${m}">${zahl(v)}</span>`;
     }).join("") + `</div>`;
   }
   $("vTafel").innerHTML = h;
@@ -1534,7 +1939,7 @@ function vZeichnen(){
     : "Grundfall ohne Szenario. Schieb einen Regler und sieh auf den Tiefpunkt.";
 }
 
-function alles(){ vrZeichnen(); vZeichnen(); }
+function alles(){ vrZeichnen(); vZeichnen(); vqZeichnen(); }
 
 /* =====================================================================
    5 · Bedienung
@@ -1577,7 +1982,7 @@ $("vuForm").addEventListener("input", e => {
   const m = {vuBest:"best", vuLinie:"linie", vuInv:"inv", vuDar:"dar", vuTil:"til", vuEnt:"ent"}[e.target.id];
   if(m) UNTEN[m] = lesen(e.target.value);
   $("vOut").value = ""; $("vMsg2").textContent = "";
-  vZeichnen();
+  vZeichnen(); vqBilZeichnen();
 });
 $("vuForm").addEventListener("change", e => {
   const m = {vuInvM:"invM", vuDarM:"darM", vuEntM:"entM"}[e.target.id];
@@ -1604,7 +2009,10 @@ $("vSzen").addEventListener("input", e => {
 /* =====================================================================
    6 · Mitnehmen
    ===================================================================== */
-const V_FORMAT = "liqui-vorschau", V_FASSUNG = 1;
+/* Fassung 2 führt die Grundlage mit. Eine Datei der Fassung 1 lädt
+   weiterhin; ihr fehlen die Schlüssel, und die geltende Grundlage
+   bleibt dann stehen. Deshalb wird die Fassung nicht geprüft. */
+const V_FORMAT = "liqui-vorschau", V_FASSUNG = 2;
 const BR = 200;
 
 function vText(){
@@ -1639,24 +2047,59 @@ function lade(d, name){
 }
 
 $("vSave").addEventListener("click", () => {
+  /* Die Grundlage kommt mit. Ohne sie wäre eine Datei, die auf einer
+     eingelesenen BWA beruht, beim nächsten Öffnen wieder der Fall des
+     Zulieferers — und niemand würde merken, dass die eigenen Zahlen
+     verschwunden sind. */
+  const bwa = {}; for(const id of BWA_IDS) bwa[id] = BWA[id].werte.slice();
+  const bilanz = {}; for(const id of Object.keys(BIL)) bilanz[id] = BIL[id].wert;
   const d = {format:V_FORMAT, fassung:V_FASSUNG,
              erzeugt:new Date().toISOString().slice(0, 10), einheit:"T€",
-             regeln:REGEL, unten:UNTEN, szenario:SZEN};
+             regeln:REGEL, unten:UNTEN, szenario:SZEN,
+             bwa, bilanz, quelle:{bwa:BWA_QUELLE, bilanz:BIL_QUELLE}};
   lade(d, "vorschau-" + d.erzeugt + ".json");
-  $("vMsg2").textContent = "Gespeichert als vorschau-" + d.erzeugt
-    + ".json · " + IDS.length + " Regeln und der untere Teil.";
+  vSagen("Gespeichert als vorschau-" + d.erzeugt + ".json · " + IDS.length
+    + " Regeln, der untere Teil und die Grundlage.", "vMsg2");
 });
 
-$("vLoad").addEventListener("click", () => { $("vDatei").value = ""; $("vDatei").click(); });
+/* Drei Knöpfe, ein Dateifeld. Welche Art Datei es ist, entscheidet die
+   Kennung darin und nicht der Knopf — so landet eine BWA auch dann
+   richtig, wenn sie über „JSON laden“ hereinkommt. Die Meldung steht
+   dann neben dem, was sich geändert hat, und nicht neben dem Knopf:
+   eine Meldung über die BWA unter den Reglern hätte niemand gesucht. */
+let vZielMsg = "vMsg2";
+function vDateiHolen(ziel){
+  vZielMsg = ziel;
+  $("vDatei").value = ""; $("vDatei").click();
+}
+function vSagen(t, wo){
+  $("vMsg2").textContent = ""; $("vqMsg").textContent = "";
+  $(wo || vZielMsg).textContent = t;
+}
+
+$("vLoad").addEventListener("click", () => vDateiHolen("vMsg2"));
+$("vqLoad").addEventListener("click", () => vDateiHolen("vqMsg"));
+$("vqBil").addEventListener("click", () => vDateiHolen("vqMsg"));
+$("vqDemo").addEventListener("click", () => {
+  for(const id of BWA_IDS) BWA[id].werte = BWA_START[id].werte.slice();
+  for(const id of Object.keys(BIL)) BIL[id].wert = BIL_START[id].wert;
+  UNTEN.best = BIL.aKAS.wert;
+  $("vuBest").value = zahl(UNTEN.best);
+  BWA_QUELLE = {eigen:false, erzeugt:"", n:0};
+  BIL_QUELLE = {eigen:false, erzeugt:""};
+  $("vOut").value = ""; alles();
+  vSagen("Zurück auf den Demodaten des Falls — BWA und Anfangsbestand.", "vqMsg");
+});
+
 $("vDatei").addEventListener("change", e => {
   const datei = e.target.files && e.target.files[0];
   if(!datei) return;
   const leser = new FileReader();
-  leser.onerror = () => { $("vMsg2").textContent = "Die Datei ließ sich nicht lesen."; };
+  leser.onerror = () => { vSagen("Die Datei ließ sich nicht lesen."); };
   leser.onload = () => {
     let d;
     try { d = JSON.parse(leser.result); }
-    catch(err){ $("vMsg2").textContent = "Das ist kein lesbares JSON."; return; }
+    catch(err){ vSagen("Das ist kein lesbares JSON."); return; }
     if(d && d.format === "bwa-monate" && d.positionen){
       let uebernommen = 0;
       for(const [id, p] of Object.entries(d.positionen)){
@@ -1665,18 +2108,46 @@ $("vDatei").addEventListener("change", e => {
           uebernommen++;
         }
       }
-      if(!uebernommen){ $("vMsg2").textContent = "Keine der Positionen passt zu diesem Blatt."; return; }
+      if(!uebernommen){ vSagen("Keine der Positionen passt zu diesem Blatt."); return; }
+      BWA_QUELLE = {eigen:true, erzeugt:d.erzeugt || "", n:uebernommen};
       $("vOut").value = ""; alles();
-      $("vMsg2").textContent = "BWA übernommen: " + uebernommen + " Positionen"
-        + (d.erzeugt ? " vom " + d.erzeugt : "") + ". Die Regeln bleiben, wie sie sind.";
+      vSagen("BWA übernommen: " + uebernommen + " Positionen"
+        + (d.erzeugt ? " vom " + d.erzeugt : "") + ". Die Regeln bleiben, wie sie sind.", "vqMsg");
+      return;
+    }
+    /* Aus der Bilanz zählt eine einzige Zeile: B. IV. Die drei darüber
+       werden mitgenommen, damit der Auszug stimmt. */
+    if(d && d.format === "bilanz-hgb" && d.werte){
+      if(typeof d.werte.aKAS !== "number"){
+        vSagen("Die Bilanz hat keine Zeile „Kassenbestand, Guthaben bei Kreditinstituten“ — ohne sie gibt es keinen Anfangsbestand.");
+        return;
+      }
+      for(const id of Object.keys(BIL))
+        if(typeof d.werte[id] === "number") BIL[id].wert = Math.round(d.werte[id]);
+      UNTEN.best = BIL.aKAS.wert;
+      $("vuBest").value = zahl(UNTEN.best);
+      BIL_QUELLE = {eigen:true, erzeugt:d.erzeugt || ""};
+      $("vOut").value = ""; alles();
+      vSagen("Anfangsbestand aus Deiner Bilanz: " + zahl(UNTEN.best) + " T€.", "vqMsg");
       return;
     }
     if(!d || d.format !== V_FORMAT || !d.regeln){
-      $("vMsg2").textContent = "Die Kennung in der Datei sagt nichts, das dieses Blatt kennt.";
+      vSagen("Die Kennung in der Datei sagt nichts, das dieses Blatt kennt.");
       return;
     }
     let n = 0;
     for(const id of IDS) if(d.regeln[id] && TYPEN[d.regeln[id].typ]){ REGEL[id] = d.regeln[id]; n++; }
+    /* Aeltere Dateien haben keine Grundlage dabei; dann bleibt die
+       stehen, die gerade gilt. */
+    if(d.bwa) for(const id of BWA_IDS)
+      if(Array.isArray(d.bwa[id]) && d.bwa[id].length === 12)
+        BWA[id].werte = d.bwa[id].map(v => Math.round(Number(v) || 0));
+    if(d.bilanz) for(const id of Object.keys(BIL))
+      if(typeof d.bilanz[id] === "number") BIL[id].wert = Math.round(d.bilanz[id]);
+    if(d.quelle){
+      if(d.quelle.bwa) BWA_QUELLE = d.quelle.bwa;
+      if(d.quelle.bilanz) BIL_QUELLE = d.quelle.bilanz;
+    }
     if(d.unten) Object.keys(UNTEN).forEach(k => { if(typeof d.unten[k] === "number") UNTEN[k] = d.unten[k]; });
     if(d.szenario) Object.keys(SZEN).forEach(k => { if(typeof d.szenario[k] === "number") SZEN[k] = d.szenario[k]; });
     ["vuBest","vuLinie","vuInv","vuDar","vuTil","vuEnt"].forEach(f => {
@@ -1692,7 +2163,9 @@ $("vDatei").addEventListener("change", e => {
     $("szUmsW").textContent = (SZEN.ums > 0 ? "+" : "") + SZEN.ums + " %";
     $("szAusW").textContent = zahl(SZEN.aus) + " T€";
     $("vOut").value = ""; alles();
-    $("vMsg2").textContent = "Geladen: " + n + " Regeln" + (d.erzeugt ? " vom " + d.erzeugt : "") + ".";
+    vSagen("Geladen: " + n + " Regeln" + (d.erzeugt ? " vom " + d.erzeugt : "") + ". "
+      + (d.bwa ? "Die Grundlage aus der Datei gilt jetzt auch."
+               : "Die Datei führt keine Grundlage mit; es bleibt die, die gerade gilt."), "vMsg2");
   };
   leser.readAsText(datei);
 });
@@ -1842,6 +2315,12 @@ $("glos").innerHTML = GLOSSAR.map(([b, t]) => `<div><b>${esc(b)}</b> — ${t}</d
    10 · Uebung: fuenf Fragen, zufaellig aus dem Vorrat
    ===================================================================== */
 const FRAGEN = [
+  ["Woher stammt der Anfangsbestand einer Liquiditätsvorschau?",
+   ["Aus der Bilanz, Aktivseite B. IV. — Kassenbestand und Guthaben bei Kreditinstituten","Aus der BWA, Zeile Gesamtleistung","Aus dem Saldo des ersten Monats","Aus dem eingeräumten Kontokorrentrahmen"], 0,
+   "Eine Vorschau rechnet Veränderungen; der Ausgangspunkt kommt von außen. B. IV. steht ganz unten im Umlaufvermögen — dort, wo das Vermögen schon Geld ist."],
+  ["Die BWA zeigt im Juli 3.395 T€ Personalkosten. Was steht dazu in der Vorschau?",
+   ["3.395 T€, am 25. Juli — die Regel für diese Zeile lautet „fester Tag“","Nichts, Personalkosten sind nie zahlungswirksam","3.395 T€ brutto mit 19 % Umsatzsteuer","Ein Zwölftel der Jahressumme"], 0,
+   "Löhne folgen keinem Zahlungsziel und keiner Verteilung. Sie haben einen Termin, und der steht im Arbeitsvertrag. Umsatzsteuer fällt darauf nicht an."],
   ["Aus welchen drei Teilen besteht eine Liquiditätsvorschau?",
    ["Die BWA über Regeln, die Umsatzsteuer, und was in keiner BWA steht","Bilanz, Gewinn- und Verlustrechnung, Anhang","Ist, Plan und Abweichung","Einzahlungen, Auszahlungen und Zinsen"], 0,
    "Der obere Teil ist die Fleißarbeit, der untere entscheidet. Eine Vorschau ohne Investition, Tilgung und Entnahme ist eine umgerechnete BWA."],
