@@ -785,6 +785,8 @@ footer a{color:var(--teal-dk)}
 .kurve svg{display:block;width:100%;height:190px}
 .kurvem{display:grid;grid-template-columns:repeat(12,1fr);font-family:var(--mono);
   font-size:.64rem;color:var(--grey);text-align:center;padding-top:6px;border-top:1px solid var(--grey-xl)}
+.kurvem .vor{opacity:.55}
+.kurve .bapfeil{margin:10px 0 2px}
 
 /* Die drei Regler fuer Szenarien. */
 .szen{display:grid;grid-template-columns:repeat(auto-fit,minmax(252px,1fr));gap:14px;margin:16px 0 0}
@@ -844,7 +846,7 @@ footer a{color:var(--teal-dk)}
   <p class="eyebrow">Liquiditätsplanung · Modul 04</p>
   <h1>Die <em>Liquiditätsvorschau</em></h1>
   <p class="lede">Die BWA sagt, was geschehen ist. Die Vorschau sagt, wann daraus Geld wird. Dazwischen liegt eine Regel je Position — und darunter vier Posten, die in keiner Auswertung stehen. Hier baust Du beides zusammen und siehst zu, wie die Bestandslinie darauf reagiert.</p>
-  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Grundlage sind die zwölf Monate aus dem Modul „Die BWA lesen“. Ein Startmonat teilt sie in Ist und Plan; ohne Änderung beginnt die Vorschau im Januar. Der Anfangsbestand von 3.900 T€ ist dann der Posten „Kassenbestand und Guthaben bei Kreditinstituten“ aus der Bilanz des ersten Moduls im Lernpfad Bilanzanalyse.</p>
+  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Grundlage sind zwei Reihen zu zwölf Monaten: die Planung aus dem Modul „Die BWA lesen“ und die letzten zwölf gebuchten Monate. Ein Startmonat entscheidet, welche in welcher Spalte steht; ohne Änderung beginnt die Vorschau im Januar. Der Anfangsbestand von 3.900 T€ ist dann der Posten „Kassenbestand und Guthaben bei Kreditinstituten“ aus der Bilanz des ersten Moduls im Lernpfad Bilanzanalyse.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Die Liquiditätsvorschau">
@@ -907,7 +909,8 @@ footer a{color:var(--teal-dk)}
       <dt>Die Lage</dt><dd>Der erste Monat der Vorschau bekommt seine Einzahlungen fast vollständig aus Rechnungen, die <b>vorher</b> geschrieben wurden. Beim Zulieferer sind es bei einem Start im Januar <b>7.195 T€</b> — mehr als vier Fünftel aller Januar-Eingänge. Aus dem Januar selbst kommen nur die 20 %, die sofort zahlen.</dd>
       <dt>Ist und Plan</dt><dd>Deshalb hat jede Vorschau eine Naht: Die Monate <b>vor</b> dem Startpunkt sind Ist, gebuchte Zahlen aus der laufenden Buchhaltung. Ab dem Startpunkt ist Plan. Wer im April plant, hat drei Ist- und neun Planmonate — und die offenen Rechnungen aus Februar und März stehen direkt darüber in derselben BWA.</dd>
       <dt>In der Wirklichkeit</dt><dd>Das sind die <b>offenen Posten</b>: konkrete Rechnungen mit konkreten Fälligkeiten, die in der Debitoren- und Kreditorenbuchhaltung stehen. Für die ersten Wochen sind sie die bessere Quelle als jede BWA.</dd>
-      <dt>Der Sonderfall Januar</dt><dd>Beginnt die Vorschau im Januar, gibt es in diesem Jahr keinen Ist-Monat. Dann nimmt das Blatt an, dass das Vorjahr wie dieses Jahr verlief, und rechnet den Vortrag aus den Regeln. Das ist die einzige Stelle, an der es etwas unterstellt — und ein Grund, die Vorschau lieber im laufenden Jahr zu beginnen.</dd>
+      <dt>Der Sonderfall Januar</dt><dd>Beginnt die Vorschau im Januar, gibt es in diesem Jahr keinen Ist-Monat. Dann liegt die ganze Ist-Reihe im Vorjahr, und die offenen Posten kommen aus ihrem November und Dezember. Das ist richtig gerechnet und trotzdem der unbequemere Fall: In der Tabelle ist von diesen beiden Monaten nichts zu sehen.</dd>
+      <dt>Woran sich das messen lässt</dt><dd>Der abgelaufene Teil wird mitgerechnet. Was die Regeln für den letzten Ist-Monat ausrechnen, steht damit neben dem, was auf dem Kontoauszug steht. Beim Zulieferer liegen die Regeln nach fünf Monaten um <b>392 T€ zu hoch</b> — die Kunden zahlen etwas träger als die Verteilung annimmt. Diese eine Zahl sagt mehr über die Güte einer Vorschau als jede Verfeinerung des oberen Teils.</dd>
       <dt>Warum das kein Detail ist</dt><dd>Die offenen Posten entstanden unter den <b>alten</b> Bedingungen. Zahlen Deine Kunden künftig später, kommen die alten Rechnungen trotzdem zur alten Zeit — und die Umstellung kostet einmalig die Differenz. Wer das Jahr im Kreis rechnet, sieht diesen Verlust nicht und hält eine Verschlechterung des Zahlungsverhaltens für folgenlos.</dd>
     </dl>
   </div>
@@ -1050,7 +1053,8 @@ footer a{color:var(--teal-dk)}
     </div>
     <p class="sh" id="vStartH"></p>
   </div>
-  <p class="sub" style="margin:12px 0 0">Die Monate <b>vor</b> dem Startpunkt sind <b>Ist</b> — gebuchte Zahlen, an denen kein Regler mehr etwas ändert. Ab dem Startpunkt ist <b>Plan</b>. Beides steht in derselben BWA und in derselben Tabelle; die Naht ist dort markiert. Wer im April plant, hat drei Ist-Monate und neun Planmonate, und die offenen Rechnungen aus dem März werden im April zu Geld — <b>das</b> ist der Grund für die beiden obersten Zeilen der Vorschau.</p>
+  <p class="sub" style="margin:12px 0 0">Dahinter liegen <b>zwei Zahlenreihen</b>: die gebuchte und die geplante. Die Monate <b>vor</b> dem Startpunkt zeigen das Ist — Zahlen, an denen kein Regler mehr etwas ändert. Ab dem Startpunkt zeigt die Tabelle den Plan. Die Naht zwischen beiden ist dort markiert. Wer im April plant, hat drei Ist-Monate und neun Planmonate, und die offenen Rechnungen aus dem März werden im April zu Geld — <b>das</b> ist der Grund für die beiden obersten Zeilen der Vorschau.</p>
+  <p class="sub" style="margin:12px 0 0">Der abgelaufene Teil wird <b>mitgerechnet</b>, mit denselben Regeln über die Ist-Zahlen. Damit läuft die Bestandslinie über das ganze Jahr, gestrichelt bis zur Naht. Und damit lässt sich das Blatt an der Wirklichkeit messen: Was die Regeln für das Ende des letzten Ist-Monats ausrechnen, steht neben dem, was der Kontoauszug sagt. <b>Die Differenz ist die Prognosegüte</b> — und das Thema des folgenden Moduls.</p>
 
   <div class="qkopf" style="margin-top:26px">
     <div>
@@ -1058,11 +1062,12 @@ footer a{color:var(--teal-dk)}
       <p class="qh" id="vqHerkunft"></p>
     </div>
     <div class="seg" role="group" aria-label="Die BWA austauschen">
-      <button id="vqLoad" type="button">Eigene BWA laden</button>
+      <button id="vqIst" type="button">Als Ist laden</button>
+      <button id="vqPlan" type="button">Als Plan laden</button>
       <button id="vqDemo" type="button">Demodaten zurück</button>
     </div>
   </div>
-  <p class="sub" style="margin:0">Sie steht in der Tabelle weiter unten, im oberen Teil — dort, wo sie hingehört. Eine <span class="m" style="font-family:var(--mono)">bwa-monate</span>-Datei aus dem Vormodul ersetzt sie.</p>
+  <p class="sub" style="margin:0">Zwei Reihen, dieselben achtzehn Positionen: <b>Ist</b> sind die letzten zwölf gebuchten Monate, <b>Plan</b> ist die Planung des Jahres. Beide stehen in der Tabelle weiter unten, im oberen Teil — welche in welcher Spalte, entscheidet der Startpunkt. Eine <span class="m" style="font-family:var(--mono)">bwa-monate</span>-Datei aus dem Vormodul füllt die Reihe, deren Knopf Du drückst.</p>
 
   <div class="qkopf" style="margin-top:26px">
     <div>
@@ -1129,6 +1134,7 @@ footer a{color:var(--teal-dk)}
     <svg id="vKurve" viewBox="0 0 1200 190" preserveAspectRatio="none" role="img"
          aria-labelledby="vKurveT"><title id="vKurveT">Der Zahlungsmittelbestand über zwölf Monate</title></svg>
     <div class="kurvem" id="vKurveM"></div>
+    <p class="bapfeil" id="vAbw" hidden></p>
   </div>
 
   <div class="vsk" tabindex="0" role="group" aria-label="Die Liquiditätsvorschau, seitlich scrollbar" style="margin-top:14px">
@@ -1218,14 +1224,14 @@ footer a{color:var(--teal-dk)}
 
 <!-- ==================== LEKTION 06 · DER ERSTE SCHRITT ==================== -->
 <section class="panel" id="p-f" role="tabpanel" aria-labelledby="tab-f">
-  <p class="claim">Du willst eine Liquiditätsvorschau für Dein Haus bauen? Acht Schritte, für die Du zwei Jahre BWA, einen Kontoauszug und einen Tag brauchst.</p>
+  <p class="claim">Du willst eine Liquiditätsvorschau für Dein Haus bauen? Neun Schritte, für die Du zwei Jahre BWA, einen Kontoauszug und einen Tag brauchst.</p>
 
-  <h2 class="sec">Acht Schritte mit den eigenen Zahlen</h2>
+  <h2 class="sec">Neun Schritte mit den eigenen Zahlen</h2>
   <p class="sub">Jeder Schritt mit dem Grund dahinter und dem Fehler, der an dieser Stelle am häufigsten gemacht wird.</p>
   <div class="ck10" id="ck7"></div>
 
   <div class="readme" style="margin-top:18px">
-    <b>Warum keine Software am Anfang.</b> Jedes Programm für Liquiditätsplanung rechnet Regeln, die jemand gesetzt hat. Wer die Regeln nicht selbst einmal aufgeschrieben hat, bekommt eine Kurve, der er nicht widersprechen kann — und die er deshalb auch nicht verantworten kann. Die acht Schritte gehen einmal von Hand; danach ist jedes Werkzeug eine Erleichterung statt einer Blackbox.
+    <b>Warum keine Software am Anfang.</b> Jedes Programm für Liquiditätsplanung rechnet Regeln, die jemand gesetzt hat. Wer die Regeln nicht selbst einmal aufgeschrieben hat, bekommt eine Kurve, der er nicht widersprechen kann — und die er deshalb auch nicht verantworten kann. Die neun Schritte gehen einmal von Hand; danach ist jedes Werkzeug eine Erleichterung statt einer Blackbox.
   </div>
 
   <h2 class="sec">Glossar</h2>
@@ -1263,33 +1269,79 @@ function lesen(s){
 /* =====================================================================
    1 · Die Ausgangsdaten
 
-   Die zwoelf BWA-Monate des Zulieferers, unveraendert aus dem Modul
-   „Die BWA lesen“. Eine Datei von dort laesst sich hier einlesen und
-   ersetzt sie.
+   Zwei Reihen, zwoelf Monate, dieselben achtzehn Positionen.
+
+   "plan" ist die Planung des Jahres — unveraendert aus dem Modul
+   „Die BWA lesen“. "ist" sind die letzten zwoelf gebuchten Monate.
+   Welche davon gilt, entscheidet der Startpunkt: Was davor liegt, ist
+   gebucht, was danach kommt, ist geplant. Liegt der Start im Januar,
+   liegt die ganze Ist-Reihe im Vorjahr; dann speist sie allein die
+   offenen Posten.
+
+   Die Ist-Reihe des Falls: ein schwaches Fruehjahr, ein besserer
+   Herbst, eine Materialquote 1,4 Punkte ueber Plan und zwei teure
+   Reparaturen. Gesamtleistung 98.196 statt 99.000, Betriebsergebnis
+   2.581 statt 4.200 T€. Eine Planung, die eintrifft, ist keine.
    ===================================================================== */
 const MONATE = ["Jan","Feb","Mrz","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
 const LANG = ["Januar","Februar","März","April","Mai","Juni","Juli","August",
               "September","Oktober","November","Dezember"];
 
 const BWA_START = {
-  UMS:{name:"Umsatzerlöse", werte:[7100,7600,8900,8400,8700,9100,8800,5900,8600,9200,8900,6800]},
-  BES:{name:"Bestandsveränderung", werte:[120,-60,-180,90,140,-210,60,380,-90,110,-140,180]},
-  EIG:{name:"Aktivierte Eigenleistungen", werte:[20,30,60,50,40,65,35,110,45,55,50,40]},
-  SBE:{name:"Sonstige betriebliche Erträge", werte:[158,158,158,158,158,158,158,158,158,158,158,162]},
-  NEE:{name:"Neutraler Ertrag", werte:[8,8,8,8,8,128,8,8,8,8,8,12]},
-  MAT:{name:"Materialaufwand", werte:[3940,4171,4773,4541,4680,4865,4726,3384,4634,4912,4773,3801]},
-  PER:{name:"Personalkosten", werte:[2341,2341,2341,2341,2341,2341,3395,2341,2341,2341,3395,2341]},
-  RAU:{name:"Raumkosten", werte:[154,154,154,154,154,154,154,154,154,154,154,156]},
-  BST:{name:"Betriebliche Steuern", werte:[21,21,21,21,21,21,21,21,21,21,21,19]},
-  VER:{name:"Versicherungen und Beiträge", werte:[52,52,52,52,52,52,52,52,52,52,52,48]},
-  FZG:{name:"Fahrzeugkosten", werte:[62,62,62,62,62,62,62,62,62,62,62,58]},
-  WER:{name:"Werbe- und Reisekosten", werte:[33,49,98,82,65,106,57,180,74,90,82,64]},
-  ABS:{name:"Abschreibungen", werte:[408,408,408,408,408,408,408,408,408,408,408,412]},
-  REP:{name:"Reparatur und Instandhaltung", werte:[44,66,131,109,87,142,76,240,98,120,109,88]},
-  SON:{name:"Sonstige Kosten", werte:[221,221,221,221,221,221,221,221,221,221,221,219]},
-  ZIA:{name:"Zinsaufwand", werte:[83,83,83,83,83,83,83,83,83,83,83,87]},
-  NEA:{name:"Neutraler Aufwand", werte:[0,0,0,0,0,20,0,0,0,0,0,0]},
-  EST:{name:"Steuern Einkommen und Ertrag", werte:[92,92,92,92,92,92,92,92,92,92,92,88]}
+  UMS:{name:"Umsatzerlöse",
+      plan:[7100,7600,8900,8400,8700,9100,8800,5900,8600,9200,8900,6800],
+      ist: [6994,7281,8348,7997,8535,9173,8985,6101,8824,9310,8936,6773]},
+  BES:{name:"Bestandsveränderung",
+      plan:[120,-60,-180,90,140,-210,60,380,-90,110,-140,180],
+      ist: [80,-30,-110,65,85,-150,40,290,-55,80,-95,130]},
+  EIG:{name:"Aktivierte Eigenleistungen",
+      plan:[20,30,60,50,40,65,35,110,45,55,50,40],
+      ist: [24,24,48,58,46,55,40,124,38,64,42,46]},
+  SBE:{name:"Sonstige betriebliche Erträge",
+      plan:[158,158,158,158,158,158,158,158,158,158,158,162],
+      ist: [160,155,159,162,156,161,157,160,163,154,159,159]},
+  NEE:{name:"Neutraler Ertrag",
+      plan:[8,8,8,8,8,128,8,8,8,8,8,12],
+      ist: [8,8,8,8,8,110,8,8,32,8,8,12]},
+  MAT:{name:"Materialaufwand",
+      plan:[3940,4171,4773,4541,4680,4865,4726,3384,4634,4912,4773,3801],
+      ist: [3935,4052,4540,4384,4655,4973,4893,3548,4821,5041,4859,3839]},
+  PER:{name:"Personalkosten",
+      plan:[2341,2341,2341,2341,2341,2341,3395,2341,2341,2341,3395,2341],
+      ist: [2341,2379,2403,2395,2362,2341,3395,2358,2341,2341,3395,2341]},
+  RAU:{name:"Raumkosten",
+      plan:[154,154,154,154,154,154,154,154,154,154,154,156],
+      ist: [154,154,157,157,157,157,157,157,157,157,157,159]},
+  BST:{name:"Betriebliche Steuern",
+      plan:[21,21,21,21,21,21,21,21,21,21,21,19],
+      ist: [21,21,21,21,21,21,21,21,21,21,21,19]},
+  VER:{name:"Versicherungen und Beiträge",
+      plan:[52,52,52,52,52,52,52,52,52,52,52,48],
+      ist: [52,52,52,54,54,54,54,54,54,54,54,50]},
+  FZG:{name:"Fahrzeugkosten",
+      plan:[62,62,62,62,62,62,62,62,62,62,62,58],
+      ist: [67,69,66,60,63,65,68,59,64,66,63,57]},
+  WER:{name:"Werbe- und Reisekosten",
+      plan:[33,49,98,82,65,106,57,180,74,90,82,64],
+      ist: [39,61,128,72,53,84,52,155,78,101,78,65]},
+  ABS:{name:"Abschreibungen",
+      plan:[408,408,408,408,408,408,408,408,408,408,408,412],
+      ist: [408,408,408,408,408,408,408,408,408,408,408,412]},
+  REP:{name:"Reparatur und Instandhaltung",
+      plan:[44,66,131,109,87,142,76,240,98,120,109,88],
+      ist: [59,94,211,140,82,125,80,221,112,116,118,89]},
+  SON:{name:"Sonstige Kosten",
+      plan:[221,221,221,221,221,221,221,221,221,221,221,219],
+      ist: [230,233,236,232,227,225,228,224,229,226,227,223]},
+  ZIA:{name:"Zinsaufwand",
+      plan:[83,83,83,83,83,83,83,83,83,83,83,87],
+      ist: [83,83,85,87,89,91,91,91,91,91,91,95]},
+  NEA:{name:"Neutraler Aufwand",
+      plan:[0,0,0,0,0,20,0,0,0,0,0,0],
+      ist: [0,0,90,0,0,20,0,0,0,0,0,0]},
+  EST:{name:"Steuern Einkommen und Ertrag",
+      plan:[92,92,92,92,92,92,92,92,92,92,92,88],
+      ist: [92,92,92,92,92,92,92,92,92,92,92,88]}
 };
 const BWA = JSON.parse(JSON.stringify(BWA_START));
 
@@ -1304,6 +1356,14 @@ const BIL_START = {
   aKAS:{rn:"B. IV.",  name:"Kassenbestand, Guthaben bei Kreditinstituten", wert:3900}
 };
 const BIL = JSON.parse(JSON.stringify(BIL_START));
+
+/* Die Kontostaende am Monatsende, wie sie auf dem Auszug stehen. Sie
+   sind das Gegenstueck zur Ist-Reihe: Was die Regeln fuer den
+   abgelaufenen Teil ausrechnen, trifft den Kontoauszug nicht genau,
+   und die Differenz waechst ueber die Monate — die Kunden zahlen etwas
+   traeger, als die Verteilung annimmt. Genau diese Differenz ist die
+   Pruefung, der eine Vorschau sich stellen muss. */
+const BANK = [3695, 3473, 2969, 3053, 3528, 3871, 3624, 4440, 4361, 4369, 4229, 4180];
 
 /* Woher die Zahlen gerade kommen. Ohne diese beiden Angaben ist am
    Blatt nicht zu erkennen, ob der Leser die Demodaten vor sich hat
@@ -1400,10 +1460,17 @@ const istPlan = m => m >= START;
 function skaliert(id, w){
   return (id === "UMS" || id === "MAT") ? w * (1 + SZEN.ums / 100) : w;
 }
-/* Der Wert, mit dem gerechnet wird: in einem Planmonat der skalierte,
-   in einem Ist-Monat der gebuchte. */
+/* Die Zahl, wie sie in der Auswertung steht: ab dem Startpunkt aus der
+   Planreihe, davor aus der Ist-Reihe. Ein Monat mit negativem Index
+   liegt im Vorjahr und ist immer Ist. */
+function roh(id, m){
+  const i = ((m % 12) + 12) % 12;
+  return istPlan(m) ? BWA[id].plan[i] : BWA[id].ist[i];
+}
+/* Der Wert, mit dem gerechnet wird. Ein Szenario greift nur im Plan —
+   an einem gebuchten Monat ändert kein Regler mehr etwas. */
 function wert(id, m){
-  const w = BWA[id].werte[((m % 12) + 12) % 12];
+  const w = roh(id, m);
   return istPlan(m) ? skaliert(id, w) : w;
 }
 
@@ -1472,8 +1539,14 @@ function stroeme(id){
   const plan = new Array(12).fill(0), offen = new Array(12).fill(0);
   for(const basis of [0, -12])
     for(const [k, liste] of beitraege(id, basis)){
-      if(k < START || k >= 12) continue;
-      for(const b of liste) (istPlan(b.von) ? plan : offen)[k] += b.w;
+      if(k < 0 || k >= 12) continue;
+      for(const b of liste){
+        /* Ein offener Posten ist nur, was vor dem Start entstand und
+           erst im Vorschauzeitraum zahlt. Im abgelaufenen Teil ist jede
+           Zahlung einfach eine Zahlung; einen Vortrag gibt es dort
+           nicht. */
+        (k >= START && b.von < START ? offen : plan)[k] += b.w;
+      }
     }
   return {plan, offen};
 }
@@ -1537,61 +1610,65 @@ function rechne(){
   const z = {};
   const leer = () => new Array(12).fill(0);
 
-  /* Die Zeilen aus den Positionsstroemen — und zugleich die beiden
-     Zeilen der offenen Posten, denn beide kommen aus derselben
-     Rechnung. */
+  /* Gerechnet werden alle zwölf Monate. Die Monate vor dem Startpunkt
+     sind der abgelaufene Teil: dieselben Regeln, aber über die
+     Ist-Reihe und ohne Szenario. Sie leer zu lassen wäre bequem und
+     falsch — dort ist etwas passiert, und der Kontostand beweist es. */
   z.gALT = leer(); z.aALT = leer();
   for(const g of GRUPPEN) if(g.teile) z[g.id] = leer();
   const inGruppe = {};
   for(const g of GRUPPEN) if(g.teile) for(const id of g.teile) inGruppe[id] = g.id;
   for(const id of IDS){
-    const s = stroeme(id);
+    const st = stroeme(id);
     const alt = REGEL[id].richt === "ein" ? z.gALT : z.aALT;
-    for(let m = START; m < 12; m++){
-      alt[m] += s.offen[m];
-      if(inGruppe[id]) z[inGruppe[id]][m] += s.plan[m];
+    for(let m = 0; m < 12; m++){
+      alt[m] += st.offen[m];
+      if(inGruppe[id]) z[inGruppe[id]][m] += st.plan[m];
     }
   }
 
   /* Umsatzsteuer: die Zahllast des Vormonats. Der Startmonat bekommt
      die des letzten Ist-Monats — eine Verbindlichkeit, die beim Start
-     bereits besteht. */
+     bereits feststeht, weil die Voranmeldung längst heraus ist. Der
+     Januar bekommt die des Dezembers aus der Ist-Reihe; liegt der Start
+     im Januar, ist das der Dezember des Vorjahres. */
   z.gUST = leer();
-  for(let m = -1; m < 12; m++){
-    const ziel = m + 1;
-    if(ziel < START || ziel >= 12) continue;
-    z.gUST[ziel] += ustLast(m);
-  }
-  /* Beginnt die Vorschau im Januar, gibt es in diesem Jahr keinen
-     Vormonat. Dann kommt die Zahllast des Dezembers aus dem
-     angenommenen Vorjahr — sonst fehlte dem Januar ein Abfluss, den es
-     in Wirklichkeit gibt. Der Aufruf mit -1 leistet genau das: Monat
-     -1 ist der Dezember des Vorjahres und immer ein Ist-Monat. */
+  for(let m = -1; m < 11; m++) z.gUST[m + 1] += ustLast(m);
 
-  /* Unterer Teil. Alles davon liegt im Planzeitraum. */
+  /* Unterer Teil. Investition, Darlehen und Entnahme sind Planposten
+     und liegen im Vorschaufenster; die Tilgungsrate läuft auch im
+     abgelaufenen Teil, weil sie im Kreditvertrag steht. */
   z.uINV = leer(); z.uDAR = leer(); z.uTIL = leer(); z.uENT = leer();
   if(istPlan(UNTEN.invM)) z.uINV[UNTEN.invM] = UNTEN.inv * 1.19;
   if(istPlan(UNTEN.darM)) z.uDAR[UNTEN.darM] = UNTEN.dar;
   if(istPlan(UNTEN.entM)) z.uENT[UNTEN.entM] = UNTEN.ent;
-  for(let m = START; m < 12; m++) z.uTIL[m] = UNTEN.til;
+  for(let m = 0; m < 12; m++) z.uTIL[m] = UNTEN.til;
 
   /* Der Zahlungsausfall mindert die Einzahlung aus Umsatzerloesen im
      gewaehlten Monat, und zwar brutto. */
   if(SZEN.aus && istPlan(SZEN.ausM)) z.gUMS[SZEN.ausM] -= SZEN.aus;
 
-  /* Salden und Bestand. Vor dem Startmonat steht nichts — dort ist die
-     Vorschau nicht zustaendig. */
+  /* Salden. */
   z.sBET = leer(); z.sGES = leer(); z.bEND = leer(); z.bLIN = leer();
-  let best = UNTEN.best;
-  for(let m = START; m < 12; m++){
+  for(let m = 0; m < 12; m++){
     let betrieb = z.gALT[m] - z.aALT[m];
     for(const g of GRUPPEN) if(g.teile) betrieb += g.vz * z[g.id][m];
     z.sBET[m] = betrieb;
     z.sGES[m] = betrieb - z.gUST[m] - z.uINV[m] + z.uDAR[m] - z.uTIL[m] - z.uENT[m];
-    best += z.sGES[m];
-    z.bEND[m] = best;
     z.bLIN[m] = -UNTEN.linie;
   }
+
+  /* Der Bestand in zwei Abschnitten. Der abgelaufene Teil beginnt beim
+     Bilanzwert zum 01.01. und endet bei dem, was die Regeln für den
+     letzten Ist-Monat ausrechnen. Die Vorschau beginnt beim Kontostand
+     laut Auszug. Beide treffen sich an der Naht — und wo sie es nicht
+     tun, steht dort die interessanteste Zahl dieses Blattes. */
+  let best = BIL.aKAS.wert;
+  for(let m = 0; m < START; m++){ best += z.sGES[m]; z.bEND[m] = best; }
+  z.gerechnet = best;
+  best = UNTEN.best;
+  for(let m = START; m < 12; m++){ best += z.sGES[m]; z.bEND[m] = best; }
+  z.abweichung = START > 0 ? UNTEN.best - z.gerechnet : 0;
   return z;
 }
 
@@ -1678,17 +1755,21 @@ const GESAMT = ["UMS","BES","EIG"];   /* die drei Zeilen der Gesamtleistung */
 const BWA_IDS = Object.keys(BWA_START);
 
 function vqZeichnen(){
-  const gl = GESAMT.reduce((a, id) => a + BWA[id].werte.reduce((x, y) => x + y, 0), 0);
+  const glP = GESAMT.reduce((a, id) => a + BWA[id].plan.reduce((x, y) => x + y, 0), 0);
+  const glI = GESAMT.reduce((a, id) => a + BWA[id].ist.reduce((x, y) => x + y, 0), 0);
   $("vqHerkunft").className = "qh" + (BWA_QUELLE.eigen ? " eigen" : "");
   $("vqHerkunft").innerHTML = BWA_QUELLE.eigen
     ? `<b>Deine Datei</b>${BWA_QUELLE.erzeugt ? " vom " + esc(BWA_QUELLE.erzeugt) : ""} · `
-      + `${BWA_QUELLE.n} Positionen übernommen · Gesamtleistung <b>${zahl(gl)} T€</b>`
-    : `<b>Demodaten</b> aus dem Modul „Die BWA lesen“ · Gesamtleistung <b>${zahl(gl)} T€</b>`;
+      + `${BWA_QUELLE.n} Positionen übernommen · Gesamtleistung Plan <b>${zahl(glP)} T€</b>, `
+      + `Ist <b>${zahl(glI)} T€</b>`
+    : `<b>Demodaten</b> aus dem Modul „Die BWA lesen“ · Gesamtleistung Plan `
+      + `<b>${zahl(glP)} T€</b>, Ist <b>${zahl(glI)} T€</b>`;
 
   /* Was der Startpunkt bedeutet, in Zahlen statt in Worten. */
   const n = 12 - START;
   $("vStartH").innerHTML = START === 0
-    ? `Zwölf Planmonate, keine Ist-Monate. Die offenen Posten kommen aus dem <b>angenommenen Vorjahr</b> — die einzige Stelle, an der dieses Blatt etwas unterstellt.`
+    ? `Zwölf Planmonate, keine Ist-Monate in diesem Jahr. Die Ist-Reihe liegt damit `
+      + `<b>ganz im Vorjahr</b> und speist allein die offenen Posten.`
     : `<b>${START}</b> Ist-Monate (${LANG[0]}–${LANG[START - 1]}) · <b>${n}</b> Planmonate `
       + `(${LANG[START]}–${LANG[11]}) · die offenen Posten kommen aus den Ist-Monaten dieser BWA`;
   $("vFenster").textContent = "Vorschau " + LANG[START] + "–" + LANG[11] + " " + JAHR
@@ -1762,7 +1843,7 @@ const ZEILENTEXT = {
   uENT:"Aus dem unteren Teil: Entnahme oder Ausschüttung. Ergebnisverwendung, kein Aufwand.",
   sBET:"Alle Ein- und Auszahlungen des laufenden Geschäfts, ohne Umsatzsteuer und ohne den unteren Teil.",
   sGES:"Der Saldo aus dem Geschäft, vermindert um die Umsatzsteuer-Zahllast und verrechnet mit dem unteren Teil. Das ist die Veränderung des Kontostands.",
-  bEND:"Der Bestand des Vormonats plus der Saldo dieses Monats. Im Startmonat beginnt er beim Anfangsbestand — aus der Bilanz, wenn die Vorschau im Januar beginnt, sonst aus dem Kontoauszug.",
+  bEND:"Der Bestand des Vormonats plus der Saldo dieses Monats. Im abgelaufenen Teil beginnt er beim Bilanzwert zum 01.01.; im Startmonat setzt er neu an, beim Kontostand laut Auszug. Der Sprung dazwischen ist das Maß dafür, wie gut die Regeln waren.",
   bLIN:"Der eingeräumte Kontokorrentrahmen. Er steht im Kreditvertrag und in keiner Auswertung."
 };
 
@@ -1817,9 +1898,14 @@ function trefferIn(id, m){
    Die Aufschlüsselung nach Monat bleibt den Zeilen vorbehalten, hinter
    denen genau eine Position steht — dort ist sie die eigentliche
    Auskunft. */
+/* Dieselbe Weiche wie in stroeme(): Ein Beitrag gehört in die Zeile
+   der offenen Posten, wenn er vor dem Start entstand und erst im
+   Vorschauzeitraum zahlt. Sonst steht er in seiner eigenen Zeile. */
+const istOffen = (m, von) => m >= START && von < START;
+
 function proPosition(g, m){
   return g.teile.map(id => {
-    const liste = trefferIn(id, m).filter(b => istPlan(b.von));
+    const liste = trefferIn(id, m).filter(b => !istOffen(m, b.von));
     if(!liste.length) return null;
     const w = liste.reduce((a, x) => a + x.w, 0);
     const von = Math.min(...liste.map(x => x.von)), bis = Math.max(...liste.map(x => x.von));
@@ -1833,7 +1919,7 @@ function zellHerkunft(g, m){
     if(g.teile.length > 1) return proPosition(g, m);
     for(const id of g.teile)
       for(const b of trefferIn(id, m))
-        if(istPlan(b.von)) zeilen.push({t:quelleName(id, b.von, b.anteil), w:b.w});
+        if(!istOffen(m, b.von)) zeilen.push({t:quelleName(id, b.von, b.anteil), w:b.w});
     if(g.id === "gUMS" && SZEN.aus && m === SZEN.ausM)
       zeilen.push({t:"Forderungsausfall (Szenario)", w:-SZEN.aus});
     return zeilen;
@@ -1846,7 +1932,7 @@ function zellHerkunft(g, m){
     for(const id of IDS){
       if(REGEL[id].richt !== seite) continue;
       for(const b of trefferIn(id, m))
-        if(!istPlan(b.von)) zeilen.push({t:quelleName(id, b.von, b.anteil), w:b.w});
+        if(istOffen(m, b.von)) zeilen.push({t:quelleName(id, b.von, b.anteil), w:b.w});
     }
     return zeilen;
   }
@@ -1933,13 +2019,13 @@ function tipBwa(id, m){
   const r = REGEL[id];
   const kopf = m == null ? BWA[id].name : LANG[m] + " · " + BWA[id].name;
   if(r.typ === "nie")
-    return {th:kopf, p:(m == null ? "" : zahl(BWA[id].werte[m]) + " T€. ")
+    return {th:kopf, p:(m == null ? "" : zahl(roh(id, m)) + " T€. ")
       + "Diese Position verlässt das Konto nie. In der Vorschau steht sie mit null.",
       hz:null, extra:null};
   const richtung = r.richt === "ein" ? "Einzahlung" : "Auszahlung";
   if(m == null){
     let summe = 0;
-    for(let i = START; i < 12; i++) summe += BWA[id].werte[i];
+    for(let i = START; i < 12; i++) summe += BWA[id].plan[i];
     return {th:kopf, p:"Regel: " + regelSatz(id) + ". Wird zur " + richtung
       + (r.ust ? ", brutto mit " + r.ust + " % Umsatzsteuer" : "") + ".",
       hz:null, extra:"Im Vorschauzeitraum: " + zahl(summe) + " T€ netto"};
@@ -1956,9 +2042,21 @@ function tipBwa(id, m){
                     + (b.anteil < 99.95 ? " · " + ANT(b.anteil) + " %" : ""), w:b.w});
     }
   const brutto = zeilen.reduce((a, x) => a + x.w, 0);
-  return {th:kopf, p:zahl(BWA[id].werte[m]) + " T€ netto · " + zahl(brutto) + " T€ als "
+  /* Ein Ist-Monat sagt zusätzlich, was geplant war. Das ist keine
+     Abweichungsanalyse — es ist der Grund, warum es zwei Reihen gibt. */
+  let nach = null;
+  if(!istPlan(m) && m >= 0){
+    const pl = BWA[id].plan[m], d = roh(id, m) - pl;
+    nach = "Geplant waren " + zahl(pl) + " T€"
+      + (d === 0 ? " — genau getroffen."
+         : ", also " + (d > 0 ? "+" : "−") + zahl(Math.abs(d)) + " T€"
+           + (pl ? " (" + (d > 0 ? "+" : "−")
+             + (Math.round(Math.abs(d) / Math.abs(pl) * 1000) / 10).toLocaleString("de-DE") + " %)" : "")
+           + ".");
+  }
+  return {th:kopf, p:zahl(roh(id, m)) + " T€ netto · " + zahl(brutto) + " T€ als "
             + richtung + (istPlan(m) ? " (Plan)" : " (Ist)"),
-          hz:zeilen, rund:false, summe:brutto,
+          hz:zeilen, rund:false, summe:brutto, nach,
           extra:"Regel: " + regelSatz(id)};
 }
 
@@ -2012,11 +2110,6 @@ document.addEventListener("focusout", e => {
 });
 addEventListener("scroll", wegTip, {passive:true});
 
-/* Ein Strich im Nichts: Wo die Vorschau nicht zustaendig ist, steht
-   nicht null. Null hiesse „hier fliesst nichts“, und das waere falsch —
-   dort ist der Monat schon gelaufen. */
-const LEER = "—";
-
 function vZeichnen(){
   const z = rechne(), b = befund(z);
   ZLETZT = z;
@@ -2041,14 +2134,16 @@ function vZeichnen(){
     /* Die Summenspalte zählt das Vorschaufenster, oben wie unten. Nur
        so lässt sich der Ertrag einer Position mit der Zahlung
        vergleichen, die aus ihr wird. */
-    const w = BWA[id].werte;
-    let j = 0; for(let m = START; m < 12; m++) j += w[m];
+    let j = 0; for(let m = START; m < 12; m++) j += BWA[id].plan[m];
     const nie = REGEL[id].typ === "nie";
     h += `<div class="vsz bwa${nie ? " stumm" : ""}">`
       + `<span class="n q" tabindex="0" data-b="${id}">${esc(BWA[id].name)}</span>`
-      + MONATE.map((_, m) => `<span class="z q${w[m] < 0 ? " neg" : ""}`
-          + `${m === START && START > 0 ? " naht" : ""}${m < START ? " vor" : ""}"`
-          + ` data-b="${id}" data-m="${m}">${zahl(w[m])}</span>`).join("")
+      + MONATE.map((_, m) => {
+          const v = roh(id, m);
+          return `<span class="z q${v < 0 ? " neg" : ""}`
+            + `${m === START && START > 0 ? " naht" : ""}${m < START ? " vor" : ""}"`
+            + ` data-b="${id}" data-m="${m}">${zahl(v)}</span>`;
+        }).join("")
       + `<span class="j">${zahl(j)}</span></div>`;
   }
 
@@ -2070,10 +2165,9 @@ function vZeichnen(){
     h += `<div class="vsz${kl}"><span class="n q" tabindex="0" data-g="${g.id}">${esc(g.name)}</span>`
       + z[g.id].map((v, m) => {
       const naht = (m === START && START > 0 ? " naht" : "");
-      if(m < START) return `<span class="z vor${naht}">${LEER}</span>`;
       const unter = g.art === "bestand" && v < -UNTEN.linie;
-      return `<span class="z q${v < 0 ? " neg" : ""}${unter ? " unter" : ""}${naht}"
-        data-g="${g.id}" data-m="${m}">${zahl(v)}</span>`;
+      return `<span class="z q${v < 0 ? " neg" : ""}${unter ? " unter" : ""}${naht}`
+        + `${m < START ? " vor" : ""}" data-g="${g.id}" data-m="${m}">${zahl(v)}</span>`;
     }).join("") + `<span class="j">${zeigSumme ? zahl(summe) : ""}</span></div>`;
   }
   $("vTafel").innerHTML = h;
@@ -2099,31 +2193,67 @@ function vZeichnen(){
     `<div class="b${kl ? " " + kl : ""}"><p class="bk">${esc(k)}</p>
        <p class="bv">${v}</p><p class="bf">${f}</p></div>`).join("");
 
-  /* Die Kurve, nur über das Vorschaufenster. Gerechnet und nicht
+  /* Die Kurve in zwei Abschnitten: gedämpft und gestrichelt der
+     abgelaufene Teil, kräftig die Vorschau. Gerechnet und nicht
      gemessen — in einem zugeklappten Block liefert
      getBoundingClientRect nur Nullen. */
   const W = 1200, H = 190, PAD = 14;
-  const stand = z.bEND.slice(START);
-  const alle = stand.concat([-UNTEN.linie, 0]);
+  const stand = z.bEND.slice();
+  const alle = stand.concat([-UNTEN.linie, 0, z.gerechnet]);
   const min = Math.min(...alle), max = Math.max(...alle);
   const spanne = Math.max(1, max - min);
   const y = v => PAD + (max - v) / spanne * (H - 2 * PAD);
-  const x = i => (i + 0.5) / n * W;
-  const punkte = stand.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
-  const flaeche = `${x(0).toFixed(1)},${y(0).toFixed(1)} ${punkte} ${x(n - 1).toFixed(1)},${y(0).toFixed(1)}`;
-  $("vKurve").innerHTML =
-    `<polygon points="${flaeche}" fill="var(--teal-xl)"/>
+  const x = m => (m + 0.5) / 12 * W;
+  const pfad = (von, bis) => stand.slice(von, bis)
+    .map((v, i) => `${x(von + i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
+  const vorschau = pfad(START, 12);
+  const flaeche = `${x(START).toFixed(1)},${y(0).toFixed(1)} ${vorschau} ${x(11).toFixed(1)},${y(0).toFixed(1)}`;
+  let svg = `<polygon points="${flaeche}" fill="var(--teal-xl)"/>
      <line x1="0" y1="${y(0).toFixed(1)}" x2="${W}" y2="${y(0).toFixed(1)}"
            stroke="var(--grey-mid)" stroke-width="1"/>
      <line x1="0" y1="${y(-UNTEN.linie).toFixed(1)}" x2="${W}" y2="${y(-UNTEN.linie).toFixed(1)}"
-           stroke="var(--red)" stroke-width="1.5" stroke-dasharray="7 5"/>
-     <polyline points="${punkte}" fill="none" stroke="var(--teal-dk)" stroke-width="2.5"
-               stroke-linejoin="round"/>` +
-    stand.map((v, i) => `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}"
+           stroke="var(--red)" stroke-width="1.5" stroke-dasharray="7 5"/>`;
+  if(START > 0){
+    /* Der abgelaufene Teil endet bei dem, was die Regeln ausrechnen;
+       die Vorschau beginnt beim Kontoauszug. Der Sprung dazwischen ist
+       keine Panne — er ist das Maß dafür, wie gut die Regeln waren. */
+    svg += `<polyline points="${pfad(0, START)}" fill="none" stroke="var(--grey-mid)"
+              stroke-width="2" stroke-dasharray="6 4" stroke-linejoin="round"/>
+            <line x1="${x(START - 1).toFixed(1)}" y1="${y(stand[START - 1]).toFixed(1)}"
+                  x2="${x(START).toFixed(1)}" y2="${y(stand[START]).toFixed(1)}"
+                  stroke="var(--grey-mid)" stroke-width="1" stroke-dasharray="2 3"/>
+            <line x1="${x(START - 1).toFixed(1)}" y1="${y(0).toFixed(1)}"
+                  x2="${x(START - 1).toFixed(1)}" y2="${(H - 2).toFixed(1)}"
+                  stroke="var(--teal-dk)" stroke-width="1.5"/>`;
+    svg += stand.slice(0, START).map((v, m) =>
+      `<circle cx="${x(m).toFixed(1)}" cy="${y(v).toFixed(1)}" r="3"
+         fill="var(--paper)" stroke="var(--grey-mid)" stroke-width="1.5"/>`).join("");
+  }
+  svg += `<polyline points="${vorschau}" fill="none" stroke="var(--teal-dk)" stroke-width="2.5"
+               stroke-linejoin="round"/>`
+    + stand.slice(START).map((v, i) => `<circle cx="${x(i + START).toFixed(1)}" cy="${y(v).toFixed(1)}"
        r="${i + START === b.tiefM ? 5 : 3.5}"
        fill="${v < -UNTEN.linie ? "var(--red)" : "var(--teal-dk)"}"/>`).join("");
-  $("vKurveM").style.gridTemplateColumns = "repeat(" + n + ",1fr)";
-  $("vKurveM").innerHTML = MONATE.slice(START).map(m => `<span>${m}</span>`).join("");
+  $("vKurve").innerHTML = svg;
+  $("vKurveM").style.gridTemplateColumns = "repeat(12,1fr)";
+  $("vKurveM").innerHTML = MONATE.map((m, i) =>
+    `<span${i < START ? ' class="vor"' : ""}>${m}</span>`).join("");
+
+  /* Die Naht als Messpunkt. */
+  if(START > 0){
+    const ab = z.abweichung, gross = Math.abs(ab) >= 1;
+    $("vAbw").className = "bapfeil" + (gross ? " weicht" : "");
+    $("vAbw").innerHTML = gross
+      ? `Ende ${LANG[START - 1]}: gerechnet <b>${zahl(z.gerechnet)} T€</b> · laut Kontoauszug `
+        + `<b>${zahl(UNTEN.best)} T€</b> · die Regeln lagen über ${START} `
+        + (START === 1 ? "Monat" : "Monate") + ` um <b>${zahl(Math.abs(ab))} T€</b> `
+        + (ab < 0 ? "zu hoch" : "zu niedrig") + `.`
+      : `Ende ${LANG[START - 1]}: gerechnet und Kontoauszug stimmen überein. `
+        + `Trag den echten Stand ein, und das Blatt sagt Dir, wie weit die Regeln danebenlagen.`;
+    $("vAbw").hidden = false;
+  } else {
+    $("vAbw").hidden = true;
+  }
 
   const teile = [];
   if(SZEN.ziel) teile.push("Zahlungseingänge " + SZEN.ziel + " Tage später");
@@ -2174,6 +2304,12 @@ monateSetzen();
 
 $("vStart").addEventListener("change", e => {
   START = +e.target.value;
+  /* Der Anfangsbestand gehört zum Startpunkt: im Januar der Bilanzwert
+     zum 01.01., sonst der Kontostand vom Ende des Vormonats. Ihn beim
+     Verschieben stehen zu lassen, hiesse mit dem Stand eines anderen
+     Stichtags weiterzurechnen. */
+  UNTEN.best = START === 0 ? BIL.aKAS.wert : BANK[START - 1];
+  $("vuBest").value = zahl(UNTEN.best);
   monateSetzen();
   $("vOut").value = ""; vSagen("", "vMsg2");
   alles();
@@ -2247,10 +2383,11 @@ $("vSzen").addEventListener("input", e => {
 /* =====================================================================
    6 · Mitnehmen
    ===================================================================== */
-/* Fassung 2 führt die Grundlage mit. Eine Datei der Fassung 1 lädt
-   weiterhin; ihr fehlen die Schlüssel, und die geltende Grundlage
-   bleibt dann stehen. Deshalb wird die Fassung nicht geprüft. */
-const V_FORMAT = "liqui-vorschau", V_FASSUNG = 2;
+/* Fassung 2 führte die Grundlage mit, Fassung 3 führt beide Reihen
+   und den Startpunkt. Ältere Dateien laden weiterhin: Was ihnen fehlt,
+   bleibt stehen, wie es gerade gilt. Deshalb wird die Fassung nicht
+   geprüft. */
+const V_FORMAT = "liqui-vorschau", V_FASSUNG = 3;
 const BR = 200;
 
 function vText(){
@@ -2268,9 +2405,9 @@ function vText(){
       + LANG[START - 1] + ") gehen als offene Posten ein.\n";
   s += "".padEnd(breit, "=") + "\n";
   s += zeile("", monate) + "\n" + "".padEnd(breit, "-") + "\n";
-  s += "\nBETRIEBSWIRTSCHAFTLICHE AUSWERTUNG (PLAN)\n";
+  s += "\nBETRIEBSWIRTSCHAFTLICHE AUSWERTUNG\n";
   for(const id of BWA_IDS)
-    s += zeile("  " + BWA[id].name, BWA[id].werte.slice(START).map(v => zahl(v))) + "\n";
+    s += zeile("  " + BWA[id].name, MONATE.slice(START).map((_, i) => zahl(roh(id, i + START)))) + "\n";
   s += "\n" + "".padEnd(breit, "-") + "\nLIQUIDITÄTSVORSCHAU\n";
   for(const g of GRUPPEN){
     if(g.art === "block"){ s += "\n" + g.name.toUpperCase() + "\n"; continue; }
@@ -2282,6 +2419,10 @@ function vText(){
   s += "Tiefpunkt: " + zahl(b.tief) + " T€ im " + LANG[b.tiefM] + "\n";
   s += "Unterdeckung: " + (b.reissM < 0 ? "keine" : "ab " + LANG[b.reissM]) + "\n";
   s += "Bestand am Jahresende: " + zahl(b.ende) + " T€\n";
+  if(START > 0)
+    s += "Ende " + LANG[START - 1] + ": gerechnet " + zahl(z.gerechnet)
+       + " T€, laut Kontoauszug " + zahl(UNTEN.best) + " T€ (Abweichung "
+       + (z.abweichung >= 0 ? "+" : "−") + zahl(Math.abs(z.abweichung)) + " T€)\n";
   s += "\nErzeugt im Modul „Die Liquiditätsvorschau“.\n";
   return s;
 }
@@ -2300,7 +2441,7 @@ $("vSave").addEventListener("click", () => {
      eingelesenen BWA beruht, beim nächsten Öffnen wieder der Fall des
      Zulieferers — und niemand würde merken, dass die eigenen Zahlen
      verschwunden sind. */
-  const bwa = {}; for(const id of BWA_IDS) bwa[id] = BWA[id].werte.slice();
+  const bwa = {}; for(const id of BWA_IDS) bwa[id] = {plan:BWA[id].plan.slice(), ist:BWA[id].ist.slice()};
   const bilanz = {}; for(const id of Object.keys(BIL)) bilanz[id] = BIL[id].wert;
   const d = {format:V_FORMAT, fassung:V_FASSUNG,
              erzeugt:new Date().toISOString().slice(0, 10), einheit:"T€",
@@ -2327,13 +2468,17 @@ function vSagen(t, wo){
   $(wo || vZielMsg).textContent = t;
 }
 
-$("vLoad").addEventListener("click", () => vDateiHolen("vMsg2"));
-$("vqLoad").addEventListener("click", () => vDateiHolen("vqMsg"));
+/* Welche Reihe eine bwa-monate-Datei füllt. */
+let vReihe = "plan";
+$("vLoad").addEventListener("click", () => { vReihe = "plan"; vDateiHolen("vMsg2"); });
+$("vqIst").addEventListener("click", () => { vReihe = "ist"; vDateiHolen("vqMsg"); });
+$("vqPlan").addEventListener("click", () => { vReihe = "plan"; vDateiHolen("vqMsg"); });
 $("vqBil").addEventListener("click", () => vDateiHolen("vqMsg"));
 $("vqDemo").addEventListener("click", () => {
-  for(const id of BWA_IDS) BWA[id].werte = BWA_START[id].werte.slice();
+  for(const id of BWA_IDS){ BWA[id].plan = BWA_START[id].plan.slice();
+                            BWA[id].ist  = BWA_START[id].ist.slice(); }
   for(const id of Object.keys(BIL)) BIL[id].wert = BIL_START[id].wert;
-  UNTEN.best = BIL.aKAS.wert;
+  UNTEN.best = START === 0 ? BIL.aKAS.wert : BANK[START - 1];
   $("vuBest").value = zahl(UNTEN.best);
   BWA_QUELLE = {eigen:false, erzeugt:"", n:0};
   BIL_QUELLE = {eigen:false, erzeugt:""};
@@ -2351,18 +2496,22 @@ $("vDatei").addEventListener("change", e => {
     try { d = JSON.parse(leser.result); }
     catch(err){ vSagen("Das ist kein lesbares JSON."); return; }
     if(d && d.format === "bwa-monate" && d.positionen){
+      /* In welche der beiden Reihen die Datei geht, sagt der Knopf, mit
+         dem sie geholt wurde. Dieselbe Datei kann beides sein. */
+      const reihe = vReihe;
       let uebernommen = 0;
       for(const [id, p] of Object.entries(d.positionen)){
         if(BWA[id] && Array.isArray(p.werte) && p.werte.length === 12){
-          BWA[id].werte = p.werte.map(v => Math.round(Number(v) || 0));
+          BWA[id][reihe] = p.werte.map(v => Math.round(Number(v) || 0));
           uebernommen++;
         }
       }
       if(!uebernommen){ vSagen("Keine der Positionen passt zu diesem Blatt."); return; }
       BWA_QUELLE = {eigen:true, erzeugt:d.erzeugt || "", n:uebernommen};
       $("vOut").value = ""; alles();
-      vSagen("BWA übernommen: " + uebernommen + " Positionen"
-        + (d.erzeugt ? " vom " + d.erzeugt : "") + ". Die Regeln bleiben, wie sie sind.", "vqMsg");
+      vSagen("Als " + (reihe === "ist" ? "Ist" : "Plan") + " übernommen: " + uebernommen
+        + " Positionen" + (d.erzeugt ? " vom " + d.erzeugt : "")
+        + ". Die Regeln bleiben, wie sie sind.", "vqMsg");
       return;
     }
     /* Aus der Bilanz zählt eine einzige Zeile: B. IV. Die drei darüber
@@ -2389,9 +2538,18 @@ $("vDatei").addEventListener("change", e => {
     for(const id of IDS) if(d.regeln[id] && TYPEN[d.regeln[id].typ]){ REGEL[id] = d.regeln[id]; n++; }
     /* Aeltere Dateien haben keine Grundlage dabei; dann bleibt die
        stehen, die gerade gilt. */
-    if(d.bwa) for(const id of BWA_IDS)
-      if(Array.isArray(d.bwa[id]) && d.bwa[id].length === 12)
-        BWA[id].werte = d.bwa[id].map(v => Math.round(Number(v) || 0));
+    if(d.bwa) for(const id of BWA_IDS){
+      const q = d.bwa[id];
+      if(!q) continue;
+      /* Fassung 2 führte eine Reihe, Fassung 3 führt beide. Eine alte
+         Datei füllt damit den Plan und lässt das Ist, wie es ist. */
+      const rein = (a, feld) => {
+        if(Array.isArray(a) && a.length === 12)
+          BWA[id][feld] = a.map(v => Math.round(Number(v) || 0));
+      };
+      if(Array.isArray(q)) rein(q, "plan");
+      else { rein(q.plan, "plan"); rein(q.ist, "ist"); }
+    }
     if(d.bilanz) for(const id of Object.keys(BIL))
       if(typeof d.bilanz[id] === "number") BIL[id].wert = Math.round(d.bilanz[id]);
     if(d.quelle){
@@ -2513,15 +2671,18 @@ $("zuNew").addEventListener("click", zuZiehen);
 zuZiehen();
 
 /* =====================================================================
-   8 · Acht Schritte mit den eigenen Zahlen
+   8 · Neun Schritte mit den eigenen Zahlen
    ===================================================================== */
 const CHECK7 = [
-  ["Nimm die letzten zwölf BWA-Monate als Mengengerüst",
-   "Sie sind die einzige laufende Zahlenquelle, die Du sicher hast. Für die kommenden Monate wird daraus ein Plan — mit dem Saisonmuster, das Du im Vormodul abgeleitet hast.",
+  ["Leg zwei Reihen nebeneinander: die letzten zwölf Ist-Monate und die Planung",
+   "Die Ist-Reihe ist die einzige laufende Zahlenquelle, die Du sicher hast; aus ihrem Saisonmuster wird die Planreihe. Beide brauchst Du, weil eine Vorschau im laufenden Jahr immer beides zeigt.",
    "Es wird ein Zwölftel des Jahresergebnisses fortgeschrieben. Damit verschwinden genau die Monate, in denen es eng wird."],
   ["Setz den Startpunkt und zieh die Naht zwischen Ist und Plan",
    "Der Monat, in dem Du stehst. Alles davor ist gebucht und geht nur noch als offener Posten ein; ab hier planst Du. Schreib die Naht in die Tabelle, damit jeder Leser sie sieht.",
    "Ist und Plan stehen unmarkiert nebeneinander. Dann diskutiert eine Runde über eine Planzahl, die längst eine Ist-Zahl ist — oder umgekehrt."],
+  ["Rechne den abgelaufenen Teil mit und vergleich ihn mit dem Kontoauszug",
+   "Dieselben Regeln über die Ist-Zahlen ergeben einen gerechneten Kontostand zum letzten Monatsende. Daneben steht der echte. Die Differenz ist die einzige Note, die Deine Vorschau bekommt.",
+   "Nur die Zukunft wird gerechnet. Dann bleibt unbekannt, ob die Regeln taugen — und die nächste Vorschau wiederholt denselben Fehler."],
   ["Schreib zu jeder Zeile eine Zahlungsregel auf, in einem Satz",
    "„Kunden zahlen zu zwanzig Prozent im Monat der Rechnung, zu fünfundfünfzig im Folgemonat, zu fünfundzwanzig im zweiten.“ Achtzehn solche Sätze, und die halbe Arbeit ist getan.",
    "Die Regeln bleiben im Kopf. Eine Regel, die nirgends steht, lässt sich nicht überprüfen und beim nächsten Mal nicht verbessern."],
@@ -2618,6 +2779,12 @@ const FRAGEN = [
   ["Warum steht der Tag im Monat trotzdem in der Regel?",
    ["Er wird bei der Auflösung auf Tage gebraucht","Er ist gesetzlich vorgeschrieben","Er bestimmt die Umsatzsteuer","Er hat keine Funktion"], 0,
    "Auf einem Monatsraster sieht man ihn nicht. Das folgende Modul löst dieselben Regeln auf Tage auf, und dort entscheidet er."],
+  ["Wozu braucht ein Vorschaublatt zwei BWA-Reihen?",
+   ["Weil eine Vorschau im laufenden Jahr immer gebuchte und geplante Monate zeigt","Damit man zwei Szenarien vergleichen kann","Weil die Umsatzsteuer eine eigene Reihe braucht","Für den Vorjahresvergleich im Jahresabschluss"], 0,
+   "Vor dem Startpunkt steht, was gebucht ist; danach, was geplant ist. Eine einzige Reihe müsste für beides herhalten und wäre in der einen Hälfte immer falsch."],
+  ["Das Blatt rechnet 3.920 T€ zum 31.05., der Kontoauszug sagt 3.528 T€. Was bedeutet das?",
+   ["Die Regeln waren über fünf Monate um 392 T€ zu optimistisch","Die BWA ist falsch","Es fehlt eine Buchung","Die Umsatzsteuer wurde doppelt gerechnet"], 0,
+   "Das ist die Prognosegüte. Meist zahlen die Kunden etwas träger, als die Verteilung annimmt — und die Verteilung gehört dann nachgemessen, nicht der obere Teil verfeinert."],
   ["Die Vorschau beginnt im April. Was sind Januar bis März in der BWA?",
    ["Ist-Monate — gebucht, und kein Regler ändert daran etwas","Planmonate wie alle anderen","Sie fallen aus der Tabelle heraus","Sie werden aus dem Vorjahr geschätzt"], 0,
    "Die Naht zwischen Ist und Plan wandert mit dem Startpunkt. Ein Szenario greift nur rechts davon — links ist gebucht."],
