@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Jahresabschlussanalyse mit Kennzahlen · geplant</title>
+<title>Jahresabschlussanalyse mit Kennzahlen</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -573,6 +573,9 @@ footer a{color:var(--teal-dk)}
 .bilzeile.gruppe{background:var(--grey-xl);padding-top:9px;padding-bottom:9px;margin-top:4px}
 .bilzeile.gruppe label{font-weight:700;color:var(--ink);font-size:.94rem}
 .bilzeile.tief label{padding-left:20px}
+.bilzeile.tiefer label{padding-left:40px;font-size:.85rem;color:#4a4a4d}
+.bilzeile.gruppe.tief{background:#F5F5F3}
+.bilzeile.gruppe.tief label{font-size:.9rem;font-weight:600}
 .bilzeile input{width:100%;font-family:var(--mono);font-size:.88rem;text-align:right;
   font-variant-numeric:tabular-nums;color:var(--ink);background:var(--paper);
   border:1px solid var(--grey-mid);border-radius:7px;padding:6px 9px}
@@ -638,24 +641,81 @@ footer a{color:var(--teal-dk)}
 @media (max-width:560px){
   .bilzeile,.bilende{grid-template-columns:1fr 92px;gap:8px;padding-left:12px;padding-right:12px}
   .bilzeile.tief label{padding-left:12px}
+  .bilzeile.tiefer label{padding-left:24px}
   .zuz{grid-template-columns:1fr}
   .zuz .zb{justify-content:flex-start}
 }
+
+/* ---------- Das Auswertungsblatt ----------
+   Zwei Spalten fuer zwei Jahre, weil eine Kennzahl ohne Vergleich
+   nichts sagt. Die Grundgroessen stehen links als Eingabe, die
+   Kennzahlen darunter als Karten.                                  */
+.kzg{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:6px 0 12px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.kzkopf{display:grid;grid-template-columns:1fr 104px 104px;gap:10px;align-items:end;
+  padding:14px 16px 8px;border-bottom:1px solid var(--grey-xl);margin-bottom:6px}
+.kzkopf>*{min-width:0}
+.kzkopf h3{margin:0;font-size:1.05rem;font-weight:700;letter-spacing:-.01em}
+.kzkopf .jh{font-family:var(--mono);font-size:.66rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--grey);text-align:center}
+.kzgz{display:grid;grid-template-columns:1fr 104px 104px;gap:10px;align-items:center;padding:5px 16px}
+.kzgz>*{min-width:0}
+.kzgz label{font-size:.88rem;color:#3d3d40;line-height:1.35}
+.kzgz input{width:100%;font-family:var(--mono);font-size:.85rem;text-align:right;
+  font-variant-numeric:tabular-nums;color:var(--ink);background:var(--paper);
+  border:1px solid var(--grey-mid);border-radius:7px;padding:6px 9px}
+.kzgz input:focus-visible{outline:2px solid var(--orange);outline-offset:1px;border-color:var(--teal)}
+.kzgz .sum{font-family:var(--mono);font-size:.85rem;text-align:right;font-weight:600;
+  font-variant-numeric:tabular-nums;color:var(--teal-dk);padding-right:9px}
+.kzgz.abgeleitet{background:var(--teal-xl);padding-top:8px;padding-bottom:8px;margin:4px 0}
+.kzgz.abgeleitet label{font-weight:700;color:var(--teal-dk)}
+.kzgh{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);padding:16px 16px 4px;grid-column:1/-1}
+.kzgn{font-size:.78rem;color:var(--grey);line-height:1.45;margin:2px 0 0;grid-column:1/-1}
+
+/* Die Kennzahlen selbst. Eine Karte je Zahl: Wert, Vorjahr, Richtung. */
+.kzgrp{font-size:.96rem;font-weight:700;color:var(--ink);margin:22px 0 10px;
+  padding-bottom:6px;border-bottom:1px solid var(--grey-xl)}
+.kzliste{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:12px}
+.kzliste>*{min-width:0}
+.kzk{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:14px 16px 13px}
+.kzk .kn{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 7px}
+.kzk .kzeile{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin:0 0 7px}
+.kzk .kw{font-family:var(--mono);font-size:1.42rem;font-weight:700;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;color:var(--ink);margin:0}
+.kzk .kd{font-family:var(--mono);font-size:.76rem;font-weight:700;font-variant-numeric:tabular-nums;
+  border-radius:20px;padding:2px 9px;background:var(--grey-xl);color:var(--grey)}
+.kzk .kd.auf{background:#E8F4EC;color:#1E6B47}
+.kzk .kd.ab{background:#FBECEB;color:#9C2F2C}
+.kzk .kvj{font-family:var(--mono);font-size:.74rem;color:var(--grey);
+  font-variant-numeric:tabular-nums;margin:0 0 8px}
+.kzk .kfo{font-family:var(--mono);font-size:.72rem;color:var(--teal-dk);line-height:1.5;
+  margin:0 0 6px;word-break:break-word}
+.kzk .kf{margin:0;font-size:.79rem;color:var(--grey);line-height:1.5}
+
+@media (max-width:560px){
+  .kzkopf,.kzgz{grid-template-columns:1fr 78px 78px;gap:7px;padding-left:12px;padding-right:12px}
+  .kzgh{padding-left:12px}
+  .kzgz input,.kzgz .sum{font-size:.78rem;padding-left:5px;padding-right:5px}
+}
+
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <header class="masthead">
-  <p class="eyebrow">Bilanzanalyse · Modul 03 · in Planung</p>
-  <h1>Jahresabschluss<em>analyse</em></h1>
-  <p class="lede">Aus Bilanz und Gewinn- und Verlustrechnung werden Kennzahlen: Vermögens-, Kapital- und Ertragslage. Gerechnet wird wahlweise am Fall des Zulieferers oder an den Zahlen, die Du in den ersten beiden Modulen selbst eingetippt hast.</p>
-  <div class="readme" style="margin-top:18px"><b>Dieses Modul ist eine Hülle.</b> Die Lektionen stehen mit Namen und Absicht da, der Inhalt kommt noch. Die beiden Pflichtlektionen — Quiz und Praxiseinstieg — sind bereits angelegt und werden mit dem Inhalt gefüllt.</div>
+  <p class="eyebrow">Bilanzanalyse · Modul 03</p>
+  <h1>Jahresabschlussanalyse mit <em>Kennzahlen</em></h1>
+  <p class="lede">Bilanz und Gewinn- und Verlustrechnung liegen vor. Jetzt wird gerechnet: Vermögens- und Kapitalstruktur, Liquidität, Rentabilität. Am Ende steht ein Auswertungsblatt, das die Dateien aus den ersten beiden Modulen einliest und zwei Jahre nebeneinander stellt — denn eine einzelne Kennzahl sagt so gut wie nichts.</p>
+  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Durchgehend <b>HGB</b>. Der Fall ist derselbe wie in den Vormodulen: ein Zulieferer für Nutzfahrzeugkomponenten, Zahlen in vollen Tausend Euro.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Jahresabschlussanalyse mit Kennzahlen">
   <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Was eine Kennzahl leisten kann</button>
-  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Vermögens- und Kapitalstruktur</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Vermögen und Kapital</button>
   <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Liquidität</button>
   <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Rentabilität</button>
   <button class="tab" role="tab" id="tab-e" aria-controls="p-e" aria-selected="false" tabindex="-1"><span class="num">05</span> Deine Zahlen auswerten</button>
@@ -663,80 +723,361 @@ footer a{color:var(--teal-dk)}
   <button class="tab" role="tab" id="tab-g" aria-controls="p-g" aria-selected="false" tabindex="-1"><span class="num">07</span> Der erste Schritt</button>
 </div>
 
+<!-- ==================== LEKTION 01 · WAS EINE KENNZAHL LEISTEN KANN ==================== -->
 <section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
-  <p class="claim">Verdichtung, Vergleich, Zeitreihe — und die drei Grenzen, an denen jede Kennzahl endet.</p>
+  <p class="claim">Eine Kennzahl verdichtet zwei Beträge zu einer Zahl. Damit gewinnt sie Vergleichbarkeit und verliert alles andere. <b>Beides gehört zusammen</b> — wer nur den Gewinn kennt, übersieht die Hälfte.</p>
 
-  <div class="readme"><b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.</div>
+  <h2 class="sec">Warum überhaupt verdichten</h2>
+  <p class="sub">Ein Jahresabschluss hat je nach Größe achtzig bis zweihundert Posten. Niemand hält die im Kopf, und niemand vergleicht sie einzeln mit dem Vorjahr.</p>
+  <div class="trio">
+    <div class="card" style="border-left:3px solid var(--teal-dk)">
+      <p class="ck">Erste Leistung</p><h3>Verdichtung</h3>
+      <p>Aus zwei Beträgen wird eine Verhältniszahl. 26.400 T€ Eigenkapital bei 63.000 T€ Bilanzsumme werden zu <b>41,9 %</b> — einer Zahl, die sich merken lässt.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ochre)">
+      <p class="ck">Zweite Leistung</p><h3>Vergleichbarkeit</h3>
+      <p>Absolute Beträge lassen sich zwischen zwei verschieden großen Unternehmen nicht vergleichen. Quoten schon. Erst dadurch wird aus einer Zahl ein Maßstab.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--navy)">
+      <p class="ck">Dritte Leistung</p><h3>Bewegung</h3>
+      <p>Im Zeitvergleich zeigt eine Kennzahl eine Richtung. Eine Eigenkapitalquote, die in drei Jahren von 45 auf 38 Prozent gefallen ist, ist eine Nachricht.</p>
+    </div>
+  </div>
+
+  <h2 class="sec">Die vier Vergleiche</h2>
+  <p class="sub">Eine Kennzahl allein hat keinen Inhalt. Sie bekommt ihn erst durch das, woran sie gemessen wird.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Die vier Vergleichsarten, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th>Vergleich</th><th>Wogegen</th><th>Was er hergibt</th><th>Wo er scheitert</th></tr></thead>
+    <tbody>
+      <tr><td class="crit">Zeitvergleich</td><td>Dasselbe Unternehmen, Vorjahr oder mehrere Jahre</td><td>Richtung und Tempo einer Entwicklung. Der am leichtesten zu beschaffende Vergleich.</td><td>Ein Unternehmen, das seit Jahren schwach ist, sieht stabil aus</td></tr>
+      <tr><td class="crit">Betriebsvergleich</td><td>Wettbewerber derselben Branche</td><td>Die eigene Stellung im Markt. Zahlen aus dem Unternehmensregister oder von Verbänden.</td><td>Abschlüsse sind selten wirklich vergleichbar: andere Größe, andere Fertigungstiefe</td></tr>
+      <tr><td class="crit">Branchenvergleich</td><td>Durchschnittswerte der Branche</td><td>Ein Maßstab, wo kein einzelner Wettbewerber passt. Die Deutsche Bundesbank veröffentlicht solche Kennzahlen.</td><td>Ein Durchschnitt beschreibt kein einziges Unternehmen</td></tr>
+      <tr><td class="crit">Soll-Ist-Vergleich</td><td>Der eigene Plan</td><td>Der einzige Vergleich, aus dem unmittelbar eine Maßnahme folgt</td><td>Ein schlecht gesetzter Plan macht jede Abweichung bedeutungslos</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="sub" style="margin-top:12px">Weber und Schäffer ordnen Kennzahlen dem Controlling als Instrument der Rationalitätssicherung zu: Sie sollen eine Behauptung prüfbar machen. Genau darin liegt ihr Wert — und ihre Grenze, sobald die Behauptung fehlt.</p>
+
+  <h2 class="sec">Die drei Grenzen</h2>
+  <p class="sub">Jede der drei kostet in der Praxis regelmäßig eine Fehlentscheidung. Wer sie kennt, liest anders.</p>
+  <div class="merk">
+    <h3>Woran die Auswertung hängt</h3>
+    <dl>
+      <dt>Eine Kennzahl ist eine Frage, keine Antwort</dt><dd>Eine Eigenkapitalquote von 25 % ist im Maschinenbau bedenklich und im Handel normal. Die Zahl selbst entscheidet nichts. Sie sagt Dir, wo Du nachfragen musst.</dd>
+      <dt>Gerechnet wird mit Buchwerten</dt><dd>Eine 1985 gekaufte Halle steht mit Anschaffungskosten abzüglich Abschreibungen in den Büchern, nicht mit ihrem Marktwert. Das Vorsichtsprinzip des § 252 Abs. 1 Nr. 4 HGB will das so. Eine Eigenkapitalquote auf Buchwerten ist deshalb oft zu niedrig — und bei einem aktivierten Firmenwert zu hoch.</dd>
+      <dt>Stichtag gegen Zeitraum</dt><dd>Die Bilanz zeigt einen Tag. Wer sein Lager kurz vor dem Stichtag leert, verbessert jede Liquiditätskennzahl, ohne etwas am Geschäft geändert zu haben. Kennzahlen, die eine Bestands- mit einer Stromgröße verbinden, sind davon besonders betroffen.</dd>
+      <dt>Wahlrechte verschieben die Basis</dt><dd>Abschreibungsmethode, Bewertung der Vorräte, Aktivierung selbst geschaffener Schutzrechte — jedes dieser Wahlrechte verändert Bilanzsumme und Ergebnis. Zwei Häuser mit identischem Geschäft können deutlich verschiedene Kennzahlen zeigen.</dd>
+    </dl>
+  </div>
+  <div class="readme" style="margin-top:16px">
+    <b>Deshalb steht am Anfang die Aufbereitung.</b> Bevor gerechnet wird, wird der Abschluss lesbar gemacht: Forderungen und Verbindlichkeiten nach Fristigkeit ordnen, das Eigenkapital um ausstehende Einlagen bereinigen, einen aktivierten Firmenwert gesondert ausweisen. Diese Arbeit erscheint in keiner Kennzahl und entscheidet über ihren Wert. Küting und Weber nennen sie die eigentliche Analyse; das Rechnen danach sei Handwerk.
+  </div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Eine Kennzahl ohne Vergleich ist eine Zahl ohne Aussage. Deshalb hat das Auswertungsblatt in Lektion 05 <b>zwei Spalten</b> und nicht eine.</p>
   </div>
 </section>
 
-<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
-  <p class="claim">Eigenkapitalquote, Anlagenintensität, Verschuldungsgrad, Anlagendeckung I und II.</p>
+<!-- ==================== LEKTION 02 · VERMÖGEN UND KAPITAL ==================== -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b">
+  <p class="claim">Diese Gruppe liest die Bilanz allein: links die Struktur des Vermögens, rechts die des Kapitals, und dann die Frage, ob beide zueinander passen. <b>Die Gewinn- und Verlustrechnung wird hier noch nicht gebraucht.</b></p>
 
-  <div class="readme"><b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.</div>
+  <h2 class="sec">Die Struktur der Aktivseite</h2>
+  <p class="sub">Zwei Quoten, die sich zu hundert Prozent ergänzen. Ihre Aussage liegt darin, wie beweglich ein Unternehmen ist.</p><!-- sprache:ok — dritte Person, gemeint sind die beiden Quoten -->
+  <div class="tscroll" tabindex="0" role="group" aria-label="Kennzahlen der Vermögensstruktur, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th>Kennzahl</th><th>Formel</th><th>Was sie sagt</th><th>Die Falle</th></tr></thead>
+    <tbody>
+      <tr><td class="crit">Anlagenintensität</td><td class="m">Anlagevermögen ÷ Bilanzsumme</td><td>Wie viel des Vermögens langfristig gebunden ist. Hoch bei Fertigung und Infrastruktur, niedrig bei Handel und Dienstleistung.</td><td>Ein hoher Wert wird als Substanz gelesen. Er bedeutet zugleich hohe Fixkosten und wenig Spielraum, wenn die Nachfrage einbricht.</td></tr>
+      <tr><td class="crit">Umlaufintensität</td><td class="m">Umlaufvermögen ÷ Bilanzsumme</td><td>Der Gegenwert. Ein hoher Wert steht für Beweglichkeit.</td><td>Beweglich ist Umlaufvermögen nur, solange es sich verkaufen lässt. Ein volles Lager mit Ladenhütern zählt hier voll mit.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="readme" style="margin-top:16px">
+    <b>Im Fall des Zulieferers.</b> Anlagevermögen 31.700 T€ bei einer Bilanzsumme von 63.000 T€ ergibt eine Anlagenintensität von <b>50,3 %</b>. Für einen Fertiger mit eigener Produktion ist das unauffällig. Bei einem Großhändler wäre derselbe Wert eine Frage: Woher kommt dieses Anlagevermögen, und wird es gebraucht?
+  </div>
+
+  <h2 class="sec">Die Struktur der Passivseite</h2>
+  <p class="sub">Hier steht die Kennzahl, nach der jede Bank zuerst fragt.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Kennzahlen der Kapitalstruktur, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th>Kennzahl</th><th>Formel</th><th>Was sie sagt</th><th>Die Falle</th></tr></thead>
+    <tbody>
+      <tr><td class="crit">Eigenkapitalquote</td><td class="m">Eigenkapital ÷ Bilanzsumme</td><td>Welcher Anteil des Vermögens den Eigentümern zusteht. Zugleich der Puffer, den ein Verlust aufzehren kann, bevor die Gläubiger betroffen sind.</td><td>Sie wird auf Buchwerten gerechnet. Stille Reserven in alten Grundstücken erscheinen nicht, ein aktivierter Firmenwert dagegen voll.</td></tr>
+      <tr><td class="crit">Fremdkapitalquote</td><td class="m">Fremdkapital ÷ Bilanzsumme</td><td>Der Gegenwert. Beide zusammen ergeben hundert Prozent.</td><td>Rückstellungen zählen als Fremdkapital, obwohl sie noch keine Schuld sind. Pensionsrückstellungen bleiben oft jahrzehntelang im Haus.</td></tr>
+      <tr><td class="crit">Verschuldungsgrad</td><td class="m">Fremdkapital ÷ Eigenkapital</td><td>Wie viel Euro Schulden auf einen Euro Eigenkapital kommen. Dieselbe Information wie die Quote, nur schärfer: Ab 50 % Eigenkapital ist er 1, bei 25 % schon 3.</td><td>Er wächst schnell und wirkt dramatisch. Ein Sprung von 2 auf 3 sieht groß aus und bedeutet einen Rückgang der Quote von 33 auf 25 Prozent.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2 class="sec">Ob beide Seiten zueinander passen</h2>
+  <p class="sub">Die Deckungsgrade stellen die Frage nach der <b>Fristenkongruenz</b>: Ist das langfristig Gebundene auch langfristig finanziert? Das ist die wichtigste Regel der ganzen Bilanzanalyse.</p>
+  <div class="duo">
+    <div class="card" style="border-left:3px solid var(--teal-dk)">
+      <p class="ck">Die strenge Regel</p><h3>Anlagendeckung I</h3>
+      <p class="m" style="font-family:var(--mono);font-size:.82rem;color:var(--teal-dk)">Eigenkapital ÷ Anlagevermögen</p>
+      <p>Die goldene Bilanzregel im engen Sinn: Das Anlagevermögen soll vollständig aus Eigenkapital finanziert sein, also ein Wert von mindestens 100 %.</p>
+      <p>In der Praxis erreichen das wenige Industrieunternehmen. Der Zulieferer kommt auf <b>83,3 %</b>. Das ist kein Alarm, es verlangt aber einen Blick auf den zweiten Deckungsgrad.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ochre)">
+      <p class="ck">Die brauchbare Regel</p><h3>Anlagendeckung II</h3>
+      <p class="m" style="font-family:var(--mono);font-size:.82rem;color:var(--ochre)">(Eigenkapital + langfristiges Fremdkapital) ÷ Anlagevermögen</p>
+      <p>Die goldene Bilanzregel im weiten Sinn. Ein langfristiges Darlehen finanziert eine Maschine genauso zuverlässig wie Eigenkapital, solange seine Laufzeit die Nutzungsdauer abdeckt.</p>
+      <p>Unter 100 % wird Langfristiges kurzfristig finanziert. Dann hängt das Unternehmen an der Verlängerung seiner Kredite — der Weg, auf dem ein gewinnbringendes Haus zahlungsunfähig wird.</p>
+    </div>
+  </div>
+  <div class="merk" style="margin-top:16px">
+    <h3>Wo die Angabe herkommt</h3>
+    <dl>
+      <dt>Das Problem</dt><dd>Die Bilanz nach § 266 HGB ordnet die Passivseite nach Rechtsnatur, nicht nach Fristigkeit. Aus dem Formular des ersten Moduls lässt sich das langfristige Fremdkapital deshalb gar nicht ablesen.</dd>
+      <dt>Die Quelle</dt><dd>§ 285 Nr. 1 HGB verlangt im Anhang die Angabe der Verbindlichkeiten mit einer Restlaufzeit von mehr als fünf Jahren und der besicherten Beträge. Der Verbindlichkeitenspiegel schlüsselt das nach bis 1 Jahr, 1 bis 5 Jahre, über 5 Jahre auf.</dd>
+      <dt>Was das für Dich heißt</dt><dd>Das Auswertungsblatt in Lektion 05 kann die Aufteilung aus der Bilanzdatei nicht errechnen. Es macht Dir einen Vorschlag aus den Posten, die typischerweise kurzfristig sind, und Du korrigierst ihn mit dem Anhang in der Hand. Dass diese eine Zahl Handarbeit bleibt, ist kein Mangel des Formulars.</dd>
+    </dl>
+  </div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Die Eigenkapitalquote sagt, <b>wie viel Verlust ein Unternehmen aushält</b>. Die Anlagendeckung sagt, <b>wie lange es dafür Zeit hat</b>. Die zweite Frage entscheidet häufiger über das Überleben.</p>
   </div>
 </section>
 
-<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
-  <p class="claim">Die drei Liquiditätsgrade, Working Capital und warum eine gute Quote eine Zahlungsunfähigkeit nicht ausschließt.</p>
+<!-- ==================== LEKTION 03 · LIQUIDITÄT ==================== -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c">
+  <p class="claim">Zahlungsunfähigkeit ist der häufigste Eröffnungsgrund eines Insolvenzverfahrens, § 17 InsO. Sie hat mit Gewinn wenig zu tun. <b>Ein Unternehmen kann drei Jahre Gewinn ausweisen und an einem Dienstag zahlungsunfähig sein.</b></p>
 
-  <div class="readme"><b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.</div>
+  <h2 class="sec">Die drei Grade</h2>
+  <p class="sub">Alle drei setzen dasselbe Fremdkapital in den Nenner: das mit einer Restlaufzeit bis zu einem Jahr. Sie unterscheiden sich darin, wie viel vom Umlaufvermögen im Zähler mitzählen darf.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Die drei Liquiditätsgrade, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th>Grad</th><th>Zähler</th><th>Anhaltswert</th><th>Was er wirklich prüft</th></tr></thead>
+    <tbody>
+      <tr><td class="crit">Erster Grad<br><span class="m" style="font-size:.76rem;color:var(--grey)">cash ratio</span></td><td class="m">Kasse und Bankguthaben</td><td class="m">10 – 30 %</td><td>Ob morgen gezahlt werden kann. Ein hoher Wert ist keine Auszeichnung: Geld auf dem Konto verdient nichts.</td></tr>
+      <tr><td class="crit">Zweiter Grad<br><span class="m" style="font-size:.76rem;color:var(--grey)">quick ratio</span></td><td class="m">+ Forderungen und Wertpapiere</td><td class="m">um 100 %</td><td>Ob die kurzfristigen Schulden aus dem gedeckt sind, was ohne Verkauf von Ware hereinkommt. Der aussagekräftigste der drei.</td></tr>
+      <tr><td class="crit">Dritter Grad<br><span class="m" style="font-size:.76rem;color:var(--grey)">current ratio</span></td><td class="m">+ Vorräte, also das ganze Umlaufvermögen</td><td class="m">150 – 200 %</td><td>Ob das gesamte kurzfristige Vermögen die kurzfristigen Schulden übersteigt. Weit von der Zahlungsfähigkeit entfernt.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="sub" style="margin-top:12px">Die Anhaltswerte sind Erfahrungswerte und keine Normen. In einer Branche mit kurzen Zahlungszielen und schnellem Lagerumschlag sind niedrigere Werte normal, im Anlagenbau mit langen Projektlaufzeiten höhere.</p>
+
+  <h2 class="sec">Working Capital</h2>
+  <p class="sub">Dieselbe Frage, als Betrag statt als Quote.</p>
+  <div class="merk">
+    <h3>Umlaufvermögen minus kurzfristiges Fremdkapital</h3>
+    <dl>
+      <dt>Die Aussage</dt><dd>Der Teil des Umlaufvermögens, der langfristig finanziert ist. Ein positives Working Capital bedeutet dasselbe wie eine Liquidität dritten Grades über 100 %, nur in Euro statt in Prozent.</dd>
+      <dt>Warum der Betrag oft besser ist</dt><dd>Eine Quote von 140 % klingt gleich, ob sie 400 T€ oder 40.000 T€ Puffer bedeutet. Wer über eine Kreditlinie verhandelt, braucht den Betrag.</dd>
+      <dt>Working Capital Management</dt><dd>Hier setzt der Hebel an, der ohne Bank auskommt: Vorräte senken, Forderungen schneller einziehen, Lieferantenziele nutzen. Jeder Euro, der dabei frei wird, ist ein Euro, der nicht finanziert werden muss.</dd>
+      <dt>Wenn es negativ ist</dt><dd>Dann finanziert kurzfristiges Fremdkapital einen Teil des Anlagevermögens. Bei Handelsketten mit Barumsatz und langen Lieferantenzielen ist das ein Geschäftsmodell; in der Fertigung ist es ein Warnzeichen.</dd>
+    </dl>
+  </div>
+
+  <h2 class="sec">Warum eine gute Quote nichts garantiert</h2>
+  <p class="sub">Die Liquiditätsgrade sind die am leichtesten misszuverstehenden Kennzahlen des ganzen Abschlusses. Drei Gründe, jeder für sich ausreichend.</p>
+  <div class="trio">
+    <div class="card" style="border-left:3px solid var(--red)">
+      <p class="ck">Erster Grund</p><h3>Ein Stichtag</h3>
+      <p>Die Bilanz zeigt den 31. Dezember. Über die Zahlungsfähigkeit am 15. März sagt sie nichts. Wer den Stichtag kennt, kann ihn vorbereiten: Rechnungen früher einziehen, Bestellungen verschieben.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--red)">
+      <p class="ck">Zweiter Grund</p><h3>Keine Fälligkeiten</h3>
+      <p>Der Nenner fasst alles zusammen, was binnen eines Jahres fällig wird — die Rechnung von morgen und die vom nächsten Dezember. Ob die Einzahlungen zeitlich dazu passen, bleibt offen.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--red)">
+      <p class="ck">Dritter Grund</p><h3>Zweifelhafte Werte</h3>
+      <p>Forderungen zählen mit ihrem Buchwert. Ist der größte Kunde in Schwierigkeiten, steht die Zahl noch da und das Geld kommt nicht. Vorräte im dritten Grad sind noch weiter von Geld entfernt.</p>
+    </div>
+  </div>
+  <div class="readme" style="margin-top:16px">
+    <b>Was stattdessen wirklich hilft.</b> Eine rollierende Liquiditätsplanung über dreizehn Wochen, aus Fälligkeiten gerechnet statt aus Beständen. Sie steht in keinem Jahresabschluss und lässt sich nicht von außen bilden. Die Liquiditätsgrade sind das, was einem externen Leser übrig bleibt — nicht das, worauf die Geschäftsführung ihre Entscheidungen stützt.
+  </div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Die Liquiditätsgrade beantworten die Frage nach der Zahlungsfähigkeit <b>nicht</b>. Sie geben einen Anhaltspunkt aus Beständen, wo eigentlich Fälligkeiten gebraucht würden. Wer das weiß, liest sie richtig.</p>
   </div>
 </section>
 
-<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
-  <p class="claim">Eigenkapital-, Gesamtkapital- und Umsatzrentabilität, dazu das Du-Pont-Schema als Zerlegung.</p>
+<!-- ==================== LEKTION 04 · RENTABILITÄT ==================== -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d">
+  <p class="claim">Hier kommt die Gewinn- und Verlustrechnung dazu. Eine Rentabilität setzt ein Ergebnis ins Verhältnis zu dem, was dafür eingesetzt wurde. <b>Welches Ergebnis und welcher Einsatz</b> — daran entscheidet sich, was die Zahl beantwortet.</p>
 
-  <div class="readme"><b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.</div>
+  <h2 class="sec">Die drei Grundformen</h2>
+  <p class="sub">Dieselbe Idee, drei Bezugsgrößen. Wer sie verwechselt, vergleicht Unternehmen mit verschiedener Finanzierung und hält das Ergebnis für einen Leistungsunterschied.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Die Rentabilitätskennzahlen, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th>Kennzahl</th><th>Formel</th><th>Welche Frage sie beantwortet</th><th>Die Falle</th></tr></thead>
+    <tbody>
+      <tr><td class="crit">Umsatzrentabilität</td><td class="m">Jahresüberschuss ÷ Umsatzerlöse</td><td>Wie viel Cent je Euro Umsatz übrig bleiben. Die Kennzahl, die am stärksten von der Branche abhängt: im Lebensmittelhandel sind zwei Prozent gut, bei Software wären sie eine Katastrophe.</td><td>Sie sagt nichts über den Kapitaleinsatz. Ein Händler mit 2 % und zehnfachem Umschlag verdient mehr als ein Fertiger mit 6 % und einfachem.</td></tr>
+      <tr><td class="crit">Eigenkapital&shy;rentabilität</td><td class="m">Jahresüberschuss ÷ Eigenkapital</td><td>Was die Eigentümer auf ihr eingesetztes Kapital verdienen. Der Maßstab, an dem eine Beteiligung gegen eine Anleihe gehalten wird.</td><td>Sie steigt, wenn das Eigenkapital sinkt. Ein Unternehmen mit dünner Decke zeigt glänzende Werte, bis das erste schlechte Jahr kommt.</td></tr>
+      <tr><td class="crit">Gesamtkapital&shy;rentabilität</td><td class="m">(Jahresüberschuss + Fremdkapitalzinsen) ÷ Bilanzsumme</td><td>Was das gesamte im Unternehmen arbeitende Kapital erwirtschaftet, unabhängig davon, wem es gehört. Der einzige faire Vergleich zwischen verschieden finanzierten Häusern.</td><td>Die Zinsen gehören in den Zähler zurück, weil sie ein Ertrag des Fremdkapitals sind. Wer sie vergisst, bestraft jedes verschuldete Unternehmen doppelt.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2 class="sec">Der Hebel — und warum er in beide Richtungen wirkt</h2>
+  <p class="sub">Der Zusammenhang zwischen den beiden Kapitalrentabilitäten hat einen Namen und eine unangenehme Eigenschaft.</p>
+  <div class="duo">
+    <div class="card" style="border-left:3px solid var(--green)">
+      <p class="ck">Solange es gut läuft</p><h3>Der Hebel arbeitet</h3>
+      <p>Liegt die Gesamtkapitalrentabilität über dem Fremdkapitalzins, steigt die Eigenkapitalrentabilität mit jedem aufgenommenen Euro. Das Unternehmen verdient mit geliehenem Geld mehr, als es dafür zahlt.</p>
+      <p>Deshalb weisen hoch verschuldete Unternehmen in guten Jahren die höchsten Eigenkapitalrenditen aus — ohne besser zu wirtschaften.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--red)">
+      <p class="ck">Sobald es kippt</p><h3>Der Hebel kehrt sich um</h3>
+      <p>Fällt die Gesamtkapitalrentabilität unter den Zinssatz, wirkt derselbe Mechanismus rückwärts und zieht die Eigenkapitalrentabilität schneller nach unten, als das Geschäft sich verschlechtert.</p>
+      <p>Der Zins steht fest, das Ergebnis schwankt. Genau das macht eine hohe Eigenkapitalrentabilität ohne Blick auf den Verschuldungsgrad zur gefährlichsten Zahl des Abschlusses.</p>
+    </div>
+  </div>
+  <div class="readme" style="margin-top:16px">
+    <b>Im Fall des Zulieferers.</b> Gesamtkapitalrentabilität 5,2 %, Eigenkapitalrentabilität 8,7 %. Die Differenz kommt aus dem Hebel: Bei einem Verschuldungsgrad von 1,39 und einem Zinsaufwand von 1.000 T€ auf das Fremdkapital arbeitet geliehenes Geld hier mit Gewinn. Fiele das Betriebsergebnis um ein Drittel, drehte sich das Verhältnis um.
+  </div>
+
+  <h2 class="sec">Das Du-Pont-Schema</h2>
+  <p class="sub">Die älteste Kennzahlenpyramide, 1919 bei der Du-Pont-Gesellschaft entstanden und bis heute die klarste. Sie zerlegt eine Zahl in zwei Ursachen.</p>
+  <div class="merk">
+    <h3>Return on Investment = Umsatzrentabilität × Kapitalumschlag</h3>
+    <dl>
+      <dt>Die Zerlegung</dt><dd><span class="m" style="font-family:var(--mono);font-size:.82rem">Ergebnis ÷ Kapital = (Ergebnis ÷ Umsatz) × (Umsatz ÷ Kapital)</span> — der Umsatz kürzt sich weg, und übrig bleiben zwei Fragen statt einer.</dd>
+      <dt>Erste Ursache: die Marge</dt><dd>Wie viel bleibt je Euro Umsatz übrig? Daran arbeiten Einkauf, Fertigung und Preisgestaltung.</dd>
+      <dt>Zweite Ursache: der Umschlag</dt><dd>Wie oft wird das eingesetzte Kapital im Jahr umgesetzt? Daran arbeiten Lagerhaltung, Forderungsmanagement und die Frage, ob eine Maschine gekauft oder gemietet wird.</dd>
+      <dt>Warum das etwas ändert</dt><dd>Zwei Unternehmen mit demselben Return on Investment können völlig verschieden aufgestellt sein. Der Discounter erreicht ihn über den Umschlag, der Spezialmaschinenbauer über die Marge. Eine Maßnahme, die beim einen wirkt, ist beim anderen wirkungslos.</dd>
+      <dt>Wo es endet</dt><dd>Das Schema ist ein Rechenzusammenhang und kein Ursachenmodell. Es sagt, welcher der beiden Faktoren sich verändert hat, und niemals warum. Die Antwort darauf steht in keiner Kennzahl.</dd>
+    </dl>
+  </div>
+  <p class="sub" style="margin-top:14px">Der Zulieferer kommt auf eine Umsatzrentabilität von 2,3 % und einen Kapitalumschlag von 1,56 — zusammen ein Return on Investment von 3,7 %. Beide Faktoren sind für einen Fertiger mit hoher Materialquote typisch. Wer hier etwas verbessern will, sieht zuerst auf die Materialquote von 54,3 %: Ein Prozentpunkt weniger entspräche fast 1.000 T€ Ergebnis.</p>
+
+  <h2 class="sec">Die Aufwandsquoten</h2>
+  <p class="sub">Streng genommen keine Rentabilitäten. Sie stehen hier, weil sie erklären, wohin der Umsatz geht — und weil sie sich nur aus einem Gesamtkostenverfahren bilden lassen.</p>
+  <ul>
+    <li><b>Materialquote</b> = Materialaufwand ÷ Umsatzerlöse. Bei einem Zulieferer der größte Posten überhaupt. Steigt sie bei gleichem Umsatz, liegt es an Einkaufspreisen, an Ausschuss oder an einer veränderten Fertigungstiefe — drei sehr verschiedene Gespräche.</li>
+    <li><b>Personalquote</b> = Personalaufwand ÷ Umsatzerlöse. Gegenläufig zur Materialquote: Wer mehr selbst fertigt, hat weniger Material und mehr Personal. Deshalb werden die beiden zusammen gelesen.</li>
+    <li><b>Abschreibungsquote</b> = Abschreibungen ÷ Umsatzerlöse. Ein Hinweis auf die Anlagenintensität aus anderer Richtung. Fällt sie über Jahre, wird womöglich zu wenig investiert.</li>
+    <li><b>Aus einem Umsatzkostenverfahren</b> lassen sich diese drei nicht bilden — dort steht der Aufwand nach Funktionen. Die Beträge finden sich dann im Anhang nach § 285 Nr. 8 HGB.</li>
+  </ul>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Eine hohe Eigenkapitalrentabilität kann aus gutem Geschäft kommen oder aus dünnem Eigenkapital. <b>Sie allein verrät nicht, welches von beidem.</b> Deshalb wird sie nie ohne den Verschuldungsgrad gelesen.</p>
   </div>
 </section>
 
-<section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e" hidden>
-  <p class="claim">Das Auswertungsblatt: eigene Werte eintragen oder aus den Vormodulen übernehmen, Kennzahlen im Zeitvergleich.</p>
+<!-- ==================== LEKTION 05 · DEINE ZAHLEN AUSWERTEN ==================== -->
+<section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e">
+  <p class="claim">Zwei Spalten, zwei Jahre. Trag die Grundgrößen ein, lade sie aus den Dateien der ersten beiden Module, oder nimm das Beispiel. Die <b>siebzehn Kennzahlen</b> darunter rechnen mit, und jede zeigt die Veränderung gegenüber dem Vorjahr.</p>
 
-  <div class="readme"><b>Diese Lektion ist noch nicht geschrieben.</b> Die Gliederung steht, der Text kommt. Was hier entstehen soll, sagt der Satz darüber.</div>
+  <h2 class="sec">Die Grundgrößen</h2>
+  <p class="sub">Alles in <b>vollen Tausend Euro</b>. Was sich errechnen lässt, steht auf farbigem Grund und hat kein Eingabefeld — Bilanzsumme, Umlaufvermögen und langfristiges Fremdkapital ergeben sich aus dem Übrigen.</p>
+
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Blatt">
+      <button id="kzBsp" type="button">Beispiel laden</button>
+      <button id="kzLeer" type="button">Leeren</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="kzStand"></span></p>
+  </div>
+
+  <div class="kzg" id="kzForm">
+    <div class="kzkopf">
+      <h3>Grundgrößen in T€</h3>
+      <span class="jh">Berichtsjahr</span>
+      <span class="jh">Vorjahr</span>
+    </div>
+    <div id="kzZeilen"></div>
+  </div>
+
+  <h2 class="sec">Aus den Vormodulen einlesen</h2>
+  <p class="sub">Die Bilanz aus Modul 01 und die Gewinn- und Verlustrechnung aus Modul 02 speichern als JSON. Hier werden sie wieder eingelesen: Das Blatt erkennt an der Kennung in der Datei, was es vor sich hat, und füllt die Spalte, die Du vorher wählst.</p>
+  <div class="bilout">
+    <div class="wsbar" style="margin-bottom:12px">
+      <div class="seg" id="kzJahr" role="group" aria-label="Zielspalte">
+        <button type="button" data-jahr="j0" aria-pressed="true">In das Berichtsjahr</button>
+        <button type="button" data-jahr="j1" aria-pressed="false">In das Vorjahr</button>
+      </div>
+      <div class="seg" role="group" aria-label="Datei">
+        <button id="kzLoad" type="button">Datei einlesen</button>
+        <button id="kzSave" type="button">Auswertung speichern</button>
+      </div>
+    </div>
+    <input type="file" id="kzDatei" accept="application/json,.json" hidden aria-hidden="true">
+    <p class="sub" style="margin:0 0 12px">Eine Bilanzdatei füllt die Posten der Aktiv- und Passivseite, eine Rechnung die Erfolgsgrößen. Für zwei Jahre liest Du viermal ein: Bilanz und Rechnung je Spalte.</p>
+    <p class="bilmsg" id="kzMsg"></p>
+  </div>
+
+  <h2 class="sec">Die Kennzahlen</h2>
+  <p class="sub">Drei Gruppen in der Reihenfolge der Lektionen 02 bis 04. Die Zahl in der Pille ist die Veränderung gegenüber dem Vorjahr; grün heißt nicht automatisch gut, sie zeigt die Richtung, die für diese Kennzahl die günstigere ist.</p>
+  <div id="kzAus"></div>
+
+  <h2 class="sec">Die Auswertung mitnehmen</h2>
+  <p class="sub">Auch dieses Blatt speichert von selbst nichts. Der Text unten enthält Grundgrößen und Kennzahlen für beide Jahre.</p>
+  <div class="bilout">
+    <div class="wsbar" style="margin-bottom:12px">
+      <div class="seg" role="group" aria-label="Text">
+        <button id="kzGo" type="button">Auswertung als Text</button>
+        <button id="kzCopy" type="button">In die Zwischenablage</button>
+      </div>
+    </div>
+    <label class="hint" for="kzOut" style="margin:0 0 6px;display:block">Ergebnis</label>
+    <textarea id="kzOut" readonly aria-label="Die Auswertung als Text"></textarea>
+    <p class="bilmsg" id="kzMsg2"></p>
+  </div>
+
+  <h2 class="sec">Was dieses Blatt nicht kann</h2>
+  <p class="sub">Damit Du weißt, wo die Übung endet.</p>
+  <ul>
+    <li><b>Es bereinigt nicht.</b> Ausstehende Einlagen, ein aktivierter Firmenwert, selbst geschaffene Schutzrechte — all das gehört vor der Analyse angesehen und gegebenenfalls aus dem Eigenkapital gerechnet. Das Blatt nimmt die Zahlen, wie sie kommen.</li>
+    <li><b>Es kennt keine Fälligkeiten.</b> Die Aufteilung des Fremdkapitals nach Restlaufzeit ist eine Eingabe und keine Rechnung. Der Vorschlag beim Einlesen einer Bilanzdatei ersetzt keinen Blick in den Verbindlichkeitenspiegel.</li>
+    <li><b>Es hat keine Branchenwerte.</b> Die genannten Anhaltswerte sind Erfahrungswerte. Wer einen echten Maßstab braucht, holt sich die Kennzahlen der Deutschen Bundesbank oder die Abschlüsse zweier Wettbewerber aus dem Unternehmensregister.</li>
+    <li><b>Es rechnet mit zwei Jahren.</b> Für eine Zeitreihe, aus der sich ein Trend ablesen lässt, sind fünf das Minimum. Zwei zeigen eine Differenz, kein Muster.</li>
+  </ul>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Der eigentliche Gewinn dieses Blattes liegt nicht in den siebzehn Zahlen. Er liegt in den <b>drei bis vier Stellen</b>, an denen sich zwischen den Jahren etwas bewegt hat — und in der Frage, die Du daraufhin stellst.</p>
   </div>
 </section>
 
-<section class="panel" id="p-f" role="tabpanel" aria-labelledby="tab-f" hidden>
-  <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen — so wie im ersten Modul des Lernpfads.</p>
+<!-- ==================== LEKTION 06 · QUIZ ==================== -->
+<section class="panel" id="p-f" role="tabpanel" aria-labelledby="tab-f">
+  <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen. Kein Zeitdruck, keine Bewertung, die irgendwo landet — die Begründung steht nach jeder Antwort da, auch nach der richtigen.</p>
 
-  <div class="readme"><b>Der Fragenvorrat entsteht mit dem Inhalt.</b> Er umfasst am Ende mindestens zwanzig Fragen, aus denen beim Laden fünf gezogen werden.</div>
+  <h2 class="sec">Übung</h2>
+  <p class="sub">Die meisten Fehlantworten drehen sich nicht um Formeln. Sie drehen sich darum, welche Frage eine Kennzahl beantwortet und welche eben nicht.</p>
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Übung">
+      <button id="qNew" type="button">Fünf neue Fragen</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="qStand"></span></p>
+  </div>
+  <div class="qwrap" id="quiz"></div>
+  <div id="qResult" style="margin-top:16px"></div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Wer eine Formel vergisst, schlägt sie nach. Wer die <b>Aussage</b> einer Kennzahl verwechselt, trifft eine falsche Entscheidung und merkt es nicht. Deshalb steht die Begründung dabei.</p>
   </div>
 </section>
 
-<section class="panel" id="p-g" role="tabpanel" aria-labelledby="tab-g" hidden>
-  <p class="claim">Was jemand als Erstes tut, der das Gelernte im eigenen Haus anwenden will.</p>
+<!-- ==================== LEKTION 07 · DER ERSTE SCHRITT ==================== -->
+<section class="panel" id="p-g" role="tabpanel" aria-labelledby="tab-g">
+  <p class="claim">Du willst die Kennzahlenanalyse im eigenen Haus einführen und nicht bloß einmal rechnen? Acht Schritte, für die Du zwei Jahresabschlüsse brauchst und einen halben Tag.</p>
 
-  <div class="readme"><b>Der Praxiseinstieg entsteht mit dem Inhalt.</b> Konkrete erste Schritte, dazu ein Glossar zum Nachschlagen.</div>
+  <h2 class="sec">Acht Schritte mit dem eigenen Abschluss</h2>
+  <p class="sub">Jeder Schritt mit dem Grund dahinter und dem Fehler, der an dieser Stelle am häufigsten gemacht wird. Keiner davon braucht Software.</p>
+  <div class="ck10" id="ck8"></div>
+
+  <div class="readme" style="margin-top:18px">
+    <b>Warum acht Kennzahlen reichen.</b> Es gibt Sammlungen mit zweihundert. Wer mit zweihundert anfängt, hört nach dem ersten Quartal auf. Wer mit acht anfängt und sie jedes Quartal erklärt, hat nach einem Jahr etwas, das in einer Geschäftsführungssitzung überlebt. Die Auswahl ist wichtiger als die Menge, und sie ist der schwerere Teil.
+  </div>
+
+  <h2 class="sec">Glossar</h2>
+  <p class="sub">Zum Nachschlagen während der Arbeit. Keine Prüfungsliste.</p>
+  <div class="glos" id="glos"></div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Eine Kennzahl, die niemand erklären kann, wird nicht benutzt. Eine, zu der jemand eine Geschichte erzählen kann, verändert Entscheidungen. <b>Der Unterschied liegt nicht in der Formel.</b></p>
   </div>
 </section>
 
@@ -748,8 +1089,661 @@ Copyright Prof. Dr. Maik Drozdzynski, 2026
 
 <script>
 "use strict";
-const $ = id => document.getElementById(id);
 
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s)
+  .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+
+/* =====================================================================
+   1 · Das Auswertungsblatt
+
+   Zwei Jahre nebeneinander, weil eine Kennzahl ohne Vergleich nichts
+   sagt. Die Grundgroessen sind die kleinste Menge, aus der sich alle
+   fuenfzehn Kennzahlen bilden lassen; alles Weitere wird gerechnet.
+
+   Jede Zeile ist eine von drei Arten:
+     "feld"   Eingabe in beiden Jahresspalten
+     "rechne" gerechnete Zeile, Formel als Funktion ueber die Spalte
+     "kopf"   Zwischenueberschrift ohne Werte
+   ===================================================================== */
+function lesen(s){
+  const t = String(s).replace(/[.\s]/g, "").replace(",", ".").trim();
+  if(t === "" || t === "-") return 0;
+  const v = Number(t);
+  return Number.isFinite(v) ? Math.round(v) : 0;
+}
+const zahl = v => v.toLocaleString("de-DE", {maximumFractionDigits:0});
+const proz = v => v.toLocaleString("de-DE", {minimumFractionDigits:1, maximumFractionDigits:1}) + " %";
+const fakt = v => v.toLocaleString("de-DE", {minimumFractionDigits:2, maximumFractionDigits:2});
+
+const JAHRE = ["j0", "j1"];
+
+const ZEILEN = [
+  {art:"kopf", name:"Aus der Bilanz · Aktivseite"},
+  {art:"feld", id:"AV",  name:"Anlagevermögen"},
+  {art:"feld", id:"VOR", name:"Vorräte"},
+  {art:"feld", id:"FOR", name:"Forderungen und sonstige Vermögensgegenstände"},
+  {art:"feld", id:"WP",  name:"Wertpapiere des Umlaufvermögens"},
+  {art:"feld", id:"KAS", name:"Kassenbestand und Guthaben bei Kreditinstituten"},
+  {art:"feld", id:"AUE", name:"Übrige Aktivposten (Abgrenzung, latente Steuern)"},
+  {art:"rechne", id:"UV", name:"Umlaufvermögen", f:w => w.VOR + w.FOR + w.WP + w.KAS,
+   hin:"Vorräte, Forderungen, Wertpapiere und Zahlungsmittel zusammen."},
+  {art:"rechne", id:"BS", name:"Bilanzsumme", f:w => w.AV + w.VOR + w.FOR + w.WP + w.KAS + w.AUE},
+
+  {art:"kopf", name:"Aus der Bilanz · Passivseite"},
+  {art:"feld", id:"EK",  name:"Eigenkapital"},
+  {art:"feld", id:"FKK", name:"Fremdkapital mit Restlaufzeit bis zu einem Jahr",
+   hin:"Die einzige Angabe, die in der Bilanz nach § 266 HGB nicht steht. Sie kommt aus dem Verbindlichkeitenspiegel im Anhang (§ 285 Nr. 1 HGB); beim Einlesen einer Bilanzdatei macht das Blatt einen Vorschlag."},
+  {art:"rechne", id:"FK",  name:"Fremdkapital", f:w => Math.max(0, w.BS - w.EK)},
+  {art:"rechne", id:"FKL", name:"Langfristiges Fremdkapital", f:w => w.FK - w.FKK},
+
+  {art:"kopf", name:"Aus der Gewinn- und Verlustrechnung"},
+  {art:"feld", id:"UMS", name:"Umsatzerlöse"},
+  {art:"feld", id:"MAT", name:"Materialaufwand",
+   hin:"Nur aus einem Gesamtkostenverfahren ablesbar. Bei einem Umsatzkostenverfahren steht der Betrag im Anhang (§ 285 Nr. 8 HGB)."},
+  {art:"feld", id:"PER", name:"Personalaufwand"},
+  {art:"feld", id:"ABS", name:"Abschreibungen"},
+  {art:"feld", id:"BE",  name:"Betriebsergebnis"},
+  {art:"feld", id:"ZIA", name:"Zinsen und ähnliche Aufwendungen"},
+  {art:"feld", id:"JUE", name:"Jahresüberschuss / Jahresfehlbetrag"}
+];
+
+const EINGABEN = ZEILEN.filter(z => z.art === "feld").map(z => z.id);
+const GERECHNET = ZEILEN.filter(z => z.art === "rechne");
+
+/* Die Zahlen leben hier, nicht im DOM: je Jahr ein Satz Eingaben als
+   Text, damit sich waehrend des Tippens nichts unter den Fingern
+   veraendert. */
+const WERTE = {j0:{}, j1:{}};
+
+/* Ein Satz gerechneter Groessen fuer ein Jahr. Die Reihenfolge in
+   GERECHNET ist die Rechenreihenfolge: FK braucht BS, FKL braucht FK. */
+function groessen(jahr){
+  const w = {};
+  EINGABEN.forEach(id => { w[id] = lesen(WERTE[jahr][id]); });
+  GERECHNET.forEach(z => { w[z.id] = z.f(w); });
+  return w;
+}
+const gefuellt = jahr => EINGABEN.some(id => String(WERTE[jahr][id] == null ? "" : WERTE[jahr][id]).trim() !== "");
+
+/* =====================================================================
+   2 · Die Kennzahlen
+
+   Jede Kennzahl kennt ihre Formel, ihre Einheit und die Richtung, die
+   fuer sie die guenstigere ist. "neutral" heisst: Eine Veraenderung
+   laesst sich ohne Kenntnis des Geschaefts nicht als gut oder schlecht
+   lesen — dann bleibt die Pille grau, statt eine Bewertung zu
+   behaupten, die das Blatt nicht treffen kann.
+   ===================================================================== */
+const P = "proz", F = "fakt", T = "betrag";
+const KZ = [
+  ["Vermögen und Kapital", [
+    ["Anlagenintensität", w => w.BS ? w.AV / w.BS * 100 : null, P, "neutral",
+     "Anlagevermögen ÷ Bilanzsumme",
+     "Wie viel des Vermögens langfristig gebunden ist. Hoch bei Fertigung, niedrig bei Handel."],
+    ["Eigenkapitalquote", w => w.BS ? w.EK / w.BS * 100 : null, P, "hoch",
+     "Eigenkapital ÷ Bilanzsumme",
+     "Der Puffer, den ein Verlust aufzehren kann, bevor die Gläubiger betroffen sind."],
+    ["Verschuldungsgrad", w => w.EK > 0 ? w.FK / w.EK : null, F, "runter",
+     "Fremdkapital ÷ Eigenkapital",
+     "Wie viel Euro Schulden auf einen Euro Eigenkapital kommen."],
+    ["Anlagendeckung I", w => w.AV ? w.EK / w.AV * 100 : null, P, "hoch",
+     "Eigenkapital ÷ Anlagevermögen",
+     "Die goldene Bilanzregel im engen Sinn. Anhaltswert: 100 % und mehr."],
+    ["Anlagendeckung II", w => w.AV ? (w.EK + w.FKL) / w.AV * 100 : null, P, "hoch",
+     "(Eigenkapital + langfr. Fremdkapital) ÷ Anlagevermögen",
+     "Die goldene Bilanzregel im weiten Sinn. Unter 100 % wird Langfristiges kurzfristig finanziert."]
+  ]],
+  ["Liquidität", [
+    ["Liquidität 1. Grades", w => w.FKK ? w.KAS / w.FKK * 100 : null, P, "neutral",
+     "Zahlungsmittel ÷ kurzfr. Fremdkapital",
+     "Anhaltswert 10 bis 30 %. Ein hoher Wert ist keine Auszeichnung: Geld auf dem Konto verdient nichts."],
+    ["Liquidität 2. Grades", w => w.FKK ? (w.KAS + w.WP + w.FOR) / w.FKK * 100 : null, P, "hoch",
+     "(Zahlungsmittel + Wertpapiere + Forderungen) ÷ kurzfr. Fremdkapital",
+     "Anhaltswert um 100 %. Der aussagekräftigste der drei Grade."],
+    ["Liquidität 3. Grades", w => w.FKK ? w.UV / w.FKK * 100 : null, P, "hoch",
+     "Umlaufvermögen ÷ kurzfr. Fremdkapital",
+     "Anhaltswert 150 bis 200 %. Vorräte sind weit von Geld entfernt."],
+    ["Working Capital", w => w.UV - w.FKK, T, "hoch",
+     "Umlaufvermögen − kurzfr. Fremdkapital",
+     "Der langfristig finanzierte Teil des Umlaufvermögens, in Euro statt in Prozent."]
+  ]],
+  ["Rentabilität und Aufwandsstruktur", [
+    ["Umsatzrentabilität", w => w.UMS ? w.JUE / w.UMS * 100 : null, P, "hoch",
+     "Jahresüberschuss ÷ Umsatzerlöse",
+     "Wie viel Cent je Euro Umsatz übrig bleiben. Stark von der Branche abhängig."],
+    ["Eigenkapitalrentabilität", w => w.EK > 0 ? w.JUE / w.EK * 100 : null, P, "hoch",
+     "Jahresüberschuss ÷ Eigenkapital",
+     "Was die Eigentümer auf ihr Kapital verdienen. Nie ohne den Verschuldungsgrad lesen."],
+    ["Gesamtkapitalrentabilität", w => w.BS ? (w.JUE + w.ZIA) / w.BS * 100 : null, P, "hoch",
+     "(Jahresüberschuss + Zinsaufwand) ÷ Bilanzsumme",
+     "Was das arbeitende Kapital erwirtschaftet, gleich wem es gehört. Der faire Vergleich."],
+    ["Kapitalumschlag", w => w.BS ? w.UMS / w.BS : null, F, "hoch",
+     "Umsatzerlöse ÷ Bilanzsumme",
+     "Wie oft das eingesetzte Kapital im Jahr umgesetzt wird. Der zweite Faktor des Du-Pont-Schemas."],
+    ["Return on Investment", w => w.BS ? w.JUE / w.BS * 100 : null, P, "hoch",
+     "Umsatzrentabilität × Kapitalumschlag",
+     "Die Spitze des Du-Pont-Schemas. Dieselbe Zahl wie Jahresüberschuss ÷ Bilanzsumme."],
+    ["Materialquote", w => w.UMS ? w.MAT / w.UMS * 100 : null, P, "runter",
+     "Materialaufwand ÷ Umsatzerlöse",
+     "Bei einem Zulieferer der größte Posten. Zusammen mit der Personalquote lesen."],
+    ["Personalquote", w => w.UMS ? w.PER / w.UMS * 100 : null, P, "runter",
+     "Personalaufwand ÷ Umsatzerlöse",
+     "Gegenläufig zur Materialquote: Wer mehr selbst fertigt, hat weniger Material und mehr Personal."],
+    ["Abschreibungsquote", w => w.UMS ? w.ABS / w.UMS * 100 : null, P, "neutral",
+     "Abschreibungen ÷ Umsatzerlöse",
+     "Die Anlagenintensität aus anderer Richtung. Fällt sie über Jahre, wird womöglich zu wenig investiert."]
+  ]]
+];
+const KZ_ZAHL = KZ.reduce((s, g) => s + g[1].length, 0);
+
+const zeige = (v, art) => v === null ? "—"
+  : art === P ? proz(v) : art === F ? fakt(v) : zahl(Math.round(v)) + " T€";
+
+/* =====================================================================
+   3 · Zeichnen und rechnen
+   ===================================================================== */
+function kzZeichnen(){
+  $("kzZeilen").innerHTML = ZEILEN.map(z => {
+    if(z.art === "kopf") return `<p class="kzgh">${esc(z.name)}</p>`;
+    const hin = z.hin ? `<p class="kzgn">${z.hin}</p>` : "";
+    if(z.art === "feld"){
+      return `<div class="kzgz">
+        <label for="${z.id}_j0">${esc(z.name)}</label>
+        ${JAHRE.map(j => `<input type="text" inputmode="numeric" id="${z.id}_${j}" data-kz="1"
+           data-f="${z.id}" data-j="${j}"
+           value="${esc(WERTE[j][z.id] == null ? "" : WERTE[j][z.id])}"
+           aria-label="${esc(z.name)}, ${j === "j0" ? "Berichtsjahr" : "Vorjahr"}, in Tausend Euro">`).join("")}
+        ${hin}</div>`;
+    }
+    return `<div class="kzgz abgeleitet">
+      <label>${esc(z.name)}</label>
+      ${JAHRE.map(j => `<span class="sum" id="s_${z.id}_${j}">0</span>`).join("")}
+      ${hin}</div>`;
+  }).join("");
+  kzRechne();
+}
+
+function kzRechne(){
+  const g = {j0:groessen("j0"), j1:groessen("j1")};
+  GERECHNET.forEach(z => JAHRE.forEach(j => {
+    const e = $("s_" + z.id + "_" + j); if(e) e.textContent = zahl(g[j][z.id]);
+  }));
+
+  const anzahl = j => EINGABEN.filter(id => String(WERTE[j][id] == null ? "" : WERTE[j][id]).trim() !== "").length;
+  $("kzStand").textContent = anzahl("j0") + " von " + EINGABEN.length + " Grundgrößen im Berichtsjahr · "
+    + anzahl("j1") + " im Vorjahr";
+
+  const vergleich = gefuellt("j1");
+  $("kzAus").innerHTML = KZ.map(([gruppe, liste]) =>
+    `<h3 class="kzgrp">${esc(gruppe)}</h3><div class="kzliste">` + liste.map(([name, f, art, richt, formel, text]) => {
+      const a = f(g.j0), b = vergleich ? f(g.j1) : null;
+      let pille = "";
+      if(a !== null && b !== null){
+        const d = a - b;
+        /* Die Farbe folgt der Richtung, die fuer diese Kennzahl die
+           guenstigere ist. Wo sich das nicht sagen laesst, bleibt sie grau. */
+        const gut = richt === "hoch" ? d > 0 : richt === "runter" ? d < 0 : null;
+        /* Was in der gezeigten Genauigkeit nicht sichtbar waere, ist
+           keine Veraenderung — sonst faerbt sich eine Pille, deren Zahl
+           daneben auf null gerundet dasteht. */
+        const still = Math.abs(d) < (art === T ? 0.5 : 0.005);
+        const kl = still ? "" : gut === true ? " auf" : gut === false ? " ab" : "";
+        const vz = still ? "±" : d > 0 ? "+" : "−";
+        const betrag = art === P ? proz(Math.abs(d)).replace(" %", " Pp.")
+                     : art === F ? fakt(Math.abs(d))
+                     : zahl(Math.round(Math.abs(d))) + " T€";
+        pille = `<span class="kd${kl}">${vz}${betrag}</span>`;
+      }
+      return `<div class="kzk">
+        <p class="kn">${esc(name)}</p>
+        <div class="kzeile"><p class="kw">${zeige(a, art)}</p>${pille}</div>
+        <p class="kvj">${vergleich ? "Vorjahr " + zeige(b, art) : "kein Vorjahr eingetragen"}</p>
+        <p class="kfo">${esc(formel)}</p>
+        <p class="kf">${text}</p>
+      </div>`;
+    }).join("") + `</div>`).join("");
+}
+
+$("kzForm").addEventListener("input", e => {
+  if(!e.target.dataset.kz) return;
+  WERTE[e.target.dataset.j][e.target.dataset.f] = e.target.value;
+  kzRechne();
+});
+
+/* Der Fall ist derselbe Zulieferer fuer Nutzfahrzeugkomponenten wie in
+   den Vormodulen. Das Berichtsjahr sind genau die Zahlen, die dort im
+   Formular stehen; das Vorjahr ist so gewaehlt, dass sich an drei
+   Stellen etwas bewegt: Die Vorraete sind gewachsen, das Eigenkapital
+   auch, und die Materialquote ist gestiegen. */
+const BEISPIEL = {
+  j0:{AV:31700, VOR:14800, FOR:11300, WP:500, KAS:3900, AUE:800,
+      EK:26400, FKK:13200,
+      UMS:98000, MAT:53200, PER:30200, ABS:4900, BE:4450, ZIA:1000, JUE:2300},
+  j1:{AV:30900, VOR:12600, FOR:10800, WP:500, KAS:4600, AUE:750,
+      EK:24900, FKK:12100,
+      UMS:94500, MAT:50100, PER:29400, ABS:4700, BE:4900, ZIA:940, JUE:2650}
+};
+$("kzBsp").addEventListener("click", () => {
+  JAHRE.forEach(j => EINGABEN.forEach(id => {
+    WERTE[j][id] = BEISPIEL[j][id] == null ? "" : zahl(BEISPIEL[j][id]);
+  }));
+  $("kzOut").value = ""; $("kzMsg").textContent = ""; $("kzMsg2").textContent = "";
+  kzZeichnen();
+});
+$("kzLeer").addEventListener("click", () => {
+  JAHRE.forEach(j => EINGABEN.forEach(id => { WERTE[j][id] = ""; }));
+  $("kzOut").value = ""; $("kzMsg").textContent = ""; $("kzMsg2").textContent = "";
+  kzZeichnen();
+});
+
+/* =====================================================================
+   4 · Die Dateien aus den Vormodulen einlesen
+
+   Die Bilanz speichert unter der Kennung "bilanz-hgb", die Gewinn- und
+   Verlustrechnung unter "guv-hgb". Genau dafuer steht das Feld
+   "format" in den Dateien: Das Blatt erkennt daran, was es vor sich
+   hat, statt raten zu muessen.
+
+   Die Falle beim Einlesen der Bilanz: Das Formular dort speichert
+   sowohl den roemischen Sammelposten als auch seine arabische
+   Aufteilung. Wer beides addiert, zaehlt doppelt. Das Feld "tiefe"
+   sagt, welche Ebene gerechnet wurde — genau wie im Formular selbst.
+   ===================================================================== */
+let ZIEL = "j0";
+
+const BIL_GRUPPEN = {
+  AV:  [["aIVG", 4], ["aSAN", 4], ["aFIN", 6]],
+  VOR: [["aVOR", 4]],
+  FOR: [["aFOR", 4]],
+  WP:  [["aWP", 2]],
+  KAS: [["aKAS", 0]],
+  AUE: [["aRAP", 0], ["aLAT", 0]],
+  EK:  [["pGK", 0], ["pKR", 0], ["pGR", 4], ["pGV", 0], ["pJU", 0]]
+};
+/* Posten, die ueblicherweise binnen eines Jahres faellig werden. Der
+   Vorschlag ersetzt keinen Blick in den Verbindlichkeitenspiegel. */
+const KURZ = ["pRST2", "pRST3", "pVBL3", "pVBL4", "pVBL8"];
+
+function gruppenWert(werte, tiefe, basis, n){
+  const da = id => werte[id] != null && Number.isFinite(Number(werte[id]));
+  const kinder = [];
+  for(let i = 1; i <= n; i++) if(da(basis + i)) kinder.push(Number(werte[basis + i]));
+  const summe = kinder.reduce((s, v) => s + v, 0);
+  if(tiefe === "voll" && kinder.length) return summe;
+  if(da(basis)) return Number(werte[basis]);
+  return summe;
+}
+
+function ausBilanz(d){
+  const w = d.werte, t = d.tiefe, raus = {};
+  for(const [ziel, teile] of Object.entries(BIL_GRUPPEN))
+    raus[ziel] = teile.reduce((s, [b, n]) => s + gruppenWert(w, t, b, n), 0);
+  const vorschlag = KURZ.some(id => w[id] != null)
+    ? KURZ.reduce((s, id) => s + (Number(w[id]) || 0), 0) : null;
+  return {werte:raus, vorschlag};
+}
+
+/* Die Staffel der Gewinn- und Verlustrechnung, auf das reduziert, was
+   hier gebraucht wird. Die Vorzeichen sind dieselben wie im Formular
+   des zweiten Moduls. */
+const GUV_BE = {
+  gkv: [["gkUMS",1],["gkBES",1],["gkEIG",1],["gkSBE",1],["gkMAT1",-1],["gkMAT2",-1],
+        ["gkPER1",-1],["gkPER2",-1],["gkABS1",-1],["gkABS2",-1],["gkSBA",-1]],
+  ukv: [["ukUMS",1],["ukHK",-1],["ukVER",-1],["ukVWL",-1],["ukSBE",1],["ukSBA",-1]]
+};
+const GUV_REST = p => [[p+"BET",1],[p+"WPA",1],[p+"ZIE",1],[p+"AFA",-1],[p+"ZIA",-1],
+                       [p+"STE",-1],[p+"SOS",-1]];
+
+function ausGuv(d){
+  const w = d.werte;
+  const hat = p => Object.keys(w).some(k => k.indexOf(p) === 0);
+  const v = (d.verfahren === "gkv" || d.verfahren === "ukv") ? d.verfahren
+          : (hat("gk") ? "gkv" : "ukv");
+  const p = v === "gkv" ? "gk" : "uk";
+  const z = id => Number(w[id]) || 0;
+  const summe = liste => liste.reduce((s, [id, vz]) => s + vz * z(id), 0);
+  const be = summe(GUV_BE[v]);
+  const raus = {UMS:z(p+"UMS"), ZIA:z(p+"ZIA"), BE:be, JUE:be + summe(GUV_REST(p))};
+  if(v === "gkv"){
+    raus.MAT = z("gkMAT1") + z("gkMAT2");
+    raus.PER = z("gkPER1") + z("gkPER2");
+    raus.ABS = z("gkABS1") + z("gkABS2");
+  }
+  return {werte:raus, verfahren:v};
+}
+
+$("kzJahr").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  ZIEL = b.dataset.jahr;
+  [...$("kzJahr").querySelectorAll("button")].forEach(x =>
+    x.setAttribute("aria-pressed", String(x.dataset.jahr === ZIEL)));
+});
+
+$("kzLoad").addEventListener("click", () => { $("kzDatei").value = ""; $("kzDatei").click(); });
+
+$("kzDatei").addEventListener("change", e => {
+  const datei = e.target.files && e.target.files[0];
+  if(!datei) return;
+  const leser = new FileReader();
+  leser.onerror = () => { $("kzMsg").textContent = "Die Datei ließ sich nicht lesen."; };
+  leser.onload = () => {
+    let d;
+    try { d = JSON.parse(leser.result); }
+    catch(err){ $("kzMsg").textContent = "Das ist kein lesbares JSON."; return; }
+    if(!d || typeof d !== "object" || !d.werte || typeof d.werte !== "object"){
+      $("kzMsg").textContent = "In der Datei steht kein Feld „werte“ — sie stammt wohl aus etwas anderem.";
+      return;
+    }
+    const spalte = ZIEL === "j0" ? "Berichtsjahr" : "Vorjahr";
+    const setze = (ziel, obj) => Object.entries(obj).forEach(([id, v]) => {
+      if(EINGABEN.includes(id)) WERTE[ziel][id] = zahl(Math.round(v));
+    });
+
+    if(d.format === "kennzahlen-hgb"){
+      JAHRE.forEach(j => { if(d.werte[j]) setze(j, d.werte[j]); });
+      $("kzOut").value = ""; kzZeichnen();
+      $("kzMsg").textContent = "Auswertung geladen"
+        + (d.erzeugt ? " vom " + d.erzeugt : "") + " · beide Jahre übernommen.";
+      return;
+    }
+    if(d.format === "guv-hgb" || (!d.format && Object.keys(d.werte).some(k => k.indexOf("gk") === 0 || k.indexOf("uk") === 0))){
+      const {werte, verfahren} = ausGuv(d);
+      setze(ZIEL, werte);
+      $("kzOut").value = ""; kzZeichnen();
+      $("kzMsg").textContent = "Gewinn- und Verlustrechnung in das " + spalte + " übernommen · "
+        + (verfahren === "gkv"
+          ? "Gesamtkostenverfahren, Material-, Personalaufwand und Abschreibungen mitgekommen."
+          : "Umsatzkostenverfahren — Material- und Personalaufwand stehen dort nicht in der Rechnung. Sie sind im Anhang anzugeben (§ 285 Nr. 8 HGB) und bleiben hier Handeingabe.");
+      return;
+    }
+    if(d.format === "bilanz-hgb" || Object.keys(d.werte).some(k => k.indexOf("a") === 0 || k.indexOf("p") === 0)){
+      const {werte, vorschlag} = ausBilanz(d);
+      setze(ZIEL, werte);
+      if(vorschlag !== null) WERTE[ZIEL].FKK = zahl(vorschlag);
+      $("kzOut").value = ""; kzZeichnen();
+      $("kzMsg").textContent = "Bilanz in das " + spalte + " übernommen"
+        + (d.tiefe ? " (" + (d.tiefe === "voll" ? "voll gegliedert" : "verkürzt") + ")" : "")
+        + " · " + (vorschlag === null
+          ? "Das kurzfristige Fremdkapital steht nicht in der Bilanz — trag es aus dem Verbindlichkeitenspiegel selbst ein."
+          : "Kurzfristiges Fremdkapital als Vorschlag mit " + zahl(vorschlag)
+            + " T€ gesetzt: Steuer- und sonstige Rückstellungen, Anzahlungen, Lieferungen und Leistungen, sonstige Verbindlichkeiten. Prüf ihn am Verbindlichkeitenspiegel.");
+      return;
+    }
+    $("kzMsg").textContent = "Die Kennung in der Datei sagt nichts, das dieses Blatt kennt.";
+  };
+  leser.readAsText(datei);
+});
+
+$("kzSave").addEventListener("click", () => {
+  if(!gefuellt("j0") && !gefuellt("j1")){
+    $("kzMsg").textContent = "Noch keine Zahl eingetragen — es gäbe nichts zu speichern.";
+    return;
+  }
+  const werte = {};
+  JAHRE.forEach(j => {
+    werte[j] = {};
+    EINGABEN.forEach(id => {
+      const roh = WERTE[j][id];
+      if(roh != null && String(roh).trim() !== "") werte[j][id] = lesen(roh);
+    });
+  });
+  const d = {format:"kennzahlen-hgb", fassung:1,
+             erzeugt:new Date().toISOString().slice(0, 10), einheit:"T€", werte};
+  const blob = new Blob([JSON.stringify(d, null, 2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = "auswertung-" + d.erzeugt + ".json";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+  $("kzMsg").textContent = "Gespeichert als " + a.download + " · beide Jahre.";
+});
+
+/* ---------- Die Auswertung als Text mitnehmen ----------
+   Drei Spalten statt der zwei der Vormodule: Bezeichnung, Berichtsjahr,
+   Vorjahr. Deshalb wird hier rechtsbuendig in feste Spalten gesetzt
+   statt mit einem Fuellstrich gearbeitet. */
+const BR = 96, SP = 16;
+function kzText(){
+  const zeile = (a, b, c) => a + " ".repeat(Math.max(2, BR - 2 * SP - a.length))
+    + String(b).padStart(SP) + String(c).padStart(SP);
+  const strich = n => "".padEnd(BR, n);
+  const g = {j0:groessen("j0"), j1:groessen("j1")};
+  const vergleich = gefuellt("j1");
+  const vj = s => vergleich ? s : "—";
+
+  let s = zeile("JAHRESABSCHLUSSANALYSE", "Berichtsjahr", "Vorjahr") + "\n" + strich("=") + "\n";
+  s += "Alle Beträge in T€.\n\n";
+  s += "GRUNDGRÖSSEN\n";
+  for(const z of ZEILEN){
+    if(z.art === "kopf"){ s += "\n  " + z.name.toUpperCase() + "\n"; continue; }
+    s += zeile("    " + z.name, zahl(g.j0[z.id]), vj(zahl(g.j1[z.id]))) + "\n";
+  }
+  s += "\n" + strich("=") + "\n";
+  for(const [gruppe, liste] of KZ){
+    s += "\n" + gruppe.toUpperCase() + "\n";
+    for(const [name, f, art] of liste){
+      const a = f(g.j0), b = vergleich ? f(g.j1) : null;
+      s += zeile("    " + name, zeige(a, art), b === null ? "—" : zeige(b, art)) + "\n";
+    }
+  }
+  s += "\nErzeugt im Modul „Jahresabschlussanalyse mit Kennzahlen“.\n";
+  return s;
+}
+$("kzGo").addEventListener("click", () => { $("kzOut").value = kzText(); $("kzMsg2").textContent = ""; });
+$("kzCopy").addEventListener("click", () => {
+  if(!$("kzOut").value) $("kzOut").value = kzText();
+  const feld = $("kzOut");
+  feld.removeAttribute("readonly");
+  feld.select(); feld.setSelectionRange(0, feld.value.length);
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch(err) { ok = false; }
+  feld.setAttribute("readonly", "");
+  if(ok){ $("kzMsg2").textContent = "Kopiert."; return; }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(feld.value)
+      .then(() => { $("kzMsg2").textContent = "Kopiert."; })
+      .catch(() => { $("kzMsg2").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand."; });
+  } else {
+    $("kzMsg2").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand.";
+  }
+});
+kzZeichnen();
+
+/* =====================================================================
+   5 · Acht Schritte mit dem eigenen Abschluss
+   ===================================================================== */
+const CHECK8 = [
+  ["Besorg Dir zwei aufeinanderfolgende Jahresabschlüsse",
+   "Einer reicht nicht. Bei einer Kapitalgesellschaft stehen beide im Unternehmensregister, sonst fragst Du die Buchhaltung. Den Anhang brauchst Du mit, wegen der Restlaufzeiten.",
+   "Es wird mit dem laufenden Jahr angefangen, weil es das aktuelle ist. Ohne Vorjahr entsteht eine Liste von Zahlen, aus der sich keine einzige Frage ableiten lässt."],
+  ["Bereinige, bevor Du rechnest",
+   "Ausstehende Einlagen, ein aktivierter Firmenwert, selbst geschaffene Schutzrechte, eigene Anteile: Jede dieser Positionen verändert das Eigenkapital und damit die Hälfte aller Kennzahlen. Entscheide je Position, ob sie drin bleibt, und schreib die Entscheidung auf.",
+   "Es wird sofort gerechnet. Ein Jahr später weiß niemand mehr, ob der Firmenwert im Eigenkapital steckte, und die Zeitreihe ist wertlos."],
+  ["Hol die Restlaufzeiten aus dem Verbindlichkeitenspiegel",
+   "§ 285 Nr. 1 HGB verlangt die Aufgliederung im Anhang. Ohne sie gibt es keine Anlagendeckung II und keinen einzigen Liquiditätsgrad — also die Hälfte der Aussagekraft.",
+   "Das gesamte Fremdkapital wird als kurzfristig gerechnet, weil die Angabe fehlt. Danach sieht jedes Unternehmen zahlungsunfähig aus."],
+  ["Wähl acht Kennzahlen aus und begründe jede",
+   "Zwei zur Kapitalstruktur, zwei zur Fristigkeit, zwei zur Liquidität, zwei zur Rentabilität. Zu jeder ein Satz: Welche Entscheidung würde sich ändern, wenn sie sich um zehn Prozent verschlechtert?",
+   "Es werden alle gerechnet, die das Programm hergibt. Fünfzig Kennzahlen ohne Auswahl sind dasselbe wie keine: Niemand weiß, wo er hinsehen soll."],
+  ["Rechne sie für beide Jahre und markier die drei größten Veränderungen",
+   "Nicht die größten Werte, die größten Veränderungen. Genau dort steht die Geschichte des Jahres, und auf drei Punkte lässt sich ein Gespräch führen.",
+   "Es wird die Kennzahl mit dem auffälligsten absoluten Wert herausgegriffen. Die war im Vorjahr schon so und ist deshalb keine Nachricht."],
+  ["Such zu jeder Veränderung die Ursache in der Rechnung, nicht in der Kennzahl",
+   "Eine gefallene Umsatzrentabilität hat einen Grund im Material, im Personal oder im Preis. Geh von der Kennzahl in die Gewinn- und Verlustrechnung zurück, bis Du auf einen Posten zeigen kannst.",
+   "Es bleibt bei der Feststellung „die Marge ist gesunken“. Das ist keine Erkenntnis, das ist die Zahl noch einmal in Worten."],
+  ["Besorg Dir einen Maßstab von außen",
+   "Zwei Wettbewerber aus dem Unternehmensregister oder die Verhältniszahlen der Deutschen Bundesbank. Ohne Maßstab bleibt jede Beurteilung eine Vermutung.",
+   "Es werden Faustwerte aus einem Lehrbuch angesetzt. Eine Eigenkapitalquote von 30 % ist im Maschinenbau dünn und im Handel ordentlich."],
+  ["Leg das Blatt als Vorlage ab und wiederhol es jedes Quartal",
+   "Der Wert entsteht durch Wiederholung. Nach vier Quartalen hast Du eine Reihe, und ab da erkennst Du eine Abweichung, bevor sie im Jahresabschluss steht.",
+   "Die Analyse wird einmal gemacht, präsentiert und abgelegt. Beim nächsten Mal fängt jemand von vorn an und rechnet anders, also lässt sich nichts vergleichen."]
+];
+$("ck8").innerHTML = CHECK8.map(([t, p, f]) =>
+  `<div class="ckitem"><h3>${esc(t)}</h3><p>${p}</p>
+     <p class="trap"><b>Typischer Fehler:</b> ${f}</p></div>`).join("");
+
+/* =====================================================================
+   6 · Glossar
+   ===================================================================== */
+const GLOSSAR = [
+  ["Kennzahl", "Eine Verhältniszahl aus zwei Größen des Abschlusses. Sie verdichtet und verliert dabei alles, was nicht in die Formel passt."],
+  ["Aufbereitung", "Die Arbeit vor dem Rechnen: umgliedern, bereinigen, nach Fristigkeit ordnen. Sie entscheidet über den Wert jeder folgenden Zahl."],
+  ["Zeitvergleich", "Dieselbe Kennzahl über mehrere Jahre. Der am leichtesten zu beschaffende und deshalb häufigste Vergleich."],
+  ["Betriebsvergleich", "Dieselbe Kennzahl bei einem Wettbewerber. Aussagekräftig nur bei ähnlicher Größe und Fertigungstiefe."],
+  ["Anlagenintensität", "Anlagevermögen ÷ Bilanzsumme. Ein Maß für die Bindung des Vermögens und damit für die Fixkostenlast."],
+  ["Eigenkapitalquote", "Eigenkapital ÷ Bilanzsumme. Der Verlustpuffer vor den Gläubigern."],
+  ["Verschuldungsgrad", "Fremdkapital ÷ Eigenkapital. Dieselbe Information wie die Quote, in schärferer Skala."],
+  ["Goldene Bilanzregel", "Langfristig Gebundenes soll langfristig finanziert sein. Im engen Sinn nur aus Eigenkapital, im weiten auch aus langfristigem Fremdkapital."],
+  ["Anlagendeckung I und II", "Die beiden Ausprägungen dieser Regel als Kennzahl. Der zweite Grad ist der praxistaugliche."],
+  ["Fristenkongruenz", "Die Übereinstimmung von Kapitalbindungsdauer und Kapitalüberlassungsdauer. Der Kern der Finanzierungsregeln."],
+  ["Liquiditätsgrade", "Drei Quoten aus Teilen des Umlaufvermögens und dem kurzfristigen Fremdkapital. Sie messen Bestände, wo Fälligkeiten gebraucht würden."],
+  ["Working Capital", "Umlaufvermögen − kurzfristiges Fremdkapital. Derselbe Sachverhalt wie die Liquidität dritten Grades, in Euro."],
+  ["Umsatzrentabilität", "Jahresüberschuss ÷ Umsatzerlöse. Die branchenabhängigste aller Kennzahlen."],
+  ["Eigenkapitalrentabilität", "Jahresüberschuss ÷ Eigenkapital. Steigt auch dann, wenn nur das Eigenkapital schrumpft."],
+  ["Gesamtkapitalrentabilität", "(Jahresüberschuss + Zinsaufwand) ÷ Bilanzsumme. Der von der Finanzierung unabhängige Vergleich."],
+  ["Leverage-Effekt", "Der Hebel der Verschuldung auf die Eigenkapitalrentabilität. Er wirkt in beide Richtungen."],
+  ["Kapitalumschlag", "Umsatzerlöse ÷ Bilanzsumme. Wie oft das eingesetzte Kapital im Jahr umgesetzt wird."],
+  ["Du-Pont-Schema", "Die Zerlegung des Return on Investment in Umsatzrentabilität und Kapitalumschlag. Die älteste Kennzahlenpyramide, 1919 entstanden."],
+  ["Return on Investment", "Ergebnis ÷ eingesetztes Kapital. Die Spitze des Du-Pont-Schemas."],
+  ["Verbindlichkeitenspiegel", "Die Aufgliederung der Verbindlichkeiten nach Restlaufzeit im Anhang (§ 285 Nr. 1 HGB). Ohne ihn keine Liquiditätsanalyse."]
+];
+$("glos").innerHTML = GLOSSAR.map(([b, t]) => `<div><b>${esc(b)}</b> — ${t}</div>`).join("");
+
+/* =====================================================================
+   7 · Uebung: fuenf Fragen, zufaellig aus dem Vorrat
+   ===================================================================== */
+const FRAGEN = [
+  ["Was leistet eine Kennzahl, was ein einzelner Betrag nicht leistet?",
+   ["Sie macht zwei verschieden große Unternehmen vergleichbar","Sie ist genauer als der Betrag","Sie ist gesetzlich vorgeschrieben","Sie ist unabhängig von Bilanzierungswahlrechten"], 0,
+   "Absolute Beträge lassen sich zwischen verschieden großen Häusern nicht vergleichen, Verhältniszahlen schon. Genauer wird dabei nichts — im Gegenteil, es geht Information verloren."],
+  ["Welcher Vergleich führt am unmittelbarsten zu einer Maßnahme?",
+   ["Der Soll-Ist-Vergleich","Der Zeitvergleich","Der Branchenvergleich","Der Betriebsvergleich"], 0,
+   "Beim Soll-Ist-Vergleich steht die Erwartung schon fest, also ist die Abweichung selbst der Handlungsbedarf. Die anderen drei sagen zuerst nur, wo man steht."],
+  ["Warum ist eine Eigenkapitalquote auf Buchwerten oft zu niedrig?",
+   ["Weil stille Reserven in alten Vermögensgegenständen nicht erscheinen","Weil Rückstellungen als Eigenkapital gelten","Weil der Jahresüberschuss fehlt","Weil die Bilanzsumme zu klein ausgewiesen wird"], 0,
+   "Eine 1985 gekaufte Halle steht mit fortgeführten Anschaffungskosten in den Büchern. Das Vorsichtsprinzip des § 252 Abs. 1 Nr. 4 HGB will das so. Umgekehrt hebt ein aktivierter Firmenwert die Quote künstlich."],
+  ["Was misst die Anlagenintensität?",
+   ["Den Anteil des langfristig gebundenen Vermögens","Den Anteil des Eigenkapitals","Die Auslastung der Maschinen","Die Höhe der Abschreibungen"], 0,
+   "Anlagevermögen ÷ Bilanzsumme. Ein hoher Wert bedeutet Substanz und zugleich hohe Fixkosten und wenig Spielraum bei einem Nachfrageeinbruch."],
+  ["Ein Unternehmen hat eine Eigenkapitalquote von 25 %. Wie hoch ist der Verschuldungsgrad?",
+   ["3","0,25","4","0,75"], 0,
+   "Fremdkapital ÷ Eigenkapital = 75 ÷ 25 = 3. Der Verschuldungsgrad ist dieselbe Information in schärferer Skala: Bei 50 % Quote ist er 1, bei 25 % schon 3."],
+  ["Was verlangt die goldene Bilanzregel im engen Sinn?",
+   ["Das Anlagevermögen ist vollständig aus Eigenkapital finanziert","Die Bilanz geht auf beiden Seiten auf","Das Umlaufvermögen übersteigt das Fremdkapital","Der Gewinn deckt die Zinsen"], 0,
+   "Anlagendeckung I von mindestens 100 %. In der Industrie erreichen das wenige; deshalb wird meist mit der weiten Fassung gearbeitet, die langfristiges Fremdkapital einbezieht."],
+  ["Was bedeutet eine Anlagendeckung II unter 100 %?",
+   ["Langfristig Gebundenes ist teilweise kurzfristig finanziert","Das Unternehmen macht Verlust","Das Eigenkapital ist aufgezehrt","Die Liquidität ersten Grades ist zu niedrig"], 0,
+   "Dann hängt das Unternehmen an der Verlängerung seiner kurzfristigen Kredite. Das ist der Weg, auf dem ein gewinnbringendes Haus zahlungsunfähig wird."],
+  ["Woher stammt die Aufteilung des Fremdkapitals nach Restlaufzeit?",
+   ["Aus dem Verbindlichkeitenspiegel im Anhang","Aus der Bilanz nach § 266 HGB","Aus der Gewinn- und Verlustrechnung","Aus dem Lagebericht"], 0,
+   "§ 285 Nr. 1 HGB. Die Bilanz selbst ordnet die Passivseite nach Rechtsnatur und nicht nach Fristigkeit — deshalb lässt sich die Angabe aus ihr nicht errechnen."],
+  ["Welche Posten stehen im Zähler der Liquidität zweiten Grades?",
+   ["Zahlungsmittel, Wertpapiere und Forderungen","Nur Zahlungsmittel","Das gesamte Umlaufvermögen","Umlaufvermögen und Anlagevermögen"], 0,
+   "Alles, was ohne Verkauf von Ware zu Geld wird. Der erste Grad nimmt nur Zahlungsmittel, der dritte auch die Vorräte."],
+  ["Warum ist eine hohe Liquidität ersten Grades keine Auszeichnung?",
+   ["Weil Geld auf dem Konto nichts verdient","Weil sie auf Schulden hinweist","Weil sie die Bilanzsumme erhöht","Weil sie Vorräte enthält"], 0,
+   "Der Anhaltswert liegt bei 10 bis 30 %. Wer dauerhaft deutlich darüber liegt, bindet Kapital ohne Ertrag, statt es zu investieren oder auszuschütten."],
+  ["Was sagt ein positives Working Capital?",
+   ["Ein Teil des Umlaufvermögens ist langfristig finanziert","Das Unternehmen macht Gewinn","Die Eigenkapitalquote liegt über 50 %","Die Forderungen übersteigen die Vorräte"], 0,
+   "Umlaufvermögen minus kurzfristiges Fremdkapital. Dieselbe Aussage wie eine Liquidität dritten Grades über 100 %, nur in Euro statt in Prozent."],
+  ["Warum sagt ein guter Liquiditätsgrad nichts über die Zahlungsfähigkeit im März?",
+   ["Weil die Bilanz einen Stichtag zeigt und keine Fälligkeiten","Weil Liquiditätsgrade nur für Kapitalgesellschaften gelten","Weil der Nenner falsch gewählt ist","Weil Forderungen nicht mitzählen"], 0,
+   "Der Stichtag lässt sich vorbereiten, und der Nenner fasst die Rechnung von morgen mit der vom nächsten Dezember zusammen. Was wirklich hilft, ist eine rollierende Liquiditätsplanung aus Fälligkeiten."],
+  ["Warum werden bei der Gesamtkapitalrentabilität die Fremdkapitalzinsen zum Ergebnis addiert?",
+   ["Weil sie der Ertrag des Fremdkapitals sind und zum arbeitenden Kapital gehören","Weil sie steuerlich abzugsfähig sind","Weil sie sonst doppelt gezählt würden","Weil das HGB es vorschreibt"], 0,
+   "Gefragt ist, was das gesamte Kapital erwirtschaftet, gleich wem es gehört. Wer die Zinsen im Zähler vergisst, bestraft jedes verschuldete Unternehmen doppelt."],
+  ["Wann hebt der Leverage-Effekt die Eigenkapitalrentabilität?",
+   ["Wenn die Gesamtkapitalrentabilität über dem Fremdkapitalzins liegt","Immer, wenn Fremdkapital aufgenommen wird","Wenn die Eigenkapitalquote steigt","Wenn der Umsatz wächst"], 0,
+   "Dann verdient das Unternehmen mit geliehenem Geld mehr, als es dafür zahlt. Fällt die Gesamtkapitalrentabilität unter den Zins, wirkt derselbe Mechanismus rückwärts und umso schneller."],
+  ["Eine Eigenkapitalrentabilität von 25 % — was fehlt zur Beurteilung?",
+   ["Der Verschuldungsgrad","Der Umsatz","Die Rechtsform","Die Zahl der Beschäftigten"], 0,
+   "Die Kennzahl steigt auch dann, wenn nur das Eigenkapital schrumpft. Ein Haus mit dünner Decke zeigt glänzende Werte, bis das erste schlechte Jahr kommt."],
+  ["Wie zerlegt das Du-Pont-Schema den Return on Investment?",
+   ["In Umsatzrentabilität und Kapitalumschlag","In Eigen- und Fremdkapitalrentabilität","In Betriebs- und Finanzergebnis","In Material- und Personalquote"], 0,
+   "Ergebnis ÷ Kapital = (Ergebnis ÷ Umsatz) × (Umsatz ÷ Kapital). Der Umsatz kürzt sich weg, und aus einer Frage werden zwei."],
+  ["Zwei Unternehmen haben denselben Return on Investment. Was folgt daraus?",
+   ["Nichts über ihre Struktur — der eine kann über die Marge, der andere über den Umschlag dorthin kommen","Sie sind gleich rentabel finanziert","Sie haben dieselbe Eigenkapitalquote","Sie arbeiten in derselben Branche"], 0,
+   "Der Discounter erreicht den Wert über den Umschlag, der Spezialmaschinenbauer über die Marge. Eine Maßnahme, die beim einen wirkt, ist beim anderen wirkungslos."],
+  ["Warum lässt sich die Materialquote aus einem Umsatzkostenverfahren nicht bilden?",
+   ["Weil der Aufwand dort nach Funktionen gegliedert ist","Weil das Material im Anlagevermögen steht","Weil die Umsatzerlöse fehlen","Weil sie nur für Handelsbetriebe gilt"], 0,
+   "Dort stehen Herstellungs-, Vertriebs- und Verwaltungskosten. Den Materialaufwand nennt der Anhang nach § 285 Nr. 8 HGB."],
+  ["Was sagt ein Kapitalumschlag von 1,5?",
+   ["Der Umsatz beträgt das Anderthalbfache der Bilanzsumme","Das Lager wird anderthalbmal im Jahr gedreht","Das Eigenkapital reicht für anderthalb Jahre","Die Forderungen sind nach acht Monaten bezahlt"], 0,
+   "Umsatzerlöse ÷ Bilanzsumme. Der Lagerumschlag ist eine andere Kennzahl und hat den Materialaufwand im Zähler."],
+  ["Was gehört zur Aufbereitung eines Abschlusses vor der Analyse?",
+   ["Umgliedern, bereinigen und nach Fristigkeit ordnen","Die Bilanzsumme kürzen","Die Vorjahreswerte weglassen","Die Kennzahlen auswählen"], 0,
+   "Ausstehende Einlagen, ein aktivierter Firmenwert, Forderungen nach Restlaufzeit. Diese Arbeit erscheint in keiner Kennzahl und entscheidet über ihren Wert."],
+  ["Ein Unternehmen verkauft kurz vor dem Stichtag Vorräte mit Verlust gegen bar. Was passiert mit der Liquidität ersten Grades?",
+   ["Sie steigt","Sie fällt","Sie bleibt gleich","Sie wird negativ"], 0,
+   "Zahlungsmittel steigen, das kurzfristige Fremdkapital bleibt gleich. Genau deshalb sind Stichtagskennzahlen gestaltbar — der dritte Grad bliebe fast unverändert."],
+  ["Warum verbietet sich der Schluss von einem hohen Gewinn auf eine gute Liquidität?",
+   ["Weil Erträge und Einzahlungen zeitlich auseinanderfallen","Weil der Gewinn nach Steuern gerechnet wird","Weil die Bilanz Buchwerte zeigt","Weil Rückstellungen Fremdkapital sind"], 0,
+   "Abschreibungen kosten Ergebnis ohne Auszahlung, ein wachsender Forderungsbestand kostet Geld ohne Aufwand. Die meisten Insolvenzen betreffen Unternehmen, die zuletzt einen Gewinn ausgewiesen haben."],
+  ["Wie viele Jahre braucht eine Zeitreihe mindestens, um einen Trend zu zeigen?",
+   ["Etwa fünf","Zwei","Zehn","Eines, wenn es aktuell ist"], 0,
+   "Zwei Jahre zeigen eine Differenz, kein Muster. Ein einzelner Ausreißer ist von einer Entwicklung erst zu unterscheiden, wenn mehrere Punkte danebenliegen."],
+  ["Warum ist eine Auswahl von acht Kennzahlen besser als eine von fünfzig?",
+   ["Weil nur erklärte Kennzahlen benutzt werden","Weil acht schneller zu rechnen sind","Weil das HGB acht vorsieht","Weil fünfzig sich widersprechen würden"], 0,
+   "Wer mit fünfzig anfängt, hört nach einem Quartal auf. Die Auswahl ist wichtiger als die Menge und der schwerere Teil der Arbeit."],
+  ["Was ist beim Zeitvergleich die häufigste Fehlbedienung?",
+   ["Die auffälligste Kennzahl statt der größten Veränderung herauszugreifen","Zu viele Jahre zu betrachten","Prozentwerte statt Beträge zu nehmen","Das Vorjahr zuerst zu lesen"], 0,
+   "Ein Wert, der im Vorjahr schon so war, ist keine Nachricht. Die Geschichte des Jahres steht in den drei größten Veränderungen."]
+];
+let qAktuell = [];
+const QZAHL = 5;
+const mischen = a => {
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+/* Auch die Antworten werden gemischt. Stuenden sie in der Reihenfolge
+   des Vorrats, waere die richtige immer die erste. */
+function qZiehen(){
+  qAktuell = mischen(FRAGEN.map((f, i) => i)).slice(0, QZAHL)
+    .map(i => ({i, ord:mischen(FRAGEN[i][1].map((o, j) => j)), gewaehlt:null}));
+  qRender();
+}
+function qRender(){
+  $("quiz").innerHTML = qAktuell.map((q, n) => {
+    const [text, opts, richtig, begr] = FRAGEN[q.i];
+    return `<div class="qcard">
+      <p class="qn">Frage ${n + 1} von ${QZAHL}</p>
+      <p class="qt">${text}</p>
+      <div class="qopts">${q.ord.map(j => {
+        let kl = "";
+        if(q.gewaehlt !== null) kl = j === richtig ? " right" : (j === q.gewaehlt ? " wrong" : "");
+        return `<button class="qopt${kl}" type="button" data-q="${n}" data-o="${j}"${q.gewaehlt !== null ? " disabled" : ""}>${opts[j]}</button>`;
+      }).join("")}</div>
+      <p class="qfb"${q.gewaehlt === null ? " hidden" : ""}>${
+        q.gewaehlt === null ? "" :
+        (q.gewaehlt === richtig ? "<b style='color:#1E6B47'>Richtig.</b> " : "<b style='color:#9C2F2C'>Daneben.</b> ") + begr}</p>
+    </div>`;
+  }).join("");
+  const fertig  = qAktuell.filter(q => q.gewaehlt !== null).length;
+  const treffer = qAktuell.filter(q => q.gewaehlt === FRAGEN[q.i][2]).length;
+  $("qStand").textContent = fertig === 0
+    ? QZAHL + " Fragen aus einem Vorrat von " + FRAGEN.length
+    : fertig + " von " + QZAHL + " beantwortet · " + treffer + " richtig";
+  $("qResult").innerHTML = fertig < QZAHL ? "" :
+    `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
+      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen — der Vorrat hat " + FRAGEN.length + "." :
+      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben; sie sind der eigentliche Lernstoff." :
+      "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind die Grenze zwischen Eigenkapital- und Gesamtkapitalrentabilität, die Frage, was die Liquiditätsgrade wirklich messen, und die Herkunft der Restlaufzeiten."}</div>`;
+}
+$("quiz").addEventListener("click", e => {
+  const b = e.target.closest(".qopt"); if(!b || b.disabled) return;
+  const q = qAktuell[+b.dataset.q]; if(!q || q.gewaehlt !== null) return;
+  q.gewaehlt = +b.dataset.o;
+  qRender();
+});
+$("qNew").addEventListener("click", qZiehen);
+qZiehen();
+/* =====================================================================
+   8 · Lektionen
+   ===================================================================== */
 const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","d","e","f","g"];
 function select(i){
   tabs.forEach((t, j) => {
@@ -768,6 +1762,65 @@ tabs.forEach((t, i) => {
   });
 });
 select(0);
+
+/* =====================================================================
+   9 · Bloecke zum Auf- und Zuklappen
+   Baut die Abschnitte einer Lektion zur Laufzeit aus der vorhandenen
+   Gliederung: jedes h2.sec eroeffnet einen Block, alles danach bis zum
+   naechsten h2.sec ist sein Inhalt. Was vor dem ersten h2.sec steht -
+   die Kernaussage der Lektion - bleibt immer sichtbar, ebenso ein
+   Pointe-Kasten am Ende. Der erste Block ist offen, die uebrigen zu.
+   ===================================================================== */
+function makeBlocks(panel){
+  if(!panel) return 0;
+  const kinder = [...panel.children];
+  const istKopf = n => n.tagName === "H2" && n.classList.contains("sec");
+  const istEnde = n => n.classList.contains("pointe");
+  let i = 0, nr = 0;
+
+  while(i < kinder.length){
+    if(!istKopf(kinder[i])){ i++; continue; }
+    const h2 = kinder[i], inhalt = [];
+    let j = i + 1;
+    while(j < kinder.length && !istKopf(kinder[j]) && !istEnde(kinder[j])){
+      inhalt.push(kinder[j]); j++;
+    }
+    nr++;
+    const offen = nr === 1, bid = "blk-" + (panel.id || "p") + "-" + nr;
+    const wrap = document.createElement("section");
+    wrap.className = "blk";
+    wrap.dataset.open = String(offen);
+    panel.insertBefore(wrap, h2);
+
+    h2.innerHTML =
+      `<button class="blk-t" type="button" aria-expanded="${offen}" aria-controls="${bid}">
+         <svg class="blk-c" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2 L8.5 6 L4.5 10"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+         <span>${h2.innerHTML}</span>
+       </button>`;
+    wrap.appendChild(h2);
+
+    const body = document.createElement("div");
+    body.className = "blk-b"; body.id = bid;
+    body.hidden = !offen;
+    inhalt.forEach(n => body.appendChild(n));
+    wrap.appendChild(body);
+    i = j;
+  }
+
+  if(nr) panel.addEventListener("click", e => {
+    const b = e.target.closest(".blk-t"); if(!b) return;
+    const wrap = b.closest(".blk"), body = document.getElementById(b.getAttribute("aria-controls"));
+    const offen = wrap.dataset.open === "true";
+    wrap.dataset.open = String(!offen);
+    b.setAttribute("aria-expanded", String(!offen));
+    body.hidden = offen;
+    if(!offen) dispatchEvent(new Event("resize"));
+  });
+  return nr;
+}
+
+document.querySelectorAll(".panel").forEach(makeBlocks);
 </script>
 </body>
 </html>
