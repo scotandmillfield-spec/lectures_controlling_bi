@@ -1909,7 +1909,8 @@ function proPosition(g, m){
     if(!liste.length) return null;
     const w = liste.reduce((a, x) => a + x.w, 0);
     const von = Math.min(...liste.map(x => x.von)), bis = Math.max(...liste.map(x => x.von));
-    return {t:BWA[id].name + " · " + (von === bis ? LANG[von] : LANG[von] + " bis " + LANG[bis]), w};
+    return {t:BWA[id].name + " · " + (von === bis ? LANG[von] : LANG[von] + " bis " + LANG[bis]),
+            w, ust:REGEL[id].ust};
   }).filter(Boolean);
 }
 
@@ -1919,7 +1920,8 @@ function zellHerkunft(g, m){
     if(g.teile.length > 1) return proPosition(g, m);
     for(const id of g.teile)
       for(const b of trefferIn(id, m))
-        if(!istOffen(m, b.von)) zeilen.push({t:quelleName(id, b.von, b.anteil), w:b.w});
+        if(!istOffen(m, b.von))
+          zeilen.push({t:quelleName(id, b.von, b.anteil), w:b.w, ust:REGEL[id].ust});
     if(g.id === "gUMS" && SZEN.aus && m === SZEN.ausM)
       zeilen.push({t:"Forderungsausfall (Szenario)", w:-SZEN.aus});
     return zeilen;
@@ -1932,7 +1934,8 @@ function zellHerkunft(g, m){
     for(const id of IDS){
       if(REGEL[id].richt !== seite) continue;
       for(const b of trefferIn(id, m))
-        if(istOffen(m, b.von)) zeilen.push({t:quelleName(id, b.von, b.anteil), w:b.w});
+        if(istOffen(m, b.von))
+          zeilen.push({t:quelleName(id, b.von, b.anteil), w:b.w, ust:REGEL[id].ust});
     }
     return zeilen;
   }
@@ -1973,14 +1976,51 @@ function zellHerkunft(g, m){
     return zeilen;
   }
   if(g.id === "bEND"){
-    zeilen.push({t:m === START
-        ? (START === 0 ? "Anfangsbestand aus der Bilanz" : "Kontostand Ende " + LANG[START - 1])
-        : "Bestand Ende " + LANG[m - 1],
-      w:m === START ? UNTEN.best : ZLETZT.bEND[m - 1]});
+    /* Drei Anfänge: der Januar des abgelaufenen Teils beginnt beim
+       Bilanzwert, der Startmonat beim Kontoauszug, jeder andere Monat
+       beim Bestand des Vormonats. Den Januar zu vergessen, wenn die
+       Vorschau später beginnt, hiesse auf LANG[-1] zuzugreifen. */
+    if(m === START)
+      zeilen.push({t:START === 0 ? "Anfangsbestand aus der Bilanz"
+                                 : "Kontostand Ende " + LANG[START - 1], w:UNTEN.best});
+    else if(m === 0)
+      zeilen.push({t:"Bilanzwert zum 01.01.", w:BIL.aKAS.wert});
+    else
+      zeilen.push({t:"Bestand Ende " + LANG[m - 1], w:ZLETZT.bEND[m - 1]});
     zeilen.push({t:"Saldo " + LANG[m], w:ZLETZT.sGES[m]});
     return zeilen;
   }
   return zeilen;
+}
+
+/* Eine Herkunftszeile brutto zu zeigen und die Umsatzsteuer zu
+   verschweigen, heißt den Brutto-Betrag neben eine Position zu stellen,
+   die netto ist. Der Schritt gehört sichtbar dazwischen: erst die
+   Nettobeträge, dann die Steuer in einer eigenen Zeile. */
+function nettoZerlegen(zeilen){
+  if(!zeilen.some(x => x.ust)) return zeilen;
+  const out = [];
+  let steuer = 0;
+  const saetze = new Set();
+  for(const x of zeilen){
+    const netto = x.w / (1 + (x.ust || 0) / 100);
+    steuer += x.w - netto;
+    if(x.ust) saetze.add(x.ust);
+    out.push({t:x.t, w:netto});
+  }
+  if(Math.abs(steuer) >= 0.5)
+    out.push({t:(saetze.size === 1 ? "+ " + [...saetze][0] + " % Umsatzsteuer" : "+ Umsatzsteuer"),
+              w:steuer});
+  return out;
+}
+
+/* Ein Anteil von null lässt der Regel-Editor stehen, wenn eine
+   Verteilung auf einen Monat zusammengezogen wird. Im Tooltip hat er
+   nichts zu suchen. Bleibt nichts übrig, bleibt die Liste, wie sie
+   war — ein leerer Kasten wäre schlechter als eine Null. */
+function ohneNullen(zeilen){
+  const da = zeilen.filter(x => Math.round(x.w) !== 0);
+  return da.length ? da : zeilen;
 }
 
 function tipDaten(gid, m){
@@ -1998,7 +2038,7 @@ function tipDaten(gid, m){
     return {th:g.name, p, hz:null,
             extra: zeigSumme ? "Im Vorschauzeitraum: " + zahl(summe) + " T€" : null};
   }
-  const hz = zellHerkunft(g, m);
+  const hz = ohneNullen(nettoZerlegen(zellHerkunft(g, m)));
   /* Aufgerundet wird nur dort, wo die Einzelposten sonst nirgends
      stehen. Bei den drei Summenzeilen sind die Posten selbst Zeilen der
      Tafel — würden sie hier um eins verschoben, widerspräche der
@@ -2039,9 +2079,12 @@ function tipBwa(id, m){
       if(b.von !== m) continue;
       zeilen.push({t:(k > 11 ? "Folgejahr · " + LANG[k - 12] : k < START
                       ? LANG[k] + " (vor dem Start)" : LANG[k])
-                    + (b.anteil < 99.95 ? " · " + ANT(b.anteil) + " %" : ""), w:b.w});
+                    + (b.anteil < 99.95 ? " · " + ANT(b.anteil) + " %" : ""), w:b.w, ust:r.ust});
     }
   const brutto = zeilen.reduce((a, x) => a + x.w, 0);
+  /* Auch hier: oben steht netto, unten fließt brutto. Der Kasten zeigt
+     beides und die Steuer dazwischen. */
+  const liste = ohneNullen(nettoZerlegen(zeilen));
   /* Ein Ist-Monat sagt zusätzlich, was geplant war. Das ist keine
      Abweichungsanalyse — es ist der Grund, warum es zwei Reihen gibt. */
   let nach = null;
@@ -2056,7 +2099,7 @@ function tipBwa(id, m){
   }
   return {th:kopf, p:zahl(roh(id, m)) + " T€ netto · " + zahl(brutto) + " T€ als "
             + richtung + (istPlan(m) ? " (Plan)" : " (Ist)"),
-          hz:zeilen, rund:false, summe:brutto, nach,
+          hz:liste, rund:false, summe:brutto, nach,
           extra:"Regel: " + regelSatz(id)};
 }
 
