@@ -249,8 +249,31 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026`. Keine
-Quellenverzeichnisse, keine Legenden, keine Versionsangaben.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.44`.
+Keine Quellenverzeichnisse, keine Legenden.
+
+### Die Buildnummer
+
+Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
+`<span class='build'>build 0.0.44</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
+`class="…"` zerrisse ihn.
+
+- **Die Zahl ist der Zähler der Merge-Ereignisse auf `main`**, plus eins für den Merge, der
+  gerade bevorsteht: `git rev-list --count --merges origin/main`. Solange es keinen
+  Releasestand gibt, bleibt es bei `0.0.` davor.
+- **Sie wird von Hand gesetzt, im selben PR wie die Änderung** — bewusst ohne Automatik. Eine
+  GitHub Action dafür brächte ein `.github/workflows/` in ein Repository, das absichtlich keine
+  Werkzeuge hat, und einen Bot-Commit nach jedem Merge. Der Weg nach `main` führt ohnehin über
+  genau einen PR.
+- **Alle 24 Dateien bekommen dieselbe Zahl**, auch die, die der PR sonst nicht anfasst. Die
+  Nummer sagt, aus welchem Auslieferungsstand eine Datei stammt — und Module werden einzeln
+  weitergegeben.
+- **Die separat hochgeladene `foerdermittel-radar-elearning-plattform.html` im Wurzelverzeichnis
+  gehört zu keiner der beiden Auslieferungen** und bleibt unberührt.
+- **Sechs Module in `vorlesung/` haben statt der Copyright-Zeile einen erklärenden Fußtext.**
+  Das ist Altbestand. Dort steht die Buildnummer am Ende dieses Textes, damit keine Datei ohne
+  sie bleibt.
 
 ## Aufbau
 
