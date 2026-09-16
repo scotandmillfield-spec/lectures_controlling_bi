@@ -158,8 +158,7 @@ table.tbl tbody tr:hover td{background:var(--sand-xl)}
 .fmark.f4{background:var(--grey-xl);color:#5a5a5c}
 /* ---------- Risk-Map ----------
    Die drei Zonenfarben sind die einzige Stelle, an der Signalfarben
-   auftreten. Dekorativ erscheinen sie nirgends, und die Bedeutung
-   hängt nie an ihnen allein: jede Zone hat ihren Namen, jeder Punkt seine
+   auftreten. Dekorativ erscheinen sie nirgends. Die Bedeutung hängt nie an ihnen allein: jede Zone hat ihren Namen, jeder Punkt seine
    Kennung, jede rote Position zusaetzlich das Warndreieck.          */
 .mapwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
 .mapwrap>*{min-width:0}
@@ -732,8 +731,7 @@ footer a{color:var(--teal-dk)}
 .vsz.stumm{background:var(--grey-xl)}
 .vsz.stumm .j{color:var(--grey);background:var(--grey-xl)}
 
-/* Die Naht zwischen Ist und Plan. Ein Strich durch alle Zeilen, und
-   damit die eine Stelle, an der die Tabelle etwas ueber die Zeit sagt. */
+/* Die Naht zwischen Ist und Plan. Ein Strich durch alle Zeilen. Damit ist es die eine Stelle, an der die Tabelle etwas ueber die Zeit sagt. */
 .vsz .z.naht{border-left:2px solid var(--teal-dk)}
 .vsz .z.vor{color:var(--grey)}
 /* Das Eingabefeld sitzt in der Zelle und behaelt deren Breite. */
@@ -861,8 +859,8 @@ footer a{color:var(--teal-dk)}
 <header class="masthead">
   <p class="eyebrow">Liquiditätsplanung · Modul 04</p>
   <h1>Die <em>Liquiditätsvorschau</em></h1>
-  <p class="lede">Die BWA sagt Dir, was geschehen ist, die Vorschau sagt Dir, wann daraus Geld wird. Dazwischen liegt eine Regel je Position, und darunter stehen vier Posten, die in keiner betriebswirtschaftlichen Auswertung vorkommen. In diesem Modul baust Du beides zusammen und siehst dabei zu, wie die Bestandslinie auf jede Änderung reagiert.</p>
-  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Grundlage sind zwei Reihen zu je zwölf Monaten, nämlich die Planung aus dem Modul „Die BWA lesen“ und die letzten zwölf gebuchten Monate. Ein Startmonat entscheidet darüber, welche Reihe in welcher Spalte erscheint, und ohne Änderung beginnt die Vorschau im Januar. Der Anfangsbestand von 3.900 T€ ist dann der Posten „Kassenbestand und Guthaben bei Kreditinstituten“ aus der Bilanz des ersten Moduls im Lernpfad Bilanzanalyse.</p>
+  <p class="lede">Die BWA sagt Dir, was geschehen ist, die Vorschau sagt Dir, wann daraus Geld wird. Dazwischen liegt eine Regel je Position. Darunter stehen vier Posten, die in keiner betriebswirtschaftlichen Auswertung vorkommen. In diesem Modul baust Du beides zusammen und siehst dabei zu, wie die Bestandslinie auf jede Änderung reagiert.</p>
+  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Grundlage sind zwei Reihen zu je zwölf Monaten, nämlich die Planung aus dem Modul „Die BWA lesen“ und die letzten zwölf gebuchten Monate. Ein Startmonat entscheidet darüber, welche Reihe in welcher Spalte erscheint, wobei die Vorschau ohne Änderung im Januar beginnt. Der Anfangsbestand von 3.900 T€ ist dann der Posten „Kassenbestand und Guthaben bei Kreditinstituten“ aus der Bilanz des ersten Moduls im Lernpfad Bilanzanalyse.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Die Liquiditätsvorschau">
@@ -876,7 +874,7 @@ footer a{color:var(--teal-dk)}
 
 <!-- ==================== LEKTION 01 · VOM ERGEBNIS ZUR ZAHLUNG ==================== -->
 <section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
-  <p class="claim">Eine Liquiditätsvorschau besteht aus <b>drei Teilen</b>, und die meisten Fehler in der Praxis entstehen daraus, dass jemand nur den ersten davon sorgfältig baut und die beiden anderen für Nebensache hält.</p>
+  <p class="claim">Eine Liquiditätsvorschau besteht aus <b>drei Teilen</b>. Die meisten Fehler in der Praxis entstehen daraus, dass jemand nur den ersten davon sorgfältig baut und die beiden anderen für Nebensache hält.</p>
 
   <h2 class="sec">Der Aufbau einer Liquiditätsvorschau</h2>
   <p class="sub">Eine Liquiditätsvorschau setzt sich aus drei Komponenten zusammen. Erstens die BWA samt Regelwerk, zweitens die Ermittlung des Vorsteuer-/Mehrwertsteuersaldos und drittens Elemente, die nicht in der BWA stehen.</p>
@@ -893,7 +891,7 @@ footer a{color:var(--teal-dk)}
     </div>
     <div class="card" style="border-left:3px solid var(--red)">
       <p class="ck">Teil 3: Außerhalb der BWA</p><h3>Was keine Buchhaltung hergibt</h3>
-      <p>Vier Bewegungen gehören hierher: Investition, Darlehensaufnahme, Tilgung und Entnahme. Keine von ihnen erscheint in einer Aufwandsposition der BWA, und trotzdem bewegen alle vier das Konto in einer Größenordnung, die über den Engpass eines Jahres entscheidet.</p>
+      <p>Vier Bewegungen gehören hierher: Investition, Darlehensaufnahme, Tilgung und Entnahme. Keine von ihnen erscheint in einer Aufwandsposition der BWA, obwohl alle vier das Konto in einer Größenordnung bewegen, die über den Engpass eines Jahres entscheidet.</p>
       <p>Diesen Teil pflegst Du von Hand, weil er sich aus keiner Buchhaltung ableiten lässt. Er besteht zu einem guten Teil aus Entscheidungen, die noch niemand getroffen hat.</p>
     </div>
   </div>
@@ -902,7 +900,7 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <h2 class="sec">Was diese Vorschau leistet und was nicht</h2>
-  <p class="sub">Eine Monatsvorschau ist ein Frühwarnsystem. Sie beantwortet einen Teil der Fragen, die im Tagesgeschäft auftauchen, und für den Rest brauchst Du andere Werkzeuge.</p>
+  <p class="sub">Eine Monatsvorschau ist ein Frühwarnsystem, das einen Teil der Fragen aus dem Tagesgeschäft beantwortet, während Du für den Rest andere Werkzeuge brauchst.</p>
   <div class="tscroll" tabindex="0" role="group" aria-label="Leistung und Grenze, seitlich scrollbar">
   <table class="tbl">
     <thead><tr><th>Frage</th><th>Monatsvorschau</th><th>Was stattdessen hilft</th></tr></thead>
@@ -918,16 +916,16 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <h2 class="sec">Der Startpunkt und die offenen Posten</h2>
-  <p class="sub">Eine Vorschau beginnt in einem bestimmten Monat, und alles, was davor liegt, ist zwar längst gebucht, schickt aber trotzdem noch Geld auf das Konto des ersten Vorschaumonats.</p>
+  <p class="sub">Weil eine Vorschau in einem bestimmten Monat beginnt, ist alles, was davor liegt, zwar längst gebucht, schickt aber trotzdem noch Geld auf das Konto des ersten Vorschaumonats.</p>
   <div class="merk">
     <h3>Woher der erste Monat sein Geld bekommt</h3>
     <dl>
       <dt>Die Lage</dt><dd>Der erste Monat einer Vorschau bekommt seine Einzahlungen fast vollständig aus Rechnungen, die <b>vorher</b> geschrieben wurden. Beim Zulieferer sind das bei einem Start im Januar <b>7.195 T€</b> und damit mehr als vier Fünftel aller Januar-Eingänge. Aus dem Januar selbst stammen nur die 20 % der Kunden, die sofort zahlen.</dd>
-      <dt>Ist und Plan</dt><dd>Deshalb hat jede Vorschau eine Naht. Die Monate <b>vor</b> dem Startpunkt zeigen das Ist, also gebuchte Zahlen aus der laufenden Buchhaltung, und ab dem Startpunkt zeigt die Tabelle den Plan. Wer im April plant, arbeitet mit drei Ist- und neun Planmonaten, und die offenen Rechnungen aus Februar und März stehen direkt darüber in derselben BWA.</dd>
-      <dt>In der Wirklichkeit</dt><dd>In der Buchhaltung heißen diese Rechnungen <b>offene Posten</b>. Es sind konkrete Belege mit konkreten Fälligkeiten aus der Debitoren- und Kreditorenbuchhaltung, und für die ersten Wochen einer Vorschau sind sie die bessere Quelle als jede BWA.</dd>
-      <dt>Der Sonderfall Januar</dt><dd>Beginnt die Vorschau im Januar, gibt es in diesem Jahr keinen einzigen Ist-Monat. Die ganze Ist-Reihe liegt dann im Vorjahr, und die offenen Posten stammen aus dessen November und Dezember. Gerechnet ist das richtig, unbequem bleibt es trotzdem, weil in der Tabelle von diesen beiden Monaten nichts zu sehen ist.</dd>
-      <dt>Woran sich das messen lässt</dt><dd>Das Modul rechnet den abgelaufenen Teil mit, und zwar mit denselben Regeln über die Ist-Zahlen. Was die Regeln für den letzten Ist-Monat ausrechnen, steht damit neben dem, was der Kontoauszug sagt. Beim Zulieferer liegen sie nach fünf Monaten um <b>392 T€ zu hoch</b>, weil die Kunden etwas träger zahlen, als die Verteilung annimmt. Diese eine Zahl sagt über die Güte einer Vorschau mehr aus als jede Verfeinerung des oberen Teils.</dd>
-      <dt>Warum das kein Detail ist</dt><dd>Die offenen Posten entstanden unter den <b>alten</b> Bedingungen. Zahlen Deine Kunden künftig später, kommen die alten Rechnungen trotzdem noch zur alten Zeit herein, und die Umstellung kostet Dich einmalig die Differenz. Wer das Jahr im Kreis rechnet, sieht diesen Verlust nicht und hält eine Verschlechterung des Zahlungsverhaltens deshalb für folgenlos.</dd>
+      <dt>Ist und Plan</dt><dd>Deshalb hat jede Vorschau eine Naht. Die Monate <b>vor</b> dem Startpunkt zeigen das Ist, also gebuchte Zahlen aus der laufenden Buchhaltung, während die Tabelle ab dem Startpunkt den Plan zeigt. Wer im April plant, arbeitet mit drei Ist- und neun Planmonaten. Die offenen Rechnungen aus Februar und März stehen dabei direkt darüber in derselben BWA.</dd>
+      <dt>In der Wirklichkeit</dt><dd>In der Buchhaltung heißen diese Rechnungen <b>offene Posten</b>. Es sind konkrete Belege mit konkreten Fälligkeiten aus der Debitoren- und Kreditorenbuchhaltung, die für die ersten Wochen einer Vorschau die bessere Quelle sind als jede BWA.</dd>
+      <dt>Der Sonderfall Januar</dt><dd>Beginnt die Vorschau im Januar, gibt es in diesem Jahr keinen einzigen Ist-Monat. Die ganze Ist-Reihe liegt dann im Vorjahr, sodass die offenen Posten aus dessen November und Dezember stammen. Gerechnet ist das richtig, unbequem bleibt es trotzdem, weil in der Tabelle von diesen beiden Monaten nichts zu sehen ist.</dd>
+      <dt>Woran sich das messen lässt</dt><dd>Das Modul rechnet den abgelaufenen Teil mit, nämlich mit denselben Regeln über die Ist-Zahlen. Was die Regeln für den letzten Ist-Monat ausrechnen, steht damit neben dem, was der Kontoauszug sagt. Beim Zulieferer liegen sie nach fünf Monaten um <b>392 T€ zu hoch</b>, weil die Kunden etwas träger zahlen, als die Verteilung annimmt. Diese eine Zahl sagt über die Güte einer Vorschau mehr aus als jede Verfeinerung des oberen Teils.</dd>
+      <dt>Warum das kein Detail ist</dt><dd>Die offenen Posten entstanden unter den <b>alten</b> Bedingungen. Zahlen Deine Kunden künftig später, kommen die alten Rechnungen trotzdem noch zur alten Zeit herein, sodass die Umstellung Dich einmalig die Differenz kostet. Wer das Jahr im Kreis rechnet, sieht diesen Verlust nicht und hält eine Verschlechterung des Zahlungsverhaltens deshalb für folgenlos.</dd>
     </dl>
   </div>
 
@@ -939,10 +937,10 @@ footer a{color:var(--teal-dk)}
 
 <!-- ==================== LEKTION 02 · DAS REGELWERK ==================== -->
 <section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b">
-  <p class="claim">Vier Regeltypen reichen für jede Position einer BWA. Sie sind der eigentliche Inhalt einer Liquiditätsplanung, und <b>jede einzelne von ihnen ist eine Annahme, die jemand im Unternehmen verantworten muss.</b></p>
+  <p class="claim">Vier Regeltypen reichen für jede Position einer BWA. Sie sind der eigentliche Inhalt einer Liquiditätsplanung, denn <b>jede einzelne von ihnen ist eine Annahme, die jemand im Unternehmen verantworten muss.</b></p>
 
   <h2 class="sec">Die vier Typen</h2>
-  <p class="sub">Jede Zeile der BWA bekommt genau einen dieser Typen zugewiesen, und in der Praxis kommt man mit den vieren aus, während man mit dreien regelmäßig in Verlegenheit gerät.</p>
+  <p class="sub">Jede Zeile der BWA bekommt genau einen dieser Typen zugewiesen, wobei man in der Praxis mit den vieren auskommt, während man mit dreien regelmäßig in Verlegenheit gerät.</p>
   <div class="tscroll" tabindex="0" role="group" aria-label="Die vier Regeltypen, seitlich scrollbar">
   <table class="tbl">
     <thead><tr><th>Typ</th><th>Was er tut</th><th>Wofür er gedacht ist</th><th>Beispiel</th></tr></thead>
@@ -954,7 +952,7 @@ footer a{color:var(--teal-dk)}
     </tbody>
   </table>
   </div>
-  <p class="sub" style="margin-top:12px">Dazu kommt der <b>Quartalsrhythmus</b> als Sonderfall des dritten Typs. Er ist für die Vorauszahlungen auf die Ertragsteuern gedacht, die viermal im Jahr fällig werden (in der Regel im März, Juni, September und Dezember).</p>
+  <p class="sub" style="margin-top:12px">Dazu kommt der <b>Quartalsrhythmus</b> als Sonderfall des dritten Typs, der für die Vorauszahlungen auf die Ertragsteuern gedacht ist, die viermal im Jahr fällig werden (in der Regel im März, Juni, September und Dezember).</p>
 
   <h2 class="sec">Zahlungsziel und Zahlungsverhalten</h2>
   <p class="sub">Das Zahlungsverhalten ist der wichtigste der vier Typen und zugleich der einzige, bei dem eine einzelne Zahl als Parameter nicht ausreicht.</p>
@@ -972,7 +970,7 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <h2 class="sec">Das Regelwerk des Zulieferers</h2>
-  <p class="sub">Achtzehn Positionen bekommen hier achtzehn Regeln. Änderst Du eine davon, rechnet der Planer in Lektion 04 die gesamte Vorschau neu, und die rechte Spalte zeigt Dir jeweils, was die eingestellte Regel bewirkt.</p>
+  <p class="sub">Achtzehn Positionen bekommen hier achtzehn Regeln. Änderst Du eine davon, rechnet der Planer in Lektion 04 die gesamte Vorschau neu, wobei Dir die rechte Spalte jeweils zeigt, was die eingestellte Regel bewirkt.</p>
 
   <div class="wsbar">
     <div class="seg" role="group" aria-label="Regelwerk">
@@ -1010,18 +1008,18 @@ footer a{color:var(--teal-dk)}
   <div class="trio">
     <div class="card" style="border-left:3px solid var(--green)">
       <p class="ck">Erste Bewegung</p><h3>Vom Kunden kommt brutto</h3>
-      <p>Auf 98.000 T€ Umsatz kommen 18.620 T€ Umsatzsteuer. Der Kunde überweist 116.620 T€, und der Mehrbetrag gehört dem Finanzamt.</p>
+      <p>Auf 98.000 T€ Umsatz kommen 18.620 T€ Umsatzsteuer. Der Kunde überweist 116.620 T€, wovon der Mehrbetrag dem Finanzamt gehört.</p>
       <p>Für ein paar Wochen liegt dieser Betrag trotzdem auf Deinem Konto und wirkt wie ein zinsloser Kredit, den man im Tagesgeschäft leicht für eigenes Geld hält.</p>
     </div>
     <div class="card" style="border-left:3px solid var(--red)">
       <p class="ck">Zweite Bewegung</p><h3>An den Lieferanten geht brutto</h3>
       <p>Auf den Materialaufwand und auf einen Teil der übrigen Kosten zahlst Du Vorsteuer, beim Zulieferer 11.187 T€ im Jahr.</p>
-      <p>Auch in dieser Richtung ist das Geld abgeflossen, bevor das Finanzamt es erstattet. Die Zeitverschiebung wirkt also auf beiden Seiten, und je nach Monat hebt sie sich nur zum Teil auf.</p>
+      <p>Auch in dieser Richtung ist das Geld abgeflossen, bevor das Finanzamt es erstattet. Die Zeitverschiebung wirkt also auf beiden Seiten, wobei sie sich je nach Monat nur zum Teil aufhebt.</p>
     </div>
     <div class="card" style="border-left:3px solid var(--ochre)">
       <p class="ck">Dritte Bewegung</p><h3>Die Zahllast geht raus</h3>
       <p>Die Zahllast ist die Umsatzsteuer abzüglich der Vorsteuer und wird am 10. des Folgemonats fällig. Aus dem laufenden Geschäft ergeben sich 7.794 T€ im Jahr, im Schnitt also rund 650 T€ im Monat.</p>
-      <p>Die Vorsteuer auf die Investition von 6.000 T€ senkt die Zahllast des Jahres noch einmal um 1.140 T€ auf <b>6.654 T€</b>, und auch dieser Zusammenhang ist aus keiner BWA abzulesen. Mit einer Dauerfristverlängerung nach § 46 UStDV verschiebt sich die Fälligkeit um einen weiteren Monat, gegen eine Sondervorauszahlung von einem Elftel.</p>
+      <p>Die Vorsteuer auf die Investition von 6.000 T€ senkt die Zahllast des Jahres noch einmal um 1.140 T€ auf <b>6.654 T€</b>, wobei auch dieser Zusammenhang aus keiner BWA abzulesen ist. Mit einer Dauerfristverlängerung nach § 46 UStDV verschiebt sich die Fälligkeit um einen weiteren Monat, gegen eine Sondervorauszahlung von einem Elftel.</p>
     </div>
   </div>
 
@@ -1030,8 +1028,8 @@ footer a{color:var(--teal-dk)}
   <div class="merk">
     <h3>Die Steuer entsteht mit der Rechnung</h3>
     <dl>
-      <dt>Was das heißt</dt><dd>Du schreibst am 20. März eine Rechnung über 100 T€ netto. Die Umsatzsteuer von 19 T€ ist am 10. April fällig. Ob der Kunde bis dahin gezahlt hat, spielt keine Rolle.</dd>
-      <dt>Warum das weh tut</dt><dd>Bei einem Zahlungsverhalten wie beim Zulieferer sind am 10. April erst zwanzig Prozent der Märzrechnungen bezahlt. Die Umsatzsteuer auf die übrigen achtzig Prozent streckst Du aus eigenem Geld vor, und zwar so lange, bis die Kunden zahlen.</dd>
+      <dt>Was das heißt</dt><dd>Du schreibst am 20. März eine Rechnung über 100 T€ netto. Die Umsatzsteuer von 19 T€ ist am 10. April fällig, unabhängig davon, ob der Kunde bis dahin gezahlt hat.</dd>
+      <dt>Warum das weh tut</dt><dd>Bei einem Zahlungsverhalten wie beim Zulieferer sind am 10. April erst zwanzig Prozent der Märzrechnungen bezahlt. Die Umsatzsteuer auf die übrigen achtzig Prozent streckst Du aus eigenem Geld vor, bis die Kunden zahlen.</dd>
       <dt>Bei einem Zahlungsausfall</dt><dd>Wird die Forderung uneinbringlich, lässt sich die Umsatzsteuer nach § 17 UStG berichtigen. Das Geld kommt dann zurück, allerdings später und erst nach einer Anzeige an das Finanzamt.</dd>
       <dt>Die Ausnahme</dt><dd>Die <b>Ist-Versteuerung</b> nach § 20 UStG knüpft an die Zahlung an und nicht an die Rechnung. Sie ist auf Antrag möglich und an Umsatzgrenzen gebunden, was kleineren Unternehmen einen erheblichen Liquiditätsvorteil verschafft. Für den Zulieferer ist sie wegen seiner Umsatzgröße nicht erreichbar.</dd>
       <dt>Was in der Vorschau steht</dt><dd>Das Modul rechnet die Zahllast deshalb aus den <b>BWA-Monaten</b> und nicht aus den Zahlungszeitpunkten. Das ist der eine Punkt, an dem dieses Blatt die Regeln der oberen Hälfte bewusst übergeht.</dd>
@@ -1039,7 +1037,7 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <h2 class="sec">Vierzehn Aussagen einordnen</h2>
-  <p class="sub">Ordne jeden Vorgang danach ein, ob er auf den Bestand wirkt, auf das Ergebnis, auf beides oder auf keines von beiden. Nach jeder Antwort erscheint die Begründung.</p>
+  <p class="sub">Ordne jeden Vorgang danach ein, ob er auf den Bestand wirkt, auf das Ergebnis, auf beides oder auf keines von beiden, wobei nach jeder Antwort die Begründung erscheint.</p>
   <div class="wsbar">
     <div class="seg" role="group" aria-label="Übung">
       <button id="zuNew" type="button">Von vorn</button>
@@ -1056,10 +1054,10 @@ footer a{color:var(--teal-dk)}
 
 <!-- ==================== LEKTION 04 · DER PLANER ==================== -->
 <section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d">
-  <p class="claim">Die folgende Tabelle zeigt oben die BWA und unten die Zahlungen, die aus ihr entstehen, und ein Startmonat teilt beide Hälften in Ist und Plan. Im Grundfall mit Start im Januar rutscht der Bestand im März kurz unter null und fängt sich danach wieder. <b>Die drei Regler weiter unten brechen ihn deutlich stärker ein</b>, und sie greifen dabei ausschließlich rechts der Naht.</p>
+  <p class="claim">Die folgende Tabelle zeigt oben die BWA und unten die Zahlungen, die aus ihr entstehen, wobei ein Startmonat beide Hälften in Ist und Plan teilt. Im Grundfall mit Start im Januar rutscht der Bestand im März kurz unter null und fängt sich danach wieder. <b>Die drei Regler weiter unten brechen ihn deutlich stärker ein</b>, wobei sie ausschließlich rechts der Naht greifen.</p>
 
   <h2 class="sec">Der Startpunkt</h2>
-  <p class="sub">Deine Vorschau fängt in einem bestimmten Monat an, und alles, was davor liegt, ist bereits gelaufen und gebucht.</p>
+  <p class="sub">Deine Vorschau fängt in einem bestimmten Monat an, während alles, was davor liegt, bereits gelaufen und gebucht ist.</p>
 
   <div class="startb">
     <div class="sz">
@@ -1069,8 +1067,8 @@ footer a{color:var(--teal-dk)}
     </div>
     <p class="sh" id="vStartH"></p>
   </div>
-  <p class="sub" style="margin:12px 0 0">Dahinter liegen <b>zwei vollständige Zahlenreihen</b>, eine mit den gebuchten und eine mit den geplanten Werten. Die Monate <b>vor</b> dem Startpunkt zeigen das Ist, also Zahlen, an denen kein Regler mehr etwas ändert, und ab dem Startpunkt zeigt die Tabelle den Plan. Die Naht zwischen beiden ist in der Tabelle markiert. Wer im April plant, arbeitet mit drei Ist-Monaten und neun Planmonaten, und die offenen Rechnungen aus dem März werden erst im April zu Geld. Genau daher stammen die beiden obersten Zeilen der Vorschau.</p>
-  <p class="sub" style="margin:12px 0 0">Das Modul rechnet den abgelaufenen Teil <b>mit</b>, und zwar mit denselben Regeln über die Ist-Zahlen. Dadurch läuft die Bestandslinie über das ganze Jahr und bleibt bis zur Naht gestrichelt. Vor allem aber lässt sich das Blatt damit an der Wirklichkeit messen, denn was die Regeln für das Ende des letzten Ist-Monats ausrechnen, steht neben dem, was der Kontoauszug sagt. <b>Die Differenz zwischen beiden ist die Prognosegüte</b>, und sie ist das Thema des folgenden Moduls.</p>
+  <p class="sub" style="margin:12px 0 0">Dahinter liegen <b>zwei vollständige Zahlenreihen</b>, eine mit den gebuchten und eine mit den geplanten Werten. Die Monate <b>vor</b> dem Startpunkt zeigen das Ist, also Zahlen, an denen kein Regler mehr etwas ändert, während die Tabelle ab dem Startpunkt den Plan zeigt. Die Naht zwischen beiden ist in der Tabelle markiert. Wer im April plant, arbeitet mit drei Ist-Monaten und neun Planmonaten. Die offenen Rechnungen aus dem März werden dabei erst im April zu Geld. Genau daher stammen die beiden obersten Zeilen der Vorschau.</p>
+  <p class="sub" style="margin:12px 0 0">Das Modul rechnet den abgelaufenen Teil <b>mit</b>, nämlich mit denselben Regeln über die Ist-Zahlen. Dadurch läuft die Bestandslinie über das ganze Jahr und bleibt bis zur Naht gestrichelt. Vor allem aber lässt sich das Blatt damit an der Wirklichkeit messen, denn was die Regeln für das Ende des letzten Ist-Monats ausrechnen, steht neben dem, was der Kontoauszug sagt. <b>Die Differenz zwischen beiden ist die Prognosegüte</b>, die zugleich das Thema des folgenden Moduls ist.</p>
 
   <div class="qkopf" style="margin-top:26px">
     <div>
@@ -1083,7 +1081,7 @@ footer a{color:var(--teal-dk)}
       <button id="vqDemo" type="button">Demodaten zurück</button>
     </div>
   </div>
-  <p class="sub" style="margin:0">Beide Reihen umfassen dieselben achtzehn Positionen, wobei das <b>Ist</b> die letzten zwölf gebuchten Monate zeigt und der <b>Plan</b> die Planung des kommenden Jahres. Beide stehen im oberen Teil der Tabelle weiter unten, und welche Reihe in welcher Spalte erscheint, entscheidet der Startpunkt. Eine <span class="m" style="font-family:var(--mono)">bwa-monate</span>-Datei aus dem Vormodul füllt jeweils die Reihe, deren Knopf Du drückst.</p>
+  <p class="sub" style="margin:0">Beide Reihen umfassen dieselben achtzehn Positionen, wobei das <b>Ist</b> die letzten zwölf gebuchten Monate zeigt und der <b>Plan</b> die Planung des kommenden Jahres. Beide stehen im oberen Teil der Tabelle weiter unten, wobei der Startpunkt entscheidet, welche Reihe in welcher Spalte erscheint. Eine <span class="m" style="font-family:var(--mono)">bwa-monate</span>-Datei aus dem Vormodul füllt jeweils die Reihe, deren Knopf Du drückst.</p>
   <p class="sub" style="margin:10px 0 0">Für eigene Zahlen stehen Dir zwei Wege offen. <b>Zahlen bearbeiten</b> macht die Zellen der BWA in der Tabelle beschreibbar und eignet sich für die einzelne Korrektur dort, wo die Zahl ohnehin steht (welche Reihe eine Spalte füllt, sagt Dir der Hinweis neben dem Knopf). <b>Aus Tabelle einfügen</b> übernimmt einen ganzen Block aus Deiner Tabellenkalkulation, weil 216 Zellen niemand von Hand tippt. Den Weg zurück findest Du daneben, denn <b>Ist</b> oder <b>Plan als Vorlage</b> legt die geltenden Zahlen ins Feld, von wo sie sich nach Excel kopieren lassen.</p>
 
   <div class="wsbar" style="margin:14px 0 0">
@@ -1095,7 +1093,7 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <div class="bilout" id="vqEinfBox" hidden>
-    <p class="sub" style="margin:0 0 10px">Markier in Deiner Tabellenkalkulation <b>achtzehn Zeilen mal zwölf Spalten</b> und füge sie hier ein. Es gilt die Reihenfolge der Tafel, und sobald der Positionsname in der ersten Spalte steht, ordnet das Feld danach zu und die Reihenfolge wird gleichgültig. Zeilen, die keine zwölf Zahlen hergeben, übergeht es und meldet das. Den Punkt als Tausendertrenner und das Komma als Dezimaltrenner versteht es ebenfalls.</p>
+    <p class="sub" style="margin:0 0 10px">Markier in Deiner Tabellenkalkulation <b>achtzehn Zeilen mal zwölf Spalten</b> und füge sie hier ein. Es gilt die Reihenfolge der Tafel. Sobald der Positionsname in der ersten Spalte steht, ordnet das Feld danach zu und die Reihenfolge wird gleichgültig. Zeilen, die keine zwölf Zahlen hergeben, übergeht es und meldet das. Den Punkt als Tausendertrenner und das Komma als Dezimaltrenner versteht es ebenfalls.</p>
     <textarea id="vqPaste" aria-label="Zwölf Monatswerte je Position, aus der Tabellenkalkulation eingefügt"></textarea>
     <div class="wsbar" style="margin:12px 0 0">
       <div class="seg" role="group" aria-label="Übernehmen">
@@ -1121,11 +1119,11 @@ footer a{color:var(--teal-dk)}
     </div>
   </div>
   <div class="bilaus" id="vqBilAus"></div>
-  <p class="sub" style="margin:10px 0 0">Die drei Zeilen darüber stehen nur dabei, damit die eine gesuchte Zeile einen Ort bekommt, nämlich <b>B. IV. auf der Aktivseite, ganz unten im Umlaufvermögen</b>. Weiter oben steht Vermögen, das erst über Umwege zu Geld wird, und genau darum geht es im ersten Modul dieses Lernpfads. Beginnt die Vorschau später als im Januar, ist der Anfangsbestand der Kontostand am Ende des letzten Ist-Monats, und der Auszug weist dann auf diesen Monat hin.</p>
+  <p class="sub" style="margin:10px 0 0">Die drei Zeilen darüber stehen nur dabei, damit die eine gesuchte Zeile einen Ort bekommt, nämlich <b>B. IV. auf der Aktivseite, ganz unten im Umlaufvermögen</b>. Weiter oben steht Vermögen, das erst über Umwege zu Geld wird, worum es im ersten Modul dieses Lernpfads geht. Beginnt die Vorschau später als im Januar, ist der Anfangsbestand der Kontostand am Ende des letzten Ist-Monats, worauf der Auszug an dieser Stelle auch hinweist.</p>
   <p class="bilmsg" id="vqMsg"></p>
 
   <h2 class="sec">Der untere Teil</h2>
-  <p class="sub">Hier stehen die vier Posten, die in keiner BWA vorkommen, und Du kannst entweder Deine eigenen Werte eintragen oder die des Falls unverändert stehen lassen.</p>
+  <p class="sub">Hier stehen die vier Posten, die in keiner BWA vorkommen, wobei Du entweder Deine eigenen Werte eintragen oder die des Falls unverändert stehen lassen kannst.</p>
   <div class="bilout" id="vuForm">
     <div class="unten">
       <label for="vuBest" id="vuBestL">Anfangsbestand (Kasse und Bank)</label>
@@ -1157,11 +1155,11 @@ footer a{color:var(--teal-dk)}
       <input type="text" id="vuEnt" inputmode="numeric" value="1.500" aria-label="Entnahme in Tausend Euro">
       <select id="vuEntM" aria-label="Monat der Entnahme"></select>
     </div>
-    <p class="sub" style="margin:12px 0 0">Die Investition erhöht zugleich die Vorsteuer des gewählten Monats, und auch dieser Zusammenhang ist aus keiner BWA abzulesen.</p>
+    <p class="sub" style="margin:12px 0 0">Die Investition erhöht zugleich die Vorsteuer des gewählten Monats, wobei auch dieser Zusammenhang aus keiner BWA abzulesen ist.</p>
   </div>
 
   <h2 class="sec">Die Vorschau</h2>
-  <p class="sub">Die Tabelle hat zwei Hälften. Oben steht die BWA, aus der gerechnet wird, unten stehen die Zahlungen, die daraus entstehen, und beide benutzen dieselben Spalten, damit sich eine Zeile mit dem Finger verfolgen lässt. Alle Beträge stehen in T€. Die Tabelle ist breiter als der Lesebereich und lässt sich seitlich schieben oder mit den Pfeiltasten bewegen. <b>Zeig auf eine Zahl</b>, dann sagt sie Dir im oberen Teil, wohin sie fließt, und im unteren, woher sie kommt, jeweils mit Anteil und Betrag. Der Zeilenname sagt dasselbe für die ganze Zeile und ist mit der Tabulatortaste erreichbar.</p>
+  <p class="sub">In der oberen Hälfte der Tabelle steht die BWA, aus der gerechnet wird, in der unteren stehen die Zahlungen, die daraus entstehen. Beide Hälften benutzen dieselben Spalten, damit sich eine Zeile mit dem Finger verfolgen lässt. Alle Beträge stehen in T€. Die Tabelle ist breiter als der Lesebereich und lässt sich seitlich schieben oder mit den Pfeiltasten bewegen. <b>Zeig auf eine Zahl</b>, dann sagt sie Dir im oberen Teil, wohin sie fließt. Im unteren Teil sagt sie, woher sie kommt, jeweils mit Anteil und Betrag. Der Zeilenname sagt dasselbe für die ganze Zeile und ist mit der Tabulatortaste erreichbar.</p>
 
   <div class="wsbar">
     <div class="seg" role="group" aria-label="Der obere Teil der Tabelle">
@@ -1186,11 +1184,11 @@ footer a{color:var(--teal-dk)}
   <p class="sub" id="vNurH" style="margin:10px 0 0"></p>
 
   <h2 class="sec">Drei Szenarien</h2>
-  <p class="sub">Jeder der folgenden Regler verändert genau eine Annahme, und Du solltest dabei sowohl auf die Kurve als auch auf den Tiefpunkt achten, den der Befund darunter ausweist.</p>
+  <p class="sub">Jeder der folgenden Regler verändert genau eine Annahme, weshalb Du dabei sowohl auf die Kurve als auch auf den Tiefpunkt achten solltest, den der Befund darunter ausweist.</p>
   <div class="szen" id="vSzen">
     <div class="szk">
       <p class="t">Zahlungsverhalten</p>
-      <p class="u">Die Kunden zahlen später als bisher, und der Regler verschiebt die Verteilung aller Einzahlungen um die eingestellte Zahl von Tagen.</p>
+      <p class="u">Die Kunden zahlen später als bisher, wobei der Regler die Verteilung aller Einzahlungen um die eingestellte Zahl von Tagen verschiebt.</p>
       <div class="zeile">
         <input type="range" id="szZiel" min="0" max="60" step="5" value="0" aria-label="Verzögerung der Zahlungseingänge in Tagen">
         <span class="w" id="szZielW">+0 T</span>
@@ -1198,7 +1196,7 @@ footer a{color:var(--teal-dk)}
     </div>
     <div class="szk">
       <p class="t">Umsatz</p>
-      <p class="u">Der Umsatz bricht ein, der Materialaufwand geht anteilig mit, und die Fixkosten bleiben in voller Höhe stehen.</p>
+      <p class="u">Der Umsatz bricht ein und der Materialaufwand geht anteilig mit, während die Fixkosten in voller Höhe stehen bleiben.</p>
       <div class="zeile">
         <input type="range" id="szUms" min="-30" max="10" step="1" value="0" aria-label="Veränderung des Umsatzes in Prozent">
         <span class="w" id="szUmsW">0 %</span>
@@ -1206,7 +1204,7 @@ footer a{color:var(--teal-dk)}
     </div>
     <div class="szk">
       <p class="t">Großkunde fällt aus</p>
-      <p class="u">Eine Forderung wird uneinbringlich, der Betrag fehlt im gewählten Monat, und die Umsatzsteuer darauf kommt erst mit Verzögerung zurück.</p>
+      <p class="u">Eine Forderung wird uneinbringlich, der Betrag fehlt im gewählten Monat, während die Umsatzsteuer darauf erst mit Verzögerung zurückkommt.</p>
       <div class="zeile">
         <input type="range" id="szAus" min="0" max="4000" step="100" value="0" aria-label="Höhe des Zahlungsausfalls in Tausend Euro">
         <span class="w" id="szAusW">0 T€</span>
@@ -1233,7 +1231,7 @@ footer a{color:var(--teal-dk)}
       </div>
     </div>
     <input type="file" id="vDatei" accept="application/json,.json" hidden aria-hidden="true">
-    <p class="sub" style="margin:0 0 12px">Die Datei hat die Kennung <span class="m" style="font-family:var(--mono)">liqui-vorschau</span> und enthält alles, was dieses Blatt ausmacht: das Regelwerk, den unteren Teil und die Grundlage, mit der gerechnet wird. Dasselbe Feld nimmt auch eine <span class="m" style="font-family:var(--mono)">bwa-monate</span>-Datei aus dem Vormodul sowie eine <span class="m" style="font-family:var(--mono)">bilanz-hgb</span>-Datei aus dem Lernpfad Bilanzanalyse entgegen, und welche der drei es ist, entscheidet die Kennung in der Datei selbst. Oben unter „Die Grundlage“ stehen dieselben beiden Wege noch einmal an der Stelle, an der sie wirken.</p>
+    <p class="sub" style="margin:0 0 12px">Die Datei hat die Kennung <span class="m" style="font-family:var(--mono)">liqui-vorschau</span> und enthält alles, was dieses Blatt ausmacht: das Regelwerk, den unteren Teil und die Grundlage, mit der gerechnet wird. Dasselbe Feld nimmt auch eine <span class="m" style="font-family:var(--mono)">bwa-monate</span>-Datei aus dem Vormodul sowie eine <span class="m" style="font-family:var(--mono)">bilanz-hgb</span>-Datei aus dem Lernpfad Bilanzanalyse entgegen. Welche der drei es ist, entscheidet die Kennung in der Datei selbst. Oben unter „Die Grundlage“ stehen dieselben beiden Wege noch einmal an der Stelle, an der sie wirken.</p>
     <label class="hint" for="vOut" style="margin:0 0 6px;display:block">Ergebnis</label>
     <textarea id="vOut" readonly aria-label="Die Vorschau als Text"></textarea>
     <p class="bilmsg" id="vMsg2"></p>
@@ -1247,7 +1245,7 @@ footer a{color:var(--teal-dk)}
 
 <!-- ==================== LEKTION 05 · QUIZ ==================== -->
 <section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e">
-  <p class="claim">Fünf Fragen, die das Modul zufällig aus einem größeren Vorrat zieht. Es gibt weder Zeitdruck noch eine Bewertung, die irgendwo gespeichert wird, und die Begründung erscheint nach jeder Antwort, auch nach einer richtigen.</p>
+  <p class="claim">Fünf Fragen, die das Modul zufällig aus einem größeren Vorrat zieht. Es gibt weder Zeitdruck noch eine Bewertung, die irgendwo gespeichert wird, während die Begründung nach jeder Antwort erscheint, auch nach einer richtigen.</p>
 
   <h2 class="sec">Übung</h2>
   <p class="sub">Erfahrungsgemäß drehen sich die meisten Fehlantworten um die Umsatzsteuer und um den unteren Teil der Vorschau, also um die beiden Bereiche, die eine BWA nicht zeigt.</p>
@@ -1262,13 +1260,13 @@ footer a{color:var(--teal-dk)}
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Wer eine Vorschau liest, liest immer zwei Dinge: die Zahl und die Regel dahinter. <b>Über die Regel lässt sich streiten</b>, und genau dafür steht sie sichtbar in der Tabelle.</p>
+    <p>Wer eine Vorschau liest, liest immer zwei Dinge: die Zahl und die Regel dahinter. <b>Über die Regel lässt sich streiten</b>. Genau dafür steht sie sichtbar in der Tabelle.</p>
   </div>
 </section>
 
 <!-- ==================== LEKTION 06 · DER ERSTE SCHRITT ==================== -->
 <section class="panel" id="p-f" role="tabpanel" aria-labelledby="tab-f">
-  <p class="claim">Für eine eigene Liquiditätsvorschau brauchst Du zwei Jahre BWA, einen aktuellen Kontoauszug und ungefähr einen Arbeitstag, und die folgenden neun Schritte führen Dich in genau dieser Reihenfolge hindurch.</p>
+  <p class="claim">Für eine eigene Liquiditätsvorschau brauchst Du zwei Jahre BWA, einen aktuellen Kontoauszug und ungefähr einen Arbeitstag, wobei die folgenden neun Schritte Dich in genau dieser Reihenfolge hindurchführen.</p>
 
   <h2 class="sec">Neun Schritte mit den eigenen Zahlen</h2>
   <p class="sub">Zu jedem Schritt findest Du den Grund dahinter und den Fehler, der an dieser Stelle in der Praxis am häufigsten vorkommt.</p>
@@ -1291,7 +1289,7 @@ footer a{color:var(--teal-dk)}
 <div class="tip" id="tip" role="status" aria-live="polite"></div>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.46</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.47</span>
 </footer>
 
 </div>
@@ -1389,8 +1387,7 @@ const BWA_START = {
 };
 const BWA = JSON.parse(JSON.stringify(BWA_START));
 
-/* Der Anfangsbestand kommt aus dem Umlaufvermoegen der Bilanz, und
-   zwar aus B. IV. Die drei Zeilen darueber stehen nur dabei, damit die
+/* Der Anfangsbestand kommt aus dem Umlaufvermoegen der Bilanz, naemlich aus B. IV. Die drei Zeilen darueber stehen nur dabei, damit die
    eine einen Ort hat, denn die Vorschau rechnet allein mit aKAS. Die Werte
    sind die des ersten Moduls im Lernpfad Bilanzanalyse. */
 const BIL_START = {
@@ -1403,15 +1400,14 @@ const BIL = JSON.parse(JSON.stringify(BIL_START));
 
 /* Die Kontostaende am Monatsende, wie sie auf dem Auszug stehen. Sie
    sind das Gegenstueck zur Ist-Reihe: Was die Regeln fuer den
-   abgelaufenen Teil ausrechnen, trifft den Kontoauszug nicht genau,
-   und die Differenz waechst ueber die Monate, denn die Kunden zahlen etwas
+   abgelaufenen Teil ausrechnen, trifft den Kontoauszug nicht genau. Die Differenz waechst ueber die Monate, denn die Kunden zahlen etwas
    traeger, als die Verteilung annimmt. Genau diese Differenz ist die
    Pruefung, der eine Vorschau sich stellen muss. */
 const BANK = [3695, 3473, 2969, 3053, 3528, 3871, 3624, 4440, 4361, 4369, 4229, 4180];
 
 /* Woher die Zahlen gerade kommen. Ohne diese beiden Angaben ist am
    Blatt nicht zu erkennen, ob der Leser die Demodaten vor sich hat
-   oder seine eigenen, und dann ist jede Aussage daraus wertlos. */
+   oder seine eigenen. Dann ist jede Aussage daraus wertlos. */
 let BWA_QUELLE = {eigen:false, erzeugt:"", n:0};
 let BIL_QUELLE = {eigen:false, erzeugt:""};
 
@@ -1466,8 +1462,7 @@ let SZEN = {ziel:0, ums:0, aus:0, ausM:8};
 
 /* Der Startmonat. Er teilt das Jahr in Ist und Plan und ist zugleich
    der erste Monat der Vorschau. Bei 0 beginnt sie im Januar; dann gibt
-   es in diesem Jahr keine Ist-Monate, und die offenen Posten kommen aus
-   dem angenommenen Vorjahr. */
+   es in diesem Jahr keine Ist-Monate. Die offenen Posten kommen dann aus dem angenommenen Vorjahr. */
 let START = 0;
 /* Das Jahr steht nur in den Beschriftungen, gerechnet wird mit
    Monatsindizes. */
@@ -1497,8 +1492,7 @@ function verschoben(teile, tage){
 }
 
 /* Ist oder Plan. Der Startmonat teilt das Jahr: Was davor liegt, ist
-   gebucht und unveraenderlich; ab dem Startmonat wird geplant, und nur
-   dort greifen die Szenarien. Ein Monat des Vorjahres (Index kleiner
+   gebucht und unveraenderlich; ab dem Startmonat wird geplant. Nur dort greifen die Szenarien. Ein Monat des Vorjahres (Index kleiner
        null) ist immer Ist. */
 const istPlan = m => m >= START;
 
@@ -1531,8 +1525,7 @@ function wert(id, m){
 
    "basis" verschiebt das gerechnete Jahr: 0 ist das Vorschaujahr, -12
    das Jahr davor. Fuer das Vorjahr stehen dieselben BWA-Zahlen, weil
-   ein Lehrmodul keine zweite Datenreihe hat, und die Annahme steht im
-   Text und im Mouseover.                                             */
+   ein Lehrmodul keine zweite Datenreihe hat. Die Annahme steht im Text und im Mouseover.                                             */
 function beitraege(id, basis){
   const r = REGEL[id], out = new Map();
   if(r.typ === "nie") return out;
@@ -1545,8 +1538,7 @@ function beitraege(id, basis){
     for(let m = 0; m < 12; m++){
       const von = basis + m;
       /* Das laengere Zahlungsziel gilt nur fuer Rechnungen, die noch
-         nicht geschrieben sind. Die alten kommen zur alten Zeit, und genau
-         darin steckt die Einmalwirkung einer Umstellung. */
+         nicht geschrieben sind. Die alten kommen zur alten Zeit. Genau darin steckt die Einmalwirkung einer Umstellung. */
       const teile = (r.richt === "ein" && SZEN.ziel && istPlan(von))
         ? verschoben(r.par.teile, SZEN.ziel) : r.par.teile;
       for(const [v, a] of teile) dazu(von + v, von, a, wert(id, von) * a / 100 * f);
@@ -1603,7 +1595,7 @@ function stroeme(id){
    3 · Die Vorschau rechnen
 
    Die Umsatzsteuer geht einen eigenen Weg: Sie entsteht mit der
-   Rechnung, also im BWA-Monat, und wird am 10. des Folgemonats faellig.
+   Rechnung, also im BWA-Monat. Faellig wird sie am 10. des Folgemonats.
    Deshalb wird sie aus den Nettobetraegen der Monate gerechnet und
    nicht aus den Zahlungszeitpunkten der oberen Haelfte. Das ist die
    Soll-Versteuerung nach § 16 UStG und der Gegenstand von Lektion 03.
@@ -1656,8 +1648,7 @@ function ustLast(m){
   }
   if(istPlan(m)){
     if(m === UNTEN.invM) v += UNTEN.inv * 0.19;
-    /* Ein Zahlungsausfall gibt die Umsatzsteuer nach § 17 UStG zurueck,
-       und zwar mit der Voranmeldung des Monats, in dem er feststeht. */
+    /* Ein Zahlungsausfall gibt die Umsatzsteuer nach § 17 UStG zurueck, naemlich mit der Voranmeldung des Monats, in dem er feststeht. */
     if(SZEN.aus && m === SZEN.ausM) u -= SZEN.aus * 19 / 119;
   }
   return u - v;
@@ -1670,7 +1661,7 @@ function rechne(){
   /* Gerechnet werden alle zwölf Monate. Die Monate vor dem Startpunkt
      sind der abgelaufene Teil: dieselben Regeln, aber über die
      Ist-Reihe und ohne Szenario. Sie leer zu lassen wäre bequem und
-     falsch, denn dort ist etwas passiert, und der Kontostand beweist es. */
+     falsch, denn dort ist etwas passiert. Der Kontostand beweist es. */
   z.gALT = leer(); z.aALT = leer();
   for(const g of GRUPPEN) if(g.teile) z[g.id] = leer();
   const inGruppe = {};
@@ -1701,8 +1692,7 @@ function rechne(){
   if(istPlan(UNTEN.entM)) z.uENT[UNTEN.entM] = UNTEN.ent;
   for(let m = 0; m < 12; m++) z.uTIL[m] = UNTEN.til;
 
-  /* Der Zahlungsausfall mindert die Einzahlung aus Umsatzerloesen im
-     gewaehlten Monat, und zwar brutto. */
+  /* Der Zahlungsausfall mindert die Einzahlung aus Umsatzerloesen im gewaehlten Monat, dies brutto. */
   if(SZEN.aus && istPlan(SZEN.ausM)) z.gUMS[SZEN.ausM] -= SZEN.aus;
 
   /* Salden. */
@@ -1718,8 +1708,7 @@ function rechne(){
   /* Der Bestand in zwei Abschnitten. Der abgelaufene Teil beginnt beim
      Bilanzwert zum 01.01. und endet bei dem, was die Regeln für den
      letzten Ist-Monat ausrechnen. Die Vorschau beginnt beim Kontostand
-     laut Auszug. Beide treffen sich an der Naht, und wo sie es nicht
-     tun, steht dort die interessanteste Zahl dieses Blattes. */
+     laut Auszug. Beide treffen sich an der Naht. Wo sie es nicht tun, steht dort die interessanteste Zahl dieses Blattes. */
   let best = BIL.aKAS.wert;
   for(let m = 0; m < START; m++){ best += z.sGES[m]; z.bEND[m] = best; }
   z.gerechnet = best;
@@ -1836,8 +1825,7 @@ function vqZeichnen(){
     + " · " + n + (n === 1 ? " Monat" : " Monate");
 
   /* Welche Spalte in welche Reihe schreibt, diese Frage stellt sich beim
-     ersten Klick auf „Zahlen bearbeiten“, und dann soll die Antwort
-     schon dastehen. */
+     ersten Klick auf „Zahlen bearbeiten“. Dann soll die Antwort schon dastehen. */
   $("vqBearbH").textContent = START === 0
     ? "Alle zwölf Spalten schreiben in den Plan"
     : LANG[0] + "–" + LANG[START - 1] + " schreiben ins Ist · "
@@ -1855,8 +1843,7 @@ function vqBilZeichnen(){
      Fehler, gegen den dieser Abschnitt gebaut ist. */
   const weicht = UNTEN.best !== BIL.aKAS.wert;
   /* Nur bei einem Start im Januar ist der Bilanzwert zugleich der
-     Anfangsbestand. Wer später beginnt, braucht den Kontostand vom
-     Ende des letzten Ist-Monats, und der steht in keiner Bilanz. */
+     Anfangsbestand. Wer später beginnt, braucht den Kontostand vom Ende des letzten Ist-Monats. Der steht in keiner Bilanz. */
   $("vqBilAus").innerHTML = zeilen + `<p class="bapfeil${weicht ? " weicht" : ""}">` + (START > 0
     ? `↓ Die Vorschau beginnt im ${LANG[START]}. Ihr Anfangsbestand ist der Kontostand am `
       + `Ende des ${LANG[START - 1]}: <b>${zahl(UNTEN.best)} T€</b>. Der Bilanzwert oben gilt `
@@ -1894,9 +1881,9 @@ function regelSatz(id){
     + (r.par.versatz ? " des " + r.par.versatz + ". Folgemonats" : " desselben Monats");
   if(r.typ === "jahr"){
     const m = Math.min(12, Math.max(1, r.par.monat));
-    return "einmal im Jahr, und zwar die Summe aller zwölf Monate im " + LANG[m - 1] + ", am " + r.par.tag + ".";
+    return "einmal im Jahr, nämlich die Summe aller zwölf Monate im " + LANG[m - 1] + ", am " + r.par.tag + ".";
   }
-  return "je Quartal, und zwar die Summe der drei Monate"
+  return "je Quartal, nämlich die Summe der drei Monate"
     + (r.par.versatz ? ", " + r.par.versatz + " Monate nach dem Quartalsende" : " zum Quartalsende")
     + ", am " + r.par.tag + ".";
 }
@@ -1905,8 +1892,8 @@ const ZEILENTEXT = {
   gALT:"Rechnungen, die vor dem Startpunkt geschrieben wurden und erst im Vorschauzeitraum zu Geld werden. Bei einem späten Start stehen ihre Ursprungsmonate als Ist im oberen Teil dieser Tabelle.",
   aALT:"Rechnungen, die vor dem Startpunkt eingegangen sind und erst im Vorschauzeitraum zu bezahlen sind. Es ist derselbe Vorgang wie eine Zeile darüber, nur auf der Seite der Lieferanten.",
   gUST:"Umsatzsteuer minus Vorsteuer des Vormonats, fällig am 10. Die Zahllast ist weder Aufwand noch Ertrag, sie läuft nur durch und macht trotzdem den größten Abfluss nach dem Material aus.",
-  uINV:"Die Investition aus dem unteren Teil, und zwar brutto. Im Ergebnis erscheint in diesem Jahr allein die Abschreibung darauf.",
-  uDAR:"Die Darlehensaufnahme aus dem unteren Teil. Sie ist eine reine Bestandsbewegung, und im Ergebnis erscheint allein der Zins darauf.",
+  uINV:"Die Investition aus dem unteren Teil, brutto gerechnet. Im Ergebnis erscheint in diesem Jahr allein die Abschreibung darauf.",
+  uDAR:"Die Darlehensaufnahme aus dem unteren Teil. Sie ist eine reine Bestandsbewegung. Im Ergebnis erscheint allein der Zins darauf.",
   uTIL:"Die Tilgung aus dem unteren Teil. Sie zählt nicht zum Aufwand und steht deshalb in keiner BWA.",
   uENT:"Entnahme oder Ausschüttung aus dem unteren Teil. Beides ist Ergebnisverwendung und kein Aufwand.",
   sBET:"Alle Ein- und Auszahlungen des laufenden Geschäfts, ohne Umsatzsteuer und ohne den unteren Teil.",
@@ -1941,8 +1928,7 @@ function kuerzen(zeilen){
                                      w: rest.reduce((a, x) => a + x.w, 0)}]);
 }
 
-/* Wie ein Quellmonat heißt. Ein Monat mit negativem Index liegt im
-   Vorjahr, und das muss dastehen, sonst liest jemand „Dezember“ und
+/* Wie ein Quellmonat heißt. Ein Monat mit negativem Index liegt im Vorjahr. Das muss dastehen, sonst liest jemand „Dezember“ und
    meint den kommenden. */
 function monatsName(m){
   return m < 0 ? LANG[((m % 12) + 12) % 12] + " des Vorjahres"
@@ -1995,8 +1981,7 @@ function zellHerkunft(g, m){
     return zeilen;
   }
   /* Die offenen Posten: alles, was aus einem Monat vor dem Start kommt.
-     Bei einem späten Start sind das die Ist-Monate dieser BWA, und sie
-     stehen im oberen Teil der Tabelle, und man kann sie nachschlagen. */
+     Bei einem späten Start sind das die Ist-Monate dieser BWA. Sie stehen im oberen Teil der Tabelle und lassen sich dort nachschlagen. */
   if(g.id === "gALT" || g.id === "aALT"){
     const seite = g.id === "gALT" ? "ein" : "aus";
     for(const id of IDS){
@@ -2101,8 +2086,7 @@ function tipDaten(gid, m){
     if(g.teile){
       /* Aufgezählt wird, was zahlt. Die Positionen mit der Regel „nie
          zahlungswirksam“ gehören zwar in diese Zeile (sie hätten hier
-             ihren Platz, wenn jemand ihnen eine Regel gibt), steuern aber
-         nichts bei, und sie ohne Hinweis mitzuzählen wäre irreführend. */
+             ihren Platz, wenn jemand ihnen eine Regel gibt), steuern aber nichts bei. Sie ohne Hinweis mitzuzählen wäre irreführend. */
       const zahlend = g.teile.filter(id => REGEL[id].typ !== "nie");
       const stumm = g.teile.filter(id => REGEL[id].typ === "nie");
       p = zahlend.length
@@ -2119,9 +2103,7 @@ function tipDaten(gid, m){
   }
   const hz = ohneNullen(nettoZerlegen(zellHerkunft(g, m)));
   /* Aufgerundet wird nur dort, wo die Einzelposten sonst nirgends
-     stehen. Bei den drei Summenzeilen sind die Posten selbst Zeilen der
-     Tafel, und würden sie hier um eins verschoben, widerspräche der
-     Tooltip der Tabelle, und das wäre schlimmer als die Rundung. */
+     stehen. Bei den drei Summenzeilen sind die Posten selbst Zeilen der Tafel. Würden sie hier um eins verschoben, widerspräche der Tooltip der Tabelle. Das wäre schlimmer als die Rundung. */
   const rund = gid !== "sBET" && gid !== "sGES" && gid !== "bEND";
   /* Wo es nichts aufzuschlüsseln gibt (Tilgung, Kreditlinie), steht
      der Satz der Zeile da. Ein leerer Kasten wäre eine Zumutung. */
@@ -2132,8 +2114,7 @@ function tipDaten(gid, m){
 }
 
 /* Der Blick in die andere Richtung: Eine BWA-Zeile sagt, wohin ihr
-   Betrag fließt. Genau das macht die Tabelle lesbar: oben der Ertrag,
-   unten die Zahlung, und dazwischen der Weg. */
+   Betrag fließt. Genau das macht die Tabelle lesbar: oben der Ertrag, unten die Zahlung, dazwischen der Weg. */
 function tipBwa(id, m){
   const r = REGEL[id];
   const kopf = m == null ? BWA[id].name : LANG[m] + " · " + BWA[id].name;
@@ -2165,7 +2146,7 @@ function tipBwa(id, m){
      beides und die Steuer dazwischen. */
   const liste = ohneNullen(nettoZerlegen(zeilen));
   /* Ein Ist-Monat sagt zusätzlich, was geplant war. Das ist der Grund,
-         warum es zwei Reihen gibt, und keine Abweichungsanalyse. */
+         warum es zwei Reihen gibt. Eine Abweichungsanalyse ist es nicht. */
   let nach = null;
   if(!istPlan(m) && m >= 0){
     const pl = BWA[id].plan[m], d = roh(id, m) - pl;
@@ -2237,8 +2218,7 @@ const spalten = (inhalt) => MONATE.map((_, m) =>
 
 /* Die obere Haelfte haengt allein an BWA und Regelwerk, die untere an
    der Rechnung. Deshalb sind es zwei Funktionen: Eine Zahl in der BWA
-   zu aendern zeichnet nur unten neu, und das Eingabefeld behaelt den
-   Fokus. */
+   zu aendern zeichnet nur unten neu. Das Eingabefeld behaelt dabei den Fokus. */
 function vZeichnen(){
 
   /* Eine Tabelle, zwei Haelften. Oben die BWA, aus der gerechnet wird,
@@ -2247,8 +2227,7 @@ function vZeichnen(){
      Zeile mit dem Finger verfolgt. */
   /* Zwei Behaelter statt einem: Wer eine Zahl in der BWA aendert, laesst
      nur die untere Haelfte neu zeichnen. Ein Neuaufbau der ganzen Tafel
-     naehme dem Eingabefeld den Fokus, und das Durchtabben durch zwoelf
-     Monate waere dahin. */
+     naehme dem Eingabefeld den Fokus. Das Durchtabben durch zwoelf Monate waere dahin. */
   let h = `<div class="vsz kopf"><span class="n">in T€ · ${JAHR}</span>`
     + spalten(m => MONATE[m]) + `<span class="j">Summe</span></div>`;
   h += `<div class="vsz phase"><span class="n">Stand</span>`
@@ -2268,8 +2247,7 @@ function vZeichnen(){
       + MONATE.map((_, m) => {
           const v = roh(id, m);
           const rand = `${m === START && START > 0 ? " naht" : ""}${m < START ? " vor" : ""}`;
-          /* Links der Naht schreibt das Feld ins Ist, rechts in den Plan,
-                 und zwar in genau der Spalte, in der die Zahl auch gilt. */
+          /* Links der Naht schreibt das Feld ins Ist, rechts in den Plan, genau in der Spalte, in der die Zahl auch gilt. */
           if(BEARB) return `<span class="z${rand}"><input class="ze" value="${zahl(v)}"`
             + ` inputmode="numeric" data-b="${id}" data-m="${m}"`
             + ` aria-label="${esc(BWA[id].name)}, ${LANG[m]}, ${m < START ? "Ist" : "Plan"}"></span>`;
@@ -2313,8 +2291,7 @@ function vUntenZeichnen(){
   }
   $("vTafelUnten").innerHTML = h;
   /* Setzt die Ansichtsklassen und schreibt den Hinweis unter der
-     Tabelle neu, denn er nennt die Positionen beim Namen, und die ändern
-     sich mit dem Regelwerk. */
+     Tabelle neu, denn er nennt die Positionen beim Namen. Die ändern sich mit dem Regelwerk. */
   ansichtSetzen();
 
   /* Der Befund. */
@@ -2393,7 +2370,7 @@ function vUntenZeichnen(){
         + (START === 1 ? "Monat" : "Monate") + ` um <b>${zahl(Math.abs(ab))} T€</b> `
         + (ab < 0 ? "zu hoch" : "zu niedrig") + `.`
       : `Ende ${LANG[START - 1]}: gerechnet und Kontoauszug stimmen überein. `
-        + `Trag den echten Stand ein, und das Blatt sagt Dir, wie weit die Regeln danebenlagen.`;
+        + `Trag den echten Stand ein. Das Blatt sagt Dir dann, wie weit die Regeln danebenlagen.`;
     $("vAbw").hidden = false;
   } else {
     $("vAbw").hidden = true;
@@ -2414,9 +2391,7 @@ function alles(){ vrZeichnen(); vZeichnen(); vqZeichnen(); }
    5 · Bedienung
    ===================================================================== */
 /* Ein Monatsfeld reicht nur so weit wie das Vorschaufenster. Eine
-   Investition im Februar, während die Vorschau im April beginnt, wäre
-   eine Buchung in der Vergangenheit, und das Feld bietet sie gar nicht
-   erst an. */
+   Investition im Februar, während die Vorschau im April beginnt, wäre eine Buchung in der Vergangenheit. Das Feld bietet sie gar nicht erst an. */
 const monatsWahl = wert => MONATE.map((m, i) => i < START ? "" :
   `<option value="${i}"${i === wert ? " selected" : ""}>${LANG[i]}</option>`).join("");
 const M_FELD = {vuInvM:"invM", vuDarM:"darM", vuEntM:"entM"};
@@ -2465,8 +2440,7 @@ $("vJahr").addEventListener("input", e => {
 });
 /* Beide Schalter sagen im Text, was ein Klick tut. Deshalb kein
    aria-pressed daneben: Ein Knopf, der „Alle Positionen“ heißt und
-   zugleich als gedrückt markiert ist, behauptet zwei verschiedene
-   Dinge, und die Vorlesetechnik liest beide vor. */
+   zugleich als gedrückt markiert ist, behauptet zwei verschiedene Dinge. Die Vorlesetechnik liest beide vor. */
 function ansichtSetzen(){
   $("vTafel").className = tafelKlassen();
   $("vBwaAus").textContent = BWA_AUS ? "BWA einblenden" : "BWA ausblenden";
@@ -2547,12 +2521,9 @@ $("vSzen").addEventListener("input", e => {
 });
 
 /* =====================================================================
-   Eigene Zahlen erfassen
-
-   Zwei Wege, und sie sind für zwei verschiedene Lagen gebaut. Der
-   Bearbeitungsmodus macht die Zellen der BWA beschreibbar, und zwar für die
-   einzelne Korrektur, dort wo die Zahl steht. Das Einfügefeld nimmt
-   einen Block aus der Tabellenkalkulation, und zwar für das erste Befüllen,
+   Eigene Zahlen erfassen Es gibt zwei Wege, gebaut für zwei verschiedene Lagen. Der
+   Bearbeitungsmodus macht die Zellen der BWA beschreibbar, nämlich für die einzelne Korrektur, dort wo die Zahl steht. Das Einfügefeld nimmt
+   einen Block aus der Tabellenkalkulation, nämlich für das erste Befüllen,
    weil 216 Zellen niemand tippt.
 
    Welche Reihe eine Zelle beschreibt, entscheidet ihre Spalte: links
@@ -2572,8 +2543,7 @@ $("vqBearb").addEventListener("click", () => {
   }
 });
 
-/* Die Zelle schreibt in die Reihe, die in ihrer Spalte gilt, und nur
-   die untere Hälfte wird neu gezeichnet, sonst verlöre das Feld beim
+/* Die Zelle schreibt in die Reihe, die in ihrer Spalte gilt. Nur die untere Hälfte wird neu gezeichnet, sonst verlöre das Feld beim
    Tippen den Fokus. */
 $("vTafelOben").addEventListener("input", e => {
   const el = e.target;
@@ -2582,8 +2552,7 @@ $("vTafelOben").addEventListener("input", e => {
   BWA[id][m < START ? "ist" : "plan"][m] = lesen(el.value);
   BWA_QUELLE = {eigen:true, art:"hand", erzeugt:"", n:BWA_IDS.length};
   /* Die Summenspalte dieser Zeile von Hand nachziehen. Die obere
-     Haelfte wird beim Tippen nicht neu gebaut, und eine Summe, die
-     nicht mitgeht, ist eine falsche Zahl auf dem Schirm. */
+     Haelfte wird beim Tippen nicht neu gebaut. Eine Summe, die nicht mitgeht, ist eine falsche Zahl auf dem Schirm. */
   let js = 0; for(let i = START; i < 12; i++) js += BWA[id].plan[i];
   const zeile = el.closest(".vsz");
   if(zeile) zeile.querySelector(".j").textContent = zahl(js);
@@ -2591,8 +2560,7 @@ $("vTafelOben").addEventListener("input", e => {
   vUntenZeichnen();
   vqZeichnen();
 });
-/* Beim Verlassen wird die Zahl sauber geschrieben, aus „7.1“ wird
-   „7“, und der Leser sieht sofort, was angekommen ist. */
+/* Beim Verlassen wird die Zahl sauber geschrieben, aus „7.1“ wird „7“. Der Leser sieht sofort, was angekommen ist. */
 $("vTafelOben").addEventListener("change", e => {
   const el = e.target;
   if(el.classList && el.classList.contains("ze"))
@@ -2649,8 +2617,7 @@ function einfuegen(reihe){
 
   /* Zwei Lagen, zwei Regeln. Steht vor den Zahlen nirgends ein Name,
      ist es ein Block ohne Namensspalte: Dann gilt die Reihenfolge der
-     Tafel. Steht auch nur einmal einer da, gab es eine Namensspalte,
-         und dann wird eine unbekannte Zeile gemeldet und nicht der nächstbesten
+     Tafel. Steht auch nur einmal einer da, gab es eine Namensspalte. Dann wird eine unbekannte Zeile gemeldet und nicht der nächstbesten
      Position untergeschoben. Sonst landete „Kaffee und Kuchen“
      stillschweigend in der Bestandsveränderung. */
   const mitNamen = brauchbar.filter(x => x.name).length;
@@ -2762,8 +2729,7 @@ function lade(d, name){
 
 $("vSave").addEventListener("click", () => {
   /* Die Grundlage kommt mit. Ohne sie wäre eine Datei, die auf einer
-     eingelesenen BWA beruht, beim nächsten Öffnen wieder der Fall des
-     Zulieferers, und niemand würde merken, dass die eigenen Zahlen
+     eingelesenen BWA beruht, beim nächsten Öffnen wieder der Fall des Zulieferers. Niemand würde merken, dass die eigenen Zahlen
      verschwunden sind. */
   const bwa = {}; for(const id of BWA_IDS) bwa[id] = {plan:BWA[id].plan.slice(), ist:BWA[id].ist.slice()};
   const bilanz = {}; for(const id of Object.keys(BIL)) bilanz[id] = BIL[id].wert;
@@ -2780,7 +2746,7 @@ $("vSave").addEventListener("click", () => {
 /* Drei Knöpfe, ein Dateifeld. Welche Art Datei es ist, entscheidet die
    Kennung darin und nicht der Knopf, denn so landet eine BWA auch dann
    richtig, wenn sie über „JSON laden“ hereinkommt. Die Meldung steht
-   dann neben dem, was sich geändert hat, und nicht neben dem Knopf:
+   dann neben dem, was sich geändert hat, nicht neben dem Knopf:
    eine Meldung über die BWA unter den Reglern hätte niemand gesucht. */
 let vZielMsg = "vMsg2";
 function vDateiHolen(ziel){
@@ -2842,7 +2808,7 @@ $("vDatei").addEventListener("change", e => {
        werden mitgenommen, damit der Auszug stimmt. */
     if(d && d.format === "bilanz-hgb" && d.werte){
       if(typeof d.werte.aKAS !== "number"){
-        vSagen("Die Bilanz hat keine Zeile „Kassenbestand, Guthaben bei Kreditinstituten“, und ohne sie gibt es keinen Anfangsbestand.");
+        vSagen("Die Bilanz hat keine Zeile „Kassenbestand, Guthaben bei Kreditinstituten“. Ohne sie gibt es keinen Anfangsbestand.");
         return;
       }
       for(const id of Object.keys(BIL))
@@ -2940,27 +2906,27 @@ const ZU_POS = [
   ["Die Umsatzsteuer-Zahllast des Vormonats geht an das Finanzamt", "b",
    "Nur der Bestand. Die Umsatzsteuer ist ein durchlaufender Posten und nie Aufwand. Beim Zulieferer der größte monatliche Abfluss nach dem Material."],
   ["Eine Maschine für 900 T€ netto wird gekauft und bezahlt", "b",
-   "Nur der Bestand, und zwar mit 1.071 T€ brutto. Im Ergebnis erscheint nichts, weil die Abschreibung erst in den Folgejahren wirkt."],
+   "Nur der Bestand, mit 1.071 T€ brutto. Im Ergebnis erscheint nichts, weil die Abschreibung erst in den Folgejahren wirkt."],
   ["Eine Darlehensrate von 250 T€ Tilgung wird abgebucht", "b",
    "Nur der Bestand. Die Tilgung steht in keiner Gewinn- und Verlustrechnung. Die Zinsen daneben sind Aufwand und eine eigene Zeile."],
   ["Eine Ausschüttung von 1.500 T€ an die Gesellschafter", "b",
    "Nur der Bestand. Eine Entnahme ist Ergebnisverwendung und in manchen Häusern der größte einzelne Abfluss des Jahres."],
   ["Die monatliche Abschreibung von 408 T€ wird gebucht", "e",
-   "Nur das Ergebnis. Die Regel für diese Zeile lautet „nie zahlungswirksam“, und das gehört ausdrücklich hingeschrieben."],
+   "Nur das Ergebnis. Die Regel für diese Zeile lautet „nie zahlungswirksam“. Das gehört ausdrücklich hingeschrieben."],
   ["Eine Rechnung über 500 T€ netto wird an einen Kunden geschrieben", "e",
-   "Nur das Ergebnis, und zwar im Moment der Rechnung. Das Geld kommt nach der Verteilung später. Die Umsatzsteuer von 95 T€ ist trotzdem schon am 10. des Folgemonats fällig."],
+   "Nur das Ergebnis, entstanden im Moment der Rechnung. Das Geld kommt nach der Verteilung später. Die Umsatzsteuer von 95 T€ ist trotzdem schon am 10. des Folgemonats fällig."],
   ["Eine Rückstellung für Garantien wird mit 200 T€ gebildet", "e",
    "Nur das Ergebnis. Aufwand ohne Zahlung. Zahlungswirksam wird es erst, wenn der Garantiefall eintritt."],
   ["Die Bestandserhöhung an fertigen Erzeugnissen von 110 T€", "e",
    "Nur das Ergebnis. Zahlungswirksam war der Einkauf, der dahintersteckt und im Materialaufwand steht."],
   ["Die Löhne für den Monat werden am 25. überwiesen", "x",
-   "Beides, und im selben Monat. Deshalb bekommt die Position die Regel „Fester Tag“ mit dem Versatz null, denn hier fallen Ergebnis und Zahlung ausnahmsweise zusammen."],
+   "Beides, im selben Monat. Deshalb bekommt die Position die Regel „Fester Tag“ mit dem Versatz null, denn hier fallen Ergebnis und Zahlung ausnahmsweise zusammen."],
   ["Die Miete wird am 3. für den laufenden Monat abgebucht", "x",
    "Beides im selben Monat. Verträge mit festem Betrag und festem Termin sind der verlässlichste Teil jeder Vorschau."],
   ["Die Zinsen für das Darlehen werden zum Monatsende belastet", "x",
    "Beides. Zinsen sind Aufwand und Auszahlung zugleich, anders als die Tilgung in der Zeile daneben."],
   ["Ein Darlehen über 3.000 T€ wird aufgenommen", "b",
-   "Nur der Bestand. Geld kommt herein und eine Schuld entsteht. Kein Ertrag, und deshalb in keiner BWA zu finden."],
+   "Nur der Bestand. Geld kommt herein und eine Schuld entsteht. Ein Ertrag ist das nicht, deshalb steht es in keiner BWA."],
   ["Eine Bestellung über 600 T€ wird ausgelöst, geliefert ist nichts", "k",
    "Weder noch. Ein schwebendes Geschäft. Für die Vorschau bleibt es trotzdem interessant, weil es eine Auszahlung ankündigt, die noch in keiner Zeile steht."]
 ];
@@ -2999,32 +2965,32 @@ zuZiehen();
    ===================================================================== */
 const CHECK7 = [
   ["Leg zwei Reihen nebeneinander: die letzten zwölf Ist-Monate und die Planung",
-   "Die Ist-Reihe ist die einzige laufende Zahlenquelle, die Du sicher hast, und aus ihrem Saisonmuster leitest Du die Planreihe ab. Beide brauchst Du, weil eine Vorschau im laufenden Jahr stets gebuchte und geplante Monate nebeneinander zeigt.",
-   "Viele schreiben stattdessen ein Zwölftel des Jahresergebnisses fort, und damit verschwinden aus der Vorschau genau die Monate, in denen es eng wird."],
+   "Die Ist-Reihe ist die einzige laufende Zahlenquelle, die Du sicher hast. Aus ihrem Saisonmuster leitest Du die Planreihe ab. Beide brauchst Du, weil eine Vorschau im laufenden Jahr stets gebuchte und geplante Monate nebeneinander zeigt.",
+   "Viele schreiben stattdessen ein Zwölftel des Jahresergebnisses fort. Damit verschwinden aus der Vorschau genau die Monate, in denen es eng wird."],
   ["Setz den Startpunkt und zieh die Naht zwischen Ist und Plan",
    "Gemeint ist der Monat, in dem Du gerade stehst. Alles davor ist gebucht und geht nur noch als offener Posten ein, ab hier planst Du. Schreib die Naht sichtbar in die Tabelle, damit jeder Leser erkennt, wo das Gebuchte endet.",
-   "Ist und Plan stehen unmarkiert nebeneinander, und dann diskutiert eine ganze Runde über eine Planzahl, die längst eine Ist-Zahl ist, oder umgekehrt."],
+   "Ist und Plan stehen unmarkiert nebeneinander. Dann diskutiert eine ganze Runde über eine Planzahl, die längst eine Ist-Zahl ist, oder umgekehrt."],
   ["Rechne den abgelaufenen Teil mit und vergleich ihn mit dem Kontoauszug",
-   "Dieselben Regeln über die Ist-Zahlen ergeben einen gerechneten Kontostand zum letzten Monatsende, und daneben schreibst Du den echten aus dem Auszug. Die Differenz zwischen beiden ist die einzige Note, die Deine Vorschau je bekommt.",
-   "Man rechnet allein die Zukunft, und dann bleibt unbekannt, ob die Regeln überhaupt taugen. Die nächste Vorschau wiederholt daraufhin denselben Fehler."],
+   "Dieselben Regeln über die Ist-Zahlen ergeben einen gerechneten Kontostand zum letzten Monatsende. Daneben schreibst Du den echten aus dem Auszug. Die Differenz zwischen beiden ist die einzige Note, die Deine Vorschau je bekommt.",
+   "Man rechnet allein die Zukunft. Dann bleibt unbekannt, ob die Regeln überhaupt taugen. Die nächste Vorschau wiederholt daraufhin denselben Fehler."],
   ["Schreib zu jeder Zeile eine Zahlungsregel auf, in einem Satz",
-   "Ein solcher Satz lautet etwa „Kunden zahlen zu zwanzig Prozent im Monat der Rechnung, zu fünfundfünfzig im Folgemonat und zu fünfundzwanzig im zweiten“. Achtzehn Sätze dieser Art genügen, und damit ist die halbe Arbeit getan.",
-   "Die Regeln bleiben im Kopf des Planenden, und eine Regel, die nirgends aufgeschrieben steht, lässt sich weder überprüfen noch beim nächsten Mal verbessern."],
+   "Ein solcher Satz lautet etwa „Kunden zahlen zu zwanzig Prozent im Monat der Rechnung, zu fünfundfünfzig im Folgemonat und zu fünfundzwanzig im zweiten“. Achtzehn Sätze dieser Art genügen. Damit ist die halbe Arbeit getan.",
+   "Die Regeln bleiben im Kopf des Planenden. Eine Regel, die nirgends aufgeschrieben steht, lässt sich weder überprüfen noch beim nächsten Mal verbessern."],
   ["Hol die Verteilung aus der Debitorenbuchhaltung statt aus dem Bauch",
-   "Vergleich zwölf Monate Zahlungseingänge mit den zugehörigen Rechnungsmonaten, dann fallen die drei Prozentsätze von selbst heraus. Das ist eine Messung und keine Schätzung, und sie dauert ungefähr zwei Stunden.",
-   "Man setzt das vereinbarte Zahlungsziel ein, obwohl der tatsächliche Mittelwert fast immer darüber liegt, und die Vorschau fällt dann jeden Monat um denselben Betrag zu optimistisch aus."],
+   "Vergleich zwölf Monate Zahlungseingänge mit den zugehörigen Rechnungsmonaten, dann fallen die drei Prozentsätze von selbst heraus. Das ist eine Messung und keine Schätzung. Sie dauert ungefähr zwei Stunden.",
+   "Man setzt das vereinbarte Zahlungsziel ein, obwohl der tatsächliche Mittelwert fast immer darüber liegt. Die Vorschau fällt dann jeden Monat um denselben Betrag zu optimistisch aus."],
   ["Bau den unteren Teil, bevor Du den oberen verfeinerst",
    "Gemeint sind Investitionen, Tilgungen, Entnahmen und Steuervorauszahlungen, also vier Zeilen mit Beträgen und Fälligkeiten. Sie entscheiden über den Engpass eines Jahres mehr als jede Verfeinerung der Materialquote.",
-   "Man verfeinert den oberen Teil immer weiter und vergisst den unteren, und eine Vorschau ohne diese vier Zeilen bleibt eine umgerechnete BWA."],
+   "Man verfeinert den oberen Teil immer weiter und vergisst den unteren. Eine Vorschau ohne diese vier Zeilen bleibt eine umgerechnete BWA."],
   ["Rechne die Umsatzsteuer als eigene Zeile",
    "Die Zahllast ergibt sich aus der Umsatzsteuer der Rechnungen dieses Monats abzüglich der Vorsteuer und wird am 10. des Folgemonats fällig. Bei Soll-Versteuerung hängt sie an der Rechnung und nicht am Geldeingang.",
    "Man schleift sie in den Nettobeträgen mit, obwohl sie beim Zulieferer 7.794 T€ im Jahr ausmacht und damit mehr als den dreifachen Jahresüberschuss."],
   ["Trag die Kontokorrentlinie ein und markier den ersten Monat darunter",
    "Null ist selten die Grenze, die wirklich zählt, denn das Gespräch mit der Bank löst der Monat aus, in dem der eingeräumte Rahmen nicht mehr reicht. Ebenso wichtig ist, wie viele Monate Vorlauf Du bis dahin hast.",
-   "Man sieht allein auf den Jahresendbestand, und der kann glänzend ausfallen, während im September trotzdem eine Lücke klafft."],
+   "Man sieht allein auf den Jahresendbestand. Der kann glänzend ausfallen, während im September trotzdem eine Lücke klafft."],
   ["Rechne drei Szenarien und schreib sie neben den Grundfall",
-   "Rechne die Zahlungseingänge zwanzig Tage später, den Umsatz zehn Prozent niedriger und einen ausfallenden Großkunden durch. Am Ende stehen drei Zeilen mit drei Tiefpunkten, und das ist die Vorlage für jedes Bankgespräch.",
-   "Man rechnet allein den wahrscheinlichen Fall, und eine Planung ohne Szenario beantwortet damit die einzige Frage nicht, die in einem Bankgespräch wirklich gestellt wird."]
+   "Rechne die Zahlungseingänge zwanzig Tage später, den Umsatz zehn Prozent niedriger und einen ausfallenden Großkunden durch. Am Ende stehen drei Zeilen mit drei Tiefpunkten. Das ist die Vorlage für jedes Bankgespräch.",
+   "Man rechnet allein den wahrscheinlichen Fall. Eine Planung ohne Szenario beantwortet damit die einzige Frage nicht, die in einem Bankgespräch wirklich gestellt wird."]
 ];
 $("ck7").innerHTML = CHECK7.map(([t, p, f]) =>
   `<div class="ckitem"><h3>${esc(t)}</h3><p>${p}</p>
@@ -3068,56 +3034,56 @@ const FRAGEN = [
    ["3.395 T€ am 25. Juli, weil die Regel für diese Zeile „fester Tag“ lautet","Nichts, Personalkosten sind nie zahlungswirksam","3.395 T€ brutto mit 19 % Umsatzsteuer","Ein Zwölftel der Jahressumme"], 0,
    "Löhne folgen weder einem Zahlungsziel noch einer Verteilung, denn sie haben einen festen Termin, der im Arbeitsvertrag steht. Umsatzsteuer fällt auf sie nicht an."],
   ["Aus welchen drei Teilen besteht eine Liquiditätsvorschau?",
-   ["Die BWA über Regeln, die Umsatzsteuer, und was in keiner BWA steht","Bilanz, Gewinn- und Verlustrechnung, Anhang","Ist, Plan und Abweichung","Einzahlungen, Auszahlungen und Zinsen"], 0,
+   ["Die BWA über Regeln, die Umsatzsteuer und was in keiner BWA steht","Bilanz, Gewinn- und Verlustrechnung, Anhang","Ist, Plan und Abweichung","Einzahlungen, Auszahlungen und Zinsen"], 0,
    "Der obere Teil ist die Fleißarbeit, über den Engpass entscheidet aber der untere, denn eine Vorschau ohne Investition, Tilgung und Entnahme bleibt eine umgerechnete BWA."],
   ["Welche Positionen der BWA bekommen die Regel „nie zahlungswirksam“?",
    ["Abschreibungen, Bestandsveränderung und aktivierte Eigenleistungen","Nur die Abschreibungen","Personalkosten und Raumkosten","Die Steuern"], 0,
-   "Sie sind Aufwand oder Ertrag ohne jede Zahlung, und dass sie in der Vorschau mit null stehen, gehört ausdrücklich hingeschrieben, damit niemand ein Versehen vermutet."],
+   "Sie sind Aufwand oder Ertrag ohne jede Zahlung. Dass sie in der Vorschau mit null stehen, gehört ausdrücklich hingeschrieben, damit niemand ein Versehen vermutet."],
   ["Warum genügt ein Zahlungsziel als Regel nicht?",
    ["Weil ein Teil früher zahlt, ein Teil pünktlich und ein Teil später","Weil das Ziel gesetzlich nicht bindend ist","Weil es sich monatlich ändert","Weil es die Umsatzsteuer nicht berücksichtigt"], 0,
-   "Der tatsächliche Mittelwert liegt fast immer über dem vereinbarten Ziel, und deshalb braucht eine Vorschau eine Verteilung, die sich aus der Debitorenbuchhaltung ablesen lässt."],
+   "Der tatsächliche Mittelwert liegt fast immer über dem vereinbarten Ziel. Deshalb braucht eine Vorschau eine Verteilung, die sich aus der Debitorenbuchhaltung ablesen lässt."],
   ["Wann entsteht die Umsatzsteuer bei der Soll-Versteuerung?",
    ["Mit der Rechnungsstellung, unabhängig von der Zahlung","Mit dem Zahlungseingang","Am Quartalsende","Mit der Lieferung der Ware"], 0,
-   "§ 16 UStG, der Regelfall. Du führst Umsatzsteuer auf Geld ab, das noch nicht eingegangen ist, und für die Liquidität ist das die unangenehmste Vorschrift im ganzen Umsatzsteuerrecht."],
+   "§ 16 UStG, der Regelfall. Du führst Umsatzsteuer auf Geld ab, das noch nicht eingegangen ist. Für die Liquidität ist das die unangenehmste Vorschrift im ganzen Umsatzsteuerrecht."],
   ["Wann ist die Umsatzsteuer-Zahllast eines Monats fällig?",
    ["Am 10. des Folgemonats","Am Monatsende","Am 10. des übernächsten Monats","Quartalsweise"], 0,
    "Mit Dauerfristverlängerung nach § 46 UStDV verschiebt sich das um einen weiteren Monat, gegen eine Sondervorauszahlung von einem Elftel."],
   ["Beim Zulieferer gehen 7.794 T€ Umsatzsteuer im Jahr an das Finanzamt. Wie verhält sich das zum Jahresüberschuss?",
    ["Es ist mehr als das Dreifache","Es ist etwa gleich","Es ist die Hälfte","Es lässt sich nicht vergleichen"], 0,
-   "Der Jahresüberschuss liegt bei 2.300 T€, und wer die Umsatzsteuer in einer Vorschau vergisst, plant deshalb am größten monatlichen Abfluss vorbei."],
+   "Der Jahresüberschuss liegt bei 2.300 T€. Wer die Umsatzsteuer in einer Vorschau vergisst, plant deshalb am größten monatlichen Abfluss vorbei."],
   ["Was macht ein Zahlungsausfall mit der bereits abgeführten Umsatzsteuer?",
    ["Sie kommt nach § 17 UStG zurück, später und nach einer Anzeige","Sie ist verloren","Sie wird automatisch verrechnet","Sie war nie fällig"], 0,
-   "Die Berichtigung ist zwar möglich, kostet aber Zeit, und in der Vorschau steht die Rückerstattung deshalb erst im Folgemonat des Ausfalls."],
+   "Die Berichtigung ist zwar möglich, kostet aber Zeit. In der Vorschau steht die Rückerstattung deshalb erst im Folgemonat des Ausfalls."],
   ["Was ist die tatsächliche Untergrenze einer Liquiditätsplanung?",
    ["Die Kontokorrentlinie","Die Null","Das Working Capital","Das Eigenkapital"], 0,
-   "Interessant ist der Monat, in dem der eingeräumte Rahmen nicht mehr reicht, und wie viele Monate Vorlauf bis dahin bleiben."],
+   "Interessant ist der Monat, in dem der eingeräumte Rahmen nicht mehr reicht. Ebenso interessant ist, wie viele Monate Vorlauf bis dahin bleiben."],
   ["Warum steht der Kaufpreis einer Maschine in keiner BWA?",
-   ["Er wird aktiviert, und im Ergebnis erscheint nur die Abschreibung","Er ist steuerfrei","Er wird im Anhang ausgewiesen","Er ist ein neutraler Aufwand"], 0,
-   "Die größte Auszahlung des Jahres taucht im Ergebnis mit null auf, und brutto ist sie noch einmal 19 Prozent größer als der Nettobetrag."],
+   ["Er wird aktiviert, im Ergebnis erscheint nur die Abschreibung","Er ist steuerfrei","Er wird im Anhang ausgewiesen","Er ist ein neutraler Aufwand"], 0,
+   "Die größte Auszahlung des Jahres taucht im Ergebnis mit null auf. Brutto ist sie noch einmal 19 Prozent größer als der Nettobetrag."],
   ["Welcher Teil einer Darlehensrate steht in der Gewinn- und Verlustrechnung?",
    ["Nur die Zinsen","Nur die Tilgung","Beide","Keiner von beiden"], 0,
-   "Die Tilgung zählt nicht zum Aufwand, und bei einem Annuitätendarlehen macht sie mit fortschreitender Laufzeit den größeren Teil der Rate aus."],
+   "Die Tilgung zählt nicht zum Aufwand. Bei einem Annuitätendarlehen macht sie mit fortschreitender Laufzeit den größeren Teil der Rate aus."],
   ["Was bewirkt der Regeltyp „Fester Tag“ mit dem Versatz 1?",
    ["Der Betrag des Monats wird im Folgemonat gezahlt","Der Betrag wird auf zwei Monate verteilt","Der Betrag wird einen Tag später gezahlt","Der Betrag wird verdoppelt"], 0,
    "Typisch für Abrechnungen, die erst im Folgemonat eintreffen (etwa Leasing- oder Tankkarten). Auf einem Monatsraster entscheidet allein der Monatsversatz."],
   ["Warum steht der Tag im Monat trotzdem in der Regel?",
    ["Er wird bei der Auflösung auf Tage gebraucht","Er ist gesetzlich vorgeschrieben","Er bestimmt die Umsatzsteuer","Er hat keine Funktion"], 0,
-   "Auf einem Monatsraster ist er nicht zu sehen, denn erst das folgende Modul löst dieselben Regeln auf einzelne Tage auf, und dort entscheidet er dann."],
+   "Auf einem Monatsraster ist er nicht zu sehen, denn erst das folgende Modul löst dieselben Regeln auf einzelne Tage auf. Dort entscheidet er dann."],
   ["Wozu braucht ein Vorschaublatt zwei BWA-Reihen?",
    ["Weil eine Vorschau im laufenden Jahr immer gebuchte und geplante Monate zeigt","Damit man zwei Szenarien vergleichen kann","Weil die Umsatzsteuer eine eigene Reihe braucht","Für den Vorjahresvergleich im Jahresabschluss"], 0,
    "Vor dem Startpunkt steht, was gebucht ist, danach steht, was geplant ist. Eine einzige Reihe müsste für beides herhalten und wäre in der einen Hälfte immer falsch."],
   ["Das Blatt rechnet 3.920 T€ zum 31.05., der Kontoauszug sagt 3.528 T€. Was bedeutet das?",
    ["Die Regeln waren über fünf Monate um 392 T€ zu optimistisch","Die BWA ist falsch","Es fehlt eine Buchung","Die Umsatzsteuer wurde doppelt gerechnet"], 0,
-   "Das ist die Prognosegüte. Meist zahlen die Kunden etwas träger, als die Verteilung annimmt, und dann gehört die Verteilung nachgemessen und nicht der obere Teil verfeinert."],
+   "Das ist die Prognosegüte. Meist zahlen die Kunden etwas träger, als die Verteilung annimmt. Dann gehört die Verteilung nachgemessen und nicht der obere Teil verfeinert."],
   ["Die Vorschau beginnt im April. Was sind Januar bis März in der BWA?",
-   ["Ist-Monate, also gebucht, und kein Regler ändert daran etwas","Planmonate wie alle anderen","Sie fallen aus der Tabelle heraus","Sie werden aus dem Vorjahr geschätzt"], 0,
+   ["Ist-Monate, also gebucht, an denen kein Regler mehr etwas ändert","Planmonate wie alle anderen","Sie fallen aus der Tabelle heraus","Sie werden aus dem Vorjahr geschätzt"], 0,
    "Die Naht zwischen Ist und Plan wandert mit dem Startpunkt. Ein Szenario greift nur rechts davon, weil links alles gebucht ist."],
   ["Woher kommen die offenen Posten, wenn die Vorschau im April beginnt?",
    ["Aus den Ist-Monaten Februar und März derselben BWA","Aus dem Vorjahr","Aus der Bilanz","Aus dem Anlagenspiegel"], 0,
-   "Bei einem Start im laufenden Jahr lassen sie sich nachschlagen, denn die Umsatzzeile des März steht im oberen Teil der Tabelle, und 55 % davon kommen im April an."],
+   "Bei einem Start im laufenden Jahr lassen sie sich nachschlagen, denn die Umsatzzeile des März steht im oberen Teil der Tabelle. Davon kommen 55 % im April an."],
   ["Was ist für die ersten Wochen die bessere Quelle als die BWA?",
    ["Die offenen Posten mit ihren Fälligkeiten","Der letzte Jahresabschluss","Die Umsatzplanung","Der Anlagenspiegel"], 0,
-   "Konkrete Rechnungen mit konkreten Terminen. Die BWA-Ableitung wird ab Woche fünf besser, und das ist der Gegenstand des folgenden Moduls."],
+   "Konkrete Rechnungen mit konkreten Terminen. Die BWA-Ableitung wird ab Woche fünf besser. Das ist der Gegenstand des folgenden Moduls."],
   ["Was kostet mehr Liquidität: Kunden, die zwanzig Tage später zahlen, oder zehn Prozent weniger Umsatz?",
    ["Meist die späteren Zahlungen","Immer der Umsatzrückgang","Beides gleich viel","Das lässt sich nicht vergleichen"], 0,
    "Die Verzögerung trifft den gesamten Bruttoumsatz auf einmal, während der Rückgang je Monat nur einen Bruchteil davon erfasst. Probier es mit den Reglern aus."],
@@ -3126,13 +3092,13 @@ const FRAGEN = [
    "Vier Zeilen, die in keiner Aufwandsposition vorkommen und das Konto trotzdem erheblich bewegen. Gepflegt werden sie von Hand, weil keine Buchhaltung sie hergibt."],
   ["Warum lässt sich der untere Teil aus keiner Buchhaltung ableiten?",
    ["Weil er zum Teil aus Entscheidungen besteht, die noch nicht getroffen sind","Weil die Buchhaltung ihn nicht erfasst","Weil er steuerlich irrelevant ist","Weil er zu klein ist"], 0,
-   "Eine geplante Investition steht in keinem System, solange sie nicht beschlossen ist, und genau deshalb bleibt dieser Teil einer Vorschau Chefsache."],
+   "Eine geplante Investition steht in keinem System, solange sie nicht beschlossen ist. Genau deshalb bleibt dieser Teil einer Vorschau Chefsache."],
   ["Was zeigt die Zeile „Saldo aus dem Geschäft“?",
    ["Ob das operative Geschäft für sich genommen Geld erzeugt","Den Jahresüberschuss","Das Betriebsergebnis","Den Bestand am Monatsende"], 0,
-   "Gemeint ist der Saldo vor Umsatzsteuer, Investition, Tilgung und Entnahme, und wenn diese Zeile dauerhaft negativ bleibt, hilft auch keine Finanzierung mehr."],
+   "Gemeint ist der Saldo vor Umsatzsteuer, Investition, Tilgung und Entnahme. Bleibt diese Zeile dauerhaft negativ, hilft auch keine Finanzierung mehr."],
   ["Eine Investition erhöht welche Zeile außer der eigenen?",
    ["Die Vorsteuer und damit die Umsatzsteuer-Zahllast","Die Abschreibungen sofort","Den Materialaufwand","Keine"], 0,
-   "Die Vorsteuer auf die Investition mindert die Zahllast des Monats, in dem investiert wird, und auch dieser Zusammenhang ist aus keiner BWA abzulesen."],
+   "Die Vorsteuer auf die Investition mindert die Zahllast des Monats, in dem investiert wird. Auch dieser Zusammenhang ist aus keiner BWA abzulesen."],
   ["Wozu dienen drei Szenarien neben dem Grundfall?",
    ["Sie beantworten die Frage, was bei schlechterem Verlauf passiert","Sie erhöhen die Genauigkeit","Sie ersetzen den Grundfall","Sie sind gesetzlich gefordert"], 0,
    "Eine Planung ohne Szenario beantwortet die einzige Frage nicht, die in einem Bankgespräch wirklich gestellt wird."],
@@ -3141,7 +3107,7 @@ const FRAGEN = [
    "Sie ist ein Frühwarnsystem und liefert keinen Zahlungsplan, denn für den einzelnen Tag brauchst Du die Auflösung aus dem folgenden Modul."],
   ["Was ist das Mengengerüst einer Vorschau?",
    ["Die geplanten Beträge je Position, bevor die Regeln greifen","Die Zahl der Positionen","Der Anfangsbestand","Die Kontokorrentlinie"], 0,
-   "Es kommt aus der BWA und dem Saisonmuster des Jahres, und erst die Regeln machen aus diesen Erfolgsgrößen tatsächliche Zahlungen."],
+   "Es kommt aus der BWA und dem Saisonmuster des Jahres. Erst die Regeln machen aus diesen Erfolgsgrößen tatsächliche Zahlungen."],
   ["Warum ist die Aufwandsseite einer Vorschau verlässlicher als die Ertragsseite?",
    ["Viele Auszahlungen haben feste Termine, die Eingänge hängen am Verhalten der Kunden","Weil sie kleiner ist","Weil sie gesetzlich geregelt ist","Weil sie seltener vorkommt"], 0,
    "Löhne am 25., Miete am 3. und die Versicherung im Januar stehen vertraglich fest, während der Zahlungstermin eines Kunden immer eine Annahme bleibt."],
@@ -3192,7 +3158,7 @@ function qRender(){
   $("qResult").innerHTML = fertig < QZAHL ? "" :
     `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
       treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen, der Vorrat hat " + FRAGEN.length + "." :
-      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben, und sie sind der eigentliche Lernstoff." :
+      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben. Sie sind der eigentliche Lernstoff." :
       "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind die Soll-Versteuerung und der untere Teil der Vorschau."}</div>`;
 }
 $("quiz").addEventListener("click", e => {
