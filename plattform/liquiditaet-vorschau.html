@@ -736,6 +736,16 @@ footer a{color:var(--teal-dk)}
    eine Stelle, an der die Tabelle etwas ueber die Zeit sagt. */
 .vsz .z.naht{border-left:2px solid var(--teal-dk)}
 .vsz .z.vor{color:var(--grey)}
+/* Das Eingabefeld sitzt in der Zelle und behaelt deren Breite. */
+.vsz .z input.ze{width:100%;box-sizing:border-box;font-family:var(--mono);font-size:.74rem;
+  text-align:right;color:var(--ink);background:var(--paper);border:1px solid var(--grey-mid);
+  border-radius:4px;padding:2px 4px;font-variant-numeric:tabular-nums}
+.vsz .z input.ze:focus-visible{outline:2px solid var(--orange);outline-offset:1px;border-color:var(--teal)}
+.vsz.stumm .z input.ze{color:var(--grey)}
+#vqPaste{width:100%;box-sizing:border-box;min-height:150px;font-family:var(--mono);
+  font-size:.76rem;line-height:1.5;color:var(--ink);background:var(--paper);
+  border:1px solid var(--grey-mid);border-radius:var(--r);padding:10px 12px;resize:vertical}
+#vqPaste:focus-visible{outline:2px solid var(--orange);outline-offset:1px;border-color:var(--teal)}
 .vsz.phase{border-bottom:1px solid var(--grey-xl);background:var(--paper)}
 .vsz.phase .n{font-family:var(--mono);font-size:.62rem;letter-spacing:.09em;
   text-transform:uppercase;color:var(--grey);padding-top:2px;padding-bottom:6px}
@@ -1074,6 +1084,32 @@ footer a{color:var(--teal-dk)}
     </div>
   </div>
   <p class="sub" style="margin:0">Zwei Reihen, dieselben achtzehn Positionen: <b>Ist</b> sind die letzten zwölf gebuchten Monate, <b>Plan</b> ist die Planung des Jahres. Beide stehen in der Tabelle weiter unten, im oberen Teil — welche in welcher Spalte, entscheidet der Startpunkt. Eine <span class="m" style="font-family:var(--mono)">bwa-monate</span>-Datei aus dem Vormodul füllt die Reihe, deren Knopf Du drückst.</p>
+  <p class="sub" style="margin:10px 0 0">Für eigene Zahlen gibt es zwei Wege. <b>Zahlen bearbeiten</b> macht die Zellen der BWA in der Tabelle beschreibbar — für die einzelne Korrektur, dort wo die Zahl steht; welche Reihe eine Spalte füllt, sagt der Hinweis neben dem Knopf. <b>Aus Tabelle einfügen</b> nimmt einen ganzen Block aus Deiner Tabellenkalkulation, weil 216 Zellen niemand tippt. Der Weg zurück steht daneben: <b>Ist</b> oder <b>Plan als Vorlage</b> legt die geltenden Zahlen ins Feld, von wo sie sich nach Excel kopieren lassen.</p>
+
+  <div class="wsbar" style="margin:14px 0 0">
+    <div class="seg" role="group" aria-label="Eigene Zahlen erfassen">
+      <button id="vqBearb" type="button">Zahlen bearbeiten</button>
+      <button id="vqEinf" type="button">Aus Tabelle einfügen</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="vqBearbH"></span></p>
+  </div>
+
+  <div class="bilout" id="vqEinfBox" hidden>
+    <p class="sub" style="margin:0 0 10px">Markier in Deiner Tabellenkalkulation <b>achtzehn Zeilen mal zwölf Spalten</b> und füge sie hier ein. Die Reihenfolge ist die der Tafel; steht der Positionsname in der ersten Spalte, wird danach zugeordnet und die Reihenfolge ist gleich. Zeilen, die keine zwölf Zahlen hergeben, werden übergangen. Punkt als Tausendertrenner und Komma als Dezimaltrenner versteht das Feld.</p>
+    <textarea id="vqPaste" aria-label="Zwölf Monatswerte je Position, aus der Tabellenkalkulation eingefügt"></textarea>
+    <div class="wsbar" style="margin:12px 0 0">
+      <div class="seg" role="group" aria-label="Übernehmen">
+        <button id="vqPasteIst" type="button">Als Ist übernehmen</button>
+        <button id="vqPastePlan" type="button">Als Plan übernehmen</button>
+      </div>
+      <div class="seg" role="group" aria-label="Vorlage">
+        <button id="vqVorlageIst" type="button">Ist als Vorlage</button>
+        <button id="vqVorlagePlan" type="button">Plan als Vorlage</button>
+      </div>
+    </div>
+    <p class="bilmsg" id="vqPasteMsg"></p>
+  </div>
+
 
   <div class="qkopf" style="margin-top:26px">
     <div>
@@ -1145,7 +1181,7 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <div class="vsk" tabindex="0" role="group" aria-label="Die Liquiditätsvorschau, seitlich scrollbar" style="margin-top:14px">
-    <div class="vs" id="vTafel"></div>
+    <div class="vs" id="vTafel"><div id="vTafelOben"></div><div id="vTafelUnten"></div></div>
   </div>
   <p class="sub" id="vNurH" style="margin:10px 0 0"></p>
 
@@ -1255,7 +1291,7 @@ footer a{color:var(--teal-dk)}
 <div class="tip" id="tip" role="status" aria-live="polite"></div>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.44</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.45</span>
 </footer>
 
 </div>
@@ -1440,6 +1476,8 @@ let JAHR = 2026;
    gezeigt; und die Positionen, die nie zu einer Zahlung führen, lassen
    sich wegblenden. Deshalb CSS-Klassen und kein Neuaufbau der Tabelle. */
 let BWA_AUS = false, NUR_ZAHL = false;
+/* Im Bearbeitungsmodus sind die Zellen der BWA Eingabefelder. */
+let BEARB = false;
 const tafelKlassen = () => "vs" + (BWA_AUS ? " ohne" : "") + (NUR_ZAHL ? " nurzahl" : "");
 
 /* Eine Verteilung um t Tage verschieben. Ein Monat sind dreißig Tage;
@@ -1777,12 +1815,15 @@ function vqZeichnen(){
   const glP = GESAMT.reduce((a, id) => a + BWA[id].plan.reduce((x, y) => x + y, 0), 0);
   const glI = GESAMT.reduce((a, id) => a + BWA[id].ist.reduce((x, y) => x + y, 0), 0);
   $("vqHerkunft").className = "qh" + (BWA_QUELLE.eigen ? " eigen" : "");
-  $("vqHerkunft").innerHTML = BWA_QUELLE.eigen
-    ? `<b>Deine Datei</b>${BWA_QUELLE.erzeugt ? " vom " + esc(BWA_QUELLE.erzeugt) : ""} · `
-      + `${BWA_QUELLE.n} Positionen übernommen · Gesamtleistung Plan <b>${zahl(glP)} T€</b>, `
-      + `Ist <b>${zahl(glI)} T€</b>`
-    : `<b>Demodaten</b> aus dem Modul „Die BWA lesen“ · Gesamtleistung Plan `
-      + `<b>${zahl(glP)} T€</b>, Ist <b>${zahl(glI)} T€</b>`;
+  const woher = !BWA_QUELLE.eigen
+    ? `<b>Demodaten</b> aus dem Modul „Die BWA lesen“`
+    : BWA_QUELLE.art === "hand" ? `<b>Von Hand bearbeitet</b>`
+    : BWA_QUELLE.art === "einfuegen" ? `<b>Aus einer Tabelle eingefügt</b> · `
+        + `${BWA_QUELLE.n} Positionen`
+    : `<b>Deine Datei</b>${BWA_QUELLE.erzeugt ? " vom " + esc(BWA_QUELLE.erzeugt) : ""} · `
+        + `${BWA_QUELLE.n} Positionen übernommen`;
+  $("vqHerkunft").innerHTML = woher
+    + ` · Gesamtleistung Plan <b>${zahl(glP)} T€</b>, Ist <b>${zahl(glI)} T€</b>`;
 
   /* Was der Startpunkt bedeutet, in Zahlen statt in Worten. */
   const n = 12 - START;
@@ -1793,6 +1834,14 @@ function vqZeichnen(){
       + `(${LANG[START]}–${LANG[11]}) · die offenen Posten kommen aus den Ist-Monaten dieser BWA`;
   $("vFenster").textContent = "Vorschau " + LANG[START] + "–" + LANG[11] + " " + JAHR
     + " · " + n + (n === 1 ? " Monat" : " Monate");
+
+  /* Welche Spalte in welche Reihe schreibt — die Frage stellt sich beim
+     ersten Klick auf „Zahlen bearbeiten“, und dann soll die Antwort
+     schon dastehen. */
+  $("vqBearbH").textContent = START === 0
+    ? "Alle zwölf Spalten schreiben in den Plan"
+    : LANG[0] + "–" + LANG[START - 1] + " schreiben ins Ist · "
+      + LANG[START] + "–" + LANG[11] + " in den Plan";
 
   vqBilZeichnen();
 }
@@ -2183,18 +2232,23 @@ document.addEventListener("focusout", e => {
 });
 addEventListener("scroll", wegTip, {passive:true});
 
+const spalten = (inhalt) => MONATE.map((_, m) =>
+  `<span class="z${m === START && START > 0 ? " naht" : ""}${m < START ? " vor" : ""}">${inhalt(m)}</span>`).join("");
+
+/* Die obere Haelfte haengt allein an BWA und Regelwerk, die untere an
+   der Rechnung. Deshalb sind es zwei Funktionen: Eine Zahl in der BWA
+   zu aendern zeichnet nur unten neu, und das Eingabefeld behaelt den
+   Fokus. */
 function vZeichnen(){
-  const z = rechne(), b = befund(z);
-  ZLETZT = z;
-  const n = 12 - START;
 
   /* Eine Tabelle, zwei Haelften. Oben die BWA, aus der gerechnet wird,
      unten die Zahlungen, die daraus werden — in denselben Spalten.
      Getrennt waeren es zwei Tabellen, zwischen denen niemand eine
      Zeile mit dem Finger verfolgt. */
-  const spalten = (inhalt) => MONATE.map((_, m) =>
-    `<span class="z${m === START && START > 0 ? " naht" : ""}${m < START ? " vor" : ""}">${inhalt(m)}</span>`).join("");
-
+  /* Zwei Behaelter statt einem: Wer eine Zahl in der BWA aendert, laesst
+     nur die untere Haelfte neu zeichnen. Ein Neuaufbau der ganzen Tafel
+     naehme dem Eingabefeld den Fokus, und das Durchtabben durch zwoelf
+     Monate waere dahin. */
   let h = `<div class="vsz kopf"><span class="n">in T€ · ${JAHR}</span>`
     + spalten(m => MONATE[m]) + `<span class="j">Summe</span></div>`;
   h += `<div class="vsz phase"><span class="n">Stand</span>`
@@ -2213,14 +2267,28 @@ function vZeichnen(){
       + `<span class="n q" tabindex="0" data-b="${id}">${esc(BWA[id].name)}</span>`
       + MONATE.map((_, m) => {
           const v = roh(id, m);
-          return `<span class="z q${v < 0 ? " neg" : ""}`
-            + `${m === START && START > 0 ? " naht" : ""}${m < START ? " vor" : ""}"`
+          const rand = `${m === START && START > 0 ? " naht" : ""}${m < START ? " vor" : ""}`;
+          /* Links der Naht schreibt das Feld ins Ist, rechts in den Plan
+             — in genau der Spalte, in der die Zahl auch gilt. */
+          if(BEARB) return `<span class="z${rand}"><input class="ze" value="${zahl(v)}"`
+            + ` inputmode="numeric" data-b="${id}" data-m="${m}"`
+            + ` aria-label="${esc(BWA[id].name)}, ${LANG[m]}, ${m < START ? "Ist" : "Plan"}"></span>`;
+          return `<span class="z q${v < 0 ? " neg" : ""}${rand}"`
             + ` data-b="${id}" data-m="${m}">${zahl(v)}</span>`;
         }).join("")
       + `<span class="j">${zahl(j)}</span></div>`;
   }
 
-  h += `<div class="vsz block"><span class="n">Liquiditätsvorschau</span>`
+  $("vTafelOben").innerHTML = h;
+  vUntenZeichnen();
+}
+
+function vUntenZeichnen(){
+  const z = rechne(), b = befund(z);
+  ZLETZT = z;
+  const n = 12 - START;
+
+  let h = `<div class="vsz block"><span class="n">Liquiditätsvorschau</span>`
     + spalten(() => "") + `<span class="j"></span></div>`;
   for(const g of GRUPPEN){
     if(g.art === "block"){
@@ -2243,7 +2311,7 @@ function vZeichnen(){
         + `${m < START ? " vor" : ""}" data-g="${g.id}" data-m="${m}">${zahl(v)}</span>`;
     }).join("") + `<span class="j">${zeigSumme ? zahl(summe) : ""}</span></div>`;
   }
-  $("vTafel").innerHTML = h;
+  $("vTafelUnten").innerHTML = h;
   /* Setzt die Ansichtsklassen und schreibt den Hinweis unter der
      Tabelle neu — er nennt die Positionen beim Namen, und die ändern
      sich mit dem Regelwerk. */
@@ -2477,6 +2545,164 @@ $("vSzen").addEventListener("input", e => {
   $("vOut").value = ""; $("vMsg2").textContent = "";
   vZeichnen();
 });
+
+/* =====================================================================
+   Eigene Zahlen erfassen
+
+   Zwei Wege, und sie sind für zwei verschiedene Lagen gebaut. Der
+   Bearbeitungsmodus macht die Zellen der BWA beschreibbar — für die
+   einzelne Korrektur, dort wo die Zahl steht. Das Einfügefeld nimmt
+   einen Block aus der Tabellenkalkulation — für das erste Befüllen,
+   weil 216 Zellen niemand tippt.
+
+   Welche Reihe eine Zelle beschreibt, entscheidet ihre Spalte: links
+   der Naht das Ist, rechts der Plan.
+   ===================================================================== */
+$("vqBearb").addEventListener("click", () => {
+  BEARB = !BEARB;
+  /* Wer bearbeiten will, muss sehen können, was er bearbeitet. Ist die
+     BWA gerade ausgeblendet, kommt sie zurück — ein Knopf, der nichts
+     sichtbar tut, ist schlimmer als einer, der etwas mehr tut. */
+  if(BEARB && BWA_AUS) BWA_AUS = false;
+  $("vqBearb").textContent = BEARB ? "Bearbeiten beenden" : "Zahlen bearbeiten";
+  vZeichnen();
+  if(BEARB){
+    const erstes = $("vTafelOben").querySelector("input.ze");
+    if(erstes) erstes.focus();
+  }
+});
+
+/* Die Zelle schreibt in die Reihe, die in ihrer Spalte gilt, und nur
+   die untere Hälfte wird neu gezeichnet — sonst verlöre das Feld beim
+   Tippen den Fokus. */
+$("vTafelOben").addEventListener("input", e => {
+  const el = e.target;
+  if(!el.classList || !el.classList.contains("ze")) return;
+  const id = el.dataset.b, m = +el.dataset.m;
+  BWA[id][m < START ? "ist" : "plan"][m] = lesen(el.value);
+  BWA_QUELLE = {eigen:true, art:"hand", erzeugt:"", n:BWA_IDS.length};
+  /* Die Summenspalte dieser Zeile von Hand nachziehen. Die obere
+     Haelfte wird beim Tippen nicht neu gebaut, und eine Summe, die
+     nicht mitgeht, ist eine falsche Zahl auf dem Schirm. */
+  let js = 0; for(let i = START; i < 12; i++) js += BWA[id].plan[i];
+  const zeile = el.closest(".vsz");
+  if(zeile) zeile.querySelector(".j").textContent = zahl(js);
+  $("vOut").value = "";
+  vUntenZeichnen();
+  vqZeichnen();
+});
+/* Beim Verlassen wird die Zahl sauber geschrieben — „7.1“ wird zu
+   „7“, und der Leser sieht sofort, was angekommen ist. */
+$("vTafelOben").addEventListener("change", e => {
+  const el = e.target;
+  if(el.classList && el.classList.contains("ze"))
+    el.value = zahl(roh(el.dataset.b, +el.dataset.m));
+});
+
+/* ---------------------------------------------------------------------
+   Der Block aus der Tabellenkalkulation
+   --------------------------------------------------------------------- */
+$("vqEinf").addEventListener("click", () => {
+  const box = $("vqEinfBox");
+  box.hidden = !box.hidden;
+  $("vqEinf").textContent = box.hidden ? "Aus Tabelle einfügen" : "Einfügefeld schließen";
+  if(!box.hidden) $("vqPaste").focus();
+});
+
+/* Ein Name wird unabhängig von Schreibweise, Umlauten und Leerzeichen
+   verglichen — wer seine BWA aus einem anderen Programm kopiert, hat
+   selten genau dieselbe Schreibung. */
+const flach = t => t.toLowerCase().replace(/ä/g, "ae").replace(/ö/g, "oe")
+  .replace(/ü/g, "ue").replace(/ß/g, "ss").replace(/[^a-z0-9]/g, "");
+
+/* Eine Zeile zerlegen: vorn darf ein Name stehen, danach zwölf Zahlen.
+   Getrennt wird an Tabulatoren, Semikola oder mehreren Leerzeichen —
+   die drei Trenner, die aus einer Tabellenkalkulation kommen. */
+function zeileLesen(zeile){
+  const felder = zeile.split(/\t|;|\s{2,}/).map(t => t.trim()).filter(t => t !== "");
+  const zahlen = [], namensteile = [];
+  for(const f of felder){
+    if(/^-?[\d.,\s]+$/.test(f) && /\d/.test(f)) zahlen.push(lesen(f));
+    else if(!zahlen.length) namensteile.push(f);
+  }
+  return {name:namensteile.join(" "), zahlen};
+}
+
+function einfuegen(reihe){
+  const roh = $("vqPaste").value.split(/\r?\n/).map(z => z.trim()).filter(z => z !== "");
+  if(!roh.length){ $("vqPasteMsg").textContent = "Das Feld ist leer."; return; }
+
+  const nachName = {};
+  for(const id of BWA_IDS) nachName[flach(BWA[id].name)] = id;
+
+  const brauchbar = [], uebrig = [];
+  for(const zeile of roh){
+    const {name, zahlen} = zeileLesen(zeile);
+    if(zahlen.length < 12){ uebrig.push(zeile.slice(0, 40)); continue; }
+    brauchbar.push({name, id:nachName[flach(name)] || null, werte:zahlen.slice(0, 12)});
+  }
+  if(!brauchbar.length){
+    $("vqPasteMsg").textContent = "Keine Zeile mit zwölf Zahlen gefunden. "
+      + "Prüf, ob die Monatswerte in eigenen Spalten stehen.";
+    return;
+  }
+
+  /* Zwei Lagen, zwei Regeln. Steht vor den Zahlen nirgends ein Name,
+     ist es ein Block ohne Namensspalte: Dann gilt die Reihenfolge der
+     Tafel. Steht auch nur einmal einer da, gab es eine Namensspalte —
+     dann wird eine unbekannte Zeile gemeldet und nicht der nächstbesten
+     Position untergeschoben. Sonst landete „Kaffee und Kuchen“
+     stillschweigend in der Bestandsveränderung. */
+  const mitNamen = brauchbar.filter(x => x.name).length;
+  const fremd = [];
+  if(!mitNamen){
+    let k = 0;
+    for(const x of brauchbar) x.id = BWA_IDS[k++] || null;
+  } else {
+    for(const x of brauchbar) if(!x.id) fremd.push(x.name || "(ohne Namen)");
+  }
+
+  let n = 0;
+  const namen = [];
+  for(const x of brauchbar){
+    if(!x.id) continue;
+    BWA[x.id][reihe] = x.werte;
+    namen.push(BWA[x.id].name);
+    n++;
+  }
+  if(!n){
+    $("vqPasteMsg").textContent = "Keine der Zeilen ließ sich einer Position zuordnen: "
+      + fremd.join(", ") + ".";
+    return;
+  }
+  BWA_QUELLE = {eigen:true, art:"einfuegen", erzeugt:"", n};
+  $("vOut").value = "";
+  alles();
+
+  const wie = reihe === "ist" ? "Ist" : "Plan";
+  let text = n + " von " + BWA_IDS.length + " Positionen als " + wie + " übernommen";
+  text += n < BWA_IDS.length ? ": " + namen.join(", ") + "." : ".";
+  if(fremd.length) text += " Kein Name dieser Tafel: " + fremd.join(", ") + ".";
+  if(uebrig.length) text += " Übergangen, weil keine zwölf Zahlen darin standen: "
+    + uebrig.length + (uebrig.length === 1 ? " Zeile" : " Zeilen") + ".";
+  $("vqPasteMsg").textContent = text;
+}
+
+$("vqPasteIst").addEventListener("click", () => einfuegen("ist"));
+$("vqPastePlan").addEventListener("click", () => einfuegen("plan"));
+
+/* Die Vorlage ist der Rückweg: Was gerade gilt, als Block zum Kopieren,
+   bearbeiten und Zurückgeben. Ohne sie müsste jemand die Reihenfolge
+   der achtzehn Positionen abschreiben. */
+function vorlage(reihe){
+  $("vqPaste").value = BWA_IDS.map(id =>
+    [BWA[id].name].concat(BWA[id][reihe].map(v => zahl(v))).join("\t")).join("\n");
+  $("vqPasteMsg").textContent = "Die " + (reihe === "ist" ? "Ist" : "Plan")
+    + "-Reihe steht im Feld — mit Tabulatoren getrennt, also direkt in eine "
+    + "Tabellenkalkulation einzufügen.";
+}
+$("vqVorlageIst").addEventListener("click", () => vorlage("ist"));
+$("vqVorlagePlan").addEventListener("click", () => vorlage("plan"));
 
 /* =====================================================================
    6 · Mitnehmen
