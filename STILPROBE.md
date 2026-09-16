@@ -39,6 +39,30 @@ und Einschränkungen in Klammern, rund siebzehnmal je tausend Wörter. Ich setze
 Klammer und baue stattdessen einen eigenen Satz mit Gedankenstrich davor. Das ist derselbe
 Inhalt in einer Form, die nach Effekt klingt.
 
+## Die Fügung „, und" kommt bei Maik nicht vor
+
+Gemessen am selben Text, je 1.000 Wörter:
+
+| Fügung | Buch | Modul vor der Überarbeitung |
+|---|---|---|
+| `, und` | **0,0** | 13,3 |
+| `sowie` | **4,2** | 0,3 |
+| `hingegen` oder `allerdings` | **2,0** | 0,3 |
+| `Zudem` am Satzanfang | **1,5** | 0,0 |
+| `, da` | **1,2** | 0,0 |
+| `sodass` | 0,7 | 0,0 |
+| `indem` | 0,5 | 0,0 |
+| `hierbei` | 0,5 | 0,0 |
+
+Maik hängt zwei Hauptsätze nie mit „, und" aneinander. Er ordnet den zweiten unter oder eröffnet
+einen neuen Satz mit einem Adverb. Für Aufzählungen von Satzgliedern nimmt er `sowie`, rund
+vierzehnmal so oft wie ich.
+
+**Wer den Gedankenstrich streicht, landet fast zwangsläufig bei „, und".** In der ersten Fassung
+von `plattform/liquiditaet-vorschau.html` standen 13,3 solcher Fügungen je 1.000 Wörter, also
+genau so viele, wie dort vorher Gedankenstriche standen (14,3). Die Marotte war nicht weg, sie
+hatte nur ein anderes Zeichen.
+
 ## Was am kurzen Satz wirklich falsch war
 
 Der kurze, schlagende Satz kommt im Buch vor. „Dies ist aber nicht so." steht dort, ebenso
@@ -125,7 +149,7 @@ her, die Ansprache müssen sie nicht hergeben.
 
 **Die Dichte.** Ein Absatz des Buches setzt voraus, dass jemand mit einem Stift daneben sitzt und
 zurückblättern kann. Ein Modul wird einmal durchgelesen. Deshalb bleibt die Satzlänge unter der
-des Buches, und ein Gedanke bekommt eher zwei Sätze als einen mit drei Nebensätzen.
+des Buches, wobei ein Gedanke eher zwei Sätze bekommt als einen mit drei Nebensätzen.
 
 **Der Apparat.** Fußnoten, `vgl.`-Verweise auf eigene Abschnitte und die durchnummerierten
 Abbildungen gehören zum Buch. Ein Modul nennt den Autor im Fließtext und verweist auf andere
