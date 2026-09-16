@@ -107,12 +107,41 @@ sich wie eine Bedienungsanleitung.
 
 | Die Marotte | Wie es dasteht | Wie es dastehen soll |
 |---|---|---|
-| Die Sentenz statt der Aussage | „Eine Vorschau beginnt nicht im luftleeren Raum." | „Deine Vorschau fängt in einem bestimmten Monat an." |
+| Die Sentenz an der Stelle der Aussage | „Eine Vorschau beginnt nicht im luftleeren Raum." | „Deine Vorschau fängt in einem bestimmten Monat an." |
 | Passiv ohne Handelnden | „Der abgelaufene Teil wird mitgerechnet." | „Das Modul rechnet die Monate mit, die schon gelaufen sind." |
 | Verb vorn, Subjekt hinten | „Verbunden wird über das Feld *Hängt an*." | „Verbinden kannst Du über das Feld *Hängt an*." |
 | Satz ohne Verb | „Ein Graph, kein Baum." | „Die Daten liegen als Graph vor. Der Baum entsteht erst beim Lesen." |
 | Die Dreierfigur ohne Verb | „Oben das Geschäft, in der Mitte das Finanzamt, unten alles Übrige." | „Eine Liquiditätsvorschau setzt sich aus drei Komponenten zusammen. Erstens die BWA samt Regelwerk, zweitens der Steuersaldo, drittens alles, was nicht in der BWA steht." |
 | Das Anhängsel am Satzende | „…, und das ist der Zweck der Trennung." | Punkt setzen. Den Gedanken in den nächsten Satz stellen, wenn er gebraucht wird. |
+
+#### Der Takt der Sätze
+
+**Der kurze, schlagende Satz ist erlaubt.** Falsch ist seine Häufigkeit. In Maiks Buchtext sind
+sieben Prozent der Sätze kürzer als neun Wörter, in den Modulen waren es achtzehn bis dreißig
+Prozent. Ein kurzer Satz wirkt, weil er nach einer langen Strecke Argumentation kommt. Wo jeder
+dritte Satz kurz ist, kommt keiner mehr an.
+
+Ein Modul wird am Bildschirm gelesen und einmal durchgelesen, deshalb bleibt es unter der Dichte
+des Buches. Die Zielmarke liegt dazwischen.
+
+| | Buch | Module vorher | Zielmarke Modul |
+|---|---|---|---|
+| Satzlänge, Median | 21 Wörter | 12 bis 14 | **17 bis 18** |
+| Sätze unter 9 Wörtern | 7 % | 18 bis 30 % | **höchstens 12 %** |
+| Sätze über 25 Wörtern | 34 % | 6 bis 8 % | **mindestens 20 %** |
+
+**Die Klammer ersetzt den Gedankenstrich.** Maik setzt Beispiele, Querverweise und
+Einschränkungen in Klammern, rund siebzehnmal je tausend Wörter. In den Modulen stand dafür ein
+Gedankenstrich oder ein eigener Satz. Wer einen Einschub braucht, nimmt die Klammer.
+
+**Eine Zahl wird eingeschränkt, statt behauptet.** Wörter wie `zumeist`, `in der Regel`,
+`häufig`, `nicht selten`, `sollte` und `kann` stehen im Buchtext rund dreißigmal auf vier
+Seiten. An denselben Stellen stand in den Modulen eine nackte Behauptung. Wo eine Aussage nicht
+immer gilt, sagt der Satz das.
+
+**`STILPROBE.md` hält die Messung und die Mustersätze fest.** Dort stehen Maiks eigene Sätze nach
+Typ sortiert, dazu das, was sich aus dem Buch nicht übernehmen lässt. Wer den Ton treffen will,
+liest die Datei vor dem Schreiben.
 
 **Überschriften benennen die Sache ganz.** „Der Aufbau einer Liquiditätsvorschau" kostet drei
 Wörter mehr als „Der Aufbau" und lässt den Leser nicht raten, wovon die Rede ist. Dasselbe gilt
@@ -139,6 +168,10 @@ Komma, Punkt und Streichung. Ein Suchen und Ersetzen würde dort Sätze zerstör
 wird aufgeräumt, wenn ein Text ohnehin angefasst wird.
 
 **Für neu geschriebene und überarbeitete Texte gelten die Regeln vollständig, ab sofort.**
+
+**[gesetzt] Diese Regeln gelten zunächst allein für den deutschen Text.** Für das Englische ist
+nichts festgelegt. `index.html` und `sofias-coffee-dream.html` führen beide Sprachen, und ihr
+englischer Teil bleibt vorerst, wie er ist.
 
 ### Verbotene Formulierungen
 
@@ -277,6 +310,9 @@ so konfiguriert ist. Ob ein Commit von Hand stammt, verrät allein das Fehlen de
 
 ## Vor jeder Aufgabe lesen
 
+`STILPROBE.md` ist vor dem Schreiben eines Textes zu lesen. Dort steht, wie ein Satz in
+diesem Projekt klingt, gemessen an Maiks eigenem Buchtext.
+
 `PROJECT-CANON.md` ist verbindlich. Dort stehen alle Namen, Zahlen, Standorte und
 Festlegungen des Falls. Nichts davon erfinden oder abwandeln — wenn eine Angabe fehlt,
 im Pull Request nachfragen statt sie zu ergänzen.
@@ -351,6 +387,7 @@ den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in dopp
 index.html                       die Weiche — nur für die Entwicklung
 CLAUDE.md                        diese Datei
 PROJECT-CANON.md                 Namen, Zahlen, Festlegungen des Falls
+STILPROBE.md                     wie Maik schreibt, gemessen an seinem Buchtext
 
 vorlesung/                       der Stoff für die Lehrveranstaltungen
   index.html                     Startseite mit Filter und Suche
@@ -655,6 +692,73 @@ EOF
 
 Ein harter Verstoß muss vor dem Pull Request weg. Ein „prüfen“-Fund wird angesehen und
 entweder geändert oder mit `<!-- sprache:ok -->` in derselben Zeile stehen gelassen.
+
+### Die Zahlenprobe
+
+Eine redaktionelle Überarbeitung fasst jeden Satz einer Datei an. Dabei kann eine Zahl
+verrutschen oder ein Name des Kanons verschwinden, ohne dass es jemand im Diff bemerkt, weil
+ohnehin jede Zeile geändert ist. Die Zahlenprobe vergleicht deshalb die Substanz vor und nach
+der Überarbeitung. Sie zieht alle Zahlgruppen und alle Kanonnamen aus der Datei und stellt die
+Mengen gegenüber.
+
+Der erste Parameter ist die Git-Referenz, gegen die verglichen wird, danach folgen die Dateien.
+
+```bash
+python3 - HEAD plattform/liquiditaet-begriff.html <<'EOF'
+import io, re, sys, collections, subprocess
+
+KANON = ["Sofia","Nguyen","Alex","Anna","Jonas","Klara","Elif",
+         "Ringstra\u00dfe","Alsergrund","R\u00f6sterei","Coffeebike","PPS"]
+
+def substanz(t):
+    m = collections.Counter(re.findall(r"\d[\d.,]*\d|\d", t))
+    for k in KANON:
+        n = len(re.findall(r"\b" + k + r"\b", t))
+        if n:
+            m["NAME " + k] = n
+    return m
+
+# Ein Wert hat mehr als eine Ziffer. Eine einzelne Ziffer ist meist eine
+# Ordnungszahl aus einer Beschriftung und wird milder gemeldet.
+wert = lambda k: k.startswith("NAME ") or len(k) > 1
+
+def hole(ref, datei):
+    return subprocess.run(["git","show",f"{ref}:{datei}"],
+                          capture_output=True, text=True, check=True).stdout
+
+ref, dateien = sys.argv[1], sys.argv[2:]
+fehler = 0
+for d in dateien:
+    a, b = substanz(hole(ref, d)), substanz(io.open(d, encoding="utf-8").read())
+    paare = ([(k,n,"fehlt jetzt") for k,n in sorted((a-b).items())] +
+             [(k,n,"neu dazu")    for k,n in sorted((b-a).items())])
+    hart = [x for x in paare if wert(x[0])]
+    mild = [x for x in paare if not wert(x[0])]
+    if not paare:
+        print(f"OK          {d}  ({sum(a.values())} Zahlen und Namen unver\u00e4ndert)")
+        continue
+    if hart:
+        fehler += 1
+        print(f"ABWEICHUNG  {d}")
+        for k,n,r in hart: print(f"   {r:12s} {k!r} x{n}")
+    if mild:
+        print(f"Hinweis     {d}  einstellige Zahlen, meist Ordnungszahlen")
+        for k,n,r in mild: print(f"   {r:12s} {k!r} x{n}")
+sys.exit(1 if fehler else 0)
+EOF
+```
+
+**Zwei Klassen von Meldungen.** `ABWEICHUNG` meint eine Zahl mit mehr als einer Ziffer oder
+einen Kanonnamen, also einen Wert. Der Lauf bricht dort ab. `Hinweis` meint eine einstellige
+Zahl, meist eine Ordnungszahl aus einer Beschriftung wie „Teil 1". Die wird gemeldet, sie lässt
+den Lauf aber durch.
+
+**Die Probe liest die ganze Datei** und schließt CSS und JavaScript mit ein. Das ist Absicht,
+denn so fällt auch eine Pixelangabe auf, die beim Umschreiben versehentlich mitgeändert wurde.
+
+**Sie beweist nichts, sie warnt nur.** Verglichen werden Mengen, also fällt ein Tausch zweier
+Zahlen zwischen zwei Sätzen nicht auf. Gegen den häufigsten Unfall hilft sie trotzdem, nämlich
+gegen die Zahl, die beim Umformulieren verlorengeht oder sich ändert.
 
 Zusätzlich nach Resten einer früheren Fassung suchen, wenn sich Namen geändert haben:
 
