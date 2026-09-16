@@ -70,6 +70,76 @@ Deutsch. Für die Module gilt:
   ist ohnehin schon die passende Form. Aufpassen bei „sie" in der dritten Person: „Sie ist der
   Grund, warum sich ein Bericht aufklappen lässt" bleibt, wie es ist.
 
+### Wie ein Satz klingt
+
+Ein Modul soll sich lesen wie jemand spricht, der die Sache erklärt. Was sich nicht vorlesen
+lässt, ohne dass der Leser stockt, ist falsch geschrieben.
+
+**Einzeln ist keine der folgenden Regeln wichtig.** Zusammen ergeben ihre Verstöße den Tonfall,
+an dem jeder Leser nach zwei Absätzen erkennt, dass eine Maschine geschrieben hat. Genau deshalb
+stehen sie hier.
+
+#### Zeichensetzung
+
+**Der Gedankenstrich kommt nicht vor.** Weder als Einschub mitten im Satz noch als Anhängsel am
+Ende. Wo einer steht, gehört ein Komma hin, oder der Anhang wird ein eigener Satz. Haupt- und
+Nebensätze werden durch Kommata getrennt, wie es die Schule lehrt.
+
+**Der Doppelpunkt leitet eine echte Aufzählung ein und sonst nichts.** Er ist kein Mittel, um
+den Höhepunkt eines Gedankens anzukündigen. Wer ihn dafür benutzt, baut eine Pause ein, die der
+Leser als Effekt empfindet, und Effekte fallen auf.
+
+Richtig ist „Eine Vorschau braucht drei Angaben: den Startmonat, die BWA und die
+Zahlungsregeln." Falsch ist „Dann zeigt sich das Eigentliche: Die Regeln lagen zu hoch."
+
+**Kein Oxford-Komma.** Vor dem letzten „und" einer Aufzählung steht im Deutschen kein Komma.
+„Ist, Plan und Abweichung" ist richtig, „Ist, Plan, und Abweichung" ist falsch. Das Komma vor
+einem „und", das zwei vollständige Hauptsätze verbindet, ist etwas anderes und bleibt erlaubt.
+
+**Kein Satz beginnt mit „Und".** Was angehängt werden soll, kommt mit Komma an den Satz davor.
+Dasselbe gilt für ein „Aber" oder „Doch" am Satzanfang, das nur den Rhythmus bedienen soll.
+
+#### Satzbau
+
+Jeder Satz hat ein Subjekt, das etwas tut. Meistens bist Du das, oder das Modul, oder die
+Rechnung. Wo niemand handelt, entsteht der Klang, den jemand meint, wenn er sagt, ein Text lese
+sich wie eine Bedienungsanleitung.
+
+| Die Marotte | Wie es dasteht | Wie es dastehen soll |
+|---|---|---|
+| Die Sentenz statt der Aussage | „Eine Vorschau beginnt nicht im luftleeren Raum." | „Deine Vorschau fängt in einem bestimmten Monat an." |
+| Passiv ohne Handelnden | „Der abgelaufene Teil wird mitgerechnet." | „Das Modul rechnet die Monate mit, die schon gelaufen sind." |
+| Verb vorn, Subjekt hinten | „Verbunden wird über das Feld *Hängt an*." | „Verbinden kannst Du über das Feld *Hängt an*." |
+| Satz ohne Verb | „Ein Graph, kein Baum." | „Die Daten liegen als Graph vor. Der Baum entsteht erst beim Lesen." |
+| Die Dreierfigur ohne Verb | „Oben das Geschäft, in der Mitte das Finanzamt, unten alles Übrige." | „Eine Liquiditätsvorschau setzt sich aus drei Komponenten zusammen. Erstens die BWA samt Regelwerk, zweitens der Steuersaldo, drittens alles, was nicht in der BWA steht." |
+| Das Anhängsel am Satzende | „…, und das ist der Zweck der Trennung." | Punkt setzen. Den Gedanken in den nächsten Satz stellen, wenn er gebraucht wird. |
+
+**Überschriften benennen die Sache ganz.** „Der Aufbau einer Liquiditätsvorschau" kostet drei
+Wörter mehr als „Der Aufbau" und lässt den Leser nicht raten, wovon die Rede ist. Dasselbe gilt
+für die Beschriftung eines Kastens. „Teil 1: BWA" sagt, was drinsteht, „Oberer Teil" sagt nur,
+wo er liegt.
+
+#### Ton
+
+**Kein Clickbait.** Kein Satz kündigt an, dass gleich etwas Überraschendes kommt. Keine
+rhetorische Frage, die nur Spannung aufbauen soll. Keine Behauptung, die größer ist als ihr
+Gegenstand. Eine Liquiditätsvorschau ist eine Liquiditätsvorschau und wird so beschrieben, wie
+sie ist.
+
+**Gesprochenes Deutsch heißt nicht flapsig.** Der Ton bleibt der eines Dozenten, der vor der
+Gruppe steht. Er spricht in vollständigen Sätzen, er benutzt Fachbegriffe dort, wo sie
+hingehören, und er verzichtet auf die Figuren, mit denen ein Text sich selbst interessant machen
+will.
+
+#### Warum das hier steht und nicht in der Tabelle
+
+Ein regulärer Ausdruck findet diese Dinge nicht. Den Gedankenstrich könnte er finden, aber in
+den vorhandenen Dateien stehen 1.095 davon, und jeder braucht eine eigene Entscheidung zwischen
+Komma, Punkt und Streichung. Ein Suchen und Ersetzen würde dort Sätze zerstören. Die Altlast
+wird aufgeräumt, wenn ein Text ohnehin angefasst wird.
+
+**Für neu geschriebene und überarbeitete Texte gelten die Regeln vollständig, ab sofort.**
+
 ### Verbotene Formulierungen
 
 Diese Liste wächst. Fällt beim Lesen eine Wendung auf, die nicht mehr vorkommen soll, kommt
