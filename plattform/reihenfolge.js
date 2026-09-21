@@ -28,5 +28,6 @@ const REIHENFOLGE = [
   "liqui-begriff",     // Liquidität: der Begriff
   "liqui-bwa",         // Die BWA lesen
   "liqui-vorschau",    // Die Liquiditätsvorschau
-  "liqui-tagesplan"    // Tagesvorschau und Rollierung
+  "liqui-tagesplan",   // Tagesvorschau und Rollierung
+  "cv-leitbild"        // Das Controlling-Leitbild
 ];
