@@ -87,7 +87,7 @@ Nebensätze werden durch Kommata getrennt, wie es die Schule lehrt.
 
 **Der Doppelpunkt leitet eine echte Aufzählung ein und sonst nichts.** Er ist kein Mittel, um
 den Höhepunkt eines Gedankens anzukündigen. Wer ihn dafür benutzt, baut eine Pause ein, die der
-Leser als Effekt empfindet, und Effekte fallen auf.
+Leser als Effekt empfindet. Effekte fallen auf.
 
 Richtig ist „Eine Vorschau braucht drei Angaben: den Startmonat, die BWA und die
 Zahlungsregeln." Falsch ist „Dann zeigt sich das Eigentliche: Die Regeln lagen zu hoch."
@@ -95,6 +95,26 @@ Zahlungsregeln." Falsch ist „Dann zeigt sich das Eigentliche: Die Regeln lagen
 **Kein Oxford-Komma.** Vor dem letzten „und" einer Aufzählung steht im Deutschen kein Komma.
 „Ist, Plan und Abweichung" ist richtig, „Ist, Plan, und Abweichung" ist falsch. Das Komma vor
 einem „und", das zwei vollständige Hauptsätze verbindet, ist etwas anderes und bleibt erlaubt.
+
+**Zwei Hauptsätze werden nicht mit „, und" aneinandergehängt.** Maik benutzt diese Fügung in
+viertausend Wörtern Buchtext **kein einziges Mal**. Sie ist die häufigste Ausweichbewegung, wenn
+der Gedankenstrich verboten wird, also dieselbe Marotte in anderer Gestalt.
+
+Zwei Wege führen heraus, von denen der zweite meistens der bessere ist.
+
+1. **Zwei Sätze daraus machen.** Der zweite beginnt mit einem Adverb, das die Verbindung
+   herstellt, also mit `Dann`, `Deshalb`, `Zudem`, `Damit`, `Trotzdem` oder `Dabei`.
+2. **Den zweiten Hauptsatz unterordnen.** Maiks eigenes Repertoire dafür ist `sowie` (4,2 Treffer
+   je 1.000 Wörter), `hingegen` und `allerdings` (2,0), `Zudem` am Satzanfang (1,5), `, da` (1,2),
+   `sodass`, `indem`, `wobei` und `hierbei`. Dazu kommt der Relativsatz.
+
+**Der zweite Weg ist der wichtigere**, weil das reine Zerlegen die Satzlänge auffrisst. Beim
+ersten Durchgang durch `plattform/liquiditaet-vorschau.html` hat das Aufspalten aller 86 Stellen
+den Median von 18 auf 14 Wörter gedrückt und den Anteil kurzer Sätze von 5,7 auf 15,2 Prozent
+getrieben. Erst das Zurückholen von 35 Stellen über Unterordnung hat den Takt wieder
+hergestellt.
+
+Dasselbe gilt für `, und zwar`. Dort steht `nämlich`, oder der Einschub kommt in eine Klammer.
 
 **Kein Satz beginnt mit „Und".** Was angehängt werden soll, kommt mit Komma an den Satz davor.
 Dasselbe gilt für ein „Aber" oder „Doch" am Satzanfang, das nur den Rhythmus bedienen soll.
@@ -157,21 +177,24 @@ sie ist.
 
 **Gesprochenes Deutsch heißt nicht flapsig.** Der Ton bleibt der eines Dozenten, der vor der
 Gruppe steht. Er spricht in vollständigen Sätzen, er benutzt Fachbegriffe dort, wo sie
-hingehören, und er verzichtet auf die Figuren, mit denen ein Text sich selbst interessant machen
+hingehören, und verzichtet auf die Figuren, mit denen ein Text sich selbst interessant machen
 will.
 
 #### Warum das hier steht und nicht in der Tabelle
 
 Ein regulärer Ausdruck findet diese Dinge nicht. Den Gedankenstrich könnte er finden, aber in
-den vorhandenen Dateien stehen 1.095 davon, und jeder braucht eine eigene Entscheidung zwischen
-Komma, Punkt und Streichung. Ein Suchen und Ersetzen würde dort Sätze zerstören. Die Altlast
+den vorhandenen Dateien stehen 1.095 davon, von denen jeder eine eigene Entscheidung zwischen
+Komma, Punkt und Streichung braucht. Ein Suchen und Ersetzen würde dort Sätze zerstören. Die Altlast
 wird aufgeräumt, wenn ein Text ohnehin angefasst wird.
+
+Dasselbe gilt für die Fügung „, und". In den übrigen 23 Dateien stehen davon noch 238
+Stück, gezählt nach der Bereinigung der Liquiditätsvorschau.
 
 **Für neu geschriebene und überarbeitete Texte gelten die Regeln vollständig, ab sofort.**
 
 **[gesetzt] Diese Regeln gelten zunächst allein für den deutschen Text.** Für das Englische ist
-nichts festgelegt. `index.html` und `sofias-coffee-dream.html` führen beide Sprachen, und ihr
-englischer Teil bleibt vorerst, wie er ist.
+nichts festgelegt. `index.html` und `sofias-coffee-dream.html` führen beide Sprachen, deren
+englischer Teil vorerst bleibt, wie er ist.
 
 ### Verbotene Formulierungen
 
@@ -355,13 +378,13 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.46`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.47`.
 Keine Quellenverzeichnisse, keine Legenden.
 
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.46</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.47</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
