@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Das Controlling-Leitbild · Controlling beim CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2; --canvas:#F4F3F0;
+  --green:#2E9E6B; --red:#D9534F;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.1rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:20ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:clamp(1.08rem,1.78vw,1.32rem);font-weight:300;color:#3d3d40;line-height:1.55;margin:0}
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+.claim{font-size:clamp(1.2rem,2.35vw,1.6rem);font-weight:300;line-height:1.42;margin:0 0 26px;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--teal-dk)}
+h2.sec{font-size:1.34rem;font-weight:600;letter-spacing:-.014em;margin:34px 0 4px}
+h2.sec:first-child{margin-top:0}
+p.sub{margin:0 0 18px;color:var(--grey);font-size:1.06rem;line-height:1.6}
+/* ---------- Schaltflaechen ---------- */
+.seg{display:inline-flex;border:1px solid var(--grey-xl);background:var(--paper);border-radius:var(--r);padding:4px;gap:4px;flex-wrap:wrap}
+.seg button{appearance:none;border:0;background:transparent;cursor:pointer;font-family:var(--sans);
+  font-size:.88rem;font-weight:600;color:var(--grey);padding:9px 16px;border-radius:7px;transition:.16s}
+.seg button:hover{color:var(--teal-dk)}
+.seg button[aria-pressed="true"]{background:var(--teal-dk);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.84rem;color:#4a4a4d}
+.key{display:inline-flex;align-items:center;gap:8px}
+/* ---------- Auf- und zuklappbare Bloecke innerhalb einer Lektion ------
+   Die Bloecke entstehen zur Laufzeit aus der vorhandenen Gliederung:
+   jedes h2.sec eroeffnet einen Block, alles bis zum naechsten h2.sec
+   ist sein Inhalt. Am Markup ist dafuer nichts zu aendern.          */
+.blk{border-top:1px solid var(--grey-xl)}
+.blk:first-of-type{border-top:0}
+.blk h2.sec{margin:0}
+.blk-t{appearance:none;width:100%;background:transparent;border:0;cursor:pointer;
+  display:flex;align-items:center;gap:12px;text-align:left;padding:20px 0 18px;
+  font:inherit;color:inherit;letter-spacing:inherit;transition:color .16s}
+.blk-t:hover{color:var(--teal-dk)}
+.blk-t:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:4px}
+.blk-c{width:13px;height:13px;flex:none;color:var(--teal-dk);
+  transition:transform .22s var(--ease)}
+.blk[data-open="true"] .blk-c{transform:rotate(90deg)}
+.blk-b{padding:0 0 28px}
+.blk-b[hidden]{display:none}
+@media print{
+/* Gedruckt wird nur der Bereich, den der Knopf gewaehlt hat. Alles
+     andere wird unsichtbar geschaltet, behaelt aber seinen Platz nicht -
+     der Zielbereich wird nach oben genommen.                          */
+body{background:#fff}
+body[data-print] *{visibility:hidden!important}
+body[data-print="werk"] #wsPrint, body[data-print="werk"] #wsPrint *,
+  body[data-print="merk"] #merkblatt, body[data-print="merk"] #merkblatt *{visibility:visible!important}
+body[data-print="werk"] #wsPrint,
+  body[data-print="merk"] #merkblatt{position:absolute;left:0;top:0;width:100%}
+.panel[hidden]{display:none!important}
+.blk-b[hidden]{display:block!important}
+}
+/* ---------- Kernaussagen ---------- */
+.readme{margin-top:18px;background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:20px 24px;
+  font-size:1rem;line-height:1.55}
+.readme b{font-weight:700}
+.readme code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.2);padding:1px 5px;border-radius:4px}
+.readme a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.pointe{margin-top:34px;background:var(--orange);color:#fff;border-radius:var(--r);padding:26px 28px}
+.pointe .pk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin:0 0 10px}
+.pointe p{margin:0;font-size:clamp(1.12rem,2.1vw,1.45rem);font-weight:300;line-height:1.48}
+.pointe p b{font-weight:700}
+footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+.build{font-family:var(--mono);font-size:.92em;letter-spacing:.02em;opacity:.85}
+footer a{color:var(--teal-dk)}
+@media (max-width:620px){
+.wrap{padding:0 16px 56px}
+}
+@media (prefers-reduced-motion:reduce){
+*{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+/* ---------- Die Zettelwand der Zukunftsvision ----------
+   Neun Karten in einem Raster, jede davon ein Knopf. Auf einem Tablet
+   gibt es kein Mouseover, deshalb oeffnet erst ein Tipp die Erlaeuterung
+   darunter. Die Zielflaeche ist absichtlich gross.                    */
+.zwand{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 0 18px}
+.zet{appearance:none;font:inherit;text-align:left;cursor:pointer;color:inherit;
+  background:var(--sand-xl);border:1px solid var(--sand);border-radius:var(--r);
+  padding:18px 16px;min-height:120px;display:flex;flex-direction:column;gap:8px;
+  box-shadow:var(--shadow);transition:transform .2s var(--ease),border-color .2s var(--ease),background .2s var(--ease)}
+.zet:hover{transform:translateY(-2px)}
+.zet:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+.zet[aria-pressed="true"]{background:var(--teal-xl);border-color:var(--teal)}
+.zet .zt{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ochre)}
+.zet[aria-pressed="true"] .zt{color:var(--teal-dk)}
+.zet .zz{font-size:1rem;line-height:1.42;font-weight:600}
+.zaus{background:var(--paper);border:1px solid var(--grey-xl);border-left:4px solid var(--teal);
+  border-radius:var(--r);padding:20px 22px;box-shadow:var(--shadow)}
+.zaus .zq{margin:0 0 10px;font-size:clamp(1.05rem,1.9vw,1.24rem);font-weight:300;color:var(--teal-dk);line-height:1.45}
+.zaus p.ze{margin:0;font-size:1rem;line-height:1.6;color:#3d3d40}
+/* ---------- Die Vision in einem Satz ---------- */
+.vision{background:var(--navy);color:#fff;border-radius:var(--r);padding:30px 32px}
+.vision .vk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.7);margin:0 0 12px}
+.vision p{margin:0;font-size:clamp(1.12rem,2.1vw,1.46rem);font-weight:300;line-height:1.5}
+/* ---------- Die fuenf Perspektiven ----------
+   Jede Perspektive hat ihren Akzent aus dem :root-Block. Gesetzt wird er
+   ueber die Eigenschaft --acc an der Kachel, damit Kopfleiste, Rand und
+   Leitsatz dieselbe Farbe nehmen, ohne dass ein Farbwert in einer Regel
+   steht.                                                              */
+.pstrip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:0 0 20px}
+.pbtn{appearance:none;font:inherit;text-align:left;cursor:pointer;color:inherit;
+  background:var(--paper);border:1px solid var(--grey-xl);border-top:4px solid var(--acc);
+  border-radius:var(--r);padding:15px 14px 14px;min-height:116px;
+  display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow);
+  transition:transform .2s var(--ease),background .2s var(--ease)}
+.pbtn:hover{transform:translateY(-2px)}
+.pbtn:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.pbtn[aria-pressed="true"]{background:var(--canvas);border-color:var(--acc)}
+.pbtn .pl{font-family:var(--mono);font-size:1.45rem;font-weight:600;line-height:1;color:var(--acc)}
+.pbtn .pn{font-size:1.02rem;font-weight:700;letter-spacing:-.012em;line-height:1.25}
+.pbtn .ps{font-size:.8rem;color:var(--grey);line-height:1.35}
+.pdet{background:var(--paper);border:1px solid var(--grey-xl);border-left:4px solid var(--acc);
+  border-radius:var(--r);padding:24px 26px;box-shadow:var(--shadow)}
+.pdet h3{margin:0 0 4px;font-size:1.24rem;font-weight:700;letter-spacing:-.014em}
+.pdet .psub{margin:0 0 16px;color:var(--grey);font-size:.98rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.chips span{background:var(--grey-xl);color:#3d3d40;border-radius:999px;padding:6px 14px;font-size:.88rem}
+.lsatz{background:var(--acc);color:#fff;border-radius:var(--r);padding:20px 22px}
+.lsatz .lk{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.8);margin:0 0 9px}
+.lsatz p{margin:0;font-size:clamp(1.06rem,1.95vw,1.3rem);font-weight:400;line-height:1.45}
+/* ---------- Das Leitbild auf einer Seite ---------- */
+.lbbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:0 0 18px}
+.lbliste{display:flex;flex-direction:column;gap:12px}
+.lbz{display:flex;gap:18px;align-items:flex-start;background:var(--paper);
+  border:1px solid var(--grey-xl);border-left:4px solid var(--acc);
+  border-radius:var(--r);padding:20px 24px;box-shadow:var(--shadow)}
+.lbz .lbn{font-family:var(--mono);font-size:1.35rem;font-weight:600;color:var(--acc);line-height:1.25;min-width:1.7em}
+.lbz .lbt{margin:0;font-size:clamp(1.06rem,1.95vw,1.32rem);font-weight:400;line-height:1.45}
+.lbz .lbp{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);margin:8px 0 0}
+.lbliste.nackt .lbp{display:none}
+/* ---------- Die ersten Schritte ---------- */
+.schritte{counter-reset:s;display:flex;flex-direction:column;gap:12px}
+.schritt{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:18px 22px 18px 64px;position:relative;box-shadow:var(--shadow)}
+.schritt::before{counter-increment:s;content:counter(s,decimal-leading-zero);
+  position:absolute;left:22px;top:18px;font-family:var(--mono);font-size:1.05rem;
+  font-weight:600;color:var(--teal)}
+.schritt h3{margin:0 0 5px;font-size:1.06rem;font-weight:700;letter-spacing:-.01em}
+.schritt p{margin:0;color:var(--grey);font-size:.98rem;line-height:1.58}
+@media (max-width:980px){
+.pstrip{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:760px){
+.zwand{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:560px){
+.zwand{grid-template-columns:1fr}
+.pstrip{grid-template-columns:repeat(2,1fr)}
+.lbz{flex-direction:column;gap:6px}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Controlling beim CV · Modul 01</p>
+  <h1>Das <em>Controlling-Leitbild</em></h1>
+  <p class="lede">Ein Leitbild sagt in wenigen Sätzen, wofür das Controlling da ist. Dieses hier ist in einem Workshop des CV entstanden, aus einer Zukunftsvision und aus fünf Perspektiven, für deren Verständnis Du keine betriebswirtschaftliche Vorbildung brauchst.</p>
+  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Jede Lektion passt auf einen Bildschirm, wobei sich alles, was sich öffnen lässt, durch Antippen öffnet, damit das Modul auf einem Tablet genauso funktioniert wie am Rechner.</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Das Controlling-Leitbild">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Die Zukunftsvision</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Die fünf Perspektiven</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Das Leitbild</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Der erste Schritt</button>
+</div>
+
+<!-- ==================== LEKTION 01 · DIE ZUKUNFTSVISION ==================== -->
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <p class="claim">Die Leitfrage im Workshop lautete, wie das Controlling in einer vollendeten Zukunft wahrgenommen worden sein möchte, wobei die neun Antworten hier so stehen, wie sie auf den Zetteln der Runde notiert wurden.</p>
+
+  <h2 class="sec">Neun Antworten aus dem Workshop</h2>
+  <p class="sub">Tipp einen Zettel an, dann erscheint darunter der Satz aus dem Workshop samt einer kurzen Erläuterung.</p>
+  <div class="zwand" id="lbWand"></div>
+  <div class="zaus" id="lbWandAus" aria-live="polite"></div>
+
+  <h2 class="sec">Die Vision in einem Satz</h2>
+  <p class="sub">Aus den neun Zetteln ist im Workshop eine gemeinsame Fassung entstanden, die den Anspruch in zwei Sätzen zusammenfasst.</p>
+  <div class="vision">
+    <p class="vk">Die Zukunftsvision</p>
+    <p>Mit einem neu ausgerichteten Controlling, das Entscheidungen zugrunde liegt und Technik klug nutzt, gestaltet der CV seine Zukunft trotz komplexer gesellschaftlicher Entwicklungen positiv. So bleibt die wichtige Arbeit am Menschen möglich.</p>
+  </div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Ein Leitbild beschreibt eine Richtung. Die Zettel sagen, woran der CV eines Tages merken wird, dass er angekommen ist.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 02 · DIE FÜNF PERSPEKTIVEN ==================== -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b">
+  <p class="claim">Das Controlling wirkt entlang von <b>fünf Perspektiven</b>, von denen jede im Workshop eigene Stichworte bekommen hat, aus denen am Ende ein Leitsatz entstanden ist.</p>
+
+  <h2 class="sec">Fünf Perspektiven, fünf Leitsätze</h2>
+  <p class="sub">Tipp eine Perspektive an, dann siehst Du darunter ihre Stichworte und ihren Leitsatz.</p>
+  <div class="pstrip" id="lbStrip"></div>
+  <div id="lbDet" aria-live="polite"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Fünf Perspektiven genügen, weil jede von ihnen eine andere Frage beantwortet. Fehlt eine davon, fehlt dem Leitbild eine ganze Seite.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 03 · DAS LEITBILD ==================== -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c">
+  <p class="claim">Sechs Sätze genügen für ein Leitbild, wobei fünf davon aus den Perspektiven stammen und der sechste aus der Zukunftsvision.</p>
+
+  <h2 class="sec">Das Leitbild auf einer Seite</h2>
+  <p class="sub">Der Schalter blendet die Herkunft aus, damit die sechs Sätze für sich stehen.</p>
+  <div class="lbbar">
+    <div class="seg" role="group" aria-label="Ansicht">
+      <button id="lbNackt" type="button">Nur die Sätze</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="lbNacktH"></span></p>
+  </div>
+  <div class="lbliste" id="lbListe"></div>
+
+  <div class="readme" style="margin-top:22px">
+    <b>Warum sechs Sätze und nicht sechzehn.</b> Ein Leitbild wirkt über das, was jemand im Kopf behält. Sechs Sätze kann sich eine Leitungsrunde merken, während sie sechzehn einmal liest und danach weglegt.
+  </div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Jeder dieser Sätze ist eine Zusage, die jemand einlösen muss. Deshalb steht hinter jedem eine Perspektive, in der jemand dafür verantwortlich ist.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 04 · DER ERSTE SCHRITT ==================== -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d">
+  <p class="claim">Ein Leitbild wirkt erst, wenn jemand damit arbeitet, weshalb hier die sechs Schritte stehen, mit denen eine Leitungsrunde am Montag anfängt.</p>
+
+  <h2 class="sec">Sechs Schritte für die nächste Leitungsrunde</h2>
+  <p class="sub">Zu jedem Schritt steht der Grund dahinter, weil ein Schritt ohne Grund übersprungen wird.</p>
+  <div class="schritte" id="lbSchritte"></div>
+
+  <div class="readme" style="margin-top:22px">
+    <b>Keiner dieser Schritte braucht eine Auswertung.</b> Sie brauchen eine halbe Stunde in einer Runde, die ohnehin zusammenkommt, weshalb sie sich schon nächste Woche gehen lassen.
+  </div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Ein Leitbild an der Wand bleibt Papier. Ein Leitbild, an dem eine Runde die eigene Arbeit misst, wird zum Werkzeug.</p>
+  </div>
+</section>
+
+<footer>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.48</span>
+</footer>
+
+</div>
+
+<script>
+
+/* =====================================================================
+   Das Controlling-Leitbild
+   Alle Inhalte stehen in vier Listen. Wer einen Leitsatz austauschen
+   will, aendert genau eine Zeile in LEITBILD oder in PERSPEKTIVEN.
+   ===================================================================== */
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s)
+  .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+/* ---------------------------------------------------------------------
+   1 · Die Zettelwand
+   kurz  : die Ueberschrift auf dem Zettel
+   zitat : der Satz, wie er im Workshop notiert wurde
+   dazu  : was dahintersteckt, in einem Satz fuer Leserinnen und Leser
+           ohne betriebswirtschaftliche Vorbildung
+   ------------------------------------------------------------------ */
+const ZETTEL = [
+  {kurz:"Bessere Entscheidungen",
+   zitat:"Das Controlling hilft uns, bessere Entscheidungen zu treffen.",
+   dazu:"Eine Zahl ist dann nützlich, wenn jemand mit ihr eine Entscheidung besser treffen kann als ohne sie. Alles andere ist Statistik."},
+  {kurz:"Verständliche Zahlen",
+   zitat:"Die Zahlen sind verständlich und sofort nutzbar.",
+   dazu:"Verständlich heißt, dass eine Leitung ohne Rückfrage erkennt, was die Zahl über ihren eigenen Bereich sagt."},
+  {kurz:"Rechtzeitig erkennen",
+   zitat:"Wir erkennen Probleme rechtzeitig.",
+   dazu:"Rechtzeitig meint den Zeitpunkt, zu dem noch eine Entscheidung möglich ist, denn danach bleibt allein die Dokumentation eines Verlaufs."},
+  {kurz:"Soziale Wirkung",
+   zitat:"Controlling unterstützt unsere soziale Wirkung.",
+   dazu:"Der Zweck des Verbandes ist die Arbeit am Menschen, für die das Controlling die Mittel sichert, damit sie auch morgen möglich bleibt."},
+  {kurz:"Eine gemeinsame Sprache",
+   zitat:"Es wurde eine einheitliche Sprache innerhalb des Verbandes gefunden.",
+   dazu:"Verwaltung, Controlling und Leitungen meinen dasselbe, wenn sie denselben Begriff benutzen. Erst dann verläuft die Abstimmung reibungslos."},
+  {kurz:"Schnell verfügbar",
+   zitat:"Super, morgen stehen schon wieder die nächsten Zahlen bereit.",
+   dazu:"Die Geschwindigkeit ist heute aus technischen Gründen die größte Schwäche. Dieser Zettel beschreibt den Zustand, in dem sie keine mehr ist."},
+  {kurz:"Volle Kontrolle",
+   zitat:"Ich habe mit den Kennzahlen die volle Kontrolle.",
+   dazu:"Kontrolle meint hier die Sicherheit, den eigenen Bereich jederzeit überblicken zu können, ohne jemanden zu überwachen."},
+  {kurz:"Sicherheit und Zeit",
+   zitat:"Das Controlling gibt mir Sicherheit und schafft damit Zeit für die inhaltlichen Themen.",
+   dazu:"Wer den wirtschaftlichen Stand seines Bereichs kennt, muss ihn nicht mehr suchen, sodass die gewonnene Zeit in die fachliche Arbeit geht."},
+  {kurz:"Gemeinsamer Überblick",
+   zitat:"Mein Kollegium und ich haben einen aktuellen gemeinsamen Überblick über die wesentlichen Steuerungs- und Erfolgsparameter.",
+   dazu:"Gemeinsam meint, dass alle Beteiligten auf dieselbe Zahl sehen, denn ein Gespräch über zwei verschiedene Stände kostet allein Zeit."}
+];
+
+/* ---------------------------------------------------------------------
+   2 · Die fuenf Perspektiven
+   Der Akzent kommt aus dem :root-Block und wird als --acc gesetzt.
+   ------------------------------------------------------------------ */
+const PERSPEKTIVEN = [
+  {b:"A", name:"Fachlichkeit", unter:"Inhaltliche Kompetenz und Methoden", acc:"var(--teal)",
+   chips:["adressatengerechtes Zahlenverständnis","relevante Inhalte","moderne Methoden",
+          "verständliche Kennzahlen","die Akteure stärken","fachliche Sicherheit"],
+   satz:"Wir vermitteln relevante Zahlen in der Sprache derer, die mit ihnen entscheiden."},
+  {b:"B", name:"Prozesse", unter:"Ablauforganisation und Workflows", acc:"var(--navy)",
+   chips:["transparent","zeitnah","fristgerecht","verlässliche Abläufe",
+          "eindeutige Zuständigkeiten","einheitliche Berechnung","digitale Abläufe"],
+   satz:"Unsere Zahlen stehen schnell bereit, einheitlich berechnet und für jeden nachvollziehbar."},
+  {b:"C", name:"Organisation", unter:"Aufbau, Rollen und Verantwortung", acc:"var(--ochre)",
+   chips:["sachgerecht","schlank","unterstützend","partnerschaftlich",
+          "klare Verantwortlichkeiten","Finanzverständnis auf Leitungsebene"],
+   satz:"Leitung und Controlling arbeiten partnerschaftlich zusammen, mit klar verteilter Verantwortung."},
+  {b:"D", name:"IT und Technologie", unter:"Systeme, Daten und Digitalisierung", acc:"var(--teal-dk)",
+   chips:["technologieoffen","Daten schaffen Transparenz","KI mit Fachexpertise",
+          "Aufwand senken","Zeit für Menschen","ressourcenbewusst"],
+   satz:"Digitale Werkzeuge nehmen uns Aufwand ab und schaffen Zeit für die Arbeit am Menschen."},
+  {b:"E", name:"Mensch und Kultur", unter:"Wie arbeiten wir gemeinsam", acc:"var(--green)",
+   chips:["gemeinsame Sprache","Augenhöhe","Akzeptanz","kooperativ",
+          "Sicherheit","zusammen Ziele erreichen"],
+   satz:"Wir sprechen im ganzen Verband dieselbe Sprache und begegnen uns auf Augenhöhe."}
+];
+
+/* ---------------------------------------------------------------------
+   3 · Das Leitbild
+   Fuenf Saetze kommen aus den Perspektiven, der sechste aus der Vision.
+   Deshalb wird die Liste aus PERSPEKTIVEN erzeugt und um einen Eintrag
+   ergaenzt, damit ein geaenderter Leitsatz an beiden Stellen stimmt.
+   ------------------------------------------------------------------ */
+const LEITBILD = PERSPEKTIVEN.map(p => ({satz:p.satz, her:p.b + " · " + p.name, acc:p.acc}))
+  .concat([{satz:"Das Controlling stärkt die soziale Wirkung des CV.",
+            her:"Aus der Zukunftsvision", acc:"var(--orange)"}]);
+
+/* ---------------------------------------------------------------------
+   4 · Die ersten Schritte
+   ------------------------------------------------------------------ */
+const SCHRITTE = [
+  ["Lies die sechs Sätze in Deiner Leitungsrunde laut vor",
+   "Vorgelesen klingt ein Leitsatz anders als gelesen, denn wer ihn laut sagt, merkt sofort, ob er im eigenen Alltag hält."],
+  ["Frag jede Person, welcher Satz ihr im Alltag am meisten fehlt",
+   "Die Antwort zeigt, an welcher Stelle der Abstand zwischen Anspruch und Wirklichkeit heute am größten ist."],
+  ["Such zu einem Satz ein Beispiel aus der letzten Woche",
+   "Ein Leitsatz ohne Beispiel bleibt eine Behauptung, während er mit einem Beispiel aus der eigenen Woche überprüfbar wird."],
+  ["Benenne den Satz, der heute am weitesten entfernt ist",
+   "Eine Runde, die sich auf eine Schwachstelle einigt, hat den schwierigsten Teil hinter sich."],
+  ["Vereinbart eine einzige Sache, die bis zum nächsten Treffen anders läuft",
+   "Eine einzelne Änderung wird gemacht, während fünf besprochen werden, deshalb nimm die kleinste, die spürbar ist."],
+  ["Häng die sechs Sätze dorthin, wo über Zahlen gesprochen wird",
+   "Ein Leitbild im Intranet liest niemand, eines neben dem Bildschirm mit den Auswertungen dagegen schon."]
+];
+
+
+/* =====================================================================
+   5 · Die Zettelwand
+   Ein Tipp waehlt einen Zettel aus. Auf einem Tablet gibt es kein
+   Mouseover, deshalb steht die Erlaeuterung in einem eigenen Kasten
+   unter der Wand statt in einem schwebenden Feld.
+   ===================================================================== */
+let lbZet = 0;
+
+function lbWandZeichnen(){
+  $("lbWand").innerHTML = ZETTEL.map((z, i) =>
+    `<button class="zet" type="button" data-z="${i}" aria-pressed="${i === lbZet}">
+       <span class="zt">Zettel ${String(i + 1).padStart(2, "0")}</span>
+       <span class="zz">${esc(z.kurz)}</span>
+     </button>`).join("");
+  const z = ZETTEL[lbZet];
+  $("lbWandAus").innerHTML =
+    `<p class="zq">„${esc(z.zitat)}“</p><p class="ze">${esc(z.dazu)}</p>`;
+}
+
+$("lbWand").addEventListener("click", e => {
+  const b = e.target.closest("[data-z]");
+  if(!b) return;
+  lbZet = +b.dataset.z;
+  lbWandZeichnen();
+});
+lbWandZeichnen();
+
+/* =====================================================================
+   6 · Die fuenf Perspektiven
+   Der Akzent jeder Perspektive wird als --acc an die Kachel und an den
+   Kasten darunter gehaengt. Damit nehmen Rand, Ziffer und Leitsatz
+   dieselbe Farbe, ohne dass ein Farbwert in einer CSS-Regel steht.
+   ===================================================================== */
+let lbP = 0;
+
+function lbStripZeichnen(){
+  $("lbStrip").innerHTML = PERSPEKTIVEN.map((p, i) =>
+    `<button class="pbtn" type="button" data-p="${i}" style="--acc:${p.acc}"
+             aria-pressed="${i === lbP}">
+       <span class="pl">${esc(p.b)}</span>
+       <span class="pn">${esc(p.name)}</span>
+       <span class="ps">${esc(p.unter)}</span>
+     </button>`).join("");
+  const p = PERSPEKTIVEN[lbP];
+  $("lbDet").innerHTML =
+    `<div class="pdet" style="--acc:${p.acc}">
+       <h3>${esc(p.b)} · ${esc(p.name)}</h3>
+       <p class="psub">${esc(p.unter)}</p>
+       <div class="chips">${p.chips.map(c => `<span>${esc(c)}</span>`).join("")}</div>
+       <div class="lsatz">
+         <p class="lk">Der Leitsatz dieser Perspektive</p>
+         <p>${esc(p.satz)}</p>
+       </div>
+     </div>`;
+}
+
+$("lbStrip").addEventListener("click", e => {
+  const b = e.target.closest("[data-p]");
+  if(!b) return;
+  lbP = +b.dataset.p;
+  lbStripZeichnen();
+});
+lbStripZeichnen();
+
+/* =====================================================================
+   7 · Das Leitbild auf einer Seite
+   Der Schalter blendet allein die Herkunftszeile aus. Die Saetze selbst
+   bleiben stehen, damit der Blick auf ihnen liegt.
+   ===================================================================== */
+let lbNackt = false;
+
+function lbListeZeichnen(){
+  $("lbListe").className = "lbliste" + (lbNackt ? " nackt" : "");
+  $("lbListe").innerHTML = LEITBILD.map((l, i) =>
+    `<div class="lbz" style="--acc:${l.acc}">
+       <span class="lbn">${String(i + 1).padStart(2, "0")}</span>
+       <div style="min-width:0">
+         <p class="lbt">${esc(l.satz)}</p>
+         <p class="lbp">${esc(l.her)}</p>
+       </div>
+     </div>`).join("");
+  $("lbNackt").textContent = lbNackt ? "Herkunft zeigen" : "Nur die Sätze";
+  $("lbNacktH").textContent = lbNackt
+    ? "Sechs Sätze, ohne Angabe der Perspektive"
+    : "Unter jedem Satz steht, aus welcher Perspektive er stammt";
+}
+
+$("lbNackt").addEventListener("click", () => { lbNackt = !lbNackt; lbListeZeichnen(); });
+lbListeZeichnen();
+
+/* =====================================================================
+   8 · Die ersten Schritte
+   ===================================================================== */
+$("lbSchritte").innerHTML = SCHRITTE.map(([t, g]) =>
+  `<div class="schritt"><h3>${esc(t)}</h3><p>${esc(g)}</p></div>`).join("");
+
+
+const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","d","e","f"];
+function select(i){
+  tabs.forEach((t, j) => {
+    const on = i === j;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    $("p-" + keys[j]).hidden = !on;
+  });
+}
+tabs.forEach((t, i) => {
+  t.addEventListener("click", () => select(i));
+  t.addEventListener("keydown", e => {
+    const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if(!d) return; e.preventDefault();
+    const n = (i + d + tabs.length) % tabs.length; tabs[n].focus(); select(n);
+  });
+});
+select(0);
+
+/* =====================================================================
+   7 · Bloecke zum Auf- und Zuklappen
+   Baut die Abschnitte einer Lektion zur Laufzeit aus der vorhandenen
+   Gliederung: jedes h2.sec eroeffnet einen Block, alles danach bis zum
+   naechsten h2.sec ist sein Inhalt. Was vor dem ersten h2.sec steht -
+   die Kernaussage der Lektion - bleibt immer sichtbar, ebenso ein
+   Pointe-Kasten am Ende. Der erste Block ist offen, die uebrigen zu.
+   ===================================================================== */
+function makeBlocks(panel){
+  if(!panel) return 0;
+  const kinder = [...panel.children];
+  const istKopf = n => n.tagName === "H2" && n.classList.contains("sec");
+  const istEnde = n => n.classList.contains("pointe");
+  let i = 0, nr = 0;
+
+  while(i < kinder.length){
+    if(!istKopf(kinder[i])){ i++; continue; }
+    const h2 = kinder[i], inhalt = [];
+    let j = i + 1;
+    while(j < kinder.length && !istKopf(kinder[j]) && !istEnde(kinder[j])){
+      inhalt.push(kinder[j]); j++;
+    }
+    nr++;
+    const offen = nr === 1, bid = "blk-" + (panel.id || "p") + "-" + nr;
+    const wrap = document.createElement("section");
+    wrap.className = "blk";
+    wrap.dataset.open = String(offen);
+    panel.insertBefore(wrap, h2);
+
+    h2.innerHTML =
+      `<button class="blk-t" type="button" aria-expanded="${offen}" aria-controls="${bid}">
+         <svg class="blk-c" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2 L8.5 6 L4.5 10"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+         <span>${h2.innerHTML}</span>
+       </button>`;
+    wrap.appendChild(h2);
+
+    const body = document.createElement("div");
+    body.className = "blk-b"; body.id = bid;
+    body.hidden = !offen;
+    inhalt.forEach(n => body.appendChild(n));
+    wrap.appendChild(body);
+    i = j;
+  }
+
+  if(nr) panel.addEventListener("click", e => {
+    const b = e.target.closest(".blk-t"); if(!b) return;
+    const wrap = b.closest(".blk"), body = document.getElementById(b.getAttribute("aria-controls"));
+    const offen = wrap.dataset.open === "true";
+    wrap.dataset.open = String(!offen);
+    b.setAttribute("aria-expanded", String(!offen));
+    body.hidden = offen;
+    if(!offen) dispatchEvent(new Event("resize"));
+  });
+  return nr;
+}
+
+document.querySelectorAll(".panel").forEach(makeBlocks);
+
+</script>
+</body>
+</html>

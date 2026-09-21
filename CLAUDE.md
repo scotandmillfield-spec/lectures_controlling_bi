@@ -32,6 +32,11 @@ Begriffen oben.
    keine Kästchen zum Abhaken um des Abhakens willen. Hierhin gehört auch das Glossar, wenn das
    Modul eines hat: Es ist Nachschlagewerk für die Anwendung, nicht Prüfstoff.
 
+**[gesetzt] Ein Leitbild-Modul führt kein Quiz.** Ein Leitbild beschreibt eine Haltung, und eine
+Haltung lässt sich nicht mit richtig und falsch abfragen. Für diese Modulart entfällt das Quiz,
+der Praxiseinstieg bleibt. `plattform/controlling-leitbild.html` ist der erste Fall. Die Ausnahme
+gilt allein für Leitbilder, jedes andere Modul bekommt sein Quiz.
+
 **Die Reihenfolge steht fest:** Inhalt, dann Quiz, dann Praxiseinstieg. Das Quiz prüft, was
 gerade gelesen wurde, der Praxiseinstieg schaut nach vorn. Umgedreht ergäbe es keinen Sinn.
 
@@ -182,13 +187,15 @@ will.
 
 #### Warum das hier steht und nicht in der Tabelle
 
-Ein regulärer Ausdruck findet diese Dinge nicht. Den Gedankenstrich könnte er finden, aber in
-den vorhandenen Dateien stehen 1.095 davon, von denen jeder eine eigene Entscheidung zwischen
-Komma, Punkt und Streichung braucht. Ein Suchen und Ersetzen würde dort Sätze zerstören. Die Altlast
-wird aufgeräumt, wenn ein Text ohnehin angefasst wird.
+Ein regulärer Ausdruck findet diese Dinge nicht. Den Gedankenstrich könnte er finden, allerdings
+stehen in den 25 Dateien noch **957** davon, von denen jeder eine eigene Entscheidung zwischen
+Komma, Punkt und Streichung braucht. Ein Suchen und Ersetzen würde dort Sätze zerstören, weshalb
+die Altlast erst aufgeräumt wird, wenn ein Text ohnehin angefasst wird.
 
-Dasselbe gilt für die Fügung „, und". In den übrigen 23 Dateien stehen davon noch 238
-Stück, gezählt nach der Bereinigung der Liquiditätsvorschau.
+Dasselbe gilt für die Fügung „, und", von der noch **238** Stück verteilt sind. Sauber sind bisher
+allein `plattform/liquiditaet-vorschau.html` und `plattform/controlling-leitbild.html`. Sobald alle
+Dateien durch sind, wandern beide Muster in die Prüftabelle. Ab dann meldet die Prüfung jeden
+neuen Fund.
 
 **Für neu geschriebene und überarbeitete Texte gelten die Regeln vollständig, ab sofort.**
 
@@ -352,6 +359,10 @@ Besonders leicht zu übersehen:
 ### Wenn ein Modul einen eigenen Fall braucht
 
 **Sofia ist der Normalfall, ein eigener Fall die begründete Ausnahme.**
+`plattform/controlling-leitbild.html` arbeitet mit dem CV, einem Verband der Pflege und sozialen
+Dienste. Ein Leitbild entsteht in einer Organisation, und Sofias Kaffeehaus hat weder Leitungsrunde
+noch Verband. Die Kachel sagt es im ersten Satz.
+
 `vorlesung/supply-chain-controlling.html` gehört zum Thema Supply Chain und arbeitet mit vier Vorlieferanten eines
 Nutzfahrzeugherstellers. Der Grund: Sofias Betrieb hat keine benannten Lieferanten, und der
 Kanon soll nicht um welche erweitert werden, nur damit ein Portfolio vier Punkte bekommt —
@@ -378,13 +389,13 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.47`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.48`.
 Keine Quellenverzeichnisse, keine Legenden.
 
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.47</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.48</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
@@ -395,7 +406,7 @@ den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in dopp
   GitHub Action dafür brächte ein `.github/workflows/` in ein Repository, das absichtlich keine
   Werkzeuge hat, und einen Bot-Commit nach jedem Merge. Der Weg nach `main` führt ohnehin über
   genau einen PR.
-- **Alle 24 Dateien bekommen dieselbe Zahl**, auch die, die der PR sonst nicht anfasst. Die
+- **Alle 25 Dateien bekommen dieselbe Zahl**, auch die, die der PR sonst nicht anfasst. Die
   Nummer sagt, aus welchem Auslieferungsstand eine Datei stammt — und Module werden einzeln
   weitergegeben.
 - **Die separat hochgeladene `foerdermittel-radar-elearning-plattform.html` im Wurzelverzeichnis
