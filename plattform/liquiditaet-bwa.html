@@ -158,8 +158,8 @@ table.tbl tbody tr:hover td{background:var(--sand-xl)}
 .fmark.f4{background:var(--grey-xl);color:#5a5a5c}
 /* ---------- Risk-Map ----------
    Die drei Zonenfarben sind die einzige Stelle, an der Signalfarben
-   auftreten. Dekorativ erscheinen sie nirgends, und die Bedeutung
-   hängt nie an ihnen allein: jede Zone hat ihren Namen, jeder Punkt seine
+   auftreten. Dekorativ erscheinen sie nirgends, wobei die Bedeutung
+   nie an ihnen allein haengt: jede Zone hat ihren Namen, jeder Punkt seine
    Kennung, jede rote Position zusaetzlich das Warndreieck.          */
 .mapwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
 .mapwrap>*{min-width:0}
@@ -681,8 +681,8 @@ footer a{color:var(--teal-dk)}
   text-transform:uppercase;color:var(--grey)}
 
 /* Die Marke an einer vorlaeufigen Position. Sie ist immer da und wird
-   nur sichtbar, wenn der Schalter sie einschaltet — so springt beim
-   Umschalten nichts im Layout. */
+   nur sichtbar, wenn der Schalter sie einschaltet, sodass beim
+   Umschalten nichts im Layout springt. */
 .bwz .vl{flex:none;width:7px;height:7px;border-radius:50%;background:transparent;transition:.15s}
 .bwa.zeigen .bwz.vorl .vl{background:var(--orange)}
 .bwa.zeigen .bwz.vorl{background:var(--orange-xl)}
@@ -723,8 +723,8 @@ footer a{color:var(--teal-dk)}
 <header class="masthead">
   <p class="eyebrow">Liquiditätsplanung · Modul 03</p>
   <h1>Die <em>BWA</em> lesen</h1>
-  <p class="lede">Die betriebswirtschaftliche Auswertung ist der Monatsbericht aus der Finanzbuchhaltung. Sie kommt am siebten Werktag, sie ist die einzige laufende Zahlenquelle, die fast jedes Unternehmen hat — und sie ist vorläufig. Wer sie zum Ausgangspunkt einer Liquiditätsvorschau macht, muss beides wissen.</p>
-  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Der Fall ist derselbe wie in den Vormodulen: ein Zulieferer für Nutzfahrzeugkomponenten, Zahlen in vollen Tausend Euro. Die zwölf Monate hier summieren sich genau auf die Gewinn- und Verlustrechnung aus dem Lernpfad Bilanzanalyse.</p>
+  <p class="lede">Die betriebswirtschaftliche Auswertung ist der Monatsbericht aus der Finanzbuchhaltung, der am siebten Werktag kommt und die einzige laufende Zahlenquelle ist, die fast jedes Unternehmen hat, wobei sie zugleich vorläufig bleibt. Wer sie zum Ausgangspunkt einer Liquiditätsvorschau macht, muss beides wissen.</p>
+  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Der Fall ist derselbe wie in den Vormodulen, nämlich ein Zulieferer für Nutzfahrzeugkomponenten mit Zahlen in vollen Tausend Euro, wobei sich die zwölf Monate hier genau auf die Gewinn- und Verlustrechnung aus dem Lernpfad Bilanzanalyse summieren.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Die BWA lesen">
@@ -738,24 +738,24 @@ footer a{color:var(--teal-dk)}
 
 <!-- ==================== LEKTION 01 · WAS EINE BWA IST ==================== -->
 <section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
-  <p class="claim">Ein Jahresabschluss kommt einmal im Jahr und oft erst im Mai des Folgejahres. Bis dahin müssen Entscheidungen getroffen werden. <b>Die BWA füllt diese Lücke</b> — mit dem Preis, den jede schnelle Zahl hat.</p>
+  <p class="claim">Ein Jahresabschluss kommt einmal im Jahr und oft erst im Mai des Folgejahres, obwohl bis dahin Entscheidungen zu treffen sind, weshalb <b>die BWA diese Lücke füllt</b>, zu dem Preis, den jede schnelle Zahl hat.</p>
 
   <h2 class="sec">Woher sie kommt und wofür sie gedacht war</h2>
-  <p class="sub">Die BWA ist keine gesetzliche Pflicht und in keinem Gesetz beschrieben. Sie ist ein Auswertungsformat, das aus der laufenden Buchhaltung erzeugt wird.</p>
+  <p class="sub">Die BWA ist ein Auswertungsformat, das aus der laufenden Buchhaltung erzeugt wird, wobei weder eine gesetzliche Pflicht dazu besteht noch ein Gesetz sie beschreibt.</p>
   <div class="trio">
     <div class="card" style="border-left:3px solid var(--teal-dk)">
       <p class="ck">Die Herkunft</p><h3>Aus den Buchungen des Monats</h3>
-      <p>Wenn die Belege eines Monats gebucht sind, erzeugt das System auf Knopfdruck eine Auswertung. Sie fasst die Konten zu Positionen zusammen — meist nach dem Standard, den die DATEV mit ihrer Standard-BWA Nr. 01 gesetzt hat.</p>
-      <p>Weil sie aus denselben Buchungen entsteht wie später der Abschluss, ist sie mit ihm verwandt. Sie ist nur früher da.</p>
+      <p>Wenn die Belege eines Monats gebucht sind, erzeugt das System auf Knopfdruck eine Auswertung, die die Konten zu Positionen zusammenfasst, zumeist nach dem Standard, den die DATEV mit ihrer Standard-BWA Nr. 01 gesetzt hat.</p>
+      <p>Weil sie aus denselben Buchungen entsteht wie später der Abschluss, ist sie mit ihm verwandt und allein früher da.</p>
     </div>
     <div class="card" style="border-left:3px solid var(--ochre)">
       <p class="ck">Die Adressaten</p><h3>Geschäftsführung, Bank, Steuerberater</h3>
       <p>Die Geschäftsführung liest den Verlauf, die Bank prüft ihre Engagements unterjährig, der Steuerberater sieht, ob die Buchhaltung plausibel läuft.</p>
-      <p>Drei Adressaten mit drei Erwartungen — und die BWA ist auf keine davon zugeschnitten. Das erklärt die meisten Enttäuschungen mit ihr.</p>
+      <p>Drei Adressaten haben drei Erwartungen, wobei die BWA auf keine davon zugeschnitten ist, was die meisten Enttäuschungen mit ihr erklärt.</p>
     </div>
     <div class="card" style="border-left:3px solid var(--navy)">
       <p class="ck">Der Takt</p><h3>Monatlich, mit Verzug</h3>
-      <p>Üblich sind zehn bis zwanzig Tage nach Monatsende. Wer die Belege spät einreicht, bekommt sie später — die BWA für den März kann im Mai eintreffen.</p>
+      <p>Üblich sind zehn bis zwanzig Tage nach Monatsende, wobei jeder, der die Belege spät einreicht, sie später bekommt (die BWA für den März kann im Mai eintreffen).</p>
       <p>Für eine Liquiditätsvorschau ist dieser Verzug die erste Einschränkung, mit der zu arbeiten ist.</p>
     </div>
   </div>
@@ -777,36 +777,36 @@ footer a{color:var(--teal-dk)}
   </table>
   </div>
   <div class="readme" style="margin-top:16px">
-    <b>Der Unterschied in einem Satz.</b> Der Jahresabschluss ist auf Richtigkeit gebaut und nimmt sich dafür Zeit. Die BWA ist auf Geschwindigkeit gebaut und kauft sie mit Genauigkeit. Für die Liquiditätsplanung zählt Geschwindigkeit mehr — eine Vorschau auf Grundlage des letzten geprüften Abschlusses wäre neun Monate alt.
+    <b>Der Unterschied in einem Satz.</b> Der Jahresabschluss ist auf Richtigkeit gebaut und nimmt sich dafür Zeit. Die BWA ist auf Geschwindigkeit gebaut und kauft sie mit Genauigkeit. Für die Liquiditätsplanung zählt Geschwindigkeit mehr, da eine Vorschau auf Grundlage des letzten geprüften Abschlusses neun Monate alt wäre.
   </div>
 
   <h2 class="sec">Die vier Fragen, die sie beantwortet</h2>
-  <p class="sub">Und die eine, die sie nicht beantwortet.</p>
+  <p class="sub">Dazu kommt die eine Frage, die sie nicht beantwortet.</p>
   <ul>
-    <li><b>Wie lief der Monat?</b> Umsatz, Kosten, Betriebsergebnis für den abgelaufenen Zeitraum — der Grund, aus dem sie erstellt wird.</li>
-    <li><b>Wie läuft das Jahr?</b> Jede BWA zeigt neben dem Monatswert den kumulierten Wert. Erst der macht aus zwölf Momentaufnahmen eine Entwicklung.</li>
-    <li><b>Wo liegen die Kostenblöcke?</b> Die Prozentspalte setzt jede Position ins Verhältnis zur Gesamtleistung. Damit sind Monate unterschiedlicher Größe vergleichbar.</li>
-    <li><b>Wo weicht es vom Vorjahr ab?</b> Die meisten Formate stellen den Vorjahreszeitraum daneben. Das ist der Zeitvergleich aus dem Kennzahlenmodul, nur unterjährig.</li>
-    <li><b>Was sie nicht beantwortet:</b> ob das Geld reicht. Die BWA kennt keine Zahlungszeitpunkte, keine Investitionen, keine Tilgungen und keine Steuervorauszahlungen. Genau deshalb braucht es die beiden folgenden Module.</li>
+    <li><b>Wie lief der Monat?</b> Umsatz, Kosten und Betriebsergebnis für den abgelaufenen Zeitraum sind der Grund, aus dem eine BWA überhaupt erstellt wird, sowie das, was an ihr zuerst gelesen wird.</li>
+    <li><b>Wie läuft das Jahr?</b> Jede BWA zeigt neben dem Monatswert den kumulierten Wert, der aus zwölf Momentaufnahmen erst eine Entwicklung macht.</li>
+    <li><b>Wo liegen die Kostenblöcke?</b> Die Prozentspalte setzt jede Position ins Verhältnis zur Gesamtleistung, womit Monate unterschiedlicher Größe vergleichbar werden.</li>
+    <li><b>Wo weicht es vom Vorjahr ab?</b> Die meisten Formate stellen den Vorjahreszeitraum daneben, was den Zeitvergleich aus dem Kennzahlenmodul ergibt, allein unterjährig.</li>
+    <li><b>Was sie nicht beantwortet</b>, ist die Frage, ob das Geld reicht, denn die BWA kennt keine Zahlungszeitpunkte, keine Investitionen, keine Tilgungen und keine Steuervorauszahlungen. Genau deshalb braucht es die beiden folgenden Module.</li>
   </ul>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Die BWA ist die <b>schnellste belastbare Zahlenquelle</b>, die ein Unternehmen hat. Sie ist auch die am häufigsten überschätzte — und beides hat denselben Grund.</p>
+    <p>Die BWA ist die <b>schnellste belastbare Zahlenquelle</b>, die ein Unternehmen hat, zugleich allerdings die am häufigsten überschätzte, wobei beides denselben Grund hat.</p>
   </div>
 </section>
 
 <!-- ==================== LEKTION 02 · DER AUFBAU ==================== -->
 <section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b">
-  <p class="claim">Eine BWA läuft wie die Gewinn- und Verlustrechnung von oben nach unten, mit <b>sechs Zwischensummen</b> statt der zwei des § 275 HGB. Jede davon beantwortet eine eigene Frage, und genau deshalb steht sie da.</p>
+  <p class="claim">Eine BWA läuft wie die Gewinn- und Verlustrechnung von oben nach unten, mit <b>sechs Zwischensummen</b> statt der zwei des § 275 HGB, wobei jede davon eine eigene Frage beantwortet und deshalb überhaupt dasteht.</p>
 
   <h2 class="sec">Die sechs Zwischensummen</h2>
-  <p class="sub">Sie sind der eigentliche Inhalt des Formats. Wer sie kennt, liest jede BWA, gleich von welchem Anbieter sie kommt.</p>
+  <p class="sub">Sie sind der eigentliche Inhalt des Formats, sodass jeder, der sie kennt, jede BWA liest, gleich von welchem Anbieter sie kommt.</p>
   <div class="tscroll" tabindex="0" role="group" aria-label="Die Zwischensummen, seitlich scrollbar">
   <table class="tbl">
     <thead><tr><th>Zwischensumme</th><th>Wie sie entsteht</th><th>Welche Frage sie beantwortet</th></tr></thead>
     <tbody>
-      <tr><td class="crit">Gesamtleistung</td><td class="m">Umsatz + Bestandsveränderung + Eigenleistungen</td><td>Was wurde in diesem Monat geleistet — unabhängig davon, was verkauft wurde?</td></tr>
+      <tr><td class="crit">Gesamtleistung</td><td class="m">Umsatz + Bestandsveränderung + Eigenleistungen</td><td>Was wurde in diesem Monat geleistet, unabhängig davon, was verkauft wurde?</td></tr>
       <tr><td class="crit">Rohertrag</td><td class="m">Gesamtleistung − Materialaufwand</td><td>Was bleibt, nachdem der Einkauf bezahlt ist? Die wichtigste Zahl eines Handels- oder Fertigungsbetriebs.</td></tr>
       <tr><td class="crit">Betrieblicher Rohertrag</td><td class="m">Rohertrag + sonstige betriebliche Erträge</td><td>Wie viel steht für die Kosten des Betriebs zur Verfügung?</td></tr>
       <tr><td class="crit">Gesamtkosten</td><td class="m">Summe aller Kostenblöcke</td><td>Was kostet der Betrieb, ohne Material?</td></tr>
@@ -817,7 +817,7 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <h2 class="sec">Die BWA des Zulieferers</h2>
-  <p class="sub">Wähl einen Monat. Die erste Zahlenspalte ist der Monat selbst, die zweite der kumulierte Wert seit Januar, die dritte der Anteil an der Gesamtleistung des Monats. Der Schalter rechts markiert die Positionen, bei denen Vorsicht angebracht ist — darum geht es in der nächsten Lektion.</p>
+  <p class="sub">Wähl einen Monat, wobei die erste Zahlenspalte der Monat selbst ist, die zweite der kumulierte Wert seit Januar und die dritte der Anteil an der Gesamtleistung des Monats. Der Schalter rechts markiert die Positionen, bei denen Vorsicht angebracht ist, worum es in der nächsten Lektion geht.</p>
 
   <div class="wsbar">
     <div class="seg" id="bwMonat" role="group" aria-label="Monat"></div>
@@ -838,37 +838,37 @@ footer a{color:var(--teal-dk)}
   <p class="bilmsg" id="bwMsg" style="margin-top:10px"></p>
 
   <div class="readme" style="margin-top:18px">
-    <b>Zwei Beobachtungen, die sich nachrechnen lassen.</b> Erstens: Die zwölf Monate summieren sich auf genau die Gewinn- und Verlustrechnung aus dem Lernpfad Bilanzanalyse — Gesamtleistung 99.000 T€, vorläufiges Ergebnis 2.300 T€, dieselbe Zahl, die dort als Jahresüberschuss im Eigenkapital steht. Zweitens: Das Betriebsergebnis des Jahres beträgt hier 4.200 T€ und dort 4.450 T€. Die Differenz von 250 T€ sind die betrieblichen Steuern, die eine BWA in den Kostenblock stellt und § 275 HGB unterhalb des Ergebnisses nach Steuern. Dieselben Buchungen, zwei Gliederungen, zwei Betriebsergebnisse.
+    <b>Zwei Beobachtungen, die sich nachrechnen lassen.</b> Erstens summieren sich die zwölf Monate auf genau die Gewinn- und Verlustrechnung aus dem Lernpfad Bilanzanalyse, also auf eine Gesamtleistung von 99.000 T€ und ein vorläufiges Ergebnis von 2.300 T€, dieselbe Zahl, die dort als Jahresüberschuss im Eigenkapital steht. Zweitens beträgt das Betriebsergebnis des Jahres hier 4.200 T€ und dort 4.450 T€. Die Differenz von 250 T€ sind die betrieblichen Steuern, die eine BWA in den Kostenblock stellt und § 275 HGB unterhalb des Ergebnisses nach Steuern. Dieselben Buchungen, zwei Gliederungen, zwei Betriebsergebnisse.
   </div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Die Prozentspalte ist der Teil, der am meisten hergibt und am seltensten gelesen wird. <b>Ein Monat mit halbem Umsatz ist erst in Prozenten mit einem starken vergleichbar.</b></p>
+    <p>Die Prozentspalte ist der Teil, der am meisten hergibt und am seltensten gelesen wird, denn <b>ein Monat mit halbem Umsatz ist erst in Prozenten mit einem starken vergleichbar</b>.</p>
   </div>
 </section>
 
 <!-- ==================== LEKTION 03 · WO SIE VORLÄUFIG IST ==================== -->
 <section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c">
-  <p class="claim">Eine BWA entsteht in Tagen, ein Abschluss in Monaten. Der Unterschied steckt in <b>fünf Positionen</b>, und an jeder davon kann das Betriebsergebnis um einen erheblichen Betrag danebenliegen.</p>
+  <p class="claim">Eine BWA entsteht in Tagen, ein Abschluss in Monaten, wobei der Unterschied in <b>fünf Positionen</b> steckt, an denen das Betriebsergebnis jeweils um einen erheblichen Betrag danebenliegen kann.</p>
 
   <h2 class="sec">Die fünf Stellen</h2>
-  <p class="sub">Alle fünf sind keine Fehler. Sie sind der Preis der Geschwindigkeit, und man kann mit ihnen arbeiten, sobald man sie kennt.</p>
+  <p class="sub">Alle fünf sind der Preis der Geschwindigkeit, mit dem sich arbeiten lässt, sobald Du ihn kennst.</p>
   <div class="merk">
     <h3>Woran eine BWA vorläufig ist</h3>
     <dl>
-      <dt>Abschreibungen nach Schlüssel</dt><dd>Die BWA setzt meist ein Zwölftel des Vorjahreswerts oder einen geschätzten Monatsbetrag an. Der tatsächliche Wert steht erst fest, wenn der Anlagenspiegel zum Jahresende gerechnet ist. Bei investitionsstarken Jahren weicht beides deutlich ab.</dd>
+      <dt>Abschreibungen nach Schlüssel</dt><dd>Die BWA setzt zumeist ein Zwölftel des Vorjahreswerts oder einen geschätzten Monatsbetrag an. Der tatsächliche Wert steht erst fest, wenn der Anlagenspiegel zum Jahresende gerechnet ist. Bei investitionsstarken Jahren weicht beides deutlich ab.</dd>
       <dt>Bestandsveränderung ohne Inventur</dt><dd>Die Veränderung an fertigen und unfertigen Erzeugnissen wird unterjährig geschätzt oder ganz weggelassen. Eine BWA ohne diesen Posten zeigt bei schwankender Produktion ein Ergebnis, das mit der Realität wenig zu tun hat.</dd>
       <dt>Fehlende Abgrenzungen</dt><dd>Versicherungsprämien, Boni, Urlaubsrückstellungen, Jahresabschlusskosten: Aufwendungen, die das ganze Jahr betreffen und in einem Monat gebucht werden. Der Monat sieht schlecht aus, die anderen elf zu gut.</dd>
-      <dt>Rückstellungen erst zum Jahresende</dt><dd>Garantien, Prozesse, Pensionen. Unterjährig werden sie selten angepasst. Was dort an Aufwand fehlt, kommt im Dezember auf einmal.</dd>
-      <dt>Buchungsstand und Periodenzuordnung</dt><dd>Eine Eingangsrechnung, die erst im Folgemonat eintrifft, landet auch dort. Der Monat der Leistung bleibt zu gut, der nächste wird zu schlecht. Bei hohem Belegaufkommen ist das der größte der fünf Effekte.</dd>
+      <dt>Rückstellungen erst zum Jahresende</dt><dd>Garantien, Prozesse und Pensionen werden unterjährig selten angepasst, sodass das, was dort an Aufwand fehlt, im Dezember auf einmal kommt.</dd>
+      <dt>Buchungsstand und Periodenzuordnung</dt><dd>Eine Eingangsrechnung, die erst im Folgemonat eintrifft, landet auch dort, sodass der Monat der Leistung zu gut bleibt und der nächste zu schlecht wird. Bei hohem Belegaufkommen ist das der größte der fünf Effekte.</dd>
     </dl>
   </div>
   <div class="readme" style="margin-top:16px">
-    <b>Warum der Dezember anders ist.</b> Alle fünf Effekte laufen im letzten Monat des Jahres zusammen: Die Inventur kommt, die Abschreibungen werden richtiggestellt, die Rückstellungen werden gebildet, die Abgrenzungen werden nachgeholt. Deshalb hat die Dezember-BWA in vielen Häusern ein auffällig schlechtes Betriebsergebnis — und deshalb ist sie die einzige, die dem Abschluss nahekommt.
+    <b>Warum der Dezember anders ist.</b> Alle fünf Effekte laufen im letzten Monat des Jahres zusammen: Die Inventur kommt, die Abschreibungen werden richtiggestellt, die Rückstellungen werden gebildet, die Abgrenzungen werden nachgeholt. Deshalb hat die Dezember-BWA in vielen Häusern ein auffällig schlechtes Betriebsergebnis, wobei sie zugleich die einzige ist, die dem Abschluss nahekommt.
   </div>
 
   <h2 class="sec">Vierzehn Aussagen einordnen</h2>
-  <p class="sub">Ist die Zahl belastbar, oder gehört sie zu den vorläufigen? Die Begründung erscheint nach jeder Antwort, auch nach der richtigen.</p>
+  <p class="sub">Ist die Zahl belastbar, oder gehört sie zu den vorläufigen? Die Begründung erscheint nach jeder Antwort, auch nach der richtigen, damit ein Treffer so viel erklärt wie ein Fehlgriff.</p>
   <div class="wsbar">
     <div class="seg" role="group" aria-label="Übung">
       <button id="zuNew" type="button">Von vorn</button>
@@ -879,22 +879,22 @@ footer a{color:var(--teal-dk)}
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Eine BWA ist kein schlechter Abschluss. Sie ist <b>eine andere Art von Aussage</b>: früh, gerichtet und mit bekannten Unschärfen. Wer die Unschärfen benennen kann, arbeitet mit ihr; wer sie ignoriert, wird von ihr überrascht.</p>
+    <p>Eine BWA ist <b>eine andere Art von Aussage</b> als ein Abschluss, nämlich früh, gerichtet und mit bekannten Unschärfen, sodass jeder, der diese Unschärfen benennen kann, mit ihr arbeitet, während sie den überrascht, der sie ignoriert.</p>
   </div>
 </section>
 
 <!-- ==================== LEKTION 04 · WAS FÜR DIE PLANUNG FOLGT ==================== -->
 <section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d">
-  <p class="claim">Die BWA ist der Ausgangspunkt der Vorschau. Damit sie das sein kann, muss klar sein, <b>welche Position wie belastbar ist</b> — und welche vier Dinge in ihr überhaupt nicht vorkommen.</p>
+  <p class="claim">Die BWA ist der Ausgangspunkt der Vorschau, wofür klar sein muss, <b>welche Position wie belastbar ist</b> und welche vier Dinge in ihr überhaupt nicht vorkommen.</p>
 
   <h2 class="sec">Der Jahreslauf des Betriebsergebnisses</h2>
-  <p class="sub">Zwölf Monate desselben Jahres. Das Jahr endet mit 4.200 T€ Betriebsergebnis, und vier Monate davon sind negativ.</p>
+  <p class="sub">Zwölf Monate desselben Jahres enden mit 4.200 T€ Betriebsergebnis, wobei vier davon negativ ausfallen.</p>
   <div class="lauf">
     <div class="laufb" id="bwLauf"></div>
     <div class="laufm" id="bwLaufM"></div>
   </div>
   <div class="readme" style="margin-top:16px">
-    <b>Jeder der vier Verlustmonate hat einen Namen.</b> Juli und November sind die Monate mit Urlaubs- und Weihnachtsgeld — der Personalaufwand liegt dort rund 45 Prozent über dem Normalmonat. Der August ist die Werksferienzeit mit halbem Umsatz und vollen Fixkosten. Der Dezember hat Betriebsruhe zwischen den Jahren. Keiner dieser vier Monate ist eine Nachricht; alle vier wiederholen sich jedes Jahr. <b>Eine Liquiditätsplanung, die mit einem Zwölftel des Jahresergebnisses rechnet, übersieht genau diese vier.</b>
+    <b>Jeder der vier Verlustmonate hat einen Namen.</b> Juli und November sind die Monate mit Urlaubs- und Weihnachtsgeld, weshalb der Personalaufwand dort rund 45 Prozent über dem Normalmonat liegt. Der August ist die Werksferienzeit mit halbem Umsatz und vollen Fixkosten. Der Dezember hat Betriebsruhe zwischen den Jahren. Keiner dieser vier Monate ist eine Nachricht; alle vier wiederholen sich jedes Jahr. <b>Eine Liquiditätsplanung, die mit einem Zwölftel des Jahresergebnisses rechnet, übersieht genau diese vier.</b>
   </div>
 
   <h2 class="sec">Welche Position taugt wofür</h2>
@@ -905,35 +905,35 @@ footer a{color:var(--teal-dk)}
     <tbody>
       <tr><td class="crit">Umsatzerlöse</td><td>gut, mit Saisonmuster</td><td>Aus zwei Jahren lässt sich ein Monatsmuster ableiten. Die Unsicherheit liegt im Zahlungszeitpunkt, kaum im Betrag.</td></tr>
       <tr><td class="crit">Materialaufwand</td><td>gut, als Quote vom Umsatz</td><td>Er folgt dem Umsatz mit geringem Vorlauf. Eine Materialquote aus der BWA ist eine brauchbare Planungsgröße.</td></tr>
-      <tr><td class="crit">Personalkosten</td><td>sehr gut</td><td>Die verlässlichste Position überhaupt. Sie ist bekannt, sie ist regelmäßig, und ihr Zahlungstag steht fest.</td></tr>
-      <tr><td class="crit">Raumkosten, Versicherungen, Fahrzeuge</td><td>sehr gut</td><td>Verträge mit festen Beträgen und festen Fälligkeiten. Diese Zeilen sind in einer Vorschau nahezu Gewissheit.</td></tr>
+      <tr><td class="crit">Personalkosten</td><td>sehr gut</td><td>Die verlässlichste Position überhaupt, weil sie bekannt und regelmäßig ist und ihr Zahlungstag feststeht.</td></tr>
+      <tr><td class="crit">Raumkosten, Versicherungen, Fahrzeuge</td><td>sehr gut</td><td>Verträge mit festen Beträgen und festen Fälligkeiten machen diese Zeilen in einer Vorschau zu nahezu Gewissheit.</td></tr>
       <tr><td class="crit">Abschreibungen</td><td>nur zum Streichen</td><td>Sie sind nie zahlungswirksam. In der Vorschau werden sie gebraucht, um sie ausdrücklich auf null zu setzen.</td></tr>
-      <tr><td class="crit">Bestandsveränderung</td><td>nicht verwendbar</td><td>Unterjährig geschätzt und zahlungswirksam ohnehin nicht. Zahlungswirksam ist der Einkauf, der dahintersteckt.</td></tr>
+      <tr><td class="crit">Bestandsveränderung</td><td>nicht verwendbar</td><td>Unterjährig geschätzt und ohnehin nicht zahlungswirksam, weil das allein der Einkauf ist, der dahintersteckt.</td></tr>
       <tr><td class="crit">Sonstige Kosten</td><td>vorsichtig</td><td>Ein Sammelposten aus Regelmäßigem und Einmaligem. Wer ihn als Ganzes plant, plant den Durchschnitt von etwas, das keinen hat.</td></tr>
     </tbody>
   </table>
   </div>
 
   <h2 class="sec">Die vier Dinge, die in keiner BWA stehen</h2>
-  <p class="sub">Das ist Feld 3 aus dem ersten Modul dieses Pfads, aufgezählt. Ohne diese vier ist jede Vorschau falsch.</p>
+  <p class="sub">Aufgezählt ist hier Feld 3 aus dem ersten Modul dieses Pfads, ohne das jede Vorschau falsch ausfällt.</p>
   <div class="duo">
     <div class="card" style="border-left:3px solid var(--red)">
       <p class="ck">Auf der Auszahlungsseite</p><h3>Drei große Abflüsse</h3>
       <ul>
-        <li><b>Investitionen.</b> Der Kaufpreis einer Maschine erscheint in der BWA mit null. Nur die Abschreibung taucht auf, und die kostet kein Geld.</li>
-        <li><b>Darlehenstilgung.</b> In der BWA stehen die Zinsen, nie die Tilgung. Bei einem Annuitätendarlehen ist die Tilgung der größere Teil.</li>
-        <li><b>Entnahmen und Ausschüttungen.</b> Ergebnisverwendung, kein Aufwand — und in manchen Häusern der größte einzelne Abfluss des Jahres.</li>
+        <li><b>Investitionen.</b> Der Kaufpreis einer Maschine erscheint in der BWA mit null, weil allein die Abschreibung auftaucht, die kein Geld kostet.</li>
+        <li><b>Darlehenstilgung.</b> In der BWA stehen die Zinsen und nie die Tilgung, obwohl diese bei einem Annuitätendarlehen der größere Teil ist.</li>
+        <li><b>Entnahmen und Ausschüttungen</b> sind Ergebnisverwendung und kein Aufwand, in manchen Häusern allerdings der größte einzelne Abfluss des ganzen Jahres.</li>
       </ul>
     </div>
     <div class="card" style="border-left:3px solid var(--ochre)">
-      <p class="ck">Der vierte, und der unangenehmste</p><h3>Die Umsatzsteuer</h3>
-      <p>Eine BWA rechnet in Nettobeträgen. Vom Kunden kommt der Bruttobetrag herein, an den Lieferanten geht er brutto hinaus, und am 10. des Folgemonats geht die Differenz an das Finanzamt.</p>
-      <p>Diese drei Bewegungen sind für die Liquidität erheblich und in der BWA unsichtbar. Sie bekommen in der Vorschau einen eigenen Zahlungsstrom.</p>
+      <p class="ck">Der vierte und unangenehmste</p><h3>Die Umsatzsteuer</h3>
+      <p>Eine BWA rechnet in Nettobeträgen, während vom Kunden der Bruttobetrag hereinkommt, an den Lieferanten brutto hinausgeht und am 10. des Folgemonats die Differenz an das Finanzamt geht.</p>
+      <p>Diese drei Bewegungen sind für die Liquidität erheblich und in der BWA unsichtbar, weshalb sie in der Vorschau einen eigenen Zahlungsstrom bekommen.</p>
     </div>
   </div>
 
   <h2 class="sec">Die BWA mitnehmen</h2>
-  <p class="sub">Für das nächste Modul: Diese zwölf Monate als Datei. Das Vorschaumodul liest sie ein und hängt an jede Position eine Zahlungsregel.</p>
+  <p class="sub">Für das nächste Modul stehen diese zwölf Monate als Datei bereit, die das Vorschaumodul einliest, um an jede Position eine Zahlungsregel zu hängen.</p>
   <div class="bilout">
     <div class="wsbar" style="margin-bottom:12px">
       <div class="seg" role="group" aria-label="Datei">
@@ -944,7 +944,7 @@ footer a{color:var(--teal-dk)}
         <button id="bwCopy" type="button">In die Zwischenablage</button>
       </div>
     </div>
-    <p class="sub" style="margin:0 0 12px">Die Datei enthält alle achtzehn Positionen mit ihren zwölf Monatswerten unter der Kennung <span class="m" style="font-family:var(--mono)">bwa-monate</span>. Der Text gibt den gerade gewählten Monat wieder.</p>
+    <p class="sub" style="margin:0 0 12px">Die Datei enthält alle achtzehn Positionen mit ihren zwölf Monatswerten unter der Kennung <span class="m" style="font-family:var(--mono)">bwa-monate</span>, während der Text den gerade gewählten Monat wiedergibt.</p>
     <label class="hint" for="bwOut" style="margin:0 0 6px;display:block">Ergebnis</label>
     <textarea id="bwOut" readonly aria-label="Die BWA als Text"></textarea>
     <p class="bilmsg" id="bwMsg2"></p>
@@ -952,13 +952,13 @@ footer a{color:var(--teal-dk)}
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Die BWA sagt, <b>was geschehen ist</b>. Sie sagt nichts darüber, wann Geld fließt. Der Weg von der einen Aussage zur anderen ist eine Regel je Position — und das ist der Gegenstand des nächsten Moduls.</p>
+    <p>Die BWA sagt, <b>was geschehen ist</b>, ohne etwas darüber zu sagen, wann Geld fließt, wobei der Weg von der einen Aussage zur anderen eine Regel je Position ist. Damit wäre der Gegenstand des nächsten Moduls benannt.</p>
   </div>
 </section>
 
 <!-- ==================== LEKTION 05 · QUIZ ==================== -->
 <section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e">
-  <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen. Kein Zeitdruck, keine Bewertung, die irgendwo landet — die Begründung steht nach jeder Antwort da, auch nach der richtigen.</p>
+  <p class="claim">Fünf Fragen werden zufällig aus einem größeren Vorrat gezogen, ohne Zeitdruck und ohne eine Bewertung, die irgendwo landet, wobei die Begründung nach jeder Antwort dasteht, auch nach der richtigen.</p>
 
   <h2 class="sec">Übung</h2>
   <p class="sub">Die meisten Fehlantworten drehen sich darum, was eine BWA leisten kann und was sie gar nicht enthält.</p>
@@ -973,34 +973,34 @@ footer a{color:var(--teal-dk)}
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Wer eine BWA liest, liest zwei Dinge zugleich: die Zahl und ihre Herkunft. <b>Die zweite entscheidet, wie viel die erste wert ist.</b></p>
+    <p>Wer eine BWA liest, liest zwei Dinge zugleich: die Zahl und ihre Herkunft, wobei <b>die zweite entscheidet, wie viel die erste wert ist</b>.</p>
   </div>
 </section>
 
 <!-- ==================== LEKTION 06 · DER ERSTE SCHRITT ==================== -->
 <section class="panel" id="p-f" role="tabpanel" aria-labelledby="tab-f">
-  <p class="claim">Du bekommst jeden Monat eine BWA und legst sie ab? Sieben Schritte, nach denen sie etwas wert ist — für alle brauchst Du die letzten vierundzwanzig Monate und einen Vormittag.</p>
+  <p class="claim">Du bekommst jeden Monat eine BWA und legst sie ab? Dann gehst Du sieben Schritte, nach denen sie etwas wert ist und für die Du die letzten vierundzwanzig Monate sowie einen Vormittag brauchst.</p>
 
   <h2 class="sec">Sieben Schritte mit der eigenen BWA</h2>
   <p class="sub">Jeder Schritt mit dem Grund dahinter und dem Fehler, der an dieser Stelle am häufigsten gemacht wird.</p>
   <div class="ck10" id="ck7"></div>
 
   <div class="readme" style="margin-top:18px">
-    <b>Warum vierundzwanzig Monate und nicht zwölf.</b> Zwölf Monate zeigen ein Muster, das genauso gut Zufall sein kann. Erst wenn der August zweimal hintereinander eingebrochen ist, weißt Du, dass es die Werksferien sind. Und erst dann lässt sich damit planen. Die zweiten zwölf Monate sind die, die aus einer Beobachtung eine Regel machen.
+    <b>Warum vierundzwanzig Monate und nicht zwölf.</b> Zwölf Monate zeigen ein Muster, das genauso gut Zufall sein kann, denn erst wenn der August zweimal hintereinander eingebrochen ist, weißt Du, dass es die Werksferien sind und dass sich damit planen lässt. Die zweiten zwölf Monate sind die, die aus einer Beobachtung eine Regel machen.
   </div>
 
   <h2 class="sec">Glossar</h2>
-  <p class="sub">Zum Nachschlagen während der Arbeit. Keine Prüfungsliste.</p>
+  <p class="sub">Das Glossar ist zum Nachschlagen während der Arbeit gedacht und keine Prüfungsliste.</p>
   <div class="glos" id="glos"></div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Eine BWA, die abgelegt wird, ist ein Bericht. Eine BWA, aus der eine Frage folgt, ist Controlling. <b>Der Unterschied liegt in zwanzig Minuten am siebten Werktag.</b></p>
+    <p>Eine BWA, die abgelegt wird, ist ein Bericht, während eine BWA, aus der eine Frage folgt, Controlling ist. <b>Der Unterschied liegt in zwanzig Minuten am siebten Werktag.</b></p>
   </div>
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.49</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.50</span>
 </footer>
 
 </div>
@@ -1020,14 +1020,15 @@ const proz = v => v.toLocaleString("de-DE", {minimumFractionDigits:1, maximumFra
    Zwoelf Monate, die sich auf die Gewinn- und Verlustrechnung aus dem
    Lernpfad Bilanzanalyse summieren: Umsatz 98.000, Material 53.200,
    Personal 30.200, Abschreibungen 4.900. Das vorlaeufige Ergebnis des
-   Jahres ist 2.300 T€ — dieselbe Zahl, die dort als Jahresueberschuss
-   im Eigenkapital steht.
+   Jahres ist 2.300 T€, also dieselbe Zahl, die dort als
+   Jahresueberschuss im Eigenkapital steht.
 
    Das Betriebsergebnis weicht ab: 4.200 hier gegen 4.450 dort. Die
    Differenz sind die betrieblichen Steuern von 250 T€, die eine BWA in
    den Kostenblock stellt und § 275 HGB unterhalb des Ergebnisses nach
-   Steuern. Dieselben Buchungen, zwei Gliederungen — und deshalb steht
-   das im Modul als Beobachtung und nicht als Fehler.
+   Steuern. Dieselben Buchungen in zwei Gliederungen ergeben zwei
+   Betriebsergebnisse, weshalb das im Modul als Beobachtung steht und
+   nicht als Fehler.
    ===================================================================== */
 const MONATE = ["Jan","Feb","Mrz","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
 const LANG = ["Januar","Februar","März","April","Mai","Juni","Juli","August",
@@ -1036,13 +1037,13 @@ const LANG = ["Januar","Februar","März","April","Mai","Juni","Juli","August",
 /* Art: "pos" eine Position, "sum" eine gerechnete Zwischensumme,
    "kopf" eine Blockueberschrift ohne Werte.
    vz:  das Vorzeichen, mit dem die Position in die naechste Summe geht.
-   vorl: die Begruendung, warum diese Zahl vorlaeufig ist — leer, wenn
-         sie es nicht ist. */
+   vorl: die Begruendung, warum diese Zahl vorlaeufig ist, leer bei
+         einer Position, die es nicht ist. */
 const BWA = [
   {art:"pos", id:"UMS", nr:"", name:"Umsatzerlöse", vz:"+",
    werte:[7100,7600,8900,8400,8700,9100,8800,5900,8600,9200,8900,6800]},
   {art:"pos", id:"BES", nr:"", name:"Bestandsveränderung", vz:"+",
-   vorl:"Unterjährig geschätzt oder ganz weggelassen — eine Inventur gibt es erst zum Jahresende.",
+   vorl:"Unterjährig geschätzt oder ganz weggelassen, da es eine Inventur erst zum Jahresende gibt.",
    werte:[120,-60,-180,90,140,-210,60,380,-90,110,-140,180]},
   {art:"pos", id:"EIG", nr:"", name:"Aktivierte Eigenleistungen", vz:"+",
    werte:[20,30,60,50,40,65,35,110,45,55,50,40]},
@@ -1112,7 +1113,7 @@ const jahr = id => wert(id, 11, true);
 /* =====================================================================
    2 · Zeichnen
    ===================================================================== */
-let MONAT = 9;   /* Oktober — ein unauffaelliger Monat als Einstieg */
+let MONAT = 9;   /* Oktober, ein unauffaelliger Monat als Einstieg */
 
 $("bwMonat").innerHTML = MONATE.map((m, i) =>
   `<button type="button" data-m="${i}" aria-pressed="${i === MONAT}">${m}</button>`).join("");
@@ -1126,8 +1127,8 @@ function bwZeichnen(){
       return `<div class="bwz block"><label>${esc(z.name)}</label><span></span><span></span><span></span></div>`;
     const m = wert(z.id, MONAT, false), k = wert(z.id, MONAT, true);
     /* Der Anteil an der Gesamtleistung ist nur dort sinnvoll, wo eine
-       Gesamtleistung im Nenner steht — und nur, wenn sie nicht null ist. */
-    const q = gl ? proz(m / gl * 100) : "—";
+       Gesamtleistung im Nenner steht und diese nicht null ist. */
+    const q = gl ? proz(m / gl * 100) : "";
     /* Eine Zwischensumme bekommt ihre Auszeichnung, eine Position die
        Marke, wenn sie vorlaeufig ist. */
     const kl = (z.art === "sum" ? (z.ergebnis ? " ergebnis" : " summe") : "")
@@ -1167,8 +1168,8 @@ bwZeichnen();
    3 · Der Jahreslauf des Betriebsergebnisses
 
    Zwoelf Saeulen um eine Nulllinie. Die Hoehe wird gerechnet und nicht
-   gemessen: In einem zugeklappten Block liefert getBoundingClientRect
-   nur Nullen, und die Zeichnung entartete dort auf einen Punkt.
+   gemessen, da getBoundingClientRect in einem zugeklappten Block nur
+   Nullen liefert, sodass die Zeichnung dort auf einen Punkt entartete.
    ===================================================================== */
 function bwLauf(){
   const werte = MONATE.map((m, i) => wert("BE", i, false));
@@ -1199,8 +1200,8 @@ addEventListener("resize", bwLauf);
    4 · Mitnehmen
 
    Die Datei enthaelt alle Positionen mit ihren zwoelf Monatswerten.
-   Das Vorschaumodul haengt an jede von ihnen eine Zahlungsregel — dafuer
-   braucht es die Monatswerte und sonst nichts.
+   Das Vorschaumodul haengt an jede von ihnen eine Zahlungsregel, wofuer
+   es die Monatswerte braucht und sonst nichts.
    ===================================================================== */
 const BWA_FORMAT = "bwa-monate", BWA_FASSUNG = 1;
 const BR = 88;
@@ -1222,7 +1223,7 @@ function bwText(){
   }
   s += strich("=") + "\n";
   s += br("  Anteil des Materialaufwands an der Gesamtleistung",
-          gl ? proz(wert("MAT", MONAT, false) / gl * 100) : "—", "") + "\n";
+          gl ? proz(wert("MAT", MONAT, false) / gl * 100) : "", "") + "\n";
   s += "\nErzeugt im Modul „Die BWA lesen“.\n";
   return s;
 }
@@ -1256,9 +1257,9 @@ $("bwCopy").addEventListener("click", () => {
   if(navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(feld.value)
       .then(() => { $("bwMsg2").textContent = "Kopiert."; })
-      .catch(() => { $("bwMsg2").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand."; });
+      .catch(() => { $("bwMsg2").textContent = "Klappt hier nicht, der Text ist markiert, kopier ihn von Hand."; });
   } else {
-    $("bwMsg2").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand.";
+    $("bwMsg2").textContent = "Klappt hier nicht, der Text ist markiert, kopier ihn von Hand.";
   }
 });
 
@@ -1267,33 +1268,33 @@ $("bwCopy").addEventListener("click", () => {
    ===================================================================== */
 const ZU_POS = [
   ["Der Umsatz des Monats in der BWA", "ok",
-   "Belastbar. Ausgangsrechnungen werden zeitnah gebucht, und ihr Betrag steht fest. Offen ist allein, wann das Geld kommt — und das ist die Frage des nächsten Moduls."],
+   "Belastbar. Ausgangsrechnungen werden zeitnah gebucht, wobei ihr Betrag feststeht. Offen ist allein, wann das Geld kommt, was die Frage des nächsten Moduls ist."],
   ["Die Personalkosten eines Monats ohne Sonderzahlung", "ok",
    "Belastbar. Die Löhne sind abgerechnet und gebucht. Die verlässlichste Position der ganzen Auswertung."],
   ["Die Raumkosten des Monats", "ok",
-   "Belastbar. Ein Mietvertrag mit festem Betrag und festem Fälligkeitstag — in der Vorschau nahezu Gewissheit."],
+   "Belastbar. Ein Mietvertrag mit festem Betrag und festem Fälligkeitstag ist in der Vorschau nahezu Gewissheit."],
   ["Die Abschreibungen des Monats", "vor",
-   "Vorläufig. Meist ein Zwölftel des Vorjahreswerts. Der tatsächliche Betrag steht erst fest, wenn zum Jahresende der Anlagenspiegel gerechnet ist."],
+   "Vorläufig, zumeist ein Zwölftel des Vorjahreswerts. Der tatsächliche Betrag steht erst fest, wenn zum Jahresende der Anlagenspiegel gerechnet ist."],
   ["Die Bestandsveränderung an fertigen Erzeugnissen", "vor",
-   "Vorläufig. Unterjährig gibt es keine Inventur. Der Wert wird geschätzt oder ganz weggelassen — bei schwankender Produktion verzerrt beides das Ergebnis."],
+   "Vorläufig, weil es unterjährig keine Inventur gibt. Der Wert wird geschätzt oder ganz weggelassen, wobei beides bei schwankender Produktion das Ergebnis verzerrt."],
   ["Die Position „Sonstige Kosten“ im März", "vor",
-   "Vorläufig. Ein Sammelposten aus Regelmäßigem und Einmaligem, und unterjährig fehlen dort auch die Rückstellungen."],
+   "Vorläufig. Ein Sammelposten aus Regelmäßigem und Einmaligem, in dem unterjährig zudem die Rückstellungen fehlen."],
   ["Die Steuern vom Einkommen und Ertrag in der Monats-BWA", "vor",
    "Vorläufig. Eine Schätzung auf Grundlage des Vorjahres. Die tatsächliche Belastung ergibt sich erst aus dem Abschluss."],
   ["Der Materialaufwand eines Monats mit vielen offenen Eingangsrechnungen", "vor",
    "Vorläufig. Eine Rechnung, die erst im Folgemonat eintrifft, wird auch dort gebucht. Der Monat der Leistung bleibt zu gut, der nächste wird zu schlecht."],
   ["Die Versicherungsprämie, die im Januar für das ganze Jahr gebucht wurde", "vor",
-   "Vorläufig, weil die Abgrenzung fehlt. Der Januar sieht schlecht aus, die übrigen elf Monate zu gut — am Jahresende gleicht es sich aus."],
+   "Vorläufig, weil die Abgrenzung fehlt. Der Januar sieht schlecht aus, die übrigen elf Monate zu gut, wobei es sich am Jahresende ausgleicht."],
   ["Der kumulierte Umsatz nach elf Monaten", "ok",
    "Belastbar. Die Summe elf gebuchter Monate. Kumulierte Werte sind stabiler als Monatswerte, weil sich Verschiebungen zwischen den Monaten darin aufheben."],
   ["Die Zinsen für ein laufendes Darlehen", "ok",
    "Belastbar. Sie ergeben sich aus dem Vertrag und werden regelmäßig abgebucht. Die Tilgung daneben steht allerdings in keiner BWA."],
   ["Das Betriebsergebnis des Dezembers", "vor",
-   "Vorläufig — und zugleich das belastbarste des Jahres. Im Dezember laufen Inventur, Abschreibungen, Rückstellungen und Abgrenzungen zusammen. Deshalb sieht der Monat oft schlecht aus und kommt dem Abschluss am nächsten."],
+   "Vorläufig und zugleich das belastbarste des Jahres. Im Dezember laufen Inventur, Abschreibungen, Rückstellungen und Abgrenzungen zusammen, weshalb der Monat oft schlecht aussieht und dem Abschluss am nächsten kommt."],
   ["Die Höhe der Darlehenstilgung des Monats", "gar",
-   "Steht gar nicht in der BWA. Sie ist keine Aufwandsposition. In der Auswertung erscheinen nur die Zinsen, und bei einem Annuitätendarlehen sind die der kleinere Teil."],
+   "Steht gar nicht in der BWA, weil sie keine Aufwandsposition ist. In der Auswertung erscheinen allein die Zinsen, die bei einem Annuitätendarlehen der kleinere Teil sind."],
   ["Der Kaufpreis einer im Mai angeschafften Maschine", "gar",
-   "Steht gar nicht in der BWA. Die Investition wird aktiviert; in der Auswertung erscheint nur die Abschreibung, und die kostet kein Geld."]
+   "Steht gar nicht in der BWA, da die Investition aktiviert wird. In der Auswertung erscheint allein die Abschreibung, die kein Geld kostet."]
 ];
 let zuStand = [];
 const ZU_NAME = {ok:"Belastbar", vor:"Vorläufig", gar:"Steht gar nicht drin"};
@@ -1330,13 +1331,13 @@ zuZiehen();
    ===================================================================== */
 const CHECK7 = [
   ["Besorg Dir die letzten vierundzwanzig BWA",
-   "Zwölf Monate zeigen ein Muster, das Zufall sein kann. Erst wenn der August zweimal eingebrochen ist, weißt Du, dass es die Werksferien sind — und erst dann lässt sich damit planen.",
+   "Zwölf Monate zeigen ein Muster, das Zufall sein kann, denn erst wenn der August zweimal eingebrochen ist, weißt Du, dass es die Werksferien sind und dass sich damit planen lässt.",
    "Es wird mit der BWA des letzten Monats angefangen. Eine einzelne Auswertung hat keinen Vergleichsmaßstab und sagt deshalb fast nichts."],
   ["Trag die Monatswerte in eine einzige Tabelle, zwölf Spalten nebeneinander",
    "Eine BWA je Monat als PDF ist unlesbar. Erst nebeneinander wird sichtbar, welche Position schwankt und welche steht. Zwei Stunden Tipparbeit, die den Rest überflüssig machen.",
-   "Man liest die Monate einzeln durch. Das menschliche Gedächtnis behält keine zwölf Zahlenreihen, und genau darauf kommt es an."],
+   "Man liest die Monate einzeln durch. Das menschliche Gedächtnis behält keine zwölf Zahlenreihen, obwohl es genau darauf ankommt."],
   ["Markier in jeder Zeile die Ausreißer",
-   "Jede Position, die in einem Monat deutlich vom Mittel abweicht. Zu jedem Ausreißer gehört eine Erklärung — Weihnachtsgeld, Werksferien, eine Jahresprämie, eine große Reparatur.",
+   "Jede Position, die in einem Monat deutlich vom Mittel abweicht. Zu jedem Ausreißer gehört eine Erklärung, also Weihnachtsgeld, Werksferien, eine Jahresprämie oder eine große Reparatur.",
    "Die Abweichung wird als Schwankung hingenommen. Ein Ausreißer, den niemand erklären kann, ist entweder ein Buchungsfehler oder eine Nachricht."],
   ["Sortier die Positionen in belastbar, vorläufig und fehlt ganz",
    "Genau die drei Kategorien aus Lektion 03. Danach weißt Du, welche Zeilen Deiner BWA in eine Vorschau dürfen und welche vorher angefasst werden müssen.",
@@ -1373,37 +1374,37 @@ const GLOSSAR = [
   ["Abgrenzung", "Die Zuordnung von Aufwand und Ertrag zu der Periode, in die sie gehören. Unterjährig oft unvollständig."],
   ["Abschreibungsschlüssel", "Der geschätzte Monatsbetrag, mit dem die BWA rechnet, bis der Anlagenspiegel vorliegt."],
   ["Buchungsstand", "Wie vollständig die Belege eines Monats erfasst sind. Der größte Einzeleffekt auf die Aussagekraft einer BWA."],
-  ["Werksferien", "Betriebsruhe, meist im Sommer. Umsatz bricht ein, Fixkosten laufen weiter — ein planbarer Verlustmonat."],
+  ["Werksferien", "Betriebsruhe, zumeist im Sommer. Der Umsatz bricht ein, während die Fixkosten weiterlaufen, was einen planbaren Verlustmonat ergibt."],
   ["Saisonmuster", "Die wiederkehrende Verteilung von Umsatz und Kosten über die Monate. Aus zwei Jahren ableitbar und die Grundlage jeder Monatsplanung."],
   ["Deckungsbeitrag", "Erlöse minus variable Kosten. Eine BWA zeigt ihn nicht; dafür braucht es eine Kostenrechnung."],
   ["Chefübersicht", "Eine verdichtete Einseiten-Ansicht, die viele Kanzleien der BWA voranstellen. Nützlich zum Überblick, ungeeignet als Planungsgrundlage."],
   ["Soll-Ist-Vergleich", "Die Gegenüberstellung von Planwert und BWA-Wert. Der Schritt, mit dem aus einem Bericht ein Steuerungsinstrument wird."],
   ["Siebter Werktag", "Der Termin, zu dem eine gut geführte Buchhaltung die BWA des Vormonats liefert. Alles danach kostet Reaktionszeit."]
 ];
-$("glos").innerHTML = GLOSSAR.map(([b, t]) => `<div><b>${esc(b)}</b> — ${t}</div>`).join("");
+$("glos").innerHTML = GLOSSAR.map(([b, t]) => `<div><b>${esc(b)}</b>: ${t}</div>`).join("");
 
 /* =====================================================================
    8 · Uebung: fuenf Fragen, zufaellig aus dem Vorrat
    ===================================================================== */
 const FRAGEN = [
   ["Auf welcher Rechtsgrundlage steht eine BWA?",
-   ["Auf keiner — sie ist ein freies Auswertungsformat","§ 275 HGB","§ 242 HGB","§ 18 UStG"], 0,
-   "Die BWA ist in keinem Gesetz beschrieben. Das verbreitetste Format ist die Standard-BWA Nr. 01 der DATEV, und auch das ist eine Konvention und keine Vorschrift."],
+   ["Auf keiner, sie ist ein freies Auswertungsformat","§ 275 HGB","§ 242 HGB","§ 18 UStG"], 0,
+   "Die BWA ist in keinem Gesetz beschrieben. Das verbreitetste Format ist die Standard-BWA Nr. 01 der DATEV, wobei auch das eine Konvention ist und keine Vorschrift."],
   ["Wie entsteht die Gesamtleistung?",
    ["Umsatzerlöse + Bestandsveränderung + aktivierte Eigenleistungen","Umsatzerlöse − Materialaufwand","Umsatzerlöse + sonstige betriebliche Erträge","Rohertrag + Gesamtkosten"], 0,
-   "Sie misst, was im Zeitraum geleistet wurde — unabhängig davon, was davon verkauft ist. Deshalb die beiden Korrekturposten."],
+   "Sie misst, was im Zeitraum geleistet wurde, unabhängig davon, was davon verkauft ist, weshalb es die beiden Korrekturposten gibt."],
   ["Wie entsteht der Rohertrag?",
    ["Gesamtleistung − Materialaufwand","Umsatz − Personalkosten","Gesamtleistung − Gesamtkosten","Betrieblicher Rohertrag − Abschreibungen"], 0,
    "Was bleibt, nachdem der Einkauf bezahlt ist. Für einen Handels- oder Fertigungsbetrieb die wichtigste Zwischensumme der ganzen Auswertung."],
   ["Warum weicht das Betriebsergebnis einer BWA vom Betriebsergebnis nach § 275 HGB ab?",
    ["Weil die BWA die betrieblichen Steuern in den Kostenblock stellt","Weil die BWA mit Bruttobeträgen rechnet","Weil die BWA keine Abschreibungen kennt","Weil die BWA den Umsatz anders abgrenzt"], 0,
-   "Im Fall dieses Moduls sind es 250 T€ Unterschied — 4.200 gegen 4.450. Dieselben Buchungen, zwei Gliederungen."],
+   "Im Fall dieses Moduls sind es 250 T€ Unterschied, nämlich 4.200 gegen 4.450. Dieselben Buchungen ergeben in zwei Gliederungen zwei Ergebnisse."],
   ["Warum sind die Abschreibungen in einer Monats-BWA vorläufig?",
    ["Sie werden nach einem Schlüssel angesetzt, bis der Anlagenspiegel vorliegt","Sie werden unterjährig gar nicht gebucht","Sie werden geschätzt, weil der Zeitwert fehlt","Sie sind nicht vorläufig"], 0,
    "Meist ein Zwölftel des Vorjahreswerts. Bei einem investitionsstarken Jahr weicht der tatsächliche Betrag deutlich davon ab."],
   ["Warum ist die Bestandsveränderung in einer Monats-BWA problematisch?",
    ["Unterjährig gibt es keine Inventur, also wird sie geschätzt oder weggelassen","Sie ist rechtlich nicht zulässig","Sie ist immer null","Sie gehört in den neutralen Bereich"], 0,
-   "Bei schwankender Produktion verzerrt beides das Monatsergebnis erheblich — und zwar in beide Richtungen."],
+   "Bei schwankender Produktion verzerrt beides das Monatsergebnis erheblich, nämlich in beide Richtungen."],
   ["Eine Jahresprämie wird im Januar in voller Höhe gebucht. Was folgt daraus?",
    ["Der Januar sieht zu schlecht aus und die übrigen elf Monate zu gut","Das Jahresergebnis ist falsch","Die Prämie ist kein Aufwand","Die BWA muss korrigiert werden"], 0,
    "Eine fehlende Abgrenzung. Über das Jahr gleicht es sich aus, für den einzelnen Monat ist die Aussage unbrauchbar."],
@@ -1412,10 +1413,10 @@ const FRAGEN = [
    "Alles, was unterjährig gefehlt hat, wird im letzten Monat nachgeholt. Deshalb ist sie zugleich die BWA, die dem Abschluss am nächsten kommt."],
   ["Welche Position der BWA ist als Planungsgrundlage am verlässlichsten?",
    ["Die Personalkosten","Die Bestandsveränderung","Die sonstigen Kosten","Die Abschreibungen"], 0,
-   "Sie sind bekannt, regelmäßig, und ihr Zahlungstag steht fest. Die Abschreibungen sind zwar planbar und dafür nie zahlungswirksam."],
+   "Sie sind bekannt und regelmäßig, wobei ihr Zahlungstag feststeht. Die Abschreibungen sind zwar planbar, dafür allerdings nie zahlungswirksam."],
   ["Wofür werden die Abschreibungen in einer Liquiditätsvorschau gebraucht?",
    ["Um sie ausdrücklich auf null zu setzen","Um den Kapitaldienst zu rechnen","Um die Investitionen zu planen","Sie werden gar nicht gebraucht"], 0,
-   "Sie sind nie zahlungswirksam. In einer Vorschau ist die Regel für diese Zeile: kommt nicht vor — und das gehört ausdrücklich hingeschrieben."],
+   "Sie sind nie zahlungswirksam, weshalb die Regel für diese Zeile in einer Vorschau „kommt nicht vor“ heißt, was ausdrücklich hingeschrieben gehört."],
   ["Was steht in keiner BWA?",
    ["Darlehenstilgung, Investition, Entnahme und Umsatzsteuer-Zahllast","Personalkosten und Raumkosten","Zinsen und Abschreibungen","Umsatz und Materialaufwand"], 0,
    "Vier Posten, die das Konto erheblich bewegen und in keiner Aufwandszeile vorkommen. Ohne sie ist jede Vorschau falsch."],
@@ -1430,7 +1431,7 @@ const FRAGEN = [
    "Eine Eingangsrechnung, die einen Monat zu spät gebucht wird, verschiebt zwei Monatswerte und lässt den kumulierten Wert unberührt."],
   ["Wann liefert eine gut geführte Buchhaltung die BWA des Vormonats?",
    ["Etwa am siebten Werktag","Am letzten Tag des Monats","Nach sechs Wochen","Mit dem Jahresabschluss"], 0,
-   "Zehn bis zwanzig Tage sind üblich. Alles darüber kostet Reaktionszeit — die BWA für den März kann sonst im Mai eintreffen."],
+   "Zehn bis zwanzig Tage sind üblich, während alles darüber Reaktionszeit kostet, da die BWA für den März sonst im Mai eintreffen kann."],
   ["Wie viele Monate braucht man, um ein Saisonmuster abzuleiten?",
    ["Etwa vierundzwanzig","Drei","Zwölf","Sechsunddreißig"], 0,
    "Zwölf Monate zeigen ein Muster, das Zufall sein kann. Erst die Wiederholung im zweiten Jahr macht daraus eine Regel, mit der sich planen lässt."],
@@ -1439,11 +1440,11 @@ const FRAGEN = [
    "Im Juli und im November fällt Urlaubs- und Weihnachtsgeld an, der August ist Werksferienzeit, der Dezember hat Betriebsruhe. Alle vier wiederholen sich jedes Jahr."],
   ["Wer sind die üblichen Adressaten einer BWA?",
    ["Geschäftsführung, Bank und Steuerberater","Das Finanzamt","Die Gesellschafterversammlung","Der Wirtschaftsprüfer"], 0,
-   "Drei Adressaten mit drei Erwartungen, und die BWA ist auf keine davon zugeschnitten. Das erklärt die meisten Enttäuschungen mit ihr."],
+   "Drei Adressaten haben drei Erwartungen, wobei die BWA auf keine davon zugeschnitten ist, was die meisten Enttäuschungen mit ihr erklärt."],
   ["Was unterscheidet die BWA vom Jahresabschluss am grundlegendsten?",
    ["Die BWA ist auf Geschwindigkeit gebaut und kauft sie mit Genauigkeit","Die BWA enthält keine Kosten","Die BWA ist gesetzlich geregelt","Die BWA wird geprüft"], 0,
-   "Für die Liquiditätsplanung zählt Geschwindigkeit mehr: Eine Vorschau auf Grundlage des letzten geprüften Abschlusses wäre neun Monate alt."],
-  ["Die Position „Sonstige Kosten“ als Planungsgrundlage —",
+   "Für die Liquiditätsplanung zählt Geschwindigkeit mehr, da eine Vorschau auf Grundlage des letzten geprüften Abschlusses neun Monate alt wäre."],
+  ["Wie taugt die Position „Sonstige Kosten“ als Planungsgrundlage?",
    ["vorsichtig, es ist ein Sammelposten aus Regelmäßigem und Einmaligem","sehr gut, sie ist stabil","gar nicht, sie ist immer null","gut, sie folgt dem Umsatz"], 0,
    "Wer sie als Ganzes plant, plant den Durchschnitt von etwas, das keinen hat. Vor der Planung gehört sie aufgeteilt."],
   ["Was ist an der Materialquote aus der BWA brauchbar?",
@@ -1453,7 +1454,7 @@ const FRAGEN = [
    ["Durch den Soll-Ist-Vergleich mit einem Planwert","Durch die Prüfung","Durch die Chefübersicht","Durch monatliche Ablage"], 0,
    "Ohne Erwartung ist jede Abweichung nur eine Zahl. Erst der Plan daneben macht aus einem Bericht eine Frage."],
   ["Was zeigt eine BWA über die Zahlungsfähigkeit?",
-   ["Nichts — sie kennt keine Zahlungszeitpunkte","Den Kontostand zum Monatsende","Die Liquidität ersten Grades","Die offenen Posten"], 0,
+   ["Nichts, sie kennt keine Zahlungszeitpunkte","Den Kontostand zum Monatsende","Die Liquidität ersten Grades","Die offenen Posten"], 0,
    "Sie zeigt Erträge und Aufwendungen. Wann daraus Geld wird, ist die Frage der folgenden Module dieses Pfads."],
   ["Eine Eingangsrechnung für März trifft erst im April ein. Was macht die BWA daraus?",
    ["Der März bleibt zu gut, der April wird zu schlecht","Beide Monate sind richtig","Der März wird korrigiert","Die Rechnung wird abgegrenzt"], 0,
@@ -1501,7 +1502,7 @@ function qRender(){
     : fertig + " von " + QZAHL + " beantwortet · " + treffer + " richtig";
   $("qResult").innerHTML = fertig < QZAHL ? "" :
     `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
-      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen — der Vorrat hat " + FRAGEN.length + "." :
+      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen, der Vorrat hat " + FRAGEN.length + "." :
       treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben; sie sind der eigentliche Lernstoff." :
       "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind die fünf vorläufigen Positionen und die vier Posten, die in keiner BWA stehen."}</div>`;
 }

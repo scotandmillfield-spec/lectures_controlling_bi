@@ -158,8 +158,8 @@ table.tbl tbody tr:hover td{background:var(--sand-xl)}
 .fmark.f4{background:var(--grey-xl);color:#5a5a5c}
 /* ---------- Risk-Map ----------
    Die drei Zonenfarben sind die einzige Stelle, an der Signalfarben
-   auftreten. Dekorativ erscheinen sie nirgends, und die Bedeutung
-   hängt nie an ihnen allein: jede Zone hat ihren Namen, jeder Punkt seine
+   auftreten. Dekorativ erscheinen sie nirgends, wobei die Bedeutung
+   nie an ihnen allein haengt: jede Zone hat ihren Namen, jeder Punkt seine
    Kennung, jede rote Position zusaetzlich das Warndreieck.          */
 .mapwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
 .mapwrap>*{min-width:0}
@@ -650,8 +650,8 @@ footer a{color:var(--teal-dk)}
 /* ---------- Die Vier-Felder-Tafel ----------
    Zwei Achsen, vier Quadranten. Die Achsenbeschriftung steht aussen,
    damit die Felder selbst nur ihren Inhalt zeigen. Unter 620px wird
-   aus dem Kreuz eine Spalte — ein 2x2-Raster mit Text darin ist auf
-   dem Telefon unlesbar.                                             */
+   aus dem Kreuz eine Spalte, weil ein 2x2-Raster mit Text darin auf
+   dem Telefon unlesbar ist.                                             */
 .tafel{display:grid;grid-template-columns:30px 1fr 1fr;gap:10px;align-items:stretch;margin:16px 0 0}
 .tafel>*{min-width:0}
 .tafelx{grid-column:2/-1;display:grid;grid-template-columns:1fr 1fr;gap:10px;
@@ -725,8 +725,8 @@ footer a{color:var(--teal-dk)}
 <header class="masthead">
   <p class="eyebrow">Liquiditätsplanung · Modul 01</p>
   <h1>Liquidität: <em>der Begriff</em></h1>
-  <p class="lede">Zahlungsunfähigkeit ist der häufigste Grund für die Eröffnung eines Insolvenzverfahrens, § 17 InsO. Die meisten betroffenen Unternehmen haben im letzten Abschluss einen Gewinn ausgewiesen. Dieses Modul klärt, wie das zusammengeht: warum ein Ertrag keine Einzahlung ist, an welchen fünf Stellen beides auseinanderfällt, und wie lange das Geld im eigenen Haus unterwegs ist.</p>
-  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Der Fall ist derselbe wie im Lernpfad Bilanzanalyse: ein Zulieferer für Nutzfahrzeugkomponenten, Zahlen in vollen Tausend Euro. Die Bilanz und die Gewinn- und Verlustrechnung aus den Modulen dort sind hier die Rechengrundlage.</p>
+  <p class="lede">Zahlungsunfähigkeit ist der häufigste Grund für die Eröffnung eines Insolvenzverfahrens, § 17 InsO. Die meisten betroffenen Unternehmen haben im letzten Abschluss einen Gewinn ausgewiesen. Dieses Modul klärt, wie das zusammengeht: warum ein Ertrag keine Einzahlung ist, an welchen fünf Stellen beides auseinanderfällt und wie lange das Geld im eigenen Haus unterwegs ist.</p>
+  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Der Fall ist derselbe wie im Lernpfad Bilanzanalyse, nämlich ein Zulieferer für Nutzfahrzeugkomponenten mit Zahlen in vollen Tausend Euro, wobei die Bilanz und die Gewinn- und Verlustrechnung aus den Modulen dort hier die Rechengrundlage sind.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Liquidität: der Begriff">
@@ -739,10 +739,10 @@ footer a{color:var(--teal-dk)}
 
 <!-- ==================== LEKTION 01 · GEWINN IST KEIN GELD ==================== -->
 <section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
-  <p class="claim">Ein Unternehmen geht nicht an Verlusten zugrunde. Es geht daran zugrunde, dass an einem bestimmten Dienstag <b>das Konto nicht reicht</b>. Verluste sind der häufigste Weg dorthin und keineswegs der einzige.</p>
+  <p class="claim">Ein Unternehmen geht daran zugrunde, dass an einem bestimmten Dienstag <b>das Konto nicht reicht</b>. Verluste sind der häufigste Weg dorthin, keineswegs jedoch der einzige.</p>
 
   <h2 class="sec">Die vier Begriffspaare</h2>
-  <p class="sub">Die Betriebswirtschaft unterscheidet vier Ebenen. Für die Liquiditätsplanung zählen vor allem die erste und die dritte — und der Abstand zwischen ihnen.</p>
+  <p class="sub">Die Betriebswirtschaft unterscheidet vier Ebenen, von denen für die Liquiditätsplanung vor allem die erste und die dritte zählen sowie der Abstand zwischen ihnen.</p>
   <div class="tscroll" tabindex="0" role="group" aria-label="Die vier Begriffspaare, seitlich scrollbar">
   <table class="tbl">
     <thead><tr><th>Begriffspaar</th><th>Bezugsgröße</th><th>Wann es gebucht wird</th><th>Beispiel</th></tr></thead>
@@ -754,7 +754,7 @@ footer a{color:var(--teal-dk)}
     </tbody>
   </table>
   </div>
-  <p class="sub" style="margin-top:12px">Im Beispiel liegen zwischen dem Ertrag im Januar und der Einzahlung im März <b>rund siebzig Tage</b>. Das Ergebnis des Jahres ändert sich dadurch nicht. Die Frage, ob im Februar die Löhne bezahlt werden können, hängt allein an der Einzahlung.</p>
+  <p class="sub" style="margin-top:12px">Im Beispiel liegen zwischen dem Ertrag im Januar und der Einzahlung im März <b>rund siebzig Tage</b>, ohne dass sich das Ergebnis des Jahres dadurch ändert. Die Frage, ob im Februar die Löhne bezahlt werden können, hängt allein an der Einzahlung.</p>
 
   <h2 class="sec">Fünf Stellen, an denen beides auseinanderfällt</h2>
   <p class="sub">Wer diese fünf kennt, kann jede Differenz zwischen Gewinn und Kontostand erklären.</p>
@@ -764,48 +764,48 @@ footer a{color:var(--teal-dk)}
       <dt>Zeitverschiebung</dt><dd>Ertrag bei Rechnungsstellung, Einzahlung nach dem Zahlungsziel. Bei dreißig Tagen Ziel und einem üblichen Zahlungsverhalten liegen leicht fünfzig Tage dazwischen. Dasselbe auf der Aufwandsseite, nur mit umgekehrtem Vorzeichen.</dd>
       <dt>Bestandsaufbau</dt><dd>Material, das gekauft und noch nicht verbraucht wurde, ist bezahlt und noch kein Aufwand. Jeder Euro mehr im Lager ist ein Euro weniger auf dem Konto, ohne dass das Ergebnis es merkt.</dd>
       <dt>Zahlungslose Aufwendungen</dt><dd>Abschreibungen und die Bildung von Rückstellungen mindern das Ergebnis, ohne dass Geld fließt. Deshalb ist ein Unternehmen mit hohen Abschreibungen liquider, als sein Gewinn vermuten lässt.</dd>
-      <dt>Zahlungslose Erträge</dt><dd>Die Auflösung einer Rückstellung oder eine Zuschreibung erhöhen das Ergebnis, ohne dass Geld hereinkommt. Der umgekehrte Fall, und der unangenehmere.</dd>
+      <dt>Zahlungslose Erträge</dt><dd>Die Auflösung einer Rückstellung oder eine Zuschreibung erhöhen das Ergebnis, ohne dass Geld hereinkommt. Das ist der umgekehrte Fall, der unangenehmere von beiden.</dd>
       <dt>Vorgänge ganz ohne Erfolg</dt><dd>Investition, Darlehenstilgung, Privatentnahme, Ausschüttung. Große Beträge verlassen das Haus und erscheinen in keiner Gewinn- und Verlustrechnung. Diese Gruppe wird beim Planen am häufigsten vergessen.</dd>
     </dl>
   </div>
 
   <h2 class="sec">Das Wachstumsparadox</h2>
-  <p class="sub">Die unangenehmste Folge, und der Grund, aus dem gesunde Unternehmen an guten Aufträgen scheitern.</p>
+  <p class="sub">Das ist die unangenehmste Folge sowie der Grund, aus dem gesunde Unternehmen an guten Aufträgen scheitern.</p>
   <div class="duo">
     <div class="card" style="border-left:3px solid var(--green)">
       <p class="ck">Was in der Rechnung steht</p><h3>Wachstum bringt Ergebnis</h3>
-      <p>Der Umsatz steigt um dreißig Prozent, die Fixkosten bleiben. Das Betriebsergebnis wächst überproportional, die Umsatzrentabilität steigt, jede Kennzahl des dritten Moduls sieht besser aus.</p>
-      <p>Auf dem Papier ist das ein gutes Jahr, und im Rückblick wird es das auch gewesen sein.</p>
+      <p>Der Umsatz steigt um dreißig Prozent, während die Fixkosten bleiben, sodass das Betriebsergebnis überproportional wächst, die Umsatzrentabilität steigt und jede Kennzahl des dritten Moduls besser aussieht.</p>
+      <p>Auf dem Papier ist das ein gutes Jahr, wobei es im Rückblick auch eines gewesen sein wird.</p>
     </div>
     <div class="card" style="border-left:3px solid var(--red)">
       <p class="ck">Was auf dem Konto geschieht</p><h3>Wachstum kostet Geld</h3>
-      <p>Dreißig Prozent mehr Umsatz heißt dreißig Prozent mehr Forderungen und mehr Vorräte. Material und Löhne werden sofort fällig, die Kunden zahlen in zwei Monaten.</p>
-      <p>Je schneller das Wachstum, desto größer die Lücke. Sie wächst mit dem Erfolg und schließt sich erst, wenn das Wachstum aufhört.</p>
+      <p>Dreißig Prozent mehr Umsatz heißen dreißig Prozent mehr Forderungen und mehr Vorräte, wobei Material und Löhne sofort fällig werden und die Kunden erst in zwei Monaten zahlen.</p>
+      <p>Je schneller das Wachstum, desto größer wird die Lücke, die mit dem Erfolg wächst und sich erst schließt, wenn das Wachstum aufhört.</p>
     </div>
   </div>
   <div class="readme" style="margin-top:16px">
-    <b>Beim Zulieferer in Zahlen.</b> Bei 98.000 T€ Umsatz stecken 9.600 T€ in Forderungen und 14.800 T€ in Vorräten, denen 7.900 T€ Lieferantenverbindlichkeiten gegenüberstehen — rund 16.500 T€ gebundenes Umlaufvermögen. Bei dreißig Prozent Wachstum wären es etwa 5.000 T€ mehr. Dieses Geld muss aus dem Ergebnis kommen, aus dem Kontokorrent oder von der Bank. Der Jahresüberschuss des Jahres liegt bei 2.300 T€.
+    <b>Beim Zulieferer in Zahlen.</b> Bei 98.000 T€ Umsatz stecken 9.600 T€ in Forderungen und 14.800 T€ in Vorräten, denen 7.900 T€ Lieferantenverbindlichkeiten gegenüberstehen, zusammen also rund 16.500 T€ gebundenes Umlaufvermögen. Bei dreißig Prozent Wachstum wären es etwa 5.000 T€ mehr. Dieses Geld muss aus dem Ergebnis kommen, aus dem Kontokorrent oder von der Bank. Der Jahresüberschuss des Jahres liegt bei 2.300 T€.
   </div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der Gewinn sagt, ob sich das Geschäft <b>gelohnt</b> hat. Die Liquidität sagt, ob es <b>weitergeht</b>. Die zweite Frage hat kürzere Fristen und keinen Aufschub.</p>
+    <p>Der Gewinn sagt, ob sich das Geschäft <b>gelohnt</b> hat. Die Liquidität sagt, ob es <b>weitergeht</b>, wobei diese zweite Frage kürzere Fristen hat und keinen Aufschub duldet.</p>
   </div>
 </section>
 
 <!-- ==================== LEKTION 02 · DIE VIER-FELDER-TAFEL ==================== -->
 <section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b">
-  <p class="claim">Zwei Fragen an jeden Geschäftsvorfall, und sie sind <b>voneinander unabhängig</b>: Berührt er den Erfolg? Berührt er das Geld? Vier Antworten sind möglich, und jede hat einen Namen.</p>
+  <p class="claim">An jeden Geschäftsvorfall stellst Du zwei Fragen, die <b>voneinander unabhängig</b> sind: Berührt er den Erfolg? Berührt er das Geld? Damit sind vier Antworten möglich, von denen jede ihren eigenen Namen hat.</p>
 
   <h2 class="sec">Die vier Felder</h2>
-  <p class="sub">Die Achse nach rechts fragt nach dem Geld, die Achse nach unten nach dem Erfolg. Wer einen Vorfall in eines dieser Felder legen kann, weiß, was er in der Planung damit anfangen muss.</p>
+  <p class="sub">Die Achse nach rechts fragt nach dem Geld, die Achse nach unten nach dem Erfolg, sodass jeder, der einen Vorfall in eines dieser Felder legen kann, zugleich weiß, was er in der Planung damit anfangen muss.</p>
   <div class="tafel">
     <span></span>
     <div class="tafelx"><span>zahlungswirksam</span><span>nicht zahlungswirksam</span></div>
     <span class="tafely">erfolgswirksam</span>
     <div class="feld beides">
       <p class="fk">Feld 1</p><h4>Beides zugleich</h4>
-      <p>Ergebnis und Konto bewegen sich im selben Zeitraum. Der einfache Fall, und in der Industrie der seltenere.</p>
+      <p>Ergebnis und Konto bewegen sich im selben Zeitraum. Das ist der einfache Fall, der in der Industrie allerdings selten vorkommt.</p>
       <ul>
         <li>Barverkauf über die Ladenkasse</li>
         <li>Eine Rechnung, die im selben Monat bezahlt wird</li>
@@ -815,7 +815,7 @@ footer a{color:var(--teal-dk)}
     </div>
     <div class="feld erfolg">
       <p class="fk">Feld 2</p><h4>Nur Erfolg</h4>
-      <p>Das Ergebnis bewegt sich, das Konto nicht. Entweder noch nicht — oder überhaupt nie.</p>
+      <p>Das Ergebnis bewegt sich, das Konto hingegen nicht. Entweder bewegt es sich noch nicht oder überhaupt nie.</p>
       <ul>
         <li>Rechnung auf Ziel geschrieben (noch nicht)</li>
         <li>Eingangsrechnung erhalten (noch nicht)</li>
@@ -827,7 +827,7 @@ footer a{color:var(--teal-dk)}
     <span class="tafely">nicht erfolgswirksam</span>
     <div class="feld zahlung">
       <p class="fk">Feld 3</p><h4>Nur Zahlung</h4>
-      <p>Das Konto bewegt sich, das Ergebnis nicht. <b>Das Feld, das beim Planen am häufigsten fehlt.</b></p>
+      <p>Das Konto bewegt sich, das Ergebnis nicht. <b>Das ist das Feld, das beim Planen am häufigsten fehlt.</b></p>
       <ul>
         <li>Ein Kunde zahlt eine alte Rechnung</li>
         <li>Anzahlung eines Kunden</li>
@@ -839,7 +839,7 @@ footer a{color:var(--teal-dk)}
     </div>
     <div class="feld keins">
       <p class="fk">Feld 4</p><h4>Weder noch</h4>
-      <p>Weder Ergebnis noch Konto. Für die Planung bedeutungslos, für die Buchführung nicht.</p>
+      <p>Weder Ergebnis noch Konto bewegen sich. Für die Planung ist das bedeutungslos, für die Buchführung nicht.</p>
       <ul>
         <li>Umbuchung zwischen zwei Konten</li>
         <li>Eine Bestellung, solange nichts geliefert ist</li>
@@ -849,23 +849,23 @@ footer a{color:var(--teal-dk)}
     </div>
   </div>
   <div class="readme" style="margin-top:16px">
-    <b>Feld 2 und Feld 3 sind die ganze Arbeit.</b> Feld 1 plant sich von selbst, Feld 4 kommt gar nicht vor. Eine Liquiditätsvorschau ist im Kern die Antwort auf zwei Fragen: Wann wird aus Feld 2 eine Zahlung, und was liegt in Feld 3, das in keiner Auswertung steht. Genau darum geht es in den folgenden Modulen dieses Pfads.
+    <b>Feld 2 und Feld 3 sind die ganze Arbeit.</b> Feld 1 plant sich von selbst, Feld 4 kommt gar nicht vor. Eine Liquiditätsvorschau beantwortet im Kern zwei Fragen: Wann aus Feld 2 eine Zahlung wird und was in Feld 3 liegt, das in keiner Auswertung steht. Genau darum geht es in den folgenden Modulen dieses Pfads.
   </div>
 
   <h2 class="sec">Der Abstand zwischen beiden</h2>
-  <p class="sub">In Feld 2 heißt der Eintrag meistens „noch nicht“ und selten „nie“. Für die Planung ist dieser Abstand die eigentliche Größe.</p>
+  <p class="sub">In Feld 2 heißt der Eintrag zumeist „noch nicht“ und selten „nie“, wobei dieser Abstand für die Planung die eigentliche Größe ist.</p>
   <div class="trio">
     <div class="card" style="border-left:3px solid var(--teal-dk)">
       <p class="ck">Auf der Ertragsseite</p><h3>Zahlungsziel und Zahlungsverhalten</h3>
-      <p>Dreißig Tage Ziel heißt nicht, dass nach dreißig Tagen gezahlt wird. Ein Teil zahlt früher mit Skonto, ein Teil pünktlich, ein Teil verspätet. Die Planung braucht deshalb eine <b>Verteilung</b> und keinen einzelnen Tag.</p>
+      <p>Dreißig Tage Ziel heißen nicht, dass nach dreißig Tagen gezahlt wird, da ein Teil früher mit Skonto zahlt, ein Teil pünktlich und ein Teil verspätet. Die Planung braucht deshalb eine <b>Verteilung</b> und keinen einzelnen Tag.</p>
     </div>
     <div class="card" style="border-left:3px solid var(--ochre)">
       <p class="ck">Auf der Aufwandsseite</p><h3>Fester Tag oder eigener Rhythmus</h3>
-      <p>Löhne am 25., Miete am 3., Versicherung einmal im Januar, Steuervorauszahlung viermal im Jahr. Hier ist der Zahlungszeitpunkt meist genau bekannt — deshalb ist die Aufwandsseite einer Vorschau die verlässlichere.</p>
+      <p>Löhne am 25., Miete am 3., Versicherung einmal im Januar und Steuervorauszahlung viermal im Jahr stehen mit einem zumeist genau bekannten Zahlungszeitpunkt fest, weshalb die Aufwandsseite einer Vorschau die verlässlichere ist.</p>
     </div>
     <div class="card" style="border-left:3px solid var(--red)">
       <p class="ck">Die Falle dazwischen</p><h3>Die Umsatzsteuer</h3>
-      <p>Bei der <b>Soll-Versteuerung</b> entsteht sie mit der Rechnung, nicht mit der Zahlung. Du führst also Umsatzsteuer auf Geld ab, das noch nicht da ist — und zwar am 10. des Folgemonats.</p>
+      <p>Bei der <b>Soll-Versteuerung</b> entsteht sie mit der Rechnung und nicht mit der Zahlung, sodass Du Umsatzsteuer auf Geld abführst, das noch nicht da ist, nämlich am 10. des Folgemonats.</p>
     </div>
   </div>
 
@@ -881,50 +881,50 @@ footer a{color:var(--teal-dk)}
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Die beiden Fragen sind unabhängig, und deshalb gibt es vier Felder und keine zwei. <b>Wer nur eine Achse kennt, plant die Hälfte.</b></p>
+    <p>Die beiden Fragen sind voneinander unabhängig, weshalb es vier Felder gibt und keine zwei. <b>Wer nur eine Achse kennt, plant die Hälfte.</b></p>
   </div>
 </section>
 
 <!-- ==================== LEKTION 03 · WIE LANGE DAS GELD UNTERWEGS IST ==================== -->
 <section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c">
-  <p class="claim">Der Abstand aus Lektion 02 lässt sich messen. Die <b>Geldumschlagsdauer</b> sagt in Tagen, wie lange ein Euro zwischen der Zahlung an den Lieferanten und dem Eingang vom Kunden im Unternehmen festliegt. Beim Zulieferer sind es <b>84 Tage</b>.</p>
+  <p class="claim">Den Abstand aus Lektion 02 misst die <b>Geldumschlagsdauer</b>, die in Tagen sagt, wie lange ein Euro zwischen der Zahlung an den Lieferanten und dem Eingang vom Kunden im Unternehmen festliegt. Beim Zulieferer sind es <b>84 Tage</b>.</p>
 
   <h2 class="sec">Woher Liquidität kommt und wohin sie geht</h2>
-  <p class="sub">Drei Quellen, und nur die erste erzeugt Geld aus eigener Kraft. Die Gliederung ist dieselbe wie in einer Kapitalflussrechnung.</p>
+  <p class="sub">Liquidität kommt aus drei Quellen, von denen allein die erste Geld aus eigener Kraft erzeugt, wobei die Gliederung dieselbe ist wie in einer Kapitalflussrechnung.</p>
   <div class="trio">
     <div class="card" style="border-left:3px solid var(--green)">
       <p class="ck">Erste Quelle</p><h3>Aus dem Geschäft</h3>
-      <p>Das Ergebnis, bereinigt um zahlungslose Posten und um die Veränderung des Umlaufvermögens. Die einzige Quelle, die sich aus sich selbst erneuert und auf die es deshalb ankommt.</p>
-      <p>Sie ist zugleich die, an der sich mit eigenen Mitteln etwas ändern lässt — daran arbeitet der Rest dieser Lektion.</p>
+      <p>Gemeint ist das Ergebnis, bereinigt um zahlungslose Posten und um die Veränderung des Umlaufvermögens. Als einzige der drei Quellen erneuert sie sich aus sich selbst, weshalb es vor allem auf sie ankommt.</p>
+      <p>An ihr lässt sich zudem mit eigenen Mitteln etwas ändern, woran der Rest dieser Lektion arbeitet.</p>
     </div>
     <div class="card" style="border-left:3px solid var(--teal-dk)">
       <p class="ck">Zweite Quelle</p><h3>Aus Investition</h3>
-      <p>Meist ein Abfluss: Maschinen, Gebäude, Beteiligungen. Ein Zufluss entsteht beim Verkauf von Anlagevermögen.</p>
-      <p>Wer hier dauerhaft Geld einnimmt, verkauft seine Substanz. Das hält ein Unternehmen eine Weile über Wasser und beendet es danach.</p>
+      <p>Zumeist ist das ein Abfluss für Maschinen, Gebäude und Beteiligungen, wobei ein Zufluss beim Verkauf von Anlagevermögen entsteht.</p>
+      <p>Wer hier dauerhaft Geld einnimmt, verkauft seine Substanz, was ein Unternehmen eine Weile über Wasser hält und es danach beendet.</p>
     </div>
     <div class="card" style="border-left:3px solid var(--ochre)">
       <p class="ck">Dritte Quelle</p><h3>Aus Finanzierung</h3>
-      <p>Darlehensaufnahme und Kapitalerhöhung bringen Geld, Tilgung und Ausschüttung nehmen es. Zinsen stehen im operativen Teil.</p>
-      <p>Diese Quelle verschafft Zeit. Sie erzeugt nichts, sie verschiebt — und sie kostet.</p>
+      <p>Darlehensaufnahme und Kapitalerhöhung bringen Geld, Tilgung und Ausschüttung nehmen es, während die Zinsen im operativen Teil stehen.</p>
+      <p>Diese Quelle erzeugt nichts, sie verschiebt allein und verschafft damit Zeit, für die sie ihren Preis hat.</p>
     </div>
   </div>
 
   <h2 class="sec">Die drei Bausteine der Geldumschlagsdauer</h2>
-  <p class="sub">Drei Kennzahlen in Tagen, die sich aus Bilanz und Erfolgsrechnung bilden lassen. Zwei verlängern den Weg des Geldes, eine verkürzt ihn.</p>
+  <p class="sub">Drei Kennzahlen in Tagen lassen sich aus Bilanz und Erfolgsrechnung bilden, von denen zwei den Weg des Geldes verlängern und eine ihn verkürzt.</p>
   <div class="tscroll" tabindex="0" role="group" aria-label="Die drei Bausteine, seitlich scrollbar">
   <table class="tbl">
     <thead><tr><th>Baustein</th><th>Formel</th><th>Was sie misst</th><th>Beim Zulieferer</th></tr></thead>
     <tbody>
       <tr><td class="crit">Lagerdauer</td><td class="m">Vorräte ÷ Materialaufwand × 365</td><td>Wie lange Material und Erzeugnisse im Haus liegen, bevor sie verkauft sind</td><td class="m">14.800 ÷ 53.200 × 365 = <b>102 Tage</b></td></tr>
       <tr><td class="crit">Debitorenlaufzeit</td><td class="m">Forderungen aus LuL ÷ Umsatzerlöse × 365</td><td>Wie lange die Kunden im Schnitt brauchen, bis sie zahlen</td><td class="m">9.600 ÷ 98.000 × 365 = <b>36 Tage</b></td></tr>
-      <tr><td class="crit">Kreditorenlaufzeit</td><td class="m">Verbindlichkeiten aus LuL ÷ Materialaufwand × 365</td><td>Wie lange Du selbst brauchst, bis Du Deine Lieferanten bezahlst — Dein zinsloser Kredit</td><td class="m">7.900 ÷ 53.200 × 365 = <b>54 Tage</b></td></tr>
+      <tr><td class="crit">Kreditorenlaufzeit</td><td class="m">Verbindlichkeiten aus LuL ÷ Materialaufwand × 365</td><td>Wie lange Du selbst brauchst, bis Du Deine Lieferanten bezahlst (Dein zinsloser Kredit)</td><td class="m">7.900 ÷ 53.200 × 365 = <b>54 Tage</b></td></tr>
     </tbody>
   </table>
   </div>
   <p class="sub" style="margin-top:12px"><b>Geldumschlagsdauer = Lagerdauer + Debitorenlaufzeit − Kreditorenlaufzeit.</b> Beim Zulieferer also 102 + 36 − 54 = <b>84 Tage</b>. So lange finanziert das Unternehmen sein eigenes Geschäft, bevor der erste Euro daraus zurückkommt.</p>
 
   <h2 class="sec">Der Rechner</h2>
-  <p class="sub">Schieb die drei Regler und sieh zu, was passiert. Rechts steht, was jeder einzelne Tag in Euro wert ist — gerechnet am Tagesumsatz von 268 T€ und am Tagesmaterialaufwand von 146 T€.</p>
+  <p class="sub">Schieb die drei Regler und sieh zu, was passiert, wobei rechts steht, was jeder einzelne Tag in Euro wert ist, gerechnet am Tagesumsatz von 268 T€ und am Tagesmaterialaufwand von 146 T€.</p>
   <div class="ccc" id="ccForm">
     <div class="cczeile">
       <label for="ccDIO">Lagerdauer<em>Vorräte, gemessen am Materialaufwand</em></label>
@@ -955,23 +955,23 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <h2 class="sec">Was daraus folgt</h2>
-  <p class="sub">Die drei Regler sind drei Gespräche mit drei verschiedenen Abteilungen — und das ist der praktische Wert der Zerlegung.</p>
+  <p class="sub">Die drei Regler sind drei Gespräche mit drei verschiedenen Abteilungen, worin der praktische Wert der Zerlegung liegt.</p>
   <ul>
-    <li><b>Die Lagerdauer</b> gehört dem Einkauf und der Fertigung. 102 Tage sind für einen Zulieferer mit Variantenfertigung erklärbar und selten optimal. Jeder Tag weniger setzt rund 146 T€ frei.</li>
-    <li><b>Die Debitorenlaufzeit</b> gehört dem Vertrieb und der Buchhaltung: Zahlungsziele, Mahnwesen, Skonto, Anzahlungen bei langen Projekten. Jeder Tag weniger setzt rund 268 T€ frei — der wirksamste der drei Hebel.</li>
-    <li><b>Die Kreditorenlaufzeit</b> ist ein zinsloser Lieferantenkredit, und sie hat eine Grenze. Wer sie über das vereinbarte Ziel hinaus dehnt, zahlt am Ende mit schlechteren Konditionen oder mit der Lieferbereitschaft.</li>
+    <li><b>Die Lagerdauer</b> gehört dem Einkauf und der Fertigung. 102 Tage sind für einen Zulieferer mit Variantenfertigung erklärbar und selten optimal, wobei jeder Tag weniger rund 146 T€ freisetzt.</li>
+    <li><b>Die Debitorenlaufzeit</b> gehört dem Vertrieb und der Buchhaltung, also den Zahlungszielen, dem Mahnwesen, dem Skonto und den Anzahlungen bei langen Projekten, wobei jeder Tag weniger rund 268 T€ freisetzt und sie damit zum wirksamsten der drei Hebel macht.</li>
+    <li><b>Die Kreditorenlaufzeit</b> ist ein zinsloser Lieferantenkredit, der allerdings eine Grenze hat, denn wer sie über das vereinbarte Ziel hinaus dehnt, zahlt am Ende mit schlechteren Konditionen oder mit der Lieferbereitschaft.</li>
     <li><b>Skonto rechnet sich fast immer.</b> Drei Prozent bei zehn Tagen gegen dreißig Tage netto entsprechen einem Jahreszins von über fünfzig Prozent. Wer Skonto ziehen kann und es lässt, finanziert sich teurer als bei jeder Bank.</li>
   </ul>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>84 Tage Geldumschlagsdauer heißen: Das Unternehmen finanziert <b>ein Vierteljahr seines eigenen Geschäfts</b> vor. Wer diese Zahl senkt, bekommt Geld, ohne jemanden darum zu bitten.</p>
+    <p>84 Tage Geldumschlagsdauer heißen, dass das Unternehmen <b>ein Vierteljahr seines eigenen Geschäfts</b> vorfinanziert, wobei jeder, der diese Zahl senkt, Geld bekommt, ohne jemanden darum zu bitten.</p>
   </div>
 </section>
 
 <!-- ==================== LEKTION 04 · QUIZ ==================== -->
 <section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d">
-  <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen. Kein Zeitdruck, keine Bewertung, die irgendwo landet — die Begründung steht nach jeder Antwort da, auch nach der richtigen.</p>
+  <p class="claim">Fünf Fragen werden zufällig aus einem größeren Vorrat gezogen, ohne Zeitdruck und ohne eine Bewertung, die irgendwo landet, wobei die Begründung nach jeder Antwort dasteht, auch nach der richtigen.</p>
 
   <h2 class="sec">Übung</h2>
   <p class="sub">Die meisten Fehlantworten drehen sich um Feld 3: um Vorgänge, die Geld bewegen und im Ergebnis nicht vorkommen.</p>
@@ -986,34 +986,34 @@ footer a{color:var(--teal-dk)}
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Wer bei jedem Vorfall zwei Fragen stellt statt einer, hat den Begriff verstanden. <b>Alles Weitere in diesem Pfad ist Buchhaltung dieser beiden Fragen.</b></p>
+    <p>Wer bei jedem Vorfall zwei Fragen stellt statt einer, hat den Begriff verstanden, weil <b>alles Weitere in diesem Pfad die Buchhaltung dieser beiden Fragen ist</b>.</p>
   </div>
 </section>
 
 <!-- ==================== LEKTION 05 · DER ERSTE SCHRITT ==================== -->
 <section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e">
-  <p class="claim">Du willst wissen, wie es um die Liquidität Deines Hauses steht, und hast noch keine Planung? Sieben Schritte, für die Du einen Abschluss, einen Kontoauszug und einen Vormittag brauchst.</p>
+  <p class="claim">Du willst wissen, wie es um die Liquidität Deines Hauses steht, hast aber noch keine Planung? Dann gehst Du sieben Schritte, für die Du einen Abschluss, einen Kontoauszug und einen Vormittag brauchst.</p>
 
   <h2 class="sec">Sieben Schritte mit den eigenen Zahlen</h2>
   <p class="sub">Jeder Schritt mit dem Grund dahinter und dem Fehler, der an dieser Stelle am häufigsten gemacht wird.</p>
   <div class="ck10" id="ck7"></div>
 
   <div class="readme" style="margin-top:18px">
-    <b>Warum das vor jeder Software kommt.</b> Es gibt gute Programme für Liquiditätsplanung, und sie helfen alle erst, wenn die sieben Schritte einmal von Hand gegangen sind. Ein Werkzeug rechnet die Regeln, die jemand gesetzt hat. Wer sie nicht setzen kann, bekommt eine Vorschau, der er nicht widersprechen kann — und die er deshalb auch nicht verantworten kann.
+    <b>Warum das vor jeder Software kommt.</b> Es gibt gute Programme für Liquiditätsplanung, die allerdings alle erst helfen, wenn die sieben Schritte einmal von Hand gegangen sind. Ein Werkzeug rechnet die Regeln, die jemand gesetzt hat. Wer sie nicht setzen kann, bekommt eine Vorschau, der er nicht widersprechen kann und die er deshalb auch nicht zu verantworten vermag.
   </div>
 
   <h2 class="sec">Glossar</h2>
-  <p class="sub">Zum Nachschlagen während der Arbeit. Keine Prüfungsliste.</p>
+  <p class="sub">Das Glossar ist zum Nachschlagen während der Arbeit gedacht und keine Prüfungsliste.</p>
   <div class="glos" id="glos"></div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Die Liquiditätsplanung ist die einzige Rechnung im Controlling, deren Ergebnis sich <b>jeden Morgen überprüfen lässt</b> — auf dem Kontoauszug. Das macht sie unbequem und ehrlich.</p>
+    <p>Die Liquiditätsplanung ist die einzige Rechnung im Controlling, deren Ergebnis sich <b>jeden Morgen auf dem Kontoauszug überprüfen lässt</b>. Das macht sie unbequem und ehrlich.</p>
   </div>
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.49</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.50</span>
 </footer>
 
 </div>
@@ -1031,8 +1031,8 @@ const zahl = v => v.toLocaleString("de-DE", {maximumFractionDigits:0});
 
    Drei Bausteine in Tagen, gerechnet an den Zahlen des Zulieferers aus
    dem Lernpfad Bilanzanalyse. Die beiden Bezugsgroessen sind
-   verschieden, und genau darauf kommt es an: Die Debitorenlaufzeit
-   misst am Umsatz, Lager- und Kreditorenlaufzeit am Materialaufwand.
+   verschieden, worauf es genau ankommt: Die Debitorenlaufzeit misst am
+   Umsatz, Lager- und Kreditorenlaufzeit am Materialaufwand.
    Ein Tag ist deshalb nicht ueberall gleich viel Geld wert.
 
    Umsatz 98.000 T€ und Materialaufwand 53.200 T€ stehen so in der
@@ -1061,7 +1061,7 @@ function ccRechne(){
 
   /* Das Band legt die drei Abschnitte nebeneinander. Die
      Kreditorenlaufzeit zieht zurueck, bekommt aber trotzdem eine
-     sichtbare Breite — ein Balken der Breite null erklaert nichts. */
+     sichtbare Breite, da ein Balken der Breite null nichts erklaert. */
   const summe = Math.max(1, dio + dso + dpo);
   const br = t => (t / summe * 100).toFixed(1) + "%";
   $("ccBand").innerHTML =
@@ -1084,7 +1084,7 @@ function ccRechne(){
                : "Dieses Geld muss zusätzlich finanziert werden.",
      frei < 0],
     ["Ein Tag Debitorenlaufzeit", zahl(Math.round(TAG_UMS)) + " T€",
-     "Der wirksamste der drei Hebel — ein Tag am Umsatz gemessen.", false]
+     "Der wirksamste der drei Hebel, gemessen an einem Tag Umsatz.", false]
   ];
   $("ccErg").innerHTML = karten.map(([k, v, f, warn]) =>
     `<div class="k${warn ? " warn" : ""}"><p class="kk">${esc(k)}</p>
@@ -1098,23 +1098,23 @@ ccRechne();
    ===================================================================== */
 const ZU_POS = [
   ["Ein Kunde zahlt bar an der Kasse, die Ware geht sofort mit", "be",
-   "Feld 1, beides zugleich. Ertrag und Einzahlung fallen im selben Augenblick an — der einfache Fall, und in der Industrie der seltene."],
+   "Feld 1, beides zugleich. Ertrag und Einzahlung fallen im selben Augenblick an, was den Fall einfach macht und ihn in der Industrie selten."],
   ["Eine Rechnung über 40 T€ wird geschrieben, Zahlungsziel 30 Tage", "er",
    "Feld 2, nur Erfolg. Der Ertrag entsteht mit der Rechnung, das Geld kommt später. Genau dieser Abstand ist der Gegenstand einer Liquiditätsvorschau."],
   ["Die planmäßige Abschreibung auf eine Maschine wird gebucht", "er",
-   "Feld 2, nur Erfolg — und hier dauerhaft. Eine Abschreibung kostet Ergebnis und wird nie zu einer Zahlung. Bezahlt wurde die Maschine beim Kauf."],
+   "Feld 2, nur Erfolg, hier zudem dauerhaft. Eine Abschreibung kostet Ergebnis und wird nie zu einer Zahlung. Bezahlt wurde die Maschine beim Kauf."],
   ["Eine Rückstellung für einen drohenden Prozess wird gebildet", "er",
    "Feld 2. Aufwand ohne jede Zahlung. Zahlungswirksam wird es erst, wenn der Prozess verloren geht und gezahlt werden muss."],
   ["Eine Rückstellung wird aufgelöst, weil der Prozess gewonnen wurde", "er",
    "Feld 2, in der anderen Richtung: Ertrag ohne Einzahlung. Das Ergebnis steigt, auf dem Konto bewegt sich nichts."],
   ["Ein Kunde zahlt eine Rechnung aus dem Vorjahr", "za",
-   "Feld 3, nur Zahlung. Der Ertrag ist im Vorjahr entstanden. Jetzt wird eine Forderung zu Bankguthaben — für die Liquidität der wichtigste Vorgang überhaupt."],
+   "Feld 3, nur Zahlung. Der Ertrag ist im Vorjahr entstanden. Jetzt wird eine Forderung zu Bankguthaben, was für die Liquidität der wichtigste Vorgang überhaupt ist."],
   ["Ein Kunde leistet eine Anzahlung auf einen Auftrag", "za",
-   "Feld 3. Geld kommt herein, geleistet ist noch nichts — also entsteht kein Ertrag. In der Bilanz steht eine erhaltene Anzahlung als Verbindlichkeit."],
+   "Feld 3. Geld kommt herein, geleistet ist noch nichts, weshalb kein Ertrag entsteht. In der Bilanz steht eine erhaltene Anzahlung als Verbindlichkeit."],
   ["Eine CNC-Maschine wird für 900 T€ gekauft und bezahlt", "za",
    "Feld 3. Die größte Auszahlung des Jahres taucht im Ergebnis mit null auf. Aufwand wird sie erst über die Abschreibungen der kommenden Jahre."],
   ["Ein Darlehen über 5.000 T€ wird aufgenommen", "za",
-   "Feld 3. Geld kommt herein und eine Schuld entsteht — kein Ertrag. Nur die Zinsen darauf sind Aufwand, und die sind eine eigene Buchung."],
+   "Feld 3. Geld kommt herein und eine Schuld entsteht, ohne dass ein Ertrag anfällt. Allein die Zinsen darauf sind Aufwand, wobei sie eine eigene Buchung bekommen."],
   ["Eine Darlehensrate von 200 T€ wird getilgt", "za",
    "Feld 3. Die Tilgung steht in keiner Gewinn- und Verlustrechnung. Sie ist einer der Posten, die beim Planen am häufigsten vergessen werden."],
   ["Der Gesellschafter bekommt eine Ausschüttung von 800 T€", "za",
@@ -1124,7 +1124,7 @@ const ZU_POS = [
   ["Geld wird von der Kasse auf das Bankkonto eingezahlt", "ke",
    "Feld 4, weder noch. Ein Aktivtausch zwischen zwei Zahlungsmittelkonten. Der Zahlungsmittelbestand insgesamt ändert sich nicht."],
   ["Eine Bestellung über 300 T€ wird ausgelöst, geliefert ist noch nichts", "ke",
-   "Feld 4. Ein schwebendes Geschäft: weder Ertrag noch Aufwand, weder Ein- noch Auszahlung. Für die Vorschau ist es trotzdem interessant — es kündigt eine Auszahlung an."]
+   "Feld 4. Ein schwebendes Geschäft bringt weder Ertrag noch Aufwand und weder Ein- noch Auszahlung. Für die Vorschau ist es trotzdem interessant, da es eine Auszahlung ankündigt."]
 ];
 let zuStand = [];
 const ZU_NAME = {be:"Beides", er:"Nur Erfolg", za:"Nur Zahlung", ke:"Weder noch"};
@@ -1161,25 +1161,25 @@ zuZiehen();
    ===================================================================== */
 const CHECK7 = [
   ["Schreib den Kontostand von heute auf, alle Konten zusammen",
-   "Bankkonten, Kasse, und daneben die freie Kontokorrentlinie. Das ist der Anfangsbestand jeder Planung und die einzige Zahl darin, die sicher stimmt.",
+   "Bankkonten, Kasse und daneben die freie Kontokorrentlinie. Das ist der Anfangsbestand jeder Planung sowie die einzige Zahl darin, die sicher stimmt.",
    "Es wird mit dem Saldo des Hauptkontos gearbeitet. Ein zweites Konto mit einem Guthaben oder eine ausgeschöpfte Linie verschiebt das Bild um einen sechsstelligen Betrag."],
   ["Rechne Deine Geldumschlagsdauer aus dem letzten Abschluss",
-   "Drei Divisionen, zehn Minuten. Du brauchst Vorräte, Forderungen aus Lieferungen und Leistungen, Verbindlichkeiten aus Lieferungen und Leistungen, Umsatz und Materialaufwand — alle fünf stehen im Abschluss.",
+   "Drei Divisionen, zehn Minuten. Du brauchst Vorräte, Forderungen aus Lieferungen und Leistungen, Verbindlichkeiten aus Lieferungen und Leistungen, Umsatz sowie Materialaufwand, wobei alle fünf im Abschluss stehen.",
    "Es wird mit Durchschnittsbeständen und Branchenformeln angefangen. Die einfache Rechnung aus den Stichtagswerten reicht für die erste Orientierung völlig."],
   ["Lies die offenen Posten der Debitoren nach Alter",
-   "Jedes Buchhaltungssystem kann das. Interessant ist die Spalte über 60 Tage: Das ist Geld, das Du verdient hast und nicht bekommst. Oft steckt dort mehr als der Jahresüberschuss.",
+   "Jedes Buchhaltungssystem kann das. Interessant ist die Spalte über 60 Tage, in der Geld steht, das Du verdient hast und nicht bekommst. Nicht selten steckt dort mehr als der Jahresüberschuss.",
    "Man sieht auf die Gesamtsumme der Forderungen. Die sagt nichts darüber, welcher Teil davon in Gefahr ist."],
   ["Notier alle wiederkehrenden Zahlungen mit ihrem Tag im Monat",
-   "Löhne, Mieten, Leasing, Versicherungen, Darlehensraten, Steuervorauszahlungen. Zwanzig Zeilen, und Du hast die Hälfte einer Liquiditätsvorschau schon beisammen — den verlässlichen Teil.",
-   "Es wird bei den großen Beträgen aufgehört. Zwölf kleine Daueraufträge summieren sich auf einen großen, und sie kommen alle in derselben Woche."],
+   "Löhne, Mieten, Leasing, Versicherungen, Darlehensraten, Steuervorauszahlungen. Nach zwanzig Zeilen hast Du die Hälfte einer Liquiditätsvorschau beisammen, nämlich den verlässlichen Teil.",
+   "Es wird bei den großen Beträgen aufgehört. Zwölf kleine Daueraufträge summieren sich auf einen großen, wobei sie alle in derselben Woche kommen."],
   ["Such die Posten, die in keiner Auswertung stehen",
    "Investitionen, Tilgungen, Entnahmen, Ausschüttungen, Steuernachzahlungen. Das ist Feld 3 aus Lektion 02. Wer diese Liste nicht führt, plant eine Firma, die nie investiert und nie tilgt.",
-   "Man verlässt sich auf die Zahlen aus der Buchhaltung. Genau diese Posten kommen dort nicht vor, und genau sie sind die großen."],
+   "Man verlässt sich auf die Zahlen aus der Buchhaltung. Genau diese Posten kommen dort nicht vor, obwohl sie die großen sind."],
   ["Stell die nächsten dreizehn Wochen auf ein Blatt",
    "Anfangsbestand, dann je Woche Eingänge und Ausgänge aus den drei Listen oben. Dreizehn Zeilen. Wenn der Bestand irgendwo unter die Kreditlinie fällt, hast Du gefunden, wonach Du gesucht hast.",
    "Es wird sofort ein Jahr geplant. Die ersten dreizehn Wochen sind die, die belastbar sind und über die entschieden wird."],
   ["Häng einen Termin für nächsten Monat in den Kalender",
-   "Eine Vorschau ist eine Reihe und kein Dokument. Ihr Wert entsteht dadurch, dass Du beim nächsten Mal siehst, wo Du danebenlagst — und woran es lag.",
+   "Eine Vorschau ist eine Reihe und kein Dokument. Ihr Wert entsteht dadurch, dass Du beim nächsten Mal siehst, wo Du danebenlagst und woran es gelegen hat.",
    "Die Planung wird einmal gemacht und abgelegt. Eine einzelne Vorschau ist eine Vermutung; erst die dritte ist ein Instrument."]
 ];
 $("ck7").innerHTML = CHECK7.map(([t, p, f]) =>
@@ -1196,9 +1196,9 @@ const GLOSSAR = [
   ["Einnahme / Ausgabe", "Bewegung des Geldvermögens, also einschließlich Forderungen und Verbindlichkeiten."],
   ["Ertrag / Aufwand", "Bewegung des Reinvermögens. Die Ebene der Gewinn- und Verlustrechnung."],
   ["Leistung / Kosten", "Der betriebsbedingte Teil von Ertrag und Aufwand. Die Ebene der Kostenrechnung."],
-  ["Erfolgswirksam", "Ein Vorgang, der das Ergebnis verändert — unabhängig davon, ob Geld fließt."],
-  ["Zahlungswirksam", "Ein Vorgang, der den Zahlungsmittelbestand verändert — unabhängig vom Ergebnis."],
-  ["Zahlungsziel", "Die eingeräumte Frist bis zur Fälligkeit. Sie sagt, wann gezahlt werden darf, und nicht, wann gezahlt wird."],
+  ["Erfolgswirksam", "Ein Vorgang, der das Ergebnis verändert, unabhängig davon, ob Geld fließt."],
+  ["Zahlungswirksam", "Ein Vorgang, der den Zahlungsmittelbestand verändert, unabhängig vom Ergebnis."],
+  ["Zahlungsziel", "Die eingeräumte Frist bis zur Fälligkeit. Sie sagt, wann gezahlt werden darf, nicht wann gezahlt wird."],
   ["Zahlungsverhalten", "Die tatsächliche Verteilung der Eingänge über die Zeit. Die Größe, mit der eine Vorschau rechnet."],
   ["Skonto", "Abzug für schnelle Zahlung. Drei Prozent bei zehn statt dreißig Tagen entsprechen über fünfzig Prozent Jahreszins."],
   ["Lagerdauer", "Vorräte ÷ Materialaufwand × 365. Wie lange Material und Erzeugnisse im Haus liegen."],
@@ -1211,7 +1211,7 @@ const GLOSSAR = [
   ["Ist-Versteuerung", "Die Umsatzsteuer entsteht mit der Zahlung (§ 20 UStG). Auf Antrag und nur unterhalb bestimmter Grenzen."],
   ["Rollierende Planung", "Eine Vorschau, die in festem Rhythmus fortgeschrieben wird und dabei immer denselben Horizont behält."]
 ];
-$("glos").innerHTML = GLOSSAR.map(([b, t]) => `<div><b>${esc(b)}</b> — ${t}</div>`).join("");
+$("glos").innerHTML = GLOSSAR.map(([b, t]) => `<div><b>${esc(b)}</b>: ${t}</div>`).join("");
 
 /* =====================================================================
    5 · Uebung: fuenf Fragen, zufaellig aus dem Vorrat
@@ -1219,13 +1219,13 @@ $("glos").innerHTML = GLOSSAR.map(([b, t]) => `<div><b>${esc(b)}</b> — ${t}</d
 const FRAGEN = [
   ["Was besagt § 17 InsO?",
    ["Zahlungsunfähigkeit ist ein Eröffnungsgrund für ein Insolvenzverfahren","Überschuldung führt zur Liquidation","Ein Verlust muss angezeigt werden","Die Bilanz ist binnen drei Monaten aufzustellen"], 0,
-   "Der Schuldner kann fällige Zahlungspflichten nicht erfüllen. Das ist der häufigste Eröffnungsgrund — und er hat mit dem ausgewiesenen Gewinn wenig zu tun."],
+   "Der Schuldner kann fällige Zahlungspflichten nicht erfüllen. Das ist der häufigste Eröffnungsgrund, wobei er mit dem ausgewiesenen Gewinn wenig zu tun hat."],
   ["Welche Ebene meint der Begriff Liquidität?",
    ["Den Zahlungsmittelbestand","Das Reinvermögen","Das Geldvermögen","Das betriebsnotwendige Vermögen"], 0,
-   "Einzahlung und Auszahlung bewegen den Zahlungsmittelbestand. Ertrag und Aufwand bewegen das Reinvermögen — das ist der Erfolg und eine andere Frage."],
+   "Einzahlung und Auszahlung bewegen den Zahlungsmittelbestand. Ertrag und Aufwand bewegen hingegen das Reinvermögen, womit sie den Erfolg meinen und eine andere Frage beantworten."],
   ["Eine Rechnung wird geschrieben, das Geld kommt in zwei Monaten. Was entsteht sofort?",
    ["Ein Ertrag","Eine Einzahlung","Beides","Keines von beiden"], 0,
-   "Der Ertrag entsteht mit der Leistung und der Rechnung. Die Einzahlung folgt später — und genau dieser Abstand ist der Gegenstand einer Liquiditätsvorschau."],
+   "Der Ertrag entsteht mit der Leistung und der Rechnung. Die Einzahlung folgt später, wobei genau dieser Abstand der Gegenstand einer Liquiditätsvorschau ist."],
   ["Warum ist ein Unternehmen mit hohen Abschreibungen liquider, als sein Gewinn vermuten lässt?",
    ["Weil Abschreibungen das Ergebnis mindern, ohne dass Geld fließt","Weil Abschreibungen steuerlich absetzbar sind","Weil sie die Bilanzsumme erhöhen","Weil sie erst am Jahresende gebucht werden"], 0,
    "Ein zahlungsloser Aufwand. Deshalb liegt der Cashflow eines anlagenintensiven Unternehmens regelmäßig deutlich über seinem Jahresüberschuss."],
@@ -1237,7 +1237,7 @@ const FRAGEN = [
    "Aufwand ohne jede Zahlung. Zahlungswirksam wird es erst, wenn die Verpflichtung tatsächlich zu erfüllen ist."],
   ["In welches Feld gehört die Tilgung eines Darlehens?",
    ["Nur Zahlung","Nur Erfolg","Beides","Weder noch"], 0,
-   "Die Tilgung steht in keiner Gewinn- und Verlustrechnung. Nur die Zinsen sind Aufwand — und Tilgungen gehören zu den Posten, die beim Planen am häufigsten vergessen werden."],
+   "Die Tilgung steht in keiner Gewinn- und Verlustrechnung, da allein die Zinsen Aufwand sind. Damit gehören Tilgungen zu den Posten, die beim Planen am häufigsten vergessen werden."],
   ["In welches Feld gehört eine Anzahlung, die ein Kunde leistet?",
    ["Nur Zahlung","Nur Erfolg","Beides","Weder noch"], 0,
    "Geld kommt herein, geleistet ist noch nichts. In der Bilanz steht eine erhaltene Anzahlung als Verbindlichkeit, kein Ertrag."],
@@ -1256,12 +1256,12 @@ const FRAGEN = [
   ["Warum ist die Kreditorenlaufzeit nach oben begrenzt?",
    ["Weil das Dehnen über das Ziel hinaus Konditionen und Lieferbereitschaft kostet","Weil das HGB eine Höchstfrist vorschreibt","Weil sie sonst die Bilanzsumme sprengt","Weil sie steuerlich nicht anerkannt wird"], 0,
    "Der Lieferantenkredit ist zinslos und nicht kostenlos. Wer verspätet zahlt, verliert Skonto, bekommt schlechtere Preise oder wird nachrangig beliefert."],
-  ["Drei Prozent Skonto bei zehn Tagen gegen dreißig Tage netto — was entspricht das?",
+  ["Drei Prozent Skonto bei zehn Tagen gegen dreißig Tage netto, was entspricht das?",
    ["Über fünfzig Prozent Jahreszins","Etwa drei Prozent Jahreszins","Etwa zehn Prozent Jahreszins","Das lässt sich nicht umrechnen"], 0,
    "Drei Prozent für zwanzig Tage gewonnene Zeit, hochgerechnet auf ein Jahr. Wer Skonto ziehen kann und es lässt, finanziert sich teurer als bei jeder Bank."],
   ["Wann entsteht die Umsatzsteuer bei der Soll-Versteuerung?",
    ["Mit der Rechnungsstellung, unabhängig von der Zahlung","Mit dem Zahlungseingang","Am Jahresende","Mit der Bestellung"], 0,
-   "§ 16 UStG, der Regelfall. Du führst Umsatzsteuer auf Geld ab, das noch nicht eingegangen ist — für die Liquidität einer der unangenehmsten Effekte überhaupt."],
+   "§ 16 UStG, der Regelfall. Du führst Umsatzsteuer auf Geld ab, das noch nicht eingegangen ist, was für die Liquidität einer der unangenehmsten Effekte überhaupt ist."],
   ["Welche der drei Quellen erzeugt Liquidität aus eigener Kraft?",
    ["Der operative Bereich","Der Investitionsbereich","Der Finanzierungsbereich","Alle drei gleichermaßen"], 0,
    "Investition verzehrt in der Regel, Finanzierung verschiebt und kostet. Wer dauerhaft aus Investition Geld einnimmt, verkauft seine Substanz."],
@@ -1269,11 +1269,11 @@ const FRAGEN = [
    ["Weder erfolgs- noch zahlungswirksam","Nur zahlungswirksam","Nur erfolgswirksam","Beides"], 0,
    "Ein Aktivtausch zwischen zwei Zahlungsmittelkonten. Der Zahlungsmittelbestand insgesamt bleibt gleich, also passiert für die Planung nichts."],
   ["Was sagt ein Zahlungsziel von 30 Tagen über den Zahlungseingang?",
-   ["Es sagt, wann gezahlt werden darf, und nicht, wann gezahlt wird","Das Geld kommt nach genau 30 Tagen","Das Geld kommt spätestens nach 30 Tagen","Nichts, es ist unverbindlich"], 0,
+   ["Es sagt, wann gezahlt werden darf, nicht wann gezahlt wird","Das Geld kommt nach genau 30 Tagen","Das Geld kommt spätestens nach 30 Tagen","Nichts, es ist unverbindlich"], 0,
    "Ein Teil zahlt früher mit Skonto, ein Teil pünktlich, ein Teil später. Eine Vorschau braucht deshalb eine Verteilung und keinen einzelnen Tag."],
   ["Warum ist die Aufwandsseite einer Vorschau verlässlicher als die Ertragsseite?",
    ["Weil viele Auszahlungen an festen Tagen erfolgen, während Eingänge vom Verhalten der Kunden abhängen","Weil Aufwendungen kleiner sind","Weil sie gesetzlich geregelt sind","Weil sie seltener vorkommen"], 0,
-   "Löhne am 25., Miete am 3., Versicherung im Januar. Der Zahlungszeitpunkt ist bekannt — beim Kunden ist er eine Annahme."],
+   "Löhne am 25., Miete am 3., Versicherung im Januar. Der Zahlungszeitpunkt ist hier bekannt, während er beim Kunden eine Annahme bleibt."],
   ["Was ist bei einer Liquiditätsplanung die tatsächliche Untergrenze?",
    ["Die Kontokorrentlinie","Die Null","Das Eigenkapital","Das Working Capital"], 0,
    "Null ist selten die relevante Grenze. Interessant ist der Tag, an dem der Bestand den eingeräumten Rahmen reißt."],
@@ -1282,7 +1282,7 @@ const FRAGEN = [
    "Eine Vorschau ist eine Reihe und kein Dokument. Erst die dritte ist ein Instrument, weil man dann die eigene Trefferquote kennt."],
   ["Was gehört zu den Posten, die in keiner Gewinn- und Verlustrechnung stehen?",
    ["Investition, Tilgung, Entnahme und Umsatzsteuer-Zahllast","Abschreibungen und Rückstellungen","Material- und Personalaufwand","Zinsen und Steuern vom Einkommen"], 0,
-   "Feld 3 der Vier-Felder-Tafel. Große Beträge, die das Konto bewegen und im Ergebnis nicht vorkommen — die am häufigsten vergessene Gruppe."],
+   "Feld 3 der Vier-Felder-Tafel. Große Beträge bewegen das Konto, ohne im Ergebnis vorzukommen, weshalb sie die am häufigsten vergessene Gruppe sind."],
   ["Ein Unternehmen weist einen Jahresüberschuss von 2.300 T€ aus und braucht 5.000 T€ für Wachstum. Was folgt daraus?",
    ["Das Wachstum muss zusätzlich finanziert werden","Der Gewinn reicht aus","Das Wachstum ist unrentabel","Die Bilanz geht nicht auf"], 0,
    "Der Gewinn deckt weniger als die Hälfte der zusätzlichen Kapitalbindung. Der Rest kommt aus dem Kontokorrent, von der Bank oder aus einer kürzeren Geldumschlagsdauer."],
@@ -1291,7 +1291,7 @@ const FRAGEN = [
    "Drei Regler, drei Gespräche mit drei Abteilungen. Jeder Tag weniger setzt Geld frei, das vorher im eigenen Geschäft festlag."],
   ["Was misst die Lagerdauer beim Zulieferer mit 102 Tagen?",
    ["Wie lange Material und Erzeugnisse im Haus liegen, bevor sie verkauft sind","Wie lange eine Maschine genutzt wird","Wie lange ein Auftrag dauert","Wie lange die Garantie läuft"], 0,
-   "Vorräte ÷ Materialaufwand × 365. Für einen Zulieferer mit Variantenfertigung erklärbar — und der größte der drei Bausteine."]
+   "Vorräte ÷ Materialaufwand × 365. Für einen Zulieferer mit Variantenfertigung ist der Wert erklärbar, wobei er zugleich der größte der drei Bausteine ist."]
 ];
 let qAktuell = [];
 const QZAHL = 5;
@@ -1332,7 +1332,7 @@ function qRender(){
     : fertig + " von " + QZAHL + " beantwortet · " + treffer + " richtig";
   $("qResult").innerHTML = fertig < QZAHL ? "" :
     `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
-      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen — der Vorrat hat " + FRAGEN.length + "." :
+      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen, der Vorrat hat " + FRAGEN.length + "." :
       treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben; sie sind der eigentliche Lernstoff." :
       "Geh die Begründungen oben in Ruhe durch. Die häufigste Stolperstelle ist Feld 3: Vorgänge, die Geld bewegen und im Ergebnis nicht vorkommen."}</div>`;
 }
