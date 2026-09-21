@@ -190,14 +190,16 @@ will.
 #### Warum das hier steht und nicht in der Tabelle
 
 Ein regulärer Ausdruck findet diese Dinge nicht. Den Gedankenstrich könnte er finden, allerdings
-stehen in den 25 Dateien noch **957** davon, von denen jeder eine eigene Entscheidung zwischen
+stehen in den 25 Dateien noch **870** davon, von denen jeder eine eigene Entscheidung zwischen
 Komma, Punkt und Streichung braucht. Ein Suchen und Ersetzen würde dort Sätze zerstören, weshalb
 die Altlast erst aufgeräumt wird, wenn ein Text ohnehin angefasst wird.
 
-Dasselbe gilt für die Fügung „, und", von der noch **238** Stück verteilt sind. Sauber sind bisher
-allein `plattform/liquiditaet-vorschau.html` und `plattform/controlling-leitbild.html`. Sobald alle
-Dateien durch sind, wandern beide Muster in die Prüftabelle. Ab dann meldet die Prüfung jeden
-neuen Fund.
+Dasselbe gilt für die Fügung „, und", von der noch **196** Stück verteilt sind. Sauber sind bisher
+`plattform/liquiditaet-begriff.html`, `plattform/liquiditaet-bwa.html`,
+`plattform/liquiditaet-vorschau.html` und `plattform/controlling-leitbild.html`. Der Lernpfad
+Liquiditätsplanung ist damit bis auf das Modul `liquiditaet-tagesplan.html` durch, das noch eine
+Hülle ist. Sobald alle Dateien durch sind, wandern beide Muster in die Prüftabelle. Ab dann meldet
+die Prüfung jeden neuen Fund.
 
 **Für neu geschriebene und überarbeitete Texte gelten die Regeln vollständig, ab sofort.**
 
@@ -391,13 +393,13 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.49`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.50`.
 Keine Quellenverzeichnisse, keine Legenden.
 
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.49</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.50</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
