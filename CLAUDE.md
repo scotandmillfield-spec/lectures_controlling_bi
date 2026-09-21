@@ -32,10 +32,12 @@ Begriffen oben.
    keine Kästchen zum Abhaken um des Abhakens willen. Hierhin gehört auch das Glossar, wenn das
    Modul eines hat: Es ist Nachschlagewerk für die Anwendung, nicht Prüfstoff.
 
-**[gesetzt] Ein Leitbild-Modul führt kein Quiz.** Ein Leitbild beschreibt eine Haltung, und eine
-Haltung lässt sich nicht mit richtig und falsch abfragen. Für diese Modulart entfällt das Quiz,
-der Praxiseinstieg bleibt. `plattform/controlling-leitbild.html` ist der erste Fall. Die Ausnahme
-gilt allein für Leitbilder, jedes andere Modul bekommt sein Quiz.
+**[gesetzt] Ein Leitbild-Modul führt weder Quiz noch Praxiseinstieg.** Ein Leitbild beschreibt
+eine Haltung, die sich nicht mit richtig und falsch abfragen lässt. Der Praxiseinstieg entfällt
+ebenfalls, weil das Leitbild selbst schon die Zusage ist, die jemand einlösen muss. Eine Liste
+erster Schritte daneben wiederholt allein, was in den Sätzen steht. An ihrer Stelle steht die letzte Lektion als Plakat, auf dem das vollständige Leitbild zu
+lesen ist. `plattform/controlling-leitbild.html` ist der erste Fall. Die Ausnahme gilt allein für
+Leitbilder, jedes andere Modul bekommt sein Quiz und seinen Praxiseinstieg.
 
 **Die Reihenfolge steht fest:** Inhalt, dann Quiz, dann Praxiseinstieg. Das Quiz prüft, was
 gerade gelesen wurde, der Praxiseinstieg schaut nach vorn. Umgedreht ergäbe es keinen Sinn.
@@ -389,13 +391,13 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.48`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.49`.
 Keine Quellenverzeichnisse, keine Legenden.
 
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.48</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.49</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
@@ -597,7 +599,8 @@ Lektionen als `role="tablist"` mit Pfeiltastennavigation. `prefers-reduced-motio
 **Jedes Modul endet mit einem Pointe-Kasten** — dem einen Satz, der hängen bleiben soll.
 Er steht am Ende jeder Lektion, nicht nur am Ende der letzten.
 
-**Ein Modul ohne Quiz und ohne Praxiseinstieg ist nicht fertig.** Die beiden Pflichtlektionen
+**Ein Modul ohne Quiz und ohne Praxiseinstieg ist nicht fertig**, ausgenommen das Leitbild
+oben. Die beiden Pflichtlektionen
 werden nicht nachgereicht und nicht „später ergänzt“. Wer ein Modul anlegt oder erweitert,
 legt sie mit an.
 

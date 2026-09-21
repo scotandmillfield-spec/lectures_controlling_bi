@@ -320,8 +320,8 @@ const UI = {
          en:"Every text field may be a plain string (used in both languages) or a pair of a German and an English version. If the German one is missing, the English one is shown. <code>langBadge</code> sets the note about the module's own language."},
   howPaths:{de:"<b>Lernpfade</b> stehen in einer zweiten Liste, <code>const PATHS</code>, direkt darunter. Ein Pfad verweist nur auf die <code>id</code> eines Moduls; die Reihenfolge in <code>steps</code> ist die Reihenfolge im Pfad. Ein Modul geh\u00f6rt zu mehreren Pfaden, indem es in mehreren <code>steps</code> steht \u2014 am Modul selbst ist daf\u00fcr nichts zu \u00e4ndern. Zeigt ein Pfad auf eine unbekannte <code>id</code>, meldet die Konsole das beim Laden. Mit <code>?path=bi-basics</code> l\u00e4sst sich ein Pfad direkt verlinken.",
             en:"<b>Learning paths</b> live in a second list, <code>const PATHS</code>, right below. A path only refers to a module's <code>id</code>; the order in <code>steps</code> is the order of the path. A module belongs to several paths by appearing in several <code>steps</code> arrays \u2014 nothing on the module itself has to change. If a path points at an unknown <code>id</code>, the console says so on load. Use <code>?path=bi-basics</code> to link straight to a path."},
-  footer:{de:"Lehrmaterial \\\\u00b7 Corporate Design der IU. Alle Zahlen in den Modulen sind illustrativ. <code>PROJECT-CANON.md</code> geh\\\\u00f6rt in denselben Ordner \\\\u2014 dort stehen die Namen, Zahlen und Gestaltungsregeln, die die Module untereinander stimmig halten. · <span class='build'>build 0.0.48</span>",
-          en:"Teaching material \\\\u00b7 IU corporate identity. All figures in the modules are illustrative. Keep <code>PROJECT-CANON.md</code> with this folder \\\\u2014 it holds the names, numbers and design conventions that keep the modules consistent with one another. · <span class='build'>build 0.0.48</span>"},
+  footer:{de:"Lehrmaterial \\\\u00b7 Corporate Design der IU. Alle Zahlen in den Modulen sind illustrativ. <code>PROJECT-CANON.md</code> geh\\\\u00f6rt in denselben Ordner \\\\u2014 dort stehen die Namen, Zahlen und Gestaltungsregeln, die die Module untereinander stimmig halten. · <span class='build'>build 0.0.49</span>",
+          en:"Teaching material \\\\u00b7 IU corporate identity. All figures in the modules are illustrative. Keep <code>PROJECT-CANON.md</code> with this folder \\\\u2014 it holds the names, numbers and design conventions that keep the modules consistent with one another. · <span class='build'>build 0.0.49</span>"},
   pathLabel:{de:"Lernpfade", en:"Learning paths"},
   pathKicker:{de:"Lernpfad", en:"Learning path"},
   pathClear:{de:"Pfad verlassen \u00b7 alle Module zeigen", en:"Leave the path \u00b7 show all modules"},
@@ -611,19 +611,17 @@ const TOPICS = [
   {
     id:"cv-leitbild",
     title:{de:"Das Controlling-Leitbild", en:"The controlling mission statement"},
-    sub:{de:"Eigener Fall: der CV, ein Verband der Pflege und sozialen Dienste. Aus einem Workshop sind eine Zukunftsvision und fünf Perspektiven entstanden, aus denen sechs Leitsätze werden. Wenig Text, viel zum Antippen, auch auf dem Tablet.",
-         en:"Own case: the CV, an association of care and social services. A workshop produced a vision and five perspectives, which turn into six guiding principles. Little text, much to tap, on a tablet as well."},
+    sub:{de:"Eigener Fall: der CV, ein Verband der Pflege und sozialen Dienste. Eine Zukunftsvision, fünf Perspektiven und daraus sechs Leitsätze, die am Ende vollständig auf einer Seite stehen. Wenig Text, viel zum Antippen, auch auf dem Tablet.",
+         en:"Own case: the CV, an association of care and social services. A vision, five perspectives and six guiding principles that end up complete on a single page. Little text, much to tap, on a tablet as well."},
     track:"cv", status:"ready", accent:"navy", glyph:"quadrants",
     langBadge:{de:"", en:"DE"},
     features:[
-      {de:"Neun Stimmen aus dem Workshop, jede zum Antippen",
-       en:"Nine voices from the workshop, each one to tap"},
-      {de:"Die fünf Perspektiven mit ihren Stichworten",
-       en:"The five perspectives with their keywords"},
-      {de:"Sechs Leitsätze auf einer Seite",
-       en:"Six guiding principles on a single page"},
-      {de:"Sechs Schritte für die nächste Leitungsrunde",
-       en:"Six steps for the next management meeting"}
+      {de:"Neun Aussagen über das Controlling von morgen, jede zum Antippen",
+       en:"Nine statements about tomorrow's controlling, each one to tap"},
+      {de:"Die fünf Perspektiven mit ihren Schwerpunkten und ihrem Leitsatz",
+       en:"The five perspectives with their focus areas and their guiding principle"},
+      {de:"Das vollständige Leitbild als Plakat, sechs Sätze auf einer Seite",
+       en:"The complete mission statement as a poster, six sentences on one page"}
     ],
     links:[{kind:"html",file:"controlling-leitbild.html",
             label:{de:"Los geht’s", en:"Let’s go"}}]

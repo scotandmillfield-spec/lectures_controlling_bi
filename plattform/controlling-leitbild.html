@@ -109,7 +109,7 @@ footer a{color:var(--teal-dk)}
 @media (prefers-reduced-motion:reduce){
 *{animation-duration:.001ms!important;transition-duration:.001ms!important}
 }
-/* ---------- Die Zettelwand der Zukunftsvision ----------
+/* ---------- Die Wand der neun Aussagen ----------
    Neun Karten in einem Raster, jede davon ein Knopf. Auf einem Tablet
    gibt es kein Mouseover, deshalb oeffnet erst ein Tipp die Erlaeuterung
    darunter. Die Zielflaeche ist absichtlich gross.                    */
@@ -160,36 +160,36 @@ footer a{color:var(--teal-dk)}
 .lsatz .lk{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
   color:rgba(255,255,255,.8);margin:0 0 9px}
 .lsatz p{margin:0;font-size:clamp(1.06rem,1.95vw,1.3rem);font-weight:400;line-height:1.45}
-/* ---------- Das Leitbild auf einer Seite ---------- */
-.lbbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:0 0 18px}
-.lbliste{display:flex;flex-direction:column;gap:12px}
-.lbz{display:flex;gap:18px;align-items:flex-start;background:var(--paper);
-  border:1px solid var(--grey-xl);border-left:4px solid var(--acc);
-  border-radius:var(--r);padding:20px 24px;box-shadow:var(--shadow)}
-.lbz .lbn{font-family:var(--mono);font-size:1.35rem;font-weight:600;color:var(--acc);line-height:1.25;min-width:1.7em}
-.lbz .lbt{margin:0;font-size:clamp(1.06rem,1.95vw,1.32rem);font-weight:400;line-height:1.45}
+/* ---------- Das Leitbild als Plakat ----------
+   Die letzte Lektion ist ein Plakat und keine Liste. Der Satz steht
+   gross da, in der Farbe seiner Perspektive; die Herkunft rutscht ueber
+   margin:auto an den unteren Rand, damit die Karten trotz verschieden
+   langer Saetze auf einer Linie enden.                                */
+.lbkopf{background:var(--navy);color:#fff;border-radius:var(--r);padding:32px 34px;margin:0 0 16px}
+.lbkopf .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.7);margin:0 0 12px}
+.lbkopf .t{margin:0;font-size:clamp(1.24rem,2.5vw,1.74rem);font-weight:300;line-height:1.4}
+.lbliste{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.lbz{min-width:0;display:flex;flex-direction:column;gap:12px;background:var(--paper);
+  border:1px solid var(--grey-xl);border-top:5px solid var(--acc);
+  border-radius:var(--r);padding:22px 26px 24px;box-shadow:var(--shadow)}
+.lbz .lbn{font-family:var(--mono);font-size:2.05rem;font-weight:600;color:var(--acc);line-height:1}
+.lbz .lbt{margin:0;font-size:clamp(1.16rem,1.95vw,1.42rem);font-weight:400;line-height:1.38;
+  letter-spacing:-.012em}
 .lbz .lbp{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--grey);margin:8px 0 0}
-.lbliste.nackt .lbp{display:none}
-/* ---------- Die ersten Schritte ---------- */
-.schritte{counter-reset:s;display:flex;flex-direction:column;gap:12px}
-.schritt{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
-  padding:18px 22px 18px 64px;position:relative;box-shadow:var(--shadow)}
-.schritt::before{counter-increment:s;content:counter(s,decimal-leading-zero);
-  position:absolute;left:22px;top:18px;font-family:var(--mono);font-size:1.05rem;
-  font-weight:600;color:var(--teal)}
-.schritt h3{margin:0 0 5px;font-size:1.06rem;font-weight:700;letter-spacing:-.01em}
-.schritt p{margin:0;color:var(--grey);font-size:.98rem;line-height:1.58}
+  color:var(--grey);margin:auto 0 0}
 @media (max-width:980px){
 .pstrip{grid-template-columns:repeat(3,1fr)}
 }
 @media (max-width:760px){
 .zwand{grid-template-columns:repeat(2,1fr)}
+.lbliste{grid-template-columns:1fr}
 }
 @media (max-width:560px){
 .zwand{grid-template-columns:1fr}
 .pstrip{grid-template-columns:repeat(2,1fr)}
-.lbz{flex-direction:column;gap:6px}
+.lbkopf{padding:24px 22px}
+.lbz{padding:20px 22px}
 }
 </style>
 </head>
@@ -200,98 +200,71 @@ footer a{color:var(--teal-dk)}
 <header class="masthead">
   <p class="eyebrow">Controlling beim CV · Modul 01</p>
   <h1>Das <em>Controlling-Leitbild</em></h1>
-  <p class="lede">Ein Leitbild sagt in wenigen Sätzen, wofür das Controlling da ist. Dieses hier ist in einem Workshop des CV entstanden, aus einer Zukunftsvision und aus fünf Perspektiven, für deren Verständnis Du keine betriebswirtschaftliche Vorbildung brauchst.</p>
-  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Jede Lektion passt auf einen Bildschirm, wobei sich alles, was sich öffnen lässt, durch Antippen öffnet, damit das Modul auf einem Tablet genauso funktioniert wie am Rechner.</p>
+  <p class="lede">Sechs Sätze sagen, wofür das Controlling im CV da ist, woran es arbeitet und woran Du erkennst, dass es wirkt. Für das Durcharbeiten brauchst Du keine betriebswirtschaftliche Vorbildung.</p>
+  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Jede Lektion passt auf einen Bildschirm, wobei sich jeder Kasten durch Antippen öffnet, damit das Modul auf einem Tablet genauso funktioniert wie am Rechner.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Das Controlling-Leitbild">
   <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Die Zukunftsvision</button>
   <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Die fünf Perspektiven</button>
   <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Das Leitbild</button>
-  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Der erste Schritt</button>
 </div>
 
 <!-- ==================== LEKTION 01 · DIE ZUKUNFTSVISION ==================== -->
 <section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
-  <p class="claim">Die Leitfrage im Workshop lautete, wie das Controlling in einer vollendeten Zukunft wahrgenommen worden sein möchte, wobei die neun Antworten hier so stehen, wie sie auf den Zetteln der Runde notiert wurden.</p>
+  <p class="claim">Neun Aussagen beschreiben, wie das Controlling des CV eines Tages wahrgenommen werden will, sodass sie zusammengenommen den Zustand ergeben, auf den der Verband hinarbeitet.</p>
 
-  <h2 class="sec">Neun Antworten aus dem Workshop</h2>
-  <p class="sub">Tipp einen Zettel an, dann erscheint darunter der Satz aus dem Workshop samt einer kurzen Erläuterung.</p>
+  <h2 class="sec">Neun Aussagen über das Controlling von morgen</h2>
+  <p class="sub">Tipp eine Aussage an, dann erscheint darunter, wie sie im Alltag klingt und was sie bedeutet.</p>
   <div class="zwand" id="lbWand"></div>
   <div class="zaus" id="lbWandAus" aria-live="polite"></div>
 
-  <h2 class="sec">Die Vision in einem Satz</h2>
-  <p class="sub">Aus den neun Zetteln ist im Workshop eine gemeinsame Fassung entstanden, die den Anspruch in zwei Sätzen zusammenfasst.</p>
+  <h2 class="sec">Die Zukunftsvision in zwei Sätzen</h2>
+  <p class="sub">Die neun Aussagen lassen sich zu einem gemeinsamen Anspruch zusammenfassen.</p>
   <div class="vision">
     <p class="vk">Die Zukunftsvision</p>
-    <p>Mit einem neu ausgerichteten Controlling, das Entscheidungen zugrunde liegt und Technik klug nutzt, gestaltet der CV seine Zukunft trotz komplexer gesellschaftlicher Entwicklungen positiv. So bleibt die wichtige Arbeit am Menschen möglich.</p>
+    <p id="lbVisionA"></p>
   </div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Ein Leitbild beschreibt eine Richtung. Die Zettel sagen, woran der CV eines Tages merken wird, dass er angekommen ist.</p>
+    <p>Ein Leitbild beschreibt zumeist allein eine Richtung, wobei diese neun Aussagen zudem sagen, woran der CV eines Tages merken wird, dass er angekommen ist.</p>
   </div>
 </section>
 
 <!-- ==================== LEKTION 02 · DIE FÜNF PERSPEKTIVEN ==================== -->
 <section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b">
-  <p class="claim">Das Controlling wirkt entlang von <b>fünf Perspektiven</b>, von denen jede im Workshop eigene Stichworte bekommen hat, aus denen am Ende ein Leitsatz entstanden ist.</p>
+  <p class="claim">Das Controlling wirkt entlang von <b>fünf Perspektiven</b>. Jede von ihnen hat ihre eigenen Schwerpunkte, aus denen sich ein Leitsatz ergibt.</p>
 
   <h2 class="sec">Fünf Perspektiven, fünf Leitsätze</h2>
-  <p class="sub">Tipp eine Perspektive an, dann siehst Du darunter ihre Stichworte und ihren Leitsatz.</p>
+  <p class="sub">Tipp eine Perspektive an, dann siehst Du darunter ihre Schwerpunkte und ihren Leitsatz.</p>
   <div class="pstrip" id="lbStrip"></div>
   <div id="lbDet" aria-live="polite"></div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Fünf Perspektiven genügen, weil jede von ihnen eine andere Frage beantwortet. Fehlt eine davon, fehlt dem Leitbild eine ganze Seite.</p>
+    <p>Fünf Perspektiven genügen in der Regel, weil jede von ihnen eine andere Frage beantwortet, sodass dem Leitbild eine ganze Seite fehlt, sobald eine davon ausfällt.</p>
   </div>
 </section>
 
 <!-- ==================== LEKTION 03 · DAS LEITBILD ==================== -->
 <section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c">
-  <p class="claim">Sechs Sätze genügen für ein Leitbild, wobei fünf davon aus den Perspektiven stammen und der sechste aus der Zukunftsvision.</p>
+  <p class="claim">Das ist das Leitbild, vollständig auf einer Seite, wobei oben die Zukunftsvision steht und darunter die sechs Sätze, in denen sie Alltag wird.</p>
 
-  <h2 class="sec">Das Leitbild auf einer Seite</h2>
-  <p class="sub">Der Schalter blendet die Herkunft aus, damit die sechs Sätze für sich stehen.</p>
-  <div class="lbbar">
-    <div class="seg" role="group" aria-label="Ansicht">
-      <button id="lbNackt" type="button">Nur die Sätze</button>
-    </div>
-    <p class="legend" style="margin:0"><span class="key" id="lbNacktH"></span></p>
+  <div class="lbkopf">
+    <p class="k">Die Zukunftsvision</p>
+    <p class="t" id="lbVisionC"></p>
   </div>
   <div class="lbliste" id="lbListe"></div>
 
-  <div class="readme" style="margin-top:22px">
-    <b>Warum sechs Sätze und nicht sechzehn.</b> Ein Leitbild wirkt über das, was jemand im Kopf behält. Sechs Sätze kann sich eine Leitungsrunde merken, während sie sechzehn einmal liest und danach weglegt.
-  </div>
-
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Jeder dieser Sätze ist eine Zusage, die jemand einlösen muss. Deshalb steht hinter jedem eine Perspektive, in der jemand dafür verantwortlich ist.</p>
-  </div>
-</section>
-
-<!-- ==================== LEKTION 04 · DER ERSTE SCHRITT ==================== -->
-<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d">
-  <p class="claim">Ein Leitbild wirkt erst, wenn jemand damit arbeitet, weshalb hier die sechs Schritte stehen, mit denen eine Leitungsrunde am Montag anfängt.</p>
-
-  <h2 class="sec">Sechs Schritte für die nächste Leitungsrunde</h2>
-  <p class="sub">Zu jedem Schritt steht der Grund dahinter, weil ein Schritt ohne Grund übersprungen wird.</p>
-  <div class="schritte" id="lbSchritte"></div>
-
-  <div class="readme" style="margin-top:22px">
-    <b>Keiner dieser Schritte braucht eine Auswertung.</b> Sie brauchen eine halbe Stunde in einer Runde, die ohnehin zusammenkommt, weshalb sie sich schon nächste Woche gehen lassen.
-  </div>
-
-  <div class="pointe">
-    <p class="pk">Die Pointe</p>
-    <p>Ein Leitbild an der Wand bleibt Papier. Ein Leitbild, an dem eine Runde die eigene Arbeit misst, wird zum Werkzeug.</p>
+    <p>Jeder dieser Sätze ist eine Zusage, für die es jemanden braucht, der sie im Alltag einlöst, weil ein Leitbild sonst eine Wandzierde bleibt.</p>
   </div>
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.48</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.49</span>
 </footer>
 
 </div>
@@ -300,52 +273,63 @@ Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.48</
 
 /* =====================================================================
    Das Controlling-Leitbild
-   Alle Inhalte stehen in vier Listen. Wer einen Leitsatz austauschen
-   will, aendert genau eine Zeile in LEITBILD oder in PERSPEKTIVEN.
+   Alle Inhalte stehen in einem Satz und drei Listen. Wer einen Leitsatz
+   austauschen will, aendert genau eine Zeile in PERSPEKTIVEN, weil
+   LEITBILD daraus erzeugt wird.
    ===================================================================== */
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? "" : s)
   .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 /* ---------------------------------------------------------------------
-   1 · Die Zettelwand
-   kurz  : die Ueberschrift auf dem Zettel
-   zitat : der Satz, wie er im Workshop notiert wurde
+   1 · Die Zukunftsvision
+   Sie steht in Lektion 01 als Schluss und in Lektion 03 als Kopf des
+   Plakats. Deshalb steht der Satz hier einmal und wird an beide Stellen
+   geschrieben, damit die zwei Fassungen nicht auseinanderlaufen.
+   ------------------------------------------------------------------ */
+const VISION = "Mit einem neu ausgerichteten Controlling, das Entscheidungen zugrunde liegt " +
+  "und Technik klug nutzt, gestaltet der CV seine Zukunft trotz komplexer gesellschaftlicher " +
+  "Entwicklungen positiv. So bleibt die wichtige Arbeit am Menschen möglich.";
+
+/* ---------------------------------------------------------------------
+   2 · Die neun Aussagen der Zukunftsvision
+   kurz  : die Ueberschrift auf der Karte
+   satz  : die Aussage, so wie sie im Alltag klingt
    dazu  : was dahintersteckt, in einem Satz fuer Leserinnen und Leser
            ohne betriebswirtschaftliche Vorbildung
    ------------------------------------------------------------------ */
-const ZETTEL = [
+const AUSSAGEN = [
   {kurz:"Bessere Entscheidungen",
-   zitat:"Das Controlling hilft uns, bessere Entscheidungen zu treffen.",
-   dazu:"Eine Zahl ist dann nützlich, wenn jemand mit ihr eine Entscheidung besser treffen kann als ohne sie. Alles andere ist Statistik."},
+   satz:"Das Controlling hilft uns, bessere Entscheidungen zu treffen.",
+   dazu:"Eine Zahl ist dann nützlich, wenn jemand mit ihr eine Entscheidung besser treffen kann als ohne sie, während alles Übrige Statistik bleibt."},
   {kurz:"Verständliche Zahlen",
-   zitat:"Die Zahlen sind verständlich und sofort nutzbar.",
+   satz:"Die Zahlen sind verständlich und sofort nutzbar.",
    dazu:"Verständlich heißt, dass eine Leitung ohne Rückfrage erkennt, was die Zahl über ihren eigenen Bereich sagt."},
   {kurz:"Rechtzeitig erkennen",
-   zitat:"Wir erkennen Probleme rechtzeitig.",
+   satz:"Wir erkennen Probleme rechtzeitig.",
    dazu:"Rechtzeitig meint den Zeitpunkt, zu dem noch eine Entscheidung möglich ist, denn danach bleibt allein die Dokumentation eines Verlaufs."},
   {kurz:"Soziale Wirkung",
-   zitat:"Controlling unterstützt unsere soziale Wirkung.",
+   satz:"Controlling unterstützt unsere soziale Wirkung.",
    dazu:"Der Zweck des Verbandes ist die Arbeit am Menschen, für die das Controlling die Mittel sichert, damit sie auch morgen möglich bleibt."},
   {kurz:"Eine gemeinsame Sprache",
-   zitat:"Es wurde eine einheitliche Sprache innerhalb des Verbandes gefunden.",
-   dazu:"Verwaltung, Controlling und Leitungen meinen dasselbe, wenn sie denselben Begriff benutzen. Erst dann verläuft die Abstimmung reibungslos."},
+   satz:"Es wurde eine einheitliche Sprache innerhalb des Verbandes gefunden.",
+   dazu:"Verwaltung, Controlling und Leitungen meinen dasselbe, wenn sie denselben Begriff benutzen, sodass die Abstimmung erst dann reibungslos verläuft."},
   {kurz:"Schnell verfügbar",
-   zitat:"Super, morgen stehen schon wieder die nächsten Zahlen bereit.",
-   dazu:"Die Geschwindigkeit ist heute aus technischen Gründen die größte Schwäche. Dieser Zettel beschreibt den Zustand, in dem sie keine mehr ist."},
+   satz:"Super, morgen stehen schon wieder die nächsten Zahlen bereit.",
+   dazu:"Die Geschwindigkeit ist heute aus technischen Gründen die größte Schwäche, weshalb diese Aussage den Zustand beschreibt, in dem sie keine mehr ist."},
   {kurz:"Volle Kontrolle",
-   zitat:"Ich habe mit den Kennzahlen die volle Kontrolle.",
+   satz:"Ich habe mit den Kennzahlen die volle Kontrolle.",
    dazu:"Kontrolle meint hier die Sicherheit, den eigenen Bereich jederzeit überblicken zu können, ohne jemanden zu überwachen."},
   {kurz:"Sicherheit und Zeit",
-   zitat:"Das Controlling gibt mir Sicherheit und schafft damit Zeit für die inhaltlichen Themen.",
+   satz:"Das Controlling gibt mir Sicherheit und schafft damit Zeit für die inhaltlichen Themen.",
    dazu:"Wer den wirtschaftlichen Stand seines Bereichs kennt, muss ihn nicht mehr suchen, sodass die gewonnene Zeit in die fachliche Arbeit geht."},
   {kurz:"Gemeinsamer Überblick",
-   zitat:"Mein Kollegium und ich haben einen aktuellen gemeinsamen Überblick über die wesentlichen Steuerungs- und Erfolgsparameter.",
+   satz:"Mein Kollegium und ich haben einen aktuellen gemeinsamen Überblick über die wesentlichen Steuerungs- und Erfolgsparameter.",
    dazu:"Gemeinsam meint, dass alle Beteiligten auf dieselbe Zahl sehen, denn ein Gespräch über zwei verschiedene Stände kostet allein Zeit."}
 ];
 
 /* ---------------------------------------------------------------------
-   2 · Die fuenf Perspektiven
+   3 · Die fuenf Perspektiven
    Der Akzent kommt aus dem :root-Block und wird als --acc gesetzt.
    ------------------------------------------------------------------ */
 const PERSPEKTIVEN = [
@@ -372,7 +356,7 @@ const PERSPEKTIVEN = [
 ];
 
 /* ---------------------------------------------------------------------
-   3 · Das Leitbild
+   4 · Das Leitbild
    Fuenf Saetze kommen aus den Perspektiven, der sechste aus der Vision.
    Deshalb wird die Liste aus PERSPEKTIVEN erzeugt und um einen Eintrag
    ergaenzt, damit ein geaenderter Leitsatz an beiden Stellen stimmt.
@@ -381,48 +365,29 @@ const LEITBILD = PERSPEKTIVEN.map(p => ({satz:p.satz, her:p.b + " · " + p.name,
   .concat([{satz:"Das Controlling stärkt die soziale Wirkung des CV.",
             her:"Aus der Zukunftsvision", acc:"var(--orange)"}]);
 
-/* ---------------------------------------------------------------------
-   4 · Die ersten Schritte
-   ------------------------------------------------------------------ */
-const SCHRITTE = [
-  ["Lies die sechs Sätze in Deiner Leitungsrunde laut vor",
-   "Vorgelesen klingt ein Leitsatz anders als gelesen, denn wer ihn laut sagt, merkt sofort, ob er im eigenen Alltag hält."],
-  ["Frag jede Person, welcher Satz ihr im Alltag am meisten fehlt",
-   "Die Antwort zeigt, an welcher Stelle der Abstand zwischen Anspruch und Wirklichkeit heute am größten ist."],
-  ["Such zu einem Satz ein Beispiel aus der letzten Woche",
-   "Ein Leitsatz ohne Beispiel bleibt eine Behauptung, während er mit einem Beispiel aus der eigenen Woche überprüfbar wird."],
-  ["Benenne den Satz, der heute am weitesten entfernt ist",
-   "Eine Runde, die sich auf eine Schwachstelle einigt, hat den schwierigsten Teil hinter sich."],
-  ["Vereinbart eine einzige Sache, die bis zum nächsten Treffen anders läuft",
-   "Eine einzelne Änderung wird gemacht, während fünf besprochen werden, deshalb nimm die kleinste, die spürbar ist."],
-  ["Häng die sechs Sätze dorthin, wo über Zahlen gesprochen wird",
-   "Ein Leitbild im Intranet liest niemand, eines neben dem Bildschirm mit den Auswertungen dagegen schon."]
-];
-
-
 /* =====================================================================
-   5 · Die Zettelwand
-   Ein Tipp waehlt einen Zettel aus. Auf einem Tablet gibt es kein
+   5 · Die Wand der neun Aussagen
+   Ein Tipp waehlt eine Aussage aus. Auf einem Tablet gibt es kein
    Mouseover, deshalb steht die Erlaeuterung in einem eigenen Kasten
    unter der Wand statt in einem schwebenden Feld.
    ===================================================================== */
-let lbZet = 0;
+let lbA = 0;
 
 function lbWandZeichnen(){
-  $("lbWand").innerHTML = ZETTEL.map((z, i) =>
-    `<button class="zet" type="button" data-z="${i}" aria-pressed="${i === lbZet}">
-       <span class="zt">Zettel ${String(i + 1).padStart(2, "0")}</span>
-       <span class="zz">${esc(z.kurz)}</span>
+  $("lbWand").innerHTML = AUSSAGEN.map((a, i) =>
+    `<button class="zet" type="button" data-z="${i}" aria-pressed="${i === lbA}">
+       <span class="zt">Aussage ${String(i + 1).padStart(2, "0")}</span>
+       <span class="zz">${esc(a.kurz)}</span>
      </button>`).join("");
-  const z = ZETTEL[lbZet];
+  const a = AUSSAGEN[lbA];
   $("lbWandAus").innerHTML =
-    `<p class="zq">„${esc(z.zitat)}“</p><p class="ze">${esc(z.dazu)}</p>`;
+    `<p class="zq">„${esc(a.satz)}“</p><p class="ze">${esc(a.dazu)}</p>`;
 }
 
 $("lbWand").addEventListener("click", e => {
   const b = e.target.closest("[data-z]");
   if(!b) return;
-  lbZet = +b.dataset.z;
+  lbA = +b.dataset.z;
   lbWandZeichnen();
 });
 lbWandZeichnen();
@@ -465,37 +430,19 @@ $("lbStrip").addEventListener("click", e => {
 lbStripZeichnen();
 
 /* =====================================================================
-   7 · Das Leitbild auf einer Seite
-   Der Schalter blendet allein die Herkunftszeile aus. Die Saetze selbst
-   bleiben stehen, damit der Blick auf ihnen liegt.
+   7 · Das Leitbild als Plakat, mit der Zukunftsvision im Kopf
+   Hier wird nichts mehr umgeschaltet. Die sechs Saetze stehen so da,
+   wie sie gelten, jeder in der Farbe seiner Perspektive.
    ===================================================================== */
-let lbNackt = false;
+$("lbVisionA").textContent = VISION;
+$("lbVisionC").textContent = VISION;
 
-function lbListeZeichnen(){
-  $("lbListe").className = "lbliste" + (lbNackt ? " nackt" : "");
-  $("lbListe").innerHTML = LEITBILD.map((l, i) =>
-    `<div class="lbz" style="--acc:${l.acc}">
-       <span class="lbn">${String(i + 1).padStart(2, "0")}</span>
-       <div style="min-width:0">
-         <p class="lbt">${esc(l.satz)}</p>
-         <p class="lbp">${esc(l.her)}</p>
-       </div>
-     </div>`).join("");
-  $("lbNackt").textContent = lbNackt ? "Herkunft zeigen" : "Nur die Sätze";
-  $("lbNacktH").textContent = lbNackt
-    ? "Sechs Sätze, ohne Angabe der Perspektive"
-    : "Unter jedem Satz steht, aus welcher Perspektive er stammt";
-}
-
-$("lbNackt").addEventListener("click", () => { lbNackt = !lbNackt; lbListeZeichnen(); });
-lbListeZeichnen();
-
-/* =====================================================================
-   8 · Die ersten Schritte
-   ===================================================================== */
-$("lbSchritte").innerHTML = SCHRITTE.map(([t, g]) =>
-  `<div class="schritt"><h3>${esc(t)}</h3><p>${esc(g)}</p></div>`).join("");
-
+$("lbListe").innerHTML = LEITBILD.map((l, i) =>
+  `<div class="lbz" style="--acc:${l.acc}">
+     <span class="lbn">${String(i + 1).padStart(2, "0")}</span>
+     <p class="lbt">${esc(l.satz)}</p>
+     <p class="lbp">${esc(l.her)}</p>
+   </div>`).join("");
 
 const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","d","e","f"];
 function select(i){
@@ -517,7 +464,7 @@ tabs.forEach((t, i) => {
 select(0);
 
 /* =====================================================================
-   7 · Bloecke zum Auf- und Zuklappen
+   8 · Bloecke zum Auf- und Zuklappen
    Baut die Abschnitte einer Lektion zur Laufzeit aus der vorhandenen
    Gliederung: jedes h2.sec eroeffnet einen Block, alles danach bis zum
    naechsten h2.sec ist sein Inhalt. Was vor dem ersten h2.sec steht -
