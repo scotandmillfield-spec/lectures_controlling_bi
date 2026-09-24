@@ -282,7 +282,7 @@ vorhandenen gleichermaßen. Deshalb gehört zu jedem neuen Eintrag im selben Arb
 4. Das Ergebnis in der Pull-Request-Beschreibung nennen: welche Zeile neu ist und wie viele
    Stellen sie berührt hat.
 
-**Wo die Liste gilt.** In allen `*.html` beider Verzeichnisse — Fließtext, Beschriftungen, Tooltips, Fußzeilen,
+**Wo die Liste gilt.** In allen `*.html` jedes Einstiegs — Fließtext, Beschriftungen, Tooltips, Fußzeilen,
 Klassennamen und Kommentare. Für Commit-Nachrichten und Pull-Request-Beschreibungen gilt sie
 sinngemäß, wird dort aber nicht maschinell geprüft.
 
@@ -503,8 +503,8 @@ Jede HTML-Datei läuft **ohne Build und ohne Server**. Einzige externe Abhängig
 Google Fonts mit Fallback-Stack. Diese Eigenschaft nicht aufgeben: kein npm, kein Bundler,
 keine Frameworks, keine geteilten CSS- oder JS-Dateien. Doppelklick muss genügen.
 
-**Die eine Ausnahme ist `reihenfolge.js`**, und sie ist eng geschnitten. Jedes der beiden
-Verzeichnisse hat seine eigene; geladen wird sie allein von der Startseite daneben, über einen
+**Die eine Ausnahme ist `reihenfolge.js`**, und sie ist eng geschnitten. Jeder Einstieg hat
+seine eigene; geladen wird sie allein von der Startseite daneben, über einen
 klassischen `<script src>` — der funktioniert über `file://`, anders als `fetch`. Sie ist
 **optional**: Fehlt sie, meldet die Konsole das und die Startseite nimmt die Folge der Liste in
 `TOPICS`. Ein Modul bleibt davon unberührt und wird weiterhin einzeln weitergegeben. Eine
