@@ -18,5 +18,6 @@
    ===================================================================== */
 const REIHENFOLGE = [
   "cv-leitbild",       // Das Controlling-Leitbild
-  "cv-konzept"         // Das Controlling-Konzept
+  "cv-konzept",        // Das Controlling-Konzept
+  "cv-personalstruktur" // Die Personalstrukturanalyse
 ];

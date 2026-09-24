@@ -229,7 +229,7 @@ const UI = {
   search:{de:"Module durchsuchen\u2026", en:"Search modules\u2026"},
   empty:{de:"Dazu passt gerade nichts.", en:"Nothing matches that filter yet."},
   soon:{de:"In Arbeit", en:"In preparation"},
-  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.55</span>",
+  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.56</span>",
   pathLabel:{de:"Lernpfade", en:"Learning paths"},
   pathKicker:{de:"Lernpfad", en:"Learning path"},
   pathClear:{de:"Pfad verlassen \u00b7 alle Module zeigen", en:"Leave the path \u00b7 show all modules"},
@@ -282,6 +282,24 @@ const TOPICS = [
     ],
     links:[{kind:"html",file:"controlling-konzept.html",
             label:{de:"Los geht’s", en:"Let’s go"}}]
+  },
+  {
+    id:"cv-personalstruktur",
+    title:{de:"Die Personalstrukturanalyse", en:"The workforce structure analysis"},
+    sub:{de:"Eigener Fall: der CV, ein Verband der Pflege und sozialen Dienste. Der erste Bericht der Personalcontrolling-App als Nachbau, in dem jedes Element seine Erläuterung zeigt. Entwurf, die Erläuterungen folgen.",
+         en:"Own case: the CV, an association of care and social services. The first report of the HR controlling app as a replica in which every element shows its explanation. Draft, the explanations will follow."},
+    track:"cv", status:"planned", accent:"teal", glyph:"rows",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Der Bericht mit Kennzahlen, Altersstruktur, Fortschreibung und Betriebszugehörigkeit",
+       en:"The report with key figures, age structure, projection and length of service"},
+      {de:"Die Schwellen der Hinweistexte selbst verschieben und nachrechnen",
+       en:"Move the thresholds of the notes yourself and recalculate"},
+      {de:"Ein Glossar, das an die Stelle im Bericht springt",
+       en:"A glossary that jumps to the spot in the report"}
+    ],
+    links:[{kind:"html",file:"personalstrukturanalyse.html",
+            label:{de:"Los geht’s", en:"Let’s go"}}]
   }
 ];
 
@@ -298,7 +316,7 @@ const PATHS = [
     title:{de:"Controlling beim CV", en:"Controlling at the CV"},
     sub:{de:"Ein eigener Fall für Pflege und soziale Dienste. Der Pfad beginnt mit dem Leitbild, weil jede Zahl später an ihm gemessen wird. Sechs Module sind geplant, von der gemeinsamen Sprache bis zur Steuerung im Alltag.",
          en:"A separate case for care and social services. The path starts with the mission statement, because every figure later gets measured against it. Six modules are planned, from a shared language to steering in everyday work."},
-    steps:["cv-leitbild","cv-konzept"]
+    steps:["cv-leitbild","cv-konzept","cv-personalstruktur"]
   }
 ];
 /* ===================== end of the editable lists ===================== */
