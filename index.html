@@ -11,7 +11,10 @@
 :root{
   --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
   --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
   --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --green:#2E9E6B; --red:#D9534F;
   --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
   --paper:#FFFFFF; --shell:#FBF8F2;
   --r:12px;
@@ -34,22 +37,24 @@ header{padding:44px 0 8px}
 h1{font-size:clamp(2rem,5vw,2.9rem);line-height:1.08;letter-spacing:-.025em;font-weight:700;margin:0 0 14px}
 h1 em{font-style:normal;color:var(--teal)}
 .lede{font-size:1.1rem;color:#3d3d40;margin:0 0 40px;max-width:62ch}
-.tore{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+/* auto-fit statt einer festen Spaltenzahl: die Kacheln richten sich nach der
+   Zahl der Einstiege, ohne dass hier etwas nachgezogen werden muss. Bei 860px
+   Breite passen drei nebeneinander. */
+.tore{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:18px}
 .tore>*{min-width:0}
 .tor{display:flex;flex-direction:column;text-decoration:none;color:inherit;background:var(--paper);
   border:1px solid var(--grey-xl);border-radius:var(--r);box-shadow:var(--shadow);
-  padding:26px 26px 24px;border-top:3px solid var(--teal-dk);
+  padding:26px 26px 24px;border-top:3px solid var(--acc);
   transition:transform .28s var(--ease),box-shadow .28s var(--ease),border-color .2s}
 .tor:hover,.tor:focus-visible{transform:translateY(-4px);box-shadow:var(--lift)}
 .tor:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
-.tor.b{border-top-color:var(--orange)}
 .tk{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
   color:var(--grey);margin:0 0 9px}
 .tor h2{font-size:1.35rem;letter-spacing:-.015em;margin:0 0 8px;font-weight:600}
 .tor p{margin:0 0 14px;color:#3d3d40;font-size:.96rem;line-height:1.6}
 .tor ul{margin:0;padding-left:19px;color:var(--grey);font-size:.88rem;line-height:1.7}
-/* Unten ausgerichtet, damit die Pfadzeilen beider Kacheln auf einer Hoehe stehen. */
-.pfad{font-family:var(--mono);font-size:.74rem;color:var(--teal-dk);margin:auto 0 0;padding-top:18px}
+/* Unten ausgerichtet, damit die Pfadzeilen aller Kacheln auf einer Hoehe stehen. */
+.pfad{font-family:var(--mono);font-size:.74rem;color:var(--acc);margin:auto 0 0;padding-top:18px}
 footer{margin-top:46px;font-size:.82rem;color:var(--grey);line-height:1.6;
   border-top:1px solid var(--grey-xl);padding-top:20px}
 .build{font-family:var(--mono);font-size:.92em;letter-spacing:.02em;opacity:.85}
@@ -64,39 +69,63 @@ footer{margin-top:46px;font-size:.82rem;color:var(--grey);line-height:1.6;
 
 <header>
   <p class="eyebrow">Werkbank</p>
-  <h1>Zwei Sammlungen, <em>zwei Wege</em></h1>
-  <p class="lede">Jedes der beiden Verzeichnisse ist für sich vollständig und wird für sich hochgeladen. Nichts darin verweist über die Grenze hinweg.</p>
+  <h1>Die <em>Einstiege</em></h1>
+  <p class="lede">Jedes Verzeichnis ist für sich vollständig und wird für sich hochgeladen. Nichts darin verweist über die Grenze hinweg, weshalb ein neuer Einstieg keine einzige Zeile in einem vorhandenen kostet.</p>
 </header>
 
-<div class="tore">
-
-  <a class="tor" href="vorlesung/index.html">
-    <p class="tk">Verzeichnis vorlesung/</p>
-    <h2>Vorlesung</h2>
-    <p>Der Stoff für meine Studenten, zusammengehalten von einem durchgehenden Fall: zwei Wiener Kaffeehäuser, eine Rösterei, ein Coffeebike.</p>
-    <ul>
-      <li>Business Intelligence, Controlling, Fallstudie</li>
-      <li>Foliensätze unter <code>decks/</code></li>
-    </ul>
-    <p class="pfad">vorlesung/index.html</p>
-  </a>
-
-  <a class="tor b" href="plattform/index.html">
-    <p class="tk">Verzeichnis plattform/</p>
-    <h2>Lernplattform</h2>
-    <p>Module zum Selbststudium, unabhängig von einer Veranstaltung und in eigener Ansprache.</p>
-    <ul>
-      <li>Risikomanagement in drei Modulen</li>
-      <li>Die Werkstatt für alle, die Inhalte beisteuern</li>
-    </ul>
-    <p class="pfad">plattform/index.html</p>
-  </a>
+<div class="tore" id="tore"></div>
 
 </div>
 
-<footer>Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.50</span>
+<footer>Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.51</span>
 </footer>
 
 </div>
+
+<script>
+/* =====================================================================
+   DIE EINSTIEGE
+
+   Ein Einstieg ist ein Verzeichnis mit einer eigenen index.html, einer
+   eigenen reihenfolge.js und den Modulen, die zu ihm gehoeren. Er wird
+   fuer sich hochgeladen und verweist auf keinen anderen.
+
+   Ein neuer Einstieg kostet hier eine Zeile. Wie viele es sind, ist der
+   Liste gleich; die Kacheln richten sich selbst aus.
+
+   ordner : das Verzeichnis, zugleich der Verweis auf seine Startseite
+   name   : die Ueberschrift der Kachel
+   was    : ein Satz darueber, fuer wen der Einstieg da ist
+   punkte : zwei bis drei Stichworte, was drinsteht
+   akzent : die Farbe der oberen Kante, aus dem :root-Block
+   ===================================================================== */
+const EINSTIEGE = [
+  {ordner:"vorlesung", name:"Vorlesung", akzent:"var(--teal-dk)",
+   was:"Der Stoff f\u00fcr meine Studenten, zusammengehalten von einem durchgehenden Fall: zwei Wiener Kaffeeh\u00e4user, eine R\u00f6sterei, ein Coffeebike.",
+   punkte:["Business Intelligence, Controlling, Fallstudie", "Foliens\u00e4tze unter <code>decks/</code>"]},
+  {ordner:"plattform", name:"Lernplattform", akzent:"var(--orange)",
+   was:"Module zum Selbststudium, unabh\u00e4ngig von einer Veranstaltung und in eigener Ansprache.",
+   punkte:["Bilanzanalyse, Liquidit\u00e4tsplanung, Risikomanagement", "Die Werkstatt f\u00fcr alle, die Inhalte beisteuern"]},
+  {ordner:"cv-mx", name:"CV MX", akzent:"var(--navy)",
+   was:"Der Bereich f\u00fcr den CV, einen Verband der Pflege und sozialen Dienste. Eigener Fall, eigene Ansprache, eigene Auslieferung.",
+   punkte:["Das Controlling-Leitbild", "Weitere Module des Pfades folgen"]}
+];
+
+/* Die Kachel ist ein Verweis. Die Pfadzeile steht unten ueber
+   margin:auto, damit sie in allen Kacheln auf einer Hoehe liegt, auch
+   wenn der Text darueber verschieden lang ist. */
+const esc = s => String(s == null ? "" : s)
+  .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+document.getElementById("tore").innerHTML = EINSTIEGE.map(e =>
+  `<a class="tor" href="${e.ordner}/index.html" style="--acc:${e.akzent}">
+     <p class="tk">Verzeichnis ${esc(e.ordner)}/</p>
+     <h2>${esc(e.name)}</h2>
+     <p>${e.was}</p>
+     <ul>${e.punkte.map(p => `<li>${p}</li>`).join("")}</ul>
+     <p class="pfad">${esc(e.ordner)}/index.html</p>
+   </a>`).join("");
+</script>
+
 </body>
 </html>
