@@ -352,36 +352,6 @@ Google Fonts mit Fallback-Stack.
 
 ---
 
-## 10a. Der eigene Fall des CV
-
-Gilt allein für den Einstieg `cv-mx/`. Sofias Kanon oben gilt dort nicht, und umgekehrt.
-
-**[gesetzt]** Der CV ist ein Verband der Pflege und sozialen Dienste. Genannt wird er nur als
-„CV“. Das Controlling-Konzept umfasst rund **40 Berichtsempfänger**, im Kern die Fachbereichs-
-und Einrichtungsleitungen. Quellsysteme sind **Kidicap** (Stamm- und Abrechnungsdaten),
-**Vivendi** (Dienstplanung, organisatorische Zuordnung) und die **Zeiterfassung**. Die Berichte
-laufen als App in Power BI mit Row-Level-Security.
-
-**[gesetzt]** Die acht Berichte auf drei Ebenen: Spitzenkennzahlen · Personalstatistik,
-Krankenanalyse, Fluktuationsanalyse, Personalkosten, Urlaubsanalyse, Recherchebericht ·
-Einzelnachweis (Drill-through). Beispiel des Konzepts: **20 arbeitnehmerinduzierte
-Kündigungen** in der Fluktuationsanalyse für 2026.
-
-**[Vorschlag]** Die Übungsdaten in `controlling-konzept.html` sind ausgedacht und im Modul so
-gekennzeichnet. Wer ein weiteres CV-Modul baut, nimmt dieselben:
-
-| Angabe | Wert |
-|---|---|
-| Fachbereiche | Altenhilfe (Seniorenhaus 1, 2, 3), Ambulante Dienste (Pflegedienst Nord, Pflegedienst Süd, Tagespflege), Kinder, Jugend und Familie (Kita 1, Kita 2, Erziehungsberatung), Beratung und Teilhabe (Eingliederungshilfe, Schuldnerberatung, Migrationsdienst) |
-| Zeitraum der Übungen | Januar bis August 2026, Stichtag 31.08.2026 |
-| Altenhilfe, Spitzenkennzahlen | 262 Köpfe (Vorjahr 258), 198,4 VB (199,1), Krankenquote 7,6 % (6,9 %), Altersdurchschnitt 44,8 (44,3) |
-| Altenhilfe, Fluktuation | 38 Austritte, davon 20 arbeitnehmerinduzierte Kündigungen (12 aus Seniorenhaus 2, 11 Pflegefachkräfte), 31 Eintritte, Quote 14,5 % (Vorjahr 12,1 %) |
-| Seniorenhaus 1, Krankenquote | 8,4 % gegen 6,1 % im Vorjahr und 6,5 % Plan; drei Langzeitfälle erklären den Anstieg |
-| Personalkosten-Beispiel | Vorjahr 50,0 VB zu 62.000 € je VB |
-| Personalfälle | nur Kennungen der Form `P-1234`, keine Namen |
-
----
-
 ## 11. So eine Sitzung starten
 
 > Anbei der Projektkanon und die Datei `<name>.html`. Bitte weiter im etablierten Stil:

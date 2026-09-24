@@ -89,22 +89,6 @@ label.fl{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:var(-
 .pill.rot{background:color-mix(in srgb, var(--red) 14%, var(--paper));color:var(--red)}
 .pill.gruen{background:color-mix(in srgb, var(--green) 14%, var(--paper));color:var(--green)}
 
-/* ---------- Balken nach IBCS ----------
-   Der Ist-Wert ist dunkel und gefuellt, das Vorjahr grau und gefuellt,
-   der Plan nur umrandet. Eine Abweichung ist gruen oder rot, je nachdem,
-   wie sie auf die Einrichtung wirkt.                                   */
-.bars{display:grid;gap:10px}
-.bar-r{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 84px;gap:12px;align-items:center}
-.bar-l{font-size:.9rem;color:#3d3d40;line-height:1.3;min-width:0}
-.bar-t{height:22px;background:var(--canvas);border-radius:4px;position:relative;overflow:hidden;min-width:0}
-.bar-f{position:absolute;left:0;top:0;bottom:0;border-radius:4px;transition:width .5s var(--ease)}
-.bar-f.ist{background:var(--ink)}
-.bar-f.vj{background:var(--grey-mid)}
-.bar-f.plan{background:var(--paper);border:2px solid var(--ink)}
-.bar-f.gut{background:var(--green)}
-.bar-f.schlecht{background:var(--red)}
-.bar-v{font-family:var(--mono);font-size:.88rem;text-align:right}
-
 /* ---------- Tabellen ---------- */
 .tblw{overflow-x:auto;max-width:100%;border:1px solid var(--grey-xl);border-radius:var(--r);background:var(--paper)}
 .tblw:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
@@ -135,26 +119,6 @@ label.fl{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:var(-
 .ub-k button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 .ub-w{grid-column:1 / -1;margin:0;font-size:.9rem;line-height:1.55;color:#3d3d40}
 .ub-w b.gut,.ub-w b.schlecht{font-weight:700}
-
-/* ---------- Lektion 01 · Der Dreischritt ---------- */
-.ds-schritte{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 16px}
-.ds-s{appearance:none;font:inherit;text-align:left;cursor:pointer;color:inherit;background:var(--paper);
-  border:1px solid var(--grey-xl);border-top:4px solid var(--grey-mid);border-radius:var(--r);
-  padding:12px 14px;box-shadow:var(--shadow);transition:.18s var(--ease);min-width:0}
-.ds-s .n{font-family:var(--mono);font-size:1.3rem;font-weight:600;color:var(--grey);display:block;line-height:1}
-.ds-s .t{font-weight:700;font-size:.98rem;display:block;margin-top:6px}
-.ds-s[aria-pressed="true"]{border-top-color:var(--teal-dk);background:var(--teal-xl)}
-.ds-s[aria-pressed="true"] .n{color:var(--teal-dk)}
-.ds-s:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
-.ds-kopf{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;align-items:baseline;margin:0 0 14px}
-.ds-kopf h3{margin:0;font-size:1.08rem}
-.ds-kopf span{font-family:var(--mono);font-size:.74rem;color:var(--grey);letter-spacing:.04em}
-.ds-text{margin:16px 0 0}
-.ds-split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0 14px}
-.ds-split > div{background:var(--canvas);border-radius:8px;padding:12px 14px;min-width:0}
-.ds-split .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
-.ds-split .w{font-size:1.4rem;font-weight:700;font-variant-numeric:tabular-nums}
-.ds-split .d{font-family:var(--mono);font-size:.82rem}
 
 /* ---------- Lektion 02 · Die Berichtslandkarte ----------
    Die Knoten haben feste Koordinaten auf einer Buehne von 920 x 420
@@ -203,154 +167,6 @@ label.fl{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:var(-
 .lf-wahl button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 .lf-fuss{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;margin-top:14px}
 .lf-fuss p{margin:0;font-size:.92rem;color:#3d3d40}
-
-/* ---------- Lektion 03 · Der Bericht im Kleinen ---------- */
-.rep{background:var(--paper);border:1px solid var(--grey-mid);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
-.rep-k{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 18px;align-items:baseline;
-  padding:14px 18px;border-bottom:1px solid var(--grey-xl);background:var(--canvas)}
-.rep-k h3{margin:0;font-size:1.1rem}
-.rep-k span{font-family:var(--mono);font-size:.72rem;color:var(--grey)}
-.rep-b{padding:16px 18px}
-.krumen{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 12px;font-size:.86rem}
-.krumen button{appearance:none;border:0;background:transparent;color:var(--teal-dk);cursor:pointer;
-  font:inherit;padding:2px 4px;text-decoration:underline;text-underline-offset:3px}
-.krumen button:focus-visible{outline:2px solid var(--orange)}
-.krumen b{font-weight:700;padding:2px 4px}
-.krumen .sep{color:var(--grey)}
-.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
-.kpi{appearance:none;font:inherit;text-align:left;color:inherit;cursor:pointer;background:var(--paper);
-  border:1px solid var(--grey-xl);border-radius:8px;padding:12px 14px;min-width:0;transition:.16s}
-.kpi:hover{border-color:var(--teal)}
-.kpi:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
-.kpi.ziel{border-color:var(--teal-dk);box-shadow:0 0 0 1px var(--teal-dk)}
-.kpi .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);display:block}
-.kpi .w{font-size:1.45rem;font-weight:700;display:block;margin:4px 0 2px}
-.kpi .d{font-family:var(--mono);font-size:.78rem;display:block}
-.kpi .vj{font-size:.78rem;color:var(--grey);display:block}
-.filter{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 14px;align-items:flex-end}
-.nv-bars{display:grid;gap:8px;margin:14px 0}
-.nv-bar{appearance:none;font:inherit;color:inherit;cursor:pointer;background:transparent;border:1px solid transparent;
-  border-radius:8px;padding:4px 6px;display:grid;grid-template-columns:minmax(0,210px) minmax(0,1fr) 40px;gap:10px;
-  align-items:center;text-align:left}
-.nv-bar:hover{background:var(--canvas)}
-.nv-bar:focus-visible{outline:2px solid var(--orange)}
-.nv-bar[aria-pressed="true"]{border-color:var(--teal-dk);background:var(--teal-xl)}
-.nv-bar .l{font-size:.9rem;min-width:0}
-.nv-bar .t{height:20px;background:var(--canvas);border-radius:4px;position:relative;overflow:hidden}
-.nv-bar .f{position:absolute;left:0;top:0;bottom:0;background:var(--ink);border-radius:4px;transition:width .4s var(--ease)}
-.nv-bar[aria-pressed="true"] .f{background:var(--teal-dk)}
-.nv-bar .v{font-family:var(--mono);font-size:.9rem;text-align:right;font-variant-numeric:tabular-nums}
-.ktx{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
-.nv-status{margin-top:14px}
-.nv-status .wie{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-dk);display:block;margin-bottom:4px}
-.stapel{display:flex;height:34px;border-radius:6px;overflow:hidden;background:var(--canvas);margin:14px 0 10px}
-.stapel span{display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--mono);font-size:.8rem;
-  transition:width .4s var(--ease);min-width:0;overflow:hidden}
-.st1{background:var(--navy)} .st2{background:var(--teal-dk)} .st3{background:var(--teal)} .st4{background:var(--grey)}
-.sw{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
-
-/* ---------- Lektion 04 · Die Rechnungen ---------- */
-.zwei{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;align-items:start}
-.team{display:grid;gap:6px}
-.tm{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;background:var(--paper);
-  border:1px solid var(--grey-xl);border-radius:8px;padding:8px 10px}
-.tm .p{font-size:.9rem;min-width:0}
-.tm .p b{font-family:var(--mono);font-weight:600;margin-right:6px}
-.tm .seg{padding:2px}
-.tm .seg button{padding:5px 9px;font-size:.8rem}
-.mtrs{display:grid;gap:10px}
-.mtr{background:var(--paper);border:1px solid var(--grey-xl);border-radius:8px;padding:12px 14px}
-.mtr .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
-.mtr .w{font-size:1.35rem;font-weight:700}
-.mtr .d{font-size:.86rem;color:#3d3d40}
-.leiste{height:10px;background:var(--canvas);border-radius:5px;position:relative;margin:8px 0 4px}
-.leiste .f{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:var(--teal-dk);transition:width .4s var(--ease)}
-.leiste .f.schlecht{background:var(--red)}
-.leiste .m{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
-.epis{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
-.epi{appearance:none;cursor:pointer;font-family:var(--sans);font-size:.88rem;border:1px solid var(--grey-mid);
-  background:var(--paper);color:#3d3d40;padding:9px 14px;border-radius:8px;text-align:left}
-.epi b{display:block;font-family:var(--mono);font-size:.95rem}
-.epi[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
-.epi:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
-.regler{display:grid;gap:14px;margin:0 0 16px}
-.regler label{display:grid;grid-template-columns:minmax(0,210px) minmax(0,1fr) 110px;gap:12px;align-items:center;font-size:.92rem}
-.regler output{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
-input[type=range]{width:100%;accent-color:var(--teal-dk);min-width:0}
-input[type=range]:focus-visible{outline:2px solid var(--orange);outline-offset:4px}
-.formel{font-family:var(--mono);font-size:.8rem;color:var(--grey);line-height:1.7;margin:12px 0 0}
-.monate{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:4px;align-items:end;height:190px;
-  position:relative;padding-top:10px;border-bottom:1px solid var(--grey-mid)}
-.mo{display:flex;flex-direction:column;justify-content:flex-end;height:100%;min-width:0;position:relative}
-.mo .s{border-radius:3px 3px 0 0;transition:height .4s var(--ease)}
-.mo .s.gen{background:var(--grey)}
-.mo .s.plan{background:var(--paper);border:2px solid var(--teal-dk);border-bottom:0}
-.mo .s.plan.ueber{border-color:var(--red);background:color-mix(in srgb, var(--red) 14%, var(--paper))}
-.mo .z{font-family:var(--mono);font-size:.66rem;text-align:center;color:var(--grey);margin-bottom:2px}
-.kap{position:absolute;left:0;right:0;border-top:2px dashed var(--ink);pointer-events:none}
-.kap span{position:absolute;right:0;top:-18px;font-family:var(--mono);font-size:.66rem;background:var(--paper);padding:0 4px}
-.mlab{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:4px;margin-top:4px}
-.mlab span{font-family:var(--mono);font-size:.66rem;text-align:center;color:var(--grey)}
-
-/* ---------- Lektion 05 · Zugang und Daten ---------- */
-.fb-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.fb{min-width:0}
-.fb h4{margin:0 0 8px;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);font-weight:500}
-.ks{border:1px solid var(--grey-xl);background:var(--canvas);color:var(--grey-mid);border-radius:8px;
-  padding:10px 12px;margin:0 0 6px;font-size:.9rem;display:flex;justify-content:space-between;gap:8px;transition:.2s}
-.ks.sicht{background:var(--teal-xl);border-color:var(--teal);color:var(--teal-dk);font-weight:600}
-.ks .z{font-family:var(--mono);font-size:.7rem}
-.quellen{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr) 40px minmax(0,1fr);gap:8px;align-items:center}
-.quellen .spalte{display:grid;gap:8px;min-width:0}
-.qb{appearance:none;font:inherit;color:inherit;cursor:pointer;text-align:left;background:var(--paper);
-  border:1px solid var(--grey-mid);border-radius:8px;padding:12px 14px;min-width:0}
-.qb b{display:block}
-.qb span{font-size:.82rem;color:var(--grey)}
-.qb[aria-pressed="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
-.qb[aria-pressed="true"] span{color:rgba(255,255,255,.8)}
-.qb:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
-.modell{background:var(--navy);color:#fff;border-radius:8px;padding:16px;text-align:center;font-weight:600}
-.modell span{display:block;font-weight:400;font-size:.82rem;opacity:.8}
-.pf{text-align:center;color:var(--grey);font-size:1.3rem;pointer-events:none}
-.berichte{display:grid;gap:4px}
-.berichte span{background:var(--canvas);border-radius:6px;padding:5px 10px;font-size:.84rem}
-.qs-det{margin-top:14px}
-.seite{display:grid;gap:6px;max-width:560px}
-.zone{appearance:none;font:inherit;color:#3d3d40;cursor:pointer;text-align:left;border:1px dashed var(--grey-mid);
-  background:var(--paper);border-radius:6px;padding:10px 12px;font-size:.88rem}
-.zone b{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;display:block;color:var(--grey)}
-.zone[aria-pressed="true"]{border-style:solid;border-color:var(--teal-dk);background:var(--teal-xl);color:var(--teal-dk)}
-.zone[aria-pressed="true"] b{color:var(--teal-dk)}
-.zone:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
-.zone.gross{min-height:92px}
-.zone-reihe{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
-.zone-reihe .zone{min-width:0}
-
-/* ---------- Lektion 06 · Fuehrungsalltag ---------- */
-.rhythmus{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;counter-reset:rh}
-.rh{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:14px 16px;position:relative;min-width:0}
-.rh::before{counter-increment:rh;content:counter(rh,decimal-leading-zero);font-family:var(--mono);font-size:1.2rem;
-  font-weight:600;color:var(--teal-dk);display:block;margin-bottom:6px}
-.rh p{margin:0;font-size:.92rem;line-height:1.45}
-.jahr{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:4px;margin:0 0 14px}
-.jahr button{appearance:none;cursor:pointer;font-family:var(--mono);font-size:.78rem;border:1px solid var(--grey-xl);
-  background:var(--paper);color:#3d3d40;padding:10px 0;border-radius:6px;min-width:0;position:relative}
-.jahr button.q{border-bottom:3px solid var(--teal)}
-.jahr button[aria-pressed="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
-.jahr button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
-.fokus{margin:0;padding:0;list-style:none;display:grid;gap:8px}
-.fokus li{background:var(--paper);border:1px solid var(--grey-xl);border-left:4px solid var(--acc,var(--grey-mid));
-  border-radius:8px;padding:10px 14px;font-size:.95rem;line-height:1.45}
-.km-wahl{display:grid;gap:8px;margin:0 0 14px}
-.km-wahl button{appearance:none;cursor:pointer;font-family:var(--sans);font-size:.92rem;text-align:left;
-  border:1px solid var(--grey-mid);background:var(--paper);color:#3d3d40;padding:10px 14px;border-radius:8px}
-.km-wahl button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
-.km-wahl button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
-.km-schritt{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:16px 0 8px}
-.kommentar{background:var(--sand-xl);border:1px solid var(--sand);border-radius:var(--r);padding:16px 20px;margin-top:16px}
-.kommentar .kk{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ochre);margin:0 0 8px}
-.kommentar p{margin:0 0 6px;line-height:1.55}
-.kommentar p:last-child{margin:0}
 
 /* ---------- Quiz ---------- */
 .qwrap{display:grid;gap:14px}
@@ -427,38 +243,103 @@ body{background:#fff}
 footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
   border-top:1px solid var(--grey-xl);padding-top:20px}
 .build{font-family:var(--mono);font-size:.92em;letter-spacing:.02em;opacity:.85}
+.km-titel{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:0 0 8px}
+
+/* ---------- Karten mit Auswahl ----------
+   Eine Reihe von Knoepfen, darunter der Kasten mit dem Text des
+   gewaehlten Knopfs. Wird fuer Dreischritt, Navigation, Adressaten,
+   Quellsysteme und Fuehrungsalltag benutzt.                          */
+.wahl{display:grid;grid-template-columns:repeat(var(--n,3),minmax(0,1fr));gap:10px;margin:0 0 14px}
+.wk{appearance:none;font:inherit;text-align:left;cursor:pointer;color:inherit;background:var(--paper);
+  border:1px solid var(--grey-xl);border-top:4px solid var(--grey-mid);border-radius:var(--r);
+  padding:12px 14px;box-shadow:var(--shadow);transition:.18s var(--ease);min-width:0}
+.wk .n{font-family:var(--mono);font-size:1.2rem;font-weight:600;color:var(--grey);display:block;line-height:1}
+.wk .t{font-weight:700;font-size:.98rem;display:block;margin-top:6px;line-height:1.3}
+.wk .s{font-size:.82rem;color:var(--grey);display:block;margin-top:3px}
+.wk:hover{transform:translateY(-2px)}
+.wk[aria-pressed="true"]{border-top-color:var(--teal-dk);background:var(--teal-xl)}
+.wk[aria-pressed="true"] .n{color:var(--teal-dk)}
+.wk:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.wtext p{margin:0 0 10px}
+.wtext p:last-child{margin:0}
+
+/* ---------- Statische Karten ---------- */
+.kacheln{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.kachel{background:var(--paper);border:1px solid var(--grey-xl);border-top:4px solid var(--teal);
+  border-radius:var(--r);padding:14px 16px;min-width:0}
+.kachel b{display:block;margin:0 0 6px}
+.kachel p{margin:0;font-size:.92rem;line-height:1.5;color:#3d3d40}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.duo > div{min-width:0}
+.duo h3{margin:0 0 8px;font-size:.78rem;font-family:var(--mono);font-weight:500;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--grey)}
+.duo ul{margin:0;padding-left:1.1em;line-height:1.6}
+
+/* ---------- Die drei Ebenen als Leiter ---------- */
+.leiter{display:grid;gap:6px;max-width:420px}
+.stufe{border:1px solid var(--grey-mid);border-radius:8px;padding:10px 14px;background:var(--paper);
+  display:flex;justify-content:space-between;gap:10px;align-items:center;transition:.2s}
+.stufe span{font-family:var(--mono);font-size:.7rem;color:var(--grey)}
+.stufe.an{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.stufe.an span{color:rgba(255,255,255,.8)}
+.stufe.innen{border:2px dashed var(--teal-dk);background:var(--teal-xl);color:var(--teal-dk)}
+.pfeil{text-align:center;color:var(--grey-mid);font-size:1.1rem;line-height:1;transition:.2s}
+.pfeil.an{color:var(--teal-dk)}
+.zwei{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:16px;align-items:start}
+
+/* ---------- Das Beispiel aus dem Konzept ---------- */
+.bsp{appearance:none;font:inherit;color:inherit;cursor:pointer;text-align:left;background:var(--paper);
+  border:1px solid var(--grey-mid);border-radius:var(--r);padding:14px 18px;display:grid;
+  grid-template-columns:minmax(0,1fr) auto;gap:4px 18px;align-items:center;width:100%;max-width:560px}
+.bsp:hover{border-color:var(--teal)}
+.bsp:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.bsp[aria-pressed="true"]{border-color:var(--teal-dk);box-shadow:0 0 0 1px var(--teal-dk)}
+.bsp .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
+.bsp .l{font-weight:600}
+.bsp .w{grid-row:1 / span 2;grid-column:2;font-size:2.2rem;font-weight:700;font-variant-numeric:tabular-nums}
+.ktx{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 12px}
+.leer td{color:var(--grey);font-style:italic;white-space:normal}
+
+/* ---------- Quellsysteme und Seitenaufbau ---------- */
+.quellen{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr) 40px minmax(0,1fr);gap:8px;align-items:center}
+.quellen .spalte{display:grid;gap:8px;min-width:0}
+.qb{appearance:none;font:inherit;color:inherit;cursor:pointer;text-align:left;background:var(--paper);
+  border:1px solid var(--grey-mid);border-radius:8px;padding:12px 14px;min-width:0}
+.qb b{display:block}
+.qb span{font-size:.82rem;color:var(--grey)}
+.qb[aria-pressed="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.qb[aria-pressed="true"] span{color:rgba(255,255,255,.8)}
+.qb:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.modell{background:var(--navy);color:#fff;border-radius:8px;padding:16px;text-align:center;font-weight:600}
+.modell span{display:block;font-weight:400;font-size:.82rem;opacity:.8}
+.pf{text-align:center;color:var(--grey);font-size:1.3rem;pointer-events:none}
+.berichte{display:grid;gap:4px}
+.berichte span{background:var(--canvas);border-radius:6px;padding:5px 10px;font-size:.84rem}
+.seite{display:grid;gap:6px}
+.zone{appearance:none;font:inherit;color:#3d3d40;cursor:pointer;text-align:left;border:1px dashed var(--grey-mid);
+  background:var(--paper);border-radius:6px;padding:10px 12px;font-size:.88rem;width:100%}
+.zone b{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;display:block;color:var(--grey)}
+.zone[aria-pressed="true"]{border-style:solid;border-color:var(--teal-dk);background:var(--teal-xl);color:var(--teal-dk)}
+.zone[aria-pressed="true"] b{color:var(--teal-dk)}
+.zone:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.zone.gross{min-height:92px}
 
 @media (max-width:980px){
-.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
-.fb-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.kacheln{grid-template-columns:repeat(2,minmax(0,1fr))}
 .lf-wahl{grid-template-columns:repeat(2,minmax(0,1fr))}
 .zwei{grid-template-columns:1fr}
-.rhythmus{grid-template-columns:repeat(2,minmax(0,1fr))}
+.wahl{grid-template-columns:repeat(min(var(--n,3),3),minmax(0,1fr))}
 }
 @media (max-width:620px){
 .wrap{padding:0 16px 56px}
 .tab{padding:10px 14px;font-size:.88rem}
-.bar-r{grid-template-columns:minmax(0,1fr) 70px}
-.bar-r .bar-l{grid-column:1 / -1}
-.ds-schritte{grid-template-columns:1fr}
-.ds-split{grid-template-columns:1fr}
-.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
-.nv-bar{grid-template-columns:minmax(0,1fr) 34px}
-.nv-bar .l{grid-column:1 / -1}
+.wahl{grid-template-columns:1fr}
+.kacheln,.duo{grid-template-columns:1fr}
 .ub{grid-template-columns:1fr}
-.regler label{grid-template-columns:minmax(0,1fr) 96px}
-.regler label > span:first-child{grid-column:1 / -1}
 .quellen{grid-template-columns:1fr}
 .pf{font-size:0}
 .pf::after{content:"↓";font-size:1.3rem}
-.fb-grid{grid-template-columns:1fr}
-.zone-reihe{grid-template-columns:repeat(2,minmax(0,1fr))}
-.rhythmus{grid-template-columns:1fr}
-.jahr{grid-template-columns:repeat(6,minmax(0,1fr))}
 .gl{grid-template-columns:1fr}
-.monate{height:160px}
-.mo .z{font-size:.56rem}
-.mlab span{font-size:.56rem}
 }
 @media (prefers-reduced-motion:reduce){
 *{animation-duration:.001ms!important;transition-duration:.001ms!important}
@@ -472,67 +353,71 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
 <header class="masthead">
   <p class="eyebrow">Controlling beim CV · Modul 02</p>
   <h1>Das <em>Controlling-Konzept</em></h1>
-  <p class="lede">Rund 40 Leitungen im CV bekommen ihre Personalzahlen künftig als Berichte in Power BI. Dieses Modul zeigt Dir, wie die Berichte aufgebaut sind, wie Du Dich vom Überblick bis zum einzelnen Personalfall bewegst und welche Fragen jeder Bericht an Deine Einrichtung stellt.</p>
-  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Das Konzept beginnt mit dem Personalcontrolling, wobei weitere Controllingfelder auf derselben Architektur folgen sollen. Die Einrichtungen, Zahlen und Personalfälle in den Übungen sind ausgedacht.</p>
+  <p class="lede">Das Konzept legt fest, welche Anspruchsgruppen im CV welche Personalinformationen erhalten, in welcher Struktur diese in Power BI aufbereitet sind und welche Steuerungsfragen jeder Bericht auslösen soll.</p>
+  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Der Geltungsbereich beschränkt sich zunächst auf das Personalcontrolling. Eine Erweiterung um weitere Controllingfelder ist auf Basis derselben Architektur vorgesehen.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Das Controlling-Konzept">
-  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Der Dreischritt eines Berichts</button>
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Der Leitgedanke des Konzepts</button>
   <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Die drei Berichtsebenen</button>
   <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Vom Überblick zum Einzelfall</button>
-  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Die Rechnungen der Fachberichte</button>
-  <button class="tab" role="tab" id="tab-e" aria-controls="p-e" aria-selected="false" tabindex="-1"><span class="num">05</span> Zugang, Daten und Seitenaufbau</button>
-  <button class="tab" role="tab" id="tab-f" aria-controls="p-f" aria-selected="false" tabindex="-1"><span class="num">06</span> Die Berichte im Führungsalltag</button>
-  <button class="tab" role="tab" id="tab-g" aria-controls="p-g" aria-selected="false" tabindex="-1"><span class="num">07</span> Quiz</button>
-  <button class="tab" role="tab" id="tab-h" aria-controls="p-h" aria-selected="false" tabindex="-1"><span class="num">08</span> Praxiseinstieg</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Adressaten, Daten und Seitenaufbau</button>
+  <button class="tab" role="tab" id="tab-e" aria-controls="p-e" aria-selected="false" tabindex="-1"><span class="num">05</span> Die Berichte im Führungsalltag</button>
+  <button class="tab" role="tab" id="tab-f" aria-controls="p-f" aria-selected="false" tabindex="-1"><span class="num">06</span> Quiz</button>
+  <button class="tab" role="tab" id="tab-g" aria-controls="p-g" aria-selected="false" tabindex="-1"><span class="num">07</span> Praxiseinstieg</button>
 </div>
 
-<!-- ==================== LEKTION 01 · DER DREISCHRITT ==================== -->
+<!-- ==================== LEKTION 01 · DER LEITGEDANKE ==================== -->
 <section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
-  <p class="claim">Ein Bericht im Konzept des CV ist für mehr da als für das Ansehen von Zahlen. Er macht Auffälligkeiten sichtbar und stellt damit Fragen an Deine Einrichtung, wofür er immer <b>denselben Dreischritt</b> geht.</p>
+  <p class="claim">Ein Bericht dient im Konzept des CV nicht dem reinen Konsum von Zahlen. Er soll <b>Auffälligkeiten sichtbar machen</b> und damit die richtigen Fragen an die eigene Einrichtung provozieren.</p>
 
-  <h2 class="sec">Der Dreischritt an der Krankenquote eines Seniorenhauses</h2>
-  <p class="sub">Schalte die drei Schritte nacheinander durch und wechsle den Maßstab zwischen Vorjahr und Plan. Das Seniorenhaus und seine Zahlen sind ein ausgedachtes Übungsbeispiel.</p>
-  <div class="ds-schritte" id="dsSchritte"></div>
-  <div class="karte">
-    <div class="ds-kopf">
-      <h3>Krankenquote · Seniorenhaus 1</h3>
-      <span>Januar bis August 2026</span>
-    </div>
-    <div class="wsbar">
-      <div class="seg" role="group" aria-label="Maßstab">
-        <button type="button" data-m="vj" aria-pressed="true">Maßstab Vorjahr</button>
-        <button type="button" data-m="plan" aria-pressed="false">Maßstab Plan</button>
-      </div>
-    </div>
-    <div id="dsBild"></div>
+  <h2 class="sec">Warum die Steuerung beim Personal ansetzt</h2>
+  <p class="sub">Die Einrichtungen und Fachbereiche des CV werden in hohem Maße über das Personal gesteuert. Das Konzept nennt dafür die folgenden Gründe.</p>
+  <div class="kacheln">
+    <div class="kachel"><b>Personalkosten</b><p>Sie bilden den größten Kostenblock.</p></div>
+    <div class="kachel"><b>Versorgung</b><p>Die Personalverfügbarkeit entscheidet unmittelbar über die Sicherstellung der Versorgung.</p></div>
+    <div class="kachel"><b>Personalschlüssel und Fachkraftquoten</b><p>Von der Personalverfügbarkeit hängt ab, ob sie eingehalten werden.</p></div>
+    <div class="kachel"><b>Refinanzierung</b><p>Auch die Refinanzierung durch die Kostenträger hängt an der Personalverfügbarkeit.</p></div>
   </div>
-  <div class="info ds-text" id="dsText" aria-live="polite"></div>
 
-  <h2 class="sec">Die Farbe einer Abweichung nach IBCS</h2>
-  <p class="sub">Die Berichte kennzeichnen Abweichungen nach den Notationsregeln von IBCS einheitlich als günstig oder ungünstig. Die Farbe richtet sich nach der Wirkung auf die Einrichtung, weshalb ein Plus je nach Kennzahl beides sein kann. Entscheide bei jeder Zeile selbst.</p>
-  <div class="ueb" id="ibUeb"></div>
+  <h2 class="sec">Der Dreischritt, dem jeder Bericht folgt</h2>
+  <p class="sub">Tipp die drei Schritte nacheinander an. Zu jedem Bericht formuliert das Konzept zudem Leitfragen, die zugleich als Gesprächsgrundlage für Controllinggespräche zwischen Leitung, Geschäftsführung und Controlling dienen.</p>
+  <div class="wahl" id="dsWahl" style="--n:3"></div>
+  <div class="info wtext" id="dsText" aria-live="polite"></div>
+
+  <h2 class="sec">Was das Konzept regelt und was es ausklammert</h2>
+  <p class="sub">Das Konzept ist ein Grobkonzept. Drei Dinge legt es fest, drei weitere bleiben eigenen Dokumenten und Arbeitsschritten vorbehalten.</p>
+  <div class="duo">
+    <div class="karte"><h3>Das Konzept legt fest</h3><ul>
+      <li>welche Anspruchsgruppen welche Personalinformationen erhalten</li>
+      <li>in welcher Struktur diese aufbereitet sind</li>
+      <li>welche Steuerungsfragen jeder Bericht auslösen soll</li></ul></div>
+    <div class="karte"><h3>Nicht Bestandteil des Grobkonzepts</h3><ul>
+      <li>die Kennzahlendefinitionen und Berechnungsvorschriften (sie stehen im separaten Kennzahlenglossar)</li>
+      <li>die Gestaltungsrichtlinien der einzelnen Berichtsseiten</li>
+      <li>die technische Umsetzung des Datenmodells</li></ul></div>
+  </div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Ein Bericht hat seinen Zweck erfüllt, wenn Du nach dem Lesen eine <b>Frage an Deine Einrichtung</b> hast, die Du vorher nicht hattest.</p>
+    <p>Zahlen sind der <b>Ausgangspunkt eines Steuerungsgesprächs</b>, nicht dessen Ergebnis.</p>
   </div>
 </section>
 
 <!-- ==================== LEKTION 02 · DIE DREI BERICHTSEBENEN ==================== -->
 <section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
-  <p class="claim">Das Konzept ordnet acht Berichte auf <b>drei Ebenen</b> an, die zusammen einen Weg vom Überblick bis zum einzelnen Personalfall bilden.</p>
+  <p class="claim">Die Berichte sind in <b>drei Ebenen</b> organisiert, die zusammen einen Weg vom Überblick zum Einzelfall bilden.</p>
 
   <h2 class="sec">Die Berichtsarchitektur auf drei Ebenen</h2>
-  <p class="sub">Tipp einen Bericht an, dann siehst Du darunter, was er zeigt, welchem Steuerungsaspekt er dient und welche Leitfragen er stellt. Auf dem Telefon lässt sich die Karte seitlich schieben.</p>
+  <p class="sub">Tipp einen Bericht an, dann siehst Du darunter seinen Inhalt, seinen Steuerungsaspekt und seine Leitfragen. Auf dem Telefon lässt sich die Karte seitlich schieben.</p>
   <div class="scrollx" tabindex="0" aria-label="Berichtsarchitektur, seitlich verschiebbar">
     <div class="bn" id="arBuehne"></div>
   </div>
-  <p class="hinweis">Die Pfeile zeigen den Weg nach unten. Eine Schaltfläche führt von den Spitzenkennzahlen in den Fachbericht, der Drill-through aus jedem Fachbericht in den Einzelnachweis. Der Recherchebericht steht auf derselben Stufe wie die Fachberichte, ist allerdings eine frei filterbare Tabelle ohne Kennzahlen.</p>
+  <p class="hinweis">Die Pfeile zeigen den Weg nach unten. Über Schaltflächen gelangst Du von den Spitzenkennzahlen in den Fachbericht, über den Drill-through aus jedem darüberliegenden Bericht in den Einzelnachweis. Der Recherchebericht steht auf derselben Stufe wie die Fachberichte und ist eine frei filterbare Tabelle, also kein Kennzahlenbericht.</p>
   <div class="karte ar-det" id="arDet" aria-live="polite"></div>
 
-  <h2 class="sec">Welcher Bericht welche Leitfrage beantwortet</h2>
-  <p class="sub">Zu jeder Leitfrage, die hier erscheint, tippst Du den Bericht an, zu dem sie gehört. Alle Fragen stammen aus dem Konzept und dienen dort zugleich als Leitfaden für das Controllinggespräch.</p>
+  <h2 class="sec">Welcher Bericht welche Leitfrage stellt</h2>
+  <p class="sub">Zu jeder Leitfrage, die hier erscheint, tippst Du den Bericht an, zu dem sie im Konzept gehört.</p>
   <div class="karte">
     <p class="lf-frage" id="lfFrage"></p>
     <div class="lf-wahl" id="lfWahl"></div>
@@ -544,172 +429,95 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Wer oben eine auffällige Zahl sieht, kommt in <b>höchstens zwei Schritten</b> zu den Personalfällen, die sie erklären.</p>
+    <p>Jeder Fachbericht vertieft eine Kennzahl der obersten Ebene und <b>macht deren Treiber sichtbar</b>.</p>
   </div>
 </section>
 
 <!-- ==================== LEKTION 03 · VOM ÜBERBLICK ZUM EINZELFALL ==================== -->
 <section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
-  <p class="claim">Drei Bewegungen bringen Dich durch die Berichte, nämlich die <b>Schaltfläche</b> in den Fachbericht, das Eingrenzen und Aufgliedern nach Merkmalen (<b>Slice and Dice</b>) sowie der <b>Drill-through</b> zum Einzelnachweis.</p>
+  <p class="claim">Die Navigation zwischen den Ebenen erfolgt über drei Mechanismen, nämlich über <b>Schaltflächen</b>, über <b>Slice-and-Dice-Operationen</b> und über den <b>Drill-through</b>.</p>
 
-  <h2 class="sec">Von der Fluktuationsquote bis zu den einzelnen Kündigungen</h2>
-  <p class="sub">Starte bei den Spitzenkennzahlen des Fachbereichs Altenhilfe und tipp die Fluktuationsquote an. Im Fachbericht wählst Du einen Balken und öffnest mit dem Drill-through die Fälle dahinter, was am Rechner auch per Rechtsklick auf den Balken geht.</p>
-  <div class="rep">
-    <div class="rep-k"><h3 id="nvTitel"></h3><span>Berichtsstichtag 31.08.2026 · Datenstand nach Abrechnung August</span></div>
-    <div class="rep-b">
-      <nav class="krumen" id="nvKrumen" aria-label="Berichtsweg"></nav>
-      <div id="nvInhalt"></div>
-    </div>
-  </div>
-  <div class="info nv-status" id="nvStatus" aria-live="polite"></div>
-
-  <h2 class="sec">Die Austrittsvorschau auf den Spitzenkennzahlen</h2>
-  <p class="sub">Die Vorschau zählt Austritte, die sich aus Verträgen schon absehen lassen. Grundlage sind Befristungsende, Regelaltersgrenze, vereinbarte Altersteilzeit und bereits vorliegende Kündigungen. Schalte zwischen einem, zwei und drei Jahren um.</p>
-  <div class="karte">
-    <div class="seg" role="group" aria-label="Zeitraum der Vorschau" id="avSeg">
-      <button type="button" data-j="1" aria-pressed="true">1 Jahr</button>
-      <button type="button" data-j="2" aria-pressed="false">2 Jahre</button>
-      <button type="button" data-j="3" aria-pressed="false">3 Jahre</button>
-    </div>
-    <div id="avBild"></div>
-  </div>
-  <p class="hinweis">Nachbesetzungen brauchen im Sozialwesen erfahrungsgemäß viel Vorlauf. Deshalb holt die Vorschau den Bericht aus dem Rückblick in die Vorausschau.</p>
-
-  <div class="pointe">
-    <p class="pk">Die Pointe</p>
-    <p>Eine Kennzahl, hinter die Du nicht schauen kannst, bleibt eine Behauptung. Der Drill-through macht aus ihr eine <b>Liste von Personalfällen</b>, die Du als Leitung kennst.</p>
-  </div>
-</section>
-
-<!-- ==================== LEKTION 04 · DIE RECHNUNGEN DER FACHBERICHTE ==================== -->
-<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
-  <p class="claim">Hinter den Fachberichten stecken vier Rechnungen, die Du hier selbst verschieben kannst. In jeder von ihnen verbergen sich <b>zwei Größen hinter einer Zahl</b>.</p>
-
-  <h2 class="sec">Köpfe, VB und Fachkraftquote in der Personalstatistik</h2>
-  <p class="sub">Ändere den Beschäftigungsumfang einzelner Personen und beobachte, wie sich VB, Teilzeitquote und Fachkraftquote bewegen, während die Zahl der Köpfe gleich bleibt. Das refinanzierte VB-Soll von 6,0 und die geforderte Fachkraftquote von 50 % sind Annahmen dieses Beispiels.</p>
+  <h2 class="sec">Die drei Mechanismen der Navigation</h2>
+  <p class="sub">Tipp einen Mechanismus an, dann siehst Du daneben, zwischen welchen Ebenen er Dich bewegt.</p>
+  <div class="wahl" id="nvWahl" style="--n:3"></div>
   <div class="zwei">
-    <div class="team" id="psTeam"></div>
-    <div class="mtrs" id="psWerte" aria-live="polite"></div>
+    <div class="leiter" id="nvLeiter" aria-hidden="true"></div>
+    <div class="info wtext" id="nvText" aria-live="polite"></div>
   </div>
 
-  <h2 class="sec">Die Schwelle zum betrieblichen Eingliederungsmanagement in der Krankenanalyse</h2>
-  <p class="sub">Schalte einzelne Zeiten der Arbeitsunfähigkeit einer Person innerhalb von zwölf Monaten an oder aus. Mehr als sechs Wochen (42 Kalendertage) führen zum Angebot eines BEM, auch wenn sie sich aus mehreren kurzen Zeiten zusammensetzen.</p>
-  <div class="karte">
-    <div class="epis" id="bemEpis"></div>
-    <div id="bemBild" aria-live="polite"></div>
-  </div>
-
-  <h2 class="sec">Mengeneffekt und Preiseffekt in den Personalkosten</h2>
-  <p class="sub">Verschiebe die VB und die Kosten je VB gegenüber dem Vorjahr, das bei 50,0 VB und 62.000 € je VB liegt. Das Modul zerlegt die Abweichung in einen Mengeneffekt und einen Preiseffekt.</p>
-  <div class="karte">
-    <div class="regler">
-      <label><span>VB im laufenden Jahr</span><input type="range" id="mpVb" min="45" max="55" step="0.5" value="51.5"><output id="mpVbO"></output></label>
-      <label><span>Kosten je VB im laufenden Jahr</span><input type="range" id="mpK" min="58000" max="70000" step="500" value="64000"><output id="mpKO"></output></label>
-    </div>
-    <div class="bars" id="mpBild" aria-live="polite"></div>
-    <p class="formel">Mengeneffekt = (VB Ist − VB Vorjahr) × Kosten je VB Vorjahr<br>Preiseffekt = (Kosten je VB Ist − Kosten je VB Vorjahr) × VB Ist</p>
-  </div>
-  <div class="info" id="mpText" style="margin-top:14px" aria-live="polite"></div>
-
-  <h2 class="sec">Die Ballung des Urlaubs zum Jahresende in der Urlaubsanalyse</h2>
-  <p class="sub">Ein Team von 30 Beschäftigten hat zusammen 900 Urlaubstage. Ohne Mehrarbeit oder Fremdpersonal verkraftet es in diesem Beispiel 100 Urlaubstage im Monat. Verschiebe den Zeitpunkt, an dem Du in die Urlaubsanalyse schaust.</p>
-  <div class="karte">
-    <div class="regler">
-      <label><span>Blick in die Urlaubsanalyse Ende</span><input type="range" id="urM" min="3" max="10" step="1" value="8"><output id="urMO"></output></label>
-    </div>
-    <div class="monate" id="urBild" role="img" aria-label="Urlaubstage je Monat"></div>
-    <div class="mlab" id="urLab"></div>
-    <div class="legend" style="margin-top:10px">
-      <span><span class="sw" style="background:var(--grey)"></span>genommen</span>
-      <span><span class="sw" style="border:2px solid var(--teal-dk)"></span>gleichmäßig verteilter Rest</span>
-      <span><span class="sw" style="border:2px solid var(--red)"></span>über der Kapazität</span>
-    </div>
-  </div>
-  <div class="info" id="urText" style="margin-top:14px" aria-live="polite"></div>
+  <h2 class="sec">Das Beispiel aus dem Konzept</h2>
+  <p class="sub">Die Fluktuationsanalyse weist für 2026 insgesamt 20 arbeitnehmerinduzierte Kündigungen aus. Tipp den Wert an, um den Drill-through auszulösen, was am Rechner auch per Rechtsklick geht.</p>
+  <button class="bsp" type="button" id="bspWert" aria-pressed="false">
+    <span class="k">Fluktuationsanalyse · 2026</span>
+    <span class="l">Arbeitnehmerinduzierte Kündigungen</span>
+    <span class="w">20</span>
+  </button>
+  <div id="bspNachweis" aria-live="polite"></div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Die meisten Fehldeutungen eines Personalberichts entstehen, weil <b>zwei Größen in einer Zahl</b> stecken (Köpfe und VB, Kurzzeit und Langzeit, Menge und Preis).</p>
+    <p>Aggregierte Kennzahlen können durch wenige Einzelfälle stark verzerrt sein. Erst der Einzelnachweis zeigt, ob hinter einer Abweichung ein <b>strukturelles Muster oder ein erklärbarer Sonderfall</b> steht.</p>
   </div>
 </section>
 
-<!-- ==================== LEKTION 05 · ZUGANG, DATEN UND SEITENAUFBAU ==================== -->
-<section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e" hidden>
-  <p class="claim">Alle Leitungen arbeiten mit denselben Berichten. Unterschiedlich ist allein der <b>Ausschnitt der Daten</b>, den ihre Berechtigung freigibt.</p>
+<!-- ==================== LEKTION 04 · ADRESSATEN, DATEN UND SEITENAUFBAU ==================== -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
+  <p class="claim">Die Berichte stehen im Power BI Service als <b>gebündelte App</b> bereit, zu der alle Berechtigten einen persönlichen Zugang erhalten. Der Kreis der Berichtsempfänger umfasst rund 40 Personen.</p>
 
-  <h2 class="sec">Wer welche Kostenstellen sieht</h2>
-  <p class="sub">Wähle eine Rolle. Die Zeilenebenensicherheit (Row-Level-Security) zeigt jeder Person allein die Kostenstellen, die sie verantwortet.</p>
-  <div class="wsbar">
-    <div class="seg" role="group" aria-label="Rolle" id="rlsSeg"></div>
-  </div>
-  <div class="fb-grid" id="rlsBild"></div>
-  <div class="info" id="rlsText" style="margin-top:14px" aria-live="polite"></div>
+  <h2 class="sec">Welche Anspruchsgruppe welche Daten sieht</h2>
+  <p class="sub">Tipp eine Anspruchsgruppe an.</p>
+  <div class="wahl" id="adWahl" style="--n:2"></div>
+  <div class="info wtext" id="adText" aria-live="polite"></div>
 
   <h2 class="sec">Was das Datenmodell über Beschäftigte enthält</h2>
-  <p class="sub">Der Einzelnachweis und der Recherchebericht zeigen Daten einzelner Beschäftigter, deren Nutzung an die Führungsverantwortung gebunden ist und dem Datenschutz sowie dem kirchlichen Arbeitsrecht unterliegt. Entscheide bei jedem Merkmal, ob es im Datenmodell steht.</p>
+  <p class="sub">Der Drill-through-Bericht und der Recherchebericht enthalten personenbezogene Daten auf Ebene einzelner Beschäftigter. Die Nutzung ist an die Führungsverantwortung gebunden und unterliegt den geltenden datenschutzrechtlichen und kirchenarbeitsrechtlichen Regelungen. Entscheide bei jedem Merkmal, ob es im Datenmodell steht.</p>
   <div class="ueb" id="dmUeb"></div>
 
   <h2 class="sec">Drei Quellsysteme und ein gemeinsames Modell</h2>
-  <p class="sub">Tipp ein Quellsystem an, dann siehst Du, was es in das Modell liefert.</p>
+  <p class="sub">Tipp ein Quellsystem an, dann siehst Du, was es liefert.</p>
   <div class="quellen">
     <div class="spalte" id="qsQuellen"></div>
     <div class="pf" aria-hidden="true">→</div>
-    <div class="modell">Semantisches Modell<span>jede Kennzahl einmal definiert</span></div>
+    <div class="modell">Semantisches Modell<span>gemeinsam für alle Berichte</span></div>
     <div class="pf" aria-hidden="true">→</div>
     <div class="berichte" id="qsBerichte"></div>
   </div>
-  <div class="info qs-det" id="qsDet" aria-live="polite"></div>
+  <div class="info wtext" id="qsText" style="margin-top:14px" aria-live="polite"></div>
 
   <h2 class="sec">Der einheitliche Aufbau jeder Berichtsseite</h2>
-  <p class="sub">Alle Seiten folgen demselben Aufbau, sodass Du mit einem Bericht zugleich alle anderen bedienen kannst. Die App läuft im Browser, in der Power-BI-App und auf dem iPad. Tipp einen Bereich der Seite an.</p>
+  <p class="sub">Alle Berichtsseiten folgen demselben Aufbau. Der Zugriff erfolgt geräteunabhängig über Browser oder Power-BI-App auf Rechner, Laptop und iPad, wobei die Seitenlayouts auf Tablet-Displays lesbar und bedienbar bleiben. Tipp einen Bereich der Seite an.</p>
   <div class="zwei">
     <div class="seite" id="saSeite"></div>
-    <div class="info" id="saText" aria-live="polite"></div>
+    <div class="info wtext" id="saText" aria-live="polite"></div>
   </div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Weil jede Zahl aus demselben Modell kommt, gibt es zwischen zwei Berichten <b>keine zwei Stände</b> derselben Kennzahl.</p>
+    <p>Wer einen Bericht beherrscht, <b>beherrscht damit alle</b>.</p>
   </div>
 </section>
 
-<!-- ==================== LEKTION 06 · DIE BERICHTE IM FÜHRUNGSALLTAG ==================== -->
+<!-- ==================== LEKTION 05 · DIE BERICHTE IM FÜHRUNGSALLTAG ==================== -->
+<section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e" hidden>
+  <p class="claim">Ein Berichtswesen entfaltet seine Wirkung erst durch eine <b>feste Verankerung im Führungsalltag</b>. Das Konzept schlägt dafür fünf Elemente vor.</p>
+
+  <h2 class="sec">Fünf Elemente der Verankerung im Führungsalltag</h2>
+  <p class="sub">Tipp ein Element an.</p>
+  <div class="wahl" id="faWahl" style="--n:5"></div>
+  <div class="info wtext" id="faText" aria-live="polite"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Die Kommentierung verbindet die Zahl mit <b>ihrer Ursache und der vereinbarten Maßnahme</b>.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 06 · QUIZ ==================== -->
 <section class="panel" id="p-f" role="tabpanel" aria-labelledby="tab-f" hidden>
-  <p class="claim">Ein Berichtswesen wirkt erst, wenn es einen festen Platz im Führungsalltag hat. Das Konzept sieht dafür einen <b>monatlichen Rhythmus</b>, das Controllinggespräch sowie die Kommentierung wesentlicher Abweichungen vor.</p>
-
-  <h2 class="sec">Der monatliche Rhythmus nach der Entgeltabrechnung</h2>
-  <p class="sub">Nach jeder Aktualisierung laufen dieselben vier Schritte ab. Dass die Aktualisierung nach der Entgeltabrechnung erfolgt, ist im Konzept noch eine Annahme, die abgestimmt wird.</p>
-  <div class="rhythmus">
-    <div class="rh"><p>Die Berichte werden nach Abschluss der monatlichen Entgeltabrechnung aktualisiert.</p></div>
-    <div class="rh"><p>Jede Leitung prüft die Spitzenkennzahlen ihres Verantwortungsbereichs.</p></div>
-    <div class="rh"><p>Auffälligkeiten verfolgt sie mit den Leitfragen im Fachbericht bis zum Einzelnachweis.</p></div>
-    <div class="rh"><p>Im Controllinggespräch werden Abweichungen erläutert, kommentiert und mit einer Maßnahme verbunden.</p></div>
-  </div>
-
-  <h2 class="sec">Die Schwerpunkte im Jahreslauf</h2>
-  <p class="sub">Einzelne Berichte haben saisonale Bedeutung. Tipp einen Monat an, dann siehst Du, was in ihm ansteht.</p>
-  <div class="jahr" id="jlMonate" role="group" aria-label="Monat"></div>
-  <ul class="fokus" id="jlFokus" aria-live="polite"></ul>
-
-  <h2 class="sec">Ein Kommentar aus Zahl, Ursache und Maßnahme</h2>
-  <p class="sub">Wähle eine Abweichung aus den vorigen Lektionen, dann die Ursache, die der Einzelnachweis stützt, und eine passende Maßnahme. Das Modul setzt daraus den Kommentar zusammen, den die verantwortliche Leitung im Bericht hinterlegt.</p>
-  <div class="karte">
-    <div class="seg" role="group" aria-label="Abweichung" id="kmSeg"></div>
-    <div id="kmBau"></div>
-  </div>
-
-  <div class="pointe">
-    <p class="pk">Die Pointe</p>
-    <p>Eine Abweichung ist erst erledigt, wenn neben der Zahl steht, <b>woran es lag</b> und wer bis wann was unternimmt.</p>
-  </div>
-</section>
-
-<!-- ==================== LEKTION 07 · QUIZ ==================== -->
-<section class="panel" id="p-g" role="tabpanel" aria-labelledby="tab-g" hidden>
-  <p class="claim">Das Quiz zieht fünf Fragen zufällig aus einem größeren Vorrat, wobei nach jeder Antwort die Begründung erscheint, auch nach der richtigen.</p>
+  <p class="claim">Das Quiz zieht fünf Fragen zufällig aus einem größeren Vorrat, wobei nach jeder Antwort die Begründung aus dem Konzept erscheint.</p>
 
   <h2 class="sec">Fünf Fragen zum Controlling-Konzept</h2>
-  <p class="sub">Wer eine Frage verfehlt, hat meist zwei Berichte oder zwei Größen verwechselt. Genau dafür steht die Begründung dabei.</p>
+  <p class="sub">Mit „Fünf neue Fragen“ ziehst Du eine neue Auswahl.</p>
   <div class="wsbar">
     <button class="knopf" id="qNew" type="button">Fünf neue Fragen</button>
     <p class="legend" style="margin:0"><span id="qStand"></span></p>
@@ -719,31 +527,31 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Wer weiß, <b>welcher Bericht welche Frage</b> beantwortet, findet sich in der App zurecht, ohne jede Seite zu kennen.</p>
+    <p>Die Leitfragen beschreiben, was ein Bericht aus Controllingsicht abdeckt, und dienen zugleich als <b>Leitfaden für das Controllinggespräch</b>.</p>
   </div>
 </section>
 
-<!-- ==================== LEKTION 08 · PRAXISEINSTIEG ==================== -->
-<section class="panel" id="p-h" role="tabpanel" aria-labelledby="tab-h" hidden>
-  <p class="claim">Wer ein solches Berichtswesen im eigenen Haus einführen will, beginnt bei den <b>Fragen der Leitungen</b> und erst danach bei der Technik. Sieben Schritte liegen vor dem ersten fertigen Bericht.</p>
+<!-- ==================== LEKTION 07 · PRAXISEINSTIEG ==================== -->
+<section class="panel" id="p-g" role="tabpanel" aria-labelledby="tab-g" hidden>
+  <p class="claim">Das Konzept nennt selbst die <b>nächsten Schritte</b>, die vor dem Rollout auf alle rund 40 Berechtigten liegen.</p>
 
-  <h2 class="sec">Sieben erste Schritte zum eigenen Berichtswesen</h2>
-  <p class="sub">Jeder Schritt nennt, was zu tun ist, und die Stelle, an der es häufig hakt. Keiner davon verlangt, dass schon eine Zeile im Datenmodell steht.</p>
+  <h2 class="sec">Die nächsten Schritte laut Konzept</h2>
+  <p class="sub">Zu jedem Schritt steht darunter, an welcher Stelle des Konzepts er gebraucht wird.</p>
   <div class="ck" id="ckListe"></div>
 
   <h2 class="sec">Das Glossar zum Controlling-Konzept</h2>
-  <p class="sub">Die verbindlichen Definitionen und Berechnungsvorschriften stehen im Kennzahlenglossar des CV, das als eigenes Dokument geführt wird. Hier steht jeweils die Idee hinter dem Begriff.</p>
+  <p class="sub">Die verbindlichen Definitionen und Berechnungsvorschriften der Kennzahlen stehen im Kennzahlenglossar des CV, das als eigenes Dokument geführt wird. Hier steht, was das Konzept selbst zu den Begriffen sagt.</p>
   <input class="gl-such" id="glSuche" type="search" placeholder="Begriff suchen" aria-label="Glossar durchsuchen">
   <dl class="gl" id="glListe"></dl>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Ein Berichtswesen ist fertig, wenn die Leitungen es <b>von sich aus öffnen</b>, weil sie eine Frage an ihre Einrichtung haben.</p>
+    <p>Vor dem Rollout auf alle Berechtigten steht die <b>Pilotierung mit ausgewählten Leitungen</b>.</p>
   </div>
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.54</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.55</span>
 </footer>
 
 </div>
@@ -752,31 +560,40 @@ Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.54</
 "use strict";
 /* =====================================================================
    Das Controlling-Konzept
-   Jede Lektion hat ihre eigenen Daten und ihr eigenes Kuerzel vor den
-   Funktionen (ds, ib, ar, lf, nv, av, ps, bem, mp, ur, rls, dm, qs, sa,
-   jl, km, q, ck, gl). Alle Skripte teilen sich einen Namensraum, deshalb
-   bekommt ein neues Werkzeug ein Kuerzel, das hier noch nicht steht.
+   Alle Inhalte stammen aus dem Berichtskonzept Personalcontrolling des
+   CV. Das Modul enthaelt keine Zahlen, Faelle oder Annahmen, die dort
+   nicht stehen.
+   Kuerzel der Werkzeuge: ds, ar, lf, nv, bsp, ad, dm, qs, sa, fa, q, ck,
+   gl. Alle Skripte teilen sich einen Namensraum.
    ===================================================================== */
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? "" : s)
   .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-const zahl = (x, d = 0) => x.toLocaleString("de-DE", {minimumFractionDigits:d, maximumFractionDigits:d});
-const MINUS = "−";
-const vz = (x, d = 1) => (x > 0.00001 ? "+" : x < -0.00001 ? MINUS : "±") + zahl(Math.abs(x), d);
-const euro = x => zahl(Math.round(x)) + " €";
 
-/* Eine Seg-Gruppe setzt aria-pressed auf genau einen Knopf. */
-function segSetzen(gruppe, attr, wert){
-  gruppe.querySelectorAll("button").forEach(b =>
-    b.setAttribute("aria-pressed", String(b.dataset[attr] === String(wert))));
+/* ---------------------------------------------------------------------
+   Karten mit Auswahl: eine Reihe Knoepfe, darunter der Text der Wahl.
+   liste: [{t, s, text}], nummeriert zeigt 1, 2, 3 im Knopf.
+   ------------------------------------------------------------------ */
+function auswahl(wahlId, textId, liste, nummeriert, beiWahl){
+  let akt = 0;
+  function zeichne(){
+    $(wahlId).innerHTML = liste.map((x, i) =>
+      `<button class="wk" type="button" data-w="${i}" aria-pressed="${i === akt}">
+        ${nummeriert ? `<span class="n">${i + 1}</span>` : ""}<span class="t">${x.t}</span>${x.s ? `<span class="s">${x.s}</span>` : ""}</button>`).join("");
+    $(textId).innerHTML = liste[akt].text;
+    if(beiWahl) beiWahl(akt);
+  }
+  $(wahlId).addEventListener("click", e => {
+    const b = e.target.closest("[data-w]"); if(!b) return;
+    akt = +b.dataset.w; zeichne();
+    const neu = $(wahlId).querySelector(`[data-w="${akt}"]`); if(neu) neu.focus();
+  });
+  zeichne();
 }
 
-/* =====================================================================
-   Die Zwei-Knopf-Uebung
-   Wird zweimal benutzt (IBCS-Farben in Lektion 01 und Datenmodell in
-   Lektion 05). Jede Zeile hat eine richtige Antwort r (0 oder 1) und
-   eine Begruendung w.
-   ===================================================================== */
+/* ---------------------------------------------------------------------
+   Zwei-Knopf-Uebung mit richtiger Antwort r (0 oder 1) und Begruendung w
+   ------------------------------------------------------------------ */
 function uebung(el, cfg){
   const stand = cfg.items.map(() => null);
   function zeichne(){
@@ -786,7 +603,7 @@ function uebung(el, cfg){
       const a = stand[i];
       const kl = a === null ? "" : (a === it.r ? " ok" : " nok");
       return `<div class="ub${kl}">
-        <div class="ub-t"><b>${it.t}</b>${it.s ? `<span>${it.s}</span>` : ""}</div>
+        <div class="ub-t"><b>${it.t}</b></div>
         <div class="ub-k" role="group" aria-label="${esc(it.t)}">${cfg.knoepfe.map((l, j) =>
           `<button type="button" data-i="${i}" data-j="${j}" aria-pressed="${a === j}"${a !== null ? " disabled" : ""}>${l}</button>`).join("")}</div>
         ${a === null ? "" : `<p class="ub-w"><b class="${a === it.r ? "gut" : "schlecht"}">${a === it.r ? "Richtig." : "Nicht ganz."}</b> ${it.w}</p>`}
@@ -805,113 +622,39 @@ function uebung(el, cfg){
 }
 
 /* =====================================================================
-   LEKTION 01 · Der Dreischritt an einer Krankenquote
-   Soll-Arbeitstage und Fehltage des Seniorenhauses 1 fuer Januar bis
-   August. Die Quote ist Fehltage durch Soll-Arbeitstage. Der Plan kennt
-   nur die Summe, deshalb vergleicht Schritt 3 immer mit dem Vorjahr.
+   LEKTION 01 · Der Dreischritt
    ===================================================================== */
-const DS = {
-  soll:8000,
-  ist:{kurz:352, lang:320},
-  vj:{kurz:376, lang:112},
-  plan:520,
-  faelle:[["P-2217","Pflegefachkraft",130],["P-1984","Pflegehilfskraft",105],["P-2342","Hauswirtschaft",85]]
-};
-const DS_SCHRITTE = ["Ist und Maßstab","Die Abweichung","Die Ursache"];
-let dsSchritt = 0, dsMass = "vj";
-const dsQ = t => t / DS.soll * 100;
-
-function dsBalken(label, wert, kl, max = 10){
-  return `<div class="bar-r"><span class="bar-l">${label}</span>
-    <span class="bar-t"><span class="bar-f ${kl}" style="width:${Math.min(100, wert / max * 100)}%"></span></span>
-    <span class="bar-v">${zahl(wert, 1)} %</span></div>`;
-}
-
-function dsZeichnen(){
-  $("dsSchritte").innerHTML = DS_SCHRITTE.map((t, i) =>
-    `<button class="ds-s" type="button" data-s="${i}" aria-pressed="${i === dsSchritt}">
-       <span class="n">${i + 1}</span><span class="t">${t}</span></button>`).join("");
-  const ist = dsQ(DS.ist.kurz + DS.ist.lang);
-  const mass = dsMass === "vj" ? dsQ(DS.vj.kurz + DS.vj.lang) : dsQ(DS.plan);
-  const mName = dsMass === "vj" ? "Vorjahr 2025" : "Plan 2026";
-  let h = `<div class="bars">${dsBalken("Ist 2026", ist, "ist")}${dsBalken(mName, mass, dsMass === "vj" ? "vj" : "plan")}`;
-  const d = ist - mass;
-  if(dsSchritt >= 1){
-    h += `<div class="bar-r"><span class="bar-l"><b>Abweichung</b></span>
-      <span class="bar-t"><span class="bar-f schlecht" style="width:${Math.abs(d) / 10 * 100}%"></span></span>
-      <span class="bar-v schlecht">${vz(d)} Pp.</span></div>`;
-  }
-  h += `</div>`;
-  if(dsSchritt === 2){
-    const k = [dsQ(DS.ist.kurz), dsQ(DS.vj.kurz)], l = [dsQ(DS.ist.lang), dsQ(DS.vj.lang)];
-    h += `<div class="ds-split">
-      <div><span class="k">Kurzzeiterkrankung</span><div class="w">${zahl(k[0], 1)} %</div>
-        <span class="d gut">${vz(k[0] - k[1])} Pp. zum Vorjahr</span></div>
-      <div><span class="k">Langzeiterkrankung</span><div class="w">${zahl(l[0], 1)} %</div>
-        <span class="d schlecht">${vz(l[0] - l[1])} Pp. zum Vorjahr</span></div>
-    </div>
-    <div class="tblw" tabindex="0"><table class="tbl">
-      <thead><tr><th>Personalfall</th><th>Dienstart</th><th class="r">Fehltage</th><th>BEM-Schwelle</th></tr></thead>
-      <tbody>${DS.faelle.map(f => `<tr><td class="id">${f[0]}</td><td>${f[1]}</td><td class="r">${f[2]}</td>
-        <td><span class="pill rot">erreicht</span></td></tr>`).join("")}</tbody></table></div>`;
-  }
-  $("dsBild").innerHTML = h;
-  const texte = [
-    `<b>Schritt 1 zeigt den Ist-Wert neben einem Maßstab.</b> Ohne Maßstab lässt sich eine Krankenquote von ${zahl(ist, 1)} % weder hoch noch niedrig nennen. Maßstäbe sind das Vorjahr, soweit vorhanden der Plan sowie implizit die anderen Kostenstellen.`,
-    `<b>Schritt 2 lenkt den Blick auf die Abweichung.</b> Mehr Fehlzeit ist für die Einrichtung ungünstig, weshalb die Abweichung von ${vz(d)} Prozentpunkten rot erscheint und Du sie ohne Deutungsaufwand erkennst.`,
-    `<b>Schritt 3 führt zur Ursache.</b> Die Kurzzeitquote ist gegenüber dem Vorjahr leicht gesunken, während drei Langzeitfälle den gesamten Anstieg erklären. Eine breite Überlastung des Teams sieht anders aus, deshalb sind hier andere Maßnahmen gefragt als ein Programm für alle.` +
-      (dsMass === "plan" ? ` Der Plan kennt keine Aufteilung nach Kurz- und Langzeit, weshalb die Aufteilung mit dem Vorjahr vergleicht.` : "")
-  ];
-  $("dsText").innerHTML = texte[dsSchritt];
-}
-$("dsSchritte").addEventListener("click", e => {
-  const b = e.target.closest("[data-s]"); if(!b) return;
-  dsSchritt = +b.dataset.s; dsZeichnen();
-});
-document.querySelector('#p-a .seg[aria-label="Maßstab"]').addEventListener("click", e => {
-  const b = e.target.closest("[data-m]"); if(!b) return;
-  dsMass = b.dataset.m; segSetzen(e.currentTarget, "m", dsMass); dsZeichnen();
-});
-dsZeichnen();
-
-/* ---------------------------------------------------------------------
-   Die Farbe einer Abweichung
-   ------------------------------------------------------------------ */
-uebung($("ibUeb"), {
-  knoepfe:["günstig","ungünstig"],
-  items:[
-    {t:"Krankenquote 7,1 %", s:"Vorjahr 6,3 %", r:1,
-     w:"Mehr Fehlzeit muss durch Mehrarbeit, Springer oder Fremdpersonal ausgeglichen werden, was doppelte Kosten verursacht."},
-    {t:"Fluktuationsquote 9,8 %", s:"Vorjahr 11,0 %", r:0,
-     w:"Weniger Austritte bedeuten weniger Kosten für Rekrutierung, Einarbeitung und Übergang."},
-    {t:"Personalkosten 2,41 Mio. €", s:"Plan 2,48 Mio. €", r:0,
-     w:"Niedrigere Kosten als geplant sind im Bericht günstig. Die Leitfrage bleibt trotzdem, ob eine unbesetzte Stelle dahintersteht."},
-    {t:"VB-Ist 52,3", s:"refinanziertes VB-Soll 50,0", r:1,
-     w:"Eine Überdeckung ist in der Regel nicht refinanziert, obwohl mehr Personal auf den ersten Blick nach mehr Sicherheit aussieht."},
-    {t:"Resturlaub 1.240 Tage", s:"Vorjahr 980 Tage", r:1,
-     w:"Hoher Resturlaub ballt sich zum Jahresende und belastet über Rückstellungen das Ergebnis."}
-  ]
-});
+auswahl("dsWahl", "dsText", [
+  {t:"Ist-Zustand und Maßstab",
+   text:"<p><b>Erstens zeigt der Bericht den Ist-Zustand im Vergleich zu einem Maßstab.</b> Maßstäbe sind das Vorjahr, soweit vorhanden der Plan sowie implizit andere Kostenstellen.</p>"},
+  {t:"Die Abweichung",
+   text:"<p><b>Zweitens lenkt der Bericht die Aufmerksamkeit auf Abweichungen.</b> Die Darstellung folgt den Notationsregeln nach IBCS, wobei Abweichungen farblich einheitlich als günstig oder ungünstig gekennzeichnet sind, sodass Auffälligkeiten ohne Interpretationsaufwand erkennbar sind.</p>"},
+  {t:"Die Ursache",
+   text:"<p><b>Drittens führt der Bericht zur Ursache.</b> Über Drill-through und Filterung gelangst Du von der aggregierten Kennzahl bis zum einzelnen Personalfall. Erst auf dieser Ebene lässt sich beurteilen, ob eine Abweichung ein strukturelles Problem oder einen erklärbaren Einzelfall darstellt.</p>"}
+], true);
 
 /* =====================================================================
    LEKTION 02 · Die Berichtslandkarte
    Die Anordnung folgt der Skizze aus dem Konzept: oben die Spitzen-
    kennzahlen, in der Mitte die fuenf Fachberichte und der Recherche-
-   bericht, unten der Einzelnachweis. x, y, w, h in Pixeln der Buehne.
+   bericht, unten der Drill-through-Bericht. x, y, w, h in Pixeln der
+   Buehne von 920 x 420.
    ===================================================================== */
 const AR_EBENEN = [["Top-Level",24,64],["1. Detailstufe",176,60],["2. Detailstufe",330,64]];
 const AR = [
   {id:"spitze", kurz:"Spitzen&shy;kennzahlen", name:"Spitzenkennzahlen", ebene:"Top-Level", x:376, y:24, w:152, h:64, acc:"var(--navy)",
    aspekt:"Frühwarnung",
-   inhalt:"Der Bericht verdichtet die wichtigsten Personalkennzahlen auf einer Seite, nämlich Köpfe, VB, Krankenquote, Fluktuationsquote und Altersdurchschnitt, jeweils im Vergleich zum Vorjahr und soweit vorhanden zum Plan. Dazu kommt eine Vorschau auf absehbare Austritte in einem, zwei und drei Jahren.",
+   inhalt:"Der Bericht zeigt die wichtigsten Personalkennzahlen im Vorjahresvergleich und, soweit Planwerte vorliegen, im Planvergleich. Enthalten sind Köpfe, Vollbeschäftigtenwerte (VB), Krankenquote, Fluktuationsquote und Altersdurchschnitt. Ergänzend zeigt er eine Vorschau auf absehbare Austritte in den nächsten ein, zwei und drei Jahren, deren Grundlage Befristungsende, Erreichen der Regelaltersgrenze, vereinbarte Altersteilzeit und bereits vorliegende Kündigungen sind.",
+   warum:"Der Bericht dient der schnellen Standortbestimmung und beantwortet die Frage, ob im eigenen Verantwortungsbereich Handlungsbedarf besteht. Er zeigt, ob sich Kapazität, Kosten und Stabilität der Belegschaft planmäßig entwickeln. Die Austrittsvorschau überführt ihn von einer rückblickenden in eine vorausschauende Perspektive, denn Nachbesetzungen im Sozialwesen benötigen erfahrungsgemäß erhebliche Vorlaufzeiten.",
    fragen:["Welche Kennzahl weicht auffällig vom Vorjahr oder vom Plan ab, und in welche Richtung?",
-     "Entwickeln sich Köpfe und VB-Werte gleichläufig, oder verschiebt sich das Verhältnis zwischen Voll- und Teilzeit?",
+     "Entwickeln sich Köpfe und VB-Werte gleichläufig oder verschiebt sich das Verhältnis zwischen Voll- und Teilzeit?",
      "Wie viele Stellen werden in den nächsten ein bis drei Jahren frei, und sind darunter Schlüsselqualifikationen oder Leitungsfunktionen?",
      "Sind Nachfolge und Wissenstransfer für absehbare Austritte bereits geregelt?",
-     "Welcher Fachbericht muss als Nächstes betrachtet werden?"]},
+     "Welcher Fachbericht muss als nächstes betrachtet werden?"]},
   {id:"statistik", kurz:"Personal&shy;statistik", name:"Personalstatistik", ebene:"1. Detailstufe", x:138, y:176, w:116, h:60, acc:"var(--teal-dk)",
    aspekt:"Kapazitäts- und Strukturplanung",
-   inhalt:"Der Bericht beschreibt die Struktur der Belegschaft mit Köpfen und VB, Teilzeit- und Befristungsquote, Dienstart, Qualifikation, Altersstruktur sowie Betriebszugehörigkeit. Wo vorhanden, steht der VB-Ist neben dem Stellenplan oder dem refinanzierten VB-Soll.",
+   inhalt:"Der Bericht beschreibt die Struktur der Belegschaft. Dazu zählen Köpfe und VB-Werte, Teilzeitquote, Befristungsquote, Verteilung nach Dienstart und Qualifikation, Altersstruktur sowie Betriebszugehörigkeit. Wo vorhanden, wird der VB-Ist dem Stellenplan beziehungsweise dem refinanzierten VB-Soll gegenübergestellt.",
+   warum:"Der Bericht zeigt, ob die vorhandene Personalausstattung zum Leistungsangebot und zu den Vorgaben der Kostenträger passt, was im Sozialwesen unmittelbar refinanzierungsrelevant ist. Eine Unterdeckung gefährdet Versorgung und Vorgaben wie Fachkraftquoten, eine Überdeckung ist in der Regel nicht refinanziert. Die Altersstruktur liefert die Grundlage für eine langfristige Personalplanung.",
    fragen:["Deckt der VB-Ist den Stellenplan beziehungsweise den refinanzierten Personalschlüssel?",
      "Wird die geforderte Fachkraftquote eingehalten, und wie stabil ist sie bei absehbaren Austritten?",
      "Wie hoch ist der Anteil befristeter Verträge, und aus welchem Grund wird befristet?",
@@ -919,7 +662,8 @@ const AR = [
      "Wie verteilt sich die Betriebszugehörigkeit, und gibt es Bereiche mit auffällig geringer Bindung?"]},
   {id:"kranken", kurz:"Kranken&shy;analyse", name:"Krankenanalyse", ebene:"1. Detailstufe", x:266, y:176, w:116, h:60, acc:"var(--teal-dk)",
    aspekt:"Kapazitätssicherung, Kostensteuerung und Fürsorge",
-   inhalt:"Der Bericht zeigt die Krankenquote im Zeitverlauf und im Vorjahresvergleich, getrennt nach Kurz- und Langzeiterkrankung sowie nach Zeiten mit und ohne Entgeltfortzahlung. Aufgliederungen nach Kostenstelle, Dienstart, Altersgruppe und Wochentag machen Muster sichtbar, wobei Fälle an der Schwelle zum BEM gekennzeichnet sind.",
+   inhalt:"Der Bericht zeigt die Krankenquote im Zeitverlauf und im Vorjahresvergleich. Er unterscheidet zwischen Kurzzeit- und Langzeiterkrankungen sowie zwischen Zeiträumen mit und ohne Entgeltfortzahlung, wobei Aufgliederungen nach Kostenstelle, Dienstart, Altersgruppe und Wochentag Muster sichtbar machen. Ergänzend sind Fälle gekennzeichnet, bei denen die Schwelle für ein betriebliches Eingliederungsmanagement erreicht ist, also mehr als sechs Wochen Arbeitsunfähigkeit innerhalb von zwölf Monaten.",
+   warum:"Krankheitsbedingte Ausfälle müssen durch Mehrarbeit, Springer oder Fremdpersonal kompensiert werden und verursachen damit doppelte Kosten. Gleichzeitig ist eine erhöhte Krankenquote häufig ein Indikator für Überlastung oder Führungs- und Teamprobleme. Die Trennung von Kurz- und Langzeiterkrankung ist entscheidend, weil beide völlig unterschiedliche Maßnahmen erfordern.",
    fragen:["Ist eine erhöhte Krankenquote von wenigen Langzeitfällen getrieben oder breit verteilt?",
      "Gibt es Kostenstellen, Teams oder Dienstarten mit dauerhaft überdurchschnittlicher Quote?",
      "Treten Häufungen an bestimmten Wochentagen, vor oder nach Wochenenden oder zu bestimmten Jahreszeiten auf?",
@@ -928,7 +672,8 @@ const AR = [
      "Wie werden die Ausfälle aktuell kompensiert, und was kostet diese Kompensation?"]},
   {id:"fluktuation", kurz:"Fluktuations&shy;analyse", name:"Fluktuationsanalyse", ebene:"1. Detailstufe", x:394, y:176, w:116, h:60, acc:"var(--teal-dk)",
    aspekt:"Bindung und Recruiting",
-   inhalt:"Der Bericht zeigt Eintritte, Austritte und die Fluktuationsquote im Zeitverlauf, wobei die Austritte nach Grund gegliedert sind. Gesondert steht die Frühfluktuation (Austritte in den ersten zwölf Monaten, besonders in der Probezeit).",
+   inhalt:"Der Bericht zeigt Eintritte, Austritte und die Fluktuationsquote im Zeitverlauf. Die Austritte sind nach Austrittsgrund gegliedert, insbesondere nach arbeitnehmerinduzierter Kündigung, arbeitgeberinduzierter Kündigung, Aufhebungsvertrag, Befristungsende und Renteneintritt. Gesondert ausgewiesen wird die Frühfluktuation, also Austritte innerhalb der ersten zwölf Monate und insbesondere innerhalb der Probezeit.",
+   warum:"Steuerungsrelevant ist vor allem die arbeitnehmerinduzierte Fluktuation, weil sie auf Unzufriedenheit oder bessere Alternativen am Arbeitsmarkt hinweist. Jeder Austritt verursacht Kosten für Rekrutierung, Einarbeitung und Übergangskompensation. Eine hohe Frühfluktuation deutet auf Mängel in Auswahl oder Einarbeitung hin, während der Saldo aus Eintritten und Austritten zeigt, ob die Einrichtung ihre Kapazität netto halten kann.",
    fragen:["Wie hoch ist der Anteil arbeitnehmerinduzierter Kündigungen an allen Austritten?",
      "Konzentrieren sich Kündigungen auf bestimmte Kostenstellen, Dienstarten, Altersgruppen oder Führungsbereiche?",
      "Wie hoch ist die Frühfluktuation, und was sagt sie über Einarbeitung und Personalauswahl aus?",
@@ -937,15 +682,17 @@ const AR = [
      "Welche Erkenntnisse aus Austrittsgesprächen liegen vor?"]},
   {id:"kosten", kurz:"Personal&shy;kosten", name:"Personalkosten", ebene:"1. Detailstufe", x:522, y:176, w:116, h:60, acc:"var(--teal-dk)",
    aspekt:"Wirtschaftlichkeit und Budgeteinhaltung",
-   inhalt:"Der Bericht zeigt die Personalkosten im Vorjahres- und Planvergleich, gegliedert nach Kostenarten wie Grundvergütung, Zulagen, Zuschlägen, Mehrarbeit, Arbeitgeberanteilen sowie Fremd- und Leihpersonal. Er weist die Kosten je VB aus und zerlegt Abweichungen in Mengen- und Preiseffekt.",
+   inhalt:"Der Bericht zeigt die Personalkosten im Vorjahres- und Planvergleich, gegliedert nach Kostenarten wie Grundvergütung, Zulagen, Zuschläge, Vergütung von Mehrarbeit, Arbeitgeberanteile sowie Kosten für Fremd- und Leihpersonal. Er weist außerdem die Personalkosten je VB aus und zerlegt Abweichungen in ihre Ursachen, nämlich Mengeneffekt (mehr oder weniger VB) und Preiseffekt (Tarifsteigerungen, Stufenaufstiege, Zulagen).",
+   warum:"Da die Personalkosten den größten Kostenblock bilden, entscheidet ihre Entwicklung maßgeblich über das Ergebnis der Einrichtung. Die Zerlegung in Mengen- und Preiseffekt ist zentral, weil allein der Mengeneffekt durch die Einrichtungsleitung direkt beeinflussbar ist. Tarifliche Preissteigerungen nach AVR müssen dagegen in den Verhandlungen mit den Kostenträgern berücksichtigt werden.",
    fragen:["Liegt eine Kostenabweichung an mehr Personal oder an höheren Kosten je VB?",
-     "Welcher Anteil der Steigerung ist tariflich bedingt, und welcher geht auf eigene Entscheidungen zurück?",
+     "Welcher Anteil der Steigerung ist tariflich bedingt und welcher Anteil ist durch eigene Entscheidungen verursacht?",
      "Wie hoch sind die Kosten für Mehrarbeit sowie Fremd- und Leihpersonal, und welche Ausfälle oder Vakanzen stehen dahinter?",
      "Sind die Personalkosten durch die vereinbarten Entgelte refinanziert?",
      "Ist das Jahresbudget auf Basis der bisherigen Entwicklung einzuhalten?"]},
   {id:"urlaub", kurz:"Urlaubs&shy;analyse", name:"Urlaubsanalyse", ebene:"1. Detailstufe", x:650, y:176, w:116, h:60, acc:"var(--teal-dk)",
    aspekt:"Kapazitätssteuerung",
-   inhalt:"Der Bericht stellt je Kostenstelle und Beschäftigtem Anspruch, genommenen, verplanten und Resturlaub gegenüber. Den Kern bildet eine Projektion bis zum Jahresende, die zeigt, in welchen Monaten Engpässe drohen, ergänzt um übertragene Vorjahresansprüche und ihre Verfallsfristen.",
+   inhalt:"Der Bericht stellt je Kostenstelle und Beschäftigtem Urlaubsanspruch, genommenen Urlaub, verplanten Urlaub und Resturlaub gegenüber. Kern des Berichts ist eine unterjährige Projektion, die zeigt, wie viele Urlaubstage bis zum Jahresende noch zu nehmen sind und in welchen Monaten sich dadurch Engpässe ergeben. Ergänzend weist er übertragene Vorjahresansprüche und deren Verfallsfristen aus.",
+   warum:"Nicht gleichmäßig genommener Urlaub verlagert sich erfahrungsgemäß in das letzte Quartal. Da der Urlaub gewährt und gleichzeitig die Versorgung sichergestellt sein muss, entstehen gegen Jahresende Engpässe, die dann nur noch durch Mehrarbeit oder Fremdpersonal zu schließen sind. Der Bericht ermöglicht es, diese Knubbelung frühzeitig zu erkennen und durch eine vorausschauende Urlaubsplanung zu vermeiden. Zudem stellen hohe Resturlaubsbestände eine bilanzielle Verpflichtung dar, die über Rückstellungen das Ergebnis belastet.",
    fragen:["Wie viele Urlaubstage sind bis zum Jahresende noch zu nehmen, und reicht die verbleibende Kapazität dafür aus?",
      "In welchen Kostenstellen und Monaten droht eine Häufung, die die Versorgung gefährdet?",
      "Welche Beschäftigten haben überdurchschnittlich viel Resturlaub, und wurden sie auf die Inanspruchnahme hingewiesen?",
@@ -953,15 +700,17 @@ const AR = [
      "Welche übertragenen Ansprüche verfallen demnächst, und ist die Hinweispflicht gegenüber den Beschäftigten erfüllt?",
      "Wie hoch ist das Volumen an Resturlaub, das zum Jahresende rückstellungsrelevant wird?"]},
   {id:"recherche", kurz:"Recherche&shy;bericht", name:"Recherchebericht", ebene:"1. Detailstufe", x:792, y:176, w:116, h:60, acc:"var(--ochre)", frei:true,
-   aspekt:"Fallbezogene Ad-hoc-Analyse",
-   inhalt:"Der Recherchebericht ist eine flache, frei filterbare Tabelle mit allen Merkmalen je Beschäftigungsverhältnis, deren Spalten Du selbst wählst und deren Ergebnis sich exportieren lässt. Er beantwortet Fragen, die sich mit vordefinierten Kennzahlen nicht beantworten lassen, und erspart damit Einzelanfragen an Personalabteilung und Controlling.",
+   aspekt:"Fallbezogene Ad-hoc-Analyse", fragenTitel:"Beispielhafte Fragestellungen",
+   inhalt:"Der Recherchebericht ist eine flache, frei filterbare Tabelle mit allen verfügbaren Merkmalen je Beschäftigungsverhältnis. Dazu zählen Organisationseinheit, Dienstart, Qualifikation, Vertragsart, Befristung, Beschäftigungsumfang, Alter, Betriebszugehörigkeit, Eingruppierung, Eintritts- und Austrittsdaten, Fehlzeiten sowie Urlaubsstand. Über Filter und frei wählbare Spalten lassen sich beliebige Merkmalskombinationen bilden, deren Ergebnis exportiert werden kann.",
+   warum:"Viele Steuerungsfragen im Alltag lassen sich nicht über vordefinierte Kennzahlen beantworten, weil sie das Auffinden konkreter Personalfälle erfordern. Der Recherchebericht schließt diese Lücke und reduziert Einzelanfragen an Personalabteilung und Controlling.",
    fragen:["Welche Fachkräfte in Teilzeit wären bei Bedarf für eine Aufstockung ansprechbar?",
      "Welche befristeten Verträge laufen im nächsten Quartal aus und müssen entschieden werden?",
      "Welche Beschäftigten erreichen in den nächsten 24 Monaten die Regelaltersgrenze?",
      "Welche Beschäftigten haben ein bestimmtes Dienstjubiläum oder einen Stufenaufstieg vor sich?"]},
-  {id:"drill", kurz:"Einzel&shy;nachweis", name:"Einzelnachweis (Drill-through)", ebene:"2. Detailstufe", x:376, y:330, w:152, h:64, acc:"var(--navy)",
+  {id:"drill", kurz:"Drill-through-&shy;Bericht", name:"Drill-through-Bericht (Einzelnachweis)", ebene:"2. Detailstufe", x:376, y:330, w:152, h:64, acc:"var(--navy)",
    aspekt:"Ursachenklärung und Plausibilisierung",
-   inhalt:"Der Einzelnachweis zeigt die Personalfälle hinter einem aggregierten Wert und übernimmt dafür den vollständigen Filterkontext des aufrufenden Berichts. Du rufst ihn nicht direkt auf, Du erreichst ihn aus jedem darüberliegenden Bericht. Zugleich erkennt die Leitung hier ihre eigenen Mitarbeitenden und kann falsche Zuordnungen sofort zurückmelden.",
+   inhalt:"Der Drill-through-Bericht zeigt die Einzelfälle, die hinter einem aggregierten Wert stehen. Er übernimmt den vollständigen Filterkontext des aufrufenden Berichts und listet ausschließlich die zugehörigen Personalfälle mit den für die jeweilige Fragestellung relevanten Merkmalen. Er wird nicht direkt aufgerufen, Du erreichst ihn aus jedem darüberliegenden Bericht.",
+   warum:"Aggregierte Kennzahlen können durch wenige Einzelfälle stark verzerrt sein. Erst der Einzelnachweis zeigt, ob hinter einer Abweichung ein strukturelles Muster oder ein erklärbarer Sonderfall steht. Gleichzeitig dient er der Plausibilisierung der Daten, da die Leitung ihre eigenen Mitarbeitenden erkennt und fehlerhafte Zuordnungen unmittelbar zurückmelden kann.",
    fragen:["Welche konkreten Personalfälle stehen hinter der Abweichung?",
      "Handelt es sich um ein Muster oder um Einzelfälle mit individueller Erklärung?",
      "Sind alle Fälle korrekt der Kostenstelle zugeordnet?",
@@ -1000,6 +749,8 @@ function arZeichnen(){
   $("arDet").innerHTML = `<h3>${esc(n.name)}</h3>
     <div class="meta"><span class="pill">${esc(n.ebene)}</span><span class="pill teal">Steuerungsaspekt · ${esc(n.aspekt)}</span></div>
     <p>${esc(n.inhalt)}</p>
+    <p>${esc(n.warum)}</p>
+    <p class="km-titel">${esc(n.fragenTitel || "Leitfragen")}</p>
     <ol class="lf-liste">${n.fragen.map(f => `<li>${esc(f)}</li>`).join("")}</ol>`;
 }
 $("arBuehne").addEventListener("click", e => {
@@ -1010,8 +761,8 @@ $("arBuehne").addEventListener("click", e => {
 arZeichnen();
 
 /* ---------------------------------------------------------------------
-   Welcher Bericht welche Leitfrage beantwortet
-   Der Vorrat sind alle Leitfragen aus AR. Gezogen wird ohne Wiederholung,
+   Welcher Bericht welche Leitfrage stellt
+   Der Vorrat sind alle Fragen aus AR. Gezogen wird ohne Wiederholung,
    bis der Vorrat erschoepft ist.
    ------------------------------------------------------------------ */
 const LF = AR.flatMap(n => n.fragen.map(f => ({f, id:n.id})));
@@ -1030,8 +781,8 @@ function lfZeichnen(){
   $("lfFrage").textContent = "„" + lfAktiv.f + "“";
   $("lfWahl").innerHTML = AR.map(n => {
     let kl = "";
-    if(lfGewaehlt){ if(n.id === lfAktiv.id) kl = " right"; else if(n.id === lfGewaehlt) kl = " wrong"; }
-    return `<button type="button" class="${kl.trim()}" data-l="${n.id}"${lfGewaehlt ? " disabled" : ""}>${esc(n.name.replace(" (Drill-through)", ""))}</button>`;
+    if(lfGewaehlt){ if(n.id === lfAktiv.id) kl = "right"; else if(n.id === lfGewaehlt) kl = "wrong"; }
+    return `<button type="button" class="${kl}" data-l="${n.id}"${lfGewaehlt ? " disabled" : ""}>${esc(n.name.replace(" (Einzelnachweis)", ""))}</button>`;
   }).join("");
   const ziel = AR.find(n => n.id === lfAktiv.id);
   $("lfStand").innerHTML = !lfGewaehlt
@@ -1049,395 +800,81 @@ $("lfWeiter").addEventListener("click", lfNaechste);
 lfNaechste();
 
 /* =====================================================================
-   LEKTION 03 · Der Weg durch die Berichte
-   38 Austritte im Fachbereich Altenhilfe, Januar bis August 2026. Grund,
-   Einrichtung und Dienstart stehen fest, damit das Muster in Seniorenhaus
-   2 in jedem Aufruf dasselbe ist. Alter, Betriebszugehoerigkeit und
-   Datum kommen aus einem Zufallsgenerator mit festem Startwert, der bei
-   jedem Laden dieselbe Folge liefert.
+   LEKTION 03 · Die drei Mechanismen und das Beispiel aus dem Konzept
    ===================================================================== */
-const NV_GRUND = {an:"Arbeitnehmerinduzierte Kündigung", ag:"Arbeitgeberinduzierte Kündigung",
-  av:"Aufhebungsvertrag", be:"Befristungsende", re:"Renteneintritt"};
-const NV_EINR = {s1:"Seniorenhaus 1", s2:"Seniorenhaus 2", s3:"Seniorenhaus 3"};
-const NV_DIENST = {pfk:"Pflegefachkraft", phk:"Pflegehilfskraft", sb:"Soziale Betreuung", hw:"Hauswirtschaft", vw:"Verwaltung"};
-const NV_SPEZ = {
-  an:"s2 pfk,s2 pfk,s2 pfk,s2 pfk,s2 pfk,s2 pfk,s2 pfk,s2 pfk,s2 phk,s2 phk,s2 sb,s2 hw,s1 pfk,s1 pfk,s1 phk,s1 phk,s1 hw,s3 pfk,s3 sb,s3 phk",
-  ag:"s1 phk,s3 hw,s2 phk",
-  av:"s1 pfk,s2 sb,s3 phk,s2 vw",
-  be:"s1 phk,s1 phk,s2 phk,s2 phk,s3 hw,s3 phk,s1 sb",
-  re:"s1 pfk,s2 hw,s3 pfk,s3 phk"
-};
-/* Spannen je Grund: Alter von bis, Betriebszugehoerigkeit von bis. */
-const NV_SPANNE = {an:[23,58,0.3,12], ag:[22,50,0.2,3], av:[28,60,1,15], be:[20,35,0.5,2], re:[64,67,10,35]};
-const MONATSENDE = [31,28,31,30,31,30,31,31];
-
-function nvZufall(seed){
-  return () => {
-    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
-    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
-    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-    return ((t ^ t >>> 14) >>> 0) / 4294967296;
-  };
-}
-const NV_FAELLE = (() => {
-  const r = nvZufall(2026), liste = [];
-  let nr = 1000;
-  Object.entries(NV_SPEZ).forEach(([g, spez]) => spez.split(",").forEach(s => {
-    const [e, d] = s.split(" "), [a0, a1, z0, z1] = NV_SPANNE[g];
-    const zug = g === "an" ? z0 + Math.pow(r(), 2) * (z1 - z0) : z0 + r() * (z1 - z0);
-    const mon = 1 + Math.floor(r() * 8);
-    const tag = (g === "be" || g === "re" || r() < 0.6) ? MONATSENDE[mon - 1] : 15;
-    nr += 17 + Math.floor(r() * 60);
-    liste.push({id:"P-" + nr, g, e, d, a:Math.round(a0 + r() * (a1 - a0)), z:Math.round(zug * 10) / 10, mon, tag});
-  }));
-  return liste;
-})();
-
-const NV_DIM = {
-  g:{n:"Austrittsgrund", f:c => NV_GRUND[c.g], ord:Object.values(NV_GRUND)},
-  e:{n:"Einrichtung", f:c => NV_EINR[c.e], ord:Object.values(NV_EINR)},
-  d:{n:"Dienstart", f:c => NV_DIENST[c.d], ord:Object.values(NV_DIENST)},
-  a:{n:"Altersgruppe", f:c => c.a < 30 ? "unter 30" : c.a < 45 ? "30 bis 44" : c.a < 55 ? "45 bis 54" : "55 und älter",
-     ord:["unter 30","30 bis 44","45 bis 54","55 und älter"]},
-  z:{n:"Betriebszugehörigkeit", f:c => c.z < 1 ? "unter 1 Jahr" : c.z <= 5 ? "1 bis 5 Jahre" : "über 5 Jahre",
-     ord:["unter 1 Jahr","1 bis 5 Jahre","über 5 Jahre"]}
-};
-const NV_KOEPFE = 262, NV_FQ_VJ = 12.1;
-let nvSeite = "a", nvEinr = "alle", nvGrund = "alle", nvDim = "g", nvWert = null;
-
-function nvGefiltert(){
-  return NV_FAELLE.filter(c => (nvEinr === "alle" || c.e === nvEinr) && (nvGrund === "alle" || c.g === nvGrund));
-}
-function nvAuswahl(){
-  return nvGefiltert().filter(c => nvWert === null || NV_DIM[nvDim].f(c) === nvWert);
-}
-const nvDatum = c => String(c.tag).padStart(2, "0") + "." + String(c.mon).padStart(2, "0") + ".2026";
-function nvStatus(wie, text){
-  $("nvStatus").innerHTML = `<span class="wie">${wie}</span>${text}`;
-}
-
-function nvZeichnen(){
-  const titel = {a:"Spitzenkennzahlen", b:"Fluktuationsanalyse", c:"Einzelnachweis"};
-  $("nvTitel").textContent = titel[nvSeite];
-  const kr = [["a","Spitzenkennzahlen"],["b","Fluktuationsanalyse"],["c","Einzelnachweis"]]
-    .slice(0, {a:1, b:2, c:3}[nvSeite]);
-  $("nvKrumen").innerHTML = kr.map(([s, t], i) =>
-    (i ? `<span class="sep" aria-hidden="true">›</span>` : "") +
-    (s === nvSeite ? `<b aria-current="page">${t}</b>` : `<button type="button" data-seite="${s}">${t}</button>`)).join("");
-  if(nvSeite === "a") nvSpitze();
-  else if(nvSeite === "b") nvFach();
-  else nvNachweis();
-}
-
-function nvSpitze(){
-  const fq = NV_FAELLE.length / NV_KOEPFE * 100;
-  const kpis = [
-    {k:"Köpfe", w:zahl(NV_KOEPFE), vj:"258", d:"+4", kl:"neutral"},
-    {k:"VB", w:"198,4", vj:"199,1", d:MINUS + "0,7", kl:"neutral"},
-    {k:"Krankenquote", w:"7,6 %", vj:"6,9 %", d:"+0,7 Pp.", kl:"schlecht"},
-    {k:"Fluktuationsquote", w:zahl(fq, 1) + " %", vj:zahl(NV_FQ_VJ, 1) + " %", d:vz(fq - NV_FQ_VJ) + " Pp.", kl:"schlecht", ziel:true},
-    {k:"Altersdurchschnitt", w:"44,8", vj:"44,3", d:"+0,5", kl:"neutral"}
-  ];
-  $("nvInhalt").innerHTML = `<div class="ktx"><span class="pill">Fachbereich Altenhilfe</span><span class="pill">Januar bis August 2026</span><span class="pill">Vergleich zum Vorjahreszeitraum</span></div>
-    <div class="kpis">${kpis.map(p =>
-      `<button type="button" class="kpi${p.ziel ? " ziel" : ""}" data-kpi="${p.ziel ? "f" : p.k}">
-        <span class="k">${p.k}</span><span class="w">${p.w}</span>
-        <span class="d ${p.kl}">${p.d}</span><span class="vj">Vorjahr ${p.vj}</span></button>`).join("")}</div>`;
-}
-
-function nvFach(){
-  const aus = nvGefiltert(), dim = NV_DIM[nvDim];
-  const zaehl = {}; aus.forEach(c => { const v = dim.f(c); zaehl[v] = (zaehl[v] || 0) + 1; });
-  const werte = dim.ord.filter(v => zaehl[v]);
-  const max = Math.max(1, ...werte.map(v => zaehl[v]));
-  const frueh = aus.filter(c => c.z < 1).length;
-  const opt = (obj, akt) => `<option value="alle"${akt === "alle" ? " selected" : ""}>Alle</option>` +
-    Object.entries(obj).map(([k, v]) => `<option value="${k}"${akt === k ? " selected" : ""}>${v}</option>`).join("");
-  $("nvInhalt").innerHTML = `<div class="filter">
-      <label class="fl">Einrichtung<select id="nvSelE">${opt(NV_EINR, nvEinr)}</select></label>
-      <label class="fl">Austrittsgrund<select id="nvSelG">${opt(NV_GRUND, nvGrund)}</select></label>
-    </div>
-    <div class="ktx"><span class="pill teal">${aus.length} Austritte in der Auswahl</span>
-      <span class="pill">davon Frühfluktuation unter einem Jahr · ${frueh}</span>
-      <span class="pill">Fachbereich gesamt · 31 Eintritte, Saldo ${MINUS}7</span></div>
-    <div class="seg" role="group" aria-label="Aufgliedern nach" id="nvDimSeg">${Object.entries(NV_DIM).map(([k, d]) =>
-      `<button type="button" data-dim="${k}" aria-pressed="${k === nvDim}">${d.n}</button>`).join("")}</div>
-    <div class="nv-bars">${werte.map(v =>
-      `<button type="button" class="nv-bar" data-wert="${esc(v)}" aria-pressed="${v === nvWert}">
-        <span class="l">${esc(v)}</span><span class="t"><span class="f" style="width:${zaehl[v] / max * 100}%"></span></span>
-        <span class="v">${zaehl[v]}</span></button>`).join("") || `<p class="hinweis">Keine Austritte in dieser Auswahl.</p>`}</div>
-    <button class="knopf" type="button" id="nvDrill"${nvWert === null ? " disabled" : ""}>Drill-through zum Einzelnachweis</button>`;
-}
-
-function nvNachweis(){
-  const faelle = nvAuswahl().slice().sort((a, b) => a.mon - b.mon || a.tag - b.tag);
-  const chips = ["Januar bis August 2026", "Fachbereich Altenhilfe", "Kennzahl · Austritte",
-    "Einrichtung · " + (nvEinr === "alle" ? "alle" : NV_EINR[nvEinr]),
-    "Austrittsgrund · " + (nvGrund === "alle" ? "alle" : NV_GRUND[nvGrund]),
-    NV_DIM[nvDim].n + " · " + nvWert];
-  const haeufig = (f, liste) => {
-    const z = {}; liste.forEach(c => { const v = f(c); z[v] = (z[v] || 0) + 1; });
-    return Object.entries(z).sort((a, b) => b[1] - a[1])[0] || ["", 0];
-  };
-  const [he, hen] = haeufig(c => NV_EINR[c.e], faelle), [hd, hdn] = haeufig(c => NV_DIENST[c.d], faelle);
-  const frueh = faelle.filter(c => c.z < 1).length;
-  $("nvInhalt").innerHTML = `<div class="ktx">${chips.map(c => `<span class="pill teal">${esc(c)}</span>`).join("")}</div>
-    <div class="tblw" tabindex="0"><table class="tbl">
-      <thead><tr><th>Personalfall</th><th>Einrichtung</th><th>Dienstart</th><th class="r">Alter</th>
-        <th class="r">Zugehörigkeit</th><th>Austritt</th><th>Grund</th></tr></thead>
-      <tbody>${faelle.map(c => `<tr><td class="id">${c.id}</td><td>${NV_EINR[c.e]}</td><td>${NV_DIENST[c.d]}</td>
-        <td class="r">${c.a}</td><td class="r">${zahl(c.z, 1)} J.</td><td>${nvDatum(c)}</td><td>${NV_GRUND[c.g]}</td></tr>`).join("")}</tbody>
-    </table></div>
-    <p class="hinweis">${faelle.length} Personalfälle. Am häufigsten vertreten sind ${esc(he)} mit ${hen} und die Dienstart ${esc(hd)} mit ${hdn} Fällen, wobei ${frueh} ${frueh === 1 ? "Fall" : "Fälle"} auf die Frühfluktuation ${frueh === 1 ? "entfällt" : "entfallen"}.</p>
-    <button class="knopf leise" type="button" data-seite="b">Zurück zur Fluktuationsanalyse</button>`;
-}
-
-function nvDrill(){
-  if(nvWert === null) return;
-  nvSeite = "c"; nvZeichnen();
-  nvStatus("Drill-through", `Der Einzelnachweis hat den gesamten Filterkontext übernommen (Zeitraum, Fachbereich, Kennzahl, Filter und das gewählte Merkmal) und zeigt genau die ${nvAuswahl().length} Personalfälle hinter dem Balken. Erst hier lässt sich beurteilen, ob ein Muster oder ein erklärbarer Einzelfall vorliegt.`);
-}
-
-$("p-c").addEventListener("click", e => {
-  const s = e.target.closest("[data-seite]");
-  if(s){ nvSeite = s.dataset.seite; nvZeichnen();
-    nvStatus("Zurück", "Du bist eine Ebene nach oben gegangen, wobei Deine Filter erhalten bleiben."); return; }
-  const k = e.target.closest("[data-kpi]");
-  if(k){
-    if(k.dataset.kpi === "f"){
-      nvSeite = "b"; nvZeichnen();
-      nvStatus("Schaltfläche", "Du bist von den Spitzenkennzahlen in den Fachbericht gewechselt, wobei Fachbereich und Zeitraum mitgekommen sind. Wähle jetzt einen Balken, zum Beispiel die arbeitnehmerinduzierten Kündigungen.");
-    } else nvStatus("Hinweis", `Im Übungsbeispiel ist der Weg über die Fluktuationsquote ausgebaut. Wohin die Kachel ${esc(k.dataset.kpi)} führt, zeigt die Berichtslandkarte in Lektion 02.`);
-    return;
-  }
-  const d = e.target.closest("[data-dim]");
-  if(d){ nvDim = d.dataset.dim; nvWert = null; nvZeichnen();
-    nvStatus("Slice and Dice", `Dieselben Austritte sind jetzt nach ${NV_DIM[nvDim].n} aufgegliedert.`); return; }
-  const b = e.target.closest("[data-wert]");
-  if(b){ nvWert = b.dataset.wert; nvZeichnen();
-    nvStatus("Auswahl", `Du hast „${esc(nvWert)}“ gewählt. Der Drill-through öffnet jetzt genau diese ${nvAuswahl().length} Fälle.`);
-    const neu = $("nvInhalt").querySelector(".nv-bar[aria-pressed=true]"); if(neu) neu.focus(); return; }
-  if(e.target.closest("#nvDrill")) nvDrill();
-});
-$("p-c").addEventListener("contextmenu", e => {
-  const b = e.target.closest(".nv-bar"); if(!b) return;
-  e.preventDefault(); nvWert = b.dataset.wert; nvDrill();
-});
-$("p-c").addEventListener("change", e => {
-  if(e.target.id === "nvSelE") nvEinr = e.target.value;
-  else if(e.target.id === "nvSelG") nvGrund = e.target.value;
-  else return;
-  nvWert = null; nvZeichnen();
-  nvStatus("Slice and Dice", "Der Filter grenzt die Auswahl ein, sodass sich alle Balken neu berechnen.");
-  const sel = $(e.target.id); if(sel) sel.focus();
-});
-nvZeichnen();
-nvStatus("Start", "Du siehst die Spitzenkennzahlen des Fachbereichs. Die Fluktuationsquote ist gegenüber dem Vorjahr deutlich gestiegen, also tipp sie an.");
-
-/* ---------------------------------------------------------------------
-   Die Austrittsvorschau, kumuliert ueber ein, zwei und drei Jahre
-   ------------------------------------------------------------------ */
-const AV = {
-  1:{be:6, re:4, atz:2, kue:2, pfk:5, leit:1},
-  2:{be:9, re:8, atz:4, kue:2, pfk:9, leit:2},
-  3:{be:11, re:14, atz:8, kue:2, pfk:14, leit:3}
-};
-const AV_TEILE = [["be","Befristungsende","st1"],["re","Regelaltersgrenze","st2"],["atz","Altersteilzeit","st3"],["kue","Kündigung liegt vor","st4"]];
-let avJ = 1;
-function avZeichnen(){
-  const v = AV[avJ], summe = AV_TEILE.reduce((s, [k]) => s + v[k], 0), max = 35;
-  $("avBild").innerHTML = `<div class="stapel" role="img" aria-label="${summe} absehbare Austritte">${AV_TEILE.map(([k, , c]) =>
-      `<span class="${c}" style="width:${v[k] / max * 100}%">${v[k]}</span>`).join("")}</div>
-    <div class="legend">${AV_TEILE.map(([k, t, c]) => `<span><span class="sw ${c}"></span>${t} · ${v[k]}</span>`).join("")}</div>
-    <div class="ktx" style="margin-top:12px"><span class="pill teal">${summe} absehbare Austritte</span>
-      <span class="pill">davon Pflegefachkräfte · ${v.pfk}</span><span class="pill">davon Leitungsfunktionen · ${v.leit}</span></div>`;
-}
-$("avSeg").addEventListener("click", e => {
-  const b = e.target.closest("[data-j]"); if(!b) return;
-  avJ = +b.dataset.j; segSetzen($("avSeg"), "j", avJ); avZeichnen();
-});
-avZeichnen();
-
-/* =====================================================================
-   LEKTION 04 · Die Rechnungen der Fachberichte
-   ===================================================================== */
-/* ---------- Personalstatistik: Koepfe, VB und Fachkraftquote ---------- */
-const PS_SOLL = 6.0, PS_FKQ = 50;
-const PS_TEAM = [["A",true,100],["B",true,100],["C",true,75],["D",true,50],
-                 ["E",false,100],["F",false,75],["G",false,75],["H",false,50]].map(([p, fk, u]) => ({p, fk, u}));
-function psZeichnen(){
-  $("psTeam").innerHTML = PS_TEAM.map((m, i) =>
-    `<div class="tm"><span class="p"><b>${m.p}</b>${m.fk ? "Fachkraft" : "Hilfskraft"}</span>
-      <div class="seg" role="group" aria-label="Umfang Person ${m.p}">${[25,50,75,100].map(u =>
-        `<button type="button" data-ps="${i}" data-u="${u}" aria-pressed="${m.u === u}">${u} %</button>`).join("")}</div></div>`).join("");
-  const vb = PS_TEAM.reduce((s, m) => s + m.u / 100, 0);
-  const fkvb = PS_TEAM.filter(m => m.fk).reduce((s, m) => s + m.u / 100, 0);
-  const tz = PS_TEAM.filter(m => m.u < 100).length / PS_TEAM.length * 100;
-  const fkq = fkvb / vb * 100, dvb = vb - PS_SOLL;
-  const vbKl = Math.abs(dvb) < 0.001 ? "gut" : "schlecht";
-  const vbText = Math.abs(dvb) < 0.001 ? "deckt das Soll genau" :
-    dvb > 0 ? "Überdeckung, in der Regel nicht refinanziert" : "Unterdeckung, gefährdet Versorgung und Vorgaben";
-  $("psWerte").innerHTML = `
-    <div class="mtr"><span class="k">Köpfe</span><div class="w">${PS_TEAM.length}</div><span class="d">bleibt gleich, egal wie Du schiebst</span></div>
-    <div class="mtr"><span class="k">VB-Ist gegen VB-Soll ${zahl(PS_SOLL, 1)}</span><div class="w">${zahl(vb, 2)}</div>
-      <div class="leiste"><span class="f ${vbKl === "gut" ? "" : "schlecht"}" style="width:${Math.min(100, vb / 8 * 100)}%"></span><span class="m" style="left:${PS_SOLL / 8 * 100}%"></span></div>
-      <span class="d ${vbKl}">${vz(dvb, 2)} VB · ${vbText}</span></div>
-    <div class="mtr"><span class="k">Teilzeitquote nach Köpfen</span><div class="w">${zahl(tz, 1)} %</div></div>
-    <div class="mtr"><span class="k">Fachkraftquote nach VB, gefordert ${PS_FKQ} %</span><div class="w ${fkq >= PS_FKQ ? "gut" : "schlecht"}">${zahl(fkq, 1)} %</div>
-      <div class="leiste"><span class="f ${fkq >= PS_FKQ ? "" : "schlecht"}" style="width:${fkq}%"></span><span class="m" style="left:${PS_FKQ}%"></span></div>
-      <span class="d">${zahl(fkvb, 2)} von ${zahl(vb, 2)} VB entfallen auf Fachkräfte</span></div>`;
-}
-$("psTeam").addEventListener("click", e => {
-  const b = e.target.closest("[data-ps]"); if(!b) return;
-  PS_TEAM[+b.dataset.ps].u = +b.dataset.u; psZeichnen();
-  const neu = $("psTeam").querySelector(`[data-ps="${b.dataset.ps}"][data-u="${b.dataset.u}"]`); if(neu) neu.focus();
-});
-psZeichnen();
-
-/* ---------- Krankenanalyse: die Schwelle zum BEM ---------- */
-const BEM_SCHWELLE = 42;
-const BEM_EPIS = [["Januar",5,true],["März",10,true],["Mai",3,false],["Juni",14,true],["September",12,false],["November",8,false]]
-  .map(([m, t, an]) => ({m, t, an}));
-function bemZeichnen(){
-  $("bemEpis").innerHTML = BEM_EPIS.map((x, i) =>
-    `<button type="button" class="epi" data-bem="${i}" aria-pressed="${x.an}"><b>${x.t} Tage</b>${x.m}</button>`).join("");
-  const summe = BEM_EPIS.filter(x => x.an).reduce((s, x) => s + x.t, 0), ueber = summe > BEM_SCHWELLE;
-  const n = BEM_EPIS.filter(x => x.an).length;
-  $("bemBild").innerHTML = `<div class="mtr"><span class="k">Arbeitsunfähigkeit in zwölf Monaten</span>
-    <div class="w ${ueber ? "schlecht" : ""}">${summe} Kalendertage</div>
-    <div class="leiste"><span class="f ${ueber ? "schlecht" : ""}" style="width:${Math.min(100, summe / 60 * 100)}%"></span><span class="m" style="left:${BEM_SCHWELLE / 60 * 100}%"></span></div>
-    <span class="d">${ueber
-      ? `Die Schwelle von sechs Wochen ist überschritten, deshalb kennzeichnet die Krankenanalyse diesen Fall. Die Leitung bietet ein betriebliches Eingliederungsmanagement an${n > 1 ? `, obwohl keine der ${n} Zeiten für sich lang war` : ""}.`
-      : `Bis zur Schwelle von sechs Wochen fehlen noch ${BEM_SCHWELLE - summe + 1} Tage.`}</span></div>`;
-}
-$("bemEpis").addEventListener("click", e => {
-  const b = e.target.closest("[data-bem]"); if(!b) return;
-  const x = BEM_EPIS[+b.dataset.bem]; x.an = !x.an; bemZeichnen();
-  const neu = $("bemEpis").querySelector(`[data-bem="${b.dataset.bem}"]`); if(neu) neu.focus();
-});
-bemZeichnen();
-
-/* ---------- Personalkosten: Mengen- und Preiseffekt ---------- */
-const MP_VB0 = 50, MP_K0 = 62000;
-function mpZeichnen(){
-  const vb = +$("mpVb").value, k = +$("mpK").value;
-  $("mpVbO").textContent = zahl(vb, 1) + " VB";
-  $("mpKO").textContent = euro(k);
-  const me = (vb - MP_VB0) * MP_K0, pe = (k - MP_K0) * vb, ges = vb * k - MP_VB0 * MP_K0;
-  const max = 700000;
-  const zeile = (l, w, zusatz) => `<div class="bar-r"><span class="bar-l">${l}${zusatz ? `<br><span class="hinweis" style="margin:0">${zusatz}</span>` : ""}</span>
-    <span class="bar-t"><span class="bar-f ${w > 0 ? "schlecht" : "gut"}" style="width:${Math.min(100, Math.abs(w) / max * 100)}%"></span></span>
-    <span class="bar-v ${w > 0 ? "schlecht" : w < 0 ? "gut" : ""}">${w > 0 ? "+" : w < 0 ? MINUS : "±"}${zahl(Math.abs(w) / 1000)} T€</span></div>`;
-  $("mpBild").innerHTML =
-    zeile("Mengeneffekt", me, "von der Leitung direkt beeinflussbar") +
-    zeile("Preiseffekt", pe, "tariflich nach AVR, gehört in die Entgeltverhandlung") +
-    zeile("<b>Abweichung gesamt</b>", ges, `${euro(vb * k)} gegen ${euro(MP_VB0 * MP_K0)}`);
-  const anteil = ges !== 0 ? Math.round(pe / ges * 100) : 0;
-  $("mpText").innerHTML = ges === 0 ? "Die Personalkosten liegen genau auf dem Vorjahr." :
-    `Die Abweichung von <b>${vz(ges / 1000, 0)} T€</b> setzt sich aus ${vz(me / 1000, 0)} T€ Mengeneffekt und ${vz(pe / 1000, 0)} T€ Preiseffekt zusammen. ` +
-    (ges > 0 && pe > 0 && me >= 0 ? `Rund ${anteil} % der Steigerung sind tariflich bedingt und damit ein Thema für die Verhandlung mit den Kostenträgern, während die Leitung über den Mengeneffekt selbst entscheidet.` :
-     "Wo beide Effekte in verschiedene Richtungen zeigen, verdeckt die Gesamtzahl, was tatsächlich passiert ist.");
-}
-["mpVb","mpK"].forEach(id => $(id).addEventListener("input", mpZeichnen));
-mpZeichnen();
-
-/* ---------- Urlaubsanalyse: die Ballung zum Jahresende ---------- */
-const UR_ANSPRUCH = 900, UR_KAP = 100;
-const UR_GENOMMEN = [25,30,45,55,60,65,80,60,55,50];
-const UR_MON = ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
-const UR_MONLANG = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
-function urZeichnen(){
-  const m = +$("urM").value;
-  $("urMO").textContent = UR_MONLANG[m - 1];
-  const genommen = UR_GENOMMEN.slice(0, m).reduce((s, x) => s + x, 0);
-  const rest = UR_ANSPRUCH - genommen, jeMonat = rest / (12 - m), skala = 200;
-  let h = UR_MON.map((mo, i) => {
-    const gen = i < m, w = gen ? UR_GENOMMEN[i] : jeMonat;
-    const kl = gen ? "gen" : "plan" + (jeMonat > UR_KAP ? " ueber" : "");
-    return `<div class="mo"><span class="z">${Math.round(w)}</span><span class="s ${kl}" style="height:${Math.min(100, w / skala * 100)}%"></span></div>`;
+const NV_STUFEN = ["Spitzenkennzahlen","Fachbericht","Drill-through-Bericht"];
+const NV_WEG = [[0, 1, null], [null, null, 1], [null, 1, 2]];
+function nvLeiter(i){
+  const [von, nach, innen] = NV_WEG[i];
+  $("nvLeiter").innerHTML = NV_STUFEN.map((s, j) => {
+    const kl = i === 1 ? (j === innen ? " innen" : "") : (j === von || j === nach ? " an" : "");
+    const pf = j < 2 ? `<div class="pfeil${i !== 1 && j === von ? " an" : ""}">↓</div>` : "";
+    return `<div class="stufe${kl}">${s}<span>${["Top-Level","1. Detailstufe","2. Detailstufe"][j]}</span></div>${pf}`;
   }).join("");
-  h += `<div class="kap" style="bottom:${UR_KAP / skala * 100}%"><span>Kapazität ${UR_KAP}</span></div>`;
-  $("urBild").innerHTML = h;
-  $("urLab").innerHTML = UR_MON.map(x => `<span>${x}</span>`).join("");
-  const ok = jeMonat <= UR_KAP;
-  $("urText").innerHTML = `Bis Ende ${UR_MONLANG[m - 1]} sind ${genommen} von ${UR_ANSPRUCH} Tagen genommen. ` +
-    `Der Rest von ${rest} Tagen ergibt gleichmäßig verteilt <b>${Math.round(jeMonat)} Tage je Monat</b>, ` +
-    (ok ? "sodass die Versorgung ohne Mehrarbeit gesichert bleibt." :
-     "was über der Kapazität liegt und sich nur mit Mehrarbeit oder Fremdpersonal schließen lässt.") +
-    ` Zudem wird der Resturlaub zum Jahresende rückstellungsrelevant und belastet das Ergebnis.`;
 }
-$("urM").addEventListener("input", urZeichnen);
-urZeichnen();
+auswahl("nvWahl", "nvText", [
+  {t:"Schaltfläche", s:"von oben in den Fachbericht",
+   text:"<p>Über Schaltflächen gelangst Du von den Spitzenkennzahlen in den zugehörigen Fachbericht.</p>"},
+  {t:"Slice and Dice", s:"innerhalb eines Berichts",
+   text:"<p>Über Slice-and-Dice-Operationen, also Filtern, Schneiden und Aufgliedern nach Dimensionen wie Fachbereich, Einrichtung, Dienstart, Altersgruppe oder Qualifikation, grenzt Du innerhalb eines Berichts ein.</p>"},
+  {t:"Drill-through", s:"vom Wert zum Einzelnachweis",
+   text:"<p>Über den Drill-through gelangst Du vom aggregierten Wert zum Einzelnachweis. Ein Rechtsklick auf einen Datenpunkt übergibt den gesamten Filterkontext, etwa Zeitraum, Kostenstelle, Kennzahl und Merkmal, an den Einzelnachweis.</p>"}
+], false, nvLeiter);
+
+let bspOffen = false;
+function bspZeichnen(){
+  $("bspWert").setAttribute("aria-pressed", String(bspOffen));
+  $("bspNachweis").innerHTML = !bspOffen ? "" :
+    `<div class="ktx"><span class="pill teal">Übergebener Filterkontext</span><span class="pill">Zeitraum · 2026</span>
+       <span class="pill">Bericht · Fluktuationsanalyse</span><span class="pill">Merkmal · arbeitnehmerinduzierte Kündigung</span></div>
+     <div class="tblw" tabindex="0"><table class="tbl">
+       <thead><tr><th>Kostenstelle</th><th>Dienstart</th><th>Betriebszugehörigkeit</th><th>Austrittsdatum</th></tr></thead>
+       <tbody><tr class="leer"><td colspan="4">Der Einzelnachweis öffnet sich mit genau diesen 20 Personalfällen.</td></tr></tbody>
+     </table></div>
+     <p class="hinweis">Welche Merkmale der Einzelnachweis zeigt, richtet sich nach der jeweiligen Fragestellung. Im Beispiel des Konzepts sind es Kostenstelle, Dienstart, Betriebszugehörigkeit und Austrittsdatum.</p>`;
+}
+$("bspWert").addEventListener("click", () => { bspOffen = !bspOffen; bspZeichnen(); });
+$("bspWert").addEventListener("contextmenu", e => { e.preventDefault(); bspOffen = true; bspZeichnen(); });
+bspZeichnen();
 
 /* =====================================================================
-   LEKTION 05 · Zugang, Daten und Seitenaufbau
-   Die Fachbereiche und Kostenstellen sind ausgedachte Beispiele.
+   LEKTION 04 · Adressaten, Daten und Seitenaufbau
    ===================================================================== */
-const RLS_FB = [
-  ["Altenhilfe", ["Seniorenhaus 1","Seniorenhaus 2","Seniorenhaus 3"]],
-  ["Ambulante Dienste", ["Pflegedienst Nord","Pflegedienst Süd","Tagespflege"]],
-  ["Kinder, Jugend und Familie", ["Kita 1","Kita 2","Erziehungsberatung"]],
-  ["Beratung und Teilhabe", ["Eingliederungshilfe","Schuldnerberatung","Migrationsdienst"]]
-];
-const RLS_ROLLEN = [
-  {t:"Einrichtungsleitung", sieht:k => k === "Seniorenhaus 2",
-   text:"Die Einrichtungsleitung von Seniorenhaus 2 sieht in jedem Bericht, jeder Kennzahl und jedem Einzelnachweis allein ihre eigene Kostenstelle."},
-  {t:"Fachbereichsleitung", sieht:(k, fb) => fb === "Altenhilfe",
-   text:"Die Fachbereichsleitung Altenhilfe sieht alle drei Seniorenhäuser, für die sie verantwortlich ist. Die Zuordnung von Personen zu Kostenstellen pflegt das Controlling zentral und passt sie bei organisatorischen Veränderungen an."},
-  {t:"Vorstand, Controlling, Personalleitung", sieht:() => true,
-   text:"Vorstand, Controlling und Personalleitung sehen alle Kostenstellen. Durch die freie Wahl im Filter entsteht für sie ohne eigenen Bericht ein impliziter Kostenstellenvergleich, sodass auffällige Einrichtungen direkt neben dem Verbandsdurchschnitt oder Einrichtungen gleichen Typs stehen."}
-];
-let rlsR = 0;
-function rlsZeichnen(){
-  $("rlsSeg").innerHTML = RLS_ROLLEN.map((r, i) =>
-    `<button type="button" data-r="${i}" aria-pressed="${i === rlsR}">${r.t}</button>`).join("");
-  const r = RLS_ROLLEN[rlsR];
-  $("rlsBild").innerHTML = RLS_FB.map(([fb, ks]) => `<div class="fb"><h4>${fb}</h4>${ks.map(k => {
-      const s = r.sieht(k, fb);
-      return `<div class="ks${s ? " sicht" : ""}"><span>${k}</span><span class="z">${s ? "sichtbar" : "gesperrt"}</span></div>`;
-    }).join("")}</div>`).join("");
-  $("rlsText").textContent = r.text;
-}
-$("rlsSeg").addEventListener("click", e => {
-  const b = e.target.closest("[data-r]"); if(!b) return;
-  rlsR = +b.dataset.r; rlsZeichnen();
-  const neu = $("rlsSeg").querySelector(`[data-r="${rlsR}"]`); if(neu) neu.focus();
-});
-rlsZeichnen();
+auswahl("adWahl", "adText", [
+  {t:"Fachbereichs- und Einrichtungsleitungen", s:"die Kernzielgruppe",
+   text:"<p>Sie erhalten Zugriff auf sämtliche Berichte der Personalcontrolling-App. Die Zeilenebenensicherheit (Row-Level-Security) beschränkt die Datensicht auf die Kostenstellen, für die die jeweilige Person verantwortlich ist, sodass alle Berichte, Kennzahlen und Einzelnachweise ausschließlich den eigenen Verantwortungsbereich zeigen.</p><p>Die Zuordnung von Personen zu Kostenstellen wird zentral gepflegt und bei organisatorischen Veränderungen durch das Controlling aktualisiert.</p>"},
+  {t:"Vorstand, Controlling und Personalleitung", s:"berechtigt für alle Kostenstellen",
+   text:"<p>Sie nutzen dieselben Berichte, sind jedoch für alle Kostenstellen berechtigt. Durch die freie Wahl von Kostenstellen und Fachbereichen im Filterbereich entsteht für diese Gruppe ohne gesonderten Bericht ein impliziter Kostenstellenvergleich.</p><p>Auffällige Einrichtungen lassen sich so direkt identifizieren und mit dem Verbandsdurchschnitt oder vergleichbaren Einrichtungen gleichen Typs abgleichen.</p>"}
+], false);
 
 uebung($("dmUeb"), {
   knoepfe:["im Modell","nicht im Modell"],
   items:[
-    {t:"Fehlzeiten je Zeitraum", r:0, w:"Krankheit erscheint im Modell ausschließlich als Fehlzeit."},
-    {t:"Diagnose", r:1, w:"Diagnosen sind nicht Bestandteil des Datenmodells."},
-    {t:"Krankheitsgrund", r:1, w:"Gründe einer Erkrankung stehen ebenfalls nicht im Modell."},
-    {t:"Befristungsende", r:0, w:"Das Befristungsende kommt aus den Vertragsdaten und speist unter anderem die Austrittsvorschau."},
-    {t:"Urlaubsstand", r:0, w:"Anspruch, Inanspruchnahme und Resturlaub liefert die Zeiterfassung."},
-    {t:"Eingruppierung", r:0, w:"Die Eingruppierung gehört zu den Merkmalen, die der Recherchebericht je Beschäftigungsverhältnis zeigt."}
+    {t:"Fehlzeiten", r:0, w:"Krankheitsbezogene Daten werden ausschließlich als Fehlzeiten ausgewiesen."},
+    {t:"Diagnosen", r:1, w:"Diagnosen sind nicht Bestandteil des Datenmodells."},
+    {t:"Krankheitsgründe", r:1, w:"Krankheitsgründe sind ebenfalls nicht Bestandteil des Datenmodells."},
+    {t:"Befristung", r:0, w:"Die Befristung gehört zu den Merkmalen, die der Recherchebericht je Beschäftigungsverhältnis zeigt."},
+    {t:"Eingruppierung", r:0, w:"Auch die Eingruppierung gehört zu den Merkmalen des Rechercheberichts."},
+    {t:"Urlaubsstand", r:0, w:"Der Urlaubsstand gehört ebenso dazu. Urlaubsansprüche und ihre Inanspruchnahme liefert die Zeiterfassung."}
   ]
 });
 
 const QS = [
-  {n:"Kidicap", s:"Stamm- und Abrechnungsdaten",
-   l:"Beschäftigungsverhältnisse, Vertragsdaten, Eintritte, Austritte, Befristungen, Vollbeschäftigtenwerte und Personalkosten.",
-   b:["Spitzenkennzahlen","Personalstatistik","Fluktuationsanalyse","Personalkosten","Recherchebericht","Einzelnachweis"]},
-  {n:"Vivendi", s:"Einrichtung und Leistung",
-   l:"Die einrichtungs- und leistungsbezogenen Informationen, vor allem Dienstplanung und organisatorische Zuordnung.",
-   b:["Personalstatistik","Krankenanalyse","Urlaubsanalyse","Recherchebericht","Einzelnachweis"]},
-  {n:"Zeiterfassung", s:"Zeiten und Abwesenheit",
-   l:"Ist-Arbeitszeiten, Fehlzeiten, Urlaubsansprüche und die Inanspruchnahme von Urlaub.",
-   b:["Spitzenkennzahlen","Krankenanalyse","Urlaubsanalyse","Recherchebericht","Einzelnachweis"]}
+  {t:"Kidicap", s:"Stamm- und Abrechnungsdaten",
+   text:"<p><b>Kidicap</b> liefert die Stamm- und Abrechnungsdaten, also Beschäftigungsverhältnisse, Vertragsdaten, Eintritte, Austritte, Befristungen, Vollbeschäftigtenwerte und Personalkosten.</p>"},
+  {t:"Vivendi", s:"Einrichtung und Leistung",
+   text:"<p><b>Vivendi</b> liefert die einrichtungs- und leistungsbezogenen Informationen, insbesondere Dienstplanung und organisatorische Zuordnung.</p>"},
+  {t:"Zeiterfassung", s:"Zeiten und Abwesenheiten",
+   text:"<p>Die <b>Zeiterfassung</b> liefert Ist-Arbeitszeiten, Fehlzeiten, Urlaubsansprüche und Urlaubsinanspruchnahme.</p>"}
 ];
-const QS_BERICHTE = ["Spitzenkennzahlen","Personalstatistik","Krankenanalyse","Fluktuationsanalyse","Personalkosten","Urlaubsanalyse","Recherchebericht","Einzelnachweis"];
+const QS_MODELL = "<p>Alle Berichte greifen auf ein gemeinsames semantisches Modell zu. Dadurch sind Kennzahlen in jedem Bericht identisch definiert und berechnet, sodass abweichende Zahlenstände zwischen Berichten ausgeschlossen sind.</p>";
 let qsW = 0;
 function qsZeichnen(){
   $("qsQuellen").innerHTML = QS.map((q, i) =>
-    `<button type="button" class="qb" data-q="${i}" aria-pressed="${i === qsW}"><b>${q.n}</b><span>${q.s}</span></button>`).join("");
-  const q = QS[qsW];
-  $("qsBerichte").innerHTML = QS_BERICHTE.map(b =>
-    `<span style="${q.b.includes(b) ? "background:var(--teal-xl);color:var(--teal-dk);font-weight:600" : ""}">${b}</span>`).join("");
-  $("qsDet").innerHTML = `<b>${q.n} liefert</b> ${q.l} Hervorgehoben sind die Berichte, die in diesem Beispiel auf diese Daten zugreifen. Weil alle Berichte dasselbe Modell nutzen, ist jede Kennzahl überall gleich definiert und berechnet.`;
+    `<button type="button" class="qb" data-q="${i}" aria-pressed="${i === qsW}"><b>${q.t}</b><span>${q.s}</span></button>`).join("");
+  $("qsText").innerHTML = QS[qsW].text + QS_MODELL;
 }
+$("qsBerichte").innerHTML = AR.map(n => `<span>${esc(n.name.replace(" (Einzelnachweis)", ""))}</span>`).join("");
 $("qsQuellen").addEventListener("click", e => {
   const b = e.target.closest("[data-q]"); if(!b) return;
   qsW = +b.dataset.q; qsZeichnen();
@@ -1446,24 +883,23 @@ $("qsQuellen").addEventListener("click", e => {
 qsZeichnen();
 
 const SA = [
-  {id:"kopf", t:"Kopf", z:"Titel · Berichtsstichtag · Datenstand",
-   x:"Oben stehen Titel, Berichtsstichtag und Datenstand. Damit erkennst Du jederzeit, auf welcher Grundlage die Zahlen beruhen, was die erste Frage ist, wenn eine Zahl nicht zu Deinem Eindruck passt."},
-  {id:"filter", t:"Filterleiste", z:"Zeitraum · Fachbereich · Einrichtung · Kostenstelle", reihe:["Zeitraum","Fachbereich","Einrichtung","Kostenstelle"],
-   x:"Die globale Filterleiste mit Zeitraum, Fachbereich, Einrichtung und Kostenstelle steht auf jeder Seite an derselben Stelle. Was Du hier wählst, nimmt der Drill-through in den Einzelnachweis mit."},
-  {id:"kpi", t:"Kennzahlenzeile", z:"die wichtigsten Werte mit Abweichung",
-   x:"Die Kennzahlenzeile zeigt die wichtigsten Werte des Berichts mit ihrer Abweichung zum Maßstab, farbig nach IBCS."},
-  {id:"vis", t:"Visualisierungsbereich", z:"Diagramme und Tabellen", gross:true,
-   x:"Im Visualisierungsbereich stehen die Diagramme und Tabellen, in denen Du aufgliederst, filterst und per Drill-through zum Einzelnachweis springst."},
-  {id:"kom", t:"Kommentarbereich", z:"Ursache und Maßnahme",
-   x:"Den Abschluss bildet der Kommentarbereich. Hier verbindet die verantwortliche Leitung eine wesentliche Abweichung mit ihrer Ursache und der vereinbarten Maßnahme."}
+  {id:"kopf", t:"Kopfbereich", z:"Titel · Berichtsstichtag · Datenstand",
+   x:"Oben befinden sich Titel, Berichtsstichtag und Datenstand, sodass Du jederzeit erkennst, auf welcher Grundlage die Zahlen beruhen. Die Aktualisierung erfolgt planmäßig nach Abschluss der monatlichen Entgeltabrechnung, was im Konzept als Annahme vermerkt ist und noch abgestimmt wird."},
+  {id:"filter", t:"Filterleiste", z:"Zeitraum · Fachbereich · Einrichtung · Kostenstelle",
+   x:"Darunter liegt die globale Filterleiste mit Zeitraum, Fachbereich, Einrichtung und Kostenstelle."},
+  {id:"kpi", t:"Kennzahlenzeile", z:"",
+   x:"Unter der Filterleiste folgt die Kennzahlenzeile."},
+  {id:"vis", t:"Visualisierungsbereich", z:"", gross:true,
+   x:"Nach der Kennzahlenzeile kommt der Visualisierungsbereich."},
+  {id:"kom", t:"Kommentarbereich", z:"",
+   x:"Den Abschluss bildet ein Kommentarbereich, in dem die verantwortliche Leitung wesentliche Abweichungen kommentiert."}
 ];
 let saW = "kopf";
 function saZeichnen(){
-  $("saSeite").innerHTML = SA.map(z => z.reihe
-    ? `<div class="zone-reihe">${z.reihe.map(r => `<button type="button" class="zone" data-sa="${z.id}" aria-pressed="${saW === z.id}"><b>Filter</b>${r}</button>`).join("")}</div>`
-    : `<button type="button" class="zone${z.gross ? " gross" : ""}" data-sa="${z.id}" aria-pressed="${saW === z.id}"><b>${z.t}</b>${z.z}</button>`).join("");
+  $("saSeite").innerHTML = SA.map(z =>
+    `<button type="button" class="zone${z.gross ? " gross" : ""}" data-sa="${z.id}" aria-pressed="${saW === z.id}"><b>${z.t}</b>${z.z}</button>`).join("");
   const z = SA.find(x => x.id === saW);
-  $("saText").innerHTML = `<b>${z.t}.</b> ${z.x}`;
+  $("saText").innerHTML = `<p><b>${z.t}.</b> ${z.x}</p>`;
 }
 $("saSeite").addEventListener("click", e => {
   const b = e.target.closest("[data-sa]"); if(!b) return;
@@ -1473,170 +909,109 @@ $("saSeite").addEventListener("click", e => {
 saZeichnen();
 
 /* =====================================================================
-   LEKTION 06 · Die Berichte im Fuehrungsalltag
-   Der Planungszeitraum September bis November ist eine Annahme des
-   Beispiels. Das Konzept nennt fuer die Planung keinen Monat.
+   LEKTION 05 · Die Berichte im Fuehrungsalltag
    ===================================================================== */
-let jlM = 8;
-function jlFokus(m){
-  const f = [
-    {t:"Nach der Aktualisierung prüft jede Leitung die Spitzenkennzahlen ihres Bereichs und verfolgt Auffälligkeiten mit den Leitfragen im Fachbericht.", acc:"var(--teal-dk)"},
-    {t:"Im Controllinggespräch werden die wesentlichen Abweichungen erläutert, kommentiert und mit Maßnahmen verbunden.", acc:"var(--teal-dk)"}
-  ];
-  if(m <= 3) f.push({t:"Übertragene Urlaubsansprüche aus dem Vorjahr und ihre Verfallsfristen prüfen, einschließlich der Hinweispflicht gegenüber den Beschäftigten.", acc:"var(--ochre)"});
-  if(m >= 7) f.push({t:"Die Urlaubsanalyse gehört ab dem dritten Quartal in jede Monatsdurchsicht, weil sich nicht genommener Urlaub sonst im letzten Quartal ballt.", acc:"var(--ochre)"});
-  if(m >= 9 && m <= 11) f.push({t:"Personalkosten und Austrittsvorschau liefern die Grundlage für die Wirtschafts- und Personalplanung des Folgejahres (Zeitraum in diesem Beispiel angenommen).", acc:"var(--navy)"});
-  if(m === 12) f.push({t:"Der Resturlaub wird zum Jahresende rückstellungsrelevant, sodass sein Volumen das Ergebnis des Jahres beeinflusst.", acc:"var(--red)"});
-  return f;
-}
-function jlZeichnen(){
-  $("jlMonate").innerHTML = UR_MON.map((mo, i) =>
-    `<button type="button" data-jl="${i + 1}" class="${i >= 6 ? "q" : ""}" aria-pressed="${i + 1 === jlM}" aria-label="${UR_MONLANG[i]}">${mo}</button>`).join("");
-  $("jlFokus").innerHTML = jlFokus(jlM).map(f => `<li style="--acc:${f.acc}">${f.t}</li>`).join("");
-}
-$("jlMonate").addEventListener("click", e => {
-  const b = e.target.closest("[data-jl]"); if(!b) return;
-  jlM = +b.dataset.jl; jlZeichnen();
-  const neu = $("jlMonate").querySelector(`[data-jl="${jlM}"]`); if(neu) neu.focus();
-});
-jlZeichnen();
-
-/* ---------------------------------------------------------------------
-   Ein Kommentar aus Zahl, Ursache und Massnahme
-   Die richtige Ursache ist jeweils die, die der Einzelnachweis der
-   Lektionen 01 und 03 stuetzt.
-   ------------------------------------------------------------------ */
-const KM = [
-  {t:"Krankenquote Seniorenhaus 1", zahl:"Krankenquote 8,4 % gegen 6,1 % im Vorjahr (Januar bis August 2026).",
-   ursachen:[["Drei Langzeitfälle erklären den gesamten Anstieg, während die Kurzzeitquote leicht gesunken ist.", true],
-             ["Das ganze Team ist überlastet, was sich in vielen kurzen Ausfällen zeigt.", false],
-             ["Eine Grippewelle im Frühjahr hat die Quote nach oben gezogen.", false]],
-   massnahmen:[["Den drei Beschäftigten ein BEM anbieten und die Vertretung für ihre Ausfälle planen.", true],
-               ["Ein Gesundheitsprogramm für das gesamte Team auflegen.", false],
-               ["Abwarten, bis sich die Quote von selbst normalisiert.", false]],
-   wer:"Einrichtungsleitung Seniorenhaus 1"},
-  {t:"Fluktuation Altenhilfe", zahl:"Fluktuationsquote 14,5 % gegen 12,1 % im Vorjahr (Januar bis August 2026).",
-   ursachen:[["Die arbeitnehmerinduzierten Kündigungen ballen sich in Seniorenhaus 2, vor allem bei Pflegefachkräften.", true],
-             ["Es gehen deutlich mehr Beschäftigte in Rente als im Vorjahr.", false],
-             ["Viele Befristungen sind ausgelaufen.", false]],
-   massnahmen:[["Die Austrittsgespräche in Seniorenhaus 2 auswerten und die Ursachen mit der Einrichtungsleitung klären.", true],
-               ["Das Budget für Stellenanzeigen im ganzen Fachbereich erhöhen.", false],
-               ["Alle befristeten Verträge vorsorglich verlängern.", false]],
-   wer:"Fachbereichsleitung Altenhilfe"}
-];
-let kmS = 0, kmU = null, kmM = null;
-function kmZeichnen(){
-  $("kmSeg").innerHTML = KM.map((k, i) => `<button type="button" data-km="${i}" aria-pressed="${i === kmS}">${k.t}</button>`).join("");
-  const k = KM[kmS];
-  const wahl = (liste, akt, art) => `<div class="km-wahl">${liste.map(([t], i) =>
-    `<button type="button" data-${art}="${i}" aria-pressed="${akt === i}">${t}</button>`).join("")}</div>`;
-  let h = `<p class="km-schritt">Die Zahl</p><p style="margin:0">${k.zahl}</p>
-    <p class="km-schritt">Welche Ursache stützt der Einzelnachweis?</p>${wahl(k.ursachen, kmU, "kmu")}
-    <p class="km-schritt">Welche Maßnahme passt dazu?</p>${wahl(k.massnahmen, kmM, "kmm")}`;
-  if(kmU !== null && kmM !== null){
-    const uOk = k.ursachen[kmU][1], mOk = k.massnahmen[kmM][1];
-    h += `<div class="kommentar"><p class="kk">Kommentar im Bericht</p>
-      <p><b>Abweichung.</b> ${k.zahl}</p><p><b>Ursache.</b> ${k.ursachen[kmU][0]}</p>
-      <p><b>Maßnahme.</b> ${k.massnahmen[kmM][0]}</p>
-      <p><b>Verantwortlich.</b> ${k.wer}, bis zum nächsten Controllinggespräch.</p></div>
-      <p class="hinweis" style="color:var(--ink)">${uOk && mOk
-        ? `<b class="gut">Stimmig.</b> Zahl, Ursache und Maßnahme passen zusammen, weil die Ursache aus dem Einzelnachweis stammt.`
-        : `<b class="schlecht">Noch nicht stimmig.</b> ${!uOk ? "Der Einzelnachweis stützt diese Ursache nicht. " : ""}${!mOk ? "Die Maßnahme setzt nicht an der Ursache an." : ""}`}</p>`;
-  }
-  $("kmBau").innerHTML = h;
-}
-$("p-f").addEventListener("click", e => {
-  const s = e.target.closest("[data-km]");
-  if(s){ kmS = +s.dataset.km; kmU = kmM = null; kmZeichnen(); return; }
-  const u = e.target.closest("[data-kmu]"); if(u){ kmU = +u.dataset.kmu; kmZeichnen(); return; }
-  const m = e.target.closest("[data-kmm]"); if(m){ kmM = +m.dataset.kmm; kmZeichnen(); }
-});
-kmZeichnen();
+auswahl("faWahl", "faText", [
+  {t:"Monatlicher Rhythmus",
+   text:"<p>Nach jeder Aktualisierung prüfen die Fachbereichs- und Einrichtungsleitungen die Spitzenkennzahlen ihres Verantwortungsbereichs. Auffälligkeiten werden anhand der Leitfragen in den Fachberichten nachvollzogen.</p>"},
+  {t:"Controlling&shy;gespräch",
+   text:"<p>In regelmäßigen Controllinggesprächen zwischen Leitung, Controlling und bei Bedarf Personalleitung werden Abweichungen erläutert und Maßnahmen vereinbart. Die Leitfragen des Konzepts dienen dabei als Gesprächsleitfaden.</p>"},
+  {t:"Kommentierung",
+   text:"<p>Wesentliche Abweichungen werden durch die verantwortliche Leitung kommentiert. So wird die Zahl mit ihrer Ursache und der vereinbarten Maßnahme verbunden.</p>"},
+  {t:"Unterjährige Schwerpunkte",
+   text:"<p>Einzelne Berichte haben saisonale Bedeutung. Die Urlaubsanalyse ist insbesondere ab dem dritten Quartal regelmäßig zu prüfen, während Personalkosten und Austrittsvorschau zentrale Grundlagen für die Wirtschafts- und Personalplanung des Folgejahres sind.</p>"},
+  {t:"Einführung und Schulung",
+   text:"<p>Vor dem Rollout erhalten alle Berechtigten eine kurze Einweisung in Navigation, Filterlogik und Drill-through sowie in die Interpretation der Kennzahlen. Ein Ansprechpartner im Controlling steht für Rückfragen zur Verfügung, wobei die Rückmeldungen der Nutzer in die Weiterentwicklung der Berichte einfließen.</p>"}
+], true);
 
 /* =====================================================================
-   LEKTION 07 · Quiz
+   LEKTION 06 · Quiz
    Jede Frage: Text, Antworten, Index der richtigen, Begruendung. Die
-   Antworten werden bei jedem Ziehen gemischt.
+   Begruendung stuetzt sich allein auf das Konzept. Die Antworten werden
+   bei jedem Ziehen gemischt.
    ===================================================================== */
 const FRAGEN = [
-  ["Welche drei Schritte geht jeder Bericht im Konzept?",
-   ["Ist gegen einen Maßstab zeigen, auf Abweichungen lenken, zur Ursache führen","Daten erfassen, prüfen, archivieren","Planen, budgetieren, kontrollieren","Filtern, exportieren, drucken"], 0,
-   "Der Dreischritt führt vom Vergleich über die Abweichung zur Ursache. Erst auf der Ebene der Einzelfälle lässt sich beurteilen, ob ein strukturelles Problem vorliegt."],
-  ["Welche Maßstäbe nutzen die Berichte?",
+  ["Welchem Zweck dient ein Bericht nach dem Leitgedanken des Konzepts?",
+   ["Er soll Auffälligkeiten sichtbar machen und die richtigen Fragen an die eigene Einrichtung provozieren","Er soll möglichst alle verfügbaren Zahlen zeigen","Er ersetzt das Gespräch zwischen Leitung und Controlling","Er dient der Dokumentation für die Kostenträger"], 0,
+   "Zahlen sind im Konzept der Ausgangspunkt eines Steuerungsgesprächs und nicht dessen Ergebnis."],
+  ["Welche drei Schritte geht jeder Bericht?",
+   ["Ist-Zustand gegen einen Maßstab zeigen, auf Abweichungen lenken, zur Ursache führen","Daten erfassen, prüfen, archivieren","Planen, budgetieren, kontrollieren","Filtern, exportieren, drucken"], 0,
+   "Das ist der Dreischritt, dem jeder Bericht des Konzepts folgt."],
+  ["Welche Maßstäbe nennt das Konzept?",
    ["Das Vorjahr, soweit vorhanden den Plan sowie implizit andere Kostenstellen","Allein den Plan","Allein Branchenwerte","Allein das Vorjahr"], 0,
-   "Das Vorjahr steht immer zur Verfügung, ein Plan nicht für jede Kennzahl. Den Vergleich mit anderen Kostenstellen erlaubt der Filter."],
-  ["Nach welchen Notationsregeln kennzeichnen die Berichte Abweichungen?",
+   "Der Plan steht nicht für jede Kennzahl zur Verfügung, deshalb heißt es „soweit vorhanden“."],
+  ["Nach welchen Notationsregeln folgt die Darstellung der Abweichungen?",
    ["IBCS","DIN 5008","ISO 9001","UML"], 0,
-   "IBCS legt fest, dass Abweichungen einheitlich als günstig oder ungünstig erscheinen, sodass Auffälligkeiten ohne Deutungsaufwand erkennbar sind."],
-  ["Die Krankenquote steigt von 6,1 % auf 8,4 %. Wie erscheint die Abweichung?",
-   ["Als ungünstig, weil mehr Fehlzeit der Einrichtung schadet","Als günstig, weil das Vorzeichen positiv ist","Neutral, weil Krankheit nicht steuerbar ist","Das hängt davon ab, ob ein Plan vorliegt"], 0,
-   "Die Farbe richtet sich nach der Wirkung auf die Einrichtung. Mehr Fehlzeit verursacht Kosten für Mehrarbeit, Springer oder Fremdpersonal."],
+   "Nach IBCS werden Abweichungen farblich einheitlich als günstig oder ungünstig gekennzeichnet, sodass Auffälligkeiten ohne Interpretationsaufwand erkennbar sind."],
+  ["Wie viele Personen umfasst der Kreis der Berichtsempfänger ungefähr?",
+   ["Rund 40","Rund 10","Rund 100","Rund 400"], 0,
+   "Den Kern der rund 40 Berichtsempfänger bilden die Fachbereichs- und Einrichtungsleitungen."],
   ["Wie heißt der Bericht auf der obersten Ebene?",
-   ["Spitzenkennzahlen","Recherchebericht","Einzelnachweis","Personalstatistik"], 0,
-   "Die Spitzenkennzahlen beantworten auf einer Seite, ob im eigenen Bereich Handlungsbedarf besteht, und verzweigen in die Fachberichte."],
+   ["Spitzenkennzahlen","Recherchebericht","Drill-through-Bericht","Personalstatistik"], 0,
+   "Er verdichtet die wichtigsten Personalkennzahlen auf einer Seite und beantwortet die Frage, ob im eigenen Verantwortungsbereich Handlungsbedarf besteht."],
+  ["Welchen Steuerungsaspekt hat der Bericht Spitzenkennzahlen?",
+   ["Frühwarnung","Fallbezogene Ad-hoc-Analyse","Kapazitätssteuerung","Plausibilisierung"], 0,
+   "Der Bericht dient der schnellen Standortbestimmung."],
+  ["Worauf beruht die Austrittsvorschau?",
+   ["Auf Befristungsende, Erreichen der Regelaltersgrenze, vereinbarter Altersteilzeit und bereits vorliegenden Kündigungen","Auf einer Befragung der Beschäftigten","Auf der Fluktuationsquote des Vorjahres","Auf der Krankenquote"], 0,
+   "Die Vorschau zeigt absehbare Austritte in den nächsten ein, zwei und drei Jahren auf Grundlage der Vertragsinformationen."],
   ["Welcher Bericht steht auf der ersten Detailstufe, ist aber kein Kennzahlenbericht?",
-   ["Der Recherchebericht","Die Spitzenkennzahlen","Der Einzelnachweis","Die Personalkosten"], 0,
-   "Der Recherchebericht ist eine flache, frei filterbare Tabelle für fallbezogene Fragen wie auslaufende Befristungen im nächsten Quartal."],
-  ["Wie erreichst Du den Einzelnachweis?",
-   ["Über den Drill-through aus einem darüberliegenden Bericht","Direkt über das Menü der App","Über eine Anfrage beim Controlling","Über einen Export nach Excel"], 0,
-   "Der Einzelnachweis wird nicht direkt aufgerufen. Er übernimmt immer den Filterkontext des Berichts, aus dem Du kommst."],
+   ["Der Recherchebericht","Die Spitzenkennzahlen","Der Drill-through-Bericht","Die Personalkosten"], 0,
+   "Der Recherchebericht ist eine flache, frei filterbare Tabelle für fallbezogene Fragestellungen."],
+  ["Wie erreichst Du den Drill-through-Bericht?",
+   ["Aus jedem darüberliegenden Bericht heraus","Direkt über das Menü der App","Über eine Anfrage beim Controlling","Über einen Export"], 0,
+   "Er wird nicht direkt aufgerufen. Ein Rechtsklick auf einen Datenpunkt übergibt den gesamten Filterkontext an den Einzelnachweis."],
   ["Was übergibt der Drill-through an den Einzelnachweis?",
-   ["Den gesamten Filterkontext mit Zeitraum, Kostenstelle, Kennzahl und Merkmal","Allein die Kostenstelle","Allein den Zeitraum","Keinen, der Einzelnachweis zeigt stets alle Fälle"], 0,
-   "Deshalb zeigt der Einzelnachweis genau die Fälle hinter dem angeklickten Wert, im Beispiel die 20 arbeitnehmerinduzierten Kündigungen."],
+   ["Den gesamten Filterkontext, etwa Zeitraum, Kostenstelle, Kennzahl und Merkmal","Allein die Kostenstelle","Allein den Zeitraum","Keinen Kontext"], 0,
+   "Im Beispiel des Konzepts öffnet der Drill-through auf die 20 arbeitnehmerinduzierten Kündigungen genau diese 20 Personalfälle."],
   ["Was meint Slice and Dice?",
-   ["Filtern, Schneiden und Aufgliedern nach Dimensionen innerhalb eines Berichts","Den Wechsel zwischen Berichten per Schaltfläche","Den Export einer Tabelle","Das Entfernen von Ausreißern"], 0,
-   "Slice and Dice grenzt innerhalb eines Berichts ein, etwa nach Fachbereich, Einrichtung, Dienstart, Altersgruppe oder Qualifikation."],
-  ["Was bewirkt die Zeilenebenensicherheit für eine Einrichtungsleitung?",
-   ["Sie sieht allein die Kostenstellen, die sie verantwortet","Sie sieht allein ausgewählte Berichte","Sie sieht allein Vorjahreszahlen","Sie sieht keine Einzelfälle"], 0,
-   "Alle Leitungen haben dieselben Berichte. Die Berechtigung schneidet allein den Ausschnitt der Daten zu."],
-  ["Wie entsteht für Vorstand und Controlling ein Kostenstellenvergleich?",
-   ["Durch die freie Wahl der Kostenstellen im Filter, ohne eigenen Bericht","Über einen eigenen Vergleichsbericht","Über einen monatlichen Export","Allein im Controllinggespräch"], 0,
-   "Weil diese Gruppe für alle Kostenstellen berechtigt ist, genügt der Filter, um auffällige Einrichtungen neben den Durchschnitt zu stellen."],
-  ["Was enthält das Datenmodell zu Erkrankungen?",
-   ["Allein Fehlzeiten, keine Diagnosen und keine Krankheitsgründe","Diagnosen in anonymisierter Form","Krankheitsgründe nach Kategorien","Gar nichts"], 0,
-   "Krankheitsbezogene Daten erscheinen ausschließlich als Fehlzeiten. Diagnosen und Gründe gehören nicht zum Modell."],
+   ["Filtern, Schneiden und Aufgliedern nach Dimensionen innerhalb eines Berichts","Den Wechsel zwischen Berichten per Schaltfläche","Den Export einer Tabelle","Das Löschen einzelner Datensätze"], 0,
+   "Als Dimensionen nennt das Konzept Fachbereich, Einrichtung, Dienstart, Altersgruppe oder Qualifikation."],
+  ["Was bewirkt die Zeilenebenensicherheit für Fachbereichs- und Einrichtungsleitungen?",
+   ["Sie sehen ausschließlich die Kostenstellen, für die sie verantwortlich sind","Sie sehen ausgewählte Berichte","Sie sehen allein Vorjahreszahlen","Sie sehen keine Einzelnachweise"], 0,
+   "Sie erhalten Zugriff auf sämtliche Berichte, die Datensicht ist aber auf den eigenen Verantwortungsbereich beschränkt."],
+  ["Wie entsteht für Vorstand, Controlling und Personalleitung ein Kostenstellenvergleich?",
+   ["Durch die freie Wahl von Kostenstellen und Fachbereichen im Filterbereich, ohne gesonderten Bericht","Über einen eigenen Vergleichsbericht","Über einen monatlichen Export","Allein im Controllinggespräch"], 0,
+   "Diese Gruppe ist für alle Kostenstellen berechtigt, sodass der Vergleich implizit entsteht."],
+  ["Welche krankheitsbezogenen Daten enthält das Datenmodell?",
+   ["Ausschließlich Fehlzeiten","Diagnosen","Krankheitsgründe","Keine"], 0,
+   "Diagnosen oder Krankheitsgründe sind nicht Bestandteil des Datenmodells."],
   ["Welches System liefert die Stamm- und Abrechnungsdaten?",
    ["Kidicap","Vivendi","Die Zeiterfassung","Power BI"], 0,
-   "Kidicap liefert Vertragsdaten, Eintritte, Austritte, Befristungen, VB und Personalkosten. Vivendi liefert Dienstplanung und organisatorische Zuordnung."],
-  ["Warum greifen alle Berichte auf ein gemeinsames semantisches Modell zu?",
-   ["Damit jede Kennzahl in jedem Bericht gleich definiert und berechnet ist","Damit die Berichte schneller laden","Damit jede Leitung eigene Formeln hinterlegen kann","Weil Power BI es technisch verlangt"], 0,
-   "Ein gemeinsames Modell schließt aus, dass zwei Berichte verschiedene Stände derselben Kennzahl zeigen."],
-  ["Was steht im Kopf jeder Berichtsseite?",
-   ["Titel, Berichtsstichtag und Datenstand","Name der Person, die den Bericht erstellt hat","Das Jahresbudget","Die Seitenzahl"], 0,
-   "Stichtag und Datenstand zeigen Dir, auf welcher Grundlage die Zahlen beruhen."],
-  ["Die Köpfe steigen, die VB sinken. Worauf deutet das hin?",
-   ["Auf eine Verschiebung zu mehr Teilzeit","Auf eine höhere Krankenquote","Auf mehr Mehrarbeit","Auf einen Rechenfehler"], 0,
-   "Köpfe zählen Personen, VB den Beschäftigungsumfang. Laufen beide auseinander, verschiebt sich meist das Verhältnis von Voll- und Teilzeit."],
+   "Vivendi liefert Dienstplanung und organisatorische Zuordnung, die Zeiterfassung Ist-Arbeitszeiten, Fehlzeiten und Urlaub."],
+  ["Was folgt daraus, dass alle Berichte auf ein gemeinsames semantisches Modell zugreifen?",
+   ["Kennzahlen sind in jedem Bericht identisch definiert und berechnet","Die Berichte laden schneller","Jede Leitung kann eigene Formeln hinterlegen","Der Datenstand ist tagesaktuell"], 0,
+   "Abweichende Zahlenstände zwischen Berichten sind damit ausgeschlossen."],
+  ["Was steht im Kopfbereich jeder Berichtsseite?",
+   ["Titel, Berichtsstichtag und Datenstand","Der Name der Person, die den Bericht erstellt hat","Das Jahresbudget","Die Leitfragen"], 0,
+   "So erkennst Du jederzeit, auf welcher Grundlage die Zahlen beruhen."],
   ["Warum trennt die Krankenanalyse Kurz- und Langzeiterkrankungen?",
-   ["Weil beide völlig unterschiedliche Maßnahmen erfordern","Weil nur Kurzzeiterkrankungen Kosten verursachen","Weil es gesetzlich vorgeschrieben ist","Weil die Tabelle sonst zu lang wird"], 0,
-   "Drei Langzeitfälle verlangen ein BEM und eine Vertretung, eine breit verteilte Kurzzeitquote eher einen Blick auf Belastung und Führung."],
-  ["Ab wann kennzeichnet die Krankenanalyse einen Fall für das betriebliche Eingliederungsmanagement?",
-   ["Ab mehr als sechs Wochen Arbeitsunfähigkeit innerhalb von zwölf Monaten","Ab drei Wochen am Stück","Ab zehn Krankmeldungen im Jahr","Erst nach einem Jahr Arbeitsunfähigkeit"], 0,
-   "Die sechs Wochen dürfen sich aus mehreren kurzen Zeiten zusammensetzen. Genau das übersieht man ohne Bericht leicht."],
-  ["Welche Austritte sind für die Steuerung vor allem relevant?",
-   ["Arbeitnehmerinduzierte Kündigungen","Renteneintritte","Befristungsenden","Arbeitgeberinduzierte Kündigungen"], 0,
-   "Sie weisen auf Unzufriedenheit oder bessere Alternativen am Arbeitsmarkt hin, weshalb die Einrichtung an ihnen etwas ändern kann."],
+   ["Weil beide völlig unterschiedliche Maßnahmen erfordern","Weil allein Kurzzeiterkrankungen Kosten verursachen","Weil Langzeiterkrankungen nicht im Modell stehen","Weil die Tabelle sonst zu lang wird"], 0,
+   "Das Konzept nennt die Trennung ausdrücklich entscheidend."],
+  ["Welche Schwelle kennzeichnet die Krankenanalyse für ein betriebliches Eingliederungsmanagement?",
+   ["Mehr als sechs Wochen Arbeitsunfähigkeit innerhalb von zwölf Monaten","Drei Wochen am Stück","Zehn Krankmeldungen im Jahr","Ein Jahr Arbeitsunfähigkeit"], 0,
+   "Fälle, bei denen diese Schwelle erreicht ist, werden im Bericht gekennzeichnet."],
+  ["Welche Fluktuation ist nach dem Konzept vor allem steuerungsrelevant?",
+   ["Die arbeitnehmerinduzierte Fluktuation","Renteneintritte","Befristungsenden","Arbeitgeberinduzierte Kündigungen"], 0,
+   "Sie weist auf Unzufriedenheit oder bessere Alternativen am Arbeitsmarkt hin."],
   ["Worauf deutet eine hohe Frühfluktuation hin?",
-   ["Auf Mängel in Personalauswahl oder Einarbeitung","Auf eine zu hohe Vergütung","Auf eine alternde Belegschaft","Auf zu viele Renteneintritte"], 0,
-   "Wer in den ersten zwölf Monaten geht, besonders in der Probezeit, hat meist nicht gefunden, was Auswahl oder Einarbeitung versprochen haben."],
+   ["Auf Mängel in Auswahl oder Einarbeitung","Auf eine zu hohe Vergütung","Auf eine alternde Belegschaft","Auf zu viele Renteneintritte"], 0,
+   "Frühfluktuation meint Austritte innerhalb der ersten zwölf Monate und insbesondere innerhalb der Probezeit."],
   ["Welchen Teil einer Personalkostenabweichung kann die Einrichtungsleitung direkt beeinflussen?",
    ["Den Mengeneffekt","Den Preiseffekt aus Tarifsteigerungen","Die Arbeitgeberanteile","Alle Teile gleichermaßen"], 0,
-   "Über die Zahl der VB entscheidet die Leitung selbst. Tarifliche Steigerungen nach AVR gehören in die Verhandlungen mit den Kostenträgern."],
+   "Tarifliche Preissteigerungen nach AVR müssen dagegen in den Verhandlungen mit den Kostenträgern berücksichtigt werden."],
   ["Warum entstehen gegen Jahresende Engpässe beim Urlaub?",
-   ["Nicht gleichmäßig genommener Urlaub ballt sich im letzten Quartal, während die Versorgung gesichert bleiben muss","Weil im Dezember alle Ansprüche verfallen","Weil die Zeiterfassung zum Jahresende schließt","Weil im vierten Quartal mehr Personal eingestellt wird"], 0,
-   "Urlaub muss gewährt werden, die Versorgung ebenfalls. Was spät im Jahr zusammenkommt, lässt sich häufig nur mit Mehrarbeit oder Fremdpersonal ausgleichen."],
-  ["Ab wann gehört die Urlaubsanalyse regelmäßig in die Monatsdurchsicht?",
+   ["Nicht gleichmäßig genommener Urlaub verlagert sich in das letzte Quartal, während die Versorgung sichergestellt sein muss","Weil im Dezember alle Ansprüche verfallen","Weil die Zeiterfassung zum Jahresende schließt","Weil im vierten Quartal mehr Personal eingestellt wird"], 0,
+   "Die Engpässe sind dann nur noch durch Mehrarbeit oder Fremdpersonal zu schließen."],
+  ["Ab wann ist die Urlaubsanalyse insbesondere regelmäßig zu prüfen?",
    ["Ab dem dritten Quartal","Allein im Dezember","Allein im Januar","Das Konzept nennt keinen Zeitpunkt"], 0,
-   "Ab dem dritten Quartal bleibt noch genug Zeit, um die Urlaubsplanung für den Rest des Jahres zu steuern."],
+   "Das Konzept nennt die Urlaubsanalyse als Beispiel für einen Bericht mit saisonaler Bedeutung."],
   ["Wozu dient die Kommentierung wesentlicher Abweichungen?",
    ["Sie verbindet die Zahl mit ihrer Ursache und der vereinbarten Maßnahme","Sie ersetzt das Controllinggespräch","Sie dokumentiert Datenfehler für die IT","Sie ist eine Pflichtangabe für die Kostenträger"], 0,
-   "Der Kommentar hält fest, was im Controllinggespräch geklärt wurde, sodass die Zahl beim nächsten Blick ihre Erklärung schon mitbringt."],
-  ["Welche Rolle spielen die Leitfragen im Konzept?",
-   ["Sie beschreiben die Steuerungsaspekte eines Berichts und dienen als Leitfaden für das Controllinggespräch","Sie sind Prüffragen für eine Zertifizierung","Sie ersetzen das Kennzahlenglossar","Sie richten sich allein an die IT"], 0,
-   "Die Leitfragen machen aus einem Bericht einen Anlass für ein Gespräch zwischen Leitung, Geschäftsführung und Controlling."],
+   "Kommentiert wird durch die verantwortliche Leitung."],
   ["Was ist vor dem Rollout auf alle rund 40 Berechtigten vorgesehen?",
    ["Eine Pilotierung mit ausgewählten Fachbereichs- und Einrichtungsleitungen","Ein sofortiger Start für alle","Eine externe Zertifizierung","Ein Probelauf allein im Controlling"], 0,
-   "Der Pilot prüft Navigation, Filterlogik und Drill-through im Alltag. Die Rückmeldungen fließen in die Weiterentwicklung der Berichte ein."]
+   "Die Pilotierung steht in der Liste der nächsten Schritte am Ende des Konzepts."]
 ];
 
 let qAktuell = [];
@@ -1663,7 +1038,7 @@ function qRender(){
       }).join("")}</div>
       <p class="qfb"${q.gewaehlt === null ? " hidden" : ""}>${
         q.gewaehlt === null ? "" :
-        (q.gewaehlt === richtig ? "<b class='gut'>Richtig.</b> " : "<b class='schlecht'>Daneben.</b> ") + begr}</p>
+        (q.gewaehlt === richtig ? "<b class='gut'>Richtig.</b> " : "<b class='schlecht'>Daneben.</b> Richtig ist: " + opts[richtig] + ". ") + begr}</p>
     </div>`;
   }).join("");
   const fertig  = qAktuell.filter(q => q.gewaehlt !== null).length;
@@ -1672,10 +1047,7 @@ function qRender(){
     ? QZAHL + " Fragen aus einem Vorrat von " + FRAGEN.length
     : fertig + " von " + QZAHL + " beantwortet · " + treffer + " richtig";
   $("qResult").innerHTML = fertig < QZAHL ? "" :
-    `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
-      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen, der Vorrat hat " + FRAGEN.length + "." :
-      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben und sind der eigentliche Lernstoff." :
-      "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind der Unterschied zwischen Köpfen und VB, die Wege zum Einzelnachweis und die Frage, welcher Teil der Personalkosten beeinflussbar ist."}</div>`;
+    `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> Mit „Fünf neue Fragen“ ziehst Du eine neue Auswahl aus ${FRAGEN.length} Fragen.</div>`;
 }
 $("quiz").addEventListener("click", e => {
   const b = e.target.closest(".qopt"); if(!b || b.disabled) return;
@@ -1687,60 +1059,47 @@ $("qNew").addEventListener("click", qZiehen);
 qZiehen();
 
 /* =====================================================================
-   LEKTION 08 · Praxiseinstieg und Glossar
+   LEKTION 07 · Praxiseinstieg und Glossar
+   Die Schritte sind die naechsten Schritte aus dem Konzept. Der Satz
+   darunter nennt die Stelle im Konzept, die den Schritt braucht.
    ===================================================================== */
 const CK = [
-  ["Die Steuerungsfragen vor den Berichten sammeln",
-   "Frag jede Leitung, welche drei Fragen sie sich jeden Monat zu ihrer Einrichtung stellt. Aus diesen Fragen entstehen die Leitfragen, aus denen sich wiederum die Berichte ergeben.",
-   "Häufig beginnt ein Projekt mit der Frage, welche Daten vorhanden sind. Dann entstehen Berichte, die zeigen, was sich zeigen lässt, statt was eine Leitung wissen muss."],
-  ["Das Kennzahlenglossar verabschieden",
-   "Lege für jede Kennzahl die Definition und die Berechnungsvorschrift fest, bevor die erste Seite gebaut wird (etwa, ob die Krankenquote auf Kalender- oder auf Arbeitstagen beruht).",
-   "Zwei Einrichtungen rechnen dieselbe Quote verschieden und merken es erst im Controllinggespräch, wenn die Zahlen nicht zusammenpassen."],
-  ["Personen den Kostenstellen zuordnen",
-   "Die Zeilenebenensicherheit braucht eine gepflegte Liste, wer für welche Kostenstelle verantwortlich ist. Leg fest, wer diese Liste pflegt und wann sie bei Umorganisationen angepasst wird.",
-   "Nach einem Leitungswechsel sieht die neue Leitung nichts, während die alte noch alles sieht."],
-  ["Die Maßstäbe je Kennzahl klären",
-   "Das Vorjahr steht immer zur Verfügung, ein Plan hingegen nicht für jede Kennzahl. Prüfe deshalb, für welche Kennzahlen Planwerte vorliegen, und halte das Ergebnis im Glossar fest.",
-   "Eine leere Planspalte lässt einen Bericht unfertig wirken, weshalb sie besser fehlt, bis ein Plan vorliegt."],
-  ["Aktualisierung und Datenstand festlegen",
-   "Bestimme den Tag, an dem die Berichte nach der Entgeltabrechnung aktualisiert werden, sodass jede Leitung weiß, ab wann die Zahlen des Vormonats vorliegen.",
-   "Ohne festen Termin schaut niemand regelmäßig hin, weil nie klar ist, ob die Zahlen schon neu sind."],
-  ["Mit wenigen Leitungen pilotieren",
-   "Wähle einige Fachbereichs- und Einrichtungsleitungen für einen Probelauf aus, bevor alle Berechtigten Zugang bekommen. Eine kurze Einweisung in Navigation, Filterlogik und Drill-through gehört dazu, ebenso eine feste Ansprechperson im Controlling.",
-   "Ein Rollout ohne Einweisung erzeugt genau die Einzelanfragen an das Controlling, die der Recherchebericht ersparen soll."],
-  ["Das Controllinggespräch in den Kalender schreiben",
-   "Vereinbare einen festen monatlichen Termin, in dem Leitung und Controlling die Abweichungen anhand der Leitfragen durchgehen, kommentieren und mit einer Maßnahme verbinden.",
-   "Einen Bericht, zu dem es kein Gespräch gibt, öffnet nach wenigen Monaten häufig niemand mehr."]
+  ["Das Grobkonzept mit Vorstand, Personalleitung und Controlling abstimmen",
+   "Diese drei Gruppen nutzen dieselben Berichte wie die Leitungen und sind für alle Kostenstellen berechtigt."],
+  ["Das Kennzahlenglossar erstellen und verabschieden",
+   "Die Kennzahlendefinitionen und Berechnungsvorschriften sind nicht Bestandteil des Grobkonzepts und werden im Kennzahlenglossar festgelegt."],
+  ["Die Zuordnung von Personen zu Kostenstellen für die Berechtigungssteuerung festlegen",
+   "Auf ihr beruht die Zeilenebenensicherheit, die jeder Leitung ausschließlich den eigenen Verantwortungsbereich zeigt."],
+  ["Die verfügbaren Planwerte je Kennzahl klären",
+   "Die Berichte vergleichen mit dem Vorjahr und, soweit Planwerte vorliegen, mit dem Plan."],
+  ["Aktualisierungszeitpunkt und Datenstand festlegen",
+   "Die Aktualisierung nach Abschluss der monatlichen Entgeltabrechnung ist im Konzept bisher eine Annahme, die abzustimmen ist."],
+  ["Mit ausgewählten Fachbereichs- und Einrichtungsleitungen pilotieren",
+   "Die Pilotierung geht dem Rollout auf alle rund 40 Berechtigten voraus. Vor dem Rollout erhalten alle Berechtigten eine kurze Einweisung in Navigation, Filterlogik und Drill-through sowie in die Interpretation der Kennzahlen."]
 ];
-$("ckListe").innerHTML = CK.map(([h, p, f]) =>
-  `<div class="ckitem"><h3>${h}</h3><p>${p}</p><p class="trap"><b>Wo es häufig hakt.</b> ${f}</p></div>`).join("");
+$("ckListe").innerHTML = CK.map(([h, p]) =>
+  `<div class="ckitem"><h3>${h}</h3><p>${p}</p></div>`).join("");
 
 const GL = [
-  ["AVR","Arbeitsvertragsrichtlinien, nach denen sich die Vergütung im Verband richtet. Tarifliche Steigerungen nach AVR bilden den Kern des Preiseffekts."],
-  ["Befristungsquote","Anteil der befristeten Verträge an allen Beschäftigungsverhältnissen."],
-  ["Berichtsstichtag","Der Tag, auf den sich die Zahlen eines Berichts beziehen."],
-  ["Betriebliches Eingliederungsmanagement (BEM)","Angebot an Beschäftigte, die innerhalb von zwölf Monaten länger als sechs Wochen arbeitsunfähig waren, ob am Stück oder in mehreren Zeiten."],
-  ["Datenstand","Der Zeitpunkt, zu dem die Daten zuletzt aus den Quellsystemen geladen wurden."],
-  ["Drill-through","Sprung von einem aggregierten Wert zum Einzelnachweis, wobei der gesamte Filterkontext mitgeht."],
-  ["Einzelnachweis","Unterste Berichtsebene mit den Personalfällen hinter einem Wert. Er ist allein über den Drill-through erreichbar."],
-  ["Fachkraftquote","Anteil der Fachkräfte an der Personalausstattung, dessen Mindestwert Vorgaben wie die der Kostenträger festlegen."],
-  ["Fluktuationsquote","Austritte im Verhältnis zum Personalbestand eines Zeitraums."],
-  ["Frühfluktuation","Austritte innerhalb der ersten zwölf Monate, insbesondere in der Probezeit."],
-  ["IBCS","International Business Communication Standards, Notationsregeln für Berichte, nach denen Abweichungen einheitlich als günstig oder ungünstig erscheinen."],
-  ["Kidicap","Quellsystem für Stamm- und Abrechnungsdaten des Personals."],
-  ["Köpfe","Zahl der beschäftigten Personen, unabhängig vom Beschäftigungsumfang."],
-  ["Krankenquote","Anteil der krankheitsbedingten Fehlzeit an der Sollarbeitszeit eines Zeitraums."],
-  ["Mengeneffekt","Teil einer Kostenabweichung, der auf mehr oder weniger VB zurückgeht. Die Leitung kann ihn direkt beeinflussen."],
-  ["Preiseffekt","Teil einer Kostenabweichung, der auf höhere oder niedrigere Kosten je VB zurückgeht, etwa durch Tarifsteigerungen, Stufenaufstiege oder Zulagen."],
-  ["Recherchebericht","Flache, frei filterbare Tabelle mit allen Merkmalen je Beschäftigungsverhältnis für fallbezogene Fragen."],
-  ["Row-Level-Security","Zeilenebenensicherheit. Sie beschränkt die Daten einer Person auf die Kostenstellen, die sie verantwortet."],
-  ["Semantisches Modell","Gemeinsames Datenmodell, auf das alle Berichte zugreifen, sodass jede Kennzahl überall gleich definiert und berechnet ist."],
-  ["Slice and Dice","Filtern, Schneiden und Aufgliedern nach Dimensionen wie Einrichtung, Dienstart oder Altersgruppe innerhalb eines Berichts."],
-  ["Spitzenkennzahlen","Oberste Berichtsebene mit den wichtigsten Personalkennzahlen und der Austrittsvorschau."],
-  ["Teilzeitquote","Anteil der Beschäftigten in Teilzeit an allen Köpfen."],
-  ["VB","Vollbeschäftigtenwert. Eine Vollzeitstelle zählt 1,0, eine halbe Stelle 0,5."],
-  ["Vivendi","Quellsystem für Dienstplanung und organisatorische Zuordnung."],
-  ["Zeiterfassung","Quellsystem für Ist-Arbeitszeiten, Fehlzeiten und Urlaub."]
+  ["AVR","Nach AVR richten sich die tariflichen Preissteigerungen, die in den Verhandlungen mit den Kostenträgern zu berücksichtigen sind."],
+  ["Austrittsvorschau","Teil der Spitzenkennzahlen. Sie zeigt absehbare Austritte in den nächsten ein, zwei und drei Jahren auf Grundlage von Befristungsende, Regelaltersgrenze, vereinbarter Altersteilzeit und vorliegenden Kündigungen."],
+  ["Betriebliches Eingliederungsmanagement","Die Krankenanalyse kennzeichnet Fälle, bei denen die Schwelle dafür erreicht ist, also mehr als sechs Wochen Arbeitsunfähigkeit innerhalb von zwölf Monaten."],
+  ["Drill-through","Weg vom aggregierten Wert zum Einzelnachweis. Ein Rechtsklick auf einen Datenpunkt übergibt den gesamten Filterkontext."],
+  ["Drill-through-Bericht (Einzelnachweis)","Unterste Berichtsebene mit den Personalfällen hinter einem aggregierten Wert. Er wird nicht direkt aufgerufen."],
+  ["Frühfluktuation","Austritte innerhalb der ersten zwölf Monate und insbesondere innerhalb der Probezeit."],
+  ["IBCS","Notationsregeln, denen die Darstellung folgt. Abweichungen werden danach farblich einheitlich als günstig oder ungünstig gekennzeichnet."],
+  ["Kennzahlenglossar","Separates Dokument mit den verbindlichen Definitionen und Berechnungsvorschriften der Kennzahlen."],
+  ["Kidicap","Quellsystem für Stamm- und Abrechnungsdaten."],
+  ["Mengeneffekt","Teil einer Personalkostenabweichung, der auf mehr oder weniger VB zurückgeht. Er ist durch die Einrichtungsleitung direkt beeinflussbar."],
+  ["Preiseffekt","Teil einer Personalkostenabweichung aus Tarifsteigerungen, Stufenaufstiegen und Zulagen."],
+  ["Recherchebericht","Flache, frei filterbare Tabelle mit allen verfügbaren Merkmalen je Beschäftigungsverhältnis für fallbezogene Fragestellungen."],
+  ["Row-Level-Security","Zeilenebenensicherheit. Sie beschränkt die Datensicht auf die Kostenstellen, für die die jeweilige Person verantwortlich ist."],
+  ["Semantisches Modell","Gemeinsames Modell, auf das alle Berichte zugreifen, sodass Kennzahlen in jedem Bericht identisch definiert und berechnet sind."],
+  ["Slice and Dice","Filtern, Schneiden und Aufgliedern nach Dimensionen wie Fachbereich, Einrichtung, Dienstart, Altersgruppe oder Qualifikation."],
+  ["Spitzenkennzahlen","Oberste Berichtsebene. Sie verdichtet die wichtigsten Personalkennzahlen auf einer Seite."],
+  ["VB","Vollbeschäftigtenwerte."],
+  ["Vivendi","Quellsystem für einrichtungs- und leistungsbezogene Informationen, insbesondere Dienstplanung und organisatorische Zuordnung."],
+  ["Zeiterfassung","Quellsystem für Ist-Arbeitszeiten, Fehlzeiten, Urlaubsansprüche und Urlaubsinanspruchnahme."]
 ];
 function glZeichnen(){
   const s = $("glSuche").value.trim().toLowerCase();
@@ -1754,7 +1113,7 @@ glZeichnen();
 /* =====================================================================
    Lektionen als Reiter, mit Pfeiltasten
    ===================================================================== */
-const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","d","e","f","g","h"];
+const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","d","e","f","g"];
 function select(i){
   tabs.forEach((t, j) => {
     const on = i === j;
