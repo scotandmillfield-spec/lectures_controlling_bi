@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Die Personalstrukturanalyse · Controlling beim CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2; --canvas:#F4F3F0;
+  --green:#2E9E6B; --red:#D9534F;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.1rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:20ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:clamp(1.08rem,1.78vw,1.32rem);font-weight:300;color:#3d3d40;line-height:1.55;margin:0}
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+.claim{font-size:clamp(1.2rem,2.35vw,1.6rem);font-weight:300;line-height:1.42;margin:0 0 26px;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--teal-dk)}
+h2.sec{font-size:1.34rem;font-weight:600;letter-spacing:-.014em;margin:34px 0 4px}
+h2.sec:first-child{margin-top:0}
+p.sub{margin:0 0 18px;color:var(--grey);font-size:1.06rem;line-height:1.6}
+.num-t,.tbl td,.tbl th,.kpi,.mtr,.bar-v{font-variant-numeric:tabular-nums}
+code,.mono{font-family:var(--mono);font-size:.86em}
+
+/* ---------- Schaltflaechen ---------- */
+.seg{display:inline-flex;border:1px solid var(--grey-xl);background:var(--paper);border-radius:var(--r);padding:4px;gap:4px;flex-wrap:wrap}
+.seg button{appearance:none;border:0;background:transparent;cursor:pointer;font-family:var(--sans);
+  font-size:.88rem;font-weight:600;color:var(--grey);padding:9px 16px;border-radius:7px;transition:.16s}
+.seg button:hover{color:var(--teal-dk)}
+.seg button[aria-pressed="true"]{background:var(--teal-dk);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.wsbar{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;margin:0 0 16px}
+.wsbar > *{min-width:0}
+.knopf{appearance:none;border:1px solid var(--teal-dk);background:var(--teal-dk);color:#fff;cursor:pointer;
+  font-family:var(--sans);font-size:.9rem;font-weight:600;padding:10px 18px;border-radius:8px;transition:.16s}
+.knopf:hover:not(:disabled){background:var(--navy);border-color:var(--navy)}
+.knopf:disabled{background:var(--grey-xl);border-color:var(--grey-xl);color:var(--grey);cursor:default}
+.knopf.leise{background:var(--paper);color:var(--teal-dk)}
+.knopf.leise:hover{background:var(--teal-xl)}
+.knopf:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.84rem;color:#4a4a4d}
+select{font-family:var(--sans);font-size:.9rem;padding:8px 10px;border:1px solid var(--grey-mid);
+  border-radius:7px;background:var(--paper);color:var(--ink);max-width:100%}
+select:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
+label.fl{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:var(--grey);
+  font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;min-width:0}
+
+/* ---------- Kaesten ---------- */
+.karte{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:20px 22px;min-width:0}
+.info{background:var(--paper);border:1px solid var(--grey-xl);border-left:4px solid var(--teal);
+  border-radius:var(--r);padding:16px 20px;box-shadow:var(--shadow);font-size:1rem;line-height:1.6;color:#3d3d40}
+.info b{color:var(--ink)}
+.hinweis{font-size:.86rem;color:var(--grey);margin:12px 0 0;line-height:1.5}
+.gut{color:var(--green)} .schlecht{color:var(--red)} .neutral{color:var(--grey)}
+.pill{display:inline-block;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;
+  padding:3px 9px;border-radius:999px;background:var(--grey-xl);color:#3d3d40}
+.pill.teal{background:var(--teal-xl);color:var(--teal-dk)}
+.pill.rot{background:color-mix(in srgb, var(--red) 14%, var(--paper));color:var(--red)}
+.pill.gruen{background:color-mix(in srgb, var(--green) 14%, var(--paper));color:var(--green)}
+
+/* ---------- Tabellen ---------- */
+.tblw{overflow-x:auto;max-width:100%;border:1px solid var(--grey-xl);border-radius:var(--r);background:var(--paper)}
+.tblw:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.tbl{border-collapse:collapse;width:100%;font-size:.88rem}
+.tbl th{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--grey);font-weight:500;text-align:left;padding:10px 12px;border-bottom:1px solid var(--grey-xl);
+  white-space:nowrap;background:var(--canvas)}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--grey-xl);white-space:nowrap}
+.tbl tr:last-child td{border-bottom:0}
+.tbl td.r,.tbl th.r{text-align:right}
+.tbl td.id{font-family:var(--mono);font-size:.82rem}
+
+/* ---------- Zwei-Knopf-Uebung ---------- */
+.ueb{display:grid;gap:10px}
+.ub{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:14px 16px;
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 16px;align-items:center}
+.ub.ok{border-color:var(--green)}
+.ub.nok{border-color:var(--red)}
+.ub-t{min-width:0}
+.ub-t b{display:block;font-weight:600}
+.ub-t span{font-size:.88rem;color:var(--grey)}
+.ub-k{display:flex;gap:6px;flex-wrap:wrap}
+.ub-k button{appearance:none;cursor:pointer;font-family:var(--sans);font-size:.86rem;font-weight:600;
+  border:1px solid var(--grey-mid);background:var(--paper);color:#3d3d40;padding:8px 14px;border-radius:7px}
+.ub-k button:hover:not(:disabled){border-color:var(--teal);color:var(--teal-dk)}
+.ub-k button:disabled{cursor:default;opacity:.55}
+.ub-k button[aria-pressed="true"]{opacity:1;background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.ub-k button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.ub-w{grid-column:1 / -1;margin:0;font-size:.9rem;line-height:1.55;color:#3d3d40}
+.ub-w b.gut,.ub-w b.schlecht{font-weight:700}
+
+/* ---------- Quiz ---------- */
+.qwrap{display:grid;gap:14px}
+.qcard{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px 20px}
+.qcard .qn{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 7px}
+.qcard .qt{font-size:.98rem;font-weight:600;line-height:1.4;margin:0 0 13px}
+.qopts{display:grid;gap:8px}
+.qopt{appearance:none;text-align:left;cursor:pointer;font-family:var(--sans);font-size:.89rem;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--ink);
+  padding:11px 14px;border-radius:8px;transition:.16s;line-height:1.4}
+.qopt:hover:not(:disabled){border-color:var(--teal);background:var(--teal-xl)}
+.qopt:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.qopt:disabled{cursor:default}
+.qopt.right{background:color-mix(in srgb, var(--green) 12%, var(--paper));border-color:var(--green);color:var(--green);font-weight:600}
+.qopt.wrong{background:color-mix(in srgb, var(--red) 12%, var(--paper));border-color:var(--red);color:var(--red);font-weight:600}
+.qfb{margin:13px 0 0;font-size:.86rem;color:#3d3d40;line-height:1.5;
+  padding-top:11px;border-top:1px solid var(--grey-xl)}
+.qfb[hidden]{display:none}
+.qscore{background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:18px 22px;
+  font-size:.98rem;line-height:1.5}
+.qscore b{font-weight:700}
+
+/* ---------- Praxiseinstieg ---------- */
+.ck{display:grid;gap:11px;counter-reset:ck}
+.ckitem{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px 18px 16px 60px;position:relative}
+.ckitem::before{counter-increment:ck;content:counter(ck,decimal-leading-zero);
+  position:absolute;left:18px;top:16px;font-family:var(--mono);font-size:1rem;font-weight:700;
+  color:var(--teal-dk)}
+.ckitem h3{margin:0 0 6px;font-size:.98rem;font-weight:700;letter-spacing:-.01em}
+.ckitem p{margin:0 0 8px;font-size:.9rem;color:#3d3d40;line-height:1.5}
+.ckitem p:last-child{margin-bottom:0}
+.ckitem .trap{font-size:.85rem;color:var(--ochre);line-height:1.45}
+.ckitem .trap b{font-weight:700}
+.gl-such{width:100%;max-width:420px;font-family:var(--sans);font-size:.95rem;padding:10px 12px;
+  border:1px solid var(--grey-mid);border-radius:8px;margin:0 0 14px}
+.gl-such:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
+.gl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.gl div{background:var(--paper);border:1px solid var(--grey-xl);border-radius:8px;padding:12px 14px;min-width:0}
+.gl dt{font-weight:700;margin:0 0 4px}
+.gl dd{margin:0;font-size:.9rem;color:#3d3d40;line-height:1.5}
+
+/* ---------- Auf- und zuklappbare Bloecke innerhalb einer Lektion ------
+   Die Bloecke entstehen zur Laufzeit aus der vorhandenen Gliederung:
+   jedes h2.sec eroeffnet einen Block, alles bis zum naechsten h2.sec
+   ist sein Inhalt. Am Markup ist dafuer nichts zu aendern.          */
+.blk{border-top:1px solid var(--grey-xl)}
+.blk:first-of-type{border-top:0}
+.blk h2.sec{margin:0}
+.blk-t{appearance:none;width:100%;background:transparent;border:0;cursor:pointer;
+  display:flex;align-items:center;gap:12px;text-align:left;padding:20px 0 18px;
+  font:inherit;color:inherit;letter-spacing:inherit;transition:color .16s}
+.blk-t:hover{color:var(--teal-dk)}
+.blk-t:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:4px}
+.blk-c{width:13px;height:13px;flex:none;color:var(--teal-dk);
+  transition:transform .22s var(--ease)}
+.blk[data-open="true"] .blk-c{transform:rotate(90deg)}
+.blk-b{padding:0 0 28px}
+.blk-b[hidden]{display:none}
+@media print{
+body{background:#fff}
+.panel[hidden]{display:none!important}
+.blk-b[hidden]{display:block!important}
+}
+
+/* ---------- Kernaussagen ---------- */
+.pointe{margin-top:34px;background:var(--orange);color:#fff;border-radius:var(--r);padding:26px 28px}
+.pointe .pk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin:0 0 10px}
+.pointe p{margin:0;font-size:clamp(1.12rem,2.1vw,1.45rem);font-weight:300;line-height:1.48}
+.pointe p b{font-weight:700}
+footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+.build{font-family:var(--mono);font-size:.92em;letter-spacing:.02em;opacity:.85}
+
+/* ---------- Der Nachbau des Berichts ----------
+   Der Bericht steht auf einer eigenen Flaeche. Jedes Element mit
+   data-tip bekommt beim Ueberfahren, beim Fokus und beim Antippen
+   eine Erlaeuterung im schwebenden Feld #tip.                        */
+.bericht{background:var(--paper);border:1px solid var(--grey-mid);border-radius:var(--r);box-shadow:var(--shadow);
+  padding:14px 16px 18px;font-size:.9rem;min-width:0}
+.b-kopf{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:10px 22px;align-items:start;
+  padding-bottom:10px;border-bottom:1px solid var(--grey-xl)}
+.b-marke{width:38px;height:38px;border-radius:6px;background:var(--red);color:#fff;display:flex;align-items:center;
+  justify-content:center;font-weight:700;font-size:.95rem}
+.b-titel .o{color:var(--grey);font-size:.85rem;display:block}
+.b-titel{min-width:0}
+.b-titel .t{font-weight:700;font-size:1.15rem;overflow-wrap:anywhere}
+.b-quelle{font-size:.82rem}
+.b-quelle .mono{display:block;font-size:.76rem;margin-top:2px}
+.b-leg{display:grid;grid-template-columns:auto auto;gap:4px 18px;font-size:.78rem;color:#3d3d40}
+.b-leg span{display:inline-flex;align-items:center;gap:6px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px}
+.sw.ist{background:var(--ink)} .sw.vor{background:var(--grey)} .sw.gut{background:var(--green)} .sw.schlecht{background:var(--red)}
+.b-filter{display:flex;flex-wrap:wrap;gap:10px 28px;align-items:flex-end;justify-content:space-between;padding:10px 0 4px}
+.b-filter .g{min-width:0}
+.b-filter .l{display:block;color:var(--grey);font-size:.8rem;margin-bottom:3px}
+.b-seg{display:inline-flex;flex-wrap:wrap}
+.b-seg button{appearance:none;font:inherit;font-size:.85rem;cursor:pointer;border:1px solid var(--grey-mid);background:var(--paper);
+  color:var(--ink);padding:6px 16px;margin-right:-1px;min-width:72px}
+.b-seg button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.b-seg button:focus-visible,.b-sel:focus-visible{outline:2px solid var(--orange);outline-offset:1px;position:relative;z-index:1}
+.b-sel{appearance:none;font:inherit;font-size:.85rem;cursor:pointer;border:0;border-bottom:1px solid var(--grey-mid);
+  background:var(--paper);color:var(--ink);padding:6px 4px;min-width:180px;text-align:left;display:flex;justify-content:space-between;gap:12px}
+.b-nicht{font-size:.76rem;color:#3d3d40;text-align:right;margin:2px 0 6px;cursor:help}
+.b-kpis{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px;padding:8px 0 12px;border-bottom:1px solid var(--grey-xl)}
+.b-kpi{border-left:2px solid var(--acc,var(--grey-mid));padding:2px 0 2px 10px;min-width:0;cursor:help;border-radius:0 4px 4px 0;transition:background .15s}
+.b-kpi:hover,.b-kpi:focus-visible,.b-kpi.blink{background:var(--canvas);outline:none}
+.b-kpi .k{font-size:.85rem;display:block}
+.b-kpi .w{font-size:1.75rem;line-height:1.2;display:block;font-variant-numeric:tabular-nums}
+.b-kpi .d{font-size:.8rem;color:#3d3d40;font-variant-numeric:tabular-nums}
+.gut{color:var(--green)} .schlecht{color:var(--red)}
+.b-diagramme{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr) minmax(0,1fr);gap:22px;padding-top:12px}
+.b-d{min-width:0}
+.b-d h3{margin:0 0 4px;font-size:1.02rem;font-weight:400;cursor:help;display:inline-block}
+.b-hinweis{display:flex;gap:6px;font-size:.76rem;line-height:1.35;color:#3d3d40;margin-top:8px;cursor:help}
+.b-hinweis i{font-style:normal;flex:none;width:15px;height:15px;border:1px solid var(--grey);border-radius:50%;
+  font-size:.66rem;display:flex;align-items:center;justify-content:center;color:var(--grey)}
+[data-tip]:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.blink{animation:blink 1.4s var(--ease) 2}
+@keyframes blink{50%{box-shadow:0 0 0 3px var(--orange)}}
+
+/* Altersstruktur: links Maenner, rechts Frauen, gemeinsamer Massstab */
+.py-kopf{display:grid;grid-template-columns:40px minmax(0,1fr) minmax(0,1fr);font-size:.76rem;color:#3d3d40;margin:2px 0 3px}
+.py-kopf span:nth-child(2){text-align:right;padding-right:8px}
+.py-kopf span:nth-child(3){padding-left:6px}
+.py-z{display:grid;grid-template-columns:40px minmax(0,1fr) minmax(0,1fr);align-items:center;height:18px;cursor:help;border-radius:3px}
+.py-z:hover,.py-z:focus-visible{background:var(--canvas);outline:none}
+.py-z .a{font-size:.74rem;font-variant-numeric:tabular-nums}
+.py-m{display:flex;justify-content:flex-end;align-items:center;gap:4px;border-right:1px solid var(--paper);min-width:0}
+.py-f{display:flex;align-items:center;gap:4px;min-width:0}
+.py-b{height:14px;background:var(--ink);transition:width .5s var(--ease),background .2s}
+.py-z.an .py-b{background:var(--orange)}
+.py-v{font-size:.72rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* Fortschreibung: gestapelt waere es nach Altersgruppen, die Werte der
+   Segmente liegen aber noch nicht vor. Gezeigt wird deshalb die Summe. */
+.fs-auswahl{display:inline-flex;justify-content:space-between;gap:10px;font-size:.8rem;border:1px solid var(--grey-mid);
+  border-radius:3px;padding:3px 8px;margin:0 0 6px;cursor:help;background:var(--paper)}
+.fs{position:relative;height:250px;display:grid;grid-template-columns:30px minmax(0,1fr)}
+.fs-y{position:relative}
+.fs-y span{position:absolute;right:4px;font-size:.7rem;color:#3d3d40;transform:translateY(50%);font-variant-numeric:tabular-nums}
+.fs-flaeche{position:relative;border-bottom:1px solid var(--grey-mid);display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:5px;align-items:end;padding-top:18px}
+.fs-ref{position:absolute;left:0;right:0;border-top:1px solid var(--grey-mid);pointer-events:none}
+.fs-ref span{position:absolute;right:0;top:-16px;font-size:.72rem;font-variant-numeric:tabular-nums}
+.fs-s{position:relative;height:100%;display:flex;flex-direction:column;justify-content:flex-end;cursor:help;min-width:0}
+.fs-s .b{background:var(--grey);transition:height .5s var(--ease),background .2s;border-radius:1px}
+.fs-s .v{font-size:.68rem;text-align:center;font-variant-numeric:tabular-nums;margin-bottom:2px}
+.fs-s:hover .b,.fs-s:focus-visible .b{background:var(--grey-mid)}
+.fs-s:focus-visible{outline:none}
+.fs-s.an .b{background:var(--teal-dk)}
+.fs-x{display:grid;grid-template-columns:30px minmax(0,1fr)}
+.fs-x div{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:5px}
+.fs-x span{font-size:.7rem;text-align:center;font-variant-numeric:tabular-nums}
+
+/* Betriebszugehoerigkeit */
+.bz-z{display:grid;grid-template-columns:44px minmax(0,1fr);align-items:center;height:26px;cursor:help;border-radius:3px}
+.bz-z:hover,.bz-z:focus-visible{background:var(--canvas);outline:none}
+.bz-z .a{font-size:.76rem;font-variant-numeric:tabular-nums}
+.bz-r{display:flex;align-items:center;gap:6px;min-width:0}
+.bz-b{height:16px;background:var(--ink);transition:width .5s var(--ease),background .2s}
+.bz-z.an .bz-b{background:var(--orange)}
+.bz-v{font-size:.74rem;font-variant-numeric:tabular-nums}
+
+/* Tabelle */
+.b-tab h3{margin:18px 0 4px;font-size:1.02rem;font-weight:400;cursor:help;display:inline-block}
+.b-tab table{border-collapse:collapse;width:100%;font-size:.85rem;min-width:760px}
+.b-tab th{font-weight:400;color:#3d3d40;text-align:right;padding:6px 8px;border-bottom:1px solid var(--ink);cursor:help;white-space:nowrap}
+.b-tab th:first-child,.b-tab td:first-child{text-align:left}
+.b-tab td{padding:8px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.b-tab td:first-child{border-right:1px solid var(--ink)}
+.b-tab tr.hinw td{color:var(--grey);font-style:italic;text-align:left;white-space:normal;border-right:0}
+
+/* Das schwebende Erlaeuterungsfeld */
+.tip{position:fixed;z-index:50;max-width:320px;background:var(--navy);color:#fff;border-radius:8px;padding:12px 14px;
+  font-size:.86rem;line-height:1.45;box-shadow:0 8px 24px -8px rgba(0,0,0,.4);pointer-events:none;opacity:0;
+  transform:translateY(4px);transition:opacity .12s,transform .12s}
+.tip.an{opacity:1;transform:none}
+.tip b{display:block;font-size:.95rem;margin-bottom:4px}
+.tip .z{font-family:var(--mono);font-size:.78rem;display:block;margin:4px 0}
+.tip .folgt{display:block;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-style:italic}
+.nachricht{margin-top:12px}
+.nachricht b,.nachricht .z,.nachricht .folgt{display:block}
+.nachricht .z{font-family:var(--mono);font-size:.84rem;margin:2px 0}
+.nachricht .folgt{color:var(--grey);font-style:italic}
+
+/* Werkzeuge unter dem Bericht */
+.werk{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.werk .karte{padding:14px 16px}
+.werk h4{margin:0 0 6px;font-size:.78rem;font-family:var(--mono);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
+.werk .ergebnis{font-size:.95rem;line-height:1.5;margin:8px 0 0;font-variant-numeric:tabular-nums}
+.werk label{font-size:.85rem;display:flex;gap:10px;align-items:center}
+.werk output{font-family:var(--mono);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--teal-dk)}
+input[type=range]:focus-visible{outline:2px solid var(--orange);outline-offset:4px}
+
+/* Glossar als eigene Lektion */
+.gl-k{display:flex;flex-direction:column;gap:6px}
+.gl-k .folgt{font-style:italic;color:var(--grey)}
+.gl-k .knopf{align-self:flex-start;padding:6px 12px;font-size:.8rem;margin-top:4px}
+.gl-grp{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
+
+@media (max-width:1100px){
+.b-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+.b-diagramme{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.b-diagramme .b-d:nth-child(2){grid-column:1 / -1;order:3}
+}
+@media (max-width:760px){
+.b-kopf{grid-template-columns:auto minmax(0,1fr)}
+.b-diagramme{grid-template-columns:1fr}
+.b-diagramme .b-d:nth-child(2){grid-column:auto;order:0}
+.werk{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+.wrap{padding:0 16px 56px}
+.tab{padding:10px 14px;font-size:.88rem}
+.bericht{padding:12px}
+.b-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+.b-kpi .w{font-size:1.4rem}
+.b-titel .t{font-size:1rem}
+.b-seg button{min-width:0;padding:6px 10px}
+.fs-s .v{font-size:.56rem}
+.fs-x span{font-size:.56rem}
+.ub{grid-template-columns:1fr}
+.gl{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+*{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Controlling beim CV · Modul 03 · Entwurf</p>
+  <h1>Die <em>Personalstrukturanalyse</em></h1>
+  <p class="lede">Der erste Bericht der Personalcontrolling-App als Nachbau zum Anfassen. Fahre mit der Maus über ein Element des Berichts oder tipp es an, dann erscheint seine Erläuterung.</p>
+  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Die Werte stammen aus dem Bericht mit Stand 31.08.2026 in der Ansicht Gesamt, Köpfe und 2026. Die inhaltlichen Erläuterungen zu Kennzahlen und Auffälligkeiten folgen, bis dahin steht an ihrer Stelle ein Platzhalter.</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Die Personalstrukturanalyse">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Der Bericht zum Ausprobieren</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Das Glossar zum Bericht</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Quiz</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Praxiseinstieg</button>
+</div>
+
+<!-- ==================== LEKTION 01 · DER BERICHT ==================== -->
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <p class="claim">Die Personalstrukturanalyse zeigt auf einer Seite <b>sieben Kennzahlen</b>, drei Diagramme und eine Tabelle zur Struktur der Belegschaft.</p>
+
+  <h2 class="sec">Der Nachbau der Personalstrukturanalyse</h2>
+  <p class="sub">Jedes Element hat eine Erläuterung. Die Schalter oben lassen sich bedienen und sagen Dir, was sie im echten Bericht bewirken, wobei die Zahlen hier die der Gesamtansicht bleiben.</p>
+
+  <div class="bericht" id="bericht">
+    <div class="b-kopf">
+      <div class="b-marke" data-tip="marke" tabindex="0" aria-label="CV">CV</div>
+      <div class="b-titel" data-tip="titel" tabindex="0"><span class="o">Personalcontrolling</span><span class="t">Personalstrukturanalyse</span></div>
+      <div class="b-quelle" data-tip="quelle" tabindex="0">Quelle &amp; Stand<span class="mono">KIDICAP: 31.08.2026</span></div>
+      <div class="b-leg">
+        <span data-tip="legIst" tabindex="0"><i class="sw ist"></i>Ist</span>
+        <span data-tip="legGut" tabindex="0"><i class="sw gut"></i>Abw. günstig</span>
+        <span data-tip="legVor" tabindex="0"><i class="sw vor"></i>Vorausschau</span>
+        <span data-tip="legSchlecht" tabindex="0"><i class="sw schlecht"></i>Abw. ungünstig</span>
+      </div>
+    </div>
+
+    <div class="b-filter">
+      <div class="g"><span class="l" data-tip="ebene" tabindex="0">Analyseebene</span>
+        <div class="b-seg" id="bEbene" role="group" aria-label="Analyseebene"></div></div>
+      <div class="g" style="display:flex;gap:28px;flex-wrap:wrap;align-items:flex-end">
+        <div><span class="l" data-tip="zeitraum" tabindex="0">Zeitraum</span>
+          <button class="b-sel" type="button" id="bZeit" data-tip="zeitraum">2026 <span aria-hidden="true">⌄</span></button></div>
+        <div><span class="l" data-tip="anzeige" tabindex="0">Anzeige in</span>
+          <div class="b-seg" id="bAnzeige" role="group" aria-label="Anzeige in"></div></div>
+      </div>
+    </div>
+    <p class="b-nicht" data-tip="nicht" tabindex="0">Nicht berücksichtigt: 98 Mitarbeitende</p>
+
+    <div class="b-kpis" id="bKpis"></div>
+
+    <div class="b-diagramme">
+      <div class="b-d" id="dAlter">
+        <h3 data-tip="alter" tabindex="0">Altersstruktur</h3>
+        <div class="py-kopf"><span></span><span>Männer</span><span id="pyAnteil"></span></div>
+        <div id="pyZeilen"></div>
+        <p class="b-hinweis" data-tip="hinwAlter" tabindex="0"><i>i</i><span>317 Köpfe (35,1 % des Kopfbestands) sind 56 Jahre oder älter. Das durchschnittliche Alter der Mitarbeitenden beträgt 46 Jahre.</span></p>
+      </div>
+      <div class="b-d" id="dFort">
+        <h3 data-tip="fort" tabindex="0">Fortschreibung der Altersstruktur</h3><br>
+        <button class="fs-auswahl" type="button" data-tip="fortAuswahl" id="fsAuswahl">Altersfortschreibung mit allen bekannten Austritten <span aria-hidden="true">⌄</span></button>
+        <div class="fs"><div class="fs-y" id="fsY"></div><div class="fs-flaeche" id="fsFlaeche"></div></div>
+        <div class="fs-x"><span></span><div id="fsX"></div></div>
+        <p class="b-hinweis" data-tip="hinwFort" tabindex="0"><i>i</i><span>Bis 2036 sinkt der Bestand ohne Neueinstellungen um 262,3 Köpfe bzw. 30,6 %. Um den Ausgangsbestand zu halten, wären 26,2 Köpfe pro Jahr nachzubesetzen.</span></p>
+      </div>
+      <div class="b-d" id="dZug">
+        <h3 data-tip="zug" tabindex="0">Betriebszugehörigkeit</h3>
+        <div id="bzZeilen" style="margin-top:22px"></div>
+        <p class="b-hinweis" data-tip="hinwZug" tabindex="0"><i>i</i><span>49,3 % des Kopfbestands entfallen auf Mitarbeitende mit höchstens 5 Jahren Betriebszugehörigkeit. Die durchschnittliche Zugehörigkeit beträgt 7,9 Jahre.</span></p>
+      </div>
+    </div>
+
+    <div class="b-tab">
+      <h3 data-tip="tabelle" tabindex="0">Kennzahlen zur Personalstruktur</h3>
+      <div class="tblw" tabindex="0" style="border:0"><table>
+        <thead><tr id="tabKopf"></tr></thead>
+        <tbody id="tabRumpf"></tbody>
+      </table></div>
+    </div>
+  </div>
+  <div class="info nachricht" id="nachricht" aria-live="polite">Fahre mit der Maus über ein Element oder tipp es an. Per Tastatur erreichst Du jedes Element mit der Tabulatortaste.</div>
+
+  <h2 class="sec">Nachrechnen, was die Hinweistexte sagen</h2>
+  <p class="sub">Die drei Hinweistexte unter den Diagrammen rechnen mit einer festen Schwelle. Hier verschiebst Du die Schwelle selbst, wobei die passenden Balken im Bericht oben farbig werden.</p>
+  <div class="werk">
+    <div class="karte">
+      <h4>Altersstruktur</h4>
+      <label>ab <output id="wAlterO"></output> Jahren</label>
+      <input type="range" id="wAlter" min="0" max="12" step="1" value="8" aria-label="Altersklasse, ab der gezählt wird">
+      <p class="ergebnis" id="wAlterE" aria-live="polite"></p>
+    </div>
+    <div class="karte">
+      <h4>Fortschreibung</h4>
+      <label>bis <output id="wFortO"></output></label>
+      <input type="range" id="wFort" min="2027" max="2036" step="1" value="2036" aria-label="Jahr der Fortschreibung">
+      <p class="ergebnis" id="wFortE" aria-live="polite"></p>
+    </div>
+    <div class="karte">
+      <h4>Betriebszugehörigkeit</h4>
+      <label>höchstens <output id="wZugO"></output> Jahre</label>
+      <input type="range" id="wZug" min="0" max="9" step="1" value="0" aria-label="Obergrenze der Betriebszugehörigkeit">
+      <p class="ergebnis" id="wZugE" aria-live="polite"></p>
+    </div>
+  </div>
+  <p class="hinweis">Die Balken der Fortschreibung sind im Bericht auf ganze Köpfe gerundet. Deshalb weicht die Rechnung hier in der Nachkommastelle vom Hinweistext ab, der mit den ungerundeten Werten rechnet.</p>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Hinter jedem Hinweistext steht eine <b>Schwelle</b>, die Du selbst verschieben kannst.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 02 · GLOSSAR ==================== -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
+  <p class="claim">Das Glossar führt jeden Begriff des Berichts auf. Mit <b>„Im Bericht zeigen“</b> springst Du an die Stelle, an der er steht.</p>
+
+  <h2 class="sec">Kennzahlen und Begriffe der Personalstrukturanalyse</h2>
+  <p class="sub">Die Erläuterungen folgen. Bis dahin steht bei jedem Begriff, wo er im Bericht vorkommt und welchen Wert er dort zeigt.</p>
+  <input class="gl-such" id="glSuche" type="search" placeholder="Begriff suchen" aria-label="Glossar durchsuchen">
+  <dl class="gl" id="glListe"></dl>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Jeder Begriff des Glossars hat <b>seinen festen Platz im Bericht</b>.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 03 · QUIZ ==================== -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
+  <p class="claim">Das Quiz fragt ab, was im Bericht steht, und zieht dafür fünf Fragen zufällig aus einem größeren Vorrat.</p>
+
+  <h2 class="sec">Fünf Fragen zum Ablesen der Personalstrukturanalyse</h2>
+  <p class="sub">Jede Antwort lässt sich im Bericht der ersten Lektion ablesen.</p>
+  <div class="wsbar">
+    <button class="knopf" id="qNew" type="button">Fünf neue Fragen</button>
+    <p class="legend" style="margin:0"><span id="qStand"></span></p>
+  </div>
+  <div class="qwrap" id="quiz"></div>
+  <div id="qResult" style="margin-top:16px"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Jede Zahl im Bericht hat <b>ihren festen Platz</b>, an dem Du sie wiederfindest.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 04 · PRAXISEINSTIEG ==================== -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
+  <p class="claim">Das Controlling-Konzept gibt dem Bericht zur Struktur der Belegschaft <b>fünf Leitfragen</b> mit, mit denen Du ihn im eigenen Bereich liest.</p>
+
+  <h2 class="sec">Die Leitfragen aus dem Controlling-Konzept</h2>
+  <p class="sub">Die Leitfragen stammen aus dem Konzept. Die Hinweise, wo Du im Bericht dazu nachsiehst, folgen mit den Inhalten zu den Auffälligkeiten.</p>
+  <div class="ck" id="ckListe"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Zahlen sind der <b>Ausgangspunkt eines Steuerungsgesprächs</b>, nicht dessen Ergebnis.</p>
+  </div>
+</section>
+
+<footer>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.56</span>
+</footer>
+
+</div>
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script>
+"use strict";
+/* =====================================================================
+   Die Personalstrukturanalyse
+   Alle Zahlen stammen aus dem Bericht mit Stand 31.08.2026 (Gesamt,
+   Koepfe, 2026). Die Erlaeuterungen der Kennzahlen und Begriffe liefert
+   Maik separat. Bis dahin steht in TIPS und GLOSSAR der Platzhalter
+   FOLGT, damit nichts erfunden wird.
+   Kuerzel der Werkzeuge: b (Bericht), py, fs, bz, w, tip, gl, q, ck.
+   ===================================================================== */
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s)
+  .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const zahl = (x, d = 1) => x.toLocaleString("de-DE", {minimumFractionDigits:d, maximumFractionDigits:d});
+const MINUS = "−";
+const vz = (x, d = 1) => (x > 0 ? "+" : x < 0 ? MINUS : "±") + zahl(Math.abs(x), d);
+const FOLGT = "Erläuterung folgt.";
+
+/* ---------------------------------------------------------------------
+   Die Daten des Berichts
+   ------------------------------------------------------------------ */
+const KOEPFE = 902.4;
+const KPI = [
+  {id:"vb",   k:"VB",                w:609.1, d:6.9,  n:1, e:"",       gut:true},
+  {id:"koe",  k:"Köpfe",             w:902.4, d:-8.3, n:1, e:"",       gut:false},
+  {id:"vbk",  k:"Ø VB je Kopf",      w:0.68,  d:0.01, n:2, e:"",       gut:true},
+  {id:"tzq",  k:"Teilzeitquote",     w:70.1,  d:-1.4, n:1, e:" %", de:" %-Pkt.", gut:false},
+  {id:"fsp",  k:"Führungsspanne",    w:32.0,  d:-2.3, n:1, e:"",       gut:false},
+  {id:"alt",  k:"Ø Alter (J.)",      w:46.1,  d:-0.4, n:1, e:"",       gut:true},
+  {id:"zgh",  k:"Ø Zugehörigkeit (J.)", w:7.9, d:0.1, n:1, e:"",       gut:true}
+];
+const ALTER = [["16-20",14.8,23.4],["21-25",19.0,43.8],["26-30",16.5,44.8],["31-35",14.0,57.1],
+  ["36-40",16.3,72.1],["41-45",19.8,62.1],["46-50",12.3,64.0],["51-55",14.0,91.8],["56-60",16.3,147.6],
+  ["61-65",17.0,117.9],["66-70",2.5,12.6],["71-75",0.0,3.0],["76-80",0.0,0.0]];
+const FORT = [[2026,856],[2027,853],[2028,841],[2029,824],[2030,799],[2031,766],[2032,727],[2033,690],
+  [2034,650],[2035,617],[2036,594]];
+/* Reihenfolge wie im Bericht, einschliesslich 26-30 vor 21-25. */
+const ZUG = [["00-05",444.9],["06-10",185.4],["11-15",125.8],["16-20",91.6],["26-30",16.8],["21-25",16.0],
+  ["31-35",16.0],["36-40",4.3],["41-45",1.5],["46-50",0.0]];
+const EBENEN = ["Gesamt","Kst.","Dienstart","Kst. & Dienstart"];
+const ANZEIGE = ["Köpfe","VB"];
+const TAB_SPALTEN = [["Gesamt","tGesamt"],["VB","k-vb"],["Δ Vorjahr","tDelta"],["Köpfe","k-koe"],["Δ Vorjahr","tDelta"],
+  ["Ø VB je Kopf","k-vbk"],["Teilzeitquote","k-tzq"],["Ø Alter (J.)","k-alt"],["Ø Zugehörigkeit (J.)","k-zgh"]];
+
+const kpiWert = p => zahl(p.w, p.n) + p.e;
+const kpiDelta = p => vz(p.d, p.n) + (p.de || "");
+
+/* ---------------------------------------------------------------------
+   Die Erlaeuterungen
+   Jeder Eintrag hat Titel, das, was der Bericht an dieser Stelle zeigt,
+   und die Erlaeuterung. Wo die Erlaeuterung noch fehlt, steht FOLGT.
+   ------------------------------------------------------------------ */
+const TIPS = {
+  marke:{t:"CV", z:"", x:"Im echten Bericht steht hier das Logo des Verbands."},
+  titel:{t:"Personalstrukturanalyse", z:"Bereich Personalcontrolling", x:FOLGT},
+  quelle:{t:"Quelle & Stand", z:"KIDICAP, Stand 31.08.2026", x:FOLGT},
+  legIst:{t:"Ist", z:"dunkle Balken", x:FOLGT},
+  legVor:{t:"Vorausschau", z:"graue Balken", x:FOLGT},
+  legGut:{t:"Abw. günstig", z:"grüne Abweichung", x:FOLGT},
+  legSchlecht:{t:"Abw. ungünstig", z:"rote Abweichung", x:FOLGT},
+  ebene:{t:"Analyseebene", z:EBENEN.join(" · "), x:FOLGT},
+  zeitraum:{t:"Zeitraum", z:"gewählt: 2026", x:FOLGT},
+  anzeige:{t:"Anzeige in", z:ANZEIGE.join(" · "), x:FOLGT},
+  nicht:{t:"Nicht berücksichtigt", z:"98 Mitarbeitende", x:FOLGT},
+  alter:{t:"Altersstruktur", z:"Köpfe je Altersklasse, links Männer, rechts Frauen", x:FOLGT},
+  fort:{t:"Fortschreibung der Altersstruktur", z:"Köpfe je Jahr von 2026 bis 2036", x:FOLGT},
+  fortAuswahl:{t:"Auswahl der Fortschreibung", z:"gewählt: Altersfortschreibung mit allen bekannten Austritten", x:FOLGT},
+  zug:{t:"Betriebszugehörigkeit", z:"Köpfe je Klasse der Betriebszugehörigkeit in Jahren", x:FOLGT},
+  hinwAlter:{t:"Hinweis zur Altersstruktur", z:"Schwelle 56 Jahre", x:FOLGT},
+  hinwFort:{t:"Hinweis zur Fortschreibung", z:"Zeitraum bis 2036", x:FOLGT},
+  hinwZug:{t:"Hinweis zur Betriebszugehörigkeit", z:"Schwelle höchstens 5 Jahre", x:FOLGT},
+  tabelle:{t:"Kennzahlen zur Personalstruktur", z:"eine Zeile je Einheit der Analyseebene", x:FOLGT},
+  tGesamt:{t:"Gesamt", z:"Zeile der Analyseebene Gesamt", x:FOLGT},
+  tDelta:{t:"Δ Vorjahr", z:"Abweichung zum Vorjahr", x:FOLGT}
+};
+KPI.forEach(p => {
+  TIPS["k-" + p.id] = {t:p.k, x:FOLGT,
+    z:`${kpiWert(p)} · Δ Vorjahr ${kpiDelta(p)} (${p.gut ? "günstig" : "ungünstig"})<br>Vorjahr rechnerisch ${zahl(p.w - p.d, p.n)}${p.e}`};
+});
+TIPS["k-vbk"].zusatz = "Rechnerisch VB geteilt durch Köpfe (609,1 / 902,4).";
+ALTER.forEach(([a, m, f], i) => {
+  TIPS["py-" + i] = {t:"Altersklasse " + a, x:FOLGT,
+    z:`Männer ${zahl(m)} · Frauen ${zahl(f)}<br>zusammen ${zahl(m + f)} Köpfe (${zahl((m + f) / KOEPFE * 100)} %)`};
+});
+FORT.forEach(([j, w]) => {
+  const d = w - FORT[0][1];
+  TIPS["fs-" + j] = {t:"Fortschreibung " + j, x:FOLGT,
+    z:j === FORT[0][0] ? `${w} Köpfe · Ausgangsbestand` :
+      `${w} Köpfe · ${vz(d, 0)} Köpfe gegenüber ${FORT[0][0]} (${vz(d / FORT[0][1] * 100)} %)`};
+});
+ZUG.forEach(([a, w], i) => {
+  TIPS["bz-" + i] = {t:"Betriebszugehörigkeit " + a + " Jahre", x:FOLGT,
+    z:`${zahl(w)} Köpfe (${zahl(w / KOEPFE * 100)} % des Kopfbestands)`};
+});
+
+/* ---------------------------------------------------------------------
+   Das schwebende Feld
+   Maus: pointerover/pointerout, mit Pruefung, ob das Ziel noch im
+   selben Element liegt. Tastatur: focusin/focusout. Beruehrung: ein
+   Tipp zeigt das Feld, ein Tipp daneben schliesst es.
+   ------------------------------------------------------------------ */
+const tip = $("tip");
+let tipEl = null;
+function tipHtml(key){
+  const t = TIPS[key]; if(!t) return "";
+  const folgt = t.x === FOLGT;
+  return `<b>${esc(t.t)}</b>${t.z ? `<span class="z">${t.z}</span>` : ""}${t.zusatz ? `<span>${esc(t.zusatz)}</span>` : ""}` +
+    (folgt ? `<span class="folgt">${FOLGT}</span>` : `<span>${esc(t.x)}</span>`);
+}
+function tipZeigen(el){
+  const key = el.dataset.tip; if(!TIPS[key]) return;
+  tipEl = el;
+  tip.innerHTML = tipHtml(key);
+  tip.classList.add("an");
+  const r = el.getBoundingClientRect(), t = tip.getBoundingClientRect();
+  let x = r.left + r.width / 2 - t.width / 2, y = r.bottom + 8;
+  if(y + t.height > innerHeight - 8) y = r.top - t.height - 8;
+  x = Math.max(8, Math.min(x, innerWidth - t.width - 8));
+  tip.style.left = x + "px"; tip.style.top = Math.max(8, y) + "px";
+  $("nachricht").innerHTML = tipHtml(key);
+}
+function tipWeg(){ tipEl = null; tip.classList.remove("an"); }
+const bericht = $("bericht");
+bericht.addEventListener("pointerover", e => {
+  if(e.pointerType === "touch") return;
+  const el = e.target.closest("[data-tip]"); if(el && el !== tipEl) tipZeigen(el);
+});
+bericht.addEventListener("pointerout", e => {
+  if(e.pointerType === "touch") return;
+  const from = e.target.closest("[data-tip]");
+  const to = e.relatedTarget?.closest?.("[data-tip]");
+  if(from && to !== from) tipWeg();
+});
+bericht.addEventListener("focusin", e => { const el = e.target.closest("[data-tip]"); if(el) tipZeigen(el); });
+bericht.addEventListener("focusout", tipWeg);
+document.addEventListener("pointerdown", e => {
+  if(e.pointerType !== "touch") return;
+  const el = e.target.closest("#bericht [data-tip]");
+  if(el){ if(el === tipEl) tipWeg(); else tipZeigen(el); } else tipWeg();
+});
+addEventListener("scroll", tipWeg, {passive:true});
+
+/* ---------------------------------------------------------------------
+   Die Schalter: bedienbar, die Zahlen bleiben die der Gesamtansicht
+   ------------------------------------------------------------------ */
+let bEbene = 0, bAnzeige = 0;
+function bSchalter(){
+  $("bEbene").innerHTML = EBENEN.map((e, i) =>
+    `<button type="button" data-ebene="${i}" aria-pressed="${i === bEbene}">${esc(e)}</button>`).join("");
+  $("bAnzeige").innerHTML = ANZEIGE.map((e, i) =>
+    `<button type="button" data-anzeige="${i}" aria-pressed="${i === bAnzeige}">${esc(e)}</button>`).join("");
+  bTabelle();
+}
+function bNachricht(html){ $("nachricht").innerHTML = html; }
+$("bEbene").addEventListener("click", e => {
+  const b = e.target.closest("[data-ebene]"); if(!b) return;
+  bEbene = +b.dataset.ebene; bSchalter();
+  $("bEbene").querySelector(`[data-ebene="${bEbene}"]`).focus();
+  bNachricht(bEbene === 0 ? "<b>Analyseebene Gesamt.</b> Das ist die Ansicht, deren Zahlen der Nachbau zeigt." :
+    `<b>Analyseebene „${esc(EBENEN[bEbene])}“.</b> Im echten Bericht gliedert die Tabelle „Kennzahlen zur Personalstruktur“ dann nach ${esc(EBENEN[bEbene])} und zeigt, soweit Du berechtigt bist, die Einheiten des Bereichs, den Du im Filter gewählt hast. Im Nachbau bleiben die Zahlen der Gesamtansicht stehen.`);
+});
+$("bAnzeige").addEventListener("click", e => {
+  const b = e.target.closest("[data-anzeige]"); if(!b) return;
+  bAnzeige = +b.dataset.anzeige; bSchalter();
+  $("bAnzeige").querySelector(`[data-anzeige="${bAnzeige}"]`).focus();
+  bNachricht(bAnzeige === 0 ? "<b>Anzeige in Köpfen.</b> Das ist die Ansicht, deren Zahlen der Nachbau zeigt." :
+    "<b>Anzeige in VB.</b> Im echten Bericht wechseln die Diagramme dann von Köpfen auf VB. Im Nachbau bleiben die Zahlen in Köpfen stehen.");
+});
+$("bZeit").addEventListener("click", () =>
+  bNachricht("<b>Zeitraum.</b> Im echten Bericht wählst Du hier den Zeitraum. Der Nachbau zeigt allein 2026."));
+$("fsAuswahl").addEventListener("click", () =>
+  bNachricht("<b>Auswahl der Fortschreibung.</b> Im echten Bericht wählst Du hier die Art der Fortschreibung. Der Nachbau zeigt allein die Altersfortschreibung mit allen bekannten Austritten."));
+
+/* ---------------------------------------------------------------------
+   Kennzahlenzeile, Diagramme und Tabelle
+   ------------------------------------------------------------------ */
+$("bKpis").innerHTML = KPI.map(p =>
+  `<div class="b-kpi" data-tip="k-${p.id}" tabindex="0" style="--acc:var(${p.gut ? "--green" : "--red"})">
+     <span class="k">${esc(p.k)}</span><span class="w">${kpiWert(p)}</span>
+     <span class="d">Δ Vorjahr <span class="${p.gut ? "gut" : "schlecht"}">${kpiDelta(p)}</span></span></div>`).join("");
+
+const PY_MAX = 150;
+const maenner = ALTER.reduce((s, a) => s + a[1], 0), frauen = ALTER.reduce((s, a) => s + a[2], 0);
+$("pyAnteil").textContent = "Frauen · Anteil: " + zahl(frauen / (maenner + frauen) * 100) + " %";
+TIPS.alter.z += `<br>Männer ${zahl(maenner)} · Frauen ${zahl(frauen)}`;
+function pyZeichnen(ab){
+  $("pyZeilen").innerHTML = ALTER.map(([a, m, f], i) =>
+    `<div class="py-z${i >= ab ? " an" : ""}" data-tip="py-${i}" tabindex="0">
+       <span class="a">${a}</span>
+       <span class="py-m"><span class="py-v">${zahl(m)}</span><span class="py-b" style="width:${m / PY_MAX * 88}%"></span></span>
+       <span class="py-f"><span class="py-b" style="width:${f / PY_MAX * 88}%"></span><span class="py-v">${zahl(f)}</span></span>
+     </div>`).join("");
+}
+
+const FS_MAX = 900;
+$("fsY").innerHTML = [0,200,400,600,800].map(v =>
+  `<span style="bottom:${v / FS_MAX * (100 - 18 / 2.5)}%">${v}</span>`).join("");
+function fsZeichnen(bis){
+  const h = w => w / FS_MAX * 100;
+  $("fsFlaeche").innerHTML =
+    `<div class="fs-ref" style="bottom:${h(FORT[0][1]) * 0.928}%"><span>${FORT[0][1]}</span></div>` +
+    FORT.map(([j, w]) =>
+      `<div class="fs-s${j === bis ? " an" : ""}" data-tip="fs-${j}" tabindex="0"><span class="v">${w}</span><span class="b" style="height:${h(w)}%"></span></div>`).join("");
+  $("fsX").innerHTML = FORT.map(([j]) => `<span>${j}</span>`).join("");
+}
+
+function bzZeichnen(grenze){
+  const max = Math.max(...ZUG.map(z => z[1]));
+  $("bzZeilen").innerHTML = ZUG.map(([a, w], i) =>
+    `<div class="bz-z${grenze !== null && +a.split("-")[0] <= grenze ? " an" : ""}" data-tip="bz-${i}" tabindex="0">
+       <span class="a">${a}</span>
+       <span class="bz-r"><span class="bz-b" style="width:${w / max * 82}%"></span><span class="bz-v">${zahl(w)}</span></span></div>`).join("");
+}
+
+function bTabelle(){
+  $("tabKopf").innerHTML = TAB_SPALTEN.map(([t, k], i) =>
+    `<th data-tip="${k}" tabindex="0">${esc(t)}${i === 0 ? " ▴" : ""}</th>`).join("");
+  const w = id => kpiWert(KPI.find(p => p.id === id));
+  const d = id => { const p = KPI.find(x => x.id === id); return `<span class="${p.gut ? "gut" : "schlecht"}">${kpiDelta(p)}</span>`; };
+  $("tabRumpf").innerHTML = `<tr><td>Gesamt</td><td>${w("vb")}</td><td>${d("vb")}</td><td>${w("koe")}</td><td>${d("koe")}</td>
+      <td>${w("vbk")}</td><td>${w("tzq")}</td><td>${w("alt")}</td><td>${w("zgh")}</td></tr>` +
+    (bEbene === 0 ? "" : `<tr class="hinw"><td colspan="9">Im echten Bericht stehen hier, soweit Du berechtigt bist, die Zeilen der Analyseebene ${esc(EBENEN[bEbene])} für den gewählten Bereich.</td></tr>`);
+}
+
+/* ---------------------------------------------------------------------
+   Nachrechnen mit eigener Schwelle
+   ------------------------------------------------------------------ */
+let wAktiv = false;
+function wAlter(){
+  const ab = +$("wAlter").value;
+  const n = ALTER.slice(ab).reduce((s, a) => s + a[1] + a[2], 0);
+  $("wAlterO").textContent = ALTER[ab][0].split("-")[0];
+  $("wAlterE").innerHTML = `<b>${zahl(n)} Köpfe</b> (${zahl(n / KOEPFE * 100)} % des Kopfbestands) sind ${ALTER[ab][0].split("-")[0]} Jahre oder älter.`;
+  pyZeichnen(wAktiv ? ab : 99);
+}
+function wFort(){
+  const bis = +$("wFort").value, start = FORT[0][1], ende = FORT.find(f => f[0] === bis)[1];
+  const jahre = bis - FORT[0][0], ab = start - ende;
+  $("wFortO").textContent = bis;
+  $("wFortE").innerHTML = `Bis ${bis} sinkt der Bestand um <b>${zahl(ab, 0)} Köpfe</b> (${zahl(ab / start * 100)} %). Um den Ausgangsbestand zu halten, wären ${zahl(ab / jahre)} Köpfe pro Jahr nachzubesetzen.`;
+  fsZeichnen(wAktiv ? bis : 0);
+}
+const ZUG_GRENZEN = [5,10,15,20,25,30,35,40,45,50];
+function wZug(){
+  const g = ZUG_GRENZEN[+$("wZug").value];
+  const n = ZUG.filter(z => +z[0].split("-")[0] <= g).reduce((s, z) => s + z[1], 0);
+  $("wZugO").textContent = g;
+  $("wZugE").innerHTML = `<b>${zahl(n / KOEPFE * 100)} %</b> des Kopfbestands (${zahl(n)} Köpfe) entfallen auf Mitarbeitende mit höchstens ${g} Jahren Betriebszugehörigkeit.`;
+  bzZeichnen(wAktiv ? g : null);
+}
+/* Die Balken im Bericht faerben sich erst, wenn jemand einen Regler
+   bewegt. Bis dahin sieht der Bericht aus wie das Original. */
+["wAlter","wFort","wZug"].forEach(id => $(id).addEventListener("input", () => { wAktiv = true; wAlter(); wFort(); wZug(); }));
+bSchalter(); wAlter(); wFort(); wZug();
+
+/* =====================================================================
+   LEKTION 02 · Glossar
+   ort: Schluessel des Elements im Bericht, zu dem gesprungen wird.
+   ===================================================================== */
+const GLOSSAR = [
+  ["Kennzahl","VB","k-vb"],["Kennzahl","Köpfe","k-koe"],["Kennzahl","Ø VB je Kopf","k-vbk"],
+  ["Kennzahl","Teilzeitquote","k-tzq"],["Kennzahl","Führungsspanne","k-fsp"],["Kennzahl","Ø Alter (J.)","k-alt"],
+  ["Kennzahl","Ø Zugehörigkeit (J.)","k-zgh"],["Kennzahl","Δ Vorjahr","tDelta"],
+  ["Diagramm","Altersstruktur","alter"],["Diagramm","Fortschreibung der Altersstruktur","fort"],
+  ["Diagramm","Altersfortschreibung mit allen bekannten Austritten","fortAuswahl"],["Diagramm","Betriebszugehörigkeit","zug"],
+  ["Tabelle","Kennzahlen zur Personalstruktur","tabelle"],
+  ["Bedienung","Analyseebene","ebene"],["Bedienung","Zeitraum","zeitraum"],["Bedienung","Anzeige in","anzeige"],
+  ["Bericht","Quelle & Stand","quelle"],["Bericht","Nicht berücksichtigt","nicht"],
+  ["Farbe","Ist","legIst"],["Farbe","Vorausschau","legVor"],["Farbe","Abw. günstig","legGut"],["Farbe","Abw. ungünstig","legSchlecht"]
+];
+function glZeichnen(){
+  const s = $("glSuche").value.trim().toLowerCase();
+  const treffer = GLOSSAR.filter(([g, t]) => !s || t.toLowerCase().includes(s) || g.toLowerCase().includes(s));
+  $("glListe").innerHTML = treffer.map(([g, t, ort]) => {
+    const tp = TIPS[ort];
+    return `<div class="gl-k"><span class="gl-grp">${esc(g)}</span><dt>${esc(t)}</dt>
+      <dd>${tp.z ? `<span class="mono" style="font-size:.8rem">${tp.z}</span><br>` : ""}${tp.zusatz ? esc(tp.zusatz) + "<br>" : ""}<span class="folgt">${FOLGT}</span></dd>
+      <button class="knopf leise" type="button" data-ort="${ort}">Im Bericht zeigen</button></div>`;
+  }).join("") || `<div><dt>Kein Treffer</dt><dd>Probier einen kürzeren Suchbegriff.</dd></div>`;
+}
+$("glSuche").addEventListener("input", glZeichnen);
+$("glListe").addEventListener("click", e => {
+  const b = e.target.closest("[data-ort]"); if(!b) return;
+  select(0);
+  const blk = $("p-a").querySelector(".blk"); if(blk && blk.dataset.open !== "true") blk.querySelector(".blk-t").click();
+  const el = bericht.querySelector(`[data-tip="${b.dataset.ort}"]`); if(!el) return;
+  el.scrollIntoView({block:"center", behavior:matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+  el.classList.remove("blink"); void el.offsetWidth; el.classList.add("blink");
+  setTimeout(() => { el.focus({preventScroll:true}); }, 400);
+});
+glZeichnen();
+
+/* =====================================================================
+   LEKTION 03 · Quiz
+   Jede Antwort steht im Bericht. Die Begruendung nennt die Stelle.
+   ===================================================================== */
+const FRAGEN = [
+  ["Wie viele VB weist der Bericht aus?", ["609,1","902,4","856","594"], 0, "Die erste Kachel der Kennzahlenzeile zeigt 609,1 VB."],
+  ["Wie viele Köpfe weist der Bericht aus?", ["902,4","609,1","856","998"], 0, "Die zweite Kachel zeigt 902,4 Köpfe."],
+  ["Um wie viel haben sich die Köpfe gegenüber dem Vorjahr verändert?", ["−8,3","+6,9","−2,3","+0,1"], 0, "Unter der Kachel Köpfe steht Δ Vorjahr −8,3, rot als ungünstig markiert."],
+  ["Um wie viel haben sich die VB gegenüber dem Vorjahr verändert?", ["+6,9","−8,3","+0,01","−1,4"], 0, "Unter der Kachel VB steht Δ Vorjahr +6,9, grün als günstig markiert."],
+  ["Welcher Wert steht bei Ø VB je Kopf?", ["0,68","0,70","32,0","7,9"], 0, "Rechnerisch ist das VB geteilt durch Köpfe, also 609,1 / 902,4."],
+  ["Wie hoch ist die Teilzeitquote?", ["70,1 %","82,0 %","35,1 %","49,3 %"], 0, "Die vierte Kachel zeigt 70,1 %, gegenüber dem Vorjahr −1,4 %-Pkt."],
+  ["Welche Kennzahl zeigt den Wert 32,0?", ["Führungsspanne","Ø Alter (J.)","Teilzeitquote","Ø Zugehörigkeit (J.)"], 0, "Die Führungsspanne steht bei 32,0, gegenüber dem Vorjahr −2,3."],
+  ["Wie hoch ist das Durchschnittsalter?", ["46,1 Jahre","44,8 Jahre","56 Jahre","7,9 Jahre"], 0, "Die Kachel Ø Alter (J.) zeigt 46,1."],
+  ["Wie lange gehören die Mitarbeitenden im Durchschnitt zum Verband?", ["7,9 Jahre","5 Jahre","46,1 Jahre","10 Jahre"], 0, "Die Kachel Ø Zugehörigkeit (J.) zeigt 7,9."],
+  ["Wie viele Mitarbeitende berücksichtigt der Bericht nicht?", ["98","317","8,3","26,2"], 0, "Rechts über der Kennzahlenzeile steht „Nicht berücksichtigt: 98 Mitarbeitende“."],
+  ["Aus welcher Quelle stammen die Daten, und mit welchem Stand?", ["KIDICAP, 31.08.2026","Vivendi, 31.08.2026","Zeiterfassung, 31.12.2025","KIDICAP, 01.01.2026"], 0, "Oben rechts steht „Quelle & Stand · KIDICAP: 31.08.2026“."],
+  ["Wie hoch ist der Frauenanteil in der Altersstruktur?", ["82,0 %","70,1 %","49,3 %","35,1 %"], 0, "Über der Altersstruktur steht „Frauen · Anteil: 82,0 %“."],
+  ["In welcher Altersklasse arbeiten die meisten Frauen?", ["56-60","61-65","51-55","36-40"], 0, "Der längste Balken rechts gehört zur Klasse 56-60 mit 147,6 Köpfen."],
+  ["Wie viele Köpfe sind 56 Jahre oder älter?", ["317","262,3","147,6","856"], 0, "Das sagt der Hinweistext unter der Altersstruktur, dazu 35,1 % des Kopfbestands."],
+  ["Mit welchem Bestand beginnt die Fortschreibung 2026?", ["856","902,4","853","609,1"], 0, "Der erste Balken der Fortschreibung zeigt 856, die Linie oben markiert denselben Wert."],
+  ["Welchen Bestand zeigt die Fortschreibung für 2036?", ["594","617","650","856"], 0, "Der letzte Balken zeigt 594."],
+  ["Um wie viele Köpfe sinkt der Bestand bis 2036 ohne Neueinstellungen?", ["262,3","317","594","26,2"], 0, "Das sagt der Hinweistext unter der Fortschreibung, dazu 30,6 %."],
+  ["Wie viele Köpfe wären pro Jahr nachzubesetzen, um den Ausgangsbestand zu halten?", ["26,2","8,3","32,0","98"], 0, "Das sagt der Hinweistext unter der Fortschreibung."],
+  ["Welcher Anteil des Kopfbestands gehört höchstens 5 Jahre zum Verband?", ["49,3 %","35,1 %","82,0 %","70,1 %"], 0, "Das sagt der Hinweistext unter der Betriebszugehörigkeit. Der Balken 00-05 zeigt 444,9 Köpfe."],
+  ["Welche Farbe haben im Bericht die Werte der Vorausschau?", ["Grau","Dunkel","Grün","Rot"], 0, "Die Legende oben rechts ordnet Grau der Vorausschau und Dunkel dem Ist zu."],
+  ["Welche Analyseebenen bietet der Bericht an?", ["Gesamt, Kst., Dienstart, Kst. & Dienstart","Gesamt, Fachbereich, Einrichtung","Köpfe und VB","Ist und Vorausschau"], 0, "Die Schalter stehen oben links unter „Analyseebene“."],
+  ["Worin lässt sich die Anzeige umschalten?", ["Köpfe und VB","Ist und Vorausschau","Männer und Frauen","2026 und 2036"], 0, "Die Schalter stehen oben rechts unter „Anzeige in“."],
+  ["Welche Kennzahl hat sich um −1,4 %-Pkt. verändert?", ["Teilzeitquote","Führungsspanne","Ø Alter (J.)","Köpfe"], 0, "Die Einheit %-Pkt. steht allein bei der Teilzeitquote."],
+  ["Wie viele Köpfe entfallen auf die Betriebszugehörigkeit 06-10 Jahre?", ["185,4","125,8","444,9","91,6"], 0, "Der zweite Balken der Betriebszugehörigkeit zeigt 185,4."]
+];
+let qAktuell = [];
+const QZAHL = 5;
+function qMischen(n){
+  const a = [...Array(n).keys()];
+  for(let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+function qZiehen(){
+  qAktuell = qMischen(FRAGEN.length).slice(0, QZAHL).map(i => ({i, reihe:qMischen(FRAGEN[i][1].length), gewaehlt:null}));
+  qRender();
+}
+function qRender(){
+  $("quiz").innerHTML = qAktuell.map((q, n) => {
+    const [text, opts, richtig, begr] = FRAGEN[q.i];
+    return `<div class="qcard">
+      <p class="qn">Frage ${n + 1} von ${QZAHL}</p>
+      <p class="qt">${text}</p>
+      <div class="qopts">${q.reihe.map(j => {
+        let kl = "";
+        if(q.gewaehlt !== null) kl = j === richtig ? " right" : (j === q.gewaehlt ? " wrong" : "");
+        return `<button class="qopt${kl}" type="button" data-q="${n}" data-o="${j}"${q.gewaehlt !== null ? " disabled" : ""}>${opts[j]}</button>`;
+      }).join("")}</div>
+      <p class="qfb"${q.gewaehlt === null ? " hidden" : ""}>${
+        q.gewaehlt === null ? "" :
+        (q.gewaehlt === richtig ? "<b class='gut'>Richtig.</b> " : "<b class='schlecht'>Daneben.</b> Richtig ist " + opts[richtig] + ". ") + begr}</p>
+    </div>`;
+  }).join("");
+  const fertig  = qAktuell.filter(q => q.gewaehlt !== null).length;
+  const treffer = qAktuell.filter(q => q.gewaehlt === FRAGEN[q.i][2]).length;
+  $("qStand").textContent = fertig === 0
+    ? QZAHL + " Fragen aus einem Vorrat von " + FRAGEN.length
+    : fertig + " von " + QZAHL + " beantwortet · " + treffer + " richtig";
+  $("qResult").innerHTML = fertig < QZAHL ? "" :
+    `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> Mit „Fünf neue Fragen“ ziehst Du eine neue Auswahl aus ${FRAGEN.length} Fragen.</div>`;
+}
+$("quiz").addEventListener("click", e => {
+  const b = e.target.closest(".qopt"); if(!b || b.disabled) return;
+  const q = qAktuell[+b.dataset.q]; if(!q || q.gewaehlt !== null) return;
+  q.gewaehlt = +b.dataset.o;
+  qRender();
+});
+$("qNew").addEventListener("click", qZiehen);
+qZiehen();
+
+/* =====================================================================
+   LEKTION 04 · Praxiseinstieg
+   Die fuenf Leitfragen zur Personalstatistik aus dem Controlling-Konzept.
+   ===================================================================== */
+const CK = [
+  "Deckt der VB-Ist den Stellenplan beziehungsweise den refinanzierten Personalschlüssel?",
+  "Wird die geforderte Fachkraftquote eingehalten, und wie stabil ist sie bei absehbaren Austritten?",
+  "Wie hoch ist der Anteil befristeter Verträge, und aus welchem Grund wird befristet?",
+  "Welche Altersgruppen dominieren, und droht in bestimmten Bereichen eine Häufung von Renteneintritten?",
+  "Wie verteilt sich die Betriebszugehörigkeit, und gibt es Bereiche mit auffällig geringer Bindung?"
+];
+$("ckListe").innerHTML = CK.map(f => `<div class="ckitem"><h3>${esc(f)}</h3><p class="folgt" style="color:var(--grey);font-style:italic">Hinweis zum Bericht folgt.</p></div>`).join("");
+
+/* =====================================================================
+   Lektionen als Reiter, mit Pfeiltasten
+   ===================================================================== */
+const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","d"];
+function select(i){
+  tabs.forEach((t, j) => {
+    const on = i === j;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    $("p-" + keys[j]).hidden = !on;
+  });
+  tipWeg();
+}
+tabs.forEach((t, i) => {
+  t.addEventListener("click", () => select(i));
+  t.addEventListener("keydown", e => {
+    const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if(!d) return; e.preventDefault();
+    const n = (i + d + tabs.length) % tabs.length; tabs[n].focus(); select(n);
+  });
+});
+select(0);
+
+/* =====================================================================
+   Bloecke zum Auf- und Zuklappen
+   Baut die Abschnitte einer Lektion zur Laufzeit aus der vorhandenen
+   Gliederung. Jedes h2.sec eroeffnet einen Block, alles danach bis zum
+   naechsten h2.sec ist sein Inhalt. Was vor dem ersten h2.sec steht
+   (die Kernaussage der Lektion), bleibt immer sichtbar, ebenso ein
+   Pointe-Kasten am Ende. Der erste Block ist offen, die uebrigen zu.
+   ===================================================================== */
+function makeBlocks(panel){
+  if(!panel) return 0;
+  const kinder = [...panel.children];
+  const istKopf = n => n.tagName === "H2" && n.classList.contains("sec");
+  const istEnde = n => n.classList.contains("pointe");
+  let i = 0, nr = 0;
+
+  while(i < kinder.length){
+    if(!istKopf(kinder[i])){ i++; continue; }
+    const h2 = kinder[i], inhalt = [];
+    let j = i + 1;
+    while(j < kinder.length && !istKopf(kinder[j]) && !istEnde(kinder[j])){
+      inhalt.push(kinder[j]); j++;
+    }
+    nr++;
+    const offen = nr === 1, bid = "blk-" + (panel.id || "p") + "-" + nr;
+    const wrap = document.createElement("section");
+    wrap.className = "blk";
+    wrap.dataset.open = String(offen);
+    panel.insertBefore(wrap, h2);
+
+    h2.innerHTML =
+      `<button class="blk-t" type="button" aria-expanded="${offen}" aria-controls="${bid}">
+         <svg class="blk-c" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2 L8.5 6 L4.5 10"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+         <span>${h2.innerHTML}</span>
+       </button>`;
+    wrap.appendChild(h2);
+
+    const body = document.createElement("div");
+    body.className = "blk-b"; body.id = bid;
+    body.hidden = !offen;
+    inhalt.forEach(n => body.appendChild(n));
+    wrap.appendChild(body);
+    i = j;
+  }
+
+  if(nr) panel.addEventListener("click", e => {
+    const b = e.target.closest(".blk-t"); if(!b) return;
+    const wrap = b.closest(".blk"), body = document.getElementById(b.getAttribute("aria-controls"));
+    const offen = wrap.dataset.open === "true";
+    wrap.dataset.open = String(!offen);
+    b.setAttribute("aria-expanded", String(!offen));
+    body.hidden = offen;
+    if(!offen) dispatchEvent(new Event("resize"));
+  });
+  return nr;
+}
+
+document.querySelectorAll(".panel").forEach(makeBlocks);
+
+</script>
+</body>
+</html>
