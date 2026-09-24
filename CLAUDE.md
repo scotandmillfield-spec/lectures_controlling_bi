@@ -306,8 +306,8 @@ sinngemäß, wird dort aber nicht maschinell geprüft.
 - **Auf der Startseite markiert `langBadge`**, in welcher Sprache ein Modul selbst läuft.
   In der Sprache, in der das Modul ohnehin ist, bleibt das Feld leer.
 
-**Nicht übersetzt** werden Namen und Zahlen des Kanons sowie der Codeblock in der Anleitung
-auf der Startseite — Bezeichner bleiben englisch, nur der erklärende Text daneben wechselt.
+**Nicht übersetzt** werden Namen und Zahlen des Kanons. Bezeichner im Code bleiben
+englisch, gewechselt wird allein der Fließtext daneben.
 
 ---
 
@@ -393,13 +393,13 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.51`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.52`.
 Keine Quellenverzeichnisse, keine Legenden.
 
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.51</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.52</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
@@ -469,10 +469,15 @@ Einstieg selten dazukommt und jede Automatik dafür teurer wäre als das Kopiere
 
 1. Das Verzeichnis anlegen und `index.html` aus dem Einstieg kopieren, der am nächsten liegt.
 2. In der Kopie `TOPICS` und `PATHS` auf die Module kürzen, die dazugehören, und im
-   `UI`-Wörterbuch `title`, `eyebrow` und `lede` austauschen. Dazu die `<h1>` und der
-   Dateibaum in der Anleitung weiter unten, der sonst den falschen Ordner zeigt.
+   `UI`-Wörterbuch `title`, `eyebrow` und `lede` austauschen. Dazu die `<h1>` im Markup.
 3. Eine `reihenfolge.js` danebenlegen, mit den Kennungen dieses Einstiegs.
 4. In `index.html` im Wurzelverzeichnis eine Zeile an `const EINSTIEGE` anhängen.
+
+**[gesetzt] Eine Startseite führt keine Anleitung.** Der Abschnitt „Ein neues Modul
+aufnehmen" ist aus allen Startseiten heraus, samt Dateibaum, Codeblöcken und den Einträgen
+`howH` bis `howPaths` im `UI`-Wörterbuch. Wer ein Modul aufnimmt, liest diese Datei, und wer
+die Seite besucht, will die Module sehen. `plattform/content-werkstatt.html` erklärt den Bau
+ohnehin von innen und ist selbst ein Modul, also eine Kachel und keine Fußnote der Startseite.
 
 **Die Weiche wird von `const EINSTIEGE` getrieben.** Die Kacheln entstehen daraus zur Laufzeit
 und ordnen sich über `auto-fit` selbst an, sodass ein vierter oder fünfter Einstieg keine

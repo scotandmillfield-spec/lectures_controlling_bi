@@ -150,22 +150,6 @@ h1 em{font-style:normal;color:var(--teal)}
   border:1px dashed var(--grey-mid);border-radius:var(--r)}
 .empty.on{display:block}
 
-/* ---------- how to extend ---------- */
-.howto{margin-top:52px;border-top:1px solid var(--grey-xl);padding-top:34px}
-.howto h3{font-size:1.3rem;font-weight:600;letter-spacing:-.015em;margin:0 0 6px}
-.howto p{margin:0 0 16px;color:#3d3d40;font-size:1.04rem;line-height:1.6}
-.howto ol{margin:0 0 18px;padding-left:22px;color:#3d3d40;font-size:1.02rem;line-height:1.6}
-.howto li{margin-bottom:7px}
-pre{background:var(--ink);color:#E8E8E6;border-radius:var(--r);padding:20px 22px;overflow-x:auto;
-  font-family:var(--mono);font-size:.78rem;line-height:1.65;margin:0}
-pre .k{color:#8FD4E6}
-pre .s{color:#FFC895}
-pre .c{color:#7F7F7E}
-.tree{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
-  padding:18px 22px;font-family:var(--mono);font-size:.8rem;line-height:1.85;color:#3d3d40;
-  margin:0 0 20px;white-space:pre;overflow-x:auto}
-.tree b{color:var(--teal-dk);font-weight:600}
-
 footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
   border-top:1px solid var(--grey-xl);padding-top:20px}
 
@@ -212,64 +196,6 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
 <div class="grid" id="grid"></div>
 <div class="empty" id="empty" data-t="empty"></div>
 
-<section class="howto">
-  <h3 data-t="howH"></h3>
-  <p data-t="howP"></p>
-
-  <div class="tree">
-<b>lernplattform/</b>
-├── index.html          <span style="color:#8A8A89" data-t="treeA"></span>
-├── reihenfolge.js      <span style="color:#8A8A89" data-t="treeB"></span>
-├── content-werkstatt.html
-├── risikomanagement-einfuehrung.html
-├── risikomanagement-prozess.html
-└── risikomanagement-werkstatt.html
-  </div>
-
-  <ol>
-    <li data-t="step1"></li>
-    <li data-t="step2"></li>
-    <li data-t="step3"></li>
-    <li data-t="step4"></li>
-    <li data-t="step5"></li>
-  </ol>
-
-<pre><span class="c">// paste inside const TOPICS = [ ... ]</span>
-{
-  <span class="k">id</span>:      <span class="s">"etl"</span>,
-  <span class="k">title</span>:   <span class="s">"ETL and data quality"</span>,
-  <span class="k">sub</span>:     <span class="s">"How three sales points become one truth — and what breaks on the way."</span>,
-  <span class="k">track</span>:   <span class="s">"bi"</span>,          <span class="c">// "bi", "ctrl" or "case"</span>
-  <span class="k">status</span>:  <span class="s">"ready"</span>,       <span class="c">// "ready" or "planned"</span>
-  <span class="k">accent</span>:  <span class="s">"orange"</span>,
-  <span class="k">glyph</span>:   <span class="s">"layers"</span>,
-  <span class="k">features</span>: [
-    <span class="s">"Extract, transform, load walked through step by step"</span>,
-    <span class="s">"Six data quality dimensions on Sofia's receipts"</span>
-  ],
-  <span class="k">links</span>: [
-    { <span class="k">kind</span>:<span class="s">"html"</span>, <span class="k">file</span>:<span class="s">"etl-dashboard.html"</span>,               <span class="k">label</span>:<span class="s">"Let’s go"</span> },
-    { <span class="k">kind</span>:<span class="s">"deck"</span>, <span class="k">file</span>:<span class="s">"decks/ETL_Sofias_Coffee_World.pptx"</span>, <span class="k">label</span>:<span class="s">"Slide deck"</span> }
-  ]
-},</pre>
-
-<pre><span class="c">// reihenfolge.js — eine Zeile je Modul, die Folge ist die Folge auf der Seite</span>
-<span class="k">const</span> REIHENFOLGE = [
-  <span class="s">"werkstatt"</span>,
-  <span class="s">"case"</span>,
-  <span class="s">"etl"</span>          <span class="c">// neu — hier einsortieren</span>
-];</pre>
-
-  <p data-t="howPaths"></p>
-
-<pre><span class="c">// paste inside const PATHS = [ ... ]</span>
-{
-  <span class="k">id</span>:    <span class="s">"bi-basics"</span>,
-  <span class="k">title</span>: { <span class="k">de</span>:<span class="s">"Grundlagen Business Intelligence"</span>, <span class="k">en</span>:<span class="s">"Business Intelligence foundations"</span> },
-  <span class="k">sub</span>:   { <span class="k">de</span>:<span class="s">"Der Einstieg …"</span>, <span class="k">en</span>:<span class="s">"The way in …"</span> },
-  <span class="k">steps</span>: [<span class="s">"arch"</span>, <span class="s">"scd"</span>, <span class="s">"olap"</span>]   <span class="c">// ids aus TOPICS, in dieser Reihenfolge</span>
-},</pre>
-</section>
 
 <footer data-t="footer"></footer>
 
@@ -303,25 +229,8 @@ const UI = {
   search:{de:"Module durchsuchen\u2026", en:"Search modules\u2026"},
   empty:{de:"Dazu passt gerade nichts.", en:"Nothing matches that filter yet."},
   soon:{de:"In Arbeit", en:"In preparation"},
-  howH:{de:"Ein neues Modul aufnehmen", en:"Adding a new module"},
-  howP:{de:"Diese Seite wird von einer einzigen Liste in ihrem eigenen <code>&lt;script&gt;</code>-Block getrieben \u2014 kein Build-Schritt, kein Server. F\u00fcr ein neues Thema die Datei danebenlegen und einen Eintrag in diese Liste einf\u00fcgen.",
-        en:"This page is driven by one list inside its own <code>&lt;script&gt;</code> block \u2014 no build step, no server needed. To add a topic, drop the new file next to this one and paste one entry into that list."},
-  treeA:{de:"\u2190 diese Seite", en:"\u2190 this page"},
-  treeB:{de:"\u2190 die Folge der Kacheln", en:"\u2190 the order of the tiles"},
-  step1:{de:"Die neue Datei in den Ordner legen (HTML neben <code>index.html</code>, Foliens\u00e4tze nach <code>decks/</code>).",
-         en:"Put the new file in the folder (HTML next to <code>index.html</code>, slide decks in <code>decks/</code>)."},
-  step2:{de:"<code>index.html</code> im Texteditor \u00f6ffnen und die Modulliste suchen.",
-         en:"Open <code>index.html</code> in a text editor and find the module list."},
-  step3:{de:"Einen Block wie unten einf\u00fcgen. Wo die Liste ihn hat, ist gleich \u2014 die Folge der Kacheln steht in <code>reihenfolge.js</code>. Fehlt die Kennung dort, rutscht die Kachel ans Ende und die Konsole sagt es.",
-         en:"Paste a block like the one below. Where it sits in the list makes no difference \u2014 the order of the tiles lives in <code>reihenfolge.js</code>. If the id is missing there, the tile goes to the end and the console says so."},
-  step4:{de:"<code>accent</code> f\u00e4rbt die Kachel: <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> oder <code>green</code>. <code>glyph</code> w\u00e4hlt die Zeichnung: <code>rows</code>, <code>cube</code>, <code>cells</code>, <code>chain</code>, <code>riskmap</code>, <code>layers</code>, <code>quadrants</code>, <code>star</code>, <code>pyramid</code>, <code>loop</code>, <code>tree</code> oder <code>scaffold</code>.",
-         en:"<code>accent</code> tints the tile: use <code>teal</code>, <code>navy</code>, <code>orange</code>, <code>ochre</code> or <code>green</code>. <code>glyph</code> picks the drawing: <code>rows</code>, <code>cube</code>, <code>cells</code>, <code>chain</code>, <code>riskmap</code>, <code>layers</code>, <code>quadrants</code>, <code>star</code>, <code>pyramid</code>, <code>loop</code>, <code>tree</code> or <code>scaffold</code>."},
-  step5:{de:"Jedes Textfeld darf ein einfacher String sein (dann gilt er in beiden Sprachen) oder ein Paar aus deutscher und englischer Fassung. Fehlt die deutsche, erscheint die englische. <code>langBadge</code> setzt den Hinweis auf die Sprache des Moduls selbst.",
-         en:"Every text field may be a plain string (used in both languages) or a pair of a German and an English version. If the German one is missing, the English one is shown. <code>langBadge</code> sets the note about the module's own language."},
-  howPaths:{de:"<b>Lernpfade</b> stehen in einer zweiten Liste, <code>const PATHS</code>, direkt darunter. Ein Pfad verweist nur auf die <code>id</code> eines Moduls; die Reihenfolge in <code>steps</code> ist die Reihenfolge im Pfad. Ein Modul geh\u00f6rt zu mehreren Pfaden, indem es in mehreren <code>steps</code> steht \u2014 am Modul selbst ist daf\u00fcr nichts zu \u00e4ndern. Zeigt ein Pfad auf eine unbekannte <code>id</code>, meldet die Konsole das beim Laden. Mit <code>?path=bi-basics</code> l\u00e4sst sich ein Pfad direkt verlinken.",
-            en:"<b>Learning paths</b> live in a second list, <code>const PATHS</code>, right below. A path only refers to a module's <code>id</code>; the order in <code>steps</code> is the order of the path. A module belongs to several paths by appearing in several <code>steps</code> arrays \u2014 nothing on the module itself has to change. If a path points at an unknown <code>id</code>, the console says so on load. Use <code>?path=bi-basics</code> to link straight to a path."},
-  footer:{de:"Lehrmaterial \u00b7 Corporate Design der IU. Alle Zahlen in den Modulen sind illustrativ. <code>PROJECT-CANON.md</code> geh\u00f6rt in denselben Ordner \u2014 dort stehen die Namen, Zahlen und Gestaltungsregeln, die die Module untereinander stimmig halten. · <span class='build'>build 0.0.51</span>",
-          en:"Teaching material \u00b7 IU corporate identity. All figures in the modules are illustrative. Keep <code>PROJECT-CANON.md</code> with this folder \u2014 it holds the names, numbers and design conventions that keep the modules consistent with one another. · <span class='build'>build 0.0.51</span>"},
+  footer:{de:"Lehrmaterial \u00b7 Corporate Design der IU. Alle Zahlen in den Modulen sind illustrativ. <code>PROJECT-CANON.md</code> geh\u00f6rt in denselben Ordner \u2014 dort stehen die Namen, Zahlen und Gestaltungsregeln, die die Module untereinander stimmig halten. · <span class='build'>build 0.0.52</span>",
+          en:"Teaching material \u00b7 IU corporate identity. All figures in the modules are illustrative. Keep <code>PROJECT-CANON.md</code> with this folder \u2014 it holds the names, numbers and design conventions that keep the modules consistent with one another. · <span class='build'>build 0.0.52</span>"},
   pathLabel:{de:"Lernpfade", en:"Learning paths"},
   pathKicker:{de:"Lernpfad", en:"Learning path"},
   pathClear:{de:"Pfad verlassen \u00b7 alle Module zeigen", en:"Leave the path \u00b7 show all modules"},
