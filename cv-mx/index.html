@@ -229,7 +229,7 @@ const UI = {
   search:{de:"Module durchsuchen\u2026", en:"Search modules\u2026"},
   empty:{de:"Dazu passt gerade nichts.", en:"Nothing matches that filter yet."},
   soon:{de:"In Arbeit", en:"In preparation"},
-  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.53</span>",
+  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.54</span>",
   pathLabel:{de:"Lernpfade", en:"Learning paths"},
   pathKicker:{de:"Lernpfad", en:"Learning path"},
   pathClear:{de:"Pfad verlassen \u00b7 alle Module zeigen", en:"Leave the path \u00b7 show all modules"},
@@ -264,6 +264,24 @@ const TOPICS = [
     ],
     links:[{kind:"html",file:"controlling-leitbild.html",
             label:{de:"Los geht’s", en:"Let’s go"}}]
+  },
+  {
+    id:"cv-konzept",
+    title:{de:"Das Controlling-Konzept", en:"The controlling concept"},
+    sub:{de:"Eigener Fall: der CV, ein Verband der Pflege und sozialen Dienste. Acht Personalberichte in Power BI auf drei Ebenen, vom Überblick bis zum einzelnen Personalfall. Du klickst Dich selbst durch Kennzahlen, Filter und Drill-through.",
+         en:"Own case: the CV, an association of care and social services. Eight HR reports in Power BI on three levels, from the overview down to the single case. You click your own way through figures, filters and drill-through."},
+    track:"cv", status:"ready", accent:"teal", glyph:"tree",
+    langBadge:{de:"", en:"DE"},
+    features:[
+      {de:"Die Berichtslandkarte mit Leitfragen zu jedem Bericht",
+       en:"The report map with guiding questions for every report"},
+      {de:"Von der Fluktuationsquote per Drill-through zu den einzelnen Kündigungen",
+       en:"From the turnover rate via drill-through to the individual resignations"},
+      {de:"Köpfe und VB, Mengen- und Preiseffekt, Urlaub und BEM zum Selbstverschieben",
+       en:"Headcount and FTE, volume and price effect, leave and BEM to adjust yourself"}
+    ],
+    links:[{kind:"html",file:"controlling-konzept.html",
+            label:{de:"Los geht’s", en:"Let’s go"}}]
   }
 ];
 
@@ -280,7 +298,7 @@ const PATHS = [
     title:{de:"Controlling beim CV", en:"Controlling at the CV"},
     sub:{de:"Ein eigener Fall für Pflege und soziale Dienste. Der Pfad beginnt mit dem Leitbild, weil jede Zahl später an ihm gemessen wird. Sechs Module sind geplant, von der gemeinsamen Sprache bis zur Steuerung im Alltag.",
          en:"A separate case for care and social services. The path starts with the mission statement, because every figure later gets measured against it. Six modules are planned, from a shared language to steering in everyday work."},
-    steps:["cv-leitbild"]
+    steps:["cv-leitbild","cv-konzept"]
   }
 ];
 /* ===================== end of the editable lists ===================== */
