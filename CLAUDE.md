@@ -342,6 +342,30 @@ verloren. Das ist der wahrscheinlichste Weg, Arbeit zu zerstören.
 so konfiguriert ist. Ob ein Commit von Hand stammt, verrät allein das Fehlen des Trailers
 `Co-Authored-By: Claude`.
 
+## Nichts dazudichten
+
+**[gesetzt] Ein Modul enthält allein, was die gelieferte Vorlage hergibt.** Liefert Maik ein
+Konzept, einen Text oder eine Skizze, wird daraus ein Modul, ohne dass etwas hinzukommt, das
+dort nicht steht. Das gilt für Zahlen, Beispielfälle, Einrichtungen, Personen, Annahmen,
+Definitionen, Praxistipps und typische Fehler gleichermaßen. Die Lernenden können Erfundenes
+nicht vom Inhalt der Vorlage unterscheiden, und eine Kennzeichnung als „ausgedacht“ ändert
+daran nichts. Den Inhalt liefert Maik, das Modul bereitet ihn auf.
+
+- **Interaktivität baut auf dem Vorhandenen auf.** Aufklappen, zuordnen, durchklicken und
+  abfragen funktionieren mit dem Text der Vorlage. Braucht eine Übung Zahlen oder Fälle, die
+  die Vorlage nicht enthält, entfällt die Übung, bis Maik sie liefert.
+- **Fehlt etwas, wird gefragt und nicht ergänzt.** Erfundenes kommt auch nicht als
+  „Vorschlag“ in `PROJECT-CANON.md`.
+- **Umformulieren ist erlaubt**, soweit die Stilregeln es verlangen und die Aussage gleich
+  bleibt. Die Pointe ist, wo es geht, ein Satz aus der Vorlage.
+- **Im Quiz** sind die falschen Antwortmöglichkeiten naturgemäß erfunden. Die richtige Antwort
+  und die Begründung stützen sich allein auf die Vorlage.
+- **Die einzige Ausnahme ist die ausdrückliche Bitte**, etwas zu ergänzen.
+
+Anlass war die erste Fassung von `cv-mx/controlling-konzept.html` (PR #53), die dem
+Berichtskonzept erfundene Einrichtungen, Kennzahlen, Personalfälle und Praxistipps beigefügt
+hatte.
+
 ## Vor jeder Aufgabe lesen
 
 `STILPROBE.md` ist vor dem Schreiben eines Textes zu lesen. Dort steht, wie ein Satz in
@@ -366,8 +390,8 @@ Besonders leicht zu übersehen:
 `plattform/controlling-leitbild.html` arbeitet mit dem CV, einem Verband der Pflege und sozialen
 Dienste. Ein Leitbild entsteht in einer Organisation, und Sofias Kaffeehaus hat weder Leitungsrunde
 noch Verband. Die Kachel sagt es im ersten Satz.
-`cv-mx/controlling-konzept.html` gehört zum selben Fall. Seine Übungsdaten stehen in
-`PROJECT-CANON.md` im Abschnitt „Der eigene Fall des CV“.
+`cv-mx/controlling-konzept.html` gehört zum selben Fall und gibt allein das Berichtskonzept
+wieder, das Maik geliefert hat.
 
 `vorlesung/supply-chain-controlling.html` gehört zum Thema Supply Chain und arbeitet mit vier Vorlieferanten eines
 Nutzfahrzeugherstellers. Der Grund: Sofias Betrieb hat keine benannten Lieferanten, und der
@@ -395,7 +419,7 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.54`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.55`.
 Keine Quellenverzeichnisse, keine Legenden, keine Beschreibung des Falls und kein Hinweis
 darauf, woher eine Abbildung stammt. Sie steht in jeder ausgelieferten Datei gleich, im Markup
 als `<footer>` und auf den zweisprachigen Seiten als Eintrag `footer` im `UI`-Wörterbuch. Dort
@@ -404,7 +428,7 @@ ist sie ein einfacher String, weil ein Name und eine Nummer in beiden Sprachen d
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.54</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.55</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
