@@ -295,17 +295,25 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
 .b-tab tr.hinw td{color:var(--grey);font-style:italic;text-align:left;white-space:normal;border-right:0}
 
 /* Das schwebende Erlaeuterungsfeld */
-.tip{position:fixed;z-index:50;max-width:320px;background:var(--navy);color:#fff;border-radius:8px;padding:12px 14px;
+.tip{position:fixed;z-index:50;max-width:340px;background:var(--navy);color:#fff;border-radius:8px;padding:12px 14px;
   font-size:.86rem;line-height:1.45;box-shadow:0 8px 24px -8px rgba(0,0,0,.4);pointer-events:none;opacity:0;
   transform:translateY(4px);transition:opacity .12s,transform .12s}
 .tip.an{opacity:1;transform:none}
 .tip b{display:block;font-size:.95rem;margin-bottom:4px}
-.tip .z{font-family:var(--mono);font-size:.78rem;display:block;margin:4px 0}
-.tip .folgt{display:block;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-style:italic}
+/* Aufbau jedes Tooltips: Titel, Anleitung in Du-Form, Trenner, Beispiel */
+.tip .was{display:block}
+.tip .folgt{color:rgba(255,255,255,.7);font-style:italic}
+.tip .bsp{display:block;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.25);
+  font-family:var(--mono);font-size:.78rem;line-height:1.5}
+.tip .bk,.nachricht .bk,.gl-bsp .bk{display:block;font-family:var(--sans);font-size:.66rem;letter-spacing:.1em;
+  text-transform:uppercase;margin-bottom:2px}
+.tip .bk{color:rgba(255,255,255,.7)}
 .nachricht{margin-top:12px}
-.nachricht b,.nachricht .z,.nachricht .folgt{display:block}
-.nachricht .z{font-family:var(--mono);font-size:.84rem;margin:2px 0}
+.nachricht b,.nachricht .was,.nachricht .bsp{display:block}
 .nachricht .folgt{color:var(--grey);font-style:italic}
+.nachricht .bsp{margin-top:8px;padding-top:8px;border-top:1px solid var(--grey-xl);font-family:var(--mono);font-size:.84rem}
+.nachricht .bk,.gl-bsp .bk{color:var(--grey)}
+.gl-bsp{display:block;margin-top:8px;padding-top:6px;border-top:1px solid var(--grey-xl);font-family:var(--mono);font-size:.8rem}
 
 /* Werkzeuge unter dem Bericht */
 .werk{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
@@ -514,7 +522,7 @@ input[type=range]:focus-visible{outline:2px solid var(--orange);outline-offset:4
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.56</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.57</span>
 </footer>
 
 </div>
@@ -567,52 +575,79 @@ const TAB_SPALTEN = [["Gesamt","tGesamt"],["VB","k-vb"],["Δ Vorjahr","tDelta"],
 const kpiWert = p => zahl(p.w, p.n) + p.e;
 const kpiDelta = p => vz(p.d, p.n) + (p.de || "");
 
+/* =====================================================================
+   DIE ANLEITUNGSTEXTE
+   Hier stehen die Erlaeuterungen, eine je Element des Berichts. Sie
+   stehen im Tooltip oben, in der Du-Form, und leiten jemanden ohne
+   BI-Erfahrung an: was er an dieser Stelle sieht und wie er damit
+   umgeht. Darunter setzt das Modul von selbst „Beispiel hier“ mit den
+   Zahlen aus TIPS. Ein leerer Eintrag zeigt den Platzhalter FOLGT.
+   Die Eintraege py, fs und bz gelten fuer alle Balken ihres Diagramms.
+   Das Glossar in Lektion 02 liest dieselben Texte.
+   ===================================================================== */
+const ANLEITUNG = {
+  marke:"Im echten Bericht steht hier das Logo des Verbands.",
+  titel:"",
+  quelle:"",
+  legIst:"", legVor:"", legGut:"", legSchlecht:"",
+  ebene:"Hier filterst Du nach Deinem Kostenstellenbereich, für den Du berechtigt bist. Dies wirkt sich auf alle nachfolgenden Diagramme und Kennzahlen aus.",
+  zeitraum:"",
+  anzeige:"",
+  nicht:"",
+  "k-vb":"", "k-koe":"", "k-vbk":"", "k-tzq":"", "k-fsp":"", "k-alt":"", "k-zgh":"",
+  alter:"", py:"", hinwAlter:"",
+  fort:"", fortAuswahl:"", fs:"", hinwFort:"",
+  zug:"", bz:"", hinwZug:"",
+  tabelle:"", tGesamt:"", tDelta:""
+};
+const anleitung = key => (key in ANLEITUNG ? ANLEITUNG[key] : ANLEITUNG[key.split("-")[0]]) || "";
+
 /* ---------------------------------------------------------------------
-   Die Erlaeuterungen
-   Jeder Eintrag hat Titel, das, was der Bericht an dieser Stelle zeigt,
-   und die Erlaeuterung. Wo die Erlaeuterung noch fehlt, steht FOLGT.
+   Die Beispiele
+   Titel und das Beispiel mit den Zahlen dieses Berichts. Alles hier
+   steht im Bericht oder laesst sich aus ihm nachrechnen.
    ------------------------------------------------------------------ */
 const TIPS = {
-  marke:{t:"CV", z:"", x:"Im echten Bericht steht hier das Logo des Verbands."},
-  titel:{t:"Personalstrukturanalyse", z:"Bereich Personalcontrolling", x:FOLGT},
-  quelle:{t:"Quelle & Stand", z:"KIDICAP, Stand 31.08.2026", x:FOLGT},
-  legIst:{t:"Ist", z:"dunkle Balken", x:FOLGT},
-  legVor:{t:"Vorausschau", z:"graue Balken", x:FOLGT},
-  legGut:{t:"Abw. günstig", z:"grüne Abweichung", x:FOLGT},
-  legSchlecht:{t:"Abw. ungünstig", z:"rote Abweichung", x:FOLGT},
-  ebene:{t:"Analyseebene", z:EBENEN.join(" · "), x:FOLGT},
-  zeitraum:{t:"Zeitraum", z:"gewählt: 2026", x:FOLGT},
-  anzeige:{t:"Anzeige in", z:ANZEIGE.join(" · "), x:FOLGT},
-  nicht:{t:"Nicht berücksichtigt", z:"98 Mitarbeitende", x:FOLGT},
-  alter:{t:"Altersstruktur", z:"Köpfe je Altersklasse, links Männer, rechts Frauen", x:FOLGT},
-  fort:{t:"Fortschreibung der Altersstruktur", z:"Köpfe je Jahr von 2026 bis 2036", x:FOLGT},
-  fortAuswahl:{t:"Auswahl der Fortschreibung", z:"gewählt: Altersfortschreibung mit allen bekannten Austritten", x:FOLGT},
-  zug:{t:"Betriebszugehörigkeit", z:"Köpfe je Klasse der Betriebszugehörigkeit in Jahren", x:FOLGT},
-  hinwAlter:{t:"Hinweis zur Altersstruktur", z:"Schwelle 56 Jahre", x:FOLGT},
-  hinwFort:{t:"Hinweis zur Fortschreibung", z:"Zeitraum bis 2036", x:FOLGT},
-  hinwZug:{t:"Hinweis zur Betriebszugehörigkeit", z:"Schwelle höchstens 5 Jahre", x:FOLGT},
-  tabelle:{t:"Kennzahlen zur Personalstruktur", z:"eine Zeile je Einheit der Analyseebene", x:FOLGT},
-  tGesamt:{t:"Gesamt", z:"Zeile der Analyseebene Gesamt", x:FOLGT},
-  tDelta:{t:"Δ Vorjahr", z:"Abweichung zum Vorjahr", x:FOLGT}
+  marke:{t:"CV", bsp:""},
+  titel:{t:"Personalstrukturanalyse", bsp:"Bereich Personalcontrolling"},
+  quelle:{t:"Quelle & Stand", bsp:"KIDICAP, Stand 31.08.2026"},
+  legIst:{t:"Ist", bsp:"die dunklen Balken der Altersstruktur und der Betriebszugehörigkeit"},
+  legVor:{t:"Vorausschau", bsp:"die grauen Balken der Fortschreibung von 2026 bis 2036"},
+  legGut:{t:"Abw. günstig", bsp:"VB, Δ Vorjahr +6,9"},
+  legSchlecht:{t:"Abw. ungünstig", bsp:"Köpfe, Δ Vorjahr −8,3"},
+  ebene:{t:"Analyseebene", bsp:"gewählt ist Gesamt, zur Wahl stehen " + EBENEN.join(" · ")},
+  zeitraum:{t:"Zeitraum", bsp:"gewählt ist 2026"},
+  anzeige:{t:"Anzeige in", bsp:"gewählt sind Köpfe, zur Wahl stehen " + ANZEIGE.join(" · ")},
+  nicht:{t:"Nicht berücksichtigt", bsp:"98 Mitarbeitende"},
+  alter:{t:"Altersstruktur", bsp:""},
+  fort:{t:"Fortschreibung der Altersstruktur", bsp:"856 Köpfe 2026, 594 Köpfe 2036"},
+  fortAuswahl:{t:"Auswahl der Fortschreibung", bsp:"gewählt ist die Altersfortschreibung mit allen bekannten Austritten"},
+  zug:{t:"Betriebszugehörigkeit", bsp:"444,9 Köpfe gehören 00-05 Jahre zum Verband"},
+  hinwAlter:{t:"Hinweis zur Altersstruktur", bsp:"ab 56 Jahren 317 Köpfe, 35,1 % des Kopfbestands"},
+  hinwFort:{t:"Hinweis zur Fortschreibung", bsp:"bis 2036 262,3 Köpfe weniger, 26,2 Köpfe pro Jahr nachzubesetzen"},
+  hinwZug:{t:"Hinweis zur Betriebszugehörigkeit", bsp:"höchstens 5 Jahre, 49,3 % des Kopfbestands"},
+  tabelle:{t:"Kennzahlen zur Personalstruktur", bsp:"Zeile Gesamt mit 609,1 VB und 902,4 Köpfen"},
+  tGesamt:{t:"Gesamt", bsp:"Zeile der Analyseebene Gesamt"},
+  tDelta:{t:"Δ Vorjahr", bsp:"VB +6,9 · Köpfe −8,3"}
 };
 KPI.forEach(p => {
-  TIPS["k-" + p.id] = {t:p.k, x:FOLGT,
-    z:`${kpiWert(p)} · Δ Vorjahr ${kpiDelta(p)} (${p.gut ? "günstig" : "ungünstig"})<br>Vorjahr rechnerisch ${zahl(p.w - p.d, p.n)}${p.e}`};
+  TIPS["k-" + p.id] = {t:p.k,
+    bsp:`${kpiWert(p)} · Δ Vorjahr ${kpiDelta(p)} (${p.gut ? "günstig" : "ungünstig"})<br>Vorjahr rechnerisch ${zahl(p.w - p.d, p.n)}${p.e}`};
 });
-TIPS["k-vbk"].zusatz = "Rechnerisch VB geteilt durch Köpfe (609,1 / 902,4).";
+TIPS["k-vbk"].bsp += "<br>609,1 VB geteilt durch 902,4 Köpfe";
 ALTER.forEach(([a, m, f], i) => {
-  TIPS["py-" + i] = {t:"Altersklasse " + a, x:FOLGT,
-    z:`Männer ${zahl(m)} · Frauen ${zahl(f)}<br>zusammen ${zahl(m + f)} Köpfe (${zahl((m + f) / KOEPFE * 100)} %)`};
+  TIPS["py-" + i] = {t:"Altersklasse " + a,
+    bsp:`Männer ${zahl(m)} · Frauen ${zahl(f)}<br>zusammen ${zahl(m + f)} Köpfe (${zahl((m + f) / KOEPFE * 100)} %)`};
 });
 FORT.forEach(([j, w]) => {
   const d = w - FORT[0][1];
-  TIPS["fs-" + j] = {t:"Fortschreibung " + j, x:FOLGT,
-    z:j === FORT[0][0] ? `${w} Köpfe · Ausgangsbestand` :
+  TIPS["fs-" + j] = {t:"Fortschreibung " + j,
+    bsp:j === FORT[0][0] ? `${w} Köpfe · Ausgangsbestand` :
       `${w} Köpfe · ${vz(d, 0)} Köpfe gegenüber ${FORT[0][0]} (${vz(d / FORT[0][1] * 100)} %)`};
 });
 ZUG.forEach(([a, w], i) => {
-  TIPS["bz-" + i] = {t:"Betriebszugehörigkeit " + a + " Jahre", x:FOLGT,
-    z:`${zahl(w)} Köpfe (${zahl(w / KOEPFE * 100)} % des Kopfbestands)`};
+  TIPS["bz-" + i] = {t:"Betriebszugehörigkeit " + a + " Jahre",
+    bsp:`${zahl(w)} Köpfe (${zahl(w / KOEPFE * 100)} % des Kopfbestands)`};
 });
 
 /* ---------------------------------------------------------------------
@@ -625,9 +660,10 @@ const tip = $("tip");
 let tipEl = null;
 function tipHtml(key){
   const t = TIPS[key]; if(!t) return "";
-  const folgt = t.x === FOLGT;
-  return `<b>${esc(t.t)}</b>${t.z ? `<span class="z">${t.z}</span>` : ""}${t.zusatz ? `<span>${esc(t.zusatz)}</span>` : ""}` +
-    (folgt ? `<span class="folgt">${FOLGT}</span>` : `<span>${esc(t.x)}</span>`);
+  const a = anleitung(key);
+  return `<b>${esc(t.t)}</b>` +
+    (a ? `<span class="was">${esc(a)}</span>` : `<span class="was folgt">${FOLGT}</span>`) +
+    (t.bsp ? `<span class="bsp"><span class="bk">Beispiel hier</span>${t.bsp}</span>` : "");
 }
 function tipZeigen(el){
   const key = el.dataset.tip; if(!TIPS[key]) return;
@@ -704,7 +740,7 @@ $("bKpis").innerHTML = KPI.map(p =>
 const PY_MAX = 150;
 const maenner = ALTER.reduce((s, a) => s + a[1], 0), frauen = ALTER.reduce((s, a) => s + a[2], 0);
 $("pyAnteil").textContent = "Frauen · Anteil: " + zahl(frauen / (maenner + frauen) * 100) + " %";
-TIPS.alter.z += `<br>Männer ${zahl(maenner)} · Frauen ${zahl(frauen)}`;
+TIPS.alter.bsp = `Männer ${zahl(maenner)} · Frauen ${zahl(frauen)}, Frauenanteil ${zahl(frauen / (maenner + frauen) * 100)} %`;
 function pyZeichnen(ab){
   $("pyZeilen").innerHTML = ALTER.map(([a, m, f], i) =>
     `<div class="py-z${i >= ab ? " an" : ""}" data-tip="py-${i}" tabindex="0">
@@ -794,9 +830,9 @@ function glZeichnen(){
   const s = $("glSuche").value.trim().toLowerCase();
   const treffer = GLOSSAR.filter(([g, t]) => !s || t.toLowerCase().includes(s) || g.toLowerCase().includes(s));
   $("glListe").innerHTML = treffer.map(([g, t, ort]) => {
-    const tp = TIPS[ort];
+    const tp = TIPS[ort], a = anleitung(ort);
     return `<div class="gl-k"><span class="gl-grp">${esc(g)}</span><dt>${esc(t)}</dt>
-      <dd>${tp.z ? `<span class="mono" style="font-size:.8rem">${tp.z}</span><br>` : ""}${tp.zusatz ? esc(tp.zusatz) + "<br>" : ""}<span class="folgt">${FOLGT}</span></dd>
+      <dd>${a ? esc(a) : `<span class="folgt">${FOLGT}</span>`}${tp.bsp ? `<span class="gl-bsp"><span class="bk">Beispiel hier</span>${tp.bsp}</span>` : ""}</dd>
       <button class="knopf leise" type="button" data-ort="${ort}">Im Bericht zeigen</button></div>`;
   }).join("") || `<div><dt>Kein Treffer</dt><dd>Probier einen kürzeren Suchbegriff.</dd></div>`;
 }
