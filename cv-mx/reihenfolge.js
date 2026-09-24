@@ -17,5 +17,6 @@
    der Liste in TOPICS.
    ===================================================================== */
 const REIHENFOLGE = [
-  "cv-leitbild"        // Das Controlling-Leitbild
+  "cv-leitbild",       // Das Controlling-Leitbild
+  "cv-konzept"         // Das Controlling-Konzept
 ];
