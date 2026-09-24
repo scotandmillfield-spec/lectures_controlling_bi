@@ -294,6 +294,31 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
 .b-tab td:first-child{border-right:1px solid var(--ink)}
 .b-tab tr.hinw td{color:var(--grey);font-style:italic;text-align:left;white-space:normal;border-right:0}
 
+/* ---------- Der Rundgang durch den Bericht ----------
+   Ein Rahmen legt sich um einen Bereich. Sein Schatten ist so gross,
+   dass er den Rest des Berichts ausgraut; .bericht schneidet ihn mit
+   overflow:hidden ab. Daneben steht die Erlaeuterung.               */
+.bericht{position:relative;overflow:hidden}
+.tour-leiste{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:0 0 12px}
+.tour-leiste .knopf{padding:8px 14px}
+.tour-leiste .schritt{appearance:none;cursor:pointer;border:1px solid var(--grey-mid);background:var(--paper);color:var(--ink);
+  width:36px;height:36px;border-radius:8px;font-size:1.1rem;line-height:1}
+.tour-leiste .schritt:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.tour-leiste .schritt:disabled{opacity:.4;cursor:default}
+.tour-stand{font-family:var(--mono);font-size:.78rem;color:var(--grey)}
+.tour-punkte{display:flex;gap:5px}
+.tour-punkte span{width:8px;height:8px;border-radius:50%;background:var(--grey-mid);transition:background .3s}
+.tour-punkte span.an{background:var(--orange)}
+.tour-box{position:absolute;z-index:5;border:3px solid var(--orange);border-radius:8px;pointer-events:none;opacity:0;
+  box-shadow:0 0 0 3000px color-mix(in srgb, var(--paper) 80%, transparent);
+  transition:top .6s var(--ease),left .6s var(--ease),width .6s var(--ease),height .6s var(--ease),opacity .3s}
+.tour-text{position:absolute;z-index:6;background:var(--navy);color:#fff;border-radius:8px;padding:12px 16px;
+  font-size:.92rem;line-height:1.5;box-shadow:0 8px 24px -8px rgba(0,0,0,.4);pointer-events:none;opacity:0;
+  transition:top .6s var(--ease),left .6s var(--ease),opacity .3s}
+.tour-text b{display:block;margin-bottom:4px}
+.tour-text .tz{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:4px}
+.bericht.tour-an .tour-box,.bericht.tour-an .tour-text{opacity:1}
+
 /* Das schwebende Erlaeuterungsfeld */
 .tip{position:fixed;z-index:50;max-width:340px;background:var(--navy);color:#fff;border-radius:8px;padding:12px 14px;
   font-size:.86rem;line-height:1.45;box-shadow:0 8px 24px -8px rgba(0,0,0,.4);pointer-events:none;opacity:0;
@@ -385,6 +410,13 @@ input[type=range]:focus-visible{outline:2px solid var(--orange);outline-offset:4
   <h2 class="sec">Der Nachbau der Personalstrukturanalyse</h2>
   <p class="sub">Jedes Element hat eine Erläuterung. Die Schalter oben lassen sich bedienen und sagen Dir, was sie im echten Bericht bewirken, wobei die Zahlen hier die der Gesamtansicht bleiben.</p>
 
+  <div class="tour-leiste">
+    <button class="knopf" type="button" id="tourStart">Rundgang starten</button>
+    <button class="schritt" type="button" id="tourZurueck" aria-label="Vorheriger Bereich">‹</button>
+    <button class="schritt" type="button" id="tourWeiter" aria-label="Nächster Bereich">›</button>
+    <span class="tour-punkte" id="tourPunkte" aria-hidden="true"></span>
+    <span class="tour-stand" id="tourStand" aria-live="polite"></span>
+  </div>
   <div class="bericht" id="bericht">
     <div class="b-kopf">
       <div class="b-marke" data-tip="marke" tabindex="0" aria-label="CV">CV</div>
@@ -522,7 +554,7 @@ input[type=range]:focus-visible{outline:2px solid var(--orange);outline-offset:4
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.57</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.58</span>
 </footer>
 
 </div>
@@ -601,6 +633,30 @@ const ANLEITUNG = {
   tabelle:"", tGesamt:"", tDelta:""
 };
 const anleitung = key => (key in ANLEITUNG ? ANLEITUNG[key] : ANLEITUNG[key.split("-")[0]]) || "";
+
+/* =====================================================================
+   DER RUNDGANG
+   Ein Schritt je Bereich des Berichts, in der Reihenfolge von oben
+   nach unten. sel nennt die Elemente, um die sich der Rahmen legt.
+   Die Texte zu Quelle & Stand und zur Filterleiste stammen von Maik.
+   ===================================================================== */
+const TOUR = [
+  {sel:[".b-marke",".b-titel"], t:"Der Titel des Berichts",
+   x:"Oben links steht, in welchem Bericht Du Dich gerade befindest. Die Personalstrukturanalyse gehört zum Personalcontrolling."},
+  {sel:[".b-quelle"], t:"Quelle und Stand der Daten",
+   x:"Hier siehst Du stets, von wann die Daten sind, was Dir bei Abstimmungszwecken hilft. In diesem Bericht stammen sie aus KIDICAP mit Stand 31.08.2026."},
+  {sel:[".b-leg"], t:"Die Legende der Farben",
+   x:"Die Legende erklärt die Farben des Berichts. Dunkel steht für das Ist und Grau für die Vorausschau, während Grün eine günstige und Rot eine ungünstige Abweichung markiert."},
+  {sel:[".b-filter"], t:"Die Filterleiste",
+   x:"Hier ist die Filterleiste, in der Du den Zeitraum oder einen Monat, die Kostenstelle oder die Dienstart auswählen kannst. Ebenso kannst Du die Ansicht zwischen Köpfen und VB-Werten umschalten."},
+  {sel:[".b-kpis"], t:"Die Kennzahlenzeile",
+   x:"Die Kennzahlenzeile zeigt sieben Kennzahlen zur Personalstruktur. Unter jedem Wert steht die Abweichung zum Vorjahr, deren Farbe Dir sagt, ob sie günstig oder ungünstig ist."},
+  {sel:[".b-diagramme"], t:"Die drei Diagramme",
+   x:"Darunter folgen die Altersstruktur, die Fortschreibung der Altersstruktur und die Betriebszugehörigkeit. Unter jedem Diagramm fasst ein Hinweistext das Diagramm in Zahlen zusammen."},
+  {sel:[".b-tab"], t:"Die Tabelle mit den Kennzahlen",
+   x:"Am Ende steht die Tabelle mit den Kennzahlen zur Personalstruktur. Sie gliedert sich nach der Analyseebene aus der Filterleiste, wobei Du allein die Kostenstellen siehst, für die Du berechtigt bist."}
+];
+const TOUR_DAUER = 7000;
 
 /* ---------------------------------------------------------------------
    Die Beispiele
@@ -811,6 +867,96 @@ function wZug(){
 ["wAlter","wFort","wZug"].forEach(id => $(id).addEventListener("input", () => { wAktiv = true; wAlter(); wFort(); wZug(); }));
 bSchalter(); wAlter(); wFort(); wZug();
 
+/* ---------------------------------------------------------------------
+   Der Rundgang: Rahmen und Text werden aus der Lage der Elemente
+   gerechnet. Das geht allein, solange der Bericht sichtbar ist, also
+   wird bei resize neu gerechnet und im verborgenen Zustand gewartet.
+   ------------------------------------------------------------------ */
+const tourBox = document.createElement("div"), tourText = document.createElement("div");
+tourBox.className = "tour-box"; tourText.className = "tour-text";
+tourBox.setAttribute("aria-hidden", "true"); tourText.setAttribute("aria-hidden", "true");
+bericht.append(tourBox, tourText);
+let tourI = -1, tourLaeuft = false, tourUhr = null;
+$("tourPunkte").innerHTML = TOUR.map(() => "<span></span>").join("");
+
+function tourRahmen(sel){
+  const b = bericht.getBoundingClientRect();
+  let l = Infinity, o = Infinity, r = -Infinity, u = -Infinity;
+  sel.forEach(s => bericht.querySelectorAll(s).forEach(e => {
+    const q = e.getBoundingClientRect(); if(!q.width) return;
+    l = Math.min(l, q.left); o = Math.min(o, q.top); r = Math.max(r, q.right); u = Math.max(u, q.bottom);
+  }));
+  if(l === Infinity) return null;
+  const x = Math.max(4, l - b.left - 6), y = Math.max(4, o - b.top - 6);
+  return {x, y, w:Math.min(bericht.clientWidth - 8, r - l + 12), h:u - o + 12};
+}
+function tourSetzen(){
+  if(tourI < 0) return;
+  const s = TOUR[tourI], r = tourRahmen(s.sel); if(!r) return;
+  Object.assign(tourBox.style, {left:r.x + "px", top:r.y + "px", width:r.w + "px", height:r.h + "px"});
+  tourText.innerHTML = `<span class="tz">Bereich ${tourI + 1} von ${TOUR.length}</span><b>${esc(s.t)}</b>${esc(s.x)}`;
+  const breite = Math.min(400, bericht.clientWidth - 24);
+  tourText.style.width = breite + "px";
+  const h = tourText.offsetHeight;
+  let y = r.y + r.h + 10;
+  if(y + h > bericht.clientHeight - 8) y = Math.max(8, r.y - h - 10);
+  const x = Math.max(12, Math.min(r.x, bericht.clientWidth - breite - 12));
+  tourText.style.top = y + "px"; tourText.style.left = x + "px";
+}
+function tourLeiste(){
+  $("tourStart").textContent = tourLaeuft ? "Pause" : (tourI < 0 ? "Rundgang starten" : "Weiterlaufen");
+  $("tourZurueck").disabled = tourI <= 0;
+  $("tourWeiter").disabled = tourI >= TOUR.length - 1;
+  $("tourStand").textContent = tourI < 0 ? "" : `${TOUR[tourI].t} · ${tourI + 1} von ${TOUR.length}`;
+  [...$("tourPunkte").children].forEach((p, i) => p.classList.toggle("an", i === tourI));
+}
+/* Liegt der Bereich ausserhalb des Bildschirms (auf dem Telefon die
+   Regel), rollt die Seite ihn samt Erlaeuterung ins Bild. */
+function tourInsBild(){
+  const b = bericht.getBoundingClientRect();
+  const oben = b.top + Math.min(parseFloat(tourBox.style.top), parseFloat(tourText.style.top));
+  const unten = b.top + Math.max(parseFloat(tourBox.style.top) + parseFloat(tourBox.style.height),
+                                 parseFloat(tourText.style.top) + tourText.offsetHeight);
+  if(oben >= 0 && unten <= innerHeight) return;
+  const ziel = scrollY + oben - Math.max(12, (innerHeight - (unten - oben)) / 2);
+  scrollTo({top:Math.max(0, ziel), behavior:matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+}
+function tourZeigen(i){
+  tourI = i; bericht.classList.add("tour-an"); tipWeg();
+  tourSetzen(); tourLeiste(); tourInsBild();
+  bNachricht(`<b>${esc(TOUR[i].t)}.</b> ${esc(TOUR[i].x)}`);
+  clearTimeout(tourUhr);
+  if(tourLaeuft) tourUhr = setTimeout(() => i + 1 < TOUR.length ? tourZeigen(i + 1) : tourEnde(), TOUR_DAUER);
+}
+function tourEnde(){
+  clearTimeout(tourUhr); tourLaeuft = false; tourI = -1;
+  bericht.classList.remove("tour-an"); tourLeiste();
+  bNachricht("<b>Der Rundgang ist zu Ende.</b> Fahre jetzt selbst mit der Maus über ein Element oder tipp es an, dann erscheint seine Erläuterung.");
+}
+function tourPause(){ tourLaeuft = false; clearTimeout(tourUhr); tourLeiste(); }
+$("tourStart").addEventListener("click", () => {
+  if(tourLaeuft){ tourPause(); return; }
+  tourLaeuft = true; tourZeigen(tourI < 0 ? 0 : tourI);
+});
+$("tourWeiter").addEventListener("click", () => { if(tourI < TOUR.length - 1) tourZeigen(tourI + 1); });
+$("tourZurueck").addEventListener("click", () => { if(tourI > 0) tourZeigen(tourI - 1); });
+/* Wer im Bericht selbst etwas anfasst, will erkunden. Der Rundgang
+   gibt den Bericht dann frei. */
+bericht.addEventListener("click", () => { if(tourI >= 0) tourEnde(); });
+addEventListener("resize", tourSetzen);
+/* Selbstlaufend: Der Rundgang startet einmal von selbst, sobald der
+   Bericht zu einem guten Teil im Bild ist. Auf dem Telefon ist er
+   hoeher als der Bildschirm, deshalb die niedrige Schwelle. */
+if("IntersectionObserver" in window){
+  const tourBeob = new IntersectionObserver(eintraege => {
+    if(eintraege.some(e => e.isIntersecting) && tourI < 0){
+      tourBeob.disconnect(); tourLaeuft = true; tourZeigen(0);
+    }
+  }, {threshold:0.15});
+  tourBeob.observe(bericht);
+}
+tourLeiste();
+
 /* =====================================================================
    LEKTION 02 · Glossar
    ort: Schluessel des Elements im Bericht, zu dem gesprungen wird.
@@ -947,6 +1093,7 @@ function select(i){
     $("p-" + keys[j]).hidden = !on;
   });
   tipWeg();
+  if(tourI >= 0 && i !== 0) tourEnde();
 }
 tabs.forEach((t, i) => {
   t.addEventListener("click", () => select(i));
