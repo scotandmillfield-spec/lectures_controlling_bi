@@ -190,7 +190,7 @@ will.
 #### Warum das hier steht und nicht in der Tabelle
 
 Ein regulärer Ausdruck findet diese Dinge nicht. Den Gedankenstrich könnte er finden, allerdings
-stehen in den 25 Dateien noch **870** davon, von denen jeder eine eigene Entscheidung zwischen
+stehen in den ausgelieferten Dateien noch **870** davon, von denen jeder eine eigene Entscheidung zwischen
 Komma, Punkt und Streichung braucht. Ein Suchen und Ersetzen würde dort Sätze zerstören, weshalb
 die Altlast erst aufgeräumt wird, wenn ein Text ohnehin angefasst wird.
 
@@ -393,13 +393,13 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.50`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.51`.
 Keine Quellenverzeichnisse, keine Legenden.
 
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.50</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.51</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
@@ -410,11 +410,12 @@ den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in dopp
   GitHub Action dafür brächte ein `.github/workflows/` in ein Repository, das absichtlich keine
   Werkzeuge hat, und einen Bot-Commit nach jedem Merge. Der Weg nach `main` führt ohnehin über
   genau einen PR.
-- **Alle 25 Dateien bekommen dieselbe Zahl**, auch die, die der PR sonst nicht anfasst. Die
-  Nummer sagt, aus welchem Auslieferungsstand eine Datei stammt — und Module werden einzeln
-  weitergegeben.
+- **Jede ausgelieferte Datei bekommt dieselbe Zahl**, auch die, die der PR sonst nicht
+  anfasst. Die Nummer sagt, aus welchem Auslieferungsstand eine Datei stammt, und Module
+  werden einzeln weitergegeben. Wie viele Dateien es gerade sind, sagt
+  `ls index.html */*.html | wc -l`; bei einem neuen Einstieg wächst die Zahl von selbst.
 - **Die separat hochgeladene `foerdermittel-radar-elearning-plattform.html` im Wurzelverzeichnis
-  gehört zu keiner der beiden Auslieferungen** und bleibt unberührt.
+  gehört zu keinem Einstieg** und bleibt unberührt.
 - **Sechs Module in `vorlesung/` haben statt der Copyright-Zeile einen erklärenden Fußtext.**
   Das ist Altbestand. Dort steht die Buildnummer am Ende dieses Textes, damit keine Datei ohne
   sie bleibt.
@@ -437,23 +438,51 @@ plattform/                       die unabhängige Lernplattform
   index.html
   reihenfolge.js
   <thema>.html
+
+cv-mx/                           der Bereich für den CV
+  index.html
+  reihenfolge.js
+  <thema>.html
 ```
 
-**Die beiden Verzeichnisse sind getrennte Auslieferungen.** Jedes ist für sich vollständig.
-Deshalb gilt:
+### Die Einstiege
+
+**Ein Einstieg ist ein Verzeichnis, das für sich vollständig ist und für sich hochgeladen
+wird.** Wie viele es sind, ist offen. Zwei waren es am Anfang, `cv-mx/` ist der dritte, und
+jeder weitere kostet genau eine Zeile in der Weiche. Deshalb steht nirgends mehr eine feste
+Zahl, wo ein Einstieg gemeint ist.
 
 - **Kein Verweis über die Grenze.** Ein Modul in `vorlesung/` verlinkt nichts in `plattform/`
-  und umgekehrt. Beim Ausrollen läge das Ziel nicht auf demselben Server.
-- **Kein gemeinsamer Inhalt.** Was beide Seiten brauchen, wird kopiert und darf auseinander-
-  laufen. Die Ansprache ist verschieden, und das ist der Zweck der Trennung.
-- **`index.html` im Wurzelverzeichnis gehört zu keiner der beiden.** Es ist die Weiche für die
-  Entwicklung und sagt das auch im Kopf der Seite. Auf einen Webspace, der eine der beiden
-  Auslieferungen aufnimmt, kommt es nicht mit.
+  oder in `cv-mx/`, und umgekehrt genauso. Beim Ausrollen läge das Ziel nicht auf demselben
+  Server.
+- **Kein gemeinsamer Inhalt.** Was zwei Einstiege brauchen, wird kopiert und darf
+  auseinanderlaufen. Die Ansprache ist verschieden, und das ist der Zweck der Trennung.
+  `controlling-leitbild.html` liegt aus diesem Grund in `plattform/` und in `cv-mx/`.
+- **Jeder Einstieg hat seine eigene `reihenfolge.js`.** Sie wird allein von der Startseite
+  daneben geladen und nie über die Grenze hinweg.
+- **`index.html` im Wurzelverzeichnis gehört zu keinem Einstieg.** Es ist die Weiche für die
+  Entwicklung und sagt das auch im Kopf der Seite. Auf einen Webspace, der einen Einstieg
+  aufnimmt, kommt es nicht mit.
+
+**Ein neuer Einstieg entsteht in vier Schritten.** Der Weg ist bewusst stumpf, weil ein
+Einstieg selten dazukommt und jede Automatik dafür teurer wäre als das Kopieren.
+
+1. Das Verzeichnis anlegen und `index.html` aus dem Einstieg kopieren, der am nächsten liegt.
+2. In der Kopie `TOPICS` und `PATHS` auf die Module kürzen, die dazugehören, und im
+   `UI`-Wörterbuch `title`, `eyebrow` und `lede` austauschen. Dazu die `<h1>` und der
+   Dateibaum in der Anleitung weiter unten, der sonst den falschen Ordner zeigt.
+3. Eine `reihenfolge.js` danebenlegen, mit den Kennungen dieses Einstiegs.
+4. In `index.html` im Wurzelverzeichnis eine Zeile an `const EINSTIEGE` anhängen.
+
+**Die Weiche wird von `const EINSTIEGE` getrieben.** Die Kacheln entstehen daraus zur Laufzeit
+und ordnen sich über `auto-fit` selbst an, sodass ein vierter oder fünfter Einstieg keine
+Änderung am CSS verlangt. Jeder Eintrag nennt Ordner, Namen, einen Satz, zwei bis drei
+Stichworte und den Akzent aus dem `:root`-Block.
 
 ### Wie der Stand ins Web kommt
 
 **GitHub Pages ist eingeschaltet und baut bei jedem Push auf `main`.** Ausgeliefert wird das
-Wurzelverzeichnis des Repositorys — beide Ordner und die Weiche dazwischen. Die Einstellung
+Wurzelverzeichnis des Repositorys, also alle Einstiege und die Weiche dazwischen. Die Einstellung
 steht in den Repository-Einstellungen und an keiner Datei im Repo. Wer nur nach einem Workflow,
 einer `CNAME` oder einem `gh-pages`-Branch sucht, findet nichts und schließt daraus falsch, es
 gebe keine Auslieferung. Genau dieser Fehlschluss hat schon einmal eine Sitzung gekostet.
@@ -653,8 +682,9 @@ import pathlib, glob
 BASE = pathlib.Path(".").resolve()
 with sync_playwright() as p:
     b = p.chromium.launch()
-    # Beide Auslieferungen und die Weiche im Wurzelverzeichnis.
-    for f in sorted(glob.glob("*.html") + glob.glob("vorlesung/*.html") + glob.glob("plattform/*.html")):
+    # Jeder Einstieg und die Weiche im Wurzelverzeichnis. Das Muster
+    # */*.html nimmt ein neues Verzeichnis von selbst mit.
+    for f in sorted(glob.glob("*.html") + glob.glob("*/*.html")):
         for w in (390, 1300):
             pg = b.new_page(viewport={"width": w, "height": 900})
             errs = []
@@ -666,7 +696,7 @@ with sync_playwright() as p:
             print(f"{f:34s} {w:5d}px  Ueberlauf {ov:3d}  {errs or 'ok'}")
             pg.close()
     # Die Verweise jeder Startseite gelten relativ zu ihrem eigenen Verzeichnis.
-    for ordner in ("vorlesung", "plattform"):
+    for ordner in sorted(p.split("/")[0] for p in glob.glob("*/index.html")):
         pg = b.new_page(); pg.goto((BASE / ordner / "index.html").as_uri()); pg.wait_for_timeout(500)
         for h in pg.eval_on_selector_all(".lnk", "e=>e.map(x=>x.getAttribute('href'))"):
             print(("OK   " if (BASE / ordner / h).exists() else "FEHLT"), ordner + "/" + h)
@@ -710,7 +740,7 @@ ESC = re.compile(r"\\u([0-9a-fA-F]{4})")
 klar = lambda z: ESC.sub(lambda m: chr(int(m.group(1), 16)), z)
 
 hart = weich = 0
-for datei in sorted(glob.glob("*.html") + glob.glob("vorlesung/*.html") + glob.glob("plattform/*.html")):
+for datei in sorted(glob.glob("*.html") + glob.glob("*/*.html")):
     zeilen = io.open(datei, encoding="utf-8").read().split("\n")
     for nr, z in enumerate(zeilen, 1):
         if "sprache:ok" in z:
@@ -802,7 +832,7 @@ gegen die Zahl, die beim Umformulieren verlorengeht oder sich ändert.
 Zusätzlich nach Resten einer früheren Fassung suchen, wenn sich Namen geändert haben:
 
 ```bash
-grep -rn -E "Schönbrunn|Anna Berger|four outlets|bakery" *.html vorlesung/*.html plattform/*.html
+grep -rn -E "Schönbrunn|Anna Berger|four outlets|bakery" *.html */*.html
 ```
 
 Ohne Netzzugriff die Prüfung überspringen und das im Pull Request ausdrücklich vermerken,
