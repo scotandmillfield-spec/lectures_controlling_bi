@@ -217,11 +217,11 @@ will.
 #### Warum das hier steht und nicht in der Tabelle
 
 Ein regulärer Ausdruck findet diese Dinge nicht. Den Gedankenstrich könnte er finden, allerdings
-stehen in den ausgelieferten Dateien noch **870** davon, von denen jeder eine eigene Entscheidung zwischen
+stehen in den ausgelieferten Dateien noch **867** davon, von denen jeder eine eigene Entscheidung zwischen
 Komma, Punkt und Streichung braucht. Ein Suchen und Ersetzen würde dort Sätze zerstören, weshalb
 die Altlast erst aufgeräumt wird, wenn ein Text ohnehin angefasst wird.
 
-Dasselbe gilt für die Fügung „, und", von der noch **196** Stück verteilt sind. Sauber sind bisher
+Dasselbe gilt für die Fügung „, und", von der noch **217** Stück verteilt sind (die Zahl ist gegenüber den 196 gewachsen, weil seitdem Module dazugekommen sind). Sauber sind bisher
 `plattform/liquiditaet-begriff.html`, `plattform/liquiditaet-bwa.html`,
 `plattform/liquiditaet-vorschau.html` und `plattform/controlling-leitbild.html`. Der Lernpfad
 Liquiditätsplanung ist damit bis auf das Modul `liquiditaet-tagesplan.html` durch, das noch eine
@@ -259,6 +259,7 @@ es gibt keine zweite Liste, die auseinanderlaufen könnte.
 | `\bKapitel\b` | prüfen | Kein Begriff dieser Plattform. | „Lektion“ oder „Abschnitt“ |
 | `\b([Tt]rage|[Tt]rägst|[Tt]rägt|[Tt]ragen|[Tt]ragt|[Tt]rug|[Tt]rugen|[Tt]rüge|[Gg]etragen|[Tt]ragend[ers]*)\b` | hart | Das Verb „tragen“ ist eine Verlegenheitslösung: Es klingt nach Aussage und sagt nichts. | Das konkrete Verb: „hält aus“, „gibt her“, „ruht auf“, „steht auf“, „hat“, „reicht“ |
 | `\bsondern\b` | hart | Die Figur „nicht X, sondern Y“ klingt nach Schärfe und sagt zuerst, was etwas nicht ist. Der Leser hält die Verneinung im Kopf, bis die Behauptung endlich kommt. | Den Satz positiv stellen: „Ein Risiko ist ein bewertetes Ereignis.“ |
+| `\b((sieh|schau)(st Du)? (dabei )?zu|zusehen|zuschauen|[Bb]eobachte)\b` | hart | Der Lernende ist kein Publikum. „Sieh zu, wie die Linie reagiert“ verspricht eine Vorstellung, macht die Zeichnung zum Handelnden und sagt nicht, was abzulesen ist. | Eine Ablesehandlung mit benanntem Ergebnis: „lies ab, in welchem Monat …“, „vergleich, welche Zeilen …“, „bestimme, welcher Typ …“ |
 
 **Was „sondern“ nicht rettet.** Gemeint ist die Figur, nicht das Wort. Wer „Ein Risiko ist
 kein Unglück, sondern ein bewertetes Ereignis“ in zwei Sätze zerlegt, hat sie mit einem Punkt
@@ -273,6 +274,20 @@ Wörter und bleiben: `eintragen`, `übertragen`, `betragen`, `Vertrag`, `Beitrag
 `Ertrag`. Ebenso die Ableitungen `Tragweite`, `Tragfähigkeit`, `tragbar` und `Träger` — sie
 sind Fachbegriffe und keine Beugung. Der reguläre Ausdruck ist mit `\b` genau so geschnitten;
 wer ihn erweitert, prüft vorher gegen `beträgt` und `eingetragen`.
+
+**Was die Zuschauerhaltung ist.** Ein Werkzeug im Modul ist zum Bedienen da und nicht zum
+Bewundern. „In diesem Modul baust Du beides zusammen und siehst dabei zu, wie die Bestandslinie
+auf jede Änderung reagiert" hat zwei Fehler in einem Satz. Die Linie handelt, Du schaust, und
+worauf Du schauen sollst, steht nicht da. Der Ersatz nennt die Handlung und das Ergebnis, das
+das Werkzeug wirklich ausgibt: „…und liest am Ende ab, in welchem Monat der Kontostand unter
+null rutscht". Wer eine solche Stelle umschreibt, sieht vorher im Skript nach, was die Anzeige
+hergibt, denn eine erfundene Ablesehandlung ist schlimmer als die Zuschauerhaltung.
+
+**Was die Regel nicht trifft.** `Beobachtung` als Name der gelben Risikozone ist ein
+Fachbegriff, ebenso „zwei Beobachtungen, die sich nachrechnen lassen". Auch der Infinitiv in
+einer fachlichen Aussage bleibt, etwa „Lieferanten qualifizieren, bis dahin beobachten". Der
+reguläre Ausdruck fängt allein die Aufforderung an den Lernenden; er ist mit `\b` so
+geschnitten, dass `beobachten`, `beobachtet`, `Beobachtung` und `zuschalten` durchgehen.
 
 **Warum nicht einfach `Sie` verboten wird.** Das Wort trifft in fast jedem Modul die dritte
 Person: „Abschnitte … Sie werden zur Laufzeit zu Blöcken“. Ein Verbot darauf meldet fast nur
@@ -446,7 +461,7 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.60`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.61`.
 Keine Quellenverzeichnisse, keine Legenden, keine Beschreibung des Falls und kein Hinweis
 darauf, woher eine Abbildung stammt. Sie steht in jeder ausgelieferten Datei gleich, im Markup
 als `<footer>` und auf den zweisprachigen Seiten als Eintrag `footer` im `UI`-Wörterbuch. Dort
@@ -455,7 +470,7 @@ ist sie ein einfacher String, weil ein Name und eine Nummer in beiden Sprachen d
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.60</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.61</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
