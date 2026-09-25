@@ -127,12 +127,6 @@ h1 em{font-style:normal;color:var(--teal)}
 .tile h2{font-size:1.24rem;font-weight:700;letter-spacing:-.018em;line-height:1.2;margin:0 0 7px}
 .tile .sub{font-size:.93rem;font-weight:300;color:#4a4a4d;margin:0 0 16px;line-height:1.45}
 
-.feat{list-style:none;margin:0 0 18px;padding:0;display:grid;grid-template-rows:0fr;
-  opacity:0;transition:grid-template-rows .38s var(--ease),opacity .28s,margin .38s var(--ease)}
-.feat>div{overflow:hidden}
-.tile:hover .feat,.tile:focus-within .feat{grid-template-rows:1fr;opacity:1}
-.feat li{font-size:.85rem;color:#4a4a4d;padding-left:16px;position:relative;margin-bottom:5px;line-height:1.4}
-.feat li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:2px;background:var(--accent,var(--teal))}
 
 .links{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap;padding-top:4px}
 .lnk{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:.86rem;font-weight:600;
@@ -196,7 +190,6 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
 <div class="grid" id="grid"></div>
 <div class="empty" id="empty" data-t="empty"></div>
 
-
 <footer data-t="footer"></footer>
 
 </div>
@@ -229,7 +222,7 @@ const UI = {
   search:{de:"Module durchsuchen\u2026", en:"Search modules\u2026"},
   empty:{de:"Dazu passt gerade nichts.", en:"Nothing matches that filter yet."},
   soon:{de:"In Arbeit", en:"In preparation"},
-  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.62</span>",
+  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.63</span>",
   pathLabel:{de:"Lernpfade", en:"Learning paths"},
   pathKicker:{de:"Lernpfad", en:"Learning path"},
   pathClear:{de:"Pfad verlassen \u00b7 alle Module zeigen", en:"Leave the path \u00b7 show all modules"},
@@ -244,7 +237,9 @@ const UI = {
 };
 
 /* =====================================================================
-   THE ONLY THING YOU NEED TO EDIT — see "Adding a new module" below.
+   Die Definitionsliste der Module. Wo ein Modul hier steht, ist gleich;
+   die Reihenfolge der Kacheln kommt aus reihenfolge.js. Wie ein Modul
+   aufgenommen wird, steht in CLAUDE.md.
    ===================================================================== */
 const TOPICS = [
   {
@@ -255,16 +250,6 @@ const TOPICS = [
          en:"For everyone who contributes content: the three levels of path, module and lesson, the blueprint of a module and the rules that are not up for negotiation. In German throughout."},
     track:"meta", status:"ready", accent:"navy", glyph:"scaffold",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Die drei Ebenen als Landkarte, in der ein Modul sichtbar an zwei Lernpfaden hängt",
-       en:"The three levels as a map, with one module visibly hanging from two learning paths"},
-      {de:"Ein Planer, der aus Textmenge, Abschnitten und Interaktion die Bearbeitungszeit einer Lektion schätzt",
-       en:"A planner that estimates a lesson's working time from text volume, sections and interaction"},
-      {de:"Der Kanon des Falls als Aufdeckkarten: zwei Kaffeehäuser, keine Nachnamen, 145.500 €",
-       en:"The canon of the case as flip cards: two coffee houses, no surnames, 145,500 €"},
-      {de:"Ein Briefing-Bogen, der aus Deinen Antworten den Text erzeugt, den Du mit dem Material abgibst",
-       en:"A briefing sheet that turns your answers into the text you hand in with your material"}
-    ],
     links:[{kind:"html",file:"content-werkstatt.html",
             label:{de:"Los geht’s",en:"Let’s go"}}]
   },
@@ -275,18 +260,6 @@ const TOPICS = [
          en:"A risk is an assessed event: without a reference point and without an assessment it stays plain uncertainty. What that means exactly, where risks in a supply chain come from, and the control loop they belong to. Its own case: a supplier of commercial vehicle components."},
     track:"ctrl", status:"ready", accent:"teal", glyph:"riskmap",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Drei Definitionen von Reichmann, der ISO 31000 und Gleißner gegeneinander gelesen — mit der Frage, was allen dreien gemeinsam ist",
-       en:"Three definitions by Reichmann, ISO 31000 and Gleißner read against one another — with the question of what all three share"},
-      {de:"Gefahr oder Risiko: warum sich das eine in keine Karte eintragen lässt und das andere schon",
-       en:"Hazard or risk: why one of them cannot be plotted on any map and the other can"},
-      {de:"Fünf Risikoquellen nach dem Ort ihrer Entstehung, umschaltbar auf endogen und exogen",
-       en:"Five sources of risk by place of origin, switchable to endogenous and exogenous"},
-      {de:"Der Regelkreis mit vier Phasen, anklickbar, dazu die gröbere Dreiteilung als zweite Sicht",
-       en:"The four-phase control loop, clickable, with the coarser three-part view as a second reading"},
-      {de:"Ein Quiz mit fünf zufälligen Fragen und sechs Punkte, die vor der ersten Bewertung liegen",
-       en:"A quiz drawing five random questions and six steps that come before any assessment"}
-    ],
     links:[{kind:"html",file:"risikomanagement-einfuehrung.html",
             label:{de:"Los geht’s",en:"Let’s go"}}]
   },
@@ -297,20 +270,6 @@ const TOPICS = [
          en:"The four phases one by one: identify, assess, control, monitor. Two axes, one product, three zones — and a tolerance line that is no diagonal. It starts with your own estimate and ends by placing it beside the reasoned one."},
     track:"ctrl", status:"ready", accent:"navy", glyph:"loop",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Zwei Risiken selbst einschätzen, bevor eine einzige Zahl verraten wird — danach der Vergleich mit der begründeten Einschätzung, ohne Note",
-       en:"Rate two risks yourself before a single number is revealed — then compare with the reasoned assessment, ungraded"},
-      {de:"Die Risikotoleranzlinie als Hyperbel gezeichnet: W × S = 12 sieht anders aus, als alle erwarten",
-       en:"The risk tolerance line drawn as a hyperbola: W × S = 12 looks nothing like what everyone expects"},
-      {de:"Vier Maßnahmen zuschalten und sehen, wie präventiv senkrecht und korrektiv waagerecht wirkt — und warum sich Wirkungen nicht addieren",
-       en:"Switch on four measures and watch prevention move vertically and correction horizontally — and why the effects never add up"},
-      {de:"Die fünf Steuerungsstrategien als Bewegungsvektoren: erst der Pfeil, dann die Bewegung",
-       en:"The five control strategies as movement vectors: first the arrow, then the move"},
-      {de:"Die Balanced Chance- und Risk-Card in vier Schritten, dazu ein Merkblatt zum Ausdrucken",
-       en:"The Balanced Chance and Risk Card in four steps, plus a one-page summary to print"},
-      {de:"Zehn Punkte für den Start im eigenen Haus, ein Glossar und eine Übung, die fünf aus 23 Fragen zieht",
-       en:"Ten steps for starting in your own organisation, a glossary, and a drill that draws five of 23 questions"}
-    ],
     links:[{kind:"html",file:"risikomanagement-prozess.html",
             label:{de:"Los geht’s",en:"Let’s go"}}]
   },
@@ -321,18 +280,6 @@ const TOPICS = [
          en:"The same method applied to a case of your own: record any number of risks, rate them, plot them, pick a strategy and a measure, and take an action plan away as a PDF. Nothing is stored."},
     track:"ctrl", status:"ready", accent:"ochre", glyph:"quadrants",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Beliebig viele eigene Risiken mit Kurzbeschreibung, Bewertung und Begründung je Achse",
-       en:"Any number of your own risks with a short description, a rating and a reason per axis"},
-      {de:"Die Risk-Map zeichnet sich mit, während Du die Regler bewegst — mit derselben Toleranzlinie wie im Prozessmodul",
-       en:"The risk map redraws as you move the sliders — with the same tolerance line as in the process module"},
-      {de:"Normstrategie und Maßnahme wählen und die geplante Position gleich daneben sehen",
-       en:"Pick a strategy and a measure and see the planned position right beside it"},
-      {de:"Ein Maßnahmenplan als Scorecard, mit aktuellem und geplantem Risikofaktor, zum Ausdrucken als PDF",
-       en:"An action plan as a scorecard with current and planned risk factor, printable as a PDF"},
-      {de:"Ein Quiz mit Anwendungsfragen zum Rechnen und Entscheiden, dazu sieben Punkte für den ersten eigenen Workshop",
-       en:"A quiz of applied questions on calculating and deciding, plus seven steps for your first own workshop"}
-    ],
     links:[{kind:"html",file:"risikomanagement-werkstatt.html",
             label:{de:"Los geht’s",en:"Let’s go"}}]
   },
@@ -343,16 +290,6 @@ const TOPICS = [
          en:"Two questions on one date: where the money sits, and whom it belongs to. Purpose, the layout of § 266 German Commercial Code, and the difference between the two sides — at the end you type in a balance sheet of your own, fully laid out and adding up as you go. German GAAP throughout. Its own case: a supplier of commercial vehicle components."},
     track:"bilanz", status:"ready", accent:"teal", glyph:"rows",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Die sechs Bewertungsgrundsätze des § 252 HGB und warum aus ihnen fast jede Regel folgt",
-       en:"The six valuation principles of § 252 and why nearly every rule follows from them"},
-      {de:"Aktiv- und Passivseite Posten für Posten, mit dem Ordnungsprinzip hinter der Reihenfolge",
-       en:"Both sides item by item, with the ordering principle behind the sequence"},
-      {de:"Zehn Positionen selbst einordnen, mit Begründung nach jeder Antwort",
-       en:"Assign ten items yourself, with a reason after every answer"},
-      {de:"Das Formular in der Gliederung des § 266 HGB: eigene Zahlen in T€, laufende Summen, Waage und drei erste Kennzahlen",
-       en:"The form laid out to § 266: your own figures in thousands, running totals, a balance check and three first ratios"}
-    ],
     links:[{kind:"html",file:"bilanz-aufbau.html",
             label:{de:"Los geht’s", en:"Let’s go"}}]
   },
@@ -363,18 +300,6 @@ const TOPICS = [
          en:"The flow figure beside the balance sheet: what was earned and consumed over twelve months. Laid out to § 275, both permitted formats side by side, and a form to type your own."},
     track:"bilanz", status:"ready", accent:"ochre", glyph:"layers",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Bestandsgröße und Stromgröße — wo die beiden Rechnungen zusammenhängen",
-       en:"Stock and flow — where the two statements meet"},
-      {de:"Gesamtkostenverfahren und Umsatzkostenverfahren an derselben Zahl, mit dem Grund für die Differenz im Aufwand",
-       en:"Both permitted formats applied to the same figure, with the reason for the difference in expenses"},
-      {de:"Die vier Stufen vom Umsatz zum Jahresüberschuss, und welche zwei davon in keinem Gesetz stehen",
-       en:"The four steps from revenue to net income, and which two of them appear in no statute"},
-      {de:"Zwölf Positionen einordnen: Ertrag, Aufwand oder gar kein Posten der Rechnung",
-       en:"Sort twelve items: income, expense, or no line of the statement at all"},
-      {de:"Das Formular in der Staffel des § 275 HGB, in beiden Verfahren, mit Quervergleich und Speichern als JSON",
-       en:"The form laid out to § 275 in both formats, with a cross-check and a JSON save"}
-    ],
     links:[{kind:"html",file:"bilanz-guv.html",
             label:{de:"Los geht’s", en:"Let’s go"}}]
   },
@@ -385,18 +310,6 @@ const TOPICS = [
          en:"Balance sheet and income statement turned into ratios: assets, capital and earnings. Computed on the supplier case or on the figures you typed in yourself in the first two modules."},
     track:"bilanz", status:"ready", accent:"navy", glyph:"quadrants",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Was eine Kennzahl leistet, die vier Vergleiche und die vier Grenzen, an denen jede endet",
-       en:"What a ratio achieves, the four comparisons, and the four limits where every one of them ends"},
-      {de:"Vermögens- und Kapitalstruktur bis zur goldenen Bilanzregel in beiden Fassungen",
-       en:"Asset and capital structure up to the golden balance sheet rule in both readings"},
-      {de:"Die drei Liquiditätsgrade, Working Capital und drei Gründe, warum eine gute Quote nichts garantiert",
-       en:"The three liquidity ratios, working capital, and three reasons a good one guarantees nothing"},
-      {de:"Rentabilität, der Hebel der Verschuldung in beide Richtungen und das Du-Pont-Schema",
-       en:"Profitability, financial leverage in both directions, and the Du Pont decomposition"},
-      {de:"Das Auswertungsblatt mit zwei Jahren und 17 Kennzahlen — es liest die JSON-Dateien aus den Modulen 01 und 02 ein",
-       en:"The analysis sheet with two years and 17 ratios — it reads the JSON files from modules 01 and 02"}
-    ],
     links:[{kind:"html",file:"bilanz-kennzahlen.html",
             label:{de:"Los geht’s", en:"Let’s go"}}]
   },
@@ -407,18 +320,6 @@ const TOPICS = [
          en:"A journal entry is an instruction to two accounts. Type your own and watch the balance sheet move — the four basic cases, one at a time."},
     track:"bilanz", status:"ready", accent:"green", glyph:"loop",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Soll an Haben: auf welcher Seite welche Kontenart zunimmt, und warum ein Aufwand im Soll steht",
-       en:"Debit and credit: which side each account type grows on, and why an expense sits on the debit side"},
-      {de:"Die vier Grundfälle an je einem Beispiel, mit zwölf Vorfällen zum Selbsteinordnen",
-       en:"The four basic cases with one example each, plus twelve events to sort yourself"},
-      {de:"Erfolgswirksam oder nicht — und warum Geld, das das Haus verlässt, noch kein Aufwand ist",
-       en:"Whether an entry touches the result — and why money leaving the company is not yet an expense"},
-      {de:"Das Buchungsblatt mit 34 Konten und der Bilanz daneben, die bei jedem Satz mitwandert",
-       en:"The posting sheet with 34 accounts and the balance sheet moving alongside every entry"},
-      {de:"Die Eröffnungsbilanz sind die Zahlen aus Modul 01; die Schlussbilanz geht als JSON dorthin zurück",
-       en:"It opens with the figures from module 01 and hands the closing balance sheet back as JSON"}
-    ],
     links:[{kind:"html",file:"bilanz-buchungssaetze.html",
             label:{de:"Los geht’s", en:"Let’s go"}}]
   },
@@ -429,18 +330,6 @@ const TOPICS = [
          en:"Inability to pay is the most common ground for insolvency proceedings, and most of the companies it hits last reported a profit. This module separates income from cash receipts — and measures how long money stays in transit."},
     track:"liqui", status:"ready", accent:"teal", glyph:"quadrants",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Warum ein Gewinn kein Geld ist, und die fünf Gründe, aus denen beides auseinanderfällt",
-       en:"Why a profit is not cash, and the five reasons the two come apart"},
-      {de:"Die Vier-Felder-Tafel: erfolgswirksam und zahlungswirksam als zwei getrennte Fragen",
-       en:"The four-quadrant table: effect on profit and effect on cash as two separate questions"},
-      {de:"Vierzehn Vorfälle selbst einordnen, mit Begründung nach jeder Antwort",
-       en:"Sort fourteen events yourself, with a reason after every answer"},
-      {de:"Die Geldumschlagsdauer mit drei Reglern — und was ein Tag weniger in Euro wert ist",
-       en:"The cash conversion cycle on three sliders — and what one day less is worth in euros"},
-      {de:"Gerechnet am Zulieferer aus dem Lernpfad Bilanzanalyse: 84 Tage Geldumschlagsdauer",
-       en:"Computed on the supplier from the financial statement path: a cash conversion cycle of 84 days"}
-    ],
     links:[{kind:"html",file:"liquiditaet-begriff.html",
             label:{de:"Los geht’s", en:"Let’s go"}}]
   },
@@ -451,18 +340,6 @@ const TOPICS = [
          en:"The BWA is the monthly report out of the bookkeeping system and the starting point of every cash forecast. What it shows, how it differs from the annual income statement, and which of its figures are provisional."},
     track:"liqui", status:"ready", accent:"navy", glyph:"rows",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Woher die BWA kommt, für wen sie gedacht ist und wie sie sich vom Jahresabschluss unterscheidet",
-       en:"Where the BWA comes from, who it is meant for, and how it differs from the annual accounts"},
-      {de:"Die sechs Zwischensummen von der Gesamtleistung bis zum vorläufigen Ergebnis",
-       en:"The six subtotals from total output down to the provisional result"},
-      {de:"Zwölf Monate zum Durchblättern, mit Monatswert, kumuliertem Wert und Anteil an der Gesamtleistung",
-       en:"Twelve months to page through, with monthly figure, year to date and share of total output"},
-      {de:"Ein Schalter markiert die fünf vorläufigen Positionen und sagt bei jeder, woran es liegt",
-       en:"A switch marks the five provisional positions and says what makes each one provisional"},
-      {de:"Der Jahreslauf des Betriebsergebnisses: vier Verlustmonate in einem Jahr mit 4.200 T€ Gewinn",
-       en:"The operating result month by month: four loss-making months in a year with a 4,200 profit"}
-    ],
     links:[{kind:"html",file:"liquiditaet-bwa.html",
             label:{de:"Los geht’s", en:"Let’s go"}}]
   },
@@ -473,30 +350,6 @@ const TOPICS = [
          en:"One table, two halves: the BWA on top, the payments it turns into below. A starting month splits the year — actuals before it, plan after. The elapsed part is computed too, and measured against the bank statement."},
     track:"liqui", status:"ready", accent:"ochre", glyph:"layers",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Warum ein Ertrag und eine Einzahlung selten im selben Monat stehen, an vier Positionen des Falls durchgerechnet",
-       en:"Why revenue and cash receipt rarely fall in the same month, worked through on four positions of the case"},
-      {de:"Fünf Regelarten für achtzehn Positionen: Zahlungsverhalten, fester Tag, Jahresrhythmus, Quartal, nie zahlungswirksam",
-       en:"Five kinds of rule for eighteen positions: payment behaviour, fixed day, annual rhythm, quarterly, never cash-effective"},
-      {de:"Die Umsatzsteuer als eigener Zahlungsstrom, mit Soll-Versteuerung und der Vorsteuer aus der Investition",
-       en:"VAT as its own payment stream, on the accrual basis and with the input tax from the investment"},
-      {de:"Zwei Zahlenreihen — zwölf gebuchte Ist-Monate und zwölf Planmonate; ein wählbarer Startmonat entscheidet, welche in welcher Spalte steht",
-       en:"Two data series — twelve booked months and twelve planned ones; a selectable starting month decides which stands in which column"},
-      {de:"Der abgelaufene Teil wird mitgerechnet: die Bestandslinie läuft über das ganze Jahr, und der Sprung an der Naht ist die Prognosegüte",
-       en:"The elapsed part is computed too: the balance line runs across the whole year, and the step at the seam is the forecast’s accuracy"},
-      {de:"Ein Schalter nimmt die Positionen aus der BWA, die nie zu einer Zahlung führen — in der Schulung steht dann nur noch da, was Geld bewegt",
-       en:"A switch takes the never-cash positions out of the BWA — in a training session only what moves money is left on screen"},
-      {de:"Achtzehn BWA-Zeilen und dreiundzwanzig Zahlungszeilen in einer Tabelle, mit markierter Naht, Bestandskurve und Kreditlinie",
-       en:"Eighteen BWA rows and twenty-three payment rows in one table, with the seam marked, a balance curve and the credit line"},
-      {de:"Jede Zahl sagt auf Zeigen, wohin sie fließt oder woher sie kommt — mit Quellmonat, Anteil und Betrag",
-       en:"Point at any figure and it says where it flows to or where it comes from — with source month, share and amount"},
-      {de:"Beide Quellen sind ersetzbar: eine eigene BWA und die Bilanzzeile, aus der der Anfangsbestand kommt",
-       en:"Both sources are replaceable: your own BWA and the balance-sheet line the opening balance comes from"},
-      {de:"Drei Szenarien am Regler — späteres Zahlungsverhalten, weniger Umsatz, ein Forderungsausfall",
-       en:"Three scenarios on sliders — slower payment, less revenue, a bad debt"},
-      {de:"Regeln und Ergebnis als Datei speichern und laden, die BWA aus dem vorigen Modul einlesen",
-       en:"Save and load rules and result as a file, and read in the BWA from the previous module"}
-    ],
     links:[{kind:"html",file:"liquiditaet-vorschau.html",
             label:{de:"Los geht’s", en:"Let’s go"}}]
   },
@@ -507,12 +360,6 @@ const TOPICS = [
          en:"The same engine resolved by day: thirteen weeks instead of twelve months. Where the first weeks really come from, how often a forecast is rolled forward — and how good your own forecast has been so far."},
     track:"liqui", status:"planned", accent:"green", glyph:"loop",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Dreizehn Wochen aus offenen Posten statt aus der BWA",
-       en:"Thirteen weeks from open items rather than from the BWA"},
-      {de:"Die Güte der eigenen Vorschau messen",
-       en:"Measuring how good your own forecast was"}
-    ],
     links:[{kind:"html",file:"liquiditaet-tagesplan.html",
             label:{de:"Hülle ansehen", en:"Look at the shell"}}]
   },
@@ -523,14 +370,6 @@ const TOPICS = [
          en:"Own case: the CV, an association of care and social services. A vision, five perspectives and six guiding principles that end up complete on a single page. Little text, much to tap, on a tablet as well."},
     track:"cv", status:"ready", accent:"navy", glyph:"quadrants",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Neun Aussagen über das Controlling von morgen, jede zum Antippen",
-       en:"Nine statements about tomorrow's controlling, each one to tap"},
-      {de:"Die fünf Perspektiven mit ihren Schwerpunkten und ihrem Leitsatz",
-       en:"The five perspectives with their focus areas and their guiding principle"},
-      {de:"Das vollständige Leitbild als Plakat, sechs Sätze auf einer Seite",
-       en:"The complete mission statement as a poster, six sentences on one page"}
-    ],
     links:[{kind:"html",file:"controlling-leitbild.html",
             label:{de:"Los geht’s", en:"Let’s go"}}]
   }
@@ -712,15 +551,15 @@ const SORTIERT = (() => {
 grid.innerHTML=SORTIERT.map(t=>{
   const planned=t.status==="planned";
   const [trackName,trackCls]=TRACK[t.track];
-  const title=L(t.title), sub=L(t.sub), feats=t.features.map(L), lb=L(t.langBadge);
+  const title=L(t.title), sub=L(t.sub), lb=L(t.langBadge);
   const links=t.links.length
     ? t.links.map((l,i)=>`<a class="lnk ${i===0?"primary":"ghost"}"
          href="${l.file}${l.kind==="deck"?"":qs}" ${l.kind==="deck"?"download":""}>
          <svg class="ic" viewBox="0 0 24 24">${ICON[l.kind]}</svg>${L(l.label)}</a>`).join("")
     : `<span class="soon">${L(UI.soon)}</span>`;
   /* Gesucht wird in der angezeigten Sprache und zusaetzlich in der englischen Fassung */
-  const alt=[t.title,t.sub,...t.features].map(v=>typeof v==="object"&&v?v.en:"").join(" ");
-  const hay=(title+" "+sub+" "+feats.join(" ")+" "+L(trackName)+" "+alt)
+  const alt=[t.title,t.sub].map(v=>typeof v==="object"&&v?v.en:"").join(" ");
+  const hay=(title+" "+sub+" "+L(trackName)+" "+alt)
             .toLowerCase().replace(/"/g,"");
   return `<article class="tile ${planned?"planned":""}" data-id="${t.id}"
       data-track="${t.track}" data-status="${t.status}"
@@ -741,7 +580,6 @@ grid.innerHTML=SORTIERT.map(t=>{
     </div>
     <h2>${title}</h2>
     <p class="sub">${sub}</p>
-    <ul class="feat"><div>${feats.map(f=>`<li>${f}</li>`).join("")}</div></ul>
     <div class="links">${links}</div>
   </article>`;
 }).join("");

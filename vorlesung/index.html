@@ -127,12 +127,6 @@ h1 em{font-style:normal;color:var(--teal)}
 .tile h2{font-size:1.24rem;font-weight:700;letter-spacing:-.018em;line-height:1.2;margin:0 0 7px}
 .tile .sub{font-size:.93rem;font-weight:300;color:#4a4a4d;margin:0 0 16px;line-height:1.45}
 
-.feat{list-style:none;margin:0 0 18px;padding:0;display:grid;grid-template-rows:0fr;
-  opacity:0;transition:grid-template-rows .38s var(--ease),opacity .28s,margin .38s var(--ease)}
-.feat>div{overflow:hidden}
-.tile:hover .feat,.tile:focus-within .feat{grid-template-rows:1fr;opacity:1}
-.feat li{font-size:.85rem;color:#4a4a4d;padding-left:16px;position:relative;margin-bottom:5px;line-height:1.4}
-.feat li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:2px;background:var(--accent,var(--teal))}
 
 .links{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap;padding-top:4px}
 .lnk{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:.86rem;font-weight:600;
@@ -228,7 +222,7 @@ const UI = {
   search:{de:"Module durchsuchen\u2026", en:"Search modules\u2026"},
   empty:{de:"Dazu passt gerade nichts.", en:"Nothing matches that filter yet."},
   soon:{de:"In Arbeit", en:"In preparation"},
-  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.62</span>",
+  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.63</span>",
   pathLabel:{de:"Lernpfade", en:"Learning paths"},
   pathKicker:{de:"Lernpfad", en:"Learning path"},
   pathClear:{de:"Pfad verlassen \u00b7 alle Module zeigen", en:"Leave the path \u00b7 show all modules"},
@@ -243,7 +237,9 @@ const UI = {
 };
 
 /* =====================================================================
-   THE ONLY THING YOU NEED TO EDIT — see "Adding a new module" below.
+   Die Definitionsliste der Module. Wo ein Modul hier steht, ist gleich;
+   die Reihenfolge der Kacheln kommt aus reihenfolge.js. Wie ein Modul
+   aufgenommen wird, steht in CLAUDE.md.
    ===================================================================== */
 const TOPICS = [
   {
@@ -252,16 +248,6 @@ const TOPICS = [
     sub:{de:"Vor den Sternschemata: ein Mensch, ein Fahrrad und eine Espressomaschine. Wer Sofia ist, wie das Geschäft gewachsen ist, und der Nachmittag, an dem ein Diagramm sie zehntausend Euro gekostet hat.",
          en:"Before the star schemas: a person, a bicycle and an espresso machine. Who Sofia is, how the business grew, and the afternoon a chart cost her ten thousand euros."},
     track:"case", status:"ready", accent:"green", glyph:"loop",
-    features:[
-      {de:"Der Traum als Kreislauf — Bohne, Röstung, Tasse, Wiederkehr — mit Erklärung zu jeder Station",
-       en:"The dream as a loop — beans, roast, cup, return — with every station explained on hover"},
-      {de:"Die Wertschöpfungskette von Peru bis zur Theke, jede Station verlinkt auf das zuständige Modul",
-       en:"The value chain from Peru to the counter, each station linked to the module that covers it"},
-      {de:"Vier Schmerzpunkte, die aus einem wachsenden Betrieb ein BI-Problem machen",
-       en:"Four pain points that turn a growing business into a BI problem"},
-      {de:"Der Zehntausend-Euro-Nachmittag: zwei Berichte, ein Quartal, und die Führung wechselt die Seite",
-       en:"The ten thousand euro afternoon: two reports, one quarter, and the leader changes places"}
-    ],
     links:[{kind:"html",file:"sofias-coffee-dream.html",
             label:{de:"Los geht’s", en:"Let’s go"}}]
   },
@@ -272,16 +258,6 @@ const TOPICS = [
          en:"Three coordinates, one value. What a cube really is, why one question hits a single cell and another eighteen — and how a fact differs from a dimension."},
     track:"bi", status:"ready", accent:"navy", glyph:"cells",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Elf Begriffe aus Sofias Betrieb einsortieren: Fakt, Dimension oder Sonderfall — mit Auflösung und Punktestand",
-       en:"Sort eleven terms from Sofia's business into fact, dimension or special case — with answers and a score"},
-      {de:"Der Würfel zum Anfassen: drei Achsen einstellen und sehen, wie viele Zellen die Frage trifft",
-       en:"The cube in your hands: set three axes and watch how many cells the question touches"},
-      {de:"Slice, Dice, Drill-down, Roll-up und Pivot als Knopfdruck auf demselben Würfel",
-       en:"Slice, dice, drill-down, roll-up and pivot, each a button on the very same cube"},
-      {de:"Die Brücke zum Sternschema: welches Element des Würfels später welche Tabelle wird",
-       en:"The bridge to the star schema: which element of the cube becomes which table later on"}
-    ],
     links:[{kind:"html",file:"der-cube.html",
             label:{de:"Los geht’s",en:"Let’s go"}}]
   },
@@ -292,16 +268,6 @@ const TOPICS = [
          en:"Facts and dimensions, hierarchies that fold and unfold — and the question every project asks once: star or snowflake?"},
     track:"bi", status:"ready", accent:"teal", glyph:"star",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Das Sternschema an Sofias Verkäufen: eine Faktentabelle, vier Dimensionen, jede Tabelle beim Überfahren erklärt",
-       en:"The star schema on Sofia's sales: one fact table, four dimensions, every table explained on hover"},
-      {de:"Eine Hierarchie zum Anklicken — Warengruppe, Produktgruppe, Produkt — bei der die Summe konstant bleibt",
-       en:"A clickable hierarchy — category, group, product — where the total never changes"},
-      {de:"Warum Hierarchien flach in die Dimensionstabelle gehören und nicht als Parent-Child",
-       en:"Why hierarchies belong flat in the dimension table rather than as parent-child"},
-      {de:"Ein Schalter formt den Stern in ein Snowflake um, und die Feldzählung zeigt, was die Normalisierung wirklich spart",
-       en:"A toggle turns the star into a snowflake, and the field count shows what normalisation really saves"}
-    ],
     links:[{kind:"html",file:"semantisches-datenmodell.html",
             label:{de:"Los geht’s",en:"Let’s go"}}]
   },
@@ -311,16 +277,6 @@ const TOPICS = [
     sub:{de:"Anna wechselt am 1. März ins andere Kaffeehaus. Wem gehört ihr Januarumsatz — und lässt sich der alte Bericht noch reproduzieren?",
          en:"Anna moves to the other coffee house on 1 March. Who keeps her January revenue — and can the old report still be reproduced?"},
     track:"bi", status:"ready", accent:"teal", glyph:"rows", langBadge:{de:"EN",en:""},
-    features:[
-      {de:"Fünf Folien mit Sprechernotizen zu Typ 1, 2 und 3",
-       en:"Five slides with speaker notes on Types 1, 2 and 3"},
-      {de:"Drei Reiter, je einer pro Typ, an einem durchgerechneten Beispiel",
-       en:"Three tabs, one per type, on a single worked example"},
-      {de:"Ein Kassenbon, der sich beim Wechsel des Typs neu druckt",
-       en:"A till slip that reprints itself when the type changes"},
-      {de:"Berichtete Zahlen gegen das, was tatsächlich passiert ist",
-       en:"Reported figures against what actually happened"}
-    ],
     links:[{kind:"html",file:"scd-dashboard.html",label:{de:"Los geht’s",en:"Let’s go"}},
            {kind:"deck",file:"decks/SCD_Sofias_Coffee_World.pptx",label:{de:"Foliensatz",en:"Slide deck"}}]
   },
@@ -330,14 +286,6 @@ const TOPICS = [
     sub:{de:"Das Monatsdiagramm öffnet sofort, der Absprung auf den einzelnen Bon dauert eine halbe Minute. Dieselben Daten — wo liegen die Aggregate?",
          en:"The monthly chart opens instantly, the receipt drill-through takes half a minute. Same data — where do the aggregates live?"},
     track:"bi", status:"ready", accent:"navy", glyph:"cube", langBadge:{de:"EN",en:""},
-    features:[
-      {de:"Fünf Folien mit Sprechernotizen und einer Vergleichsmatrix",
-       en:"Five slides with speaker notes and a comparison matrix"},
-      {de:"Vorteile und Grenzen je Speichermodell", en:"Advantages and limitations per storage model"},
-      {de:"Brücke zu Power BI: Import, DirectQuery, Composite",
-       en:"Bridge to Power BI: Import, DirectQuery, Composite"},
-      {de:"Die interaktive Fassung fehlt noch", en:"Interactive version still to come"}
-    ],
     links:[{kind:"deck",file:"decks/OLAP_Storage_Sofias_Coffee_World.pptx",
             label:{de:"Foliensatz",en:"Slide deck"}}]
   },
@@ -347,16 +295,6 @@ const TOPICS = [
     sub:{de:"Der ganze Weg vom Kassenbon bis zum Management-Cockpit, jede Schicht dort erklärt, wo man hinzeigt.",
          en:"The whole road from the till roll to the management cockpit, with every layer explained where you point at it."},
     track:"bi", status:"ready", accent:"teal", glyph:"layers", langBadge:{de:"EN",en:""},
-    features:[
-      {de:"Die vollständige Architektur als interaktive Zeichnung",
-       en:"The full architecture rebuilt as an interactive drawing"},
-      {de:"Jeder Zylinder, jeder Kasten und jedes Band beim Überfahren erklärt",
-       en:"Hover any cylinder, box or band for its role"},
-      {de:"Markierung: wo über Slowly Changing Dimensions entschieden wird",
-       en:"Marker: where Slowly Changing Dimensions are decided"},
-      {de:"Markierung: wo MOLAP, ROLAP und HOLAP wohnen",
-       en:"Marker: where MOLAP, ROLAP and HOLAP live"}
-    ],
     links:[{kind:"html",file:"bi-reference-architecture.html",
             label:{de:"Los geht’s",en:"Let’s go"}}]
   },
@@ -367,18 +305,6 @@ const TOPICS = [
          en:"The textbook case of a concept-oriented analysis system: the management concept prescribes the structure, not the data."},
     track:"ctrl", status:"ready", accent:"ochre", glyph:"quadrants",
     langBadge:{de:"EN · Reiter 04 DE", en:"Tab 04 in German"},
-    features:[
-      {de:"Die vier Perspektiven mit Hover-Erklärung und den üblichen Fallen",
-       en:"The four perspectives with hover detail and the usual traps"},
-      {de:"Sofias Strategy Map: acht Ziele, Wirkungsketten leuchten beim Überfahren auf",
-       en:"Sofia's strategy map: eight objectives, causal chains lit on hover"},
-      {de:"Warum ein Ziel mehrere Perspektiven berühren sollte",
-       en:"Why one objective should touch several perspectives"},
-      {de:"Eine Scorecard im Power-BI-Stil mit Filter, Datenbalken und Status",
-       en:"A Power BI style scorecard with slicer, data bars and status"},
-      {de:"Zweites Beispiel auf Deutsch: Balanced Scorecard einer Pflegeeinrichtung mit eigener Strategy Map — dort steht die Finanzperspektive unten",
-       en:"A second worked example in German: the scorecard of a care home, with its own strategy map — and the financial perspective at the bottom"}
-    ],
     links:[{kind:"html",file:"balanced-scorecard.html",
             label:{de:"Los geht’s",en:"Let’s go"}}]
   },
@@ -388,16 +314,6 @@ const TOPICS = [
     sub:{de:"Fünf Ebenen von Systemen, die Funktionen in der Tiefe, operativ gegen strategisch quer über die Front — und Controlling beginnt erst auf den obersten zwei Etagen.",
          en:"Five floors of systems, the functions running into the depth, operational against strategic across the front — and controlling only starts on the top two floors."},
     track:"ctrl", status:"ready", accent:"navy", glyph:"pyramid", langBadge:{de:"EN",en:""},
-    features:[
-      {de:"Reichmanns Pyramide als interaktive Zeichnung, jede Etage und jede Scheibe beim Überfahren erklärt",
-       en:"Reichmann's pyramid rebuilt as an interactive drawing, every floor and slice explained on hover"},
-      {de:"Ein Schalter markiert, wo Controlling beginnt, ein zweiter tauscht die Modellbeschriftung gegen Sofias Systeme",
-       en:"One toggle marks where controlling begins, another swaps the model's labels for Sofia's systems"},
-      {de:"Die drei Dimensionen als Raster: Funktion, Kategorie der Größe, operativ gegen strategisch",
-       en:"The three dimensions as a grid: function, category of figure, operational against strategic"},
-      {de:"Das RL-Kennzahlensystem auf Sofias Quartal — zwei Spitzenkennzahlen, allgemeiner Teil und Sonderteil",
-       en:"The RL key figure system on Sofia's quarter — two top figures, general part and special part"}
-    ],
     links:[{kind:"html",file:"controlling-pyramid.html",
             label:{de:"Los geht’s",en:"Let’s go"}}]
   },
@@ -408,16 +324,6 @@ const TOPICS = [
          en:"Steering a chain you do not own — and the load and resilience portfolio that shows which partner carries weight and which is merely inconspicuous. Its own case, outside Sofia's business: four suppliers of a commercial vehicle maker."},
     track:"ctrl", status:"ready", accent:"navy", glyph:"chain",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Der Fall der Dieseleinspritzpumpe, und die Wortherkunft, die Controlling von Kontrolle trennt",
-       en:"The diesel injection pump case, and the etymology that separates controlling from control"},
-      {de:"Ein Regelkreis zum Bewegen: unter dem Sollwert wirkt die positive Rückkopplung, darüber die negative",
-       en:"A control loop you can move: below the target the positive feedback runs, above it the negative one"},
-      {de:"Das Portfolio mit vier Lieferanten — jede Rechnung offen, jede Achse über acht Regler selbst einstellbar",
-       en:"The portfolio with four suppliers — every calculation shown, every axis settable through eight sliders"},
-      {de:"Aufwand als Blasengröße: warum der billigste Hebel für den kritischen Partner im Feld der ungenutzten Reserve liegt",
-       en:"Effort as bubble size: why the cheapest lever for the critical partner sits in the field of unused reserve"}
-    ],
     links:[{kind:"html",file:"supply-chain-controlling.html",
             label:{de:"Los geht’s",en:"Let’s go"}}]
   },
@@ -427,10 +333,6 @@ const TOPICS = [
     sub:{de:"Von der einzelnen Verhältniszahl zum Treiberbaum: wie sich der ROI in Dinge zerlegt, die Sofia an einem Dienstagmorgen tatsächlich bewegen kann.",
          en:"From a single ratio to a driver tree: how ROI decomposes into things Sofia can actually move on a Tuesday morning."},
     track:"ctrl", status:"planned", accent:"ochre", glyph:"tree",
-    features:[
-      {de:"DuPont-Schema auf Sofias Zahlen", en:"DuPont scheme on Sofia's numbers"},
-      {de:"Treiberbäume und wo sie aufhören zu helfen", en:"Driver trees and where they stop being useful"}
-    ],
     links:[]
   },
   {
@@ -439,12 +341,6 @@ const TOPICS = [
     sub:{de:"Zwei Häuser, ein Fahrrad und ein Großhandelsbuch, jedes mit einer eigenen Schreibweise desselben Produkts. Was die Integration reparieren muss, bevor irgendetwas berichtet werden kann.",
          en:"Two houses, a bike and a wholesale ledger, each with its own spelling of the same product. What integration has to fix before anything can be reported."},
     track:"bi", status:"planned", accent:"orange", glyph:"layers",
-    features:[
-      {de:"Extrahieren, Transformieren und Laden am Strom der Bonzeilen",
-       en:"Extract, transform and load on the receipt stream"},
-      {de:"Datenqualitätsdimensionen an echten Fehlerfällen",
-       en:"Data quality dimensions with real failure cases"}
-    ],
     links:[]
   },
   {
@@ -454,14 +350,6 @@ const TOPICS = [
          en:"The first step of the path. So far a shell: structure, lesson bar and the two obligatory lessons are in place, the content is still to come."},
     track:"sec", status:"planned", accent:"navy", glyph:"shield",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Gerüst nach dem Modulvertrag: eine Inhaltslektion, das Quiz, der Praxiseinstieg",
-       en:"A frame following the module contract: one content lesson, the quiz, the practitioner's start"},
-      {de:"Quiz und Checkliste laufen schon, mit Beispieleinträgen, an denen das Format ablesbar ist",
-       en:"Quiz and checklist already run, with example entries that show the format"},
-      {de:"Jede offene Stelle als gestrichelter Kasten — ist der letzte weg, ist das Modul fertig",
-       en:"Every open spot marked as a dashed box — once the last one is gone, the module is finished"}
-    ],
     links:[{kind:"html",file:"cyber-security-einfuehrung.html",
             label:{de:"Hülle ansehen",en:"Look at the shell"}}]
   }
@@ -633,15 +521,15 @@ const SORTIERT = (() => {
 grid.innerHTML=SORTIERT.map(t=>{
   const planned=t.status==="planned";
   const [trackName,trackCls]=TRACK[t.track];
-  const title=L(t.title), sub=L(t.sub), feats=t.features.map(L), lb=L(t.langBadge);
+  const title=L(t.title), sub=L(t.sub), lb=L(t.langBadge);
   const links=t.links.length
     ? t.links.map((l,i)=>`<a class="lnk ${i===0?"primary":"ghost"}"
          href="${l.file}${l.kind==="deck"?"":qs}" ${l.kind==="deck"?"download":""}>
          <svg class="ic" viewBox="0 0 24 24">${ICON[l.kind]}</svg>${L(l.label)}</a>`).join("")
     : `<span class="soon">${L(UI.soon)}</span>`;
   /* Gesucht wird in der angezeigten Sprache und zusaetzlich in der englischen Fassung */
-  const alt=[t.title,t.sub,...t.features].map(v=>typeof v==="object"&&v?v.en:"").join(" ");
-  const hay=(title+" "+sub+" "+feats.join(" ")+" "+L(trackName)+" "+alt)
+  const alt=[t.title,t.sub].map(v=>typeof v==="object"&&v?v.en:"").join(" ");
+  const hay=(title+" "+sub+" "+L(trackName)+" "+alt)
             .toLowerCase().replace(/"/g,"");
   return `<article class="tile ${planned?"planned":""}" data-id="${t.id}"
       data-track="${t.track}" data-status="${t.status}"
@@ -662,7 +550,6 @@ grid.innerHTML=SORTIERT.map(t=>{
     </div>
     <h2>${title}</h2>
     <p class="sub">${sub}</p>
-    <ul class="feat"><div>${feats.map(f=>`<li>${f}</li>`).join("")}</div></ul>
     <div class="links">${links}</div>
   </article>`;
 }).join("");
