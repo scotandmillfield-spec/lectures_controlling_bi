@@ -260,6 +260,9 @@ es gibt keine zweite Liste, die auseinanderlaufen könnte.
 | `\b([Tt]rage|[Tt]rägst|[Tt]rägt|[Tt]ragen|[Tt]ragt|[Tt]rug|[Tt]rugen|[Tt]rüge|[Gg]etragen|[Tt]ragend[ers]*)\b` | hart | Das Verb „tragen“ ist eine Verlegenheitslösung: Es klingt nach Aussage und sagt nichts. | Das konkrete Verb: „hält aus“, „gibt her“, „ruht auf“, „steht auf“, „hat“, „reicht“ |
 | `\bsondern\b` | hart | Die Figur „nicht X, sondern Y“ klingt nach Schärfe und sagt zuerst, was etwas nicht ist. Der Leser hält die Verneinung im Kopf, bis die Behauptung endlich kommt. | Den Satz positiv stellen: „Ein Risiko ist ein bewertetes Ereignis.“ |
 | `\b((sieh|schau)(st Du)? (dabei )?zu|zusehen|zuschauen|[Bb]eobachte)\b` | hart | Der Lernende ist kein Publikum. „Sieh zu, wie die Linie reagiert“ verspricht eine Vorstellung, macht die Zeichnung zum Handelnden und sagt nicht, was abzulesen ist. | Eine Ablesehandlung mit benanntem Ergebnis: „lies ab, in welchem Monat …“, „vergleich, welche Zeilen …“, „bestimme, welcher Typ …“ |
+| `\b(BWA|Bilanz|Vorschau|Kennzahl|Gewinn- und Verlustrechnung|GuV|Bilanzsumme|Blatt) sagt\b` | prüfen | Ein Rechenwerk spricht nicht. Es weist aus, zeigt oder enthält. „Die Bilanz sagt, was da war“ ist zudem ungenau, weil sie Vermögen und Finanzierung ausweist. | „weist aus“, „zeigt“, „enthält“. Der Einzelfall „Die Kennzahl sagt nichts über den Kapitaleinsatz“ bleibt und bekommt `sprache:ok`. |
+| `\b(wird|werden) daraus (zu )?Geld\b|\bwann das Geld da ist\b|\bwas ein Monat verdient hat\b` | hart | Aus einem Ertrag wird keine Einzahlung. Es sind zwei verschiedene Größen mit zwei verschiedenen Zeitpunkten, und das ist der Gegenstand des ganzen Lernpfads Liquiditätsplanung. | „wann die zugehörige Einzahlung anfällt“, „den Periodenerfolg ausweisen“ |
+| `\bwas geschehen ist\b|\bwas gelaufen ist\b|\bwas los war\b` | hart | Eine Alltagsumschreibung an der Stelle des Fachbegriffs. Eine BWA zeigt nicht, „was geschehen ist“, sie weist Erträge und Aufwendungen einer Periode aus. | Den Begriff selbst: „Periodenerfolg“, „Erträge und Aufwendungen“, „Betriebsergebnis“ |
 
 **Was „sondern“ nicht rettet.** Gemeint ist die Figur, nicht das Wort. Wer „Ein Risiko ist
 kein Unglück, sondern ein bewertetes Ereignis“ in zwei Sätze zerlegt, hat sie mit einem Punkt
@@ -274,6 +277,37 @@ Wörter und bleiben: `eintragen`, `übertragen`, `betragen`, `Vertrag`, `Beitrag
 `Ertrag`. Ebenso die Ableitungen `Tragweite`, `Tragfähigkeit`, `tragbar` und `Träger` — sie
 sind Fachbegriffe und keine Beugung. Der reguläre Ausdruck ist mit `\b` genau so geschnitten;
 wer ihn erweitert, prüft vorher gegen `beträgt` und `eingetragen`.
+
+**Der Fachbegriff steht an erster Stelle, nicht seine Umschreibung.** Das ist keine Stilfrage. „Die
+BWA sagt Dir, was geschehen ist, die Vorschau sagt Dir, wann daraus Geld wird" ist zweimal falsch.
+Eine BWA weist den **Periodenerfolg** aus, also Erträge und Aufwendungen einer Periode, abgegrenzt
+nach dem Zeitpunkt der Leistung. Aus einem Ertrag wird keine Einzahlung, weil es zwei verschiedene
+Größen mit zwei verschiedenen Zeitpunkten sind. Wer das umschreibt, nimmt dem Lernenden genau die
+Unterscheidung weg, um die es geht.
+
+Die Prüfung findet davon allein die drei Formen in der Tabelle. Alles Übrige zeigt sich beim Lesen,
+weshalb zu jeder Überarbeitung eines Textes gehört, die **tragenden Aussagen** dieses Moduls einmal
+im Zusammenhang zu lesen, also jedes `.lede`, jedes `.claim` und jeden `.pointe`. Dort richtet ein
+falscher Satz am meisten an, weil die Kernaussage über der Lektion steht und im Zweifel als einziges
+hängen bleibt. In der Lernplattform sind es 92 Stellen; diese Liste holt sie:
+
+```bash
+python3 - <<'EOF'
+import io, re, glob, html
+for f in sorted(glob.glob("plattform/*.html")):
+    t = re.sub(r"<script\b.*?</script>", " ", io.open(f, encoding="utf-8").read(), flags=re.S)
+    for k in ("lede", "claim", "pointe"):
+        for m in re.finditer(r'<(?:p|div)[^>]*class="[^"]*\b'+k+r'\b[^"]*"[^>]*>(.*?)</(?:p|div)>', t, re.S):
+            s = html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", m.group(1)))).strip()
+            if len(s) > 30: print(f"{f.split('/')[-1][:-5]:28s} [{k:6s}] {s}")
+EOF
+```
+
+**Der Wortschatz liegt zumeist schon in der Datei.** In `plattform/liquiditaet-bwa.html` stand in
+einer Quizbegründung „Sie zeigt Erträge und Aufwendungen", während der Vorspann derselben Datei
+„Die BWA sagt, was geschehen ist" führte. Die richtige Formulierung war vorhanden und wurde nicht
+benutzt. Wer eine solche Stelle bereinigt, sucht deshalb zuerst im Modul selbst nach dem Begriff,
+statt einen neuen zu erfinden.
 
 **Was die Zuschauerhaltung ist.** Ein Werkzeug im Modul ist zum Bedienen da und nicht zum
 Bewundern. „In diesem Modul baust Du beides zusammen und siehst dabei zu, wie die Bestandslinie
@@ -461,7 +495,7 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.61`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.62`.
 Keine Quellenverzeichnisse, keine Legenden, keine Beschreibung des Falls und kein Hinweis
 darauf, woher eine Abbildung stammt. Sie steht in jeder ausgelieferten Datei gleich, im Markup
 als `<footer>` und auf den zweisprachigen Seiten als Eintrag `footer` im `UI`-Wörterbuch. Dort
@@ -470,7 +504,7 @@ ist sie ein einfacher String, weil ein Name und eine Nummer in beiden Sprachen d
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.61</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.62</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 

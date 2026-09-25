@@ -648,7 +648,7 @@ footer a{color:var(--teal-dk)}
 
 /* ---------- Die Zahlungsstrecke ----------
    Je Position zwei Spuren uebereinander: oben der Balken, wie er in
-   der BWA steht, unten das, was auf dem Konto ankommt. Sechs Monate
+   der BWA steht, unten die Zahlung, die sich daraus ergibt. Sechs Monate
    genuegen, weil die Verteilung nie weiter reicht; damit passt die
    Achse auch auf das Telefon, ohne dass sie kippen oder scrollen
    muss.                                                             */
@@ -963,7 +963,7 @@ footer a{color:var(--teal-dk)}
 <header class="masthead">
   <p class="eyebrow">Liquiditätsplanung · Modul 04</p>
   <h1>Die <em>Liquiditätsvorschau</em></h1>
-  <p class="lede">Die BWA sagt Dir, was geschehen ist, die Vorschau sagt Dir, wann daraus Geld wird. Dazwischen liegt eine Regel je Position. Darunter stehen vier Posten, die in keiner betriebswirtschaftlichen Auswertung vorkommen. In diesem Modul baust Du beides zusammen und liest am Ende ab, in welchem Monat der Kontostand unter null rutscht.</p>
+  <p class="lede">Eine BWA weist den Periodenerfolg aus, also die Erträge und Aufwendungen eines Monats. Eine Liquiditätsvorschau weist Ein- und Auszahlungen aus. Zwischen beiden liegt je Position eine Regel. Darunter stehen vier Posten, die in keiner betriebswirtschaftlichen Auswertung vorkommen. In diesem Modul baust Du beides zusammen und liest am Ende ab, in welchem Monat der Kontostand unter null rutscht.</p>
   <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Grundlage sind zwei Reihen zu je zwölf Monaten, nämlich die Planung aus dem Modul „Die BWA lesen“ und die letzten zwölf gebuchten Monate. Ein Startmonat entscheidet darüber, welche Reihe in welcher Spalte erscheint; ohne Änderung beginnt die Vorschau im Januar. Der Anfangsbestand von 3.900 T€ ist dann der Posten „Kassenbestand und Guthaben bei Kreditinstituten“ aus der Bilanz des ersten Moduls im Lernpfad Bilanzanalyse.</p>
 </header>
 
@@ -978,10 +978,10 @@ footer a{color:var(--teal-dk)}
 
 <!-- ==================== LEKTION 01 · VOM ERGEBNIS ZUR ZAHLUNG ==================== -->
 <section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
-  <p class="claim">Eine BWA sagt, <b>was ein Monat verdient hat</b>. Eine Vorschau sagt, <b>wann das Geld da ist</b>. Zwischen beiden steht je Position eine Regel, die den Ertrag in eine Einzahlung und den Aufwand in eine Auszahlung übersetzt.</p>
+  <p class="claim">Eine BWA weist den <b>Periodenerfolg</b> aus, eine Liquiditätsvorschau den <b>Zahlungsmittelbestand</b>. Zwischen beiden steht je Position eine Regel, die den Ertrag in eine Einzahlung und den Aufwand in eine Auszahlung übersetzt.</p>
 
   <h2 class="sec">Wie aus einem Ertrag eine Einzahlung wird</h2>
-  <p class="sub">Vier Positionen aus dem Januar des Zulieferers, jede mit ihrer echten Regel. Oben steht der Balken, wie ihn die BWA zeigt, unten das, was auf dem Konto ankommt. Schieb das Zahlungsziel und vergleich, welche Zeilen ihren Monat wechseln und welche stehen bleiben.</p>
+  <p class="sub">Vier Positionen aus dem Januar des Zulieferers, jede mit ihrer echten Regel. Oben steht der Balken, wie ihn die BWA zeigt, unten die Zahlung, die sich daraus ergibt, jeweils ohne Umsatzsteuer. Schieb das Zahlungsziel und vergleich, welche Zeilen ihren Monat wechseln und welche stehen bleiben.</p>
 
   <div class="zs">
     <div class="zsr">
@@ -1395,7 +1395,7 @@ footer a{color:var(--teal-dk)}
 <div class="tip" id="tip" role="status" aria-live="polite"></div>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.61</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.62</span>
 </footer>
 
 </div>
@@ -2476,7 +2476,7 @@ function vUntenZeichnen(){
         + (START === 1 ? "Monat" : "Monate") + ` um <b>${zahl(Math.abs(ab))} T€</b> `
         + (ab < 0 ? "zu hoch" : "zu niedrig") + `.`
       : `Ende ${LANG[START - 1]}: gerechnet und Kontoauszug stimmen überein. `
-        + `Trag den echten Stand ein. Das Blatt sagt Dir dann, wie weit die Regeln danebenlagen.`;
+        + `Trag den echten Stand ein. Das Blatt zeigt Dir dann, wie weit die Regeln danebenlagen.`;
     $("vAbw").hidden = false;
   } else {
     $("vAbw").hidden = true;
