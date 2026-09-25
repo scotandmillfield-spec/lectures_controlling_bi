@@ -141,6 +141,33 @@ sich wie eine Bedienungsanleitung.
 | Die Dreierfigur ohne Verb | „Oben das Geschäft, in der Mitte das Finanzamt, unten alles Übrige." | „Eine Liquiditätsvorschau setzt sich aus drei Komponenten zusammen. Erstens die BWA samt Regelwerk, zweitens der Steuersaldo, drittens alles, was nicht in der BWA steht." |
 | Das Anhängsel am Satzende | „…, und das ist der Zweck der Trennung." | Punkt setzen. Den Gedanken in den nächsten Satz stellen, wenn er gebraucht wird. |
 
+**Das Anhängsel überlebt seine Verkleidung.** Verboten ist die Figur, nicht das Zeichen. Wird der
+Gedankenstrich gestrichen, kommt dasselbe Anhängsel als `, und`, danach als `, wobei`, `, was`,
+`, sodass`, `, weshalb`, `, womit` oder `, worin` wieder. Der Prüfstein ist der Inhalt des
+Nebensatzes. Sagt er die Hauptaussage noch einmal in vageren Worten, fällt er weg. Behauptet er
+Bedeutung, ohne sie zu nennen, wird an seiner Stelle die Sache selbst hingeschrieben.
+
+Falsch ist „Zwischen beiden steht je Position eine Regel, wobei diese Regeln den ganzen
+Unterschied ausmachen." Der Leser fragt zurück, welchen Unterschied. Richtig ist „Zwischen beiden
+steht je Position eine Regel, die den Ertrag in eine Einzahlung und den Aufwand in eine
+Auszahlung übersetzt."
+
+Zur selben Sorte gehören `der eigentliche Inhalt`, `der eigentliche Lernstoff` und
+`genau darin liegt`. Ein Wort behauptet dort Wichtigkeit an der Stelle, an der die Aussage
+stehen müsste.
+
+**Ein Nebensatz am Satzende ist nicht schon deshalb falsch.** `, da`, `, während`, `, indem`,
+`sowie` und der Relativsatz führen den Gedanken weiter und bleiben erwünscht. Ein vorangestellter
+Nebensatz („Weil die beiden Fragen voneinander unabhängig sind, gibt es vier Felder") und das
+Semikolon zwischen zwei gleichgewichtigen Aussagen sind die beiden Wege, die beim Aufräumen am
+häufigsten weiterhelfen.
+
+**Das Auftrennen allein macht es schlimmer.** Beim Entfernen der 73 Anhängsel aus den vier
+Modulen der Lernplattform fiel der Anteil der Sätze über 25 Wörtern von 15,7 auf 6,5 Prozent, weil
+gerade das Anhängsel diese Sätze über die Marke gehoben hatte. Erst ein zweiter Durchgang mit
+Relativsatz, vorangestelltem Nebensatz und Semikolon hat den Takt wieder auf den Stand von vorher
+gebracht. Wer Anhängsel streicht, messe danach nach.
+
 #### Der Takt der Sätze
 
 **Der kurze, schlagende Satz ist erlaubt.** Falsch ist seine Häufigkeit. In Maiks Buchtext sind
@@ -419,7 +446,7 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.59`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.60`.
 Keine Quellenverzeichnisse, keine Legenden, keine Beschreibung des Falls und kein Hinweis
 darauf, woher eine Abbildung stammt. Sie steht in jeder ausgelieferten Datei gleich, im Markup
 als `<footer>` und auf den zweisprachigen Seiten als Eintrag `footer` im `UI`-Wörterbuch. Dort
@@ -428,7 +455,7 @@ ist sie ein einfacher String, weil ein Name und eine Nummer in beiden Sprachen d
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.59</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.60</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
