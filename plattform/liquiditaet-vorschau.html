@@ -646,6 +646,110 @@ footer a{color:var(--teal-dk)}
   .zuz .zb{justify-content:flex-start}
 }
 
+/* ---------- Die Zahlungsstrecke ----------
+   Je Position zwei Spuren uebereinander: oben der Balken, wie er in
+   der BWA steht, unten das, was auf dem Konto ankommt. Sechs Monate
+   genuegen, weil die Verteilung nie weiter reicht; damit passt die
+   Achse auch auf das Telefon, ohne dass sie kippen oder scrollen
+   muss.                                                             */
+.zs{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:16px 18px 12px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.zsr{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:0 0 16px}
+.zsr label{font-size:.9rem;color:#3d3d40;flex:none}
+.zsr input[type=range]{flex:1;min-width:180px;accent-color:var(--teal-dk)}
+.zsr input[type=range]:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.zsr .w{font-family:var(--mono);font-size:.86rem;font-weight:600;color:var(--teal-dk);
+  font-variant-numeric:tabular-nums;min-width:5.5em;text-align:right}
+.zskopf,.zsz,.zssum{display:grid;grid-template-columns:158px repeat(6,minmax(0,1fr));
+  gap:0 4px;align-items:end}
+/* Der Zeilenabstand ist der Platz fuer die Betragsbeschriftung, die
+   sonst in den Kasten der oberen Spur rutscht. */
+.zsz{row-gap:15px}
+.zskopf>*,.zsz>*,.zssum>*{min-width:0}
+.zskopf span{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--grey);text-align:center;padding-bottom:4px}
+.zsz{border-top:1px solid var(--grey-xl);padding:10px 0 8px}
+.zsn{grid-row:1/3;align-self:center;padding-right:10px}
+.zsn b{display:block;font-size:.88rem;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+.zsn em{display:block;font-family:var(--mono);font-size:.68rem;font-style:normal;
+  color:var(--grey);margin-top:2px;font-variant-numeric:tabular-nums}
+.zsn em.r{color:var(--teal-dk);margin-top:1px}
+/* Die Zelle ist immer gleich hoch, damit die Balken auf einer Grundlinie
+   stehen. Der Balken waechst von unten, sein Anteil steht als Hoehe. */
+.zsc{height:38px;position:relative}
+.zsc.oben{height:26px;opacity:.75}
+.zsb{position:absolute;left:0;right:0;bottom:0;border-radius:3px 3px 0 0;
+  transition:height .35s var(--ease)}
+.zsc.oben .zsb{background:transparent;border:1.5px dashed var(--grey-mid);border-bottom:0}
+.zsz.ein .zsc.unten .zsb{background:var(--teal)}
+.zsz.aus .zsc.unten .zsb{background:var(--ochre)}
+.zsw{position:absolute;top:-13px;left:0;right:0;text-align:center;font-family:var(--mono);
+  font-size:.62rem;color:var(--grey);font-variant-numeric:tabular-nums;white-space:nowrap}
+/* Der Betrag steht im Kasten der oberen Spur, damit oben und unten
+   dieselbe Zahl zeigen und der Leser sie vergleichen kann. */
+.zso{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:.62rem;color:var(--grey);font-variant-numeric:tabular-nums}
+/* Ein hoher Balken bekommt seine Zahl hinein, ein flacher darueber.
+   Sonst steht sie bei einer Position, die im selben Monat zahlt,
+   zweimal fast an derselben Stelle. */
+.zsw.innen{top:auto;bottom:0;height:38px;display:flex;align-items:center;
+  justify-content:center;color:#fff}
+/* Eine Position ohne Zahlung bekommt eine sichtbare Leere ueber alle
+   sechs Monate. Ein bloss leerer Platz saehe nach einem Fehler aus. */
+.zsnie{grid-column:2/-1;height:38px;display:flex;align-items:center;justify-content:center;
+  border:1.5px dashed var(--grey-mid);border-radius:var(--r);
+  font-family:var(--mono);font-size:.68rem;color:var(--grey)}
+.zssum{border-top:2px solid var(--grey-mid);padding-top:9px;margin-top:2px;align-items:center}
+.zssum .n{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--grey);padding-right:10px}
+.zssum .z{font-family:var(--mono);font-size:.78rem;text-align:center;
+  font-variant-numeric:tabular-nums;color:var(--ink)}
+.zssum .z.neg{color:var(--red)}
+.zsleg{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0 0;font-size:.78rem;color:var(--grey)}
+.zsleg span{display:inline-flex;align-items:center;gap:7px}
+.zsleg b{width:13px;height:10px;border-radius:2px;flex:none}
+.zsleg b.o{background:transparent;border:1.5px dashed var(--grey-mid)}
+.zsleg b.e{background:var(--teal)}
+.zsleg b.a{background:var(--ochre)}
+
+/* ---------- Die drei Schichten ----------
+   Eine Linie des Kontostands ueber zwoelf Monate, in drei Stufen
+   aufgebaut. Die Zeichnung rechnet in einem viewBox und misst nichts,
+   weil getBoundingClientRect in einem zugeklappten Block nur Nullen
+   liefert.                                                          */
+.sch{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:16px 18px 14px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.sch svg{display:block;width:100%;height:auto}
+.schb{fill:none;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+.schb.alt{stroke-width:1.5;opacity:.3}
+.schnull{stroke:var(--grey-mid);stroke-width:1}
+.schlin{stroke:var(--red);stroke-width:1.5;stroke-dasharray:5 4}
+.schtxt{font-family:var(--mono);font-size:9.5px;fill:var(--grey)}
+.schtxt.lin{fill:var(--red)}
+.schm{font-family:var(--mono);font-size:9.5px;fill:var(--grey);text-anchor:middle}
+.scherg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:14px 0 0}
+.scherg>*{min-width:0}
+.schk{background:var(--canvas);border-radius:var(--r);padding:13px 15px}
+.schk.warn{background:var(--orange-xl)}
+.schk .kk{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 5px}
+.schk .kv{margin:0;font-family:var(--mono);font-size:1.3rem;font-weight:600;
+  letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--teal-dk)}
+.schk.warn .kv{color:#A85B00}
+.schk .kf{margin:4px 0 0;font-size:.82rem;color:#3d3d40;line-height:1.45}
+@media (max-width:620px){
+  .zskopf,.zsz,.zssum{grid-template-columns:96px repeat(6,minmax(0,1fr))}
+  /* Auf dem Telefon fehlt die Breite fuer die Regel im Klartext. Die
+     Balken sagen dasselbe, deshalb faellt allein die Zeile weg. */
+  .zsn em.r{display:none}
+  .zsn b{font-size:.78rem}
+  .zsw{font-size:.55rem}
+  /* Sechs Betraege auf 390 Pixeln: die Saldozeile braucht die kleinste
+     Stufe, sonst stossen die Zahlen aneinander. */
+  .zssum .z{font-size:.56rem}
+  .zssum .n{font-size:.56rem;padding-right:6px}
+}
+
 /* ---------- Der Regel-Editor ----------
    Je Position eine Zeile: Bezeichnung, Umsatzsteuersatz, Regeltyp und
    die Parameter dazu. Die Parameter wechseln mit dem Typ, deshalb
@@ -874,29 +978,39 @@ footer a{color:var(--teal-dk)}
 
 <!-- ==================== LEKTION 01 · VOM ERGEBNIS ZUR ZAHLUNG ==================== -->
 <section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
-  <p class="claim">Eine Liquiditätsvorschau besteht aus <b>drei Teilen</b>. Die meisten Fehler in der Praxis entstehen daraus, dass jemand nur den ersten davon sorgfältig baut und die beiden anderen für Nebensache hält.</p>
+  <p class="claim">Eine BWA sagt, <b>was ein Monat verdient hat</b>. Eine Vorschau sagt, <b>wann das Geld da ist</b>. Zwischen beiden steht je Position eine Regel, wobei diese Regeln den ganzen Unterschied ausmachen.</p>
 
-  <h2 class="sec">Der Aufbau einer Liquiditätsvorschau</h2>
-  <p class="sub">Eine Liquiditätsvorschau setzt sich aus drei Komponenten zusammen. Erstens die BWA samt Regelwerk, zweitens die Ermittlung des Vorsteuer-/Mehrwertsteuersaldos und drittens Elemente, die nicht in der BWA stehen.</p>
-  <div class="trio">
-    <div class="card" style="border-left:3px solid var(--teal-dk)">
-      <p class="ck">Teil 1: BWA</p><h3>Über Regeln aus dem Erfolg zur Einzahlung</h3>
-      <p>Jede Position der BWA bekommt eine Regel dafür, wann aus einem Ertrag eine Einzahlung und wann aus einem Aufwand eine Auszahlung wird. Aus achtzehn Zeilen mit Monatsbeträgen entstehen auf diese Weise achtzehn Zahlungsströme, die sich einzeln verschieben lassen.</p>
-      <p>Drei Positionen bekommen dabei die Regel „nie“ (Abschreibungen, Bestandsveränderung und aktivierte Eigenleistungen), weil sie Aufwand oder Ertrag ohne jede Zahlung sind.</p>
+  <h2 class="sec">Wie aus einem Ertrag eine Einzahlung wird</h2>
+  <p class="sub">Vier Positionen aus dem Januar des Zulieferers, jede mit ihrer echten Regel. Oben steht der Balken, wie ihn die BWA zeigt, unten das, was auf dem Konto ankommt. Schieb das Zahlungsziel und sieh zu, welche Zeilen wandern.</p>
+
+  <div class="zs">
+    <div class="zsr">
+      <label for="zsZiel">Die Kunden zahlen später</label>
+      <input type="range" id="zsZiel" min="0" max="60" step="5" value="0"
+             aria-label="Zahlungsziel um wie viele Tage verlängert">
+      <span class="w" id="zsWert">wie vereinbart</span>
     </div>
-    <div class="card" style="border-left:3px solid var(--ochre)">
-      <p class="ck">Teil 2: Umsatzsteuer</p><h3>Der eigene Rhythmus des Finanzamts</h3>
-      <p>Die Umsatzsteuer folgt einem eigenen Rhythmus, der sich aus Voranmeldung und Dauerfristverlängerung ergibt. In der BWA bleibt sie unsichtbar, auf dem Konto gehört sie in der Regel zu den größten monatlichen Posten.</p>
-      <p>Beim Zulieferer sind es 7.794 T€ im Jahr allein aus dem laufenden Geschäft, also mehr als das Dreifache seines Jahresüberschusses.</p>
-    </div>
-    <div class="card" style="border-left:3px solid var(--red)">
-      <p class="ck">Teil 3: Außerhalb der BWA</p><h3>Was keine Buchhaltung hergibt</h3>
-      <p>Vier Bewegungen gehören hierher: Investition, Darlehensaufnahme, Tilgung und Entnahme. Keine von ihnen erscheint in einer Aufwandsposition der BWA, obwohl alle vier das Konto in einer Größenordnung bewegen, die über den Engpass eines Jahres entscheidet.</p>
-      <p>Diesen Teil pflegst Du von Hand, weil er sich aus keiner Buchhaltung ableiten lässt. Er besteht zu einem guten Teil aus Entscheidungen, die noch niemand getroffen hat.</p>
-    </div>
+    <div id="zsTafel"></div>
   </div>
+
   <div class="readme" style="margin-top:16px">
-    <b>Darunter stehen die beiden Zeilen, auf die es ankommt.</b> Die erste zeigt den <b>Endbestand</b> je Monat, die zweite die <b>Kontokorrentlinie</b> als Bezugsgröße. Null ist dabei selten die Grenze, die wirklich zählt, denn interessant ist der Monat, in dem der Bestand den eingeräumten Rahmen reißt. Die ganze Tabelle darüber existiert allein zu dem Zweck, diese eine Zeile zu erzeugen und sie rechtzeitig sichtbar zu machen.
+    <b>Die Umsatzerlöse zerfallen in drei Balken</b>, weil ein Zahlungsziel keine Zahl ist und eine Verteilung bleibt. Personal und Raumkosten rühren sich nicht, da ihr Tag im Vertrag steht. Die Abschreibung hat oben einen Balken und unten nichts. Im nächsten Reiter bekommen achtzehn Positionen achtzehn solcher Regeln.
+  </div>
+
+  <h2 class="sec">Woraus eine Vorschau besteht</h2>
+  <p class="sub">Drei Teile kommen zusammen: die BWA samt Regelwerk, der Saldo aus Umsatz- und Vorsteuer sowie alles, was in keiner Buchhaltung steht. Schalte die Teile nacheinander zu und sieh auf den Kontostand.</p>
+
+  <div class="sch">
+    <div class="seg" id="schWahl" role="group" aria-label="Die Schichten der Vorschau">
+      <button type="button" data-n="0" aria-pressed="true">Nur die BWA</button>
+      <button type="button" data-n="1" aria-pressed="false">+ Umsatzsteuer</button>
+      <button type="button" data-n="2" aria-pressed="false">+ Nicht in der BWA</button>
+    </div>
+    <div id="schTafel" aria-live="polite"></div>
+  </div>
+
+  <div class="readme" style="margin-top:16px">
+    <b>Der dritte Teil ist der, den niemand geschenkt bekommt.</b> Investition, Darlehen, Tilgung und Entnahme bestehen zu einem guten Teil aus Entscheidungen, die noch niemand getroffen hat. Deshalb pflegst Du sie von Hand, wobei genau sie über den Engpass entscheiden.
   </div>
 
   <h2 class="sec">Was diese Vorschau leistet und was nicht</h2>
@@ -915,18 +1029,10 @@ footer a{color:var(--teal-dk)}
   </table>
   </div>
 
-  <h2 class="sec">Der Startpunkt und die offenen Posten</h2>
-  <p class="sub">Weil eine Vorschau in einem bestimmten Monat beginnt, ist alles, was davor liegt, zwar längst gebucht, schickt aber trotzdem noch Geld auf das Konto des ersten Vorschaumonats.</p>
-  <div class="merk">
-    <h3>Woher der erste Monat sein Geld bekommt</h3>
-    <dl>
-      <dt>Die Lage</dt><dd>Der erste Monat einer Vorschau bekommt seine Einzahlungen fast vollständig aus Rechnungen, die <b>vorher</b> geschrieben wurden. Beim Zulieferer sind das bei einem Start im Januar <b>7.195 T€</b> und damit mehr als vier Fünftel aller Januar-Eingänge. Aus dem Januar selbst stammen nur die 20 % der Kunden, die sofort zahlen.</dd>
-      <dt>Ist und Plan</dt><dd>Deshalb hat jede Vorschau eine Naht. Die Monate <b>vor</b> dem Startpunkt zeigen das Ist, also gebuchte Zahlen aus der laufenden Buchhaltung, während die Tabelle ab dem Startpunkt den Plan zeigt. Wer im April plant, arbeitet mit drei Ist- und neun Planmonaten. Die offenen Rechnungen aus Februar und März stehen dabei direkt darüber in derselben BWA.</dd>
-      <dt>In der Wirklichkeit</dt><dd>In der Buchhaltung heißen diese Rechnungen <b>offene Posten</b>. Es sind konkrete Belege mit konkreten Fälligkeiten aus der Debitoren- und Kreditorenbuchhaltung, die für die ersten Wochen einer Vorschau die bessere Quelle sind als jede BWA.</dd>
-      <dt>Der Sonderfall Januar</dt><dd>Beginnt die Vorschau im Januar, gibt es in diesem Jahr keinen einzigen Ist-Monat. Die ganze Ist-Reihe liegt dann im Vorjahr, sodass die offenen Posten aus dessen November und Dezember stammen. Gerechnet ist das richtig, unbequem bleibt es trotzdem, weil in der Tabelle von diesen beiden Monaten nichts zu sehen ist.</dd>
-      <dt>Woran sich das messen lässt</dt><dd>Das Modul rechnet den abgelaufenen Teil mit, nämlich mit denselben Regeln über die Ist-Zahlen. Was die Regeln für den letzten Ist-Monat ausrechnen, steht damit neben dem, was der Kontoauszug sagt. Beim Zulieferer liegen sie nach fünf Monaten um <b>392 T€ zu hoch</b>, weil die Kunden etwas träger zahlen, als die Verteilung annimmt. Diese eine Zahl sagt über die Güte einer Vorschau mehr aus als jede Verfeinerung des oberen Teils.</dd>
-      <dt>Warum das kein Detail ist</dt><dd>Die offenen Posten entstanden unter den <b>alten</b> Bedingungen. Zahlen Deine Kunden künftig später, kommen die alten Rechnungen trotzdem noch zur alten Zeit herein, sodass die Umstellung Dich einmalig die Differenz kostet. Wer das Jahr im Kreis rechnet, sieht diesen Verlust nicht und hält eine Verschlechterung des Zahlungsverhaltens deshalb für folgenlos.</dd>
-    </dl>
+  <h2 class="sec">Der erste Monat lebt von gestern</h2>
+  <p class="sub">Eine Vorschau fängt in einem bestimmten Monat an, wobei alles, was davor liegt, trotzdem noch Geld auf ihr erstes Konto schickt.</p>
+  <div class="readme">
+    <b>Beim Zulieferer sind das bei einem Start im Januar 7.195 T€</b> und damit mehr als vier Fünftel aller Januar-Eingänge. Aus dem Januar selbst stammen allein die 20 % der Kunden, die sofort zahlen. In der Buchhaltung heißen diese Rechnungen <b>offene Posten</b>, die für die ersten Wochen einer Vorschau die bessere Quelle sind als jede BWA. Wie die Naht zwischen Ist und Plan aussieht, siehst Du im Planer der vierten Lektion.
   </div>
 
   <div class="pointe">
@@ -1289,7 +1395,7 @@ footer a{color:var(--teal-dk)}
 <div class="tip" id="tip" role="status" aria-live="polite"></div>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.58</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.59</span>
 </footer>
 
 </div>
@@ -2898,7 +3004,190 @@ $("vCopy").addEventListener("click", () => {
 alles();
 
 /* =====================================================================
-   7 · Zuordnungsuebung: Bestand, Ergebnis, beides oder keines
+   7 · Die Zahlungsstrecke
+
+   Vier Positionen aus dem Januar der Planreihe, mit ihren echten
+   Regeln aus REGEL_START. Der Regler verschiebt allein die Verteilung
+   der Umsatzerloese, und zwar mit verschoben(), also mit derselben
+   Rechnung wie die Vorschau in Lektion 04. Eine zweite Rechnung waere
+   eine zweite Wahrheit.
+
+   Gezeigt wird netto. Die Umsatzsteuer macht aus 7.100 auf dem Konto
+   8.449, sie ist der Gegenstand von Lektion 03 und wuerde hier nur
+   die Frage nach dem Zeitpunkt verdecken.
+   ===================================================================== */
+const ZS_MON = 6;
+const ZS_POS = [
+  {id:"UMS", kurz:"Umsatzerlöse"},
+  {id:"PER", kurz:"Personalkosten"},
+  {id:"RAU", kurz:"Raumkosten"},
+  {id:"ABS", kurz:"Abschreibungen"}
+];
+let zsZiel = 0;
+
+/* Was von einer Position im Januar in welchem Monat auf dem Konto
+   landet. Zurueck kommen ZS_MON Betraege. */
+function zsStrom(id){
+  const r = REGEL_START[id], betrag = BWA_START[id].plan[0], out = new Array(ZS_MON).fill(0);
+  if(r.typ === "nie") return out;
+  if(r.typ === "vert"){
+    /* Der Regler wirkt nur dort, wo eine Verteilung steht. Genau das
+       ist der Unterschied, den die Strecke zeigen soll. */
+    const teile = id === "UMS" ? verschoben(r.par.teile, zsZiel) : r.par.teile;
+    for(const [v, a] of teile) if(v < ZS_MON) out[v] += betrag * a / 100;
+    return out;
+  }
+  /* Fester Tag: der Versatz entscheidet den Monat, der Tag steht nur
+     in der Beschriftung, weil eine Monatsvorschau keine Tage kennt. */
+  out[Math.min(r.par.versatz || 0, ZS_MON - 1)] = betrag;
+  return out;
+}
+
+function zsUnterschrift(id){
+  const r = REGEL_START[id];
+  if(r.typ === "nie") return "nie zahlungswirksam";
+  if(r.typ === "vert"){
+    const t = id === "UMS" ? verschoben(r.par.teile, zsZiel) : r.par.teile;
+    return t.filter(([, a]) => a >= 0.5)
+      .map(([v, a]) => Math.round(a) + " % " + (MONATE[v] || "später")).join(" · ");
+  }
+  return "fester Tag, am " + r.par.tag + ".";
+}
+
+function zsZeichne(){
+  const stroeme = ZS_POS.map(p => ({...p, s: zsStrom(p.id), betrag: BWA_START[p.id].plan[0],
+                                    richt: REGEL_START[p.id].richt,
+                                    nie: REGEL_START[p.id].typ === "nie"}));
+  let h = `<div class="zskopf"><span></span>` +
+    MONATE.slice(0, ZS_MON).map(m => `<span>${m}</span>`).join("") + `</div>`;
+
+  for(const p of stroeme){
+    const max = Math.max(...p.s, 1);
+    h += `<div class="zsz ${p.richt === "ein" ? "ein" : "aus"}">
+      <div class="zsn"><b>${esc(p.kurz)}</b><em>${zahl(p.betrag)} T€ im Januar</em>
+        <em class="r">${esc(zsUnterschrift(p.id))}</em></div>`;
+    /* Obere Spur: der Balken steht im Monat der BWA, also im Januar. */
+    for(let m = 0; m < ZS_MON; m++)
+      h += `<div class="zsc oben">${m === 0
+        ? `<i class="zsb" style="height:100%"></i><span class="zso">${zahl(p.betrag)}</span>`
+        : ""}</div>`;
+    /* Untere Spur: was das Konto sieht. */
+    if(p.nie){
+      h += `<div class="zsnie">keine Zahlung, in keinem Monat</div>`;
+    } else {
+      for(let m = 0; m < ZS_MON; m++){
+        const w = p.s[m];
+        const hoch = w / max * 100;
+        h += `<div class="zsc unten">${w > 0.5
+          ? `<i class="zsb" style="height:${hoch.toFixed(1)}%"></i>` +
+            `<span class="zsw${hoch >= 55 ? " innen" : ""}">${zahl(Math.round(w))}</span>`
+          : ""}</div>`;
+      }
+    }
+    h += `</div>`;
+  }
+
+  /* Die Summe je Monat: was aus diesen vier Positionen unter dem
+     Strich auf dem Konto bleibt. */
+  h += `<div class="zssum"><span class="n">Saldo</span>`;
+  for(let m = 0; m < ZS_MON; m++){
+    let s = 0;
+    for(const p of stroeme) s += (p.richt === "ein" ? 1 : -1) * p.s[m];
+    s = Math.round(s);
+    h += `<span class="z${s < 0 ? " neg" : ""}">${s ? zahl(s) : "0"}</span>`;
+  }
+  h += `</div>
+    <p class="zsleg"><span><b class="o"></b>in der BWA</span>
+      <span><b class="e"></b>Einzahlung</span>
+      <span><b class="a"></b>Auszahlung</span></p>`;
+  $("zsTafel").innerHTML = h;
+  $("zsWert").textContent = zsZiel === 0 ? "wie vereinbart" : "+" + zsZiel + " Tage";
+}
+
+$("zsZiel").addEventListener("input", e => { zsZiel = +e.target.value; zsZeichne(); });
+zsZeichne();
+
+/* =====================================================================
+   8 · Die drei Schichten
+
+   Derselbe Kontostand wie in Lektion 04, in drei Stufen aufgebaut.
+   Gerechnet wird mit rechne(), damit die Linie hier und die Tabelle
+   dort nie auseinanderlaufen koennen.
+   ===================================================================== */
+const SCH_NAME = ["Nur die BWA", "Mit Umsatzsteuer", "Mit allem außerhalb der BWA"];
+const SCH_FARBE = ["var(--teal)", "var(--ochre)", "var(--navy)"];
+let schStufe = 0;
+
+/* Der Bestand am Monatsende, wenn nur die ersten n Schichten zaehlen. */
+function schBestand(z, n){
+  let b = UNTEN.best;
+  const out = [];
+  for(let m = 0; m < 12; m++){
+    let s = z.gALT[m] - z.aALT[m];
+    for(const g of GRUPPEN) if(g.teile) s += g.vz * z[g.id][m];
+    if(n >= 2) s -= z.gUST[m];
+    if(n >= 3) s += -z.uINV[m] + z.uDAR[m] - z.uTIL[m] - z.uENT[m];
+    b += s; out.push(b);
+  }
+  return out;
+}
+
+function schZeichne(){
+  const z = rechne();
+  const reihen = [1, 2, 3].map(n => schBestand(z, n));
+  const linie = -UNTEN.linie;
+  const alle = reihen.flat().concat([0, linie]);
+  const hoch = Math.max(...alle), tief = Math.min(...alle);
+
+  /* Feste Bildflaeche, alles gerechnet. Der Rand links laesst Platz
+     fuer die Beschriftung der Null und der Linie. */
+  const B = 720, H = 250, L = 46, R = 12, O = 14, U = 22;
+  const spanne = (hoch - tief) || 1;
+  const x = m => L + (B - L - R) * (m / 11);
+  const y = w => O + (H - O - U) * (1 - (w - tief) / spanne);
+  const pfad = r => r.map((w, m) => (m ? "L" : "M") + x(m).toFixed(1) + " " + y(w).toFixed(1)).join(" ");
+
+  let s = `<svg viewBox="0 0 ${B} ${H}" role="img"
+      aria-label="Kontostand über zwölf Monate, aufgebaut in drei Schichten">`;
+  s += `<line class="schnull" x1="${L}" y1="${y(0).toFixed(1)}" x2="${B - R}" y2="${y(0).toFixed(1)}"/>`;
+  s += `<text class="schtxt" x="4" y="${(y(0) + 3).toFixed(1)}">0</text>`;
+  s += `<line class="schlin" x1="${L}" y1="${y(linie).toFixed(1)}" x2="${B - R}" y2="${y(linie).toFixed(1)}"/>`;
+  s += `<text class="schtxt lin" x="4" y="${(y(linie) + 3).toFixed(1)}">${zahl(linie)}</text>`;
+  /* Die Stufen davor bleiben blass stehen, damit der Absturz sichtbar
+     wird und nicht bloss ein neuer Verlauf erscheint. */
+  for(let n = 0; n <= schStufe; n++)
+    s += `<path class="schb${n < schStufe ? " alt" : ""}" stroke="${SCH_FARBE[n]}" d="${pfad(reihen[n])}"/>`;
+  /* Auf schmalen Schirmen wird jeder zweite Monat beschriftet. */
+  const jeder = B / 12 > 46 ? 1 : 2;
+  for(let m = 0; m < 12; m += jeder)
+    s += `<text class="schm" x="${x(m).toFixed(1)}" y="${H - 6}">${MONATE[m]}</text>`;
+  s += `</svg>`;
+
+  const r = reihen[schStufe];
+  const tiefW = Math.min(...r), tiefM = r.indexOf(tiefW);
+  const verbraucht = Math.max(0, Math.round(-tiefW));
+  s += `<div class="scherg">
+    <div class="schk"><p class="kk">Tiefpunkt</p>
+      <p class="kv">${zahl(Math.round(tiefW))} T€</p>
+      <p class="kf">im ${LANG[tiefM]}</p></div>
+    <div class="schk${verbraucht ? " warn" : ""}"><p class="kk">Von der Kreditlinie gebraucht</p>
+      <p class="kv">${zahl(verbraucht)} von ${zahl(UNTEN.linie)} T€</p>
+      <p class="kf">${verbraucht
+        ? "Der Bestand rutscht unter null, der Rahmen hält ihn."
+        : "Der Bestand bleibt das ganze Jahr über positiv."}</p></div>
+  </div>`;
+  $("schTafel").innerHTML = s;
+  [...$("schWahl").children].forEach((b, i) => b.setAttribute("aria-pressed", String(i === schStufe)));
+}
+
+$("schWahl").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  schStufe = +b.dataset.n; schZeichne();
+});
+schZeichne();
+
+/* =====================================================================
+   9 · Zuordnungsuebung: Bestand, Ergebnis, beides oder keines
    ===================================================================== */
 const ZU_POS = [
   ["Ein Kunde zahlt die Rechnung vom Vormonat über 400 T€ brutto", "b",
@@ -2961,7 +3250,7 @@ $("zuNew").addEventListener("click", zuZiehen);
 zuZiehen();
 
 /* =====================================================================
-   8 · Neun Schritte mit den eigenen Zahlen
+   10 · Neun Schritte mit den eigenen Zahlen
    ===================================================================== */
 const CHECK7 = [
   ["Leg zwei Reihen nebeneinander: die letzten zwölf Ist-Monate und die Planung",
@@ -2997,7 +3286,7 @@ $("ck7").innerHTML = CHECK7.map(([t, p, f]) =>
      <p class="trap"><b>Typischer Fehler:</b> ${f}</p></div>`).join("");
 
 /* =====================================================================
-   9 · Glossar
+   11 · Glossar
    ===================================================================== */
 const GLOSSAR = [
   ["Liquiditätsvorschau", "Eine Fortschreibung des Zahlungsmittelbestands über einen festen Horizont, hier zwölf Monate."],
@@ -3024,7 +3313,7 @@ const GLOSSAR = [
 $("glos").innerHTML = GLOSSAR.map(([b, t]) => `<div><b>${esc(b)}</b>: ${t}</div>`).join("");
 
 /* =====================================================================
-   10 · Uebung: fuenf Fragen, zufaellig aus dem Vorrat
+   12 · Uebung: fuenf Fragen, zufaellig aus dem Vorrat
    ===================================================================== */
 const FRAGEN = [
   ["Woher stammt der Anfangsbestand einer Liquiditätsvorschau?",
