@@ -244,8 +244,8 @@ const UI = {
 const TOPICS = [
   {
     id:"case",
-    title:{de:"Sofias Coffee Dream — der Fall", en:"Sofia's Coffee Dream — the case"},
-    sub:{de:"Vor den Sternschemata: ein Mensch, ein Fahrrad und eine Espressomaschine. Wer Sofia ist, wie das Geschäft gewachsen ist, und der Nachmittag, an dem ein Diagramm sie zehntausend Euro gekostet hat.",
+    title:{de:"Der Fall Sofias Coffee Dream", en:"Sofia's Coffee Dream — the case"},
+    sub:{de:"Vor den Sternschemata: ein Mensch, ein Fahrrad und eine Espressomaschine. Wer Sofia ist, wie das Geschäft gewachsen ist und der Nachmittag, an dem ein Diagramm sie zehntausend Euro gekostet hat.",
          en:"Before the star schemas: a person, a bicycle and an espresso machine. Who Sofia is, how the business grew, and the afternoon a chart cost her ten thousand euros."},
     track:"case", status:"ready", accent:"green", glyph:"loop",
     links:[{kind:"html",file:"sofias-coffee-dream.html",
@@ -254,7 +254,7 @@ const TOPICS = [
   {
     id:"cube",
     title:{de:"Der Cube", en:"The cube"},
-    sub:{de:"Drei Koordinaten, ein Wert. Was ein Würfel wirklich ist, warum eine Frage manchmal eine Zelle trifft und manchmal achtzehn — und worin sich ein Fakt von einer Dimension unterscheidet.",
+    sub:{de:"Drei Koordinaten ergeben einen Wert. Was ein Würfel wirklich ist, warum eine Frage manchmal eine Zelle trifft und manchmal achtzehn, sowie worin sich ein Fakt von einer Dimension unterscheidet.",
          en:"Three coordinates, one value. What a cube really is, why one question hits a single cell and another eighteen — and how a fact differs from a dimension."},
     track:"bi", status:"ready", accent:"navy", glyph:"cells",
     langBadge:{de:"", en:"DE"},
@@ -264,7 +264,7 @@ const TOPICS = [
   {
     id:"semantik",
     title:{de:"Semantische Datenmodelle", en:"Semantic data models"},
-    sub:{de:"Fakten und Dimensionen, Hierarchien zum Auf- und Zuklappen — und die Frage, die jedes Projekt einmal stellt: Stern oder Snowflake?",
+    sub:{de:"Fakten und Dimensionen, dazu Hierarchien zum Auf- und Zuklappen. Am Ende steht die Frage, die jedes Projekt einmal stellt: Stern oder Snowflake?",
          en:"Facts and dimensions, hierarchies that fold and unfold — and the question every project asks once: star or snowflake?"},
     track:"bi", status:"ready", accent:"teal", glyph:"star",
     langBadge:{de:"", en:"DE"},
@@ -274,7 +274,7 @@ const TOPICS = [
   {
     id:"scd",
     title:"Slowly Changing Dimensions",
-    sub:{de:"Anna wechselt am 1. März ins andere Kaffeehaus. Wem gehört ihr Januarumsatz — und lässt sich der alte Bericht noch reproduzieren?",
+    sub:{de:"Anna wechselt am 1. März ins andere Kaffeehaus. Wem gehört ihr Januarumsatz? Lässt sich der alte Bericht danach noch reproduzieren?",
          en:"Anna moves to the other coffee house on 1 March. Who keeps her January revenue — and can the old report still be reproduced?"},
     track:"bi", status:"ready", accent:"teal", glyph:"rows", langBadge:{de:"EN",en:""},
     links:[{kind:"html",file:"scd-dashboard.html",label:{de:"Los geht’s",en:"Let’s go"}},
@@ -283,7 +283,7 @@ const TOPICS = [
   {
     id:"olap",
     title:{de:"MOLAP, ROLAP und HOLAP", en:"MOLAP, ROLAP and HOLAP"},
-    sub:{de:"Das Monatsdiagramm öffnet sofort, der Absprung auf den einzelnen Bon dauert eine halbe Minute. Dieselben Daten — wo liegen die Aggregate?",
+    sub:{de:"Das Monatsdiagramm öffnet sofort, der Absprung auf den einzelnen Bon dauert eine halbe Minute. Beide greifen auf dieselben Daten zu; die Frage ist, wo die Aggregate liegen.",
          en:"The monthly chart opens instantly, the receipt drill-through takes half a minute. Same data — where do the aggregates live?"},
     track:"bi", status:"ready", accent:"navy", glyph:"cube", langBadge:{de:"EN",en:""},
     links:[{kind:"deck",file:"decks/OLAP_Storage_Sofias_Coffee_World.pptx",
@@ -311,7 +311,7 @@ const TOPICS = [
   {
     id:"pyramid",
     title:{de:"Controlling-Pyramide (Reichmann)", en:"Controlling Pyramid (Reichmann)"},
-    sub:{de:"Fünf Ebenen von Systemen, die Funktionen in der Tiefe, operativ gegen strategisch quer über die Front — und Controlling beginnt erst auf den obersten zwei Etagen.",
+    sub:{de:"Fünf Ebenen von Systemen, die Funktionen in der Tiefe, operativ gegen strategisch quer über die Front. Controlling beginnt erst auf den obersten zwei Etagen.",
          en:"Five floors of systems, the functions running into the depth, operational against strategic across the front — and controlling only starts on the top two floors."},
     track:"ctrl", status:"ready", accent:"navy", glyph:"pyramid", langBadge:{de:"EN",en:""},
     links:[{kind:"html",file:"controlling-pyramid.html",
@@ -320,7 +320,7 @@ const TOPICS = [
   {
     id:"scc",
     title:{de:"Supply Chain Controlling", en:"Supply chain controlling"},
-    sub:{de:"Eine Kette steuern, die einem nicht gehört — und das Beanspruchungs- und Belastbarkeitsportfolio, das zeigt, welcher Partner viel aushält und welcher nur unauffällig ist. Eigener Fall außerhalb von Sofias Betrieb: vier Vorlieferanten eines Nutzfahrzeugherstellers.",
+    sub:{de:"Eine Kette steuern, die einem nicht gehört. Dabei hilft das Beanspruchungs- und Belastbarkeitsportfolio, das zeigt, welcher Partner viel aushält und welcher nur unauffällig ist. Eigener Fall außerhalb von Sofias Betrieb: vier Vorlieferanten eines Nutzfahrzeugherstellers.",
          en:"Steering a chain you do not own — and the load and resilience portfolio that shows which partner carries weight and which is merely inconspicuous. Its own case, outside Sofia's business: four suppliers of a commercial vehicle maker."},
     track:"ctrl", status:"ready", accent:"navy", glyph:"chain",
     langBadge:{de:"", en:"DE"},
@@ -373,7 +373,7 @@ const PATHS = [
   {
     id:"bi-advanced",
     title:{de:"Business Intelligence für Fortgeschrittene", en:"Business Intelligence, advanced"},
-    sub:{de:"Zwei Entscheidungen, die man erst trifft, wenn die Architektur steht: wie eine Dimension ihre Vergangenheit behält, und wo die Aggregate liegen. Keine von beiden ändert die Daten — beide ändern, was ein Bericht aussagt.",
+    sub:{de:"Zwei Entscheidungen fallen erst, wenn die Architektur steht: wie eine Dimension ihre Vergangenheit behält und wo die Aggregate liegen. Keine von beiden ändert die Daten, beide ändern allerdings, was ein Bericht aussagt.",
          en:"Two decisions you only face once the architecture stands: how a dimension keeps its past, and where the aggregates live. Neither changes the data, and both change what a report says."},
     steps:["cube","semantik","scd","olap"]
   },
