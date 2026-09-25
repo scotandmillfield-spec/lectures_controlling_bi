@@ -792,7 +792,7 @@ Differenz: 30 −  4       = 26</div>
   </div>
 
   <h2 class="sec">Vier Maßnahmen gegen R1</h2>
-  <p class="sub">Ausgangspunkt ist R1, der Ransomware-Angriff auf das ERP-System, brutto W = 4 und S = 5. Maßnahmen zuschalten und den Pfeil beobachten: <b>präventive</b> Maßnahmen bewegen den Punkt senkrecht, <b>korrektive</b> waagerecht.</p>
+  <p class="sub">Ausgangspunkt ist R1, der Ransomware-Angriff auf das ERP-System, brutto W = 4 und S = 5. Schalte Maßnahmen zu und bestimme an der Richtung des Pfeils, welcher Typ gewirkt hat. <b>Präventive</b> Maßnahmen bewegen den Punkt senkrecht, <b>korrektive</b> waagerecht.</p>
 
   <div class="mapwrap">
     <div class="mapstage" tabindex="0">
@@ -976,7 +976,7 @@ Differenz: 30 −  4       = 26</div>
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.60</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.61</span>
 </footer>
 
 </div>
@@ -1732,10 +1732,10 @@ function drawNetto(){
     box.innerHTML = `<b>Die beiden letzten Zahlen laufen auseinander — und das ist kein Fehler.</b> Die Summe der Einzelwirkungen beträgt <b>${einzel}</b>, die tatsächliche Gesamtwirkung nur <b>${rfB - rfN}</b>. Der Grund: Der Risikofaktor ist ein <b>Produkt</b>. Die zweite präventive Maßnahme senkt eine Wahrscheinlichkeit, die die erste bereits gesenkt hat — sie wirkt auf eine kleinere Grundmenge. Wer Maßnahmenwirkungen aufsummiert, überschätzt den Effekt systematisch, und zwar umso stärker, je mehr Maßnahmen zusammenkommen.`;
   } else if(rfB - rfN > 0){
     box.className = "readme";
-    box.innerHTML = `<b>Eine Maßnahme, ein Pfeil.</b> Präventive Maßnahmen bewegen den Punkt <b>senkrecht</b> nach unten, korrektive <b>waagerecht</b> nach links. Schalte eine zweite Maßnahme desselben Typs dazu, und beobachte die letzten beiden Zahlen.`;
+    box.innerHTML = `<b>Eine Maßnahme, ein Pfeil.</b> Präventive Maßnahmen bewegen den Punkt <b>senkrecht</b> nach unten, korrektive <b>waagerecht</b> nach links. Schalte eine zweite Maßnahme desselben Typs dazu und vergleich die letzten beiden Zahlen.`;
   } else {
     box.className = "readme";
-    box.innerHTML = `<b>Noch keine Maßnahme aktiv.</b> R1 steht auf seiner Bruttoposition: Wahrscheinlichkeit 4, Schadensausmaß 5, Risikofaktor 20 — tief im Handlungsbereich, mit Warndreieck. Schalte Maßnahmen zu und beobachte, in welche Richtung sich der Punkt bewegt.`;
+    box.innerHTML = `<b>Noch keine Maßnahme aktiv.</b> R1 steht auf seiner Bruttoposition: Wahrscheinlichkeit 4, Schadensausmaß 5, Risikofaktor 20, tief im Handlungsbereich, mit Warndreieck. Schalte Maßnahmen zu und bestimme, welcher Typ den Punkt nach unten und welcher ihn nach links bewegt.`;
   }
 }
 $("nMass").addEventListener("change", e => {
