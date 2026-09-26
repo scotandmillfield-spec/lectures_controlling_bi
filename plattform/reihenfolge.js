@@ -17,7 +17,7 @@
    der Liste in TOPICS.
    ===================================================================== */
 const REIHENFOLGE = [
-  "werkstatt",         // Die Werkstatt — wie diese Plattform gebaut ist
+  "werkstatt",         // Die Werkstatt, in der diese Module entstehen
   "risiko-intro",      // Risikomanagement: der Begriff
   "risiko",            // Der Risikomanagement-Prozess
   "risiko-werkstatt",  // Die Risikoanalyse-Werkstatt

@@ -127,12 +127,6 @@ h1 em{font-style:normal;color:var(--teal)}
 .tile h2{font-size:1.24rem;font-weight:700;letter-spacing:-.018em;line-height:1.2;margin:0 0 7px}
 .tile .sub{font-size:.93rem;font-weight:300;color:#4a4a4d;margin:0 0 16px;line-height:1.45}
 
-.feat{list-style:none;margin:0 0 18px;padding:0;display:grid;grid-template-rows:0fr;
-  opacity:0;transition:grid-template-rows .38s var(--ease),opacity .28s,margin .38s var(--ease)}
-.feat>div{overflow:hidden}
-.tile:hover .feat,.tile:focus-within .feat{grid-template-rows:1fr;opacity:1}
-.feat li{font-size:.85rem;color:#4a4a4d;padding-left:16px;position:relative;margin-bottom:5px;line-height:1.4}
-.feat li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:2px;background:var(--accent,var(--teal))}
 
 .links{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap;padding-top:4px}
 .lnk{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:.86rem;font-weight:600;
@@ -196,7 +190,6 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
 <div class="grid" id="grid"></div>
 <div class="empty" id="empty" data-t="empty"></div>
 
-
 <footer data-t="footer"></footer>
 
 </div>
@@ -229,7 +222,7 @@ const UI = {
   search:{de:"Module durchsuchen\u2026", en:"Search modules\u2026"},
   empty:{de:"Dazu passt gerade nichts.", en:"Nothing matches that filter yet."},
   soon:{de:"In Arbeit", en:"In preparation"},
-  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.62</span>",
+  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.63</span>",
   pathLabel:{de:"Lernpfade", en:"Learning paths"},
   pathKicker:{de:"Lernpfad", en:"Learning path"},
   pathClear:{de:"Pfad verlassen \u00b7 alle Module zeigen", en:"Leave the path \u00b7 show all modules"},
@@ -244,7 +237,9 @@ const UI = {
 };
 
 /* =====================================================================
-   THE ONLY THING YOU NEED TO EDIT — see "Adding a new module" below.
+   Die Definitionsliste der Module. Wo ein Modul hier steht, ist gleich;
+   die Reihenfolge der Kacheln kommt aus reihenfolge.js. Wie ein Modul
+   aufgenommen wird, steht in CLAUDE.md.
    ===================================================================== */
 const TOPICS = [
   {
@@ -254,14 +249,6 @@ const TOPICS = [
          en:"Own case: the CV, an association of care and social services. A vision, five perspectives and six guiding principles that end up complete on a single page. Little text, much to tap, on a tablet as well."},
     track:"cv", status:"ready", accent:"navy", glyph:"quadrants",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Neun Aussagen über das Controlling von morgen, jede zum Antippen",
-       en:"Nine statements about tomorrow's controlling, each one to tap"},
-      {de:"Die fünf Perspektiven mit ihren Schwerpunkten und ihrem Leitsatz",
-       en:"The five perspectives with their focus areas and their guiding principle"},
-      {de:"Das vollständige Leitbild als Plakat, sechs Sätze auf einer Seite",
-       en:"The complete mission statement as a poster, six sentences on one page"}
-    ],
     links:[{kind:"html",file:"controlling-leitbild.html",
             label:{de:"Los geht’s", en:"Let’s go"}}]
   },
@@ -272,14 +259,6 @@ const TOPICS = [
          en:"Own case: the CV, an association of care and social services. The reporting concept for HR controlling in Power BI, with eight reports on three levels from the overview down to the single case."},
     track:"cv", status:"ready", accent:"teal", glyph:"tree",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Die Berichtslandkarte mit Inhalt, Steuerungsaspekt und Leitfragen jedes Berichts",
-       en:"The report map with content, steering focus and guiding questions of every report"},
-      {de:"Schaltfläche, Slice and Dice und Drill-through am Beispiel aus dem Konzept",
-       en:"Button, slice and dice and drill-through, using the example from the concept"},
-      {de:"Adressaten, Datenquellen und die Verankerung im Führungsalltag",
-       en:"Audiences, data sources and the place of the reports in everyday management"}
-    ],
     links:[{kind:"html",file:"controlling-konzept.html",
             label:{de:"Los geht’s", en:"Let’s go"}}]
   },
@@ -290,14 +269,6 @@ const TOPICS = [
          en:"Own case: the CV, an association of care and social services. The first report of the HR controlling app as a replica in which every element shows its explanation. Draft, the explanations will follow."},
     track:"cv", status:"planned", accent:"teal", glyph:"rows",
     langBadge:{de:"", en:"DE"},
-    features:[
-      {de:"Der Bericht mit Kennzahlen, Altersstruktur, Fortschreibung und Betriebszugehörigkeit",
-       en:"The report with key figures, age structure, projection and length of service"},
-      {de:"Die Schwellen der Hinweistexte selbst verschieben und nachrechnen",
-       en:"Move the thresholds of the notes yourself and recalculate"},
-      {de:"Ein Glossar, das an die Stelle im Bericht springt",
-       en:"A glossary that jumps to the spot in the report"}
-    ],
     links:[{kind:"html",file:"personalstrukturanalyse.html",
             label:{de:"Los geht’s", en:"Let’s go"}}]
   }
@@ -458,15 +429,15 @@ const SORTIERT = (() => {
 grid.innerHTML=SORTIERT.map(t=>{
   const planned=t.status==="planned";
   const [trackName,trackCls]=TRACK[t.track];
-  const title=L(t.title), sub=L(t.sub), feats=t.features.map(L), lb=L(t.langBadge);
+  const title=L(t.title), sub=L(t.sub), lb=L(t.langBadge);
   const links=t.links.length
     ? t.links.map((l,i)=>`<a class="lnk ${i===0?"primary":"ghost"}"
          href="${l.file}${l.kind==="deck"?"":qs}" ${l.kind==="deck"?"download":""}>
          <svg class="ic" viewBox="0 0 24 24">${ICON[l.kind]}</svg>${L(l.label)}</a>`).join("")
     : `<span class="soon">${L(UI.soon)}</span>`;
   /* Gesucht wird in der angezeigten Sprache und zusaetzlich in der englischen Fassung */
-  const alt=[t.title,t.sub,...t.features].map(v=>typeof v==="object"&&v?v.en:"").join(" ");
-  const hay=(title+" "+sub+" "+feats.join(" ")+" "+L(trackName)+" "+alt)
+  const alt=[t.title,t.sub].map(v=>typeof v==="object"&&v?v.en:"").join(" ");
+  const hay=(title+" "+sub+" "+L(trackName)+" "+alt)
             .toLowerCase().replace(/"/g,"");
   return `<article class="tile ${planned?"planned":""}" data-id="${t.id}"
       data-track="${t.track}" data-status="${t.status}"
@@ -487,7 +458,6 @@ grid.innerHTML=SORTIERT.map(t=>{
     </div>
     <h2>${title}</h2>
     <p class="sub">${sub}</p>
-    <ul class="feat"><div>${feats.map(f=>`<li>${f}</li>`).join("")}</div></ul>
     <div class="links">${links}</div>
   </article>`;
 }).join("");
