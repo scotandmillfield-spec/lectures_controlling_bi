@@ -39,6 +39,12 @@ erster Schritte daneben wiederholt allein, was in den Sätzen steht. An ihrer St
 lesen ist. `plattform/controlling-leitbild.html` ist der erste Fall. Die Ausnahme gilt allein für
 Leitbilder, jedes andere Modul bekommt sein Quiz und seinen Praxiseinstieg.
 
+**[gesetzt] Die Standortbestimmung führt kein eigenes Quiz.** `plattform/assessment.html` ist
+selbst die Abfrage, weshalb eine Quizlektion daneben dieselbe Sache zweimal machen würde. Die
+beiden anderen Lektionen bleiben. Lektion 02 zeigt das Ergebnis als Netzdiagramm, Lektion 03 nimmt
+die Stelle des Praxiseinstiegs ein und sagt, welches Modul als nächstes ansteht. Auch diese
+Ausnahme gilt allein für dieses Modul.
+
 **Die Reihenfolge steht fest:** Inhalt, dann Quiz, dann Praxiseinstieg. Das Quiz prüft, was
 gerade gelesen wurde, der Praxiseinstieg schaut nach vorn. Umgedreht ergäbe es keinen Sinn.
 
@@ -495,7 +501,7 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.63`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.64`.
 Keine Quellenverzeichnisse, keine Legenden, keine Beschreibung des Falls und kein Hinweis
 darauf, woher eine Abbildung stammt. Sie steht in jeder ausgelieferten Datei gleich, im Markup
 als `<footer>` und auf den zweisprachigen Seiten als Eintrag `footer` im `UI`-Wörterbuch. Dort
@@ -504,7 +510,7 @@ ist sie ein einfacher String, weil ein Name und eine Nummer in beiden Sprachen d
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.63</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.64</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
@@ -706,6 +712,52 @@ geprüft:
 grep -c "\bpfp" plattform/content-werkstatt.html   # Präfix schon vergeben?
 ```
 
+## Die Standortbestimmung
+
+`plattform/assessment.html` fragt quer über die Module der Lernplattform ab und zeigt das Ergebnis
+als Netzdiagramm über sechs Kompetenzfelder. Danach steht an jeder Kachel der Startseite ein
+farbiger Rand; der Filter „Nur empfohlene“ blendet aus, was schon sitzt. Wer das Modul nicht
+durchlaufen hat, sieht die Startseite wie bisher.
+
+- **Sechs Kompetenzfelder, keine zehn Modulnoten.** `FELDER` im Modul nennt je Feld die Module, die
+  dazu gehören. Aus vier Fragen je Feld lässt sich eine Aussage über das Feld ableiten, aus zwei
+  Fragen keine über ein einzelnes Modul. Deshalb erbt eine Kachel die Farbe ihres Feldes.
+- **Ein Modul gehört zu einem Feld, sobald es Fragen mitbringt.** `liquiditaet-tagesplan` ist
+  bisher eine Hülle, hat also keine Frage und steht in keinem Feld. Seine Kachel bleibt ohne Rand,
+  weil die Standortbestimmung über ein Modul ohne Inhalt nichts sagen kann.
+- **Das Ergebnis reist als Parameter.** `?fit=NNNNNN` hängt am Verweis auf die Startseite, je eine
+  Ziffer für ein Feld in der Reihenfolge von `FELDFOLGE`, also die Zahl der Treffer von null bis
+  vier. Drei Treffer und mehr sind grün, zwei gelb, höchstens einer rot. `localStorage` ist
+  ausgeschlossen, weshalb es diesen Weg gibt; er lässt sich mit `?lang=` und `?path=` verbinden.
+- **Die Zuordnung steht zweimal.** In `assessment.html` als `FELDER`, in `plattform/index.html` als
+  `FELDFOLGE` und `FELDMODUL`. Geteilte Dateien sind ausgeschlossen, also gibt es sie doppelt. Wer
+  ein Feld ändert, ändert beide Stellen.
+- **Die Probe auf den Vorrat läuft beim Laden.** Sie meldet ein Feld mit weniger Fragen als
+  `JE_FELD`, eine Frage unter einem unbekannten Feld, ein Modul außerhalb jedes Feldes und ein
+  Modul ohne Frage. Das Radar rechnet jede Ecke gegen `JE_FELD`, sodass ein zu kleines Feld eine
+  falsche Fläche zeichnen würde.
+
+**Jedes neue Modul bringt seine Fragen mit.** Das gehört zum Anlegen wie der Eintrag in `TOPICS`
+und wird nicht später nachgereicht.
+
+1. Vier Fragen in `FRAGEN`, im Format `["feld", "modul", "Frage", [vier Antworten], richtig,
+   "Begründung"]`. Die Antworten stehen unsortiert da, weil das Modul sie beim Anzeigen mischt.
+2. Die Modulkennung in die `module`-Liste des passenden Feldes in `FELDER`, dazu in `FELDMODUL` in
+   `plattform/index.html`.
+3. Passt das Modul in kein vorhandenes Feld, kommt ein Feld dazu. Dann wächst das Netzdiagramm um
+   eine Ecke, wofür im Skript nichts zu ändern ist.
+4. Bei jeder neuen Entwicklung die Frage stellen, ob der Vorrat noch zum Stoff passt. Ein Modul,
+   das inhaltlich gewachsen ist, bekommt auch neue Fragen.
+
+**[offen] Die Prüfung eines einzelnen Themenkomplexes.** Ein Kandidat soll sich später auf ein Feld
+beschränken können, etwa auf Risiko. Der Weg dahin liegt bereit, da `FELDER` und die Ziehung in
+`asZiehen` schon je Feld gebaut sind; es fehlt allein die Auswahl vor dem Start und ein Parameter
+dafür.
+
+**Andere Einstiege haben keine Standortbestimmung.** `vorlesung/` und `cv-mx/` bleiben unberührt.
+Kommt dort eine dazu, gehört sie in das Verzeichnis daneben mit eigenem Vorrat, weil ein Verweis
+über die Grenze ausgeschlossen ist.
+
 ## Harte Regeln
 
 **Neues Modul immer in `index.html` registrieren.** Die Startseite kennt nur, was in
@@ -741,8 +793,8 @@ Lektionen als `role="tablist"` mit Pfeiltastennavigation. `prefers-reduced-motio
 **Jedes Modul endet mit einem Pointe-Kasten** — dem einen Satz, der hängen bleiben soll.
 Er steht am Ende jeder Lektion, nicht nur am Ende der letzten.
 
-**Ein Modul ohne Quiz und ohne Praxiseinstieg ist nicht fertig**, ausgenommen das Leitbild
-oben. Die beiden Pflichtlektionen
+**Ein Modul ohne Quiz und ohne Praxiseinstieg ist nicht fertig**, ausgenommen das Leitbild und
+die Standortbestimmung oben. Die beiden Pflichtlektionen
 werden nicht nachgereicht und nicht „später ergänzt“. Wer ein Modul anlegt oder erweitert,
 legt sie mit an.
 

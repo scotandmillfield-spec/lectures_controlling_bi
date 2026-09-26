@@ -590,6 +590,15 @@ footer a{color:var(--teal-dk)}
     <cite>Der Grund für die zwei Pflichtlektionen</cite>
   </blockquote>
 
+  <h2 class="sec">Was ein neues Modul außerdem mitbringt</h2>
+  <p class="txt">Neben den beiden Pflichtlektionen bringt jedes neue Modul <b>vier Fragen für die Standortbestimmung</b> mit. Das ist das Modul, mit dem sich jemand quer über alle Inhalte testen kann; sein Ergebnis erscheint als Netzdiagramm über sechs Kompetenzfelder. Danach steht an jeder Kachel der Startseite ein farbiger Rand, grün für ein Feld, das sitzt, gelb für eines zum Nachbessern, rot für ein nötiges.</p>
+  <p class="txt">Die vier Fragen kommen in die Liste <code>FRAGEN</code> in <code>assessment.html</code>, jede mit dem Kompetenzfeld und der Modulkennung davor. Die Kennung kommt zusätzlich in die Modulliste des Feldes, damit die Kachel ihre Farbe bekommt. Passt das Modul in kein vorhandenes Feld, kommt ein Feld dazu, worauf das Netzdiagramm um eine Ecke wächst.</p>
+  <p class="txt">Ohne diese vier Fragen kann die Standortbestimmung das Modul nicht empfehlen. Deshalb ist der Vorrat auch bei jeder Erweiterung mitzuprüfen, da ein Modul, das inhaltlich gewachsen ist, neue Fragen braucht.</p>
+
+  <h2 class="sec">Die zwei Module ohne Quiz</h2>
+  <p class="txt">Zwei Arten von Modulen führen kein Quiz, beide aus demselben Grund. Ein <b>Leitbild</b> beschreibt eine Haltung, die sich nicht mit richtig und falsch abfragen lässt; an der Stelle der letzten Lektion steht dort ein Plakat mit dem vollständigen Leitbild. Die <b>Standortbestimmung</b> ist selbst die Abfrage, weshalb eine Quizlektion daneben dieselbe Sache zweimal machen würde.</p>
+  <p class="txt">Der Praxiseinstieg entfällt allein beim Leitbild, weil das Leitbild schon die Zusage ist, die jemand einlösen muss. Die Standortbestimmung behält ihn. Dort heißt er „Wie Du weitermachst“ und sagt, welches Modul als nächstes ansteht.</p>
+
   <h2 class="sec">Wie lang eine Lektion sein darf</h2>
   <p class="sub">Schiebe die Regler auf das, was Du vorhast. Der Zielkorridor ist grün hinterlegt.</p>
 
@@ -971,7 +980,7 @@ footer a{color:var(--teal-dk)}
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.63</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.64</span>
 </footer>
 
 </div>
@@ -1171,7 +1180,8 @@ function briefing(){
   s += zeile("LERNPFAD", PFAD[pfad] + (val("bPfadName") ? "\n" + val("bPfadName") : ""));
   s += zeile("SPRACHE", SPRACHE[spr]);
   s += zeile("INHALTSLEKTIONEN", val("bLekt"));
-  s += "PFLICHTLEKTIONEN\nQuiz mit fünf Fragen aus dem Vorrat, danach der Praxiseinstieg.\n\n";
+  s += "PFLICHTLEKTIONEN\nQuiz mit fünf Fragen aus dem Vorrat, danach der Praxiseinstieg.\n"
+     + "Dazu vier Fragen für die Standortbestimmung in assessment.html.\n\n";
   s += zeile("WAS MAN ANFASSEN KÖNNEN SOLL", val("bInter"));
   s += zeile("VERBINDLICHE ZAHLEN", val("bZahlen"));
   s += zeile("QUELLEN", val("bQuellen"));
@@ -1926,12 +1936,15 @@ function pfpAuftrag(){
   s += "4. Quiz und Praxiseinstieg wie in der bestehenden Huelle: Mechanik\n";
   s += "   lauffaehig, mit Beispieleintraegen, an denen das Format ablesbar ist.\n";
   s += "5. Jede Lektion endet mit einem Pointe-Kasten, vorerst als Platzhalter.\n";
-  s += "6. Alle Module in index.html eintragen, mit status \"planned\", aber mit\n";
+  s += "6. Je Modul vier Fragen in FRAGEN in plattform/assessment.html, mit\n";
+  s += "   Kompetenzfeld und Modulkennung, dazu die Kennung in FELDER dort\n";
+  s += "   und in FELDMODUL in plattform/index.html.\n";
+  s += "7. Alle Module in index.html eintragen, mit status \"planned\", aber mit\n";
   s += "   einem Verweis, damit sich die Huelle oeffnen laesst.\n";
-  s += "7. Den Lernpfad in const PATHS anlegen, mit den Modulen in der Reihen-\n";
+  s += "8. Den Lernpfad in const PATHS anlegen, mit den Modulen in der Reihen-\n";
   s += "   folge von oben.\n";
   if(t.module.some(m => m.k.spur === "neu"))
-    s += "8. Fuer die als neu markierte Spur eine neue Spur anlegen und im Pull\n" +
+    s += "9. Fuer die als neu markierte Spur eine neue Spur anlegen und im Pull\n" +
          "   Request nachfragen, wie sie heissen soll.\n";
   s += "\nDie Sprachpruefung und die Playwright-Pruefung laufen wie immer.\n";
   return s;

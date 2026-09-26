@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Standortbestimmung · was Du schon kannst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2; --canvas:#F4F3F0;
+  --green:#2E9E6B; --red:#D9534F;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.1rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:20ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:clamp(1.08rem,1.78vw,1.32rem);font-weight:300;color:#3d3d40;line-height:1.55;margin:0}
+
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+
+.claim{font-size:clamp(1.2rem,2.35vw,1.6rem);font-weight:300;line-height:1.42;margin:0 0 26px;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--teal-dk)}
+h2.sec{font-size:1.34rem;font-weight:600;letter-spacing:-.014em;margin:34px 0 4px}
+h2.sec:first-child{margin-top:0}
+p.sub{margin:0 0 18px;color:var(--grey);font-size:1.06rem;line-height:1.6}
+.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:14px 0 0}
+
+/* ---------- Schaltflaechen ---------- */
+.bar{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;justify-content:space-between;margin:0 0 16px}
+.seg{display:inline-flex;border:1px solid var(--grey-xl);background:var(--paper);border-radius:var(--r);padding:4px;gap:4px;flex-wrap:wrap}
+.seg button{appearance:none;border:0;background:transparent;cursor:pointer;font-family:var(--sans);
+  font-size:.88rem;font-weight:600;color:var(--grey);padding:9px 16px;border-radius:7px;transition:.16s}
+.seg button:hover{color:var(--teal-dk)}
+.seg button[aria-pressed="true"]{background:var(--teal-dk);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.84rem;color:#4a4a4d}
+.key{display:inline-flex;align-items:center;gap:8px}
+.sw{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.06)}
+.sw.q1{background:#FDE8D3} .sw.q2{background:#E1F0F6}
+.sw.q3{background:#F2EBD8}   .sw.q4{background:#EAEAE8}
+
+.btn{appearance:none;border:1px solid var(--teal-dk);background:transparent;color:var(--teal-dk);
+  font-family:var(--sans);font-size:.88rem;font-weight:600;cursor:pointer;
+  padding:10px 16px;border-radius:8px;transition:.16s}
+.btn:hover{background:var(--teal-dk);color:#fff}
+.btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+/* ---------- Karten ---------- */
+.card{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px}
+.card .ck{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 4px}
+.card h3{margin:0 0 8px;font-size:1.06rem;font-weight:700;letter-spacing:-.015em}
+.card p{margin:0 0 10px;font-size:.9rem;color:#3d3d40;line-height:1.52}
+.card p:last-child{margin-bottom:0}
+.card ul{margin:10px 0 0;padding-left:18px;font-size:.88rem;color:#3d3d40;line-height:1.5}
+.card li{margin-bottom:5px}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.duo>*{min-width:0}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
+.trio>*{min-width:0}
+.quad{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:stretch}
+.quad>*{min-width:0}
+
+/* ---------- Aufdeckkarten: Wortherkunft, Aufgaben, Denkfehler ---------- */
+.flipgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.flipgrid>*{min-width:0}
+.flip{appearance:none;text-align:left;width:100%;cursor:pointer;font-family:var(--sans);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px 16px 14px;transition:.2s var(--ease);color:var(--ink)}
+.flip:hover{border-color:var(--teal);transform:translateY(-2px)}
+.flip:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.flip .lang{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+.flip .word{font-family:var(--mono);font-size:1.02rem;font-weight:600;color:var(--teal-dk);margin:5px 0 0}
+.flip .mean{font-size:.88rem;color:#3d3d40;margin:9px 0 0;line-height:1.45}
+.flip[aria-expanded="false"] .mean{display:none}
+.flip[aria-expanded="false"]::after{content:"umdrehen";display:block;margin-top:9px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal)}
+.flip[aria-expanded="true"]{border-color:var(--teal);background:var(--teal-xl)}
+
+.deck{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.deck>*{min-width:0}
+.task{appearance:none;text-align:left;width:100%;cursor:pointer;font-family:var(--sans);color:var(--ink);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px;transition:.2s var(--ease);display:flex;flex-direction:column;gap:7px}
+.task:hover{border-color:var(--ochre);transform:translateY(-2px)}
+.task:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.task .no{font-family:var(--mono);font-size:.72rem;font-weight:600;color:var(--ochre);letter-spacing:.08em}
+.task .hd{font-size:.95rem;font-weight:600;line-height:1.34}
+.task .bd{font-size:.86rem;color:#3d3d40;line-height:1.5}
+.task[aria-expanded="false"] .bd{display:none}
+.task[aria-expanded="true"]{border-color:var(--ochre);background:var(--ochre-xl)}
+.counter{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:12px 0 0}
+
+.acc{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.acc button{appearance:none;width:100%;text-align:left;cursor:pointer;font-family:var(--sans);
+  background:transparent;border:0;border-bottom:1px solid var(--grey-xl);padding:15px 18px;
+  font-size:.95rem;font-weight:600;color:var(--ink);display:flex;gap:12px;align-items:flex-start;transition:background .16s}
+.acc button:hover{background:var(--sand-xl)}
+.acc button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.acc button .mk{font-family:var(--mono);color:var(--red);flex:none;font-size:.9rem;line-height:1.5}
+.acc .ans{padding:0 18px 16px 42px;font-size:.9rem;color:#3d3d40;line-height:1.55;
+  border-bottom:1px solid var(--grey-xl);background:var(--sand-xl)}
+.acc .ans[hidden]{display:none}
+.acc .ans b{color:var(--green)}
+.acc>*:last-child{border-bottom:0}
+
+/* ---------- Tabellen ---------- */
+.tscroll{overflow-x:auto;border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper)}
+table.tbl{width:100%;min-width:560px;border-collapse:collapse;font-size:.85rem}
+table.tbl th{background:#F7F7F5;text-align:left;padding:9px 12px;font-family:var(--mono);
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid);white-space:nowrap}
+table.tbl td{padding:9px 12px;border-bottom:1px solid var(--grey-xl);vertical-align:top;line-height:1.45}
+table.tbl tr:last-child td{border-bottom:0}
+table.tbl td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.tbl td.m{font-family:var(--mono);font-size:.8rem}
+table.tbl td.crit{font-weight:600}
+table.tbl tr.dim td{color:var(--grey-mid);transition:color .3s var(--ease)}
+table.tbl tr.hi td{background:var(--teal-xl)}
+table.tbl tbody tr:hover td{background:var(--sand-xl)}
+.fmark{display:inline-block;width:22px;height:22px;line-height:20px;text-align:center;
+  border-radius:5px;font-family:var(--mono);font-size:.76rem;font-weight:600;border:1px solid rgba(0,0,0,.08)}
+.fmark.f1{background:var(--orange-xl);color:#A85B00}
+.fmark.f2{background:var(--teal-xl);color:var(--teal-dk)}
+.fmark.f3{background:var(--sand-xl);color:#8A6417}
+.fmark.f4{background:var(--grey-xl);color:#5a5a5c}
+/* ---------- Risk-Map ----------
+   Die drei Zonenfarben sind die einzige Stelle, an der Signalfarben
+   auftreten. Dekorativ erscheinen sie nirgends. Die Bedeutung
+   hängt nie an ihnen allein: jede Zone hat ihren Namen, jeder Punkt seine
+   Kennung, jede rote Position zusaetzlich das Warndreieck.          */
+.mapwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.mapwrap>*{min-width:0}
+.mapstage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:12px 10px 6px;overflow-x:auto}
+.mapstage:focus-visible,.stage:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+svg.rm{width:100%;min-width:340px;height:auto;display:block}
+svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.rm .zone{stroke:#fff;stroke-width:1.5}
+.rm .zg{fill:#E6F1E5} .rm .zy{fill:#FBF2D9} .rm .zr{fill:#FBE4DC}
+.rm .zlab{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.07em;
+  text-anchor:middle;opacity:.62}
+.rm .zlab.g{fill:#2E7D4F} .rm .zlab.y{fill:#8A6417} .rm .zlab.r{fill:#B23C2C}
+.rm .gr{stroke:#fff;stroke-width:1;opacity:.85}
+.rm .ax{stroke:var(--grey-mid);stroke-width:1.4}
+.rm .tol{fill:none;stroke:#B23C2C;stroke-width:2;stroke-dasharray:7 5}
+.rm .iso{fill:none;stroke:var(--teal-dk);stroke-width:1.8;stroke-dasharray:3 4}
+.rm .tickX{font-family:var(--mono);font-size:10.5px;fill:var(--grey);text-anchor:middle}
+.rm .tickY{font-family:var(--mono);font-size:10.5px;fill:var(--grey);text-anchor:end}
+.rm .stufe{font-size:9px;fill:var(--grey);text-anchor:middle}
+.rm .stufeY{font-size:9px;fill:var(--grey);text-anchor:end}
+.rm .atitle{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;fill:var(--teal-dk);
+  text-transform:uppercase;font-weight:600;text-anchor:middle}
+.rm .pt{cursor:pointer}
+.rm .pt:focus-visible{outline:none}
+.rm .pt .dot{fill:var(--navy);stroke:#fff;stroke-width:2.5;transition:r .2s var(--ease)}
+.rm .pt:hover .dot,.rm .pt:focus-visible .dot{r:13}
+.rm .pt .id{font-family:var(--mono);font-size:10px;font-weight:600;fill:#fff;text-anchor:middle;
+  pointer-events:none}
+.rm .pt .lab{font-size:11.5px;font-weight:600}
+.rm .pt.sel .dot{fill:var(--orange);stroke:var(--orange-xl);stroke-width:4}
+.rm .pt.own .dot{fill:var(--teal);stroke:#fff}
+.rm .pt.ref .dot{fill:var(--ochre);stroke:#fff}
+.rm .pt.ghost .dot{fill:var(--grey-mid)}
+.rm .pt.ziel .dot{fill:#fff;stroke:var(--grey);stroke-width:2.4;stroke-dasharray:3 3}
+.rm .pt.ghost .lab{opacity:.5}
+.rm .pt.live .dot{fill:var(--orange);stroke:#fff;stroke-width:3}
+.rm .pt.split .dot{fill:var(--teal-dk);stroke:#fff}
+.rm .link{stroke:var(--grey);stroke-width:1.4;stroke-dasharray:3 3}
+.rm .warn{fill:#B23C2C}
+.rm .warn text{fill:#fff;font-family:var(--mono);font-size:9px;font-weight:700;text-anchor:middle}
+.rm .mv{fill:none;stroke:var(--orange);stroke-width:3}
+.rm .mv.pre{stroke:#2E7D4F}
+.rm .ghostpath{fill:none;stroke:var(--grey-mid);stroke-width:1.6;stroke-dasharray:4 4}
+
+/* ---------- Zonenlegende und Kennzahlleiste ---------- */
+.zonekey{display:flex;gap:16px;flex-wrap:wrap;font-size:.84rem;color:#4a4a4d}
+.zonekey .k{display:inline-flex;align-items:center;gap:8px}
+.zonekey i{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.08)}
+.zonekey i.g{background:#E6F1E5} .zonekey i.y{background:#FBF2D9} .zonekey i.r{background:#FBE4DC}
+
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:10px;margin:0 0 14px}
+.figs>*{min-width:0}
+.fig{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 15px}
+.fig .fk{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 5px;line-height:1.3}
+.fig .fv{font-family:var(--mono);font-size:1.45rem;font-weight:600;font-variant-numeric:tabular-nums;
+  color:var(--teal-dk);line-height:1}
+.fig .fn{font-size:.76rem;color:var(--grey);margin:5px 0 0;line-height:1.3}
+.fig.hot{border-color:var(--orange);background:var(--orange-xl)}
+.fig.hot .fv{color:#A85B00}
+
+/* ---------- Regler ---------- */
+.rgrid{display:grid;gap:12px}
+.rrow{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 16px}
+.rrow .rl{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin:0 0 8px}
+.rrow .rn{font-size:.9rem;font-weight:600}
+.rrow .rv{font-family:var(--mono);font-size:.82rem;color:var(--teal-dk);font-weight:600;
+  text-align:right;flex:none}
+.rrow input[type=range]{width:100%;accent-color:var(--teal-dk);display:block}
+.rrow .ra{font-size:.78rem;color:var(--grey);margin:6px 0 0;line-height:1.35;min-height:2.1em}
+
+/* ---------- Prozesskreis ---------- */
+.stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:14px 10px 6px;overflow-x:auto}
+svg.proc{width:100%;min-width:560px;height:auto;display:block}
+svg.proc text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.proc .pbox{fill:var(--paper);stroke:var(--grey-mid);stroke-width:1.4;transition:.2s var(--ease)}
+.proc .ph{cursor:pointer}
+.proc .ph:focus-visible{outline:none}
+.proc .ph:hover .pbox,.proc .ph:focus-visible .pbox,.proc .ph.on .pbox{stroke:var(--teal-dk);stroke-width:2.6;fill:var(--teal-xl)}
+.proc .pk{font-family:var(--mono);font-size:9px;letter-spacing:.1em;fill:var(--grey);text-transform:uppercase}
+.proc .pt2{font-size:14px;font-weight:600}
+.proc .pq{font-size:11px;fill:#4a4a4d}
+.proc .arw{fill:none;stroke:var(--teal);stroke-width:2.4}
+.proc .arw.back{stroke:var(--orange);stroke-dasharray:6 4}
+.proc .clam{fill:none;stroke:var(--ochre);stroke-width:2.4;transition:opacity .3s}
+.proc .clamlab{font-family:var(--mono);font-size:10px;fill:var(--ochre);font-weight:600;text-anchor:middle}
+.proc .ctr{font-size:13px;font-weight:600;text-anchor:middle;fill:var(--teal-dk)}
+.proc .ctrs{font-size:11px;text-anchor:middle;fill:var(--grey)}
+
+/* ---------- Balanced Chance- und Risk-Card ---------- */
+svg.bcr{width:100%;min-width:760px;height:auto;display:block}
+svg.bcr text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.bcr .band{stroke:#fff;stroke-width:1.5}
+.bcr .bl{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.05em;fill:var(--teal-dk)}
+.bcr .cell{fill:var(--paper);stroke:var(--grey-xl);stroke-width:1}
+.bcr .ct{font-size:10.5px;fill:#3d3d40}
+.bcr .hd{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:600;text-anchor:middle}
+.bcr .hd.c{fill:#2E7D4F} .bcr .hd.r{fill:#B23C2C}
+.bcr .step{transition:opacity .45s var(--ease)}
+.bcr .step.off{opacity:0}
+.bcr .dash{stroke:var(--ochre);stroke-width:1.5;stroke-dasharray:5 4;fill:none;opacity:.85}
+
+/* ---------- Vergleichsliste Modus A ---------- */
+.cmp{display:grid;grid-template-columns:44px 1fr 108px 108px 64px;gap:8px 12px;align-items:center;
+  padding:10px 0;border-bottom:1px solid var(--grey-xl);font-size:.86rem}
+.cmp>*{min-width:0}
+.cmp:last-child{border-bottom:0}
+.cmp .cid{font-family:var(--mono);font-size:.8rem;font-weight:600;color:var(--teal-dk)}
+.cmp .cn{line-height:1.35}
+.cmp .cw{font-family:var(--mono);font-size:.8rem;font-variant-numeric:tabular-nums;text-align:right}
+.cmp .cw.own{color:var(--teal)} .cmp .cw.ref{color:var(--ochre)}
+.cmp .cd{font-family:var(--mono);font-size:.8rem;font-weight:600;text-align:right}
+.cmp .cd.up{color:#B23C2C} .cmp .cd.dn{color:#2E7D4F} .cmp .cd.eq{color:var(--grey)}
+.cmphead{display:grid;grid-template-columns:44px 1fr 108px 108px 64px;gap:12px;font-family:var(--mono);
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  padding-bottom:7px;border-bottom:1px solid var(--grey-mid)}
+.cmphead>*{min-width:0}
+.cmphead span:nth-child(n+3){text-align:right}
+
+/* ---------- Massnahmen und Strategien ---------- */
+.mlist{display:grid;gap:10px}
+.mopt{display:flex;gap:12px;align-items:flex-start;background:var(--paper);cursor:pointer;
+  border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 16px;transition:.16s var(--ease)}
+.mopt:hover{border-color:var(--teal)}
+.mopt:focus-within{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal-xl)}
+.mopt input{accent-color:var(--teal-dk);width:17px;height:17px;flex:none;margin-top:2px}
+.mopt .mt{display:block;font-size:.92rem;font-weight:600;line-height:1.3}
+.mopt .mm{display:block;font-family:var(--mono);font-size:.76rem;color:var(--grey);margin:4px 0 0}
+.mopt .tag{display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.09em;
+  text-transform:uppercase;font-weight:600;border-radius:4px;padding:3px 7px;margin-left:8px;
+  vertical-align:middle}
+.mopt .tag.pre{background:#E6F1E5;color:#2E7D4F}
+.mopt .tag.kor{background:var(--orange-xl);color:#A85B00}
+.mopt.on{border-color:var(--teal-dk);background:var(--teal-xl)}
+
+.strat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.strat>*{min-width:0}
+.sbtn{appearance:none;cursor:pointer;font-family:var(--sans);text-align:left;color:var(--ink);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:14px 16px;transition:.18s var(--ease)}
+.sbtn:hover{border-color:var(--teal);transform:translateY(-2px)}
+.sbtn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.sbtn .sd{display:block;font-size:.98rem;font-weight:700;letter-spacing:-.01em}
+.sbtn .se{display:block;font-family:var(--mono);font-size:.74rem;color:var(--grey);margin:3px 0 7px;overflow-wrap:anywhere}
+.sbtn .sm{display:block;font-size:.78rem;color:#4a4a4d;line-height:1.35}
+.sbtn[aria-pressed="true"]{border-color:var(--teal-dk);background:var(--teal-xl)}
+.sbtn[aria-pressed="true"] .se{color:var(--teal-dk)}
+
+/* ---------- BAUM ---------- */
+.baum{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.baum>*{min-width:0}
+.bcard{background:var(--paper);border:1px solid var(--grey-xl);border-left:3px solid var(--teal-dk);
+  border-radius:var(--r);padding:16px 18px}
+.bcard .letter{font-family:var(--mono);font-size:1.5rem;font-weight:700;color:var(--teal-dk);line-height:1}
+.bcard h3{margin:8px 0 6px;font-size:.95rem;font-weight:700}
+.bcard p{margin:0;font-size:.85rem;color:#3d3d40;line-height:1.5}
+
+/* ---------- Merkblatt und Druck ---------- */
+.merk{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:24px 26px}
+.merk h3{margin:0 0 14px;font-size:1.1rem;font-weight:700}
+.merk dl{margin:0;display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr);gap:9px 18px;font-size:.87rem}
+.merk dt{font-weight:700;color:var(--teal-dk);line-height:1.4}
+.merk dd{margin:0;color:#3d3d40;line-height:1.45}
+.glos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px 22px;font-size:.85rem}
+.glos>*{min-width:0}
+.glos div{padding:7px 0;border-bottom:1px solid var(--grey-xl);line-height:1.45}
+.glos b{color:var(--teal-dk)}
+
+/* ---------- Werkstatt: Risiken erfassen ---------- */
+.wsbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:0 0 16px}
+.wsbar>*{min-width:0}
+.wslist{display:grid;gap:14px}
+.wscard{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px 20px;border-left:3px solid var(--teal-dk)}
+.wshead{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:0 0 14px}
+.wshead>*{min-width:0}
+.wsid{font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--teal-dk);
+  background:var(--teal-xl);border-radius:5px;padding:4px 9px;flex:none}
+.wsdel{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);cursor:pointer;
+  font-family:var(--sans);font-size:.78rem;font-weight:600;color:var(--grey);
+  padding:6px 11px;border-radius:7px;flex:none;transition:.16s}
+.wsdel:hover{border-color:var(--red);color:var(--red)}
+.wsdel:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.fld{margin:0 0 12px}
+.fld label{display:block;font-size:.8rem;font-weight:600;color:#3d3d40;margin:0 0 6px}
+.fld input[type=text],.fld textarea{width:100%;font-family:var(--sans);font-size:.9rem;
+  padding:9px 11px;border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper);
+  color:var(--ink);line-height:1.45}
+.fld textarea{resize:vertical;min-height:66px}
+.fld input:focus-visible,.fld textarea:focus-visible,.fld select:focus-visible{
+  outline:2px solid var(--orange);outline-offset:1px}
+.cnt{font-family:var(--mono);font-size:.72rem;color:var(--grey);text-align:right;margin:4px 0 0}
+.cnt.warn{color:#B25E00;font-weight:600}
+.wsduo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.wsduo>*{min-width:0}
+.wsax{background:var(--canvas);border-radius:9px;padding:13px 15px}
+.wsax .axh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin:0 0 8px}
+.wsax .axn{font-size:.82rem;font-weight:700}
+.wsax .axv{font-family:var(--mono);font-size:.78rem;font-weight:600;color:var(--teal-dk);text-align:right}
+.wsax input[type=range]{width:100%;accent-color:var(--teal-dk);display:block;margin:0 0 4px}
+.wsax .axa{font-size:.74rem;color:var(--grey);line-height:1.35;min-height:2em;margin:0 0 10px}
+.wsrf{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 0;
+  padding-top:12px;border-top:1px solid var(--grey-xl)}
+.wsrf .lbl{font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--grey)}
+.wsrf .val{font-family:var(--mono);font-size:1.05rem;font-weight:700;font-variant-numeric:tabular-nums}
+.zpill{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.09em;
+  text-transform:uppercase;font-weight:600;border-radius:4px;padding:4px 9px}
+.zpill.g{background:#E6F1E5;color:#2E7D4F}
+.zpill.y{background:#FBF2D9;color:#8A6417}
+.zpill.r{background:#FBE4DC;color:#B23C2C}
+
+/* ---------- Werkstatt: Strategie und Massnahme ---------- */
+.stgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stgrid>*{min-width:0}
+.fld select{width:100%;font-family:var(--sans);font-size:.9rem;padding:9px 11px;
+  border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper);color:var(--ink)}
+.mvhint{font-size:.78rem;color:#3d3d40;line-height:1.4;margin:8px 0 0;
+  background:var(--teal-xl);border-radius:7px;padding:9px 11px}
+.mvhint b{color:var(--teal-dk)}
+
+/* ---------- Werkstatt: Massnahmenplan ---------- */
+.plan{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:24px 26px}
+.plan h3{margin:0 0 4px;font-size:1.15rem;font-weight:700;letter-spacing:-.015em}
+.plan .pmeta{font-family:var(--mono);font-size:.74rem;color:var(--grey);margin:0 0 18px}
+table.sc{width:100%;min-width:760px;border-collapse:collapse;font-size:.84rem}
+table.sc th{background:#F7F7F5;text-align:left;padding:9px 11px;font-family:var(--mono);
+  font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid);vertical-align:bottom}
+table.sc th.r{text-align:right}
+table.sc td{padding:10px 11px;border-bottom:1px solid var(--grey-xl);vertical-align:top;line-height:1.4}
+table.sc td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.sc td.id{font-family:var(--mono);font-weight:700;color:var(--teal-dk)}
+table.sc tr.sum td{font-weight:700;background:var(--teal-xl);border-bottom:0}
+table.sc .dn{color:#2E7D4F;font-weight:700}
+table.sc .up{color:#B23C2C;font-weight:700}
+.pnote{font-size:.8rem;color:var(--grey);line-height:1.5;margin:16px 0 0;
+  padding-top:14px;border-top:1px solid var(--grey-xl)}
+.printonly{display:none}
+
+/* ---------- Checkliste ---------- */
+.ck10{display:grid;gap:11px;counter-reset:ck}
+.ckitem{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px 18px 16px 60px;position:relative}
+.ckitem::before{counter-increment:ck;content:counter(ck,decimal-leading-zero);
+  position:absolute;left:18px;top:16px;font-family:var(--mono);font-size:1rem;font-weight:700;
+  color:var(--teal-dk)}
+.ckitem h3{margin:0 0 6px;font-size:.98rem;font-weight:700;letter-spacing:-.01em}
+.ckitem p{margin:0 0 8px;font-size:.86rem;color:#3d3d40;line-height:1.5}
+.ckitem p:last-child{margin-bottom:0}
+.ckitem .trap{font-size:.82rem;color:#B25E00;line-height:1.45}
+.ckitem .trap b{font-weight:700}
+
+/* ---------- Quiz ---------- */
+.qwrap{display:grid;gap:14px}
+.qcard{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px 20px}
+.qcard .qn{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 7px}
+.qcard .qt{font-size:.98rem;font-weight:600;line-height:1.4;margin:0 0 13px}
+.qopts{display:grid;gap:8px}
+.qopt{appearance:none;text-align:left;cursor:pointer;font-family:var(--sans);font-size:.89rem;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--ink);
+  padding:11px 14px;border-radius:8px;transition:.16s;line-height:1.4}
+.qopt:hover:not(:disabled){border-color:var(--teal);background:var(--teal-xl)}
+.qopt:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.qopt:disabled{cursor:default}
+.qopt.right{background:#E8F5EE;border-color:var(--green);color:#1E6B47;font-weight:600}
+.qopt.wrong{background:#FBEAE9;border-color:var(--red);color:#9C2F2C;font-weight:600}
+.qfb{margin:13px 0 0;font-size:.86rem;color:#3d3d40;line-height:1.5;
+  padding-top:11px;border-top:1px solid var(--grey-xl)}
+.qfb[hidden]{display:none}
+.qscore{background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:18px 22px;
+  font-size:.98rem;line-height:1.5}
+.qscore b{font-weight:700}
+
+/* ---------- Auf- und zuklappbare Bloecke innerhalb einer Lektion ------
+   Die Bloecke entstehen zur Laufzeit aus der vorhandenen Gliederung:
+   jedes h2.sec eroeffnet einen Block, alles bis zum naechsten h2.sec
+   ist sein Inhalt. Am Markup ist dafuer nichts zu aendern.          */
+.blk{border-top:1px solid var(--grey-xl)}
+.blk:first-of-type{border-top:0}
+.blk h2.sec{margin:0}
+.blk-t{appearance:none;width:100%;background:transparent;border:0;cursor:pointer;
+  display:flex;align-items:center;gap:12px;text-align:left;padding:20px 0 18px;
+  font:inherit;color:inherit;letter-spacing:inherit;transition:color .16s}
+.blk-t:hover{color:var(--teal-dk)}
+.blk-t:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:4px}
+.blk-c{width:13px;height:13px;flex:none;color:var(--teal-dk);
+  transition:transform .22s var(--ease)}
+.blk[data-open="true"] .blk-c{transform:rotate(90deg)}
+.blk-b{padding:0 0 28px}
+.blk-b[hidden]{display:none}
+
+@media (max-width:760px){
+  .wsduo,.stgrid{grid-template-columns:1fr}
+}
+
+@media print{
+  /* Gedruckt wird nur der Bereich, den der Knopf gewaehlt hat. Alles
+     andere wird unsichtbar geschaltet, behaelt aber seinen Platz nicht -
+     der Zielbereich wird nach oben genommen.                          */
+  body{background:#fff}
+  body[data-print] *{visibility:hidden!important}
+  body[data-print="werk"] #wsPrint, body[data-print="werk"] #wsPrint *,
+  body[data-print="merk"] #merkblatt, body[data-print="merk"] #merkblatt *{visibility:visible!important}
+  body[data-print="werk"] #wsPrint,
+  body[data-print="merk"] #merkblatt{position:absolute;left:0;top:0;width:100%}
+  .panel[hidden]{display:none!important}
+  .blk-b[hidden]{display:block!important}
+  .printonly{display:block!important}
+  .plan{border:0;box-shadow:none;padding:0}
+  #merkblatt .merk{border:0;box-shadow:none;padding:0}
+  table.sc{min-width:0;font-size:9pt}
+  table.sc tr{page-break-inside:avoid}
+  .mapstage{border:0;box-shadow:none;padding:0;overflow:visible}
+  svg.rm{min-width:0}
+}
+/* ---------- Kernaussagen ---------- */
+.says{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.says>*{min-width:0}
+.say{background:var(--paper);border:1px solid var(--grey-xl);border-left:3px solid var(--teal-dk);
+  border-radius:var(--r);box-shadow:var(--shadow);padding:18px 20px}
+.say .sn{font-family:var(--mono);font-size:.72rem;font-weight:600;color:var(--teal-dk);letter-spacing:.1em}
+.say h3{margin:7px 0 8px;font-size:1rem;font-weight:700;line-height:1.3;letter-spacing:-.012em}
+.say p{margin:0;font-size:.88rem;color:#3d3d40;line-height:1.52}
+
+.readme{margin-top:18px;background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:20px 24px;
+  font-size:1rem;line-height:1.55}
+.readme.warn{background:var(--orange)}
+.readme b{font-weight:700}
+.readme code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.2);padding:1px 5px;border-radius:4px}
+.readme a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+blockquote.q{margin:0 0 14px;background:var(--paper);border:1px solid var(--grey-xl);
+  border-left:3px solid var(--teal);border-radius:var(--r);padding:16px 20px;
+  font-size:1.06rem;font-weight:300;line-height:1.62;color:#2c2c2f}
+blockquote.q cite{display:block;margin-top:9px;font-style:normal;font-family:var(--mono);
+  font-size:.74rem;letter-spacing:.06em;color:var(--grey)}
+
+.pointe{margin-top:34px;background:var(--orange);color:#fff;border-radius:var(--r);padding:26px 28px}
+.pointe .pk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin:0 0 10px}
+.pointe p{margin:0;font-size:clamp(1.12rem,2.1vw,1.45rem);font-weight:300;line-height:1.48}
+.pointe p b{font-weight:700}
+
+footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+.build{font-family:var(--mono);font-size:.92em;letter-spacing:.02em;opacity:.85}
+footer a{color:var(--teal-dk)}
+
+.tip{position:fixed;z-index:60;pointer-events:none;opacity:0;transform:translateY(4px);
+  transition:opacity .14s,transform .14s;background:var(--ink);color:#fff;border-radius:9px;
+  padding:12px 14px;font-size:.82rem;line-height:1.5;max-width:320px;box-shadow:0 10px 30px -8px rgba(0,0,0,.45)}
+.tip.on{opacity:1;transform:translateY(0)}
+.tip .th{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#8FD4E6;margin:0 0 5px}
+.tip p{margin:0}
+.tip .extra{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.18);
+  color:var(--orange);font-weight:600;font-family:var(--mono);font-size:.76rem}
+
+.scrollhint{display:none}
+@media (max-width:980px){
+  .mapwrap{grid-template-columns:1fr}
+  .flipgrid{grid-template-columns:repeat(2,1fr)}
+  .quad{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:900px){
+  .scrollhint{display:block;color:var(--teal-dk)}
+  .duo,.trio{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  /* Die Vergleichsliste klappt in zwei Zeilen je Risiko um, statt
+     fuenf Spalten in eine Handybreite zu pressen.                 */
+  .cmphead{display:none}
+  .cmp{grid-template-columns:44px 1fr 60px;row-gap:4px}
+  .cmp .cn{grid-column:2 / span 2}
+  .cmp .cw{grid-column:2;text-align:left}
+  .cmp .cw.ref{grid-column:3;text-align:right}
+  .cmp .cd{grid-row:1;grid-column:3}
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px 56px}
+  .flipgrid,.quad{grid-template-columns:1fr}
+  .merk dl{grid-template-columns:1fr;gap:2px 0}
+  .merk dt{margin-top:9px}
+}
+
+/* ---------- Das Assessment ----------
+   Praefix as, gegen den Namensraum der uebrigen Skripte geprueft.   */
+.asbar{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:0 0 18px}
+.asbalken{flex:1;min-width:180px;height:7px;background:var(--grey-xl);border-radius:4px;overflow:hidden}
+.asbalken i{display:block;height:100%;background:var(--teal);transition:width .3s var(--ease)}
+.asz{font-family:var(--mono);font-size:.78rem;color:var(--grey);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.asfeld{font-family:var(--mono);font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--teal-dk);margin:0 0 6px}
+
+/* Die Zeichnung rechnet in einem festen viewBox und misst nichts, weil
+   getBoundingClientRect in einem zugeklappten Block nur Nullen gibt.  */
+.asradar{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:14px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.asradar svg{display:block;width:100%;max-width:520px;height:auto;margin:0 auto}
+@media (max-width:560px){.asbez,.aswert{font-size:12px}}
+.asnetz{fill:none;stroke:var(--grey-xl);stroke-width:1}
+.asachse{stroke:var(--grey-xl);stroke-width:1}
+.asflaeche{fill:var(--teal);fill-opacity:.17;stroke:var(--teal-dk);stroke-width:2;stroke-linejoin:round}
+.aspunkt{fill:var(--teal-dk)}
+.asbez{font-family:var(--mono);font-size:10px;fill:#3d3d40}
+.aswert{font-family:var(--mono);font-size:10px;fill:var(--grey)}
+
+.asliste{display:grid;gap:10px;margin:18px 0 0}
+.aszeile{display:grid;grid-template-columns:13px 1fr auto;gap:12px;align-items:center;
+  background:var(--canvas);border-radius:var(--r);padding:11px 14px}
+.aszeile>*{min-width:0}
+.asampel{width:13px;height:13px;border-radius:50%;flex:none}
+.asampel.gruen{background:#1E6B47}
+.asampel.gelb{background:#C98A00}
+.asampel.rot{background:var(--red)}
+.aszeile b{font-size:.9rem;font-weight:600;letter-spacing:-.01em}
+.aszeile em{display:block;font-style:normal;font-size:.8rem;color:#4a4a4d;margin-top:2px}
+.aszeile .asq{font-family:var(--mono);font-size:.78rem;color:var(--grey);
+  font-variant-numeric:tabular-nums}
+.asueber{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 0}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Lernplattform · Standortbestimmung</p>
+  <h1>Was Du <em>schon</em> kannst</h1>
+  <p class="lede">Dieses Modul stellt Dir vierundzwanzig Fragen über sechs Kompetenzfelder, vier je Feld, gezogen aus einem Vorrat von dreiundsechzig. Am Ende steht ein Radar, das zeigt, wo Du fest bist und wo nicht. Die Startseite färbt danach ihre Kacheln ein, sodass Du allein die Module vor Dir hast, die Dir etwas bringen. Du kannst es so oft wiederholen, wie Du willst; beim nächsten Durchlauf kommen andere Fragen.</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Die Standortbestimmung">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Das Assessment</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Dein Ergebnis</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Wie Du weitermachst</button>
+</div>
+
+<!-- ==================== LEKTION 01 · DAS ASSESSMENT ==================== -->
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <p class="claim">Es kommen vierundzwanzig Fragen, vier je Kompetenzfeld. Es gibt keinen Zeitdruck und keine Bewertung, die irgendwo landet; nach jeder Antwort steht die Begründung da, auch nach der richtigen.</p>
+
+  <h2 class="sec">Die Fragen</h2>
+  <p class="sub">Jede Frage stammt aus dem Quiz des Moduls, das sie behandelt, ist also schon einmal durch die fachliche Prüfung gegangen. Die Antwortmöglichkeiten stehen in wechselnder Reihenfolge, sodass sich die Lage der richtigen Antwort nicht merken lässt.</p>
+
+  <div class="asbar">
+    <div class="seg" role="group" aria-label="Das Assessment">
+      <button id="asNeu" type="button">Neu anfangen</button>
+    </div>
+    <div class="asbalken"><i id="asFort" style="width:0%"></i></div>
+    <span class="asz" id="asStand"></span>
+  </div>
+
+  <div class="qwrap" id="asQuiz"></div>
+  <div id="asHin" style="margin-top:16px"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Ein Assessment sagt Dir nicht, was Du wert bist. Es sagt Dir, <b>welche vier Stunden Lesen Du Dir sparen kannst</b>.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 02 · DEIN ERGEBNIS ==================== -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
+  <p class="claim">Das Radar hat sechs Achsen, je eine für ein Kompetenzfeld. Je weiter außen der Punkt liegt, desto sicherer sitzt das Feld. Was innen bleibt, ist Deine Leseliste.</p>
+
+  <h2 class="sec">Dein Radar</h2>
+  <p class="sub">Die Fläche entsteht aus den vier Fragen je Feld. Vier Treffer heißen außen, null Treffer heißen Mittelpunkt. Ein einzelner Durchlauf ist eine Stichprobe und kein Zeugnis; wer sich unsicher ist, zieht sich neue Fragen.</p>
+  <div class="asradar" id="asRadar"></div>
+
+  <h2 class="sec">Was daraus folgt</h2>
+  <p class="sub">Drei Treffer oder mehr heißen grün, zwei gelb, höchstens einer rot. Jedes Kompetenzfeld steht für bestimmte Module. Genau die bekommen seine Farbe.</p>
+  <div class="asliste" id="asListe"></div>
+
+  <div class="asueber" id="asUeber"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Das Radar ist keine Note. Es ist eine <b>Reihenfolge</b>, in der sich das Lesen lohnt.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 03 · WIE DU WEITERMACHST ==================== -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
+  <p class="claim">Du hast Dein Ergebnis und willst wissen, was jetzt zu tun ist. Es folgen fünf Schritte, von denen der zweite der unbequemste ist.</p>
+
+  <h2 class="sec">Fünf Schritte nach dem Assessment</h2>
+  <p class="sub">Nichts davon braucht mehr als den Browser, in dem Du gerade liest.</p>
+  <div class="merk">
+    <dl>
+      <dt>Das Ergebnis übernehmen</dt><dd>Der Knopf in Lektion 02 bringt Dich auf die Startseite, die Deine Farben schon eingetragen hat. Die Adresse in der Leiste enthält das Ergebnis; ein Lesezeichen darauf holt es jederzeit zurück. Gespeichert wird nichts, weder im Browser noch auf einem Server.</dd>
+      <dt>Mit dem schwächsten Feld anfangen</dt><dd>Das ist der unbequeme Schritt, weil dort die längste Strecke liegt. Er lohnt sich trotzdem, denn die Felder bauen aufeinander auf: Wer den Jahresabschluss nicht liest, kommt bei den Kennzahlen nicht weit.</dd>
+      <dt>Ein Modul am Stück durcharbeiten</dt><dd>Eine Lektion ist auf fünfzehn bis zwanzig Minuten geschnitten. Ein Modul hat drei bis sechs davon, also ungefähr einen Abend. Halbe Module bringen wenig, weil die Pointe am Ende steht.</dd>
+      <dt>Das Modulquiz benutzen, nicht das Assessment</dt><dd>Im Modul liegen zwanzig bis dreißig Fragen zu seinem eigenen Stoff, hier liegen vier je Feld. Zum Üben ist das Modulquiz die bessere Quelle; das Assessment misst, es unterrichtet nicht.</dd>
+      <dt>Nach zwei Modulen wiederholen</dt><dd>Dann hat sich genug bewegt, dass ein neuer Durchlauf etwas anderes zeigt. Häufiger lohnt sich nicht, seltener verpasst den Punkt, an dem ein Feld kippt.</dd>
+    </dl>
+  </div>
+
+  <div class="readme" style="margin-top:18px">
+    <b>Was das Assessment nicht kann.</b> Es misst Wissen, das sich in vier Antwortmöglichkeiten fassen lässt. Ob Du eine Liquiditätsvorschau für Dein eigenes Haus aufstellen kannst, steht auf einem anderen Blatt; dafür sind die Praxiseinstiege am Ende jedes Moduls da. Grün heißt hier, dass Dir die Begriffe geläufig sind. Ob Du die Sache am Montag umsetzen kannst, sagt die Farbe nicht.
+  </div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Wer sein rotes Feld kennt, liest gezielt. Wer es nicht kennt, liest <b>alles oder nichts</b>.</p>
+  </div>
+</section>
+
+<footer>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.64</span>
+</footer>
+
+</div>
+<script>
+/* =====================================================================
+   Die Standortbestimmung
+
+   Sechs Kompetenzfelder, je vier gezogene Fragen. Der Fragenvorrat ist
+   nicht neu erfunden: Jede Frage steht so schon im Quiz ihres Moduls
+   und hat damit dieselbe fachliche Pruefung hinter sich. Neu sind
+   allein die beiden Etiketten am Anfang jeder Zeile, naemlich das Feld
+   und das Modul.
+
+   Erweitern heisst: Fragen mit ihren zwei Etiketten anhaengen. Ein
+   neues Kompetenzfeld kostet eine Zeile in FELDER.
+   ===================================================================== */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const mischen = a => {
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+
+/* Die Sprache reist als Parameter weiter, wie in den uebrigen Modulen. */
+const QS = new URLSearchParams(location.search).get("lang") === "en" ? "?lang=en" : "";
+
+const FELDER = [
+  {id:"abschluss", kurz:"Jahresabschluss",  name:"Jahresabschluss lesen",
+   was:"Zweck und Gliederung der Bilanz nach § 266 HGB, die beiden Seiten, die Staffel nach § 275 und die zwei Verfahren.",
+   module:["bilanz-aufbau","bilanz-guv"]},
+  {id:"buchung",   kurz:"Buchungslogik",    name:"Buchungslogik",
+   was:"Soll an Haben, die vier Grundfälle der Bilanzveränderung und die Frage, wann eine Buchung den Erfolg berührt.",
+   module:["bilanz-buchungssaetze"]},
+  {id:"kennzahl",  kurz:"Kennzahlen",       name:"Kennzahlen und Analyse",
+   was:"Vermögens- und Kapitalstruktur, die drei Liquiditätsgrade, Rentabilität und die Grenzen einer verdichteten Zahl.",
+   module:["bilanz-kennzahlen"]},
+  {id:"erfolg",    kurz:"Periodenerfolg",   name:"Periodenerfolg und BWA",
+   was:"Was eine betriebswirtschaftliche Auswertung ausweist, wie sie aufgebaut ist und wo ihre Zahlen vorläufig bleiben.",
+   module:["liquiditaet-bwa"]},
+  {id:"zahlung",   kurz:"Zahlungsströme",   name:"Zahlungsströme und Liquiditätsplanung",
+   was:"Der Unterschied zwischen Ertrag und Einzahlung, die Vier-Felder-Tafel, die Geldumschlagsdauer und das Regelwerk einer Vorschau.",
+   module:["liquiditaet-begriff","liquiditaet-vorschau"]},
+  {id:"risiko",    kurz:"Risiko",           name:"Risikomanagement",
+   was:"Der Risikobegriff als bewertetes Ereignis, die Herkunft in der Lieferkette und der Regelkreis aus vier Phasen.",
+   module:["risikomanagement-einfuehrung","risikomanagement-prozess","risikomanagement-werkstatt"]},
+];
+
+/* Nur zum Anzeigen. Die Kacheln auf der Startseite fuehren ihre eigenen
+   Titel; hier steht die Kurzform, damit die Liste lesbar bleibt.      */
+const MODULNAME = {
+  "bilanz-aufbau":"Die Bilanz nach HGB",
+  "bilanz-guv":"Die Gewinn- und Verlustrechnung",
+  "bilanz-buchungssaetze":"Buchungssätze und ihre Wirkung",
+  "bilanz-kennzahlen":"Jahresabschlussanalyse mit Kennzahlen",
+  "liquiditaet-bwa":"Die BWA lesen",
+  "liquiditaet-begriff":"Liquidität: der Begriff",
+  "liquiditaet-vorschau":"Die Liquiditätsvorschau",
+  "risikomanagement-einfuehrung":"Risikomanagement: der Begriff",
+  "risikomanagement-prozess":"Der Risikomanagement-Prozess",
+  "risikomanagement-werkstatt":"Die Risikoanalyse-Werkstatt",
+};
+
+const JE_FELD = 4;
+const FRAGEN = [
+  ["abschluss", "bilanz-aufbau",
+   "Was zeigt die Aktivseite einer Bilanz?",
+   ["Die Mittelverwendung: worin das Geld steckt","Die Mittelherkunft: wem die Mittel zustehen","Die Erträge des Geschäftsjahres","Die Zahlungsströme des Geschäftsjahres"], 0,
+   "Links steht das Vermögen nach seiner Erscheinungsform. Wem es zusteht, sagt die Passivseite; was im Jahr erwirtschaftet wurde, sagt die Gewinn- und Verlustrechnung."],
+  ["abschluss", "bilanz-aufbau",
+   "Warum sind Summe Aktiva und Summe Passiva immer gleich?",
+   ["Weil beide Seiten denselben Betrag aus zwei Richtungen ansehen","Weil das Handelsrecht es in § 266 HGB anordnet","Weil die Differenz ins Eigenkapital gebucht wird","Weil der Wirtschaftsprüfer sie angleicht"], 0,
+   "Jeder Euro im Unternehmen muss irgendwoher stammen. Verwendung und Herkunft zählen denselben Betrag. Die Gleichheit ist eine Folge der Betrachtungsweise."],
+  ["abschluss", "bilanz-aufbau",
+   "Nach welchem Prinzip ist die Aktivseite geordnet?",
+   ["Nach zunehmender Liquidierbarkeit","Nach abnehmender Liquidierbarkeit","Nach der Höhe der Beträge","Alphabetisch nach Postenbezeichnung"], 0,
+   "Oben steht, was am längsten bis zum Geld braucht, unten der Kassenbestand. Auf der Passivseite läuft es umgekehrt: nach abnehmender Fristigkeit."],
+  ["abschluss", "bilanz-aufbau",
+   "Wo erscheint der Jahresüberschuss in der Bilanz?",
+   ["Im Eigenkapital auf der Passivseite","Im Umlaufvermögen auf der Aktivseite","Unter den Verbindlichkeiten","Er erscheint ausschließlich in der Gewinn- und Verlustrechnung"], 0,
+   "§ 266 Abs. 3 A. V. HGB. Genau an dieser Zahl hängen Bilanz und Gewinn- und Verlustrechnung zusammen."],
+  ["abschluss", "bilanz-aufbau",
+   "Wie ist das Eigenkapital definiert?",
+   ["Vermögen minus Schulden","Gezeichnetes Kapital plus Bankguthaben","Die Summe der Einlagen der Gesellschafter","Der Kassenbestand am Stichtag"], 0,
+   "Es ist ein Rest. Jede Abwertung auf der Aktivseite verringert es unmittelbar, ohne dass eine Zahlung geflossen wäre."],
+  ["abschluss", "bilanz-aufbau",
+   "Welche Rechtsgrundlage gibt die Bilanzgliederung für Kapitalgesellschaften vor?",
+   ["§ 266 HGB","§ 242 HGB","§ 252 HGB","§ 5 EStG"], 0,
+   "§ 242 regelt die Aufstellungspflicht, § 252 die Bewertungsgrundsätze, § 5 EStG die Maßgeblichkeit. Die Gliederung selbst steht in § 266."],
+  ["abschluss", "bilanz-guv",
+   "Worin unterscheiden sich Bilanz und Gewinn- und Verlustrechnung grundsätzlich?",
+   ["Die Bilanz zeigt einen Stichtag, die Rechnung einen Zeitraum","Die Bilanz zeigt einen Zeitraum, die Rechnung einen Stichtag","Beide zeigen einen Stichtag, nur mit anderer Gliederung","Beide zeigen einen Zeitraum, nur mit anderer Gliederung"], 0,
+   "Die Bilanz ist eine Bestandsrechnung zu einem Tag, die Gewinn- und Verlustrechnung eine Stromrechnung über zwölf Monate. An einer Zahl hängen sie zusammen: dem Jahresüberschuss."],
+  ["abschluss", "bilanz-guv",
+   "Wonach gliedert das Gesamtkostenverfahren den Aufwand?",
+   ["Nach Kostenarten: Material, Personal, Abschreibungen","Nach Funktionsbereichen: Herstellung, Vertrieb, Verwaltung","Nach Fristigkeit: kurz-, mittel-, langfristig","Nach Zahlungswirksamkeit"], 0,
+   "Die Frage lautet: Was wurde verbraucht? Das Umsatzkostenverfahren fragt stattdessen: Wofür wurde es verbraucht?"],
+  ["abschluss", "bilanz-guv",
+   "Wonach gliedert das Umsatzkostenverfahren den Aufwand?",
+   ["Nach Funktionsbereichen","Nach Kostenarten","Nach Steuerpflicht","Nach Betriebsteilen"], 0,
+   "Herstellung, Vertrieb, Verwaltung. Deshalb steht dort kein Personalaufwand als eigener Posten. Er verteilt sich auf die drei Funktionen."],
+  ["abschluss", "bilanz-guv",
+   "Beide Verfahren werden für dieselbe Firma und dasselbe Jahr aufgestellt. Was gilt für den Jahresüberschuss?",
+   ["Er ist in beiden gleich","Er ist im Gesamtkostenverfahren höher","Er ist im Umsatzkostenverfahren höher","Das hängt von der Bestandsveränderung ab"], 0,
+   "Die Gliederung ordnet den Aufwand anders, am Ergebnis ändert sie nichts. Wenn im Formular in Lektion 04 zwei verschiedene Zahlen stehen, steckt ein Fehler in den Eingaben."],
+  ["buchung", "bilanz-buchungssaetze",
+   "Was besagt die Grundregel der doppelten Buchführung?",
+   ["Jeder Vorfall wird auf zwei Konten mit demselben Betrag erfasst","Jede Buchung wird zweimal geprüft","Jedes Konto hat zwei Salden","Jeder Beleg wird zweifach abgelegt"], 0,
+   "Einmal im Soll, einmal im Haben. Daraus folgt alles Weitere, auch dass die Summe aller Sollbuchungen der Summe aller Habenbuchungen entspricht."],
+  ["buchung", "bilanz-buchungssaetze",
+   "Auf welcher Seite nimmt ein Aktivkonto zu?",
+   ["Im Soll","Im Haben","Auf beiden, je nach Vorfall","Das hängt vom Kontenrahmen ab"], 0,
+   "Aktivkonten nehmen im Soll zu und im Haben ab. Bei Passivkonten ist es umgekehrt."],
+  ["buchung", "bilanz-buchungssaetze",
+   "Was bedeutet das Wort „an“ im Buchungssatz?",
+   ["Nichts, es trennt nur Soll- und Habenkonto","Die Richtung der Zahlung","Dass der Betrag überwiesen wird","Dass ein Beleg vorliegt"], 0,
+   "Es ist reine Schreibweise. „Bank an Forderungen“ heißt: Bank im Soll, Forderungen im Haben."],
+  ["buchung", "bilanz-buchungssaetze",
+   "Wie viele Grundfälle der Bilanzveränderung gibt es?",
+   ["Vier","Zwei","Sechs","Das hängt vom Vorfall ab"], 0,
+   "Zwei Konten, jedes entweder aktiv oder passiv: zwei mal zwei. Aktivtausch, Passivtausch, Bilanzverlängerung, Bilanzverkürzung."],
+  ["buchung", "bilanz-buchungssaetze",
+   "Ein Kunde zahlt eine offene Rechnung. Welcher Grundfall ist das?",
+   ["Aktivtausch","Bilanzverlängerung","Bilanzverkürzung","Passivtausch"], 0,
+   "Bank an Forderungen, also zwei Aktivkonten. Die Bilanzsumme rührt sich dabei nicht. Der Ertrag ist schon bei der Rechnungsstellung entstanden."],
+  ["buchung", "bilanz-buchungssaetze",
+   "Eine Maschine wird auf Ziel gekauft. Welcher Grundfall ist das?",
+   ["Bilanzverlängerung","Aktivtausch","Bilanzverkürzung","Passivtausch"], 0,
+   "Technische Anlagen an Verbindlichkeiten aus Lieferungen und Leistungen. Aktiv im Soll, passiv im Haben: Beide Seiten wachsen."],
+  ["buchung", "bilanz-buchungssaetze",
+   "Wann ist eine Buchung erfolgswirksam?",
+   ["Wenn ein Aufwands- oder Ertragskonto beteiligt ist","Wenn Geld fließt","Wenn die Bilanzsumme sich ändert","Wenn ein Beleg vorliegt"], 0,
+   "Das ist die ganze Prüfung. Zwei Bestandskonten bleiben erfolgsneutral, gleich wie viel Geld bewegt wird."],
+  ["buchung", "bilanz-buchungssaetze",
+   "Ein Darlehen von 5.000 T€ wird aufgenommen. Wirkt das auf den Erfolg?",
+   ["Nein, es ist eine Bilanzverlängerung","Ja, es ist ein Ertrag","Ja, es ist ein Aufwand","Nur in Höhe der Zinsen im selben Jahr"], 0,
+   "Geld kommt herein, eine Schuld entsteht, also bewegen sich zwei Bestandskonten. Erst die Zinsen darauf sind Aufwand, wofür es eine eigene Buchung gibt."],
+  ["buchung", "bilanz-buchungssaetze",
+   "Eine Maschine wird gekauft. Wann wird daraus Aufwand?",
+   ["Über die Abschreibungen, verteilt über die Nutzungsdauer","Sofort in voller Höhe","Bei der Bezahlung","Beim Verkauf der Maschine"], 0,
+   "Der Kaufpreis wird aktiviert. Die Abschreibung verteilt ihn auf die Jahre, in denen die Maschine genutzt wird."],
+  ["buchung", "bilanz-buchungssaetze",
+   "Roh-, Hilfs- und Betriebsstoffe werden bar gekauft und eingelagert. Wirkt das auf den Erfolg?",
+   ["Nein, aus Geld wird Vorrat, also ein Aktivtausch","Ja, Materialaufwand entsteht","Ja, aber nur in Höhe der Umsatzsteuer","Nur wenn bar gezahlt wird"], 0,
+   "Zum Aufwand wird der Vorrat erst beim Verbrauch. Bis dahin ist er Vermögen."],
+  ["kennzahl", "bilanz-kennzahlen",
+   "Was leistet eine Kennzahl, was ein einzelner Betrag nicht leistet?",
+   ["Sie macht zwei verschieden große Unternehmen vergleichbar","Sie ist genauer als der Betrag","Sie ist gesetzlich vorgeschrieben","Sie ist unabhängig von Bilanzierungswahlrechten"], 0,
+   "Absolute Beträge lassen sich zwischen verschieden großen Häusern nicht vergleichen, Verhältniszahlen schon. Genauer wird dabei nichts. Im Gegenteil, es geht Information verloren."],
+  ["kennzahl", "bilanz-kennzahlen",
+   "Was misst die Anlagenintensität?",
+   ["Den Anteil des langfristig gebundenen Vermögens","Den Anteil des Eigenkapitals","Die Auslastung der Maschinen","Die Höhe der Abschreibungen"], 0,
+   "Anlagevermögen ÷ Bilanzsumme. Ein hoher Wert bedeutet Substanz und zugleich hohe Fixkosten und wenig Spielraum bei einem Nachfrageeinbruch."],
+  ["kennzahl", "bilanz-kennzahlen",
+   "Ein Unternehmen hat eine Eigenkapitalquote von 25 %. Wie hoch ist der Verschuldungsgrad?",
+   ["3","0,25","4","0,75"], 0,
+   "Fremdkapital ÷ Eigenkapital = 75 ÷ 25 = 3. Der Verschuldungsgrad ist dieselbe Information in schärferer Skala: Bei 50 % Quote ist er 1, bei 25 % schon 3."],
+  ["kennzahl", "bilanz-kennzahlen",
+   "Was verlangt die goldene Bilanzregel im engen Sinn?",
+   ["Das Anlagevermögen ist vollständig aus Eigenkapital finanziert","Die Bilanz geht auf beiden Seiten auf","Das Umlaufvermögen übersteigt das Fremdkapital","Der Gewinn deckt die Zinsen"], 0,
+   "Anlagendeckung I von mindestens 100 %. In der Industrie erreichen das wenige; deshalb wird meist mit der weiten Fassung gearbeitet, die langfristiges Fremdkapital einbezieht."],
+  ["kennzahl", "bilanz-kennzahlen",
+   "Welche Posten stehen im Zähler der Liquidität zweiten Grades?",
+   ["Zahlungsmittel, Wertpapiere und Forderungen","Nur Zahlungsmittel","Das gesamte Umlaufvermögen","Umlaufvermögen und Anlagevermögen"], 0,
+   "Alles, was ohne Verkauf von Ware zu Geld wird. Der erste Grad nimmt nur Zahlungsmittel, der dritte auch die Vorräte."],
+  ["kennzahl", "bilanz-kennzahlen",
+   "Warum ist eine hohe Liquidität ersten Grades keine Auszeichnung?",
+   ["Weil Geld auf dem Konto nichts verdient","Weil sie auf Schulden hinweist","Weil sie die Bilanzsumme erhöht","Weil sie Vorräte enthält"], 0,
+   "Der Anhaltswert liegt bei 10 bis 30 %. Wer dauerhaft deutlich darüber liegt, bindet Kapital ohne Ertrag, statt es zu investieren oder auszuschütten."],
+  ["kennzahl", "bilanz-kennzahlen",
+   "Warum werden bei der Gesamtkapitalrentabilität die Fremdkapitalzinsen zum Ergebnis addiert?",
+   ["Weil sie der Ertrag des Fremdkapitals sind und zum arbeitenden Kapital gehören","Weil sie steuerlich abzugsfähig sind","Weil sie sonst doppelt gezählt würden","Weil das HGB es vorschreibt"], 0,
+   "Gefragt ist, was das gesamte Kapital erwirtschaftet, gleich wem es gehört. Wer die Zinsen im Zähler vergisst, bestraft jedes verschuldete Unternehmen doppelt."],
+  ["kennzahl", "bilanz-kennzahlen",
+   "Wann hebt der Leverage-Effekt die Eigenkapitalrentabilität?",
+   ["Wenn die Gesamtkapitalrentabilität über dem Fremdkapitalzins liegt","Immer, wenn Fremdkapital aufgenommen wird","Wenn die Eigenkapitalquote steigt","Wenn der Umsatz wächst"], 0,
+   "Dann verdient das Unternehmen mit geliehenem Geld mehr, als es dafür zahlt. Fällt die Gesamtkapitalrentabilität unter den Zins, wirkt derselbe Mechanismus rückwärts und umso schneller."],
+  ["kennzahl", "bilanz-kennzahlen",
+   "Wie zerlegt das Du-Pont-Schema den Return on Investment?",
+   ["In Umsatzrentabilität und Kapitalumschlag","In Eigen- und Fremdkapitalrentabilität","In Betriebs- und Finanzergebnis","In Material- und Personalquote"], 0,
+   "Ergebnis ÷ Kapital = (Ergebnis ÷ Umsatz) × (Umsatz ÷ Kapital). Der Umsatz kürzt sich weg. Damit werden aus einer Frage zwei."],
+  ["kennzahl", "bilanz-kennzahlen",
+   "Warum verbietet sich der Schluss von einem hohen Gewinn auf eine gute Liquidität?",
+   ["Weil Erträge und Einzahlungen zeitlich auseinanderfallen","Weil der Gewinn nach Steuern gerechnet wird","Weil die Bilanz Buchwerte zeigt","Weil Rückstellungen Fremdkapital sind"], 0,
+   "Abschreibungen kosten Ergebnis ohne Auszahlung, ein wachsender Forderungsbestand kostet Geld ohne Aufwand. Die meisten Insolvenzen betreffen Unternehmen, die zuletzt einen Gewinn ausgewiesen haben."],
+  ["erfolg", "liquiditaet-bwa",
+   "Auf welcher Rechtsgrundlage steht eine BWA?",
+   ["Auf keiner, sie ist ein freies Auswertungsformat","§ 275 HGB","§ 242 HGB","§ 18 UStG"], 0,
+   "Die BWA ist in keinem Gesetz beschrieben. Das verbreitetste Format ist die Standard-BWA Nr. 01 der DATEV; auch das ist eine Konvention und keine Vorschrift."],
+  ["erfolg", "liquiditaet-bwa",
+   "Wie entsteht die Gesamtleistung?",
+   ["Umsatzerlöse + Bestandsveränderung + aktivierte Eigenleistungen","Umsatzerlöse − Materialaufwand","Umsatzerlöse + sonstige betriebliche Erträge","Rohertrag + Gesamtkosten"], 0,
+   "Sie misst, was im Zeitraum geleistet wurde, unabhängig davon, was davon verkauft ist; deshalb gibt es die beiden Korrekturposten."],
+  ["erfolg", "liquiditaet-bwa",
+   "Wie entsteht der Rohertrag?",
+   ["Gesamtleistung − Materialaufwand","Umsatz − Personalkosten","Gesamtleistung − Gesamtkosten","Betrieblicher Rohertrag − Abschreibungen"], 0,
+   "Was bleibt, nachdem der Einkauf bezahlt ist. Für einen Handels- oder Fertigungsbetrieb die wichtigste Zwischensumme der ganzen Auswertung."],
+  ["erfolg", "liquiditaet-bwa",
+   "Warum weicht das Betriebsergebnis einer BWA vom Betriebsergebnis nach § 275 HGB ab?",
+   ["Weil die BWA die betrieblichen Steuern in den Kostenblock stellt","Weil die BWA mit Bruttobeträgen rechnet","Weil die BWA keine Abschreibungen kennt","Weil die BWA den Umsatz anders abgrenzt"], 0,
+   "Im Fall dieses Moduls sind es 250 T€ Unterschied, nämlich 4.200 gegen 4.450. Dieselben Buchungen ergeben in zwei Gliederungen zwei Ergebnisse."],
+  ["erfolg", "liquiditaet-bwa",
+   "Warum sind die Abschreibungen in einer Monats-BWA vorläufig?",
+   ["Sie werden nach einem Schlüssel angesetzt, bis der Anlagenspiegel vorliegt","Sie werden unterjährig gar nicht gebucht","Sie werden geschätzt, weil der Zeitwert fehlt","Sie sind nicht vorläufig"], 0,
+   "Meist ein Zwölftel des Vorjahreswerts. Bei einem investitionsstarken Jahr weicht der tatsächliche Betrag deutlich davon ab."],
+  ["erfolg", "liquiditaet-bwa",
+   "Warum hat die Dezember-BWA oft ein auffällig schlechtes Betriebsergebnis?",
+   ["Weil Inventur, Abschreibungen, Rückstellungen und Abgrenzungen dort zusammenlaufen","Weil der Dezember immer umsatzschwach ist","Weil die Steuern gebucht werden","Weil die Buchhaltung im Urlaub ist"], 0,
+   "Alles, was unterjährig gefehlt hat, wird im letzten Monat nachgeholt. Deshalb ist sie zugleich die BWA, die dem Abschluss am nächsten kommt."],
+  ["erfolg", "liquiditaet-bwa",
+   "Was steht in keiner BWA?",
+   ["Darlehenstilgung, Investition, Entnahme und Umsatzsteuer-Zahllast","Personalkosten und Raumkosten","Zinsen und Abschreibungen","Umsatz und Materialaufwand"], 0,
+   "Vier Posten, die das Konto erheblich bewegen und in keiner Aufwandszeile vorkommen. Ohne sie ist jede Vorschau falsch."],
+  ["erfolg", "liquiditaet-bwa",
+   "Was unterscheidet die BWA vom Jahresabschluss am grundlegendsten?",
+   ["Die BWA ist auf Geschwindigkeit gebaut und kauft sie mit Genauigkeit","Die BWA enthält keine Kosten","Die BWA ist gesetzlich geregelt","Die BWA wird geprüft"], 0,
+   "Für die Liquiditätsplanung zählt Geschwindigkeit mehr, da eine Vorschau auf Grundlage des letzten geprüften Abschlusses neun Monate alt wäre."],
+  ["erfolg", "liquiditaet-bwa",
+   "Was zeigt eine BWA über die Zahlungsfähigkeit?",
+   ["Nichts, sie kennt keine Zahlungszeitpunkte","Den Kontostand zum Monatsende","Die Liquidität ersten Grades","Die offenen Posten"], 0,
+   "Sie zeigt Erträge und Aufwendungen. Wann die zugehörigen Ein- und Auszahlungen anfallen, ist die Frage der folgenden Module dieses Pfads."],
+  ["abschluss", "bilanz-guv",
+   "Was ist das Bruttoergebnis vom Umsatz?",
+   ["Umsatzerlöse minus Herstellungskosten der verkauften Leistungen","Umsatzerlöse minus alle betrieblichen Aufwendungen","Umsatzerlöse plus Bestandsveränderung","Das Ergebnis vor Zinsen und Steuern"], 0,
+   "§ 275 Abs. 3 Nr. 3 HGB, der erste gesetzliche Zwischenwert des Umsatzkostenverfahrens. Im Gesamtkostenverfahren gibt es ihn nicht."],
+  ["zahlung", "liquiditaet-begriff",
+   "Welche Ebene meint der Begriff Liquidität?",
+   ["Den Zahlungsmittelbestand","Das Reinvermögen","Das Geldvermögen","Das betriebsnotwendige Vermögen"], 0,
+   "Einzahlung und Auszahlung bewegen den Zahlungsmittelbestand. Ertrag und Aufwand bewegen hingegen das Reinvermögen, meinen damit den Erfolg und beantworten eine andere Frage."],
+  ["zahlung", "liquiditaet-begriff",
+   "Eine Rechnung wird geschrieben, das Geld kommt in zwei Monaten. Was entsteht sofort?",
+   ["Ein Ertrag","Eine Einzahlung","Beides","Keines von beiden"], 0,
+   "Der Ertrag entsteht mit der Leistung und der Rechnung. Die Einzahlung folgt später; dieser Abstand ist der Gegenstand einer Liquiditätsvorschau."],
+  ["zahlung", "liquiditaet-begriff",
+   "In welches Feld gehört der Kauf einer Maschine?",
+   ["Nur Zahlung","Nur Erfolg","Beides","Weder noch"], 0,
+   "Die größte Auszahlung des Jahres erscheint im Ergebnis mit null. Aufwand wird der Kaufpreis erst über die Abschreibungen der kommenden Jahre."],
+  ["zahlung", "liquiditaet-begriff",
+   "In welches Feld gehört die Tilgung eines Darlehens?",
+   ["Nur Zahlung","Nur Erfolg","Beides","Weder noch"], 0,
+   "Die Tilgung steht in keiner Gewinn- und Verlustrechnung, da allein die Zinsen Aufwand sind. Damit gehören Tilgungen zu den Posten, die beim Planen am häufigsten vergessen werden."],
+  ["zahlung", "liquiditaet-begriff",
+   "Wie wird die Geldumschlagsdauer gebildet?",
+   ["Lagerdauer + Debitorenlaufzeit − Kreditorenlaufzeit","Lagerdauer + Debitorenlaufzeit + Kreditorenlaufzeit","Debitorenlaufzeit − Lagerdauer","Umsatz ÷ Bilanzsumme"], 0,
+   "Zwei Bausteine verlängern den Weg des Geldes, einer verkürzt ihn. Der Lieferantenkredit ist der einzige Teil, der arbeitet, ohne etwas zu kosten."],
+  ["zahlung", "liquiditaet-begriff",
+   "Was sagt ein Zahlungsziel von 30 Tagen über den Zahlungseingang?",
+   ["Es sagt, wann gezahlt werden darf, nicht wann gezahlt wird","Das Geld kommt nach genau 30 Tagen","Das Geld kommt spätestens nach 30 Tagen","Nichts, es ist unverbindlich"], 0,
+   "Ein Teil zahlt früher mit Skonto, ein Teil pünktlich, ein Teil später. Eine Vorschau braucht deshalb eine Verteilung und keinen einzelnen Tag."],
+  ["zahlung", "liquiditaet-vorschau",
+   "Aus welchen drei Teilen besteht eine Liquiditätsvorschau?",
+   ["Die BWA über Regeln, die Umsatzsteuer und was in keiner BWA steht","Bilanz, Gewinn- und Verlustrechnung, Anhang","Ist, Plan und Abweichung","Einzahlungen, Auszahlungen und Zinsen"], 0,
+   "Der obere Teil ist die Fleißarbeit, über den Engpass entscheidet aber der untere, denn eine Vorschau ohne Investition, Tilgung und Entnahme bleibt eine umgerechnete BWA."],
+  ["zahlung", "liquiditaet-vorschau",
+   "Welche Positionen der BWA bekommen die Regel „nie zahlungswirksam“?",
+   ["Abschreibungen, Bestandsveränderung und aktivierte Eigenleistungen","Nur die Abschreibungen","Personalkosten und Raumkosten","Die Steuern"], 0,
+   "Sie sind Aufwand oder Ertrag ohne jede Zahlung. Dass sie in der Vorschau mit null stehen, gehört ausdrücklich hingeschrieben, damit niemand ein Versehen vermutet."],
+  ["zahlung", "liquiditaet-vorschau",
+   "Wann ist die Umsatzsteuer-Zahllast eines Monats fällig?",
+   ["Am 10. des Folgemonats","Am Monatsende","Am 10. des übernächsten Monats","Quartalsweise"], 0,
+   "Mit Dauerfristverlängerung nach § 46 UStDV verschiebt sich das um einen weiteren Monat, gegen eine Sondervorauszahlung von einem Elftel."],
+  ["zahlung", "liquiditaet-vorschau",
+   "Welcher Teil einer Darlehensrate steht in der Gewinn- und Verlustrechnung?",
+   ["Nur die Zinsen","Nur die Tilgung","Beide","Keiner von beiden"], 0,
+   "Die Tilgung zählt nicht zum Aufwand. Bei einem Annuitätendarlehen macht sie mit fortschreitender Laufzeit den größeren Teil der Rate aus."],
+  ["risiko", "risikomanagement-einfuehrung",
+   "Wodurch unterscheidet sich ein Risiko von einer Gefahr?",
+   ["Ein Risiko ist bewertet, eine Gefahr nicht","Ein Risiko ist größer","Eine Gefahr betrifft nur externe Ereignisse","Ein Risiko ist versicherbar"], 0,
+   "Sind Wahrscheinlichkeit und Auswirkungen nicht bekannt, spricht man von einer Gefahr. Erst mit beiden Angaben wird daraus ein Risiko. Erst dann lässt es sich in eine Karte eintragen."],
+  ["risiko", "risikomanagement-einfuehrung",
+   "Wie viele Faktoren müssen für ein Risikopotenzial zusammentreffen?",
+   ["Zwei","Drei","Vier","Fünf"], 1,
+   "Eine konkrete begründete Bedrohung, eine Schwachstelle in der Supply Chain und ein potenzieller Schaden an einem bedeutenden Wert. Fällt einer weg, liegt kein Risikopotenzial vor."],
+  ["risiko", "risikomanagement-einfuehrung",
+   "Wonach sind die fünf Risikoquellen gegliedert?",
+   ["Nach der Schadenshöhe","Nach dem Ort der Entstehung","Nach der Eintrittswahrscheinlichkeit","Nach der Zuständigkeit"], 1,
+   "Die Gliederung folgt dem Entstehungsort, nicht dem Ort der Wirkung. Genau deshalb ist sie in einer Kette brauchbar."],
+  ["risiko", "risikomanagement-einfuehrung",
+   "Wie viele Phasen hat der Risikoregelkreis?",
+   ["Drei","Vier","Fünf","Sechs"], 1,
+   "Identifikation, Beurteilung, Steuerung und Überwachung. Die gröbere Dreiteilung fasst zwei davon zusammen, ändert an der Sache aber nichts."],
+  ["risiko", "risikomanagement-prozess",
+   "Wie berechnet sich der Risikofaktor?",
+   ["Tragweite plus Wahrscheinlichkeit","Tragweite mal Wahrscheinlichkeit","Tragweite geteilt durch Wahrscheinlichkeit","Tragweite minus Wahrscheinlichkeit"], 1,
+   "RF = T × W. Weil es ein Produkt ist, verläuft die Linie gleichen Risikos als Hyperbel und nicht als Gerade. Deshalb addieren sich Maßnahmenwirkungen auch nicht."],
+  ["risiko", "risikomanagement-prozess",
+   "Welche Form hat die Risikotoleranzlinie?",
+   ["Eine Gerade","Eine Diagonale von unten links nach oben rechts","Eine Hyperbel","Ein Kreisbogen"], 2,
+   "Alle Punkte mit W × S = 12 liegen auf einer Hyperbel. 3 × 4 und 4 × 3 liegen darauf, eine Diagonale würde sie trennen."],
+  ["risiko", "risikomanagement-prozess",
+   "Auf welche Achse wirken präventive Maßnahmen typischerweise?",
+   ["Auf das Schadensausmaß","Auf die Eintrittswahrscheinlichkeit","Auf beide gleichermaßen","Auf keine von beiden"], 1,
+   "Prävention verhindert das Ereignis und senkt damit die Wahrscheinlichkeit. In der Karte bewegt sich der Punkt dann senkrecht. Korrektive Maßnahmen wirken auf die Tragweite, also waagerecht."],
+  ["risiko", "risikomanagement-prozess",
+   "Was ist das Bruttorisiko?",
+   ["Das Risiko vor allen Bewältigungsmaßnahmen","Das Risiko nach den Maßnahmen","Der Durchschnitt aller Risiken","Das größte Risiko im Register"], 0,
+   "Auch Inherent Risk. Ohne den Bruttowert lässt sich die Wirkung der bereits bestehenden Kontrollen nicht beziffern. Wer nur Nettorisiken führt, kann seine laufenden Maßnahmen nicht rechtfertigen."],
+  ["risiko", "risikomanagement-prozess",
+   "Was bedeutet die Strategie Akzeptieren?",
+   ["Das Risiko wird ignoriert","Das Risiko wird nach Bewertung bewusst hingenommen und dokumentiert","Das Risiko wird an einen Dritten übertragen","Die Bewertung wird ausgesetzt"], 1,
+   "Akzeptieren ist eine Entscheidung nach der Bewertung und gehört mit Datum und Verantwortlichem dokumentiert. Ignorieren ist das Auslassen der Bewertung."],
+  ["risiko", "risikomanagement-werkstatt",
+   "Eine Maßnahme senkt die Eintrittswahrscheinlichkeit, lässt das Schadensausmaß unberührt. Wie bewegt sich der Punkt?",
+   ["Waagerecht nach links","Senkrecht nach unten","Diagonal zum Ursprung","Er bleibt stehen"], 1,
+   "Die Wahrscheinlichkeit steht auf der senkrechten Achse. Eine Maßnahme, die nur sie senkt, wirkt präventiv und bewegt den Punkt nach unten."],
+  ["risiko", "risikomanagement-werkstatt",
+   "Welche Form hat die Toleranzlinie in der Risk-Map?",
+   ["Eine Gerade von Ecke zu Ecke","Eine Hyperbel","Ein Kreisbogen","Eine Treppe"], 1,
+   "Weil der Risikofaktor ein Produkt ist, verbindet die Linie alle Punkte mit W · S = 12. Das ist eine Hyperbel. Eine Diagonale wäre die Linie gleicher Summe."],
+  ["risiko", "risikomanagement-werkstatt",
+   "Was ist das Bruttorisiko?",
+   ["Das Risiko vor Steuern","Das Risiko ohne Berücksichtigung von Maßnahmen","Die Summe aller Einzelrisiken","Das Risiko einschließlich Versicherung"], 1,
+   "Brutto ist die Position ohne Maßnahmen, netto die Position danach. Der Abstand zwischen beiden ist die Wirkung, die eine Maßnahme beansprucht."],
+  ["risiko", "risikomanagement-werkstatt",
+   "Was gehört zu einem brauchbaren Maßnahmenplan mindestens dazu?",
+   ["Maßnahme, Verantwortlicher, Termin","Maßnahme und Kosten","Risiko und Wahrscheinlichkeit","Maßnahme und Versicherungssumme"], 0,
+   "Ohne Namen und Datum ist es eine Absichtserklärung. Der geplante Risikofaktor kommt hinzu, damit beim nächsten Termin prüfbar ist, ob die Maßnahme gewirkt hat."],
+];
+
+/* =====================================================================
+   Die Probe auf den Vorrat
+
+   Der Vorrat waechst mit den Modulen, also kann er hinter ihnen
+   zurueckbleiben. Das Radar rechnet jede Ecke gegen JE_FELD, weshalb ein
+   Feld mit zu wenigen Fragen eine falsche Flaeche zeichnet. Gemeldet wird
+   das beim Laden, still verschwinden darf es nicht.
+   ===================================================================== */
+{
+  const imFeld = {}, bekannt = {};
+  for(const f of FELDER){ imFeld[f.id] = 0; for(const m of f.module) bekannt[m] = f.id; }
+  const ohneFrage = new Set(Object.keys(bekannt));
+  for(const [feld, modul] of FRAGEN){
+    if(!(feld in imFeld)) console.warn(`Standortbestimmung: unbekanntes Kompetenzfeld "${feld}"`);
+    else imFeld[feld]++;
+    if(!(modul in bekannt)) console.warn(`Standortbestimmung: das Modul "${modul}" steht in keinem Kompetenzfeld`);
+    else if(bekannt[modul] !== feld)
+      console.warn(`Standortbestimmung: "${modul}" gehoert zu "${bekannt[modul]}", die Frage steht unter "${feld}"`);
+    ohneFrage.delete(modul);
+  }
+  for(const f of FELDER) if(imFeld[f.id] < JE_FELD)
+    console.warn(`Standortbestimmung: "${f.id}" hat ${imFeld[f.id]} Fragen, gezogen werden ${JE_FELD}`);
+  for(const m of ohneFrage)
+    console.warn(`Standortbestimmung: das Modul "${m}" hat keine Frage im Vorrat`);
+}
+
+/* =====================================================================
+   Ziehen und Beantworten
+
+   Je Feld werden JE_FELD Fragen gezogen, danach wird die ganze Folge
+   gemischt, damit die Felder nicht blockweise kommen. Auch die
+   Antwortmoeglichkeiten werden gemischt: Im Vorrat steht die richtige
+   oft an erster Stelle, weil die Modulquizze sie beim Anzeigen mischen
+   und es in den Daten deshalb nicht taten.
+   ===================================================================== */
+let asLauf = [];
+
+function asZiehen(){
+  asLauf = [];
+  for(const f of FELDER){
+    const idx = FRAGEN.map((q, i) => i).filter(i => FRAGEN[i][0] === f.id);
+    for(const i of mischen(idx).slice(0, JE_FELD))
+      asLauf.push({i, ord:mischen(FRAGEN[i][3].map((o, j) => j)), gewaehlt:null});
+  }
+  mischen(asLauf);
+  asZeichne();
+}
+
+function asZeichne(){
+  $("asQuiz").innerHTML = asLauf.map((q, n) => {
+    const [feld, modul, text, opts, richtig, begr] = FRAGEN[q.i];
+    const fname = FELDER.find(f => f.id === feld).kurz;
+    return `<div class="qcard">
+      <p class="asfeld">${esc(fname)}</p>
+      <p class="qn">Frage ${n + 1} von ${asLauf.length}</p>
+      <p class="qt">${text}</p>
+      <div class="qopts">${q.ord.map(j => {
+        let kl = "";
+        if(q.gewaehlt !== null) kl = j === richtig ? " right" : (j === q.gewaehlt ? " wrong" : "");
+        return `<button class="qopt${kl}" type="button" data-q="${n}" data-o="${j}"${
+          q.gewaehlt !== null ? " disabled" : ""}>${opts[j]}</button>`;
+      }).join("")}</div>
+      <p class="qfb"${q.gewaehlt === null ? " hidden" : ""}>${
+        q.gewaehlt === null ? "" :
+        (q.gewaehlt === richtig ? "<b style='color:#1E6B47'>Richtig.</b> "
+                                : "<b style='color:#9C2F2C'>Daneben.</b> ") + begr}</p>
+    </div>`;
+  }).join("");
+
+  const fertig = asLauf.filter(q => q.gewaehlt !== null).length;
+  $("asFort").style.width = Math.round(100 * fertig / asLauf.length) + "%";
+  $("asStand").textContent = fertig + " von " + asLauf.length + " beantwortet";
+  $("asHin").innerHTML = fertig < asLauf.length ? "" :
+    `<div class="qscore"><b>Alle ${asLauf.length} Fragen beantwortet.</b> Dein Radar steht in
+     Lektion 02 „Dein Ergebnis“.</div>`;
+  asAuswerten();
+}
+
+$("asQuiz").addEventListener("click", e => {
+  const b = e.target.closest(".qopt"); if(!b || b.disabled) return;
+  const q = asLauf[+b.dataset.q]; if(!q || q.gewaehlt !== null) return;
+  q.gewaehlt = +b.dataset.o;
+  asZeichne();
+});
+$("asNeu").addEventListener("click", asZiehen);
+
+/* =====================================================================
+   Das Ergebnis je Feld
+
+   Gezaehlt werden allein beantwortete Fragen. Solange ein Feld noch
+   offen ist, steht es als unfertig da und bekommt keine Ampel.
+   ===================================================================== */
+function asStaende(){
+  return FELDER.map(f => {
+    const qs = asLauf.filter(q => FRAGEN[q.i][0] === f.id);
+    const beantwortet = qs.filter(q => q.gewaehlt !== null).length;
+    const treffer = qs.filter(q => q.gewaehlt === FRAGEN[q.i][4]).length;
+    return {feld:f, gesamt:qs.length, beantwortet, treffer, fertig:beantwortet === qs.length};
+  });
+}
+
+/* Drei Treffer und mehr sind gruen, zwei gelb, hoechstens einer rot. */
+const asAmpel = t => t >= 3 ? "gruen" : t === 2 ? "gelb" : "rot";
+const AMPELWORT = {gruen:"sitzt", gelb:"nachbessern", rot:"nötig"};
+
+/* =====================================================================
+   Das Radar
+
+   Feste Bildflaeche, alles gerechnet. Ein zugeklappter Block liefert
+   bei getBoundingClientRect nur Nullen, eine gemessene Zeichnung
+   entartete dort auf einen Punkt.
+   ===================================================================== */
+const RB = 460, RH = 330, RCX = 230, RCY = 158, RR = 104;
+const asEcke = (n, anteil) => {
+  const w = -Math.PI / 2 + n * 2 * Math.PI / FELDER.length;
+  return [RCX + RR * anteil * Math.cos(w), RCY + RR * anteil * Math.sin(w)];
+};
+const asRing = anteil => FELDER.map((f, n) => asEcke(n, anteil).map(v => v.toFixed(1)).join(",")).join(" ");
+
+function asRadarZeichnen(st){
+  let s = `<svg viewBox="0 0 ${RB} ${RH}" role="img"
+    aria-label="Radar über sechs Kompetenzfelder, je null bis vier Treffer">`;
+  for(let k = 1; k <= JE_FELD; k++)
+    s += `<polygon class="asnetz" points="${asRing(k / JE_FELD)}"/>`;
+  FELDER.forEach((f, n) => {
+    const [x, y] = asEcke(n, 1);
+    s += `<line class="asachse" x1="${RCX}" y1="${RCY}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/>`;
+  });
+
+  /* Die Flaeche entsteht aus den Treffern, ein unfertiges Feld zaehlt
+     mit dem, was bisher richtig war. */
+  const ecken = st.map((z, n) => asEcke(n, z.treffer / JE_FELD));
+  s += `<polygon class="asflaeche" points="${ecken.map(p => p.map(v => v.toFixed(1)).join(",")).join(" ")}"/>`;
+  ecken.forEach(([x, y]) => { s += `<circle class="aspunkt" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.2"/>`; });
+
+  FELDER.forEach((f, n) => {
+    const [x, y] = asEcke(n, 1);
+    const dx = x - RCX, dy = y - RCY, laenge = Math.hypot(dx, dy) || 1;
+    const bx = x + 26 * dx / laenge, by = y + 20 * dy / laenge;
+    const anker = dx > 12 ? "start" : dx < -12 ? "end" : "middle";
+    s += `<text class="asbez" x="${bx.toFixed(1)}" y="${by.toFixed(1)}" text-anchor="${anker}">${esc(f.kurz)}</text>`;
+    s += `<text class="aswert" x="${bx.toFixed(1)}" y="${(by + 12).toFixed(1)}" text-anchor="${anker}">${
+      st[n].treffer} von ${JE_FELD}</text>`;
+  });
+  s += `</svg>`;
+  $("asRadar").innerHTML = s;
+}
+
+/* =====================================================================
+   Die Liste, der Uebernahmeknopf und die Adresse
+
+   Das Ergebnis reist als Parameter fit, eine Ziffer je Feld in der
+   Reihenfolge von FELDER. Kein Speicher, keine Datei, lesezeichenfaehig.
+   ===================================================================== */
+function asCode(st){ return st.map(z => z.treffer).join(""); }
+
+function asAuswerten(){
+  const st = asStaende();
+  asRadarZeichnen(st);
+
+  $("asListe").innerHTML = st.map(z => {
+    const a = asAmpel(z.treffer);
+    const mods = z.feld.module.map(m => MODULNAME[m] || m).join(", ");
+    return `<div class="aszeile">
+      <span class="asampel ${z.fertig ? a : ""}" aria-hidden="true"></span>
+      <span><b>${esc(z.feld.name)}</b><em>${esc(mods)}</em></span>
+      <span class="asq">${z.fertig ? z.treffer + " von " + z.gesamt + " · " + AMPELWORT[a]
+                                   : z.beantwortet + " von " + z.gesamt + " beantwortet"}</span>
+    </div>`;
+  }).join("");
+
+  const offen = st.filter(z => !z.fertig).length;
+  $("asUeber").innerHTML = offen
+    ? `<p class="sub" style="margin:0">Noch ${offen === 1 ? "ein Feld ist" : offen + " Felder sind"} offen.
+       Der Knopf zur Startseite erscheint, sobald alle vierundzwanzig Fragen beantwortet sind.</p>`
+    : `<a class="lnk primary" href="index.html${QS ? QS + "&" : "?"}fit=${asCode(st)}">
+         Ergebnis auf die Startseite übernehmen</a>
+       <button class="lnk ghost" type="button" id="asWieder">Neue Fragen ziehen</button>`;
+  const w = $("asWieder");
+  if(w) w.addEventListener("click", () => { asZiehen(); select(0); });
+}
+
+asZiehen();
+
+/* =====================================================================
+   Lektionen
+   ===================================================================== */
+const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c"];
+function select(i){
+  tabs.forEach((t, j) => {
+    const on = i === j;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    $("p-" + keys[j]).hidden = !on;
+  });
+}
+tabs.forEach((t, i) => {
+  t.addEventListener("click", () => select(i));
+  t.addEventListener("keydown", e => {
+    const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if(!d) return; e.preventDefault();
+    const n = (i + d + tabs.length) % tabs.length; tabs[n].focus(); select(n);
+  });
+});
+select(0);
+
+
+/* =====================================================================
+   11 · Bloecke zum Auf- und Zuklappen
+   Baut die Abschnitte einer Lektion zur Laufzeit aus der vorhandenen
+   Gliederung: jedes h2.sec eroeffnet einen Block, alles danach bis zum
+   naechsten h2.sec ist sein Inhalt. Was vor dem ersten h2.sec steht -
+   die Kernaussage der Lektion - bleibt immer sichtbar, ebenso ein
+   Pointe-Kasten am Ende. Der erste Block ist offen, die uebrigen zu.
+
+   Weil die Knoten nur verschoben und nicht neu erzeugt werden, bleiben
+   alle ids, Verweise und bereits gesetzten Zuhoerer unberuehrt.
+   ===================================================================== */
+function makeBlocks(panel){
+  if(!panel) return 0;
+  const kinder = [...panel.children];
+  const istKopf = n => n.tagName === "H2" && n.classList.contains("sec");
+  const istEnde = n => n.classList.contains("pointe");
+  let i = 0, nr = 0;
+
+  while(i < kinder.length){
+    if(!istKopf(kinder[i])){ i++; continue; }
+    const h2 = kinder[i], inhalt = [];
+    let j = i + 1;
+    while(j < kinder.length && !istKopf(kinder[j]) && !istEnde(kinder[j])){
+      inhalt.push(kinder[j]); j++;
+    }
+    nr++;
+    const offen = nr === 1, bid = "blk-" + (panel.id || "p") + "-" + nr;
+    const wrap = document.createElement("section");
+    wrap.className = "blk";
+    wrap.dataset.open = String(offen);
+    panel.insertBefore(wrap, h2);
+
+    h2.innerHTML =
+      `<button class="blk-t" type="button" aria-expanded="${offen}" aria-controls="${bid}">
+         <svg class="blk-c" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2 L8.5 6 L4.5 10"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+         <span>${h2.innerHTML}</span>
+       </button>`;
+    if(h2.dataset.t){
+      h2.querySelector(".blk-t span").dataset.t = h2.dataset.t;
+      delete h2.dataset.t;
+    }
+    wrap.appendChild(h2);
+
+    const body = document.createElement("div");
+    body.className = "blk-b"; body.id = bid;
+    body.hidden = !offen;
+    inhalt.forEach(n => body.appendChild(n));
+    wrap.appendChild(body);
+    i = j;
+  }
+
+  if(nr) panel.addEventListener("click", e => {
+    const b = e.target.closest(".blk-t"); if(!b) return;
+    const wrap = b.closest(".blk"), body = document.getElementById(b.getAttribute("aria-controls"));
+    const offen = wrap.dataset.open === "true";
+    wrap.dataset.open = String(!offen);
+    b.setAttribute("aria-expanded", String(!offen));
+    body.hidden = offen;
+    if(!offen) dispatchEvent(new Event("resize"));
+  });
+  return nr;
+}
+
+document.querySelectorAll(".panel").forEach(makeBlocks);
+</script>
+</body>
+</html>

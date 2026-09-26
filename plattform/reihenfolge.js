@@ -17,6 +17,7 @@
    der Liste in TOPICS.
    ===================================================================== */
 const REIHENFOLGE = [
+  "assessment",        // Standortbestimmung: was Du schon kannst
   "werkstatt",         // Die Werkstatt, in der diese Module entstehen
   "risiko-intro",      // Risikomanagement: der Begriff
   "risiko",            // Der Risikomanagement-Prozess
