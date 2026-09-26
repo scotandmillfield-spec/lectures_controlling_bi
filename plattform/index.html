@@ -128,6 +128,24 @@ h1 em{font-style:normal;color:var(--teal)}
 .tile .sub{font-size:.93rem;font-weight:300;color:#4a4a4d;margin:0 0 16px;line-height:1.45}
 
 
+/* ---------- Die Ampel aus der Standortbestimmung ----------
+   Die Farbe kommt aus dem Parameter fit, je eine Ziffer fuer ein
+   Kompetenzfeld. Ohne den Parameter sieht die Seite aus wie immer.  */
+.tile[data-fit]{border-left-width:4px}
+.tile[data-fit="gruen"]{border-left-color:#1E6B47}
+.tile[data-fit="gelb"]{border-left-color:#C98A00}
+.tile[data-fit="rot"]{border-left-color:#9C2F2C}
+.fitbar{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:0 0 14px;
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  padding:12px 16px}
+.fitbar[hidden]{display:none}
+.fitbar>*{min-width:0}
+.fitbar p{margin:0;font-size:.88rem;color:#3d3d40}
+.fitleg{display:flex;gap:14px;flex-wrap:wrap;margin:0;font-size:.8rem;color:var(--grey)}
+.fitleg span{display:inline-flex;align-items:center;gap:6px}
+.fitleg b{width:11px;height:11px;border-radius:50%;flex:none}
+.fitleg b.gruen{background:#1E6B47} .fitleg b.gelb{background:#C98A00} .fitleg b.rot{background:#9C2F2C}
+.fitbar .lnk{margin-left:auto;flex:none}
 .links{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap;padding-top:4px}
 .lnk{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:.86rem;font-weight:600;
   padding:9px 15px;border-radius:8px;transition:.18s var(--ease)}
@@ -186,6 +204,7 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
 
 <section class="pathbar" id="pathbar" aria-live="polite"></section>
 
+<div class="fitbar" id="fitbar" hidden></div>
 <p class="count" id="count"></p>
 <div class="grid" id="grid"></div>
 <div class="empty" id="empty" data-t="empty"></div>
@@ -219,10 +238,18 @@ const UI = {
         en:"Modules for self-study \u2014 risk management from the terms through the control loop to your own risk map, plus the workshop that explains how these modules are built."},
   chipAll:{de:"Alle", en:"All"},
   chipPlan:{de:"Geplant", en:"Planned"},
+  chipFit:{de:"Nur empfohlene", en:"Recommended only"},
+  fitKicker:{de:"Deine Standortbestimmung", en:"Your self-assessment"},
+  fitLede:{de:"Der linke Rand jeder Kachel zeigt, wo Du in diesem Kompetenzfeld stehst. Der Filter „Nur empfohlene“ blendet die Module aus, die Du schon kannst.",
+          en:"The left edge of each card shows where you stand in that competence area. The filter “Recommended only” hides the modules you already know."},
+  fitGruen:{de:"sitzt", en:"solid"},
+  fitGelb:{de:"nachbessern", en:"brush up"},
+  fitRot:{de:"nötig", en:"needed"},
+  fitAgain:{de:"Standortbestimmung wiederholen", en:"Take the assessment again"},
   search:{de:"Module durchsuchen\u2026", en:"Search modules\u2026"},
   empty:{de:"Dazu passt gerade nichts.", en:"Nothing matches that filter yet."},
   soon:{de:"In Arbeit", en:"In preparation"},
-  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.63</span>",
+  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.64</span>",
   pathLabel:{de:"Lernpfade", en:"Learning paths"},
   pathKicker:{de:"Lernpfad", en:"Learning path"},
   pathClear:{de:"Pfad verlassen \u00b7 alle Module zeigen", en:"Leave the path \u00b7 show all modules"},
@@ -242,6 +269,17 @@ const UI = {
    aufgenommen wird, steht in CLAUDE.md.
    ===================================================================== */
 const TOPICS = [
+  {
+    id:"assessment",
+    title:{de:"Standortbestimmung: was Du schon kannst",
+           en:"Self-assessment: what you already know"},
+    sub:{de:"Vierundzwanzig Fragen über sechs Kompetenzfelder. Am Ende steht ein Radar, das zeigt, wo Du fest bist. Danach färben sich die Kacheln hier ein, grün für ein Feld, das sitzt, gelb für eines zum Nachbessern, rot für ein nötiges. Du kannst es beliebig oft wiederholen, jedes Mal mit anderen Fragen.",
+         en:"Twenty-four questions across six fields of competence. It ends in a radar chart that shows where you stand. The tiles here then take their colour from it, green for a field that is solid, amber for one to brush up, red for one you need. Repeatable as often as you like, with different questions each time."},
+    track:"check", status:"ready", accent:"orange", glyph:"riskmap",
+    langBadge:{de:"", en:"DE"},
+    links:[{kind:"html",file:"assessment.html",
+            label:{de:"Standort bestimmen", en:"Find your level"}}]
+  },
   {
     id:"werkstatt",
     title:{de:"Die Werkstatt, in der diese Module entstehen",
@@ -421,6 +459,7 @@ const TRACK={bi:["Business Intelligence",""],ctrl:["Controlling","ctrl"],
              case:[{de:"Fallstudie",en:"Case study"},"case"],
              cv:[{de:"Controlling beim CV",en:"Controlling at the CV"},"case"],
              meta:[{de:"Werkstatt",en:"Workshop"},"meta"],
+             check:[{de:"Standortbestimmung",en:"Self-assessment"},"meta"],
              sec:["Cyber-Security","sec"]};
 
 const GLYPH={
@@ -534,6 +573,69 @@ const SORTIERT = (() => {
     .map(x=>x[0]);
 })();
 
+/* =====================================================================
+   Die Ampel aus der Standortbestimmung
+
+   assessment.html haengt sein Ergebnis als Parameter fit an, eine
+   Ziffer je Kompetenzfeld in der Reihenfolge von FELDFOLGE. Drei
+   Treffer und mehr sind gruen, zwei gelb, hoechstens einer rot.
+
+   Diese Zuordnung steht auch in assessment.html. Geteilte Dateien sind
+   ausgeschlossen, also gibt es sie zweimal; wer ein Feld aendert,
+   aendert beide. Ein Modul, das in keinem Feld steht, bekommt keine
+   Ampel und bleibt neutral.
+   ===================================================================== */
+const FELDFOLGE = ["abschluss","buchung","kennzahl","erfolg","zahlung","risiko"];
+const FELDMODUL = {
+  abschluss:["bilanz-aufbau","bilanz-guv"],
+  buchung:  ["bilanz-buchungssaetze"],
+  kennzahl: ["bilanz-kennzahlen"],
+  erfolg:   ["liquiditaet-bwa"],
+  zahlung:  ["liquiditaet-begriff","liquiditaet-vorschau"],
+  risiko:   ["risikomanagement-einfuehrung","risikomanagement-prozess","risikomanagement-werkstatt"],
+};
+const FITNAME = {gruen:{de:"sitzt",en:"solid"}, gelb:{de:"nachbessern",en:"brush up"},
+                 rot:{de:"nötig",en:"needed"}};
+
+/* Liefert je Modulkennung die Ampelfarbe, oder ein leeres Objekt, wenn
+   kein brauchbarer Parameter anliegt. */
+function fitLesen(){
+  const roh = new URLSearchParams(location.search).get("fit") || "";
+  if(!/^[0-4]{6}$/.test(roh)) return {};
+  const aus = {};
+  FELDFOLGE.forEach((feld, i) => {
+    const n = +roh[i], farbe = n >= 3 ? "gruen" : n === 2 ? "gelb" : "rot";
+    for(const m of FELDMODUL[feld]) aus[m] = farbe;
+  });
+  return aus;
+}
+const FIT = fitLesen();
+const hatFit = Object.keys(FIT).length > 0;
+
+/* Die Kachel kennt ihre Datei, das Ergebnis kennt die Modulkennung.
+   Verbunden wird ueber den Dateinamen ohne Endung. */
+const fitFuer = t => {
+  const datei = (t.links[0] || {}).file || "";
+  return FIT[datei.replace(/\.html$/, "")] || "";
+};
+
+/* Die Leiste über den Kacheln nennt die Bedeutung der Farben und zaehlt,
+   wie viele Module in welcher Farbe stehen. Ohne Parameter bleibt sie weg. */
+if(hatFit){
+  const zahl = {gruen:0, gelb:0, rot:0};
+  for(const t of SORTIERT){ const f = fitFuer(t); if(f) zahl[f]++; }
+  const NAME = {gruen:UI.fitGruen, gelb:UI.fitGelb, rot:UI.fitRot};
+  const fitbar = document.getElementById("fitbar");
+  fitbar.hidden = false;
+  fitbar.innerHTML =
+    `<div><p><b>${L(UI.fitKicker)}</b></p><p>${L(UI.fitLede)}</p>
+       <p class="fitleg">` +
+    ["rot","gelb","gruen"].filter(f=>zahl[f]).map(f=>
+      `<span><b class="${f}"></b>${L(NAME[f])} (${zahl[f]})</span>`).join("") +
+    `</p></div>
+     <a class="lnk ghost" href="assessment.html${qs}">${L(UI.fitAgain)}</a>`;
+}
+
 /* Die Spurfilter entstehen aus den Modulen, die es wirklich gibt: Eine
    Spur ohne Modul bekommt keinen Knopf, eine neue Spur bekommt ihren von
    selbst. Die Folge ist die der Kacheln. Geplant erscheint nur, wenn
@@ -544,6 +646,8 @@ const SORTIERT = (() => {
   document.getElementById("chips").innerHTML =
     `<button class="chip" data-f="all" aria-pressed="true" type="button">${L(UI.chipAll)}</button>` +
     spuren.map(k=>`<button class="chip" data-f="${k}" aria-pressed="false" type="button">${L(TRACK[k][0])}</button>`).join("") +
+    (hatFit
+      ? `<button class="chip" data-f="fit" aria-pressed="false" type="button">${L(UI.chipFit)}</button>` : "") +
     (SORTIERT.some(t=>t.status==="planned")
       ? `<button class="chip" data-f="planned" aria-pressed="false" type="button">${L(UI.chipPlan)}</button>` : "");
 }
@@ -563,6 +667,7 @@ grid.innerHTML=SORTIERT.map(t=>{
             .toLowerCase().replace(/"/g,"");
   return `<article class="tile ${planned?"planned":""}" data-id="${t.id}"
       data-track="${t.track}" data-status="${t.status}"
+      ${fitFuer(t) ? `data-fit="${fitFuer(t)}"` : ""}
       data-search="${hay}"
       style="--accent:${ACCENT[t.accent]||ACCENT.teal}">
     <span class="stepno" hidden></span>
@@ -649,7 +754,11 @@ function apply(){
     const idx = path ? path.steps.indexOf(tile.dataset.id) : -1;
     const okF = path ? idx>=0
       : (filter==="all"
-         || (filter==="planned" ? tile.dataset.status==="planned" : tile.dataset.track===filter));
+         || (filter==="planned" ? tile.dataset.status==="planned"
+             /* Empfohlen ist, was gelb oder rot ist. Gruen bleibt draußen,
+                weil genau das der Zweck der Standortbestimmung ist. */
+             : filter==="fit" ? ["gelb","rot"].includes(tile.dataset.fit)
+             : tile.dataset.track===filter));
     const okQ = !query || tile.dataset.search.includes(query);
     const on = okF && okQ;
     tile.hidden=!on;
