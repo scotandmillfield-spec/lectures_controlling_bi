@@ -614,6 +614,29 @@ sonstiges/                       Module, deren Platz noch offen ist
   <thema>.html
 ```
 
+### Der Bearbeitungsmodus (Prototyp)
+
+**[offen] Texte lassen sich direkt auf der Seite ändern.** Bisher gibt es das allein in
+`plattform/liquiditaet-begriff.html`. Wird das Modul mit `?bearbeiten` am Ende der Adresse
+geöffnet, sind alle Texte anklickbar und editierbar, auch die aus den Listen im Skript
+(Zuordnungsübung, sieben Schritte, Glossar und der ganze Fragenvorrat mit Antworten und
+Begründungen). Ohne diesen Zusatz verhält sich die Seite wie bisher.
+
+- **Gespeichert wird nichts auf einem Server.** Die Schaltfläche „Geänderte Datei
+  herunterladen“ schreibt die Änderungen in den Quelltext der Datei und lädt ihn herunter. Die
+  Datei wird danach wie gewohnt hochgeladen, am besten auf einen eigenen Branch, damit Sprachprüfung
+  und Zahlenprobe vor dem Merge laufen können.
+- **Ein Entwurf bleibt im Browser erhalten**, bis er verworfen wird. Er übersteht also auch ein
+  versehentliches Neuladen der Seite.
+- **Findet der Editor eine Stelle nicht eindeutig**, etwa weil die Datei inzwischen geändert
+  wurde, übernimmt er sie nicht und zeigt den neuen Wortlaut zum Kopieren an.
+- **Der Modus schützt nichts.** Er ändert allein die Ansicht im eigenen Browser. Geschützt ist
+  erst der Schritt, der die Datei ins Repository bringt. Eine spätere Stufe soll direkt nach
+  GitHub speichern und das Schreibrecht am Repository als Admin-Recht nutzen.
+- **Offen ist, wo der Editor künftig liegt.** Die Regel, dass jeder Einstieg für sich vollständig
+  ist, verlangt entweder eine Kopie in jedem Modul oder eine eigene Datei je Einstieg. Das wird
+  entschieden, sobald der Prototyp sich bewährt hat.
+
 ### Die Einstiege
 
 **Ein Einstieg ist ein Verzeichnis, das für sich vollständig ist und für sich hochgeladen
