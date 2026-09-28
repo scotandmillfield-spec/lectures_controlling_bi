@@ -389,16 +389,6 @@ const TOPICS = [
     langBadge:{de:"", en:"DE"},
     links:[{kind:"html",file:"liquiditaet-tagesplan.html",
             label:{de:"Hülle ansehen", en:"Look at the shell"}}]
-  },
-  {
-    id:"cv-leitbild",
-    title:{de:"Das Controlling-Leitbild", en:"The controlling mission statement"},
-    sub:{de:"Eigener Fall: der CV, ein Verband der Pflege und sozialen Dienste. Eine Zukunftsvision, fünf Perspektiven und daraus sechs Leitsätze, die am Ende vollständig auf einer Seite stehen. Wenig Text, viel zum Antippen, auch auf dem Tablet.",
-         en:"Own case: the CV, an association of care and social services. A vision, five perspectives and six guiding principles that end up complete on a single page. Little text, much to tap, on a tablet as well."},
-    track:"cv", status:"ready", accent:"navy", glyph:"quadrants",
-    langBadge:{de:"", en:"DE"},
-    links:[{kind:"html",file:"controlling-leitbild.html",
-            label:{de:"Los geht’s", en:"Let’s go"}}]
   }
 ];
 
@@ -430,13 +420,6 @@ const PATHS = [
     sub:{de:"Die Bilanzanalyse sieht zurück, diese Reihe nach vorn. Vom Unterschied zwischen Ertrag und Einzahlung über die BWA als Ausgangspunkt bis zur Vorschau, die jeder Position eine Regel für den Zeitpunkt ihrer Ein- oder Auszahlung zuordnet. Die Gewinn- und Verlustrechnung aus dem ersten Pfad ist die Brücke.",
          en:"Financial statement analysis looks back; this series looks forward. From the gap between income and cash receipt through the monthly report to a forecast that turns every position into a rule: when does this become money. The income statement from the first path is the bridge."},
     steps:["bilanz-guv","liqui-begriff","liqui-bwa","liqui-vorschau","liqui-tagesplan"]
-  },
-  {
-    id:"controlling-cv",
-    title:{de:"Controlling beim CV", en:"Controlling at the CV"},
-    sub:{de:"Ein eigener Fall für Pflege und soziale Dienste. Der Pfad beginnt mit dem Leitbild, weil jede Zahl später an ihm gemessen wird. Sechs Module sind geplant, von der gemeinsamen Sprache bis zur Steuerung im Alltag.",
-         en:"A separate case for care and social services. The path starts with the mission statement, because every figure later gets measured against it. Six modules are planned, from a shared language to steering in everyday work."},
-    steps:["cv-leitbild"]
   }
 ];
 /* ===================== end of the editable lists ===================== */
@@ -446,7 +429,6 @@ const TRACK={bi:["Business Intelligence",""],ctrl:["Controlling","ctrl"],
              bilanz:[{de:"Bilanzanalyse",en:"Financial statement analysis"},"case"],
              liqui:[{de:"Liquidität",en:"Liquidity"},"ctrl"],
              case:[{de:"Fallstudie",en:"Case study"},"case"],
-             cv:[{de:"Controlling beim CV",en:"Controlling at the CV"},"case"],
              meta:[{de:"Werkstatt",en:"Workshop"},"meta"],
              check:[{de:"Standortbestimmung",en:"Self-assessment"},"meta"],
              sec:["Cyber-Security","sec"]};

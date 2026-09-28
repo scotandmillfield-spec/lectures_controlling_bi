@@ -36,7 +36,7 @@ Begriffen oben.
 eine Haltung, die sich nicht mit richtig und falsch abfragen lässt. Der Praxiseinstieg entfällt
 ebenfalls, weil das Leitbild selbst schon die Zusage ist, die jemand einlösen muss. Eine Liste
 erster Schritte daneben wiederholt allein, was in den Sätzen steht. An ihrer Stelle steht die letzte Lektion als Plakat, auf dem das vollständige Leitbild zu
-lesen ist. `plattform/controlling-leitbild.html` ist der erste Fall. Die Ausnahme gilt allein für
+lesen ist. `cv-mx/controlling-leitbild.html` ist der erste Fall. Die Ausnahme gilt allein für
 Leitbilder, jedes andere Modul bekommt sein Quiz und seinen Praxiseinstieg.
 
 **[gesetzt] Die Standortbestimmung führt kein eigenes Quiz.** `plattform/assessment.html` ist
@@ -229,7 +229,7 @@ die Altlast erst aufgeräumt wird, wenn ein Text ohnehin angefasst wird.
 
 Dasselbe gilt für die Fügung „, und", von der noch **217** Stück verteilt sind (die Zahl ist gegenüber den 196 gewachsen, weil seitdem Module dazugekommen sind). Sauber sind bisher
 `plattform/liquiditaet-begriff.html`, `plattform/liquiditaet-bwa.html`,
-`plattform/liquiditaet-vorschau.html` und `plattform/controlling-leitbild.html`. Der Lernpfad
+`plattform/liquiditaet-vorschau.html` und `cv-mx/controlling-leitbild.html`. Der Lernpfad
 Liquiditätsplanung ist damit bis auf das Modul `liquiditaet-tagesplan.html` durch, das noch eine
 Hülle ist. Sobald alle Dateien durch sind, wandern beide Muster in die Prüftabelle. Ab dann meldet
 die Prüfung jeden neuen Fund.
@@ -470,7 +470,7 @@ Besonders leicht zu übersehen:
 ### Wenn ein Modul einen eigenen Fall braucht
 
 **Sofia ist der Normalfall, ein eigener Fall die begründete Ausnahme.**
-`plattform/controlling-leitbild.html` arbeitet mit dem CV, einem Verband der Pflege und sozialen
+`cv-mx/controlling-leitbild.html` arbeitet mit dem CV, einem Verband der Pflege und sozialen
 Dienste. Ein Leitbild entsteht in einer Organisation, und Sofias Kaffeehaus hat weder Leitungsrunde
 noch Verband. Die Kachel sagt es im ersten Satz.
 `cv-mx/controlling-konzept.html` gehört zum selben Fall und gibt allein das Berichtskonzept
@@ -575,7 +575,6 @@ Zahl, wo ein Einstieg gemeint ist.
   Server.
 - **Kein gemeinsamer Inhalt.** Was zwei Einstiege brauchen, wird kopiert und darf
   auseinanderlaufen. Die Ansprache ist verschieden, und das ist der Zweck der Trennung.
-  `controlling-leitbild.html` liegt aus diesem Grund in `plattform/` und in `cv-mx/`.
 - **Jeder Einstieg hat seine eigene `reihenfolge.js`.** Sie wird allein von der Startseite
   daneben geladen und nie über die Grenze hinweg.
 - **`index.html` im Wurzelverzeichnis gehört zu keinem Einstieg.** Es ist die Weiche für die
