@@ -92,6 +92,56 @@ lässt, ohne dass der Leser stockt, ist falsch geschrieben.
 an dem jeder Leser nach zwei Absätzen erkennt, dass eine Maschine geschrieben hat. Genau deshalb
 stehen sie hier.
 
+#### Acht Regeln aus Maiks Fachartikeln
+
+Nach demselben Verfahren wie das Buchkapitel sind zwei Fachartikel von Maik vermessen worden,
+nämlich der Beitrag zum agilen Projektcontrolling im Controller Magazin 2/2025 sowie der Beitrag zur
+Absatzprognose mit neuronalen Netzen in Rethinking Finance 5/2025. Die Messung und die
+Mustersätze stehen in `STILPROBE.md`. Aus beiden Texten ergeben sich die folgenden acht Regeln, die
+für jeden neuen und jeden überarbeiteten deutschen Text gelten. Die Abschnitte danach führen
+einzelne davon genauer aus.
+
+1. **Jeder Satz hat ein eigenes finites Verb.** Ein Satzglied, das nach einem Komma angehängt wird
+   und sein Verb aus dem vorderen Satz borgt, ist nicht zulässig. Der Satz „Verluste sind der
+   häufigste Weg dorthin, keineswegs jedoch der einzige“ ist deshalb falsch, weil der Nachtrag
+   allein am Satzende steht und durch die Pause des Kommas zur Pointe wird. Die gewöhnliche
+   Koordinationsellipse („Anna prüft die Bilanz, Jonas die Gewinn- und Verlustrechnung“) bleibt
+   erlaubt, da sie nur ein Wort einspart, das der Leser unmittelbar davor gelesen hat.
+2. **Bedingung, Grund und Zweck stehen im selben Satz wie die Behauptung.** Dafür stehen Nebensätze
+   mit `da`, `während`, `wenn`, `indem` und `um … zu` sowie der Relativsatz. Ein Beispiel aus dem
+   Artikel zum agilen Projektcontrolling ist „Während das klassische Controlling Struktur und
+   Stabilität bietet, ermöglicht das agile Controlling eine höhere Reaktionsfähigkeit in
+   dynamischen Umfeldern.“
+3. **Eine Aussage wird so weit eingeschränkt, wie die Sache es verlangt.** Wörter wie `oft`,
+   `häufig`, `in der Regel`, `unter Umständen`, `dürfte` und `kann` sind erwünscht. Im Artikel zum
+   agilen Projektcontrolling stehen fünfzehn solcher Einschränkungen auf gut zweitausend Wörtern
+   Fließtext. Eine Aussage ohne Einschränkung ist nur dort richtig, wo sie ausnahmslos gilt.
+4. **Sätze werden über ihren Anfang verknüpft.** Ein Satz greift mit `Dies`, `Diese Methode`,
+   `Dabei`, `Deshalb`, `Anschließend` oder `Zudem` auf den vorigen zurück. Der Zusammenhang
+   entsteht damit aus dem Satzbau und nicht aus einem Gedankenstrich oder einem Doppelpunkt.
+5. **Ein Absatz folgt der Reihenfolge Definition, Einordnung, Beispiel mit Zahlen, Grenzen und
+   Empfehlung.** Nicht jeder Absatz braucht alle fünf Teile, die Reihenfolge bleibt jedoch
+   dieselbe. Ein Absatz endet mit einer Einschränkung oder einer Empfehlung und nie mit einer
+   Pointe. Der Pointe-Kasten am Ende eines Moduls ist davon ausgenommen, enthält aber ebenfalls
+   einen vollständigen Satz ohne Effekt.
+6. **Die persönliche Anrede steht, wann immer sie Sinn ergibt.** Die Module duzen weiterhin (siehe
+   „Sprache“ oben). Wo der Lernende etwas liest, rechnet, einträgt oder entscheidet, wird er
+   angesprochen. Wo ein Sachverhalt beschrieben wird, bei dem niemand handelt, darf der Satz
+   unpersönlich stehen, auch im Passiv („Die Velocity wird ermittelt, indem die Storypoints aller
+   vollständig erledigten Aufgaben eines Sprints addiert werden“). Falsch bleibt ein Passiv, das
+   den Handelnden versteckt, obwohl es einen gibt (siehe „Satzbau“).
+7. **Ein Bild ist nur als feste Redewendung zulässig.** Wendungen wie „liegt auf der Hand“ oder
+   „Fahrt aufnehmen“ gehören zur Sprache. Erfundene Szenen („an einem bestimmten Dienstag“) und
+   Rechenwerke, die sprechen („die BWA sagt“), gehören nicht dazu.
+8. **Die Klammer nimmt Beispiele, Abkürzungen und Einschränkungen auf.** Sie ersetzt den
+   Gedankenstrich und den angehängten Satz (siehe „Der Takt der Sätze“).
+
+**Die bestehenden Verbote bleiben unverändert.** Beide Artikel enthalten vereinzelt
+Gedankenstriche, einen Doppelpunkt vor einer Pointe und die Figur „nicht …, sondern …“, vor allem
+in der Einleitung des zweiten Beitrags. Für die Module gilt trotzdem die strengere Fassung dieser
+Datei, weil die Verbote gerade die Formen abfangen, zu denen ein maschinell geschriebener Text
+neigt.
+
 #### Zeichensetzung
 
 **Der Gedankenstrich kommt nicht vor.** Weder als Einschub mitten im Satz noch als Anhängsel am
@@ -264,6 +314,7 @@ es gibt keine zweite Liste, die auseinanderlaufen könnte.
 | `Lerneinheit` | hart | Kein Begriff dieser Plattform. | „Modul“ oder „Lektion“, je nach Ebene |
 | `\bKapitel\b` | prüfen | Kein Begriff dieser Plattform. | „Lektion“ oder „Abschnitt“ |
 | `\b([Tt]rage|[Tt]rägst|[Tt]rägt|[Tt]ragen|[Tt]ragt|[Tt]rug|[Tt]rugen|[Tt]rüge|[Gg]etragen|[Tt]ragend[ers]*)\b` | hart | Das Verb „tragen“ ist eine Verlegenheitslösung: Es klingt nach Aussage und sagt nichts. | Das konkrete Verb: „hält aus“, „gibt her“, „ruht auf“, „steht auf“, „hat“, „reicht“ |
+| `, (keineswegs|jedoch nicht|nicht aber|aber nicht|nicht jedoch)[^.,;:]{0,50}\.` | prüfen | Ein verbloser Nachtrag am Satzende macht aus einer Einschränkung eine Pointe (Regel 1 der acht Regeln aus Maiks Fachartikeln). | Die Einschränkung in den Satz holen („der häufigste, aber nicht der einzige Weg“) oder als eigenen Satz mit eigenem Verb schreiben. |
 | `\bsondern\b` | hart | Die Figur „nicht X, sondern Y“ klingt nach Schärfe und sagt zuerst, was etwas nicht ist. Der Leser hält die Verneinung im Kopf, bis die Behauptung endlich kommt. | Den Satz positiv stellen: „Ein Risiko ist ein bewertetes Ereignis.“ |
 | `\b((sieh|schau)(st Du)? (dabei )?zu|zusehen|zuschauen|[Bb]eobachte)\b` | hart | Der Lernende ist kein Publikum. „Sieh zu, wie die Linie reagiert“ verspricht eine Vorstellung, macht die Zeichnung zum Handelnden und sagt nicht, was abzulesen ist. | Eine Ablesehandlung mit benanntem Ergebnis: „lies ab, in welchem Monat …“, „vergleich, welche Zeilen …“, „bestimme, welcher Typ …“ |
 | `\b(BWA|Bilanz|Vorschau|Kennzahl|Gewinn- und Verlustrechnung|GuV|Bilanzsumme|Blatt) sagt\b` | prüfen | Ein Rechenwerk spricht nicht. Es weist aus, zeigt oder enthält. „Die Bilanz sagt, was da war“ ist zudem ungenau, weil sie Vermögen und Finanzierung ausweist. | „weist aus“, „zeigt“, „enthält“. Der Einzelfall „Die Kennzahl sagt nichts über den Kapitaleinsatz“ bleibt und bekommt `sprache:ok`. |

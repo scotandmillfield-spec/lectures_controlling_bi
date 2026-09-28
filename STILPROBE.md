@@ -82,6 +82,100 @@ gelesen, in fünfzehn bis zwanzig Minuten, oft auf dem Telefon. Der Median des B
 Wörtern ist dafür zu hoch. Angestrebt wird ein **Median von 17 bis 18 Wörtern**, mit **höchstens
 zwölf Prozent** Sätzen unter neun Wörtern und **mindestens zwanzig Prozent** über 25 Wörtern.
 
+## Die zwei Fachartikel
+
+Zum Buchkapitel sind zwei Fachartikel hinzugekommen, die Maik im Jahr 2025 veröffentlicht hat.
+Der erste behandelt das agile Projektcontrolling (Controller Magazin 2/2025, gemeinsam mit Marina
+Meyer), der zweite die Absatzprognose mit neuronalen Netzen in der Mineralölbranche (Rethinking
+Finance 5/2025, gemeinsam mit David Konzept). Die Artikel selbst liegen ebenso wenig im
+Repository wie die Buchseiten. Gemessen wurde wie beim Buch allein der Fließtext, also ohne
+Überschriften, Fußnoten, Abbildungen, Formeln, Autorenangaben und Aufzählungspunkte. Die Zahlen
+sind Näherungen, da die Textextraktion aus dem PDF einzelne Wörter zusammengezogen hat.
+
+| | Buch | Agiles Projektcontrolling | Absatzprognose |
+|---|---|---|---|
+| Wörter Fließtext | 4.013 | 2.280 | 1.725 |
+| Satzlänge, Median | 21 | **17** | **18** |
+| Satzlänge, Mittel | 25,9 | 18,2 | 20,5 |
+| Sätze bis 8 Wörter | 7 % | 9 % | 5 % |
+| Sätze über 25 Wörter | 34 % | 11 % | 20 % |
+| Klammern je 1.000 Wörter | 17,2 | 7,5 | 11,0 |
+| Passiv (`wird`, `werden`, `wurde`, `wurden`) je 1.000 Wörter | nicht gemessen | 13,6 | 20,3 |
+
+**Die Artikel bestätigen die Zielmarke der Module.** Ihr Median von 17 bis 18 Wörtern liegt genau
+in dem Bereich, den `CLAUDE.md` für ein Modul vorgibt. Ein Fachartikel wird wie ein Modul einmal
+durchgelesen, weshalb seine Sätze kürzer sind als die des Buches.
+
+**Die Sätze werden untergeordnet und über ihren Anfang verknüpft.** Bedingung, Grund und Zweck
+stehen im selben Satz wie die Behauptung. Neue Sätze beginnen häufig mit einem Rückverweis oder
+einem Adverb, im ersten Artikel am häufigsten mit `Dies`, `Diese`, `Während`, `Um` und `Da`, im
+zweiten mit `Dabei`, `Diese`, `Hierbei` und `Anschließend`.
+
+**Aussagen werden eingeschränkt.** Der erste Artikel enthält fünfzehn Einschränkungen wie `oft`,
+`häufig`, `in der Regel`, `eher`, `dürfte` und `unter Umständen`.
+
+**Sachverhalte stehen unpersönlich.** Das Passiv sowie Wendungen wie `lässt sich`, `ist davon
+auszugehen` und `kam … zum Einsatz` sind normal. Handelt eine Person, ist es der Controller in der
+dritten Person. Für die Module gilt davon abweichend die Regel, dass der Lernende persönlich
+angesprochen wird, wann immer es Sinn ergibt.
+
+**Ein Absatz hat eine feste Reihenfolge.** Auf die Definition mit Quelle folgen die Einordnung, ein
+Beispiel mit konkreten Zahlen, die Grenzen des Instruments und eine Empfehlung. Kein Absatz endet
+mit einer Pointe.
+
+**Die Artikel sind nicht ganz frei von den verbotenen Formen.** Der zweite Beitrag enthält acht
+Gedankenstriche und eine verblose Ellipse („Gerade in KMU häufig eine der größten Hürden – aber
+auch der entscheidende Erfolgsfaktor“). Im ersten stehen Doppelpunkte vor einer Pointe („Der Grund
+liegt auf der Hand: …“, „Dennoch: …“). Beide zusammen enthalten die Figur „nicht …, sondern …“
+siebenmal. Die meisten Stellen liegen in der Einleitung des zweiten Beitrags, die von der Redaktion
+oder vom Mitautor geprägt sein kann. Maik hat entschieden, dass die Verbote in `CLAUDE.md` für die
+Module unverändert gelten.
+
+### Mustersätze aus den Artikeln
+
+**Zwei Seiten einer Sache in einem Satz.**
+
+> Während das klassische Controlling Struktur und Stabilität bietet, ermöglicht das agile
+> Controlling eine höhere Reaktionsfähigkeit in dynamischen Umfeldern.
+
+**Eine Definition mit Norm und Beleg.**
+
+> Nach der DIN-Norm 69901 ist ein Projekt ein Vorhaben, das im Wesentlichen durch die Einmaligkeit
+> seiner Bedingungen in ihrer Gesamtheit gekennzeichnet ist.
+
+**Ein Verfahren, unpersönlich und mit dem Mittel im Nebensatz.**
+
+> Die Velocity wird ermittelt, indem die Storypoints aller vollständig erledigten Aufgaben eines
+> Sprints addiert werden.
+
+**Die Grenze eines Instruments wird benannt und begründet.**
+
+> Da Storypoints keine direkten Angaben zu Zeit oder Kosten enthalten, ist ihre Nutzung für
+> Budget- oder Ressourcenplanung oft schwierig.
+
+**Eine Wertung mit ihrem Zugeständnis im selben Satz.**
+
+> Wenn auch das absolute Ergebnis in anderen Branchen als kein besonders gutes gelten würde, ist es
+> angesichts des ausgesprochen volatilen Markts und im Vergleich zu Excel ein sehr respektables
+> Ergebnis.
+
+**Eine Empfehlung mit ihrer Einschränkung.**
+
+> Eine praktische Empfehlung ist, die 0/100-Methode zu nutzen. Sie ist einfach zu praktizieren und
+> hat einen guten Trade-off zwischen Aussagekraft und Aufwand zur Erfassung. Der Controller muss
+> aber wissen, dass ein eher pessimistisches Bild gezeichnet wird, da sehr komplexe PBI mit z. B.
+> 21 Storypoints für durchschnittlich lange Zeit nicht positiv zur Kennzahl Fertigstellungsgrad
+> beitragen.
+
+**Ein englischer Fachbegriff wird beim ersten Auftreten erklärt.**
+
+> Der Begriff Velocity bedeutet übersetzt „Geschwindigkeit“, beschreibt hier jedoch nicht die
+> Schnelligkeit, sondern die Leistungskraft eines Teams.
+
+Der letzte Satz enthält die Figur „nicht …, sondern …“ und steht hier wegen der Erklärung des
+Begriffs. In einem Modul würde er positiv gestellt („Der Begriff Velocity bedeutet übersetzt
+‚Geschwindigkeit‘ und beschreibt hier die Leistungskraft eines Teams“).
+
 ## Sätze als Muster
 
 ### Eine Behauptung mit ihrer Bedingung im selben Satz
