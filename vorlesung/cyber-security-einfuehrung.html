@@ -202,12 +202,18 @@ footer a{color:var(--teal-dk)}
   .blk-b[hidden]{display:block!important}
 }
 @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+.zurueck{display:inline-block;margin:0 0 16px;font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--teal-dk);text-decoration:none}
+.zurueck:hover{text-decoration:underline;text-underline-offset:3px}
+.zurueck:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:3px}
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <header class="masthead">
+  <a class="zurueck" href="index.html">← Zur Übersicht der Vorlesung</a>
+  <script>{const l=new URLSearchParams(location.search).get("lang");if(l)document.currentScript.previousElementSibling.href="index.html?lang="+encodeURIComponent(l);}</script>
   <p class="eyebrow">Grundlagen Cyber-Security</p>
   <h1>Einführung in <em>Cyber-Security</em></h1>
   <p class="lede">Der erste Schritt des Lernpfads „Grundlagen Cyber-Security“. Dieses Modul ist bisher eine Hülle: Aufbau, Reiterleiste und die beiden Pflichtlektionen stehen, der Inhalt kommt noch.</p>
@@ -300,7 +306,7 @@ footer a{color:var(--teal-dk)}
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.73</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.75</span>
 </footer>
 
 </div>

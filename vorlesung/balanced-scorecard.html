@@ -265,12 +265,18 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;border
 .blk-b[hidden]{display:none}
 
 @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+.zurueck{display:inline-block;margin:0 0 16px;font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--teal-dk);text-decoration:none}
+.zurueck:hover{text-decoration:underline;text-underline-offset:3px}
+.zurueck:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:3px}
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <header class="masthead">
+  <a class="zurueck" href="index.html">← Back to the lecture overview</a>
+  <script>{const l=new URLSearchParams(location.search).get("lang");if(l)document.currentScript.previousElementSibling.href="index.html?lang="+encodeURIComponent(l);}</script>
   <p class="eyebrow">Sofia's Coffee Dream · Business Intelligence</p>
   <h1>Four perspectives, <em>one strategy</em></h1>
   <p class="lede">The Balanced Scorecard is the textbook example of a concept-oriented analysis system: a BI application whose structure does not come from the shape of the data but from a management concept. Kaplan and Norton supply the frame; Sofia supplies the coffee, the cake and the queue at the counter.</p>
@@ -450,7 +456,7 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;border
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.73</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.75</span>
 </footer>
 
 </div>

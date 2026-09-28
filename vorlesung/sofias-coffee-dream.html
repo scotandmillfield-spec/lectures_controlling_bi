@@ -273,12 +273,18 @@ footer a{color:var(--teal-dk)}
 .blk-b[hidden]{display:none}
 
 @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+.zurueck{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--teal-dk);text-decoration:none}
+.zurueck:hover{text-decoration:underline;text-underline-offset:3px}
+.zurueck:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:3px}
+.zurueck-z{margin:0 0 16px}
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <header class="masthead">
+  <p class="zurueck-z" data-t="zurueck"></p>
   <div class="topbar">
     <p class="eyebrow" data-t="eyebrow"></p>
     <nav class="langsw" id="langsw" aria-label="Sprache · Language">
@@ -426,6 +432,7 @@ const qs = LANG==="de" ? "" : "?lang="+LANG;
 
 const UI = {
  title:{de:"Es war einmal · Sofias Coffee Dream", en:"Once upon a time · Sofia's Coffee Dream"},
+ zurueck:{de:'<a class="zurueck" href="index.html$QS">← Zur Übersicht der Vorlesung</a>', en:'<a class="zurueck" href="index.html$QS">← Back to the lecture overview</a>'},
  eyebrow:{de:"Sofias Coffee Dream · Fallstudie", en:"Sofia's Coffee Dream · Case study"},
  h1:{de:"Es war einmal <em>ein Fahrrad</em>", en:"Once upon a time, <em>there was a bicycle</em>"},
  lede:{de:"Vor den Sternschemata und den Scorecards steht ein Mensch mit einer Idee, einem Fahrrad und einer daraufgeschnallten Espressomaschine. Dieses Modul erzählt diese Geschichte — wer Sofia ist, wie das Geschäft gewachsen ist, warum die Art, es zu führen, nicht mehr reicht, und was an dem Tag geschah, an dem sie ein Diagramm zu schnell gelesen hat. Nichts anderes in der Bibliothek hängt davon ab: zeigen, wenn der Raum einen Fall braucht, sonst weglassen.",
@@ -520,14 +527,14 @@ const UI = {
  pointeK:{de:"Der eine Satz", en:"The one sentence"},
  pointe:{de:"<b>Sofia wollte nie ein Dashboard. Sie wollte ihre Nachmittage zurück.</b> Jedes Modell, jedes Sternschema und jede Scorecard in dieser Bibliothek existiert aus einem Grund: damit die Antwort eine Minute dauert statt vierzehn Tage — und damit sie es eines Tages endlich sagen und auch so meinen kann. <em>Gut, dann radle ich jetzt zum Markusplatz.</em>",
          en:"<b>Sofia never wanted a dashboard. She wanted her afternoons back.</b> Every model, every star schema and every scorecard in this library exists for one reason: so that the answer takes a minute instead of a fortnight — and so that one day she can finally say it and mean it. <em>Right, then I'll cycle to Piazza San Marco.</em>"},
- footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.73</span>"
+ footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.75</span>"
 };
 
 /* =====================================================================
    Inhalte der Hover-Erklärungen
    ===================================================================== */
 const REG = {
- beans:[{de:"Grüne Bohnen · <span class='build'>build 0.0.73</span>",en:"Green beans · <span class='build'>build 0.0.73</span>"},
+ beans:[{de:"Grüne Bohnen · <span class='build'>build 0.0.75</span>",en:"Green beans · <span class='build'>build 0.0.75</span>"},
    {de:"Fair gehandelte Partien einer Kooperative in Peru, ein- bis zweimal im Jahr gekauft und bei Verschiffung in Dollar bezahlt. Alles danach wird über diesen Sack bepreist — und Sofia beherrscht weder die Ernte noch den Wechselkurs.",
     en:"Fair-trade lots from a cooperative in Peru, bought once or twice a year and paid in dollars on shipment. Everything downstream is priced off this sack — and Sofia controls neither the harvest nor the exchange rate."},
    {de:"≈ 6 000 kg im Jahr · 6,40 € je kg", en:"≈ 6 000 kg a year · 6.40 € per kg"}],

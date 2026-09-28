@@ -296,12 +296,18 @@ table.erg td.s{font-weight:600}
 .blk-b[hidden]{display:none}
 
 @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+.zurueck{display:inline-block;margin:0 0 16px;font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--teal-dk);text-decoration:none}
+.zurueck:hover{text-decoration:underline;text-underline-offset:3px}
+.zurueck:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:3px}
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <header class="masthead">
+  <a class="zurueck" href="index.html">← Zur Übersicht der Vorlesung</a>
+  <script>{const l=new URLSearchParams(location.search).get("lang");if(l)document.currentScript.previousElementSibling.href="index.html?lang="+encodeURIComponent(l);}</script>
   <p class="eyebrow">Sofia's Coffee Dream · Business Intelligence</p>
   <h1>Drei Achsen, eine Zahl, <em>und alles dazwischen</em></h1>
   <p class="lede">Ein Cube ist eine Denkweise: Man legt die Kennzahl in einen Raum, dessen Achsen die Fragen sind, die man stellen wird. Danach ist jede Auswertung nur noch eine Adresse in diesem Raum — vollständig angegeben ergibt sie eine Zelle, unvollständig angegeben eine Summe. Mit Speichertechnik hat das alles noch nichts zu tun. Dieses Modul baut den Würfel an Sofias Quartal auf und klärt vorher den Begriff, an dem die meisten hängenbleiben: Was ist eigentlich ein Fakt und was eine Dimension?</p>
@@ -487,7 +493,7 @@ table.erg td.s{font-weight:600}
 </div>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.73</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.75</span>
 </footer>
 
 </div>
