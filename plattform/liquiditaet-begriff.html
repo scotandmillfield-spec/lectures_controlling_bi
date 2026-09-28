@@ -1013,7 +1013,7 @@ footer a{color:var(--teal-dk)}
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.70</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.71</span>
 </footer>
 
 </div>
@@ -1423,7 +1423,248 @@ function makeBlocks(panel){
   return nr;
 }
 
-document.querySelectorAll(".panel").forEach(makeBlocks);
+/* =====================================================================
+   8 · Bearbeitungsmodus (Prototyp)
+   Wird die Seite mit ?bearbeiten in der Adresse geoeffnet, lassen sich
+   die Texte direkt auf der Seite aendern. Gespeichert wird nichts auf
+   einem Server. Die Schaltflaeche am unteren Rand laedt die geaenderte
+   Datei herunter, die danach wie gewohnt hochgeladen wird.
+
+   Zurueckgeschrieben wird in den Quelltext der Datei und nicht in die
+   angezeigte Seite, weil das Skript die Seite beim Laden umbaut. Jeder
+   bearbeitbare Text merkt sich deshalb seine Fassung im Quelltext:
+   bei Texten im Markup das innerHTML zwischen den beiden Tags, bei Texten
+   aus den Listen im Skript die Zeichenkette in Anfuehrungszeichen.
+   Gesucht wird nur im eigenen Bereich (Markup oder die jeweilige Liste)
+   und dort ueber die Reihenfolge, da kurze Texte wie "Nur Erfolg"
+   mehrfach vorkommen. Stimmt die Zahl der Fundstellen im Bereich nicht
+   mit der Zahl der gleichlautenden Texte auf der Seite ueberein, meldet
+   der Editor die Stelle, statt zu raten.
+
+   Der Modus schuetzt nichts. Er aendert allein die Ansicht im eigenen
+   Browser, geschuetzt ist erst der Schritt, der die Datei hochlaedt.
+   ===================================================================== */
+const EDIT = new URLSearchParams(location.search).has("bearbeiten");
+if(!EDIT) document.querySelectorAll(".panel").forEach(makeBlocks);
+else editorStart();
+
+function editorStart(){
+  const ENTWURF = "entwurf:" + location.pathname;
+  const alle = [];
+  let entwurf = {};
+  try { entwurf = JSON.parse(localStorage.getItem(ENTWURF) || "{}"); } catch(e) { entwurf = {}; }
+
+  document.body.classList.add("ed-an");
+  document.head.insertAdjacentHTML("beforeend", `<style>
+    .ed-an [data-ed-art]{outline:1px dashed transparent;outline-offset:3px;border-radius:3px;cursor:text}
+    .ed-an [data-ed-art]:hover{outline-color:var(--grey-mid)}
+    .ed-an [data-ed-art]:focus{outline:2px solid var(--teal);background:var(--paper)}
+    .ed-an [data-ed-art].ed-neu{background:var(--orange-xl);box-shadow:-4px 0 0 var(--orange)}
+    .ed-an #zuNew,.ed-an #qNew,.ed-an #qResult{display:none}
+    .ed-bar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--ink);color:#fff;
+      font-family:var(--sans);font-size:.86rem;line-height:1.45;padding:12px 18px;
+      display:flex;gap:12px;align-items:center;flex-wrap:wrap;box-shadow:0 -6px 24px rgba(0,0,0,.18)}
+    .ed-bar p{margin:0;flex:1 1 260px}
+    .ed-bar b{font-family:var(--mono);font-weight:600}
+    .ed-bar button,.ed-bar label{font:inherit;border:1px solid rgba(255,255,255,.35);background:transparent;
+      color:#fff;border-radius:7px;padding:7px 12px;cursor:pointer}
+    .ed-bar button.haupt{background:var(--orange);border-color:var(--orange);color:var(--ink);font-weight:600}
+    .ed-bar input[type=file]{display:none}
+    .ed-bericht{position:fixed;left:18px;right:18px;bottom:78px;z-index:50;max-height:45vh;overflow:auto;
+      background:var(--paper);border:1px solid var(--grey-mid);border-radius:var(--r);padding:14px 16px;
+      font-size:.84rem;box-shadow:0 8px 28px rgba(0,0,0,.16)}
+    .ed-bericht h4{margin:0 0 6px;font-size:.9rem}
+    .ed-bericht li{margin:0 0 8px}
+    body.ed-an{padding-bottom:90px}
+    .ed-liste{margin:0 0 18px;padding:14px 16px;border:1px solid var(--grey-xl);border-radius:var(--r);background:var(--paper)}
+    .ed-liste .ed-k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:10px 0 3px}
+    .ed-liste .ed-k:first-child{margin-top:0}
+    .ed-liste p,.ed-liste li{margin:0 0 4px}
+    .ed-liste li.ok{font-weight:600}
+  </style>`);
+
+  /* Ein Text wird bearbeitbar. art ist "md" fuer Markup oder "js" fuer
+     eine Zeichenkette aus dem Skript, modus ist "html" oder "text". */
+  function merke(el, art, modus, quelle, bereich){
+    el.dataset.edArt = art; el.dataset.edModus = modus;
+    el._quelle = quelle; el._bereich = bereich;
+    el._nadel = art === "js" ? '"' + jsq(quelle) + '"' : ">" + quelle + "</" + el.tagName.toLowerCase() + ">";
+    el._nr = alle.filter(x => x._bereich === bereich && x._nadel === el._nadel).length;
+    el.contentEditable = "true"; el.spellcheck = true;
+    const schluessel = bereich + "|" + el._nr + "|" + quelle;
+    if(entwurf[schluessel] != null){
+      if(modus === "text") el.textContent = entwurf[schluessel]; else el.innerHTML = entwurf[schluessel];
+    }
+    alle.push(el);
+  }
+
+  const jsq = s => s.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+
+  /* 1 · Texte im Markup */
+  document.querySelectorAll([
+    ".masthead .lede", ".panel p.claim", ".panel h2.sec", ".panel p.sub",
+    ".panel .card h3", ".panel .card p:not(.ck)", ".panel .feld h4", ".panel .feld p:not(.fk)",
+    ".panel .feld li", ".panel .merk h3", ".panel dt", ".panel dd", ".panel .readme",
+    ".panel .pointe p:not(.pk)", ".panel > ul > li", ".panel table.tbl td", ".panel table.tbl th"
+  ].join(",")).forEach(el => merke(el, "md", "html", el.innerHTML, "md"));
+
+  /* 2 · Texte aus den Listen im Skript. Sie werden fuer die Bearbeitung
+     vollstaendig ausgegeben, also alle Vorfaelle mit Begruendung und
+     alle Quizfragen mit Antworten und Begruendung. */
+  const feld = (liste, tag, kl, wert, modus) => {
+    const el = document.createElement(tag); if(kl) el.className = kl;
+    if(modus === "text") el.textContent = wert; else el.innerHTML = wert;
+    merke(el, "js", modus, wert, liste); return el;
+  };
+  const kopf = text => { const k = document.createElement("p"); k.className = "ed-k"; k.textContent = text; return k; };
+
+  const zu = $("zuListe"); zu.innerHTML = "";
+  ZU_POS.forEach(([text, richtig, begr], n) => {
+    const box = document.createElement("div"); box.className = "ed-liste";
+    box.append(kopf("Vorfall " + (n + 1) + " · " + ZU_NAME[richtig]), feld("ZU_POS", "p", "zt", text, "text"),
+               kopf("Begründung"), feld("ZU_POS", "p", "", begr, "html"));
+    zu.append(box);
+  });
+
+  const ck = $("ck7"); ck.innerHTML = "";
+  CHECK7.forEach(([t, p, f], n) => {
+    const box = document.createElement("div"); box.className = "ed-liste";
+    box.append(kopf("Schritt " + (n + 1)), feld("CHECK7", "h3", "", t, "text"), feld("CHECK7", "p", "", p, "html"),
+               kopf("Typischer Fehler"), feld("CHECK7", "p", "", f, "html"));
+    ck.append(box);
+  });
+
+  const gl = $("glos"); gl.innerHTML = "";
+  GLOSSAR.forEach(([b, t]) => {
+    const box = document.createElement("div"); box.className = "ed-liste";
+    box.append(feld("GLOSSAR", "p", "", b, "text"), feld("GLOSSAR", "p", "", t, "html"));
+    gl.append(box);
+  });
+
+  const qz = $("quiz"); qz.innerHTML = "";
+  FRAGEN.forEach(([text, opts, richtig, begr], n) => {
+    const box = document.createElement("div"); box.className = "ed-liste";
+    const ul = document.createElement("ul");
+    opts.forEach((o, j) => { const li = feld("FRAGEN", "li", j === richtig ? "ok" : "", o, "html"); ul.append(li); });
+    box.append(kopf("Frage " + (n + 1) + " von " + FRAGEN.length), feld("FRAGEN", "p", "", text, "html"),
+               kopf("Antworten, die richtige ist fett"), ul, kopf("Begründung"), feld("FRAGEN", "p", "", begr, "html"));
+    qz.append(box);
+  });
+  $("qStand").textContent = "Alle " + FRAGEN.length + " Fragen des Vorrats";
+  $("zuStand").textContent = "Alle " + ZU_POS.length + " Vorfälle";
+
+  /* 3 · Aenderungen verfolgen */
+  const saeubern = h => h.replace(/&nbsp;| /g, " ").replace(/<br\s*\/?>/gi, " ")
+    .replace(/<(\/?)strong>/gi, "<$1b>").replace(/<(?!\/?(b|em|i)>)[^>]*>/gi, "")
+    .replace(/\s+/g, " ").trim();
+  const wert = el => el.dataset.edModus === "text" ? el.textContent.replace(/\s+/g, " ").trim() : saeubern(el.innerHTML);
+  const geaendert = el => wert(el) !== (el.dataset.edModus === "text"
+    ? el._quelle.replace(/\s+/g, " ").trim() : saeubern(el._quelle));
+
+  const bar = document.createElement("div"); bar.className = "ed-bar";
+  bar.innerHTML = `<p>Du bist im Bearbeitungsmodus. Klicke auf einen Text, um ihn zu ändern. <span id="edZahl"></span></p>
+    <button type="button" id="edWeg">Änderungen verwerfen</button>
+    <button type="button" class="haupt" id="edLaden">Geänderte Datei herunterladen</button>
+    <label id="edWahl" hidden>Datei auswählen<input type="file" id="edDatei" accept=".html,text/html"></label>`;
+  document.body.append(bar);
+
+  function zaehle(){
+    const neu = alle.filter(geaendert);
+    alle.forEach(el => el.classList.toggle("ed-neu", neu.includes(el)));
+    $("edZahl").textContent = neu.length === 0 ? "Bisher ist nichts geändert."
+      : neu.length === 1 ? "Bisher ist ein Text geändert." : "Bisher sind " + neu.length + " Texte geändert.";
+    const e = {};
+    neu.forEach(el => { e[el._bereich + "|" + el._nr + "|" + el._quelle] = el.dataset.edModus === "text" ? wert(el) : el.innerHTML; });
+    try { localStorage.setItem(ENTWURF, JSON.stringify(e)); } catch(err) {}
+    return neu;
+  }
+  document.addEventListener("input", e => { if(e.target.closest("[data-ed-art]")) zaehle(); });
+  /* Eingefuegter Text kommt ohne fremde Formatierung an */
+  document.addEventListener("paste", e => {
+    if(!e.target.closest("[data-ed-art]")) return;
+    e.preventDefault();
+    document.execCommand("insertText", false, (e.clipboardData || window.clipboardData).getData("text/plain"));
+  });
+  zaehle();
+
+  $("edWeg").addEventListener("click", () => {
+    if(!confirm("Alle Änderungen auf dieser Seite verwerfen?")) return;
+    try { localStorage.removeItem(ENTWURF); } catch(e) {}
+    location.reload();
+  });
+
+  /* 4 · Zurueckschreiben in den Quelltext */
+  const fundstellen = (heu, nadel) => { const f = []; let i = 0; while((i = heu.indexOf(nadel, i)) !== -1){ f.push(i); i += nadel.length; } return f; };
+  /* Die Grenzen eines Bereichs im Quelltext: das Markup zwischen <body>
+     und dem ersten <script>, eine Liste von "const NAME = [" bis "];". */
+  function grenzen(quelle, bereich){
+    if(bereich === "md"){ const a = quelle.indexOf("<body"); return [a, quelle.indexOf("<script", a)]; }
+    const a = quelle.indexOf("const " + bereich + " = ["); return [a, a < 0 ? -1 : quelle.indexOf("\n];", a)];
+  }
+
+  function einarbeiten(quelle){
+    const probleme = [], treffer = [];
+    zaehle().forEach(el => {
+      const neu = wert(el);
+      const [a, z] = grenzen(quelle, el._bereich);
+      const gleiche = alle.filter(x => x._bereich === el._bereich && x._nadel === el._nadel).length;
+      const f = a < 0 || z < 0 ? [] : fundstellen(quelle.slice(a, z), el._nadel);
+      if(f.length !== gleiche){
+        probleme.push({neu, grund: f.length === 0
+          ? "Die ursprüngliche Fassung steht nicht mehr in der Datei. Vermutlich wurde die Datei inzwischen geändert."
+          : "Die ursprüngliche Fassung kommt in der Datei " + f.length + "-mal vor, auf der Seite aber " + gleiche + "-mal, deshalb ist die Stelle nicht eindeutig."});
+        return;
+      }
+      let ersatz;
+      if(el.dataset.edArt === "js") ersatz = '"' + jsq(neu) + '"';
+      else {
+        const vorn = el._quelle.match(/^\s*/)[0], hinten = el._quelle.match(/\s*$/)[0];
+        ersatz = ">" + vorn + neu + hinten + "</" + el.tagName.toLowerCase() + ">";
+      }
+      treffer.push({pos: a + f[el._nr], laenge: el._nadel.length, ersatz});
+    });
+    /* Von hinten nach vorn ersetzen, damit die gemerkten Positionen gelten */
+    treffer.sort((x, y) => y.pos - x.pos)
+      .forEach(t => { quelle = quelle.slice(0, t.pos) + t.ersatz + quelle.slice(t.pos + t.laenge); });
+    return {quelle, ok: treffer.length, probleme};
+  }
+
+  function ausliefern(quelle){
+    const {quelle: neu, ok, probleme} = einarbeiten(quelle);
+    const name = location.pathname.split("/").pop() || "modul.html";
+    if(ok){
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([neu], {type: "text/html"}));
+      a.download = name; document.body.append(a); a.click(); a.remove();
+    }
+    const alt = document.querySelector(".ed-bericht"); if(alt) alt.remove();
+    const b = document.createElement("div"); b.className = "ed-bericht";
+    b.innerHTML = `<h4>${ok === 1 ? "Eine Änderung ist" : ok + " Änderungen sind"} in die heruntergeladene Datei ${esc(name)} übernommen.</h4>` +
+      (probleme.length ? `<p>Die folgenden ${probleme.length} Texte konnten nicht zurückgeschrieben werden. Ihr neuer Wortlaut steht hier zum Kopieren.</p><ol>` +
+        probleme.map(p => `<li>${esc(p.grund)}<br><b>Neu:</b> ${esc(p.neu)}</li>`).join("") + "</ol>"
+      : `<p>Lade die Datei jetzt wie gewohnt in das Repository hoch. Der Entwurf bleibt in diesem Browser gespeichert, bis Du ihn verwirfst.</p>`) +
+      `<button type="button" onclick="this.parentNode.remove()">Schließen</button>`;
+    document.body.append(b);
+  }
+
+  $("edLaden").addEventListener("click", async () => {
+    if(!zaehle().length){ alert("Es ist noch kein Text geändert."); return; }
+    try {
+      const r = await fetch(location.pathname, {cache: "no-store"});
+      if(r.ok){ ausliefern(await r.text()); return; }
+    } catch(e) {}
+    /* Als lokale Datei geoeffnet darf der Browser die eigene Datei nicht
+       lesen. Dann waehlst Du sie einmal von Hand aus. */
+    $("edWahl").hidden = false;
+    alert("Der Browser darf diese lokal geöffnete Datei nicht selbst lesen. Wähle sie bitte über die Schaltfläche „Datei auswählen“ aus.");
+  });
+  $("edDatei").addEventListener("change", e => {
+    const f = e.target.files[0]; if(!f) return;
+    const leser = new FileReader();
+    leser.onload = () => ausliefern(leser.result);
+    leser.readAsText(f, "utf-8");
+  });
+}
 </script>
 </body>
 </html>
