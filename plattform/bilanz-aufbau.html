@@ -654,7 +654,7 @@ footer a{color:var(--teal-dk)}
 <header class="masthead">
   <p class="eyebrow">Bilanzanalyse · Modul 01</p>
   <h1>Die Bilanz nach <em>HGB</em></h1>
-  <p class="lede">Zwei Fragen an einem Stichtag: Worin steckt das Geld, und wem gehört es. Dieses Modul klärt Zweck und Gliederung einer Bilanz nach deutschem Handelsrecht, zeigt den Unterschied der beiden Seiten und lässt Dich am Ende eine eigene Bilanz eintippen, in der Gliederung des § 266 HGB, mit laufender Summe und drei ersten Kennzahlen. Gerechnet wird hier in vollen Tausend Euro. Die Module dieses Lernpfads arbeiten mit einem eigenen Fall: einem Zulieferer für Nutzfahrzeugkomponenten, wie ihn auch die Risikomodule verwenden.</p>
+  <p class="lede">Zwei Fragen an einem Stichtag: Worin steckt das Geld, und wem gehört es. Dieses Modul klärt Zweck und Gliederung einer Bilanz nach deutschem Handelsrecht, zeigt den Unterschied der beiden Seiten und lässt Dich am Ende eine eigene Bilanz eintippen, in der Gliederung des § 266 HGB, mit laufender Summe und drei ersten Kennzahlen. Gerechnet wird hier in vollen Tausend Euro. Die Module dieses Lernpfads rechnen durchgehend mit denselben Beispielzahlen.</p>
   <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Durchgehend <b>HGB</b>. IFRS und US-GAAP kommen hier nicht vor, weder als Vergleich noch als Nebenbemerkung. Sie folgen anderen Grundsätzen und gehören in ein eigenes Modul.</p>
 </header>
 
@@ -1268,8 +1268,7 @@ $("bilTiefe").addEventListener("click", e => {
   bilZeichnen();
 });
 
-/* Der Fall: ein Zulieferer für Nutzfahrzeugkomponenten, mittelgross,
-   Zahlen in T€. Dieselbe Firma wie in den Risikomodulen. Das Beispiel
+/* Die Beispielzahlen, in T€. Das Beispiel
    fuellt beide Tiefen, damit das Umschalten etwas zu zeigen hat; die
    arabische Aufteilung summiert sich auf die roemischen Betraege. */
 const BEISPIEL = {
@@ -1451,7 +1450,7 @@ const ZU_POS = [
    "Aktiva B. I. Vorräte. Sie werden verbraucht und gehören deshalb ins Umlaufvermögen."],
   ["Die im Dezember gezahlte Miete für den Januar", "a",
    "Aktiva C. Rechnungsabgrenzungsposten. Die Ausgabe fiel vor dem Stichtag an, der Aufwand gehört in das Jahr danach."],
-  ["Eine Beteiligung von 30 Prozent an einem Zulieferer", "a",
+  ["Eine Beteiligung von 30 Prozent an einem Lieferanten", "a",
    "Aktiva A. III. Finanzanlagen. Sie soll dauernd gehalten werden, deshalb Anlage- und nicht Umlaufvermögen."],
   ["Der Jahresüberschuss des abgelaufenen Geschäftsjahres", "p",
    "Passiva A. V. Er erhöht das Eigenkapital. Genau hier hängen Bilanz und Gewinn- und Verlustrechnung zusammen."],
