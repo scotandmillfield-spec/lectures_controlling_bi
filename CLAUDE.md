@@ -527,8 +527,8 @@ noch Verband. Die Kachel sagt es im ersten Satz.
 `cv-mx/controlling-konzept.html` gehört zum selben Fall und gibt allein das Berichtskonzept
 wieder, das Maik geliefert hat.
 
-`vorlesung/supply-chain-controlling.html` gehört zum Thema Supply Chain und arbeitet mit vier Vorlieferanten eines
-Nutzfahrzeugherstellers. Der Grund: Sofias Betrieb hat keine benannten Lieferanten, und der
+`vorlesung/supply-chain-controlling.html` gehört zum Thema Supply Chain und arbeitet mit vier Vorlieferanten und eigenen
+Beispielzahlen. Der Grund: Sofias Betrieb hat keine benannten Lieferanten, und der
 Kanon soll nicht um welche erweitert werden, nur damit ein Portfolio vier Punkte bekommt —
 lieber ein sichtbar getrennter Fall als ein stillschweigend gedehnter Kanon. Wo das nötig ist,
 sagt es die Kachel im ersten Satz und der Fußtext des Moduls.
