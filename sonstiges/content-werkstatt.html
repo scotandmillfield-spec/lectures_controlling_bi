@@ -592,7 +592,7 @@ footer a{color:var(--teal-dk)}
 
   <h2 class="sec">Was ein neues Modul außerdem mitbringt</h2>
   <p class="txt">Neben den beiden Pflichtlektionen bringt jedes neue Modul <b>vier Fragen für die Standortbestimmung</b> mit. Das ist das Modul, mit dem sich jemand quer über alle Inhalte testen kann; sein Ergebnis erscheint als Netzdiagramm über sechs Kompetenzfelder. Danach steht an jeder Kachel der Startseite ein farbiger Rand, grün für ein Feld, das sitzt, gelb für eines zum Nachbessern, rot für ein nötiges.</p>
-  <p class="txt">Die vier Fragen kommen in die Liste <code>FRAGEN</code> in <code>assessment.html</code>, jede mit dem Kompetenzfeld und der Modulkennung davor. Die Kennung kommt zusätzlich in die Modulliste des Feldes, damit die Kachel ihre Farbe bekommt. Passt das Modul in kein vorhandenes Feld, kommt ein Feld dazu, worauf das Netzdiagramm um eine Ecke wächst.</p>
+  <p class="txt">Die vier Fragen kommen in die Liste <code>FRAGEN</code> in <code>plattform/assessment.html</code>, jede mit dem Kompetenzfeld und der Modulkennung davor. Die Kennung kommt zusätzlich in die Modulliste des Feldes, damit die Kachel ihre Farbe bekommt. Passt das Modul in kein vorhandenes Feld, kommt ein Feld dazu, worauf das Netzdiagramm um eine Ecke wächst.</p>
   <p class="txt">Ohne diese vier Fragen kann die Standortbestimmung das Modul nicht empfehlen. Deshalb ist der Vorrat auch bei jeder Erweiterung mitzuprüfen, da ein Modul, das inhaltlich gewachsen ist, neue Fragen braucht.</p>
 
   <h2 class="sec">Die zwei Module ohne Quiz</h2>
@@ -980,7 +980,7 @@ footer a{color:var(--teal-dk)}
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.64</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.65</span>
 </footer>
 
 </div>
@@ -1181,7 +1181,7 @@ function briefing(){
   s += zeile("SPRACHE", SPRACHE[spr]);
   s += zeile("INHALTSLEKTIONEN", val("bLekt"));
   s += "PFLICHTLEKTIONEN\nQuiz mit fünf Fragen aus dem Vorrat, danach der Praxiseinstieg.\n"
-     + "Dazu vier Fragen für die Standortbestimmung in assessment.html.\n\n";
+     + "Dazu vier Fragen für die Standortbestimmung in plattform/assessment.html.\n\n";
   s += zeile("WAS MAN ANFASSEN KÖNNEN SOLL", val("bInter"));
   s += zeile("VERBINDLICHE ZAHLEN", val("bZahlen"));
   s += zeile("QUELLEN", val("bQuellen"));
