@@ -273,12 +273,18 @@ footer{margin-top:34px;font-size:.8rem;color:var(--grey);line-height:1.6}
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001ms!important;transition-duration:.001ms!important}
 }
+.zurueck{display:inline-block;margin:0 0 16px;font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--teal-dk);text-decoration:none}
+.zurueck:hover{text-decoration:underline;text-underline-offset:3px}
+.zurueck:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:3px}
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <header class="masthead">
+  <a class="zurueck" href="index.html">← Back to the lecture overview</a>
+  <script>{const l=new URLSearchParams(location.search).get("lang");if(l)document.currentScript.previousElementSibling.href="index.html?lang="+encodeURIComponent(l);}</script>
   <p class="eyebrow">Sofia's Coffee Dream · Business Intelligence</p>
   <h1>Anna moves to the other house. <em>Who keeps her January?</em></h1>
   <p class="lede">One barista moves between Sofia's two coffee houses on 1&nbsp;March 2026. The sales facts never move — but depending on how the employee dimension handles the change, the Q1 report tells three different stories. Switch between the three Slowly Changing Dimension types and watch the same quarter get re-attributed.</p>
@@ -329,7 +335,7 @@ footer{margin-top:34px;font-size:.8rem;color:var(--grey);line-height:1.6}
   <p class="closing"><b>Hint to go:</b> the type is chosen per attribute, not per table. A single <code>DIM_PRODUCT</code> row can carry a Type&nbsp;1 product name, a Type&nbsp;2 category and a Type&nbsp;3 price band at the same time.</p>
 
   <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.73</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.75</span>
 </footer>
 </section>
 
