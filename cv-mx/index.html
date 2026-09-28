@@ -222,7 +222,7 @@ const UI = {
   search:{de:"Module durchsuchen\u2026", en:"Search modules\u2026"},
   empty:{de:"Dazu passt gerade nichts.", en:"Nothing matches that filter yet."},
   soon:{de:"In Arbeit", en:"In preparation"},
-  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.64</span>",
+  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.65</span>",
   pathLabel:{de:"Lernpfade", en:"Learning paths"},
   pathKicker:{de:"Lernpfad", en:"Learning path"},
   pathClear:{de:"Pfad verlassen \u00b7 alle Module zeigen", en:"Leave the path \u00b7 show all modules"},
@@ -230,8 +230,8 @@ const UI = {
   countPath:{de:(k,n)=>k+" von "+n+(n===1?" Modul":" Modulen")+" des Pfades",
              en:(k,n)=>k+" of "+n+(n===1?" module":" modules")+" in this path"},
   /* Der zweite Teil erscheint nur, wo es wirklich etwas herunterzuladen gibt. */
-  countAll:{de:(n,r)=>n+" Module"+(r?" \u00b7 "+r+" Foliens\u00e4tze zum Herunterladen":""),
-            en:(n,r)=>n+" modules"+(r?" \u00b7 "+r+" slide decks to download":"")},
+  countAll:{de:(n,r)=>n+(n===1?" Modul":" Module")+(r?" \u00b7 "+r+" Foliens\u00e4tze zum Herunterladen":""),
+            en:(n,r)=>n+(n===1?" module":" modules")+(r?" \u00b7 "+r+" slide decks to download":"")},
   countSome:{de:(k,n)=>k+" von "+n+" Modulen angezeigt",
              en:(k,n)=>k+" of "+n+" modules shown"}
 };
@@ -278,7 +278,7 @@ const TOPICS = [
    LERNPFADE - die zweite Liste, die du bearbeitest.
    Ein Pfad verweist nur auf die ids aus TOPICS. Die Reihenfolge in
    steps ist die Reihenfolge im Pfad. Ein Modul gehört zu mehreren
-   Pfaden, indem es in mehreren steps steht — am Modul selbst ist
+   Pfaden, indem es in mehreren steps steht. Am Modul selbst ist
    dafür nichts zu ändern.
    ===================================================================== */
 const PATHS = [
@@ -390,13 +390,13 @@ const grid=document.getElementById("grid");
 const qs = LANG==="de" ? "" : "?lang="+LANG;
 
 /* Die Reihenfolge der Kacheln steht in reihenfolge.js. Fehlt die Datei,
-   gilt die Folge der Liste — die Startseite laeuft dann allein weiter.
+   gilt die Folge der Liste; die Startseite laeuft dann allein weiter.
    Ein Modul, das dort fehlt, rutscht ans Ende statt zu verschwinden:
    Ein neues Modul ist sofort sichtbar, auch wenn die Datei vergessen
    wurde. Beides meldet die Konsole. */
 const SORTIERT = (() => {
   if(typeof REIHENFOLGE === "undefined"){
-    console.warn("reihenfolge.js fehlt — die Kacheln stehen in der Folge der Liste");
+    console.warn("reihenfolge.js fehlt; die Kacheln stehen in der Folge der Liste");
     return TOPICS;
   }
   const rang = new Map(REIHENFOLGE.map((id,i)=>[id,i]));
@@ -404,7 +404,7 @@ const SORTIERT = (() => {
     if(!TOPICS.some(t=>t.id===id)) console.warn(`reihenfolge.js: unbekanntes Modul "${id}"`);
   });
   TOPICS.forEach(t=>{
-    if(!rang.has(t.id)) console.warn(`reihenfolge.js: "${t.id}" fehlt — die Kachel steht am Ende`);
+    if(!rang.has(t.id)) console.warn(`reihenfolge.js: "${t.id}" fehlt; die Kachel steht am Ende`);
   });
   return TOPICS
     .map((t,i)=>[t, rang.has(t.id) ? rang.get(t.id) : REIHENFOLGE.length + i])

@@ -17,17 +17,5 @@
    der Liste in TOPICS.
    ===================================================================== */
 const REIHENFOLGE = [
-  "assessment",        // Standortbestimmung: was Du schon kannst
-  "risiko-intro",      // Risikomanagement: der Begriff
-  "risiko",            // Der Risikomanagement-Prozess
-  "risiko-werkstatt",  // Die Risikoanalyse-Werkstatt
-  "bilanz-aufbau",     // Die Bilanz nach HGB
-  "bilanz-guv",        // Die Gewinn- und Verlustrechnung
-  "bilanz-kennzahlen", // Jahresabschlussanalyse mit Kennzahlen
-  "bilanz-buchungssaetze", // Buchungssätze und ihre Wirkung
-  "liqui-begriff",     // Liquidität: der Begriff
-  "liqui-bwa",         // Die BWA lesen
-  "liqui-vorschau",    // Die Liquiditätsvorschau
-  "liqui-tagesplan",   // Tagesvorschau und Rollierung
-  "cv-leitbild"        // Das Controlling-Leitbild
+  "werkstatt"          // Die Werkstatt, in der diese Module entstehen
 ];

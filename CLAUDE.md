@@ -55,7 +55,7 @@ nicht gestaucht. Das ist die einzige Größenregel, die es gibt.
 **Warum die zwei Pflichtlektionen:** Die Module richten sich an Praktiker, nicht an Theoretiker.
 Auch wo Theorie unumgänglich ist, muss am Ende etwas stehen, das jemand am Montag anfassen kann.
 
-**`plattform/content-werkstatt.html` erklärt all das von innen** — die drei Ebenen, den Modulvertrag, den
+**`sonstiges/content-werkstatt.html` erklärt all das von innen** — die drei Ebenen, den Modulvertrag, den
 Kanon und die Regeln, mit einem Briefing-Bogen für Zuarbeit von außen. Es ist zugleich das
 Muster: Wer wissen will, wie ein Modul nach diesen Regeln aussieht, sieht dort nach. Ändert
 sich eine Festlegung hier, wird sie dort mitgezogen — sonst widersprechen sich die beiden.
@@ -295,12 +295,13 @@ Die Prüfung findet davon allein die drei Formen in der Tabelle. Alles Übrige z
 weshalb zu jeder Überarbeitung eines Textes gehört, die **tragenden Aussagen** dieses Moduls einmal
 im Zusammenhang zu lesen, also jedes `.lede`, jedes `.claim` und jeden `.pointe`. Dort richtet ein
 falscher Satz am meisten an, weil die Kernaussage über der Lektion steht und im Zweifel als einziges
-hängen bleibt. In der Lernplattform sind es 92 Stellen; diese Liste holt sie:
+hängen bleibt. In der Lernplattform sind es 89 Stellen, in `sonstiges/` weitere 7; diese Liste
+holt sie:
 
 ```bash
 python3 - <<'EOF'
 import io, re, glob, html
-for f in sorted(glob.glob("plattform/*.html")):
+for f in sorted(glob.glob("plattform/*.html") + glob.glob("sonstiges/*.html")):
     t = re.sub(r"<script\b.*?</script>", " ", io.open(f, encoding="utf-8").read(), flags=re.S)
     for k in ("lede", "claim", "pointe"):
         for m in re.finditer(r'<(?:p|div)[^>]*class="[^"]*\b'+k+r'\b[^"]*"[^>]*>(.*?)</(?:p|div)>', t, re.S):
@@ -501,7 +502,7 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.64`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.65`.
 Keine Quellenverzeichnisse, keine Legenden, keine Beschreibung des Falls und kein Hinweis
 darauf, woher eine Abbildung stammt. Sie steht in jeder ausgelieferten Datei gleich, im Markup
 als `<footer>` und auf den zweisprachigen Seiten als Eintrag `footer` im `UI`-Wörterbuch. Dort
@@ -510,7 +511,7 @@ ist sie ein einfacher String, weil ein Name und eine Nummer in beiden Sprachen d
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.64</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.65</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
@@ -555,13 +556,18 @@ cv-mx/                           der Bereich für den CV
   index.html
   reihenfolge.js
   <thema>.html
+
+sonstiges/                       Module, deren Platz noch offen ist
+  index.html
+  reihenfolge.js
+  <thema>.html
 ```
 
 ### Die Einstiege
 
 **Ein Einstieg ist ein Verzeichnis, das für sich vollständig ist und für sich hochgeladen
-wird.** Wie viele es sind, ist offen. Zwei waren es am Anfang, `cv-mx/` ist der dritte, und
-jeder weitere kostet genau eine Zeile in der Weiche. Deshalb steht nirgends mehr eine feste
+wird.** Wie viele es sind, ist offen. Zwei waren es am Anfang, `cv-mx/` ist der dritte und
+`sonstiges/` der vierte. Jeder weitere kostet genau eine Zeile in der Weiche. Deshalb steht nirgends mehr eine feste
 Zahl, wo ein Einstieg gemeint ist.
 
 - **Kein Verweis über die Grenze.** Ein Modul in `vorlesung/` verlinkt nichts in `plattform/`
@@ -585,10 +591,23 @@ Einstieg selten dazukommt und jede Automatik dafür teurer wäre als das Kopiere
 3. Eine `reihenfolge.js` danebenlegen, mit den Kennungen dieses Einstiegs.
 4. In `index.html` im Wurzelverzeichnis eine Zeile an `const EINSTIEGE` anhängen.
 
+**[gesetzt] `sonstiges/` nimmt auf, was noch keinen Platz hat.** Ein Modul entsteht manchmal, bevor
+klar ist, in welchen Bereich es gehört. Dann liegt es hier, statt einen Bereich zu verwässern, in
+den es nur halb passt.
+
+- **Die Ablage ist keine Halde.** Steht fest, wohin ein Modul gehört, zieht es dorthin um. Der
+  Umzug kostet ein `git mv`, einen Eintrag in `TOPICS` und `reihenfolge.js` des Ziels sowie das
+  Entfernen beider Stellen hier.
+- **Kein Lernpfad.** `PATHS` ist leer, weshalb die Zeile „Lernpfade“ auf der Startseite wegbleibt.
+  Eine Reihenfolge von Modulen, die nichts miteinander zu tun haben, wäre eine Behauptung.
+- **`content-werkstatt.html` ist der erste Fall.** Die Werkstatt erklärt, wie die Module dieser
+  Sammlung gebaut werden, gehört damit jedoch zu keinem Stoffgebiet. In der Lernplattform stand
+  sie zwischen den Fachmodulen und sah dort wie eines aus.
+
 **[gesetzt] Eine Startseite führt keine Anleitung.** Der Abschnitt „Ein neues Modul
 aufnehmen" ist aus allen Startseiten heraus, samt Dateibaum, Codeblöcken und den Einträgen
 `howH` bis `howPaths` im `UI`-Wörterbuch. Wer ein Modul aufnimmt, liest diese Datei, und wer
-die Seite besucht, will die Module sehen. `plattform/content-werkstatt.html` erklärt den Bau
+die Seite besucht, will die Module sehen. `sonstiges/content-werkstatt.html` erklärt den Bau
 ohnehin von innen und ist selbst ein Modul, also eine Kachel und keine Fußnote der Startseite.
 
 **Die Weiche wird von `const EINSTIEGE` getrieben.** Die Kacheln entstehen daraus zur Laufzeit
@@ -673,7 +692,7 @@ gemacht — dafür ist diese Datei da.
 
 ### Der Pfadplaner
 
-Lektion 04 in `plattform/content-werkstatt.html` ist das Werkzeug, mit dem ein Autor die Gliederung
+Lektion 04 in `sonstiges/content-werkstatt.html` ist das Werkzeug, mit dem ein Autor die Gliederung
 baut, bevor eine Zeile Text entsteht. Sie liegt als **Bühne** vor ihm: Pfad, Module, Lektionen
 und aufklappbare Blöcke als Kästen auf einer Fläche, mit Pfeilen verbunden. Ein Klick auf einen
 Kasten öffnet daneben seine Stammdaten — Bezeichnung, Kurzinhalt, bei einem Modul auch Spur und
@@ -709,7 +728,7 @@ vorhandenen Modul bekommt deshalb ein eigenes Präfix und wird vor dem Anlegen d
 geprüft:
 
 ```bash
-grep -c "\bpfp" plattform/content-werkstatt.html   # Präfix schon vergeben?
+grep -c "\bpfp" sonstiges/content-werkstatt.html   # Präfix schon vergeben?
 ```
 
 ## Die Standortbestimmung
@@ -754,7 +773,8 @@ beschränken können, etwa auf Risiko. Der Weg dahin liegt bereit, da `FELDER` u
 `asZiehen` schon je Feld gebaut sind; es fehlt allein die Auswahl vor dem Start und ein Parameter
 dafür.
 
-**Andere Einstiege haben keine Standortbestimmung.** `vorlesung/` und `cv-mx/` bleiben unberührt.
+**Andere Einstiege haben keine Standortbestimmung.** `vorlesung/`, `cv-mx/` und `sonstiges/`
+bleiben unberührt.
 Kommt dort eine dazu, gehört sie in das Verzeichnis daneben mit eigenem Vorrat, weil ein Verweis
 über die Grenze ausgeschlossen ist.
 

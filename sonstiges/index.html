@@ -66,6 +66,7 @@ h1 em{font-style:normal;color:var(--teal)}
 
 /* ---------- Lernpfade ---------- */
 .pathrow{display:flex;gap:10px 14px;flex-wrap:wrap;align-items:center;margin:18px 0 0}
+.pathrow[hidden]{display:none}
 .pathrow .pl{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--grey);flex:none}
 .pathchips{display:flex;gap:7px;flex-wrap:wrap;min-width:0}
@@ -128,24 +129,6 @@ h1 em{font-style:normal;color:var(--teal)}
 .tile .sub{font-size:.93rem;font-weight:300;color:#4a4a4d;margin:0 0 16px;line-height:1.45}
 
 
-/* ---------- Die Ampel aus der Standortbestimmung ----------
-   Die Farbe kommt aus dem Parameter fit, je eine Ziffer fuer ein
-   Kompetenzfeld. Ohne den Parameter sieht die Seite aus wie immer.  */
-.tile[data-fit]{border-left-width:4px}
-.tile[data-fit="gruen"]{border-left-color:#1E6B47}
-.tile[data-fit="gelb"]{border-left-color:#C98A00}
-.tile[data-fit="rot"]{border-left-color:#9C2F2C}
-.fitbar{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:0 0 14px;
-  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
-  padding:12px 16px}
-.fitbar[hidden]{display:none}
-.fitbar>*{min-width:0}
-.fitbar p{margin:0;font-size:.88rem;color:#3d3d40}
-.fitleg{display:flex;gap:14px;flex-wrap:wrap;margin:0;font-size:.8rem;color:var(--grey)}
-.fitleg span{display:inline-flex;align-items:center;gap:6px}
-.fitleg b{width:11px;height:11px;border-radius:50%;flex:none}
-.fitleg b.gruen{background:#1E6B47} .fitleg b.gelb{background:#C98A00} .fitleg b.rot{background:#9C2F2C}
-.fitbar .lnk{margin-left:auto;flex:none}
 .links{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap;padding-top:4px}
 .lnk{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:.86rem;font-weight:600;
   padding:9px 15px;border-radius:8px;transition:.18s var(--ease)}
@@ -185,7 +168,7 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
       <a href="?lang=de" data-lang="de">DE</a><a href="?lang=en" data-lang="en">EN</a>
     </nav>
   </div>
-  <h1>Die <em>Lernplattform</em></h1>
+  <h1>Der Bereich <em>Sonstiges</em></h1>
   <p class="lede" data-t="lede"></p>
 </header>
 
@@ -204,7 +187,6 @@ footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
 
 <section class="pathbar" id="pathbar" aria-live="polite"></section>
 
-<div class="fitbar" id="fitbar" hidden></div>
 <p class="count" id="count"></p>
 <div class="grid" id="grid"></div>
 <div class="empty" id="empty" data-t="empty"></div>
@@ -231,21 +213,13 @@ document.documentElement.lang = LANG;
 const L = v => typeof v==="string" ? v : (v && (v[LANG] ?? v.en)) || "";
 
 const UI = {
-  title:{de:"Lernplattform \u00b7 Controlling und Business Intelligence",
-         en:"Learning platform \u00b7 Controlling and Business Intelligence"},
-  eyebrow:{de:"Lernplattform \u00b7 Module zum Selbststudium", en:"Learning platform \u00b7 modules for self-study"},
-  lede:{de:"Module zum Selbststudium, von der Bilanzanalyse \u00fcber die Liquidit\u00e4tsplanung bis zum Risikomanagement. Die Standortbestimmung sagt Dir vorher, welche davon Du \u00fcberhaupt brauchst.",
-        en:"Modules for self-study, from financial statement analysis through cash planning to risk management. The self-assessment tells you beforehand which of them you actually need."},
+  title:{de:"Sonstiges \u00b7 Module ohne festen Platz",
+         en:"Miscellaneous \u00b7 modules without a fixed place"},
+  eyebrow:{de:"Sonstiges \u00b7 in Arbeit", en:"Miscellaneous \u00b7 work in progress"},
+  lede:{de:"Hier liegen die Module, deren Platz noch offen ist. Manche warten auf weitere Module, zu denen sie geh\u00f6ren, andere passen in keinen der bestehenden Bereiche. Steht fest, wohin ein Modul geh\u00f6rt, zieht es dorthin um.",
+        en:"These are the modules whose place is still open. Some are waiting for the modules they belong with, others fit none of the existing areas. Once a module\u2019s place is settled, it moves there."},
   chipAll:{de:"Alle", en:"All"},
   chipPlan:{de:"Geplant", en:"Planned"},
-  chipFit:{de:"Nur empfohlene", en:"Recommended only"},
-  fitKicker:{de:"Deine Standortbestimmung", en:"Your self-assessment"},
-  fitLede:{de:"Der linke Rand jeder Kachel zeigt, wo Du in diesem Kompetenzfeld stehst. Der Filter „Nur empfohlene“ blendet die Module aus, die Du schon kannst.",
-          en:"The left edge of each card shows where you stand in that competence area. The filter “Recommended only” hides the modules you already know."},
-  fitGruen:{de:"sitzt", en:"solid"},
-  fitGelb:{de:"nachbessern", en:"brush up"},
-  fitRot:{de:"nötig", en:"needed"},
-  fitAgain:{de:"Standortbestimmung wiederholen", en:"Take the assessment again"},
   search:{de:"Module durchsuchen\u2026", en:"Search modules\u2026"},
   empty:{de:"Dazu passt gerade nichts.", en:"Nothing matches that filter yet."},
   soon:{de:"In Arbeit", en:"In preparation"},
@@ -270,135 +244,15 @@ const UI = {
    ===================================================================== */
 const TOPICS = [
   {
-    id:"assessment",
-    title:{de:"Standortbestimmung: was Du schon kannst",
-           en:"Self-assessment: what you already know"},
-    sub:{de:"Vierundzwanzig Fragen über sechs Kompetenzfelder. Am Ende steht ein Radar, das zeigt, wo Du fest bist. Danach färben sich die Kacheln hier ein, grün für ein Feld, das sitzt, gelb für eines zum Nachbessern, rot für ein nötiges. Du kannst es beliebig oft wiederholen, jedes Mal mit anderen Fragen.",
-         en:"Twenty-four questions across six fields of competence. It ends in a radar chart that shows where you stand. The tiles here then take their colour from it, green for a field that is solid, amber for one to brush up, red for one you need. Repeatable as often as you like, with different questions each time."},
-    track:"check", status:"ready", accent:"orange", glyph:"riskmap",
+    id:"werkstatt",
+    title:{de:"Die Werkstatt, in der diese Module entstehen",
+           en:"The workshop — how this platform is built"},
+    sub:{de:"Für alle, die Inhalte beisteuern: die drei Ebenen Lernpfad, Modul und Lektion, der Bauplan eines Moduls und die Regeln, die nicht verhandelbar sind. Durchgehend auf Deutsch.",
+         en:"For everyone who contributes content: the three levels of path, module and lesson, the blueprint of a module and the rules that are not up for negotiation. In German throughout."},
+    track:"meta", status:"ready", accent:"navy", glyph:"scaffold",
     langBadge:{de:"", en:"DE"},
-    links:[{kind:"html",file:"assessment.html",
-            label:{de:"Standort bestimmen", en:"Find your level"}}]
-  },
-  {
-    id:"risiko-intro",
-    title:{de:"Risikomanagement: der Begriff", en:"Risk management: the term"},
-    sub:{de:"Ein Risiko ist ein bewertetes Ereignis: Ohne Bezugspunkt und ohne Bewertung bleibt es bloße Ungewissheit. Was das genau heißt, woher Risiken in einer Lieferkette kommen und wie der Regelkreis aussieht, in den sie gehören. Eigener Fall: ein Zulieferer für Nutzfahrzeugkomponenten.",
-         en:"A risk is an assessed event: without a reference point and without an assessment it stays plain uncertainty. What that means exactly, where risks in a supply chain come from, and the control loop they belong to. Its own case: a supplier of commercial vehicle components."},
-    track:"ctrl", status:"ready", accent:"teal", glyph:"riskmap",
-    langBadge:{de:"", en:"DE"},
-    links:[{kind:"html",file:"risikomanagement-einfuehrung.html",
+    links:[{kind:"html",file:"content-werkstatt.html",
             label:{de:"Los geht’s",en:"Let’s go"}}]
-  },
-  {
-    id:"risiko",
-    title:{de:"Der Risikomanagement-Prozess", en:"The risk management process"},
-    sub:{de:"Die vier Phasen einzeln: identifizieren, bewerten, steuern, überwachen. Die Risk-Map hat zwei Achsen, deren Produkt den Risikofaktor ergibt und die Fläche in drei Zonen teilt; ihre Grenzlinie ist eine Hyperbel und keine Diagonale. Das Modul beginnt mit Deiner eigenen Schätzung und legt sie am Ende neben die begründete. Eigener Fall: ein Zulieferer für Nutzfahrzeugkomponenten.",
-         en:"The four phases one by one: identify, assess, control, monitor. Two axes, one product, three zones — and a tolerance line that is no diagonal. It starts with your own estimate and ends by placing it beside the reasoned one."},
-    track:"ctrl", status:"ready", accent:"navy", glyph:"loop",
-    langBadge:{de:"", en:"DE"},
-    links:[{kind:"html",file:"risikomanagement-prozess.html",
-            label:{de:"Los geht’s",en:"Let’s go"}}]
-  },
-  {
-    id:"risiko-werkstatt",
-    title:{de:"Die Risikoanalyse-Werkstatt", en:"The risk analysis workshop"},
-    sub:{de:"Dieselbe Methode auf einen eigenen Fall angewandt: beliebig viele Risiken erfassen, bewerten, in die Karte legen, Normstrategie und Maßnahme wählen und einen Maßnahmenplan als PDF mitnehmen. Gespeichert wird nichts. Eigener Fall: ein Zulieferer für Nutzfahrzeugkomponenten.",
-         en:"The same method applied to a case of your own: record any number of risks, rate them, plot them, pick a strategy and a measure, and take an action plan away as a PDF. Nothing is stored."},
-    track:"ctrl", status:"ready", accent:"ochre", glyph:"quadrants",
-    langBadge:{de:"", en:"DE"},
-    links:[{kind:"html",file:"risikomanagement-werkstatt.html",
-            label:{de:"Los geht’s",en:"Let’s go"}}]
-  },
-  {
-    id:"bilanz-aufbau",
-    title:{de:"Die Bilanz nach HGB", en:"The balance sheet under German GAAP"},
-    sub:{de:"Zwei Fragen an einem Stichtag: Worin steckt das Geld und wem gehört es. Zweck, Gliederung nach § 266 HGB und der Unterschied der beiden Seiten. Am Ende tippst Du eine eigene Bilanz ein, in voller Gliederung und mit laufender Summe. Durchgehend HGB, ohne IFRS und US-GAAP. Eigener Fall: ein Zulieferer für Nutzfahrzeugkomponenten.",
-         en:"Two questions on one date: where the money sits, and whom it belongs to. Purpose, the layout of § 266 German Commercial Code, and the difference between the two sides — at the end you type in a balance sheet of your own, fully laid out and adding up as you go. German GAAP throughout. Its own case: a supplier of commercial vehicle components."},
-    track:"bilanz", status:"ready", accent:"teal", glyph:"rows",
-    langBadge:{de:"", en:"DE"},
-    links:[{kind:"html",file:"bilanz-aufbau.html",
-            label:{de:"Los geht’s", en:"Let’s go"}}]
-  },
-  {
-    id:"bilanz-guv",
-    title:{de:"Die Gewinn- und Verlustrechnung", en:"The income statement"},
-    sub:{de:"Die Stromgröße neben der Bilanz, also die Erträge und Aufwendungen von zwölf Monaten. Gliederung nach § 275 HGB, Gesamtkosten- und Umsatzkostenverfahren nebeneinander und ein Formular zum eigenen Eintippen.",
-         en:"The flow figure beside the balance sheet: the income and expenses of twelve months. Laid out to § 275, both permitted formats side by side, and a form to type your own."},
-    track:"bilanz", status:"ready", accent:"ochre", glyph:"layers",
-    langBadge:{de:"", en:"DE"},
-    links:[{kind:"html",file:"bilanz-guv.html",
-            label:{de:"Los geht’s", en:"Let’s go"}}]
-  },
-  {
-    id:"bilanz-kennzahlen",
-    title:{de:"Jahresabschlussanalyse mit Kennzahlen", en:"Analysing the annual accounts"},
-    sub:{de:"Aus Bilanz und Gewinn- und Verlustrechnung werden Kennzahlen: Vermögens-, Kapital- und Ertragslage. Gerechnet wird am Fall des Zulieferers oder an den Zahlen, die Du in den ersten beiden Modulen selbst eingetippt hast.",
-         en:"Balance sheet and income statement turned into ratios: assets, capital and earnings. Computed on the supplier case or on the figures you typed in yourself in the first two modules."},
-    track:"bilanz", status:"ready", accent:"navy", glyph:"quadrants",
-    langBadge:{de:"", en:"DE"},
-    links:[{kind:"html",file:"bilanz-kennzahlen.html",
-            label:{de:"Los geht’s", en:"Let’s go"}}]
-  },
-  {
-    id:"bilanz-buchungssaetze",
-    title:{de:"Buchungssätze und ihre Wirkung", en:"Journal entries and what they do"},
-    sub:{de:"Ein Buchungssatz ist eine Anweisung an zwei Konten. Eigene Sätze eintippen und sofort sehen, wie sich die Bilanz verändert: Aktivtausch, Passivtausch, Bilanzverlängerung, Bilanzverkürzung.",
-         en:"A journal entry is an instruction to two accounts. Type your own and watch the balance sheet move — the four basic cases, one at a time."},
-    track:"bilanz", status:"ready", accent:"green", glyph:"loop",
-    langBadge:{de:"", en:"DE"},
-    links:[{kind:"html",file:"bilanz-buchungssaetze.html",
-            label:{de:"Los geht’s", en:"Let’s go"}}]
-  },
-  {
-    id:"liqui-begriff",
-    title:{de:"Liquidität: der Begriff", en:"Liquidity: the term"},
-    sub:{de:"Zahlungsunfähigkeit ist der häufigste Grund für ein Insolvenzverfahren, obwohl die meisten betroffenen Unternehmen zuletzt einen Gewinn ausgewiesen haben. Hier klärst Du, warum ein Ertrag keine Einzahlung ist und wie lange das Geld im eigenen Haus unterwegs ist.",
-         en:"Inability to pay is the most common ground for insolvency proceedings, and most of the companies it hits last reported a profit. This module separates income from cash receipts — and measures how long money stays in transit."},
-    track:"liqui", status:"ready", accent:"teal", glyph:"quadrants",
-    langBadge:{de:"", en:"DE"},
-    links:[{kind:"html",file:"liquiditaet-begriff.html",
-            label:{de:"Los geht’s", en:"Let’s go"}}]
-  },
-  {
-    id:"liqui-bwa",
-    title:{de:"Die BWA lesen", en:"Reading the monthly management report"},
-    sub:{de:"Die betriebswirtschaftliche Auswertung ist der Monatsbericht aus der Finanzbuchhaltung und der Ausgangspunkt jeder Liquiditätsvorschau. Was sie zeigt, worin sie sich von der Gewinn- und Verlustrechnung unterscheidet und welche ihrer Zahlen vorläufig sind.",
-         en:"The BWA is the monthly report out of the bookkeeping system and the starting point of every cash forecast. What it shows, how it differs from the annual income statement, and which of its figures are provisional."},
-    track:"liqui", status:"ready", accent:"navy", glyph:"rows",
-    langBadge:{de:"", en:"DE"},
-    links:[{kind:"html",file:"liquiditaet-bwa.html",
-            label:{de:"Los geht’s", en:"Let’s go"}}]
-  },
-  {
-    id:"liqui-vorschau",
-    title:{de:"Die Liquiditätsvorschau", en:"The cash forecast"},
-    sub:{de:"Eine Tabelle, zwei Hälften: oben die BWA, unten die Ein- und Auszahlungen, die sich daraus ergeben. Ein Startmonat teilt das Jahr: davor die gebuchte Ist-Reihe, danach der Plan. Das Modul rechnet den abgelaufenen Teil mit und misst ihn am Kontoauszug.",
-         en:"One table, two halves: the BWA on top, the cash receipts and payments that follow from it below. A starting month splits the year — actuals before it, plan after. The elapsed part is computed too, and measured against the bank statement."},
-    track:"liqui", status:"ready", accent:"ochre", glyph:"layers",
-    langBadge:{de:"", en:"DE"},
-    links:[{kind:"html",file:"liquiditaet-vorschau.html",
-            label:{de:"Los geht’s", en:"Let’s go"}}]
-  },
-  {
-    id:"liqui-tagesplan",
-    title:{de:"Tagesvorschau und Rollierung", en:"Daily view and rolling forecast"},
-    sub:{de:"Dieselbe Rechnung läuft hier tageweise, also über dreizehn Wochen statt über zwölf Monate. Woher die ersten Wochen wirklich kommen, in welchem Rhythmus eine Vorschau fortgeschrieben wird und wie gut die eigene Vorschau bisher war.",
-         en:"The same engine resolved by day: thirteen weeks instead of twelve months. Where the first weeks really come from, how often a forecast is rolled forward — and how good your own forecast has been so far."},
-    track:"liqui", status:"planned", accent:"green", glyph:"loop",
-    langBadge:{de:"", en:"DE"},
-    links:[{kind:"html",file:"liquiditaet-tagesplan.html",
-            label:{de:"Hülle ansehen", en:"Look at the shell"}}]
-  },
-  {
-    id:"cv-leitbild",
-    title:{de:"Das Controlling-Leitbild", en:"The controlling mission statement"},
-    sub:{de:"Eigener Fall: der CV, ein Verband der Pflege und sozialen Dienste. Eine Zukunftsvision, fünf Perspektiven und daraus sechs Leitsätze, die am Ende vollständig auf einer Seite stehen. Wenig Text, viel zum Antippen, auch auf dem Tablet.",
-         en:"Own case: the CV, an association of care and social services. A vision, five perspectives and six guiding principles that end up complete on a single page. Little text, much to tap, on a tablet as well."},
-    track:"cv", status:"ready", accent:"navy", glyph:"quadrants",
-    langBadge:{de:"", en:"DE"},
-    links:[{kind:"html",file:"controlling-leitbild.html",
-            label:{de:"Los geht’s", en:"Let’s go"}}]
   }
 ];
 
@@ -409,36 +263,10 @@ const TOPICS = [
    Pfaden, indem es in mehreren steps steht. Am Modul selbst ist
    dafür nichts zu ändern.
    ===================================================================== */
-const PATHS = [
-  {
-    id:"risk-intro",
-    title:{de:"Einführung in das Risikomanagement", en:"Introduction to risk management"},
-    sub:{de:"Vom Begriff über die vier Phasen bis zur eigenen Anwendung. Wie aus einem Bauchgefühl eine Position in einer Karte wird, warum die Karte ordnet und nicht entscheidet, sowie was davon am Montag im eigenen Haus übrig bleibt.",
-         en:"From the term through the four phases to your own application: how a gut feeling becomes a position on a map, why the map orders things without deciding them — and what survives of it on Monday in your own organisation."},
-    steps:["risiko-intro","risiko","risiko-werkstatt"]
-  },
-  {
-    id:"bilanzanalyse",
-    title:{de:"Bilanzanalyse", en:"Financial statement analysis"},
-    sub:{de:"Vom Aufbau der Bilanz über die Gewinn- und Verlustrechnung bis zu den Kennzahlen und den einzelnen Buchungssätzen. Durchgehend nach HGB; in jedem Modul tippst Du eigene Zahlen ein.",
-         en:"From the layout of the balance sheet through the income statement to the ratios and the individual journal entries. German GAAP throughout, and in every module you type in figures of your own."},
-    steps:["bilanz-aufbau","bilanz-guv","bilanz-kennzahlen","bilanz-buchungssaetze"]
-  },
-  {
-    id:"liquiditaetsplanung",
-    title:{de:"Liquiditätsplanung", en:"Cash planning"},
-    sub:{de:"Die Bilanzanalyse sieht zurück, diese Reihe nach vorn. Vom Unterschied zwischen Ertrag und Einzahlung über die BWA als Ausgangspunkt bis zur Vorschau, die jeder Position eine Regel für den Zeitpunkt ihrer Ein- oder Auszahlung zuordnet. Die Gewinn- und Verlustrechnung aus dem ersten Pfad ist die Brücke.",
-         en:"Financial statement analysis looks back; this series looks forward. From the gap between income and cash receipt through the monthly report to a forecast that turns every position into a rule: when does this become money. The income statement from the first path is the bridge."},
-    steps:["bilanz-guv","liqui-begriff","liqui-bwa","liqui-vorschau","liqui-tagesplan"]
-  },
-  {
-    id:"controlling-cv",
-    title:{de:"Controlling beim CV", en:"Controlling at the CV"},
-    sub:{de:"Ein eigener Fall für Pflege und soziale Dienste. Der Pfad beginnt mit dem Leitbild, weil jede Zahl später an ihm gemessen wird. Sechs Module sind geplant, von der gemeinsamen Sprache bis zur Steuerung im Alltag.",
-         en:"A separate case for care and social services. The path starts with the mission statement, because every figure later gets measured against it. Six modules are planned, from a shared language to steering in everyday work."},
-    steps:["cv-leitbild"]
-  }
-];
+/* Noch kein Lernpfad. Ein Modul kommt hierhin, weil sein Platz offen ist,
+   also ergibt eine Reihenfolge daraus noch keinen Sinn. Steht der Pfad fest,
+   zieht das Modul ohnehin in den Bereich um, zu dem er gehoert. */
+const PATHS = [];
 /* ===================== end of the editable lists ===================== */
 
 const ACCENT={teal:"#209CBD",navy:"#0F4C5C",orange:"#FF922B",ochre:"#B5852C",green:"#4C8B3F"};
@@ -448,7 +276,6 @@ const TRACK={bi:["Business Intelligence",""],ctrl:["Controlling","ctrl"],
              case:[{de:"Fallstudie",en:"Case study"},"case"],
              cv:[{de:"Controlling beim CV",en:"Controlling at the CV"},"case"],
              meta:[{de:"Werkstatt",en:"Workshop"},"meta"],
-             check:[{de:"Standortbestimmung",en:"Self-assessment"},"meta"],
              sec:["Cyber-Security","sec"]};
 
 const GLYPH={
@@ -562,69 +389,6 @@ const SORTIERT = (() => {
     .map(x=>x[0]);
 })();
 
-/* =====================================================================
-   Die Ampel aus der Standortbestimmung
-
-   assessment.html haengt sein Ergebnis als Parameter fit an, eine
-   Ziffer je Kompetenzfeld in der Reihenfolge von FELDFOLGE. Drei
-   Treffer und mehr sind gruen, zwei gelb, hoechstens einer rot.
-
-   Diese Zuordnung steht auch in assessment.html. Geteilte Dateien sind
-   ausgeschlossen, also gibt es sie zweimal; wer ein Feld aendert,
-   aendert beide. Ein Modul, das in keinem Feld steht, bekommt keine
-   Ampel und bleibt neutral.
-   ===================================================================== */
-const FELDFOLGE = ["abschluss","buchung","kennzahl","erfolg","zahlung","risiko"];
-const FELDMODUL = {
-  abschluss:["bilanz-aufbau","bilanz-guv"],
-  buchung:  ["bilanz-buchungssaetze"],
-  kennzahl: ["bilanz-kennzahlen"],
-  erfolg:   ["liquiditaet-bwa"],
-  zahlung:  ["liquiditaet-begriff","liquiditaet-vorschau"],
-  risiko:   ["risikomanagement-einfuehrung","risikomanagement-prozess","risikomanagement-werkstatt"],
-};
-const FITNAME = {gruen:{de:"sitzt",en:"solid"}, gelb:{de:"nachbessern",en:"brush up"},
-                 rot:{de:"nötig",en:"needed"}};
-
-/* Liefert je Modulkennung die Ampelfarbe, oder ein leeres Objekt, wenn
-   kein brauchbarer Parameter anliegt. */
-function fitLesen(){
-  const roh = new URLSearchParams(location.search).get("fit") || "";
-  if(!/^[0-4]{6}$/.test(roh)) return {};
-  const aus = {};
-  FELDFOLGE.forEach((feld, i) => {
-    const n = +roh[i], farbe = n >= 3 ? "gruen" : n === 2 ? "gelb" : "rot";
-    for(const m of FELDMODUL[feld]) aus[m] = farbe;
-  });
-  return aus;
-}
-const FIT = fitLesen();
-const hatFit = Object.keys(FIT).length > 0;
-
-/* Die Kachel kennt ihre Datei, das Ergebnis kennt die Modulkennung.
-   Verbunden wird ueber den Dateinamen ohne Endung. */
-const fitFuer = t => {
-  const datei = (t.links[0] || {}).file || "";
-  return FIT[datei.replace(/\.html$/, "")] || "";
-};
-
-/* Die Leiste über den Kacheln nennt die Bedeutung der Farben und zaehlt,
-   wie viele Module in welcher Farbe stehen. Ohne Parameter bleibt sie weg. */
-if(hatFit){
-  const zahl = {gruen:0, gelb:0, rot:0};
-  for(const t of SORTIERT){ const f = fitFuer(t); if(f) zahl[f]++; }
-  const NAME = {gruen:UI.fitGruen, gelb:UI.fitGelb, rot:UI.fitRot};
-  const fitbar = document.getElementById("fitbar");
-  fitbar.hidden = false;
-  fitbar.innerHTML =
-    `<div><p><b>${L(UI.fitKicker)}</b></p><p>${L(UI.fitLede)}</p>
-       <p class="fitleg">` +
-    ["rot","gelb","gruen"].filter(f=>zahl[f]).map(f=>
-      `<span><b class="${f}"></b>${L(NAME[f])} (${zahl[f]})</span>`).join("") +
-    `</p></div>
-     <a class="lnk ghost" href="assessment.html${qs}">${L(UI.fitAgain)}</a>`;
-}
-
 /* Die Spurfilter entstehen aus den Modulen, die es wirklich gibt: Eine
    Spur ohne Modul bekommt keinen Knopf, eine neue Spur bekommt ihren von
    selbst. Die Folge ist die der Kacheln. Geplant erscheint nur, wenn
@@ -635,8 +399,6 @@ if(hatFit){
   document.getElementById("chips").innerHTML =
     `<button class="chip" data-f="all" aria-pressed="true" type="button">${L(UI.chipAll)}</button>` +
     spuren.map(k=>`<button class="chip" data-f="${k}" aria-pressed="false" type="button">${L(TRACK[k][0])}</button>`).join("") +
-    (hatFit
-      ? `<button class="chip" data-f="fit" aria-pressed="false" type="button">${L(UI.chipFit)}</button>` : "") +
     (SORTIERT.some(t=>t.status==="planned")
       ? `<button class="chip" data-f="planned" aria-pressed="false" type="button">${L(UI.chipPlan)}</button>` : "");
 }
@@ -656,7 +418,6 @@ grid.innerHTML=SORTIERT.map(t=>{
             .toLowerCase().replace(/"/g,"");
   return `<article class="tile ${planned?"planned":""}" data-id="${t.id}"
       data-track="${t.track}" data-status="${t.status}"
-      ${fitFuer(t) ? `data-fit="${fitFuer(t)}"` : ""}
       data-search="${hay}"
       style="--accent:${ACCENT[t.accent]||ACCENT.teal}">
     <span class="stepno" hidden></span>
@@ -705,6 +466,10 @@ pathchips.innerHTML = PATHS.map(p=>
   `<button class="pathchip" type="button" data-p="${p.id}" aria-pressed="false">
      <span class="n">${p.steps.length}</span>${L(p.title)}</button>`).join("");
 
+/* Ohne Pfad bleibt die Zeile weg. Eine leere Zeile mit der Beschriftung
+   "Lernpfade" verspricht etwas, das es hier nicht gibt. */
+if(!PATHS.length) document.querySelector(".pathrow").hidden = true;
+
 function renderPathBar(){
   const p = activePath ? PATHS.find(x=>x.id===activePath) : null;
   pathbar.classList.toggle("on", !!p);
@@ -743,11 +508,7 @@ function apply(){
     const idx = path ? path.steps.indexOf(tile.dataset.id) : -1;
     const okF = path ? idx>=0
       : (filter==="all"
-         || (filter==="planned" ? tile.dataset.status==="planned"
-             /* Empfohlen ist, was gelb oder rot ist. Gruen bleibt draußen,
-                weil genau das der Zweck der Standortbestimmung ist. */
-             : filter==="fit" ? ["gelb","rot"].includes(tile.dataset.fit)
-             : tile.dataset.track===filter));
+         || (filter==="planned" ? tile.dataset.status==="planned" : tile.dataset.track===filter));
     const okQ = !query || tile.dataset.search.includes(query);
     const on = okF && okQ;
     tile.hidden=!on;
