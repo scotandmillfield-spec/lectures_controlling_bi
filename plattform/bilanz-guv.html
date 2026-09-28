@@ -694,7 +694,7 @@ footer a{color:var(--teal-dk)}
   <p class="eyebrow">Bilanzanalyse · Modul 02</p>
   <h1>Die <em>Gewinn- und Verlustrechnung</em></h1>
   <p class="lede">Die Bilanz zeigt einen Stichtag, diese Rechnung zeigt zwölf Monate. Sie weist die Erträge und Aufwendungen dieser Monate aus und endet bei einer Zahl, die Du aus dem ersten Modul schon kennst: dem Jahresüberschuss, der im Eigenkapital steht. Hier klärst Du Zweck und Gliederung nach § 275 HGB, siehst beide zulässigen Verfahren nebeneinander und tippst am Ende eine eigene Rechnung ein.</p>
-  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Durchgehend <b>HGB</b>. IFRS und US-GAAP kommen hier nicht vor. Der Fall ist derselbe wie im ersten Modul: ein Zulieferer für Nutzfahrzeugkomponenten, Zahlen in vollen Tausend Euro.</p>
+  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Durchgehend <b>HGB</b>. IFRS und US-GAAP kommen hier nicht vor. Die Beispielzahlen sind dieselben wie im ersten Modul, in vollen Tausend Euro.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Die Gewinn- und Verlustrechnung">
@@ -1244,8 +1244,7 @@ $("guvVerf").addEventListener("click", e => {
   guvZeichnen();
 });
 
-/* Der Fall ist derselbe wie im ersten Modul: ein Zulieferer fuer
-   Nutzfahrzeugkomponenten. Beide Verfahren sind so gerechnet, dass sie
+/* Die Beispielzahlen sind dieselben wie im ersten Modul. Beide Verfahren sind so gerechnet, dass sie
    bei 2.300 T€ enden — genau der Betrag, der dort im Eigenkapital als
    Jahresueberschuss steht. */
 const BEISPIEL = {
@@ -1424,7 +1423,7 @@ guvZeichnen();
    2 · Zuordnungsuebung: Ertrag, Aufwand oder gar kein Posten
    ===================================================================== */
 const ZU_POS = [
-  ["Der Verkauf von 200 Getrieben an einen Nutzfahrzeughersteller", "e",
+  ["Der Verkauf von 200 selbst gefertigten Getrieben an einen Kunden", "e",
    "Ertrag, Posten 1 Umsatzerlöse. Der Verkauf von Erzeugnissen ist der Kernfall des § 277 Abs. 1 HGB."],
   ["Die Miete für eine nicht mehr benötigte Lagerhalle, die vermietet wurde", "e",
    "Ertrag, und zwar Umsatzerlöse. Seit der Neufassung des § 277 Abs. 1 HGB gehören Vermietungserlöse dorthin, auch wenn Vermieten nicht das Geschäft des Hauses ist."],
