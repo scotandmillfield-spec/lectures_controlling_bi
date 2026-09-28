@@ -251,6 +251,19 @@ footer a{color:var(--teal-dk)}
 .tip .extra{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.18);
   color:var(--orange);font-weight:600;font-family:var(--mono);font-size:.76rem}
 
+/* ---------- Dimension und Attribute ---------- */
+table.tbl .art{font-family:var(--sans);font-size:.72rem;letter-spacing:0;text-transform:none;color:var(--grey);font-weight:400}
+table.tbl th.r{text-align:right}
+table.tbl th.nach{color:#A85B00} table.tbl td.nach{background:var(--orange-xl);color:#7A4300}
+table.tbl tr.hit td{background:var(--teal-xl)} table.tbl tr.hit td.nach{background:#FFE2BF}
+table.erg td.v{cursor:pointer;transition:background .16s}
+table.erg td.v:hover{background:var(--sand-xl)}
+table.erg td.v:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+table.erg td.v[aria-pressed="true"]{background:var(--teal-dk);color:#fff}
+table.erg td.s{font-weight:600}
+.tscroll.lang{max-height:380px;overflow:auto}
+.tscroll.lang thead th{position:sticky;top:0}
+
 .scrollhint{display:none}
 @media (max-width:900px){
   .scrollhint{display:block;color:var(--teal-dk)}
@@ -295,8 +308,9 @@ footer a{color:var(--teal-dk)}
 <div class="tabs" role="tablist" aria-label="Der Cube">
   <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Fakt oder Dimension</button>
   <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Der Würfel</button>
-  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Operationen</button>
-  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Vom Würfel zum Schema</button>
+  <button class="tab" role="tab" id="tab-e" aria-controls="p-e" aria-selected="false" tabindex="-1"><span class="num">03</span> Die Dimension und ihre Attribute</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">04</span> Operationen</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">05</span> Vom Würfel zum Schema</button>
 </div>
 
 <!-- ============================ TAB A ============================ -->
@@ -368,6 +382,48 @@ footer a{color:var(--teal-dk)}
   <p class="hint">Achsen oben einstellen · Zellen überfahren</p>
 </section>
 
+<!-- ============================ TAB E ============================ -->
+<section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e">
+  <p class="claim">Eine Dimension besteht aus ihren <b>Elementen</b>, etwa den beiden Filialen, und aus den <b>Attributen</b>, die jedes Element beschreiben. Da jede Faktenzeile über ihren Schlüssel mit genau einem Element verbunden ist, lässt sich der Umsatz nach jedem Attribut dieser Dimension auswerten, obwohl das Attribut selbst nie in der Faktentabelle steht.</p>
+
+  <h2 class="sec">Drei Dimensionen und ihre Attribute</h2>
+  <p class="sub">Wähle eine Dimension aus. Die Tabelle zeigt ihre Elemente als Zeilen und ihre Attribute als Spalten, so wie sie in der Dimensionstabelle des Sternschemas abgelegt wären. Unter jedem Attribut steht, um welche Art von Attribut es sich handelt.</p>
+  <div class="bar"><div class="seg" id="dimWahl" role="group" aria-label="Dimension"></div></div>
+  <div class="tscroll"><table class="tbl dimtab" id="dimTab"></table></div>
+  <p class="sub" id="dimText" style="margin-top:14px"></p>
+
+  <h2 class="sec">Den Umsatz nach Attributen auswerten</h2>
+  <p class="sub">Wähle ein Merkmal für die Zeilen und eines für die Spalten, oder klicke eine der Fragen an. Für jede der 30 Faktenzeilen werden die gewählten Attribute in den Dimensionen nachgeschlagen, danach wird der Umsatz je Kombination summiert. Ein Klick auf eine Zelle des Ergebnisses markiert die Faktenzeilen, aus denen sie entsteht.</p>
+  <div class="asks" id="attrAsks"></div>
+  <div class="picks" id="attrPicks"></div>
+  <div class="readout" id="attrRead"></div>
+  <div class="tscroll" style="margin-top:14px"><table class="tbl erg" id="attrErg"></table></div>
+  <p class="hint">Faktentabelle mit den nachgeschlagenen Attributen</p>
+  <div class="tscroll lang" style="margin-top:8px"><table class="tbl" id="attrFakt"></table></div>
+
+  <h2 class="sec">Hierarchieebene und beschreibendes Attribut</h2>
+  <p class="sub">Beide Arten von Attributen fassen Elemente zu Gruppen zusammen. Sie unterscheiden sich darin, ob die Gruppen ineinanderliegen oder quer zur Hierarchie verlaufen.</p>
+  <div class="duo">
+    <div class="card">
+      <p class="ck">Hierarchieebene</p><h3>Die Gruppen liegen ineinander</h3>
+      <p>Eine Hierarchieebene ordnet jedes Element genau einem übergeordneten Element zu, sodass die Ebenen ineinanderliegen. Produktgruppe und Warengruppe bilden bei Sofia eine solche Hierarchie, ebenso Monat und Quartal. Entlang dieser Ebenen laufen Drill-down und Roll-up, die in der Lektion „Operationen“ vorgeführt werden.</p>
+    </div>
+    <div class="card">
+      <p class="ck">Beschreibendes Attribut</p><h3>Die Gruppen verlaufen quer</h3>
+      <p>Ein beschreibendes Attribut fasst Elemente nach einer Eigenschaft zusammen, die keiner Ebene der Hierarchie entspricht. Das Attribut Semester legt Januar und März in eine Gruppe und den Februar in eine andere, obwohl alle drei Monate im selben Quartal liegen. Solche Attribute beantworten Fragen, für die niemand eine eigene Hierarchie anlegen würde.</p>
+    </div>
+  </div>
+
+  <div class="readme warn">
+    <b>Ein Attribut zeigt einen Unterschied und noch keinen Grund.</b> Wertest Du den Umsatz je Kalendertag nach Semester und Filiale aus, liegt Alsergrund in der Vorlesungszeit bei rund <span id="attrAlsVZ"></span> und in der vorlesungsfreien Zeit bei rund <span id="attrAlsVF"></span>. Das passt zum Semesterrhythmus, dem die Nachfrage dort folgt. Im März wechselt allerdings zugleich Anna von der Ringstraße nach Alsergrund, sodass ein Teil des Märzumsatzes auf ihren Wechsel zurückgehen dürfte (siehe <a href="scd-dashboard.html">Slowly Changing Dimensions</a>). Die Auswertung zeigt also, wo sich der Umsatz unterscheidet, während die Erklärung aus der Kenntnis des Geschäfts kommen muss.
+  </div>
+
+  <div class="readme">
+    <b>Welche Attribute eine Dimension braucht, ergibt sich aus den Fragen an das Modell.</b> Ein Attribut, das in keiner Auswertung vorkommt, kostet Pflege und bringt nichts. Fehlt dagegen ein Attribut, lässt sich die zugehörige Frage nicht beantworten, auch wenn alle Fakten vorhanden sind. Beim Coffeebike, das der Kanon als weiteren Verkaufsort vorsieht, zeigt sich zudem, dass ein Attribut sorgfältig definiert werden muss, da offen ist, ob die Lage das Fahrrad oder den Platz beschreibt, an dem es an einem bestimmten Tag steht. Im Würfel dieses Moduls kommt das Coffeebike nicht vor, weil die 145.500 € auf die beiden Kaffeehäuser verteilt sind.
+  </div>
+  <p class="hint">Dimension wählen · Merkmale wählen · Ergebniszelle anklicken</p>
+</section>
+
 <!-- ============================ TAB C ============================ -->
 <section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c">
   <p class="claim">Die klassischen Operationen sind <b>fünf Arten, dieselbe Adresse zu verändern</b>. Mehr steckt nicht dahinter. Klicke eine an — der Würfel führt sie vor.</p>
@@ -424,7 +480,7 @@ footer a{color:var(--teal-dk)}
 </div>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.71</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.72</span>
 </footer>
 
 </div>
@@ -619,7 +675,163 @@ function paintB(){
 paintB();
 
 /* =====================================================================
-   5 · Reiter 03 · Die Operationen
+   4a · Reiter 03 · Die Dimension und ihre Attribute
+   Elemente und Attribute stammen aus dem Projektkanon, naemlich aus der
+   Produkthierarchie, der Beschreibung der beiden Kaffeehaeuser und dem
+   Kalender. Allein das Attribut "Semester" steht nicht woertlich im
+   Kanon. Es folgt den Vorlesungszeiten der Universitaet Wien, deren
+   Wintersemester Ende Januar endet und deren Sommersemester Anfang Maerz
+   beginnt. Der Kanon nennt den Semesterrhythmus als Treiber der Nachfrage
+   in Alsergrund, legt die Termine aber nicht fest.
+   ===================================================================== */
+const $ = id => document.getElementById(id);
+const TAGE = {"Januar":31, "Februar":28, "März":31};
+const DIMS = {
+  pg:{name:"Produkt", ebene:"Produktgruppe", elemente:PG,
+      text:"Die Produktdimension liegt in diesem Würfel auf der Ebene der Produktgruppe. Die Warengruppe ist die nächsthöhere Ebene der Hierarchie, während das Sortiment die Produktgruppen danach trennt, ob sie im Kaffeehaus zubereitet oder als Bohnen verkauft werden.",
+      attr:[
+        {k:"pg_wg", name:"Warengruppe", art:"Hierarchieebene", wert:PARENT},
+        {k:"pg_so", name:"Sortiment", art:"beschreibendes Attribut",
+         wert:{"Heißgetränke":"Gastronomie","Kaltgetränke":"Gastronomie","Gebäck":"Gastronomie",
+               "Retail":"Handelsware","Großgebinde":"Handelsware"}}]},
+  mo:{name:"Datum", ebene:"Monat", elemente:MON,
+      text:"Die Datumsdimension liegt auf der Ebene des Monats. Das Quartal ist die nächsthöhere Ebene, die Zahl der Kalendertage ein Attribut, mit dem sich auch rechnen lässt, und das Semester ein beschreibendes Attribut, das die Monate quer zum Quartal gruppiert.",
+      attr:[
+        {k:"mo_q", name:"Quartal", art:"Hierarchieebene", wert:{"Januar":"Q1 2026","Februar":"Q1 2026","März":"Q1 2026"}},
+        {k:"mo_t", name:"Kalendertage", art:"Kalenderattribut", wert:{"Januar":"31 Tage","Februar":"28 Tage","März":"31 Tage"}},
+        {k:"mo_s", name:"Semester", art:"beschreibendes Attribut",
+         wert:{"Januar":"Vorlesungszeit","Februar":"vorlesungsfrei","März":"Vorlesungszeit"}}]},
+  fi:{name:"Filiale", ebene:"Filiale", elemente:FIL,
+      text:"Die Filialdimension hat nur zwei Elemente. Jedes ihrer Attribute trennt deshalb dieselben beiden Filialen und liefert dieselben Summen wie die Filiale selbst. Ein Attribut lohnt sich erst, wenn mehrere Elemente denselben Wert haben, etwa sobald ein drittes Kaffeehaus in zentraler Lage dazukommt.",
+      attr:[
+        {k:"fi_l", name:"Lage", art:"beschreibendes Attribut", wert:{"Ringstraße":"zentral","Alsergrund":"universitätsnah"}},
+        {k:"fi_k", name:"Kundschaft", art:"beschreibendes Attribut", wert:{"Ringstraße":"Touristen und Pendler","Alsergrund":"Studierende"}},
+        {k:"fi_n", name:"Nachfrage", art:"beschreibendes Attribut", wert:{"Ringstraße":"gleichmäßig","Alsergrund":"Semesterrhythmus"}}]}
+};
+
+/* Die Faktentabelle hat eine Zeile je Produktgruppe, Monat und Filiale */
+const FAKTEN = [];
+PG.forEach(pg => MON.forEach(mo => FIL.forEach(fi => FAKTEN.push({pg, mo, fi, u:val(pg, mo, fi)}))));
+
+/* Ein Merkmal ist entweder das Element einer Dimension oder eines ihrer Attribute */
+const MERKMALE = [];
+Object.entries(DIMS).forEach(([d, D]) => {
+  MERKMALE.push({k:d, dim:d, name:D.ebene, art:"Element"});
+  D.attr.forEach(a => MERKMALE.push(Object.assign({dim:d}, a)));
+});
+const merkmal = k => MERKMALE.find(m => m.k === k);
+const wertVon = (m, z) => m.art === "Element" ? z[m.dim] : m.wert[z[m.dim]];
+const werteVon = m => [...new Set(DIMS[m.dim].elemente.map(e => m.art === "Element" ? e : m.wert[e]))];
+
+/* 1 · Die Dimensionstabelle */
+let dimAktiv = "pg";
+function zeigeDim(){
+  const D = DIMS[dimAktiv];
+  $("dimWahl").innerHTML = Object.entries(DIMS).map(([d, X]) =>
+    `<button type="button" data-d="${d}" aria-pressed="${d === dimAktiv}">${X.name}</button>`).join("");
+  $("dimTab").innerHTML = `<thead><tr><th>${D.ebene}<br><span class="art">Element</span></th>` +
+    D.attr.map(a => `<th>${a.name}<br><span class="art">${a.art}</span></th>`).join("") + `</tr></thead><tbody>` +
+    D.elemente.map(e => `<tr><td><b>${e}</b></td>` + D.attr.map(a => `<td>${a.wert[e]}</td>`).join("") + `</tr>`).join("") +
+    `</tbody>`;
+  $("dimText").textContent = D.text;
+}
+$("dimWahl").addEventListener("click", e => { const b = e.target.closest("button"); if(b){ dimAktiv = b.dataset.d; zeigeDim(); } });
+zeigeDim();
+
+/* 2 · Die Auswertung */
+const stE = {zeile:"pg_so", spalte:"fi_l", mass:"umsatz", zelle:null};
+const ATTR_ASKS = [
+  ["Wie viel Umsatz macht die Handelsware in zentraler Lage?", {zeile:"pg_so", spalte:"fi_l", mass:"umsatz"}],
+  ["Wie verändert sich der Umsatz je Tag in der vorlesungsfreien Zeit?", {zeile:"mo_s", spalte:"fi", mass:"tag"}],
+  ["Welche Warengruppe kauft welche Kundschaft?", {zeile:"pg_wg", spalte:"fi_k", mass:"umsatz"}],
+  ["Wie hoch ist der Umsatz im ersten Quartal?", {zeile:"mo_q", spalte:"", mass:"umsatz"}]
+];
+$("attrAsks").innerHTML = ATTR_ASKS.map(([q], i) =>
+  `<button class="ask" type="button" data-i="${i}" aria-pressed="false">${q}</button>`).join("");
+$("attrAsks").addEventListener("click", e => {
+  const b = e.target.closest(".ask"); if(!b) return;
+  Object.assign(stE, ATTR_ASKS[+b.dataset.i][1], {zelle:null});
+  zeigeAuswertung(+b.dataset.i);
+});
+
+function knopf(gruppe, wert, text, an){
+  return `<button type="button" data-g="${gruppe}" data-v="${wert}" aria-pressed="${an}">${text}</button>`;
+}
+function zeigeKnoepfe(){
+  const auswahl = (g, mitLeer) => (mitLeer ? [knopf(g, "", "keins", stE[g] === "")] : [])
+    .concat(MERKMALE.map(m => knopf(g, m.k, m.name, stE[g] === m.k))).join("");
+  $("attrPicks").innerHTML =
+    `<div class="pick"><p class="pk">Zeilen</p><div class="opts">${auswahl("zeile", false)}</div></div>` +
+    `<div class="pick"><p class="pk">Spalten</p><div class="opts">${auswahl("spalte", true)}</div></div>` +
+    `<div class="pick"><p class="pk">Kennzahl</p><div class="opts">${knopf("mass", "umsatz", "Umsatz", stE.mass === "umsatz")}${knopf("mass", "tag", "Umsatz je Kalendertag", stE.mass === "tag")}</div></div>`;
+}
+$("attrPicks").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  stE[b.dataset.g] = b.dataset.v; stE.zelle = null;
+  zeigeAuswertung(-1);
+});
+
+/* Umsatz je Kalendertag: Summe des Umsatzes geteilt durch die Tage der
+   Monate, die in der Gruppe vorkommen. Jeder Monat zaehlt dabei einmal. */
+function kennzahl(zeilen){
+  const u = zeilen.reduce((s, z) => s + z.u, 0);
+  if(stE.mass === "umsatz") return u;
+  const tage = [...new Set(zeilen.map(z => z.mo))].reduce((s, m) => s + TAGE[m], 0);
+  return tage ? u / tage : 0;
+}
+const zahlText = v => stE.mass === "umsatz" ? eur(v) : Math.round(v).toLocaleString("de-DE") + " €";
+
+function zeigeAuswertung(frage){
+  zeigeKnoepfe();
+  document.querySelectorAll("#attrAsks .ask").forEach((a, i) => a.setAttribute("aria-pressed", String(i === frage)));
+  const mz = merkmal(stE.zeile), ms = stE.spalte ? merkmal(stE.spalte) : null;
+  const zw = werteVon(mz), sw = ms ? werteVon(ms) : [];
+  const passt = (z, a, b) => (a === null || wertVon(mz, z) === a) && (b === null || !ms || wertVon(ms, z) === b);
+  const zelle = (a, b) => kennzahl(FAKTEN.filter(z => passt(z, a, b)));
+  const sel = stE.zelle;
+  const td = (a, b, kl) => {
+    const an = sel && sel[0] === a && sel[1] === b;
+    return `<td class="n v${kl ? " " + kl : ""}" tabindex="0" data-a="${a === null ? "" : a}" data-b="${b === null ? "" : b}" aria-pressed="${!!an}">${zahlText(zelle(a, b))}</td>`;
+  };
+  $("attrErg").innerHTML = `<thead><tr><th>${mz.name}</th>` +
+    (ms ? sw.map(b => `<th class="r">${b}</th>`).join("") : "") + `<th class="r">Summe</th></tr></thead><tbody>` +
+    zw.map(a => `<tr><td>${a}</td>` + (ms ? sw.map(b => td(a, b)).join("") : "") + td(a, null, "s") + `</tr>`).join("") +
+    `<tr class="sum"><td>Summe</td>` + (ms ? sw.map(b => td(null, b)).join("") : "") + td(null, null) + `</tr></tbody>`;
+
+  const zeigeZeile = m => m.art !== "Element";
+  const extra = [mz, ms].filter((m, i, l) => m && zeigeZeile(m) && l.findIndex(x => x && x.k === m.k) === i);
+  const treffer = z => sel && passt(z, sel[0] === "" ? null : sel[0], sel[1] === "" ? null : sel[1]);
+  $("attrFakt").innerHTML = `<thead><tr><th>Produktgruppe</th><th>Monat</th><th>Filiale</th><th class="r">Umsatz</th>` +
+    extra.map(m => `<th class="nach">${m.name}<br><span class="art">nachgeschlagen</span></th>`).join("") + `</tr></thead><tbody>` +
+    FAKTEN.map(z => `<tr${treffer(z) ? ' class="hit"' : ""}><td>${z.pg}</td><td>${z.mo}</td><td>${z.fi}</td><td class="n">${eur(z.u)}</td>` +
+      extra.map(m => `<td class="nach">${wertVon(m, z)}</td>`).join("") + `</tr>`).join("") + `</tbody>`;
+
+  const gruppen = zw.length * (ms ? sw.length : 1);
+  const n = sel ? FAKTEN.filter(treffer).length : FAKTEN.length;
+  $("attrRead").innerHTML = `<span class="q">${stE.mass === "umsatz" ? "Umsatz" : "Umsatz je Kalendertag"} nach <b>${mz.name}</b>${ms ? " und <b>" + ms.name + "</b>" : ""}</span>` +
+    `<span class="cnt">${sel ? n + " Faktenzeilen in der gewählten Zelle" : FAKTEN.length + " Faktenzeilen · " + gruppen + (gruppen === 1 ? " Gruppe" : " Gruppen")}</span>` +
+    `<span class="val">${zahlText(sel ? zelle(sel[0] === "" ? null : sel[0], sel[1] === "" ? null : sel[1]) : zelle(null, null))}</span>`;
+}
+$("attrErg").addEventListener("click", e => {
+  const c = e.target.closest("td.v"); if(!c) return;
+  const neu = [c.dataset.a, c.dataset.b];
+  stE.zelle = stE.zelle && stE.zelle[0] === neu[0] && stE.zelle[1] === neu[1] ? null : neu;
+  zeigeAuswertung(-1);
+});
+$("attrErg").addEventListener("keydown", e => { if(e.key === "Enter" || e.key === " "){ e.preventDefault(); e.target.click(); } });
+zeigeAuswertung(0);
+
+/* Die Zahlen im Hinweis werden aus dem Wuerfel gerechnet und nicht abgetippt */
+{
+  const als = FAKTEN.filter(z => z.fi === "Alsergrund");
+  const jeTag = monate => als.filter(z => monate.includes(z.mo)).reduce((s, z) => s + z.u, 0) /
+    monate.reduce((s, m) => s + TAGE[m], 0);
+  $("attrAlsVZ").textContent = Math.round(jeTag(["Januar", "März"])).toLocaleString("de-DE") + " € je Tag";
+  $("attrAlsVF").textContent = Math.round(jeTag(["Februar"])).toLocaleString("de-DE") + " € je Tag";
+}
+
+/* =====================================================================
+   5 · Reiter 04 · Die Operationen
    ===================================================================== */
 const stC = {level:"grob", pivot:false,
              sel:{wg:new Set(WG), mo:new Set(MON), fi:new Set(FIL)}};
@@ -729,7 +941,7 @@ document.getElementById("detA").innerHTML = DET_A;
 renderChips();
 
 /* =====================================================================
-   7 · Reiter 04 · Die Brücke zum Sternschema
+   7 · Reiter 05 · Die Brücke zum Sternschema
    ===================================================================== */
 const BRIDGE=[
  ["Eine Achse","Eine Dimensionstabelle","Monat → <code>DIM_ZEIT</code>",
@@ -766,7 +978,7 @@ bb.addEventListener("pointerleave",()=>{detD.innerHTML=DET_D;});
 /* =====================================================================
    8 · Reiter
    ===================================================================== */
-const tabs=[...document.querySelectorAll('[role="tab"]')], keys=["a","b","c","d"];
+const tabs=[...document.querySelectorAll('[role="tab"]')], keys=["a","b","e","c","d"];
 function select(i){
   tabs.forEach((t,j)=>{
     const on = i===j;
