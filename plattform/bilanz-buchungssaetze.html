@@ -883,7 +883,7 @@ footer a{color:var(--teal-dk)}
     </dl>
   </div>
 
-  <h2 class="sec">Zwölf Vorfälle einordnen</h2>
+  <h2 class="sec">Fünfzehn Vorfälle einordnen</h2>
   <p class="sub">Welcher der vier Fälle ist es? Die Begründung erscheint nach jeder Antwort, auch nach der richtigen.</p>
   <div class="wsbar">
     <div class="seg" role="group" aria-label="Übung">
@@ -1088,7 +1088,7 @@ footer a{color:var(--teal-dk)}
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.79</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.80</span>
 </footer>
 
 </div>
@@ -1577,7 +1577,13 @@ const ZU_POS = [
   ["Eine Rechnung über 7.600 T€ wird an einen Kunden geschrieben", "ap",
    "Bilanzverlängerung, und erfolgswirksam. Forderungen aus Lieferungen und Leistungen an Umsatzerlöse. Der Ertrag erhöht das Eigenkapital, die Forderung das Vermögen."],
   ["Eine Rückstellung für einen drohenden Prozess wird mit 600 T€ gebildet", "ap",
-   "Bilanzverlängerung, und erfolgswirksam. Sonstige betriebliche Aufwendungen an Rückstellungen. Aufwand ohne Zahlung: Das Eigenkapital sinkt, die Rückstellung wächst, die Bilanzsumme steigt."]
+   "Bilanzverlängerung, und erfolgswirksam. Sonstige betriebliche Aufwendungen an Rückstellungen. Aufwand ohne Zahlung: Das Eigenkapital sinkt, die Rückstellung wächst, die Bilanzsumme steigt."],
+  ["Die Investitionszuwendung für die Bädersanierung des Pflegeheims geht mit 150 T€ ein", "ap",
+   "Bilanzverlängerung, dabei erfolgsneutral. Bank an Sonderposten aus Zuwendungen. Das Geld ist da, ein Ertrag entsteht dabei nicht, weil der Sonderposten auf die Passivseite kommt."],
+  ["Der Sonderposten wird zum Jahresende mit 92 T€ anteilig aufgelöst", "pp",
+   "Passivtausch, dabei erfolgswirksam. Sonderposten aus Zuwendungen an Erträge aus der Auflösung von Sonderposten. Der Ertrag erhöht das Eigenkapital, der Sonderposten sinkt um denselben Betrag."],
+  ["Die März-Leistung des Pflegeheims wird mit 347,2 T€ abgegrenzt, bevor die Rechnung hinausgeht", "ap",
+   "Bilanzverlängerung, und erfolgswirksam. Forderungen aus noch nicht abgerechneten Leistungen an Erlöse. Der Ertrag gehört in den März, weil dort die Leistung erbracht wurde."]
 ];
 let zuStand = [];
 const ZU_NAME = {aa:"Aktivtausch", pp:"Passivtausch", ap:"Verlängerung", pa:"Verkürzung"};
@@ -1744,7 +1750,16 @@ const FRAGEN = [
    "Zum Aufwand wird der Vorrat erst beim Verbrauch. Bis dahin ist er Vermögen."],
   ["Was ist der Saldo eines Kontos?",
    ["Die Differenz der beiden Kontoseiten","Die Summe aller Buchungen","Der größere der beiden Seitenbeträge","Der Betrag der letzten Buchung"], 0,
-   "Er wird auf der schwächeren Seite eingetragen und schließt damit das Konto ab. Bei Bestandskonten geht er in die Schlussbilanz."]
+   "Er wird auf der schwächeren Seite eingetragen und schließt damit das Konto ab. Bei Bestandskonten geht er in die Schlussbilanz."],
+  ["Wie lautet der Satz, wenn eine Investitionszuwendung auf dem Konto eingeht?",
+   ["Bank an Sonderposten aus Zuwendungen","Bank an Erträge aus Zuwendungen","Bank an Vereinskapital","Sonderposten aus Zuwendungen an Bank"], 0,
+   "Der Vorgang ist eine Bilanzverlängerung und erfolgsneutral. Der Ertrag entsteht erst später über die anteilige Auflösung des Sonderpostens, parallel zur Abschreibung der finanzierten Anlage."],
+  ["Welcher Grundfall ist die anteilige Auflösung eines Sonderpostens aus Zuwendungen?",
+   ["Passivtausch, dabei erfolgswirksam","Aktivtausch, dabei erfolgsneutral","Bilanzverlängerung, dabei erfolgswirksam","Bilanzverkürzung, dabei erfolgsneutral"], 0,
+   "Der Sonderposten sinkt, der Ertrag erhöht das Eigenkapital um denselben Betrag. Beide Konten stehen auf der Passivseite, weshalb die Bilanzsumme sich nicht rührt."],
+  ["Die Leistung eines Monats ist erbracht, die Rechnung geht erst im Folgemonat hinaus. Wie wird abgegrenzt?",
+   ["Forderungen aus noch nicht abgerechneten Leistungen an Erlöse","Erlöse an Forderungen aus Lieferungen und Leistungen","Bank an Erlöse","Es wird erst mit der Rechnung gebucht"], 0,
+   "Eine Bilanzverlängerung, und erfolgswirksam. Der Ertrag gehört in den Monat der Leistung. Die Abgrenzung läuft über ein eigenes Sachkonto und wird mit der Rechnung wieder aufgelöst, damit der Debitor allein die Rechnung führt."]
 ];
 let qAktuell = [];
 const QZAHL = 5;

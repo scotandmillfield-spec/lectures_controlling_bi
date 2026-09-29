@@ -871,14 +871,14 @@ footer a{color:var(--teal-dk)}
       <dt>Bestandsveränderung ohne Inventur</dt><dd>Die Veränderung an fertigen und unfertigen Erzeugnissen wird unterjährig geschätzt oder ganz weggelassen. Eine BWA ohne diesen Posten zeigt bei schwankender Produktion ein Ergebnis, das mit der Realität wenig zu tun hat.</dd>
       <dt>Fehlende Abgrenzungen</dt><dd>Versicherungsprämien, Boni, Urlaubsrückstellungen, Jahresabschlusskosten: Aufwendungen, die das ganze Jahr betreffen und in einem Monat gebucht werden. Der Monat sieht schlecht aus, die anderen elf zu gut.</dd>
       <dt>Rückstellungen erst zum Jahresende</dt><dd>Weil Garantien, Prozesse und Pensionen unterjährig selten angepasst werden, kommt der dort fehlende Aufwand im Dezember auf einmal.</dd>
-      <dt>Buchungsstand und Periodenzuordnung</dt><dd>Eine Eingangsrechnung, die erst im Folgemonat eintrifft, landet auch dort, weswegen der Monat der Leistung zu gut bleibt und der nächste zu schlecht wird. Bei hohem Belegaufkommen ist das der größte der fünf Effekte.</dd>
+      <dt>Buchungsstand und Periodenzuordnung</dt><dd>Eine Eingangsrechnung, die erst im Folgemonat eintrifft, landet auch dort, weswegen der Monat der Leistung zu gut bleibt und der nächste zu schlecht wird. Bei hohem Belegaufkommen ist das der größte der fünf Effekte. Dasselbe geschieht auf der Erlösseite, wenn erbrachte Leistungen erst mit der Rechnung gebucht werden: Dann steht die Leistung des Vormonats gegen die Kosten des laufenden Monats. Wie eine Abgrenzung das verhindert, steht im Modul <a href="leistung-periodengerecht.html">Leistungen im Leistungsmonat erfassen</a>.</dd>
     </dl>
   </div>
   <div class="readme" style="margin-top:16px">
     <b>Warum der Dezember anders ist.</b> Alle fünf Effekte laufen im letzten Monat des Jahres zusammen: Die Inventur kommt, die Abschreibungen werden richtiggestellt, die Rückstellungen werden gebildet, die Abgrenzungen werden nachgeholt. Deshalb hat die Dezember-BWA in vielen Häusern ein auffällig schlechtes Betriebsergebnis; zugleich ist sie die einzige, die dem Abschluss nahekommt.
   </div>
 
-  <h2 class="sec">Vierzehn Aussagen einordnen</h2>
+  <h2 class="sec">Fünfzehn Aussagen einordnen</h2>
   <p class="sub">Ist die Zahl belastbar, oder gehört sie zu den vorläufigen? Die Begründung erscheint nach jeder Antwort, auch nach der richtigen, damit ein Treffer so viel erklärt wie ein Fehlgriff.</p>
   <div class="wsbar">
     <div class="seg" role="group" aria-label="Übung">
@@ -1011,7 +1011,7 @@ footer a{color:var(--teal-dk)}
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.79</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.80</span>
 </footer>
 
 </div>
@@ -1305,7 +1305,9 @@ const ZU_POS = [
   ["Die Höhe der Darlehenstilgung des Monats", "gar",
    "Steht gar nicht in der BWA, weil sie keine Aufwandsposition ist. In der Auswertung erscheinen allein die Zinsen, die bei einem Annuitätendarlehen der kleinere Teil sind."],
   ["Der Kaufpreis einer im Mai angeschafften Maschine", "gar",
-   "Steht gar nicht in der BWA, da die Investition aktiviert wird. In der Auswertung erscheint allein die Abschreibung, die kein Geld kostet."]
+   "Steht gar nicht in der BWA, da die Investition aktiviert wird. In der Auswertung erscheint allein die Abschreibung, die kein Geld kostet."],
+  ["Die Erlöse eines Monats, dessen Leistungen erst mit der Rechnung im Folgemonat gebucht werden", "vor",
+   "Vorläufig, weil die Erlöse in den falschen Monat geraten. Der Monat zeigt dann die Leistung des Vormonats gegen seine eigenen Kosten. Ohne Abgrenzung schwankt das Ergebnis mit der Zahl der Tage und mit dem Tempo der Abrechnung."]
 ];
 let zuStand = [];
 const ZU_NAME = {ok:"Belastbar", vor:"Vorläufig", gar:"Steht gar nicht drin"};
@@ -1472,7 +1474,13 @@ const FRAGEN = [
    "Der Buchungsstand ist bei hohem Belegaufkommen der größte Einzeleffekt auf die Aussagekraft einer Monats-BWA."],
   ["Warum ist der Rohertrag für einen Fertigungsbetrieb wichtiger als der Umsatz?",
    ["Weil er zeigt, was nach dem Einkauf übrig bleibt","Weil er das Wachstum misst","Weil er die Steuerlast bestimmt","Weil er zahlungswirksam ist"], 0,
-   "Ein Umsatzsprung bei gleichzeitig gestiegenen Einkaufspreisen kann den Rohertrag unverändert lassen. Die zweite Zahl ist die, um die es geht."]
+   "Ein Umsatzsprung bei gleichzeitig gestiegenen Einkaufspreisen kann den Rohertrag unverändert lassen. Die zweite Zahl ist die, um die es geht."],
+  ["Was geschieht mit einer Monats-BWA, wenn erbrachte Leistungen erst mit der Rechnung gebucht werden?",
+   ["Der Monat zeigt die Leistung des Vormonats gegen seine eigenen Kosten","Das Jahresergebnis fällt zu niedrig aus","Die Umsatzsteuer wird doppelt erfasst","Die Personalkosten verschieben sich"], 0,
+   "Die Erlöse geraten um einen Monat nach hinten, die Kosten bleiben im laufenden Monat. Über das Jahr gleicht sich das weitgehend aus, im einzelnen Monat nicht. Eine Abgrenzung im Leistungsmonat verhindert es."],
+  ["Welche Position der Erlösseite ist in einer Monats-BWA vorläufig?",
+   ["Erlöse, deren Leistungen ohne Abgrenzung erst mit der Rechnung gebucht werden","Ausgangsrechnungen des laufenden Monats","Mieterträge aus einem Dauervertrag","Zinserträge auf dem Geschäftskonto"], 0,
+   "Belastbar ist die Erlösseite, solange jede erbrachte Leistung im Monat ihrer Erbringung steht. Fehlt die Abgrenzung, schwankt der Monatsumsatz mit dem Tempo der Abrechnung."]
 ];
 let qAktuell = [];
 const QZAHL = 5;
