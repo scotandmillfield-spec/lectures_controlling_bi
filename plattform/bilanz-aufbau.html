@@ -823,6 +823,23 @@ footer a{color:var(--teal-dk)}
     <b>Rückstellung und Verbindlichkeit werden am häufigsten verwechselt.</b> Eine Verbindlichkeit ist dem Betrag und dem Termin nach bekannt: Die Rechnung liegt vor, sie ist am 15. fällig. Bei einer Rückstellung steht nur fest, <i>dass</i> etwas zu zahlen sein wird. Wie viel der Prozess kostet und wann er endet, weiß am Stichtag niemand. Das Imparitätsprinzip verlangt trotzdem, ihn zu passivieren.
   </div>
 
+  <h2 class="sec">Die Bilanz eines gemeinnützigen Trägers</h2>
+  <p class="sub">§ 266 HGB gilt für Kapitalgesellschaften. Ein Caritasverband in der Rechtsform des eingetragenen Vereins gliedert seine Bilanz sinngemäß, hat dabei jedoch vier Posten, die in der Aufstellung oben fehlen. Was davon im eigenen Haus wie anzusetzen ist, gehört vor den Wirtschaftsprüfer.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Vier Besonderheiten der Bilanz eines gemeinnützigen Traegers, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th>Posten</th><th>Seite</th><th>Was dahintersteht</th></tr></thead>
+    <tbody>
+      <tr><td class="crit">Sonderposten aus Zuwendungen zur Finanzierung des Anlagevermögens</td><td class="m">Passiv</td><td>Er steht zwischen Eigenkapital und Rückstellungen. Die Zuwendung ist eingegangen und finanziert eine Anlage, weshalb sie kein Eigenkapital ist und keine Schuld. Die anteilige Auflösung des Sonderpostens läuft parallel zur Abschreibung.</td></tr>
+      <tr><td class="crit">Vereinskapital und Rücklagen</td><td class="m">Passiv</td><td>An der Stelle des gezeichneten Kapitals steht das Vereinskapital. Daneben stehen Rücklagen, die das Gemeinnützigkeitsrecht in mehreren Arten kennt. Welche Art in welcher Höhe zulässig ist, sagt der steuerliche Berater.</td></tr>
+      <tr><td class="crit">Erhaltene, noch nicht verwendete Zuwendungen und zweckgebundene Spenden</td><td class="m">Passiv</td><td>Das Geld ist da, der Zweck ist noch offen. Solange die geförderten Aufwendungen nicht angefallen sind, steht der Betrag als Verpflichtung auf der Passivseite und noch nicht im Ergebnis.</td></tr>
+      <tr><td class="crit">Forderungen aus noch nicht abgerechneten Leistungen</td><td class="m">Aktiv</td><td>Die Leistung des Monats ist erbracht, die Rechnung folgt im nächsten Monat. Der Anspruch gehört deshalb zum Stichtag auf die Aktivseite, auch ohne Rechnung.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="readme" style="margin-top:16px">
+    <b>Für Pflegeeinrichtungen gibt die Pflege-Buchführungsverordnung eine eigene Gliederung vor.</b> Sie weicht in Bezeichnung und Reihenfolge von § 266 HGB ab, ordnet aber nach denselben beiden Fragen: Worin steckt das Geld und wem gehört es. Wer eine Pflegebilanz liest, sucht deshalb dieselben Blöcke unter anderen Namen.
+  </div>
+
   <h2 class="sec">Wie tief gegliedert wird</h2>
   <p class="sub">Nicht jede Gesellschaft zeigt alle Posten. § 266 Abs. 1 HGB knüpft die Gliederungstiefe an die Größenklasse.</p>
   <div class="trio">
@@ -898,7 +915,7 @@ footer a{color:var(--teal-dk)}
   <p>Posten der Aktivseite dürfen mit Posten der Passivseite <b>nicht verrechnet</b> werden. Wer einer Bank 2.000 T€ schuldet und bei derselben Bank 800 T€ Guthaben hat, zeigt beide Beträge: 800 T€ links, 2.000 T€ rechts. Eine Nettozahl von 1.200 T€ wäre unzulässig.</p>
   <p>Der Grund ist wieder der Gläubigerschutz. Eine Verrechnung verkürzt die Bilanzsumme und lässt die Verschuldung geringer aussehen. Beides verändert jede daraus abgeleitete Kennzahl, ohne dass sich am Unternehmen etwas geändert hätte.</p>
 
-  <h2 class="sec">Zehn Positionen einordnen</h2>
+  <h2 class="sec">Dreizehn Positionen einordnen</h2>
   <p class="sub">Die Begründung erscheint nach jeder Antwort, auch nach der richtigen. Wer alle zehn auf Anhieb trifft, kann zu Lektion 04 weitergehen.</p>
   <div class="wsbar">
     <div class="seg" role="group" aria-label="Übung">
@@ -1035,7 +1052,7 @@ footer a{color:var(--teal-dk)}
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.79</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.80</span>
 </footer>
 
 </div>
@@ -1465,7 +1482,13 @@ const ZU_POS = [
   ["Der Jahresüberschuss des abgelaufenen Geschäftsjahres", "p",
    "Passiva A. V. Er erhöht das Eigenkapital. Genau hier hängen Bilanz und Gewinn- und Verlustrechnung zusammen."],
   ["Noch nicht abgeführte Umsatzsteuer aus dem Dezember", "p",
-   "Passiva C. Verbindlichkeiten, hier gegenüber dem Finanzamt. Der Betrag steht fest und ist im Januar fällig."]
+   "Passiva C. Verbindlichkeiten, hier gegenüber dem Finanzamt. Der Betrag steht fest und ist im Januar fällig."],
+  ["Der Sonderposten aus Investitionszuwendungen für die Bädersanierung des Pflegeheims", "p",
+   "Passivseite, zwischen Eigenkapital und Rückstellungen. Die Zuwendung beschreibt die Herkunft der Mittel, ist dabei kein Eigenkapital und keine Schuld."],
+  ["Forderungen aus noch nicht abgerechneten Pflegeleistungen des Dezembers", "a",
+   "Aktivseite, bei den Forderungen. Die Leistung ist im Dezember erbracht, weshalb der Anspruch zum Stichtag besteht, auch wenn die Rechnung erst im Januar hinausgeht."],
+  ["Eine bewilligte Zuwendung, die eingegangen und noch nicht verwendet ist", "p",
+   "Passivseite. Das Geld ist da, die geförderten Aufwendungen sind noch nicht angefallen, sodass der Betrag als Verpflichtung steht und noch nicht im Ergebnis."]
 ];
 let zuStand = [];
 function zuZiehen(){
@@ -1629,7 +1652,16 @@ const FRAGEN = [
    "26.400 ÷ 31.700 = 0,833. Unter 100 Prozent heißt: Ein Teil des Anlagevermögens ist mit Fremdkapital finanziert."],
   ["Welcher Grundsatz verbietet es, den Gewinn einer Position mit dem Verlust einer anderen zu verrechnen?",
    ["Die Einzelbewertung","Die Stetigkeit","Die Fortführung","Die Bilanzidentität"], 0,
-   "§ 252 Abs. 1 Nr. 3 HGB. Jeder Gegenstand und jede Schuld wird für sich bewertet, damit ein Verlust nicht hinter einem Gewinn verschwindet."]
+   "§ 252 Abs. 1 Nr. 3 HGB. Jeder Gegenstand und jede Schuld wird für sich bewertet, damit ein Verlust nicht hinter einem Gewinn verschwindet."],
+  ["Wo steht der Sonderposten aus Zuwendungen zur Finanzierung des Anlagevermögens?",
+   ["Auf der Passivseite, zwischen Eigenkapital und Rückstellungen","Auf der Aktivseite, beim Anlagevermögen","Auf der Passivseite, bei den Verbindlichkeiten","Er steht in keiner Bilanz"], 0,
+   "Die Zuwendung ist eingegangen und finanziert eine Anlage. Damit beschreibt sie die Herkunft der Mittel, ohne Eigenkapital zu sein und ohne eine Schuld zu sein. Die anteilige Auflösung läuft parallel zur Abschreibung."],
+  ["Eine bewilligte Zuwendung ist eingegangen, die geförderten Aufwendungen sind noch nicht angefallen. Was folgt daraus für die Bilanz?",
+   ["Der Betrag steht auf der Passivseite und noch nicht im Ergebnis","Der Betrag ist sofort Ertrag","Der Betrag erhöht das Vereinskapital","Der Betrag wird nicht gebucht"], 0,
+   "Der Ertrag entsteht in dem Umfang, in dem die geförderten Aufwendungen anfallen. Bis dahin ist das Geld auf dem Konto eine Verpflichtung gegenüber dem Zuwendungsgeber."],
+  ["Für wen gilt die Gliederung des § 266 HGB unmittelbar?",
+   ["Für Kapitalgesellschaften","Für jeden Kaufmann","Für eingetragene Vereine","Für Pflegeeinrichtungen"], 0,
+   "Ein eingetragener Verein gliedert sinngemäß, während für Pflegeeinrichtungen die Pflege-Buchführungsverordnung eine eigene Gliederung vorgibt. Geordnet wird in allen Fällen nach denselben beiden Fragen: Worin steckt das Geld und wem gehört es."]
 ];
 let qAktuell = [];
 const QZAHL = 5;

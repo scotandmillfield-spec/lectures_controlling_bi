@@ -544,9 +544,17 @@ betroffenen Moduls sagt im ersten Satz, dass es mit dem Verband arbeitet.
   ihrer Funktion (das Pflegeheim, die Beratungsstelle, das Wohnhaus, der Secondhandladen) und
   Personen nach ihrer Rolle. Der Kurs findet beim Auftraggeber statt, wo ein erfundener Name
   die Übertragung auf die eigenen Verhältnisse eher verstellt.
-- **Die beiden Fälle werden in einem Modul nicht gemischt.** Ein Modul arbeitet mit Sofia oder
-  mit dem Verband. Ein Querverweis auf ein Modul des anderen Falls bleibt erlaubt, da beide in
-  `plattform/` liegen.
+- **Ein Modul mit allgemeinem Beispiel darf einen Abschnitt mit dem Verband bekommen.** Der
+  Lernpfad Sozialwirtschaft läuft durch `liquiditaet-begriff.html`, `bilanz-aufbau.html`,
+  `bilanz-guv.html`, `bilanz-buchungssaetze.html`, `liquiditaet-bwa.html` und
+  `liquiditaet-vorschau.html`, deren Zahlenwerk keinem der beiden Fälle gehört. Ein solcher
+  Abschnitt nennt den Verband in seiner Überschrift oder im ersten Satz, ein einzelner Eintrag in
+  einer Übung nennt die Einrichtung, um die es geht. Ausgeschlossen bleibt eine Rechnung, die
+  Zahlen aus zwei Fällen addiert, sowie ein Satz, in dem Sofia und der Verband gemeinsam
+  auftreten. Die erste Fassung dieser Regel (PR #76) verbot jede Mischung und war damit zu eng,
+  weil der Lernpfad genau durch diese Module führt.
+- **Ein Querverweis auf ein Modul des anderen Falls bleibt erlaubt**, da beide in `plattform/`
+  liegen.
 - **Die Module dieses Falls sind durchgehend deutsch** und auf der Kachel mit `DE`
   gekennzeichnet.
 
@@ -576,7 +584,7 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.79`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.80`.
 Keine Quellenverzeichnisse, keine Legenden, keine Beschreibung des Falls und kein Hinweis
 darauf, woher eine Abbildung stammt. Sie steht in jeder ausgelieferten Datei gleich, im Markup
 als `<footer>` und auf den zweisprachigen Seiten als Eintrag `footer` im `UI`-Wörterbuch. Dort
@@ -585,7 +593,7 @@ ist sie ein einfacher String, weil ein Name und eine Nummer in beiden Sprachen d
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.79</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.80</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
