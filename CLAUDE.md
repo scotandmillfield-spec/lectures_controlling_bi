@@ -564,6 +564,11 @@ Kanon soll nicht um welche erweitert werden, nur damit ein Portfolio vier Punkte
 lieber ein sichtbar getrennter Fall als ein stillschweigend gedehnter Kanon. Wo das nötig ist,
 sagt es die Kachel im ersten Satz und der Fußtext des Moduls.
 
+`vorlesung/supply-chain-map.html` steht in der Reihenfolge direkt davor und gehört zum selben
+Fall. Es übernimmt die vier Lieferanten der Ebene 1 aus dem Portfolio. Vorlieferanten,
+Rohstoffmärkte und Kunden sind ein Lehrbeispiel ohne reales Vorbild, und das Modul sagt das
+an der Karte selbst. Wer die Lieferanten im Portfolio ändert, ändert sie auch dort.
+
 ### Quellen: Fachliteratur ja, Kursbücher nie
 
 **Kursbücher sind tabu.** Kein Verweis auf ein Kursbuch, keine Seitenzahl daraus, keine
