@@ -2021,8 +2021,8 @@ const mischen = a => {
   return a;
 };
 /* Auch die Antworten werden gemischt. Stuenden sie in der Reihenfolge
-   des Vorrats, waere die richtige immer die erste, und der Vorrat
-   liesse sich auswendig lernen, ohne eine Frage zu lesen. */
+   des Vorrats, waere die richtige immer die erste, sodass der Vorrat
+   sich auswendig lernen liesse, ohne eine Frage zu lesen. */
 function qZiehen(){
   qAktuell = mischen(FRAGEN.map((f, i) => i)).slice(0, QZAHL)
     .map(i => ({i, ord:mischen(FRAGEN[i][1].map((o, j) => j)), gewaehlt:null}));

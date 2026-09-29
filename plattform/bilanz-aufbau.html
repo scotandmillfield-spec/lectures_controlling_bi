@@ -1534,7 +1534,7 @@ const CHECK7 = [
    "Es wird mit einer Summen- und Saldenliste aus dem Buchhaltungssystem gearbeitet. Die ist nach Konten geordnet und folgt der Gliederung des § 266 HGB gerade nicht."],
   ["Übertrag die Zahlen in das Formular aus Lektion 04",
    "Zwanzig Minuten Tipparbeit, die mehr bringen als zwei Stunden Lesen. Beim Übertragen fällt Dir auf, welchen Posten Du nicht zuordnen kannst. Genau der ist Dein Lernstoff.",
-   "Die Zahlen werden überflogen statt übertragen. Danach glaubt man, die Bilanz gelesen zu haben, und könnte keinen einzigen Posten benennen."],
+   "Die Zahlen werden überflogen statt übertragen. Danach glaubt man, die Bilanz gelesen zu haben, könnte aber keinen einzigen Posten benennen."],
   ["Lies die fünf größten Posten und nur die",
    "In fast jeder Bilanz machen fünf Positionen über achtzig Prozent der Summe aus. Bei einem Maschinenbauer sind das Sachanlagen, Vorräte, Forderungen, Eigenkapital und Bankverbindlichkeiten.",
    "Es wird oben angefangen und Zeile für Zeile gelesen. Nach dem immateriellen Vermögen ist die Aufmerksamkeit weg, obwohl dort ein halbes Prozent der Summe steht."],
@@ -1673,8 +1673,8 @@ const mischen = a => {
   return a;
 };
 /* Auch die Antworten werden gemischt. Stuenden sie in der Reihenfolge
-   des Vorrats, waere die richtige immer die erste, und der Vorrat
-   liesse sich auswendig lernen, ohne eine Frage zu lesen. */
+   des Vorrats, waere die richtige immer die erste, sodass der Vorrat
+   sich auswendig lernen liesse, ohne eine Frage zu lesen. */
 function qZiehen(){
   qAktuell = mischen(FRAGEN.map((f, i) => i)).slice(0, QZAHL)
     .map(i => ({i, ord:mischen(FRAGEN[i][1].map((o, j) => j)), gewaehlt:null}));

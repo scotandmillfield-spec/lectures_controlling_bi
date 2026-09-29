@@ -229,8 +229,8 @@ footer a{color:var(--teal-dk)}
 <section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
 
   <div class="huelle">
-    <p><b>Dieses Modul ist eine Hülle.</b> Was Du siehst, ist das Gerüst: die Reiterleiste, die Mechanik der aufklappbaren Abschnitte, ein Quiz, das schon zieht, und eine Checkliste, die schon zählt. Der Inhalt fehlt noch.</p>
-    <p>Wer ihn schreibt, ersetzt die gestrichelten Kästen. Ist der letzte davon weg, ist das Modul fertig — und die Kachel auf der Startseite wechselt von <b>Geplant</b> auf sichtbar. Wie ein Modul nach den Regeln dieser Sammlung aussieht, zeigt jede fertige Datei daneben.</p>
+    <p><b>Dieses Modul ist eine Hülle.</b> Was Du siehst, ist das Gerüst: die Reiterleiste, die Mechanik der aufklappbaren Abschnitte, ein Quiz, das schon zieht, sowie eine Checkliste, die schon zählt. Der Inhalt fehlt noch.</p>
+    <p>Wer ihn schreibt, ersetzt die gestrichelten Kästen. Ist der letzte davon weg, ist das Modul fertig, worauf die Kachel auf der Startseite von <b>Geplant</b> auf sichtbar wechselt. Wie ein Modul nach den Regeln dieser Sammlung aussieht, zeigt jede fertige Datei daneben.</p>
   </div>
 
   <p class="claim">Hier steht die Kernaussage dieser Lektion: ein bis zwei Sätze, die beantworten, warum jemand weiterliest. Sie bleibt immer sichtbar, auch wenn alle Abschnitte zugeklappt sind.</p>
@@ -252,7 +252,7 @@ footer a{color:var(--teal-dk)}
   <h2 class="sec">Die Größe der Lektion</h2>
   <div class="todo">
     <p class="tk">Zur Beachtung</p>
-    <p>Eine Lektion ist in 15 bis 20 Minuten durchzuarbeiten. Wächst sie darüber hinaus, wird sie geteilt und nicht gestaucht — aus einer Inhaltslektion werden dann zwei, und die Reiterleiste bekommt einen Eintrag mehr.</p>
+    <p>Eine Lektion ist in 15 bis 20 Minuten durchzuarbeiten. Wächst sie darüber hinaus, wird sie geteilt und nicht gestaucht. Aus einer Inhaltslektion werden dann zwei, sodass die Reiterleiste einen Eintrag mehr bekommt.</p>
     <p>Wie viele Inhaltslektionen ein Modul hat, ist offen. Fest stehen nur die beiden am Ende: das Quiz und der Praxiseinstieg.</p>
   </div>
 
@@ -264,13 +264,13 @@ footer a{color:var(--teal-dk)}
 
 <!-- ==================== LEKTION 02 · QUIZ ==================== -->
 <section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
-  <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen. Kein Zeitdruck, keine Bewertung, die irgendwo landet — die Begründung steht nach jeder Antwort da, auch nach der richtigen.</p>
+  <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen. Kein Zeitdruck, keine Bewertung, die irgendwo landet. Die Begründung steht nach jeder Antwort da, auch nach der richtigen.</p>
 
   <h2 class="sec">Übung</h2>
   <div class="todo">
     <p class="tk">Noch zu schreiben</p>
     <p>Der Vorrat unten hat bisher <b>drei Beispielfragen</b>, damit die Mechanik sichtbar ist. Verbindlich sind mindestens zwanzig; erst dann werden wirklich jedes Mal andere fünf gezogen. Bis dahin zieht das Quiz so viele, wie da sind.</p>
-    <p>Jeder Eintrag im Vorrat besteht aus vier Angaben: Frage, vier Antwortmöglichkeiten, der Platz der richtigen, und die Begründung. <b>Die Begründung ist wichtiger als die Frage</b> — sie ist der eigentliche Lernstoff und steht auch dann da, wenn richtig geantwortet wurde.</p>
+    <p>Jeder Eintrag im Vorrat besteht aus vier Angaben: Frage, vier Antwortmöglichkeiten, der Platz der richtigen sowie die Begründung. <b>Die Begründung ist wichtiger als die Frage</b>, da sie erklärt, warum eine Antwort zutrifft. Sie steht auch dann da, wenn richtig geantwortet wurde.</p>
   </div>
   <div class="wsbar bar">
     <div class="seg" role="group" aria-label="Übung">
@@ -294,8 +294,8 @@ footer a{color:var(--teal-dk)}
   <h2 class="sec">Die ersten Schritte</h2>
   <div class="todo">
     <p class="tk">Noch zu schreiben</p>
-    <p>Unten stehen <b>zwei Beispielpunkte</b>, damit das Format sichtbar ist. Wie viele es am Ende werden, entscheidet die Sache — sechs, sieben, zehn. Eine feste Zahl gibt es nicht.</p>
-    <p>Jeder Punkt hat drei Teile: was zu tun ist, warum es an dieser Stelle steht, und der Fehler, der genau dort am häufigsten gemacht wird. Der dritte Teil ist der wertvollste.</p>
+    <p>Unten stehen <b>zwei Beispielpunkte</b>, damit das Format sichtbar ist. Wie viele es am Ende werden, entscheidet die Sache, also sechs, sieben oder zehn. Eine feste Zahl gibt es nicht.</p>
+    <p>Jeder Punkt hat drei Teile: was zu tun ist, warum es an dieser Stelle steht, sowie der Fehler, der genau dort am häufigsten gemacht wird. Der dritte Teil ist der wertvollste.</p>
   </div>
   <div class="ck10" id="ckliste"></div>
 
@@ -318,14 +318,14 @@ const $ = id => document.getElementById(id);
 function hideTip(){ const t = $("tip"); if(t) t.classList.remove("on"); }
 
 /* =====================================================================
-   Die ersten Schritte — Beispielformat
-   Drei Angaben je Punkt: was zu tun ist, warum, und der Fehler an
+   Die ersten Schritte, Beispielformat
+   Drei Angaben je Punkt: was zu tun ist, warum, sowie der Fehler an
    genau dieser Stelle.
    ===================================================================== */
 const CHECK = [
-  ["Beispielpunkt — hier steht, was zu tun ist",
-   "Hier steht der Grund. Warum kommt dieser Punkt vor dem nächsten, und was geht schief, wenn die Reihenfolge umgedreht wird? Zwei bis vier Sätze genügen.",
-   "Hier steht der Fehler, der an dieser Stelle am häufigsten gemacht wird. Konkret statt allgemein: Was tatsächlich passiert, gehört hierhin — „zu wenig Sorgfalt“ hilft niemandem."],
+  ["Beispielpunkt: hier steht, was zu tun ist",
+   "Hier steht der Grund. Warum kommt dieser Punkt vor dem nächsten und was geht schief, wenn die Reihenfolge umgedreht wird? Zwei bis vier Sätze genügen.",
+   "Hier steht der Fehler, der an dieser Stelle am häufigsten gemacht wird. Konkret statt allgemein: Was tatsächlich passiert, gehört hierhin, da „zu wenig Sorgfalt“ niemandem hilft."],
   ["Zweiter Beispielpunkt",
    "Die Punkte werden automatisch nummeriert. Ein neuer Eintrag in dieser Liste genügt; am Markup ist nichts zu ändern.",
    "Die Liste wird zur Sammlung guter Vorsätze. Jeder Punkt braucht etwas, das jemand am Montagmorgen tatsächlich anfangen kann."]
@@ -335,14 +335,14 @@ $("ckliste").innerHTML = CHECK.map(([t, p, f]) =>
      <p class="trap"><b>Typischer Fehler:</b> ${f}</p></div>`).join("");
 
 /* =====================================================================
-   Quiz — Beispielformat
+   Quiz, Beispielformat
    Vier Angaben je Eintrag: Frage, vier Antworten, Platz der richtigen
    (von null an gezaehlt), Begruendung.
    ===================================================================== */
 const FRAGEN = [
-  ["Beispielfrage — hier steht, wonach gefragt wird",
+  ["Beispielfrage: hier steht, wonach gefragt wird",
    ["Die richtige Antwort","Eine falsche Antwort","Noch eine falsche","Und noch eine"], 0,
-   "Hier steht die Begründung. Sie erscheint nach jeder Antwort, auch nach der richtigen, und ist der eigentliche Lernstoff dieser Lektion."],
+   "Hier steht die Begründung. Sie erscheint nach jeder Antwort, auch nach der richtigen. Jedes Mal nennt sie den Grund."],
   ["Zweite Beispielfrage",
    ["Eine falsche Antwort","Die richtige Antwort","Noch eine falsche","Und noch eine"], 1,
    "Die Zahl hinter den Antworten sagt, welche richtig ist. Gezählt wird von null an: 0 ist die erste, 1 die zweite."],
