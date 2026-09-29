@@ -199,7 +199,7 @@ sich wie eine Bedienungsanleitung.
 
 **Das Anhängsel überlebt seine Verkleidung.** Verboten ist die Figur, nicht das Zeichen. Wird der
 Gedankenstrich gestrichen, kommt dasselbe Anhängsel als `, und`, danach als `, wobei`, `, was`,
-`, sodass`, `, weshalb`, `, womit` oder `, worin` wieder. Der Prüfstein ist der Inhalt des
+`, sodass`, `, weshalb`, `, womit` oder `, worin` wieder, **und schließlich als Semikolon**. Der Prüfstein ist der Inhalt des
 Nebensatzes. Sagt er die Hauptaussage noch einmal in vageren Worten, fällt er weg. Behauptet er
 Bedeutung, ohne sie zu nennen, wird an seiner Stelle die Sache selbst hingeschrieben.
 
@@ -212,11 +212,29 @@ Zur selben Sorte gehören `der eigentliche Inhalt`, `der eigentliche Lernstoff` 
 `genau darin liegt`. Ein Wort behauptet dort Wichtigkeit an der Stelle, an der die Aussage
 stehen müsste.
 
+**Das Semikolon ist der letzte Fluchtweg und deshalb der gefährlichste.** Es steht zwischen zwei
+**gleichgewichtigen** Aussagen und ist dort erwünscht, etwa bei „Steigt ein Aktivposten, bindet er
+Geld; steigt ein Passivposten, hält er Geld im Haus." Zwei Aussagen sind gleichgewichtig, wenn
+jede für sich eine neue Angabe macht und sich beide vertauschen ließen, ohne dass der Satz kippt.
+Sobald der zweite Teil den ersten allein deutet oder ihm Bedeutung zuspricht, ist es dasselbe
+Anhängsel, nur mit einem Strichpunkt davor.
+
+Falsch ist „Zwei Zahlen verbinden sie; an diesen beiden Stellen hängt alles Weitere." Der Leser
+fragt zurück, was denn daran hängt. Richtig ist „Das Jahresergebnis verbindet die Gewinn- und
+Verlustrechnung mit dem Eigenkapital der Bilanz, der Finanzmittelbestand verbindet die Bilanz mit
+dem Ende der Cashflow-Rechnung." Der Satz ist länger und sagt die Sache.
+
+**Beim Aufräumen von `, und` wird deshalb nicht das Zeichen getauscht.** Wer 73 Anhängsel von
+Gedankenstrich auf Komma und danach auf Semikolon umstellt, hat dreimal dieselbe Arbeit gemacht
+und keinen Satz verbessert. Der Prüfstein bleibt der Inhalt des zweiten Teils. Im Durchgang von
+PR #79 sind zwölf Stellen zweimal angefasst worden, weil der erste Durchgang aus `, und` ein
+Semikolon gemacht hat.
+
 **Ein Nebensatz am Satzende ist nicht schon deshalb falsch.** `, da`, `, während`, `, indem`,
-`sowie` und der Relativsatz führen den Gedanken weiter und bleiben erwünscht. Ein vorangestellter
-Nebensatz („Weil die beiden Fragen voneinander unabhängig sind, gibt es vier Felder") und das
-Semikolon zwischen zwei gleichgewichtigen Aussagen sind die beiden Wege, die beim Aufräumen am
-häufigsten weiterhelfen.
+`sowie` und der Relativsatz führen den Gedanken weiter und bleiben erwünscht, solange sie einen
+Grund, eine Bedingung oder eine Folge mit eigener Angabe nennen. Ein vorangestellter Nebensatz
+(„Weil die beiden Fragen voneinander unabhängig sind, gibt es vier Felder") ist der Weg, der beim
+Aufräumen am häufigsten weiterhilft.
 
 **Das Auftrennen allein macht es schlimmer.** Beim Entfernen der 73 Anhängsel aus den vier
 Modulen der Lernplattform fiel der Anteil der Sätze über 25 Wörtern von 15,7 auf 6,5 Prozent, weil
@@ -277,7 +295,7 @@ stehen in den ausgelieferten Dateien noch **867** davon, von denen jeder eine ei
 Komma, Punkt und Streichung braucht. Ein Suchen und Ersetzen würde dort Sätze zerstören, weshalb
 die Altlast erst aufgeräumt wird, wenn ein Text ohnehin angefasst wird.
 
-Dasselbe gilt für die Fügung „, und", von der noch **217** Stück verteilt sind (die Zahl ist gegenüber den 196 gewachsen, weil seitdem Module dazugekommen sind). Sauber sind bisher
+Dasselbe gilt für die Fügung „, und", von der noch **217** Stück verteilt sind (die Zahl ist gegenüber den 196 gewachsen, weil seitdem Module dazugekommen sind). Dazu kommen **98** Semikola im Fließtext, von denen die meisten zwei gleichgewichtige Aussagen verbinden und deshalb bleiben. Welche davon ein getarntes Anhängsel sind, entscheidet sich beim Lesen und nicht am Zeichen. Sauber sind bisher
 `plattform/liquiditaet-begriff.html`, `plattform/liquiditaet-bwa.html`,
 `plattform/liquiditaet-vorschau.html` und `cv-mx/controlling-leitbild.html`. Der Lernpfad
 Liquiditätsplanung ist damit bis auf das Modul `liquiditaet-tagesplan.html` durch, das noch eine
@@ -589,7 +607,7 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.81`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.83`.
 Keine Quellenverzeichnisse, keine Legenden, keine Beschreibung des Falls und kein Hinweis
 darauf, woher eine Abbildung stammt. Sie steht in jeder ausgelieferten Datei gleich, im Markup
 als `<footer>` und auf den zweisprachigen Seiten als Eintrag `footer` im `UI`-Wörterbuch. Dort
@@ -598,7 +616,7 @@ ist sie ein einfacher String, weil ein Name und eine Nummer in beiden Sprachen d
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.81</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.83</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 

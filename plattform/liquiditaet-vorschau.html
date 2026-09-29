@@ -1117,7 +1117,7 @@ footer a{color:var(--teal-dk)}
     <thead><tr><th>Position</th><th>Regeltyp</th><th>Warum dieser Typ</th></tr></thead>
     <tbody>
       <tr><td class="crit">Pflegekasse und Eigenanteil der Bewohnerinnen und Bewohner</td><td class="m">Fester Tag</td><td>Beide zahlen nach der Abrechnung im Folgemonat, zumeist in einem engen Zeitfenster. Ein Monatsversatz genügt als Regel.</td></tr>
-      <tr><td class="crit">Sozialhilfeträger</td><td class="m">Zahlungsverhalten</td><td>Die Bearbeitung zieht sich über mehrere Monate, wobei einzelne Fälle zusätzlich auf eine Kostenzusage warten. Hier hilft allein eine Verteilung aus der Vergangenheit.</td></tr>
+      <tr><td class="crit">Sozialhilfeträger</td><td class="m">Zahlungsverhalten</td><td>Die Bearbeitung zieht sich über mehrere Monate. Einzelne Fälle warten zusätzlich auf eine Kostenzusage. Hier hilft allein eine Verteilung aus der Vergangenheit.</td></tr>
       <tr><td class="crit">Zuwendungen der öffentlichen Hand</td><td class="m">Jahresrhythmus oder Abruf in Tranchen</td><td>Die Bewilligung gilt für ein Jahr, das Geld kommt auf Abruf. Wer in Tranchen abruft, setzt mehrere feste Termine, wer einmal abruft, den Jahresrhythmus.</td></tr>
       <tr><td class="crit">Personal</td><td class="m">Fester Tag</td><td>Die Löhne des Monats sind am Monatsende fällig. Das ist die verlässlichste Zeile der ganzen Vorschau und zugleich die größte.</td></tr>
       <tr><td class="crit">Jährliche Sonderzahlung an das Personal</td><td class="m">Jahresrhythmus</td><td>Sie fällt in einem einzigen Monat an und drückt dort den Bestand. Beim Verband ist das der November.</td></tr>
@@ -1464,7 +1464,7 @@ footer a{color:var(--teal-dk)}
 <div class="tip" id="tip" role="status" aria-live="polite"></div>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.81</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.83</span>
 </footer>
 
 </div>
@@ -3502,7 +3502,7 @@ const FRAGEN = [
    "Für Jahresprämien und Beiträge. In der BWA stehen sie mit einem Zwölftel je Monat, auf dem Konto gehen sie an einem Tag ab."],
   ["Welcher Regeltyp passt für die Zahlungen eines Sozialhilfeträgers?",
    ["Zahlungsverhalten","Fester Tag","Jahresrhythmus","Gleichverteilung"], 0,
-   "Die Bearbeitung zieht sich über mehrere Monate, wobei einzelne Fälle zusätzlich auf eine Kostenzusage warten. Ein fester Tag würde jeden Monat um denselben Betrag danebenliegen, weshalb hier eine Verteilung aus der Vergangenheit gebraucht wird."],
+   "Die Bearbeitung zieht sich über mehrere Monate. Einzelne Fälle warten zusätzlich auf eine Kostenzusage. Ein fester Tag würde jeden Monat um denselben Betrag danebenliegen, weshalb hier eine Verteilung aus der Vergangenheit gebraucht wird."],
   ["Warum stehen Investitionszuwendungen im unteren Teil der Vorschau?",
    ["Weil sie in keiner BWA vorkommen","Weil sie steuerfrei sind","Weil sie erst im Folgejahr fließen","Weil sie das Ergebnis mindern"], 0,
    "Der obere Teil rechnet aus der BWA, die allein Erträge und Aufwendungen führt. Eine Investitionszuwendung ist eine Einzahlung ohne Ertrag und muss deshalb, wie die Investition selbst, von Hand in den unteren Teil."],
