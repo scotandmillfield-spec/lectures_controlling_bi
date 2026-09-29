@@ -22,7 +22,7 @@
   --ease:cubic-bezier(.22,.61,.36,1);
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:1.25rem;line-height:1.5}
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px 80px}
 
 /* ---------- masthead ---------- */
@@ -31,49 +31,49 @@ body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);f
 .topbar .eyebrow{margin:0;flex:1;min-width:0}
 .langsw{display:inline-flex;border:1px solid var(--grey-xl);background:var(--paper);
   border-radius:20px;padding:3px;gap:3px;flex:none}
-.langsw a{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.1em;
+.langsw a{font-family:var(--mono);font-size:.98rem;font-weight:600;letter-spacing:.1em;
   color:var(--grey);text-decoration:none;padding:6px 12px;border-radius:20px;transition:.16s}
 .langsw a:hover{color:var(--teal-dk)}
 .langsw a[aria-current="true"]{background:var(--teal-dk);color:#fff}
 .langsw a:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 .b-lang{background:var(--grey-xl);color:var(--grey)}
-.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+.eyebrow{font-family:var(--mono);font-size:1rem;font-weight:500;letter-spacing:.16em;
   text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 20px}
 .eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
 h1{font-size:clamp(2.2rem,5.4vw,3.7rem);font-weight:700;letter-spacing:-.03em;line-height:1.02;margin:0 0 16px;max-width:15ch}
 h1 em{font-style:normal;color:var(--teal)}
-.lede{font-size:clamp(1.08rem,1.78vw,1.32rem);font-weight:300;color:#3d3d40;line-height:1.55;margin:0}
+.lede{font-size:1.32rem;font-weight:300;color:#3d3d40;line-height:1.55;margin:0}
 
 /* ---------- toolbar ---------- */
 .toolbar{display:flex;gap:14px 20px;flex-wrap:wrap;align-items:center;justify-content:space-between;
   margin:34px 0 8px;padding-top:26px;border-top:1px solid var(--grey-xl)}
 .chips{display:flex;gap:7px;flex-wrap:wrap}
 .chip{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);cursor:pointer;
-  font-family:var(--sans);font-size:.86rem;font-weight:600;color:var(--grey);
+  font-family:var(--sans);font-size:1.18rem;font-weight:600;color:var(--grey);
   padding:9px 15px;border-radius:20px;transition:.18s var(--ease)}
 .chip:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
 .chip[aria-pressed="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
 .chip:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 .search{position:relative}
 .search input{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);border-radius:20px;
-  padding:10px 16px 10px 38px;font-family:var(--sans);font-size:.9rem;color:var(--ink);width:246px;
+  padding:10px 16px 10px 38px;font-family:var(--sans);font-size:1.2rem;color:var(--ink);width:246px;
   transition:border-color .18s,width .25s var(--ease)}
 .search input:focus{outline:none;border-color:var(--teal);width:280px}
 .search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:14px;height:14px;
   stroke:var(--grey);fill:none;stroke-width:2}
-.count{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+.count{font-family:var(--mono);font-size:.98rem;letter-spacing:.11em;text-transform:uppercase;
   color:var(--grey);margin:16px 0 20px}
 
 /* ---------- Lernpfade ---------- */
 .pathrow{display:flex;gap:10px 14px;flex-wrap:wrap;align-items:center;margin:18px 0 0}
-.pathrow .pl{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+.pathrow .pl{font-family:var(--mono);font-size:.97rem;letter-spacing:.12em;text-transform:uppercase;
   color:var(--grey);flex:none}
 .pathchips{display:flex;gap:7px;flex-wrap:wrap;min-width:0}
 .pathchip{appearance:none;border:1px dashed var(--grey-mid);background:transparent;cursor:pointer;
-  font-family:var(--sans);font-size:.86rem;font-weight:600;color:var(--grey);
+  font-family:var(--sans);font-size:1.18rem;font-weight:600;color:var(--grey);
   padding:9px 15px;border-radius:20px;display:inline-flex;align-items:center;gap:8px;
   transition:.18s var(--ease)}
-.pathchip .n{font-family:var(--mono);font-size:.68rem;opacity:.8}
+.pathchip .n{font-family:var(--mono);font-size:1rem;opacity:.8}
 .pathchip:hover{border-color:var(--teal);border-style:solid;color:var(--teal-dk);transform:translateY(-1px)}
 .pathchip[aria-pressed="true"]{background:var(--teal-dk);border-color:var(--teal-dk);
   border-style:solid;color:#fff}
@@ -83,18 +83,18 @@ h1 em{font-style:normal;color:var(--teal)}
 .pathbar{display:none;margin:20px 0 0;background:var(--teal-xl);border:1px solid #BFE2EC;
   border-radius:var(--r);padding:18px 22px}
 .pathbar.on{display:block}
-.pathbar .pk{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+.pathbar .pk{font-family:var(--mono);font-size:15.25px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--teal-dk);margin:0 0 6px}
-.pathbar h2{margin:0 0 6px;font-size:1.25rem;font-weight:700;letter-spacing:-.018em}
-.pathbar p{margin:0;font-size:1.02rem;color:#3d3d40;line-height:1.55}
+.pathbar h2{margin:0 0 6px;font-size:1.43rem;font-weight:700;letter-spacing:-.018em}
+.pathbar p{margin:0;font-size:1.26rem;color:#3d3d40;line-height:1.55}
 .pathbar .clear{appearance:none;border:1px solid var(--teal-dk);background:transparent;
-  color:var(--teal-dk);font-family:var(--sans);font-size:.84rem;font-weight:600;cursor:pointer;
+  color:var(--teal-dk);font-family:var(--sans);font-size:1.17rem;font-weight:600;cursor:pointer;
   padding:8px 14px;border-radius:8px;margin-top:12px;transition:.16s}
 .pathbar .clear:hover{background:var(--teal-dk);color:#fff}
 .pathbar .clear:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 
 .stepno{position:absolute;top:0;left:0;background:var(--teal-dk);color:#fff;
-  font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
+  font-family:var(--mono);font-size:.97rem;font-weight:600;letter-spacing:.08em;
   padding:5px 10px;border-radius:0 0 8px 0;z-index:2}
 .tile.first .stepno{background:var(--orange)}
 
@@ -115,7 +115,7 @@ h1 em{font-style:normal;color:var(--teal)}
 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:18px}
 .glyph{width:60px;height:60px;flex:none;color:var(--accent,var(--teal))}
 .badges{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
-.badge{font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;
+.badge{font-family:var(--mono);font-size:.94rem;letter-spacing:.11em;text-transform:uppercase;
   padding:4px 9px;border-radius:20px;white-space:nowrap;font-weight:600}
 .b-track{background:var(--teal-xl);color:var(--teal-dk)}
 .b-track.ctrl{background:var(--sand-xl);color:#8A6417}
@@ -124,12 +124,12 @@ h1 em{font-style:normal;color:var(--teal)}
 .b-track.sec{background:var(--navy-xl);color:var(--navy)}
 .b-plan{background:var(--grey-xl);color:var(--grey)}
 
-.tile h2{font-size:1.24rem;font-weight:700;letter-spacing:-.018em;line-height:1.2;margin:0 0 7px}
-.tile .sub{font-size:.93rem;font-weight:300;color:#4a4a4d;margin:0 0 16px;line-height:1.45}
+.tile h2{font-size:1.42rem;font-weight:700;letter-spacing:-.018em;line-height:1.2;margin:0 0 7px}
+.tile .sub{font-size:1.21rem;font-weight:300;color:#4a4a4d;margin:0 0 16px;line-height:1.45}
 
 
 .links{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap;padding-top:4px}
-.lnk{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:.86rem;font-weight:600;
+.lnk{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:1.18rem;font-weight:600;
   padding:9px 15px;border-radius:8px;transition:.18s var(--ease)}
 .lnk.primary{background:var(--teal-dk);color:#fff}
 .lnk.primary:hover{background:var(--teal);transform:translateY(-1px)}
@@ -137,14 +137,14 @@ h1 em{font-style:normal;color:var(--teal)}
 .lnk.ghost:hover{border-color:var(--teal);transform:translateY(-1px)}
 .lnk:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 .lnk .ic{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;flex:none}
-.soon{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+.soon{font-family:var(--mono);font-size:.97rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
   padding:9px 0}
 
 .empty{display:none;padding:44px 24px;text-align:center;color:var(--grey);
   border:1px dashed var(--grey-mid);border-radius:var(--r)}
 .empty.on{display:block}
 
-footer{margin-top:44px;font-size:.82rem;color:var(--grey);line-height:1.6;
+footer{margin-top:44px;font-size:1.16rem;color:var(--grey);line-height:1.6;
   border-top:1px solid var(--grey-xl);padding-top:20px}
 
 .build{font-family:var(--mono);font-size:.92em;letter-spacing:.02em;opacity:.85}
@@ -222,7 +222,7 @@ const UI = {
   search:{de:"Module durchsuchen\u2026", en:"Search modules\u2026"},
   empty:{de:"Dazu passt gerade nichts.", en:"Nothing matches that filter yet."},
   soon:{de:"In Arbeit", en:"In preparation"},
-  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.76</span>",
+  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.77</span>",
   pathLabel:{de:"Lernpfade", en:"Learning paths"},
   pathKicker:{de:"Lernpfad", en:"Learning path"},
   pathClear:{de:"Pfad verlassen \u00b7 alle Module zeigen", en:"Leave the path \u00b7 show all modules"},

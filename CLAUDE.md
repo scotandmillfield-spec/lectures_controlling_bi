@@ -553,7 +553,7 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.76`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.77`.
 Keine Quellenverzeichnisse, keine Legenden, keine Beschreibung des Falls und kein Hinweis
 darauf, woher eine Abbildung stammt. Sie steht in jeder ausgelieferten Datei gleich, im Markup
 als `<footer>` und auf den zweisprachigen Seiten als Eintrag `footer` im `UI`-Wörterbuch. Dort
@@ -562,7 +562,7 @@ ist sie ein einfacher String, weil ein Name und eine Nummer in beiden Sprachen d
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.76</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.77</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
@@ -922,11 +922,11 @@ Zahlen mit `font-variant-numeric: tabular-nums`, Kennungen und Codes in der Mono
 
 ### Die Schriftgrößen
 
-**[Prototyp] Barrierefreiheit schlägt die Abstufung.** Die Module sind am Schreibtisch entstanden
+**[gesetzt] Barrierefreiheit schlägt die Abstufung.** Die Module sind am Schreibtisch entstanden
 und lesen sich dort. Auf dem Beamer im Seminarraum und für jeden, der nicht gut sieht, waren sie zu
 klein: In `plattform/liquiditaet-begriff.html` standen 355 von 2.025 Textstellen bei höchstens zwölf
 Pixeln, die kleinste bei neun. Die Abstufung nach Bedeutung, die diese kleinen Größen herstellen
-sollten, ist weniger wert als Lesbarkeit.
+sollten, ist weniger wert als Lesbarkeit. Die Stufe gilt für alle Einstiege.
 
 - **Unter 15px fällt nichts**, auch keine Beschriftung, keine Kennung und keine Fußnote.
 - **Der Fließtext liegt bei rund 19px**, der Vorspann `.lede` bei 21px. Er ist der Bezug, an dem die
@@ -940,8 +940,40 @@ sollten, ist weniger wert als Lesbarkeit.
   `clamp`-Größen von `.lede`, `.claim` und `.pointe p` hatten untere Grenzen unterhalb des
   Fließtextes, wodurch sich die Rangfolge auf schmalem Schirm umdrehte.
 
-`plattform/liquiditaet-begriff.html` ist der erste Fall. Ob die Stufe so bleibt und auf die übrigen
-Module wandert, entscheidet Maik am fertigen Beispiel.
+**Eine Größe steht an vier Stellen, nicht an einer.** Wer eine Datei umstellt, sucht an allen vieren,
+da die ersten beiden Durchgänge der Umstellung an den hinteren zwei vorbeiliefen.
+
+1. Im Stilblock, der Normalfall.
+2. Im `style`-Attribut eines Elements, auch innerhalb einer Vorlagenzeichenkette des Skripts.
+3. Als Eigenschaft `style:"…"` in einem Objekt, das ein Hilfsskript an ein SVG-Element schreibt.
+4. In einem Stilblock, den das Skript zur Laufzeit in den Kopf der Seite schreibt, etwa dem des
+   Bearbeitungsmodus.
+
+**Größere Schrift sprengt enge Zeilen.** Beim Nachziehen auf die übrigen Module liefen zehn Stellen
+über den Rand, alle nach demselben Muster. Eine Reihe von Schaltflächen ohne `flex-wrap`, eine
+Rasterspalte, die für den längeren Text zu schmal wurde, und ein langes deutsches Kompositum in
+einem schmalen Kasten. Die Gegenmittel sind `flex-wrap:wrap`, eine Spalte weniger unterhalb von
+620px sowie `overflow-wrap:anywhere` an Beschriftungen, die aus einem einzigen Wort bestehen.
+
+**Ein Wert von `0` bleibt `0`.** In `cv-mx/controlling-konzept.html` steht ein `font-size:0` als
+Layouttrick gegen den Abstand zwischen zwei Elementen. An einer Untergrenze von 15px zerbricht er.
+
+**Eine Zeichnung behält ihre Breite, der Rahmen scrollt.** Ein SVG mit `width:100%` schrumpft mit
+seinem Kasten, und seine Beschriftung schrumpft mit. Auf dem Telefon kam eine mit 15px gesetzte
+Beschriftung dadurch mit sechs bis elf Pixeln an. Jede Zeichnung bekommt deshalb eine `min-width`
+in Höhe ihrer eigenen `viewBox`, also genau den Maßstab 1, und ihr Rahmen bekommt
+`overflow-x:auto`. Das ist dieselbe Lösung, die breite Tabellen schon haben.
+
+- **Die `min-width` ist die Breite der `viewBox`**, keine gerundete Schätzung. Steht dort `viewBox="0 0 900 560"`, lautet
+  die Regel `min-width:900px`.
+- **Der Rahmen ist mit der Tastatur erreichbar**, also `tabindex="0"`, dazu ein Fokusrand und ein
+  `role="group"` mit `aria-label`, das die Zeichnung benennt und sagt, dass sie seitlich scrollt.
+- **`margin:0 auto` und `min-width` vertragen sich**, solange keine Beschriftung über die `viewBox`
+  hinausragt. Im Netzdiagramm der Standortbestimmung begann „Zahlungsströme" bei x = −13 und wurde
+  an jeder Bildschirmbreite abgeschnitten. Wer eine Zeichnung anfasst, misst deshalb die
+  Beschriftungen mit `getBBox()` gegen die `viewBox`.
+- **Am Schreibtisch scrollt eine Zeichnung mit, deren Kasten schmaler ist als sie selbst.** Das ist
+  gewollt: Vorher wurde sie dort gestaucht, und ihre Beschriftung fiel unter 15px.
 
 Lektionen sind für Facetten derselben Frage da, nicht für verschiedene Themen — sonst sind es
 zwei Module. Wie viele es werden, entscheidet der Stoff; die Grenze zieht die 15-bis-20-Minuten-Regel

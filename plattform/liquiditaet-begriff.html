@@ -166,7 +166,7 @@ table.tbl tbody tr:hover td{background:var(--sand-xl)}
 .mapstage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   box-shadow:var(--shadow);padding:12px 10px 6px;overflow-x:auto}
 .mapstage:focus-visible,.stage:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
-svg.rm{width:100%;min-width:340px;height:auto;display:block}
+svg.rm{width:100%;min-width:560px;height:auto;display:block}
 svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .rm .zone{stroke:#fff;stroke-width:1.5}
 .rm .zg{fill:#E6F1E5} .rm .zy{fill:#FBF2D9} .rm .zr{fill:#FBE4DC}
@@ -211,7 +211,8 @@ svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .zonekey i{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.08)}
 .zonekey i.g{background:#E6F1E5} .zonekey i.y{background:#FBF2D9} .zonekey i.r{background:#FBE4DC}
 
-.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:10px;margin:0 0 14px}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:0 0 14px}
+.fig .fk,.fig .fn{hyphens:auto;overflow-wrap:anywhere}
 .figs>*{min-width:0}
 .fig{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 15px}
 .fig .fk{font-family:var(--mono);font-size:15px;letter-spacing:.11em;text-transform:uppercase;
@@ -225,7 +226,7 @@ svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 /* ---------- Regler ---------- */
 .rgrid{display:grid;gap:12px}
 .rrow{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 16px}
-.rrow .rl{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin:0 0 8px}
+.rrow .rl{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;align-items:baseline;margin:0 0 8px}
 .rrow .rn{font-size:1.2rem;font-weight:600}
 .rrow .rv{font-family:var(--mono);font-size:1.16rem;color:var(--teal-dk);font-weight:600;
   text-align:right;flex:none}
@@ -235,7 +236,7 @@ svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 /* ---------- Prozesskreis ---------- */
 .stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   box-shadow:var(--shadow);padding:14px 10px 6px;overflow-x:auto}
-svg.proc{width:100%;min-width:560px;height:auto;display:block}
+svg.proc{width:100%;min-width:660px;height:auto;display:block}
 svg.proc text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .proc .pbox{fill:var(--paper);stroke:var(--grey-mid);stroke-width:1.4;transition:.2s var(--ease)}
 .proc .ph{cursor:pointer}
@@ -252,7 +253,7 @@ svg.proc text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .proc .ctrs{font-size:16px;text-anchor:middle;fill:var(--grey)}
 
 /* ---------- Balanced Chance- und Risk-Card ---------- */
-svg.bcr{width:100%;min-width:760px;height:auto;display:block}
+svg.bcr{width:100%;min-width:1040px;height:auto;display:block}
 svg.bcr text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .bcr .band{stroke:#fff;stroke-width:1.5}
 .bcr .bl{font-family:var(--mono);font-size:15.5px;font-weight:600;letter-spacing:.05em;fill:var(--teal-dk)}
@@ -360,7 +361,7 @@ svg.bcr text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .wsduo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .wsduo>*{min-width:0}
 .wsax{background:var(--canvas);border-radius:9px;padding:13px 15px}
-.wsax .axh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin:0 0 8px}
+.wsax .axh{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 10px;align-items:baseline;margin:0 0 8px}
 .wsax .axn{font-size:1.16rem;font-weight:700}
 .wsax .axv{font-family:var(--mono);font-size:1.11rem;font-weight:600;color:var(--teal-dk);text-align:right}
 .wsax input[type=range]{width:100%;accent-color:var(--teal-dk);display:block;margin:0 0 4px}
@@ -1012,7 +1013,7 @@ footer a{color:var(--teal-dk)}
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.76</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.77</span>
 </footer>
 
 </div>
@@ -1461,7 +1462,7 @@ function editorStart(){
     .ed-an [data-ed-art].ed-neu{background:var(--orange-xl);box-shadow:-4px 0 0 var(--orange)}
     .ed-an #zuNew,.ed-an #qNew,.ed-an #qResult{display:none}
     .ed-bar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--ink);color:#fff;
-      font-family:var(--sans);font-size:.86rem;line-height:1.45;padding:12px 18px;
+      font-family:var(--sans);font-size:1.18rem;line-height:1.45;padding:12px 18px;
       display:flex;gap:12px;align-items:center;flex-wrap:wrap;box-shadow:0 -6px 24px rgba(0,0,0,.18)}
     .ed-bar p{margin:0;flex:1 1 260px}
     .ed-bar b{font-family:var(--mono);font-weight:600}
@@ -1471,12 +1472,12 @@ function editorStart(){
     .ed-bar input[type=file]{display:none}
     .ed-bericht{position:fixed;left:18px;right:18px;bottom:78px;z-index:50;max-height:45vh;overflow:auto;
       background:var(--paper);border:1px solid var(--grey-mid);border-radius:var(--r);padding:14px 16px;
-      font-size:.84rem;box-shadow:0 8px 28px rgba(0,0,0,.16)}
-    .ed-bericht h4{margin:0 0 6px;font-size:.9rem}
+      font-size:1.17rem;box-shadow:0 8px 28px rgba(0,0,0,.16)}
+    .ed-bericht h4{margin:0 0 6px;font-size:1.2rem}
     .ed-bericht li{margin:0 0 8px}
     body.ed-an{padding-bottom:90px}
     .ed-liste{margin:0 0 18px;padding:14px 16px;border:1px solid var(--grey-xl);border-radius:var(--r);background:var(--paper)}
-    .ed-liste .ed-k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:10px 0 3px}
+    .ed-liste .ed-k{font-family:var(--mono);font-size:.97rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:10px 0 3px}
     .ed-liste .ed-k:first-child{margin-top:0}
     .ed-liste p,.ed-liste li{margin:0 0 4px}
     .ed-liste li.ok{font-weight:600}

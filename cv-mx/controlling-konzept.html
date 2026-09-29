@@ -24,66 +24,66 @@
   --ease:cubic-bezier(.22,.61,.36,1);
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:1.25rem;line-height:1.5}
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
 .masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
-.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+.eyebrow{font-family:var(--mono);font-size:1rem;font-weight:500;letter-spacing:.16em;
   text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
 .eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
 h1{font-size:clamp(2rem,4.6vw,3.1rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:20ch}
 h1 em{font-style:normal;color:var(--teal)}
-.lede{font-size:clamp(1.08rem,1.78vw,1.32rem);font-weight:300;color:#3d3d40;line-height:1.55;margin:0}
+.lede{font-size:1.32rem;font-weight:300;color:#3d3d40;line-height:1.55;margin:0}
 .tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
 .tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
-  font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--grey);
+  font-family:var(--sans);font-size:1.22rem;font-weight:600;color:var(--grey);
   padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
   transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
-.tab .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;opacity:.7}
+.tab .num{font-family:var(--mono);font-size:1.03rem;letter-spacing:.06em;opacity:.7}
 .tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
 .tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
 .tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 .panel{padding-top:28px}
 .panel[hidden]{display:none}
-.claim{font-size:clamp(1.2rem,2.35vw,1.6rem);font-weight:300;line-height:1.42;margin:0 0 26px;color:#2c2c2f}
+.claim{font-size:clamp(1.5rem,2.35vw,1.72rem);font-weight:300;line-height:1.42;margin:0 0 26px;color:#2c2c2f}
 .claim b{font-weight:600;color:var(--teal-dk)}
-h2.sec{font-size:1.34rem;font-weight:600;letter-spacing:-.014em;margin:34px 0 4px}
+h2.sec{font-size:1.5rem;font-weight:600;letter-spacing:-.014em;margin:34px 0 4px}
 h2.sec:first-child{margin-top:0}
-p.sub{margin:0 0 18px;color:var(--grey);font-size:1.06rem;line-height:1.6}
+p.sub{margin:0 0 18px;color:var(--grey);font-size:1.28rem;line-height:1.6}
 .num-t,.tbl td,.tbl th,.kpi,.mtr,.bar-v{font-variant-numeric:tabular-nums}
 code,.mono{font-family:var(--mono);font-size:.86em}
 
 /* ---------- Schaltflaechen ---------- */
 .seg{display:inline-flex;border:1px solid var(--grey-xl);background:var(--paper);border-radius:var(--r);padding:4px;gap:4px;flex-wrap:wrap}
 .seg button{appearance:none;border:0;background:transparent;cursor:pointer;font-family:var(--sans);
-  font-size:.88rem;font-weight:600;color:var(--grey);padding:9px 16px;border-radius:7px;transition:.16s}
+  font-size:1.19rem;font-weight:600;color:var(--grey);padding:9px 16px;border-radius:7px;transition:.16s}
 .seg button:hover{color:var(--teal-dk)}
 .seg button[aria-pressed="true"]{background:var(--teal-dk);color:#fff}
 .seg button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
 .wsbar{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;margin:0 0 16px}
 .wsbar > *{min-width:0}
 .knopf{appearance:none;border:1px solid var(--teal-dk);background:var(--teal-dk);color:#fff;cursor:pointer;
-  font-family:var(--sans);font-size:.9rem;font-weight:600;padding:10px 18px;border-radius:8px;transition:.16s}
+  font-family:var(--sans);font-size:1.2rem;font-weight:600;padding:10px 18px;border-radius:8px;transition:.16s}
 .knopf:hover:not(:disabled){background:var(--navy);border-color:var(--navy)}
 .knopf:disabled{background:var(--grey-xl);border-color:var(--grey-xl);color:var(--grey);cursor:default}
 .knopf.leise{background:var(--paper);color:var(--teal-dk)}
 .knopf.leise:hover{background:var(--teal-xl)}
 .knopf:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
-.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.84rem;color:#4a4a4d}
-select{font-family:var(--sans);font-size:.9rem;padding:8px 10px;border:1px solid var(--grey-mid);
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:1.17rem;color:#4a4a4d}
+select{font-family:var(--sans);font-size:1.2rem;padding:8px 10px;border:1px solid var(--grey-mid);
   border-radius:7px;background:var(--paper);color:var(--ink);max-width:100%}
 select:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
-label.fl{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:var(--grey);
+label.fl{display:flex;flex-direction:column;gap:4px;font-size:1.11rem;color:var(--grey);
   font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;min-width:0}
 
 /* ---------- Kaesten ---------- */
 .karte{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   box-shadow:var(--shadow);padding:20px 22px;min-width:0}
 .info{background:var(--paper);border:1px solid var(--grey-xl);border-left:4px solid var(--teal);
-  border-radius:var(--r);padding:16px 20px;box-shadow:var(--shadow);font-size:1rem;line-height:1.6;color:#3d3d40}
+  border-radius:var(--r);padding:16px 20px;box-shadow:var(--shadow);font-size:1.25rem;line-height:1.6;color:#3d3d40}
 .info b{color:var(--ink)}
-.hinweis{font-size:.86rem;color:var(--grey);margin:12px 0 0;line-height:1.5}
+.hinweis{font-size:1.18rem;color:var(--grey);margin:12px 0 0;line-height:1.5}
 .gut{color:var(--green)} .schlecht{color:var(--red)} .neutral{color:var(--grey)}
-.pill{display:inline-block;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;
+.pill{display:inline-block;font-family:var(--mono);font-size:1.03rem;letter-spacing:.06em;
   padding:3px 9px;border-radius:999px;background:var(--grey-xl);color:#3d3d40}
 .pill.teal{background:var(--teal-xl);color:var(--teal-dk)}
 .pill.rot{background:color-mix(in srgb, var(--red) 14%, var(--paper));color:var(--red)}
@@ -92,14 +92,14 @@ label.fl{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:var(-
 /* ---------- Tabellen ---------- */
 .tblw{overflow-x:auto;max-width:100%;border:1px solid var(--grey-xl);border-radius:var(--r);background:var(--paper)}
 .tblw:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
-.tbl{border-collapse:collapse;width:100%;font-size:.88rem}
-.tbl th{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;
+.tbl{border-collapse:collapse;width:100%;font-size:1.19rem}
+.tbl th{font-family:var(--mono);font-size:1.01rem;letter-spacing:.08em;text-transform:uppercase;
   color:var(--grey);font-weight:500;text-align:left;padding:10px 12px;border-bottom:1px solid var(--grey-xl);
   white-space:nowrap;background:var(--canvas)}
 .tbl td{padding:9px 12px;border-bottom:1px solid var(--grey-xl);white-space:nowrap}
 .tbl tr:last-child td{border-bottom:0}
 .tbl td.r,.tbl th.r{text-align:right}
-.tbl td.id{font-family:var(--mono);font-size:.82rem}
+.tbl td.id{font-family:var(--mono);font-size:1.16rem}
 
 /* ---------- Zwei-Knopf-Uebung ---------- */
 .ueb{display:grid;gap:10px}
@@ -109,15 +109,15 @@ label.fl{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:var(-
 .ub.nok{border-color:var(--red)}
 .ub-t{min-width:0}
 .ub-t b{display:block;font-weight:600}
-.ub-t span{font-size:.88rem;color:var(--grey)}
+.ub-t span{font-size:1.19rem;color:var(--grey)}
 .ub-k{display:flex;gap:6px;flex-wrap:wrap}
-.ub-k button{appearance:none;cursor:pointer;font-family:var(--sans);font-size:.86rem;font-weight:600;
+.ub-k button{appearance:none;cursor:pointer;font-family:var(--sans);font-size:1.18rem;font-weight:600;
   border:1px solid var(--grey-mid);background:var(--paper);color:#3d3d40;padding:8px 14px;border-radius:7px}
 .ub-k button:hover:not(:disabled){border-color:var(--teal);color:var(--teal-dk)}
 .ub-k button:disabled{cursor:default;opacity:.55}
 .ub-k button[aria-pressed="true"]{opacity:1;background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
 .ub-k button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
-.ub-w{grid-column:1 / -1;margin:0;font-size:.9rem;line-height:1.55;color:#3d3d40}
+.ub-w{grid-column:1 / -1;margin:0;font-size:1.2rem;line-height:1.55;color:#3d3d40}
 .ub-w b.gut,.ub-w b.schlecht{font-weight:700}
 
 /* ---------- Lektion 02 · Die Berichtslandkarte ----------
@@ -133,31 +133,32 @@ label.fl{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:var(-
 .bn .kante{fill:none;stroke:var(--grey-mid);stroke-width:1.6}
 .bn .kante.an{stroke:var(--teal-dk);stroke-width:2.4}
 .bn .pfs{fill:var(--grey-mid)}
-.bn .kl{font-family:var(--mono);font-size:11px;fill:var(--grey);letter-spacing:.04em}
+.bn .kl{font-family:var(--mono);font-size:16px;fill:var(--grey);letter-spacing:.04em}
 .ebene{position:absolute;left:14px;width:96px;display:flex;align-items:center;justify-content:center;
   text-align:center;background:var(--teal-xl);color:var(--teal-dk);border-radius:6px;
-  font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;line-height:1.3;padding:6px}
+  font-family:var(--mono);font-size:1.03rem;letter-spacing:.04em;line-height:1.3;padding:6px}
 .kn{position:absolute;appearance:none;cursor:pointer;font:inherit;color:inherit;text-align:center;
   background:var(--paper);border:1px solid var(--grey-mid);border-top:4px solid var(--acc);
   border-radius:8px;display:flex;align-items:center;justify-content:center;padding:6px 8px;
-  font-size:.9rem;font-weight:600;line-height:1.2;hyphens:manual;
+  font-size:1.2rem;font-weight:600;line-height:1.2;hyphens:manual;
   transition:transform .18s var(--ease),background .18s var(--ease),box-shadow .18s}
 .kn:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
 .kn:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
 .kn[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:#fff}
 .kn.frei{border-style:dashed;border-top-style:solid}
 .ar-det{margin-top:16px}
-.ar-det h3{margin:0 0 4px;font-size:1.2rem}
+.ar-det h3{margin:0 0 4px;font-size:1.39rem}
 .ar-det .meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
 .ar-det p{margin:0 0 14px;color:#3d3d40;line-height:1.6}
 .lf-liste{margin:0;padding:0;list-style:none;display:grid;gap:8px;counter-reset:lf}
 .lf-liste li{background:var(--canvas);border-radius:8px;padding:10px 14px 10px 46px;position:relative;
-  font-size:.95rem;line-height:1.45}
+  font-size:1.22rem;line-height:1.45}
 .lf-liste li::before{counter-increment:lf;content:counter(lf,decimal-leading-zero);position:absolute;left:14px;top:10px;
-  font-family:var(--mono);font-size:.8rem;font-weight:600;color:var(--teal-dk)}
-.lf-frage{font-size:clamp(1.08rem,2vw,1.3rem);font-weight:400;line-height:1.45;margin:0 0 14px;color:var(--navy)}
+  font-family:var(--mono);font-size:1.14rem;font-weight:600;color:var(--teal-dk)}
+.lf-frage{font-size:clamp(1.29rem,2vw,1.47rem);font-weight:400;line-height:1.45;margin:0 0 14px;color:var(--navy)}
 .lf-wahl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
-.lf-wahl button{appearance:none;cursor:pointer;font-family:var(--sans);font-size:.88rem;font-weight:600;
+.lf-wahl button{overflow-wrap:anywhere}
+.lf-wahl button{appearance:none;cursor:pointer;font-family:var(--sans);font-size:1.19rem;font-weight:600;
   border:1px solid var(--grey-mid);background:var(--paper);color:#3d3d40;padding:10px 8px;border-radius:8px;
   min-width:0;line-height:1.25}
 .lf-wahl button:hover:not(:disabled){border-color:var(--teal);color:var(--teal-dk)}
@@ -166,17 +167,17 @@ label.fl{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:var(-
 .lf-wahl button.wrong{background:color-mix(in srgb, var(--red) 14%, var(--paper));border-color:var(--red);color:var(--red)}
 .lf-wahl button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 .lf-fuss{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;margin-top:14px}
-.lf-fuss p{margin:0;font-size:.92rem;color:#3d3d40}
+.lf-fuss p{margin:0;font-size:1.21rem;color:#3d3d40}
 
 /* ---------- Quiz ---------- */
 .qwrap{display:grid;gap:14px}
 .qcard{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   box-shadow:var(--shadow);padding:18px 20px}
-.qcard .qn{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+.qcard .qn{font-family:var(--mono);font-size:1.03rem;letter-spacing:.1em;text-transform:uppercase;
   color:var(--grey);margin:0 0 7px}
-.qcard .qt{font-size:.98rem;font-weight:600;line-height:1.4;margin:0 0 13px}
+.qcard .qt{font-size:1.24rem;font-weight:600;line-height:1.4;margin:0 0 13px}
 .qopts{display:grid;gap:8px}
-.qopt{appearance:none;text-align:left;cursor:pointer;font-family:var(--sans);font-size:.89rem;
+.qopt{appearance:none;text-align:left;cursor:pointer;font-family:var(--sans);font-size:1.19rem;
   border:1px solid var(--grey-xl);background:var(--paper);color:var(--ink);
   padding:11px 14px;border-radius:8px;transition:.16s;line-height:1.4}
 .qopt:hover:not(:disabled){border-color:var(--teal);background:var(--teal-xl)}
@@ -184,11 +185,11 @@ label.fl{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:var(-
 .qopt:disabled{cursor:default}
 .qopt.right{background:color-mix(in srgb, var(--green) 12%, var(--paper));border-color:var(--green);color:var(--green);font-weight:600}
 .qopt.wrong{background:color-mix(in srgb, var(--red) 12%, var(--paper));border-color:var(--red);color:var(--red);font-weight:600}
-.qfb{margin:13px 0 0;font-size:.86rem;color:#3d3d40;line-height:1.5;
+.qfb{margin:13px 0 0;font-size:1.18rem;color:#3d3d40;line-height:1.5;
   padding-top:11px;border-top:1px solid var(--grey-xl)}
 .qfb[hidden]{display:none}
 .qscore{background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:18px 22px;
-  font-size:.98rem;line-height:1.5}
+  font-size:1.24rem;line-height:1.5}
 .qscore b{font-weight:700}
 
 /* ---------- Praxiseinstieg ---------- */
@@ -196,20 +197,20 @@ label.fl{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:var(-
 .ckitem{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   box-shadow:var(--shadow);padding:16px 18px 16px 60px;position:relative}
 .ckitem::before{counter-increment:ck;content:counter(ck,decimal-leading-zero);
-  position:absolute;left:18px;top:16px;font-family:var(--mono);font-size:1rem;font-weight:700;
+  position:absolute;left:18px;top:16px;font-family:var(--mono);font-size:1.25rem;font-weight:700;
   color:var(--teal-dk)}
-.ckitem h3{margin:0 0 6px;font-size:.98rem;font-weight:700;letter-spacing:-.01em}
-.ckitem p{margin:0 0 8px;font-size:.9rem;color:#3d3d40;line-height:1.5}
+.ckitem h3{margin:0 0 6px;font-size:1.24rem;font-weight:700;letter-spacing:-.01em}
+.ckitem p{margin:0 0 8px;font-size:1.2rem;color:#3d3d40;line-height:1.5}
 .ckitem p:last-child{margin-bottom:0}
-.ckitem .trap{font-size:.85rem;color:var(--ochre);line-height:1.45}
+.ckitem .trap{font-size:1.18rem;color:var(--ochre);line-height:1.45}
 .ckitem .trap b{font-weight:700}
-.gl-such{width:100%;max-width:420px;font-family:var(--sans);font-size:.95rem;padding:10px 12px;
+.gl-such{width:100%;max-width:420px;font-family:var(--sans);font-size:1.22rem;padding:10px 12px;
   border:1px solid var(--grey-mid);border-radius:8px;margin:0 0 14px}
 .gl-such:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
 .gl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .gl div{background:var(--paper);border:1px solid var(--grey-xl);border-radius:8px;padding:12px 14px;min-width:0}
 .gl dt{font-weight:700;margin:0 0 4px}
-.gl dd{margin:0;font-size:.9rem;color:#3d3d40;line-height:1.5}
+.gl dd{margin:0;font-size:1.2rem;color:#3d3d40;line-height:1.5}
 
 /* ---------- Auf- und zuklappbare Bloecke innerhalb einer Lektion ------
    Die Bloecke entstehen zur Laufzeit aus der vorhandenen Gliederung:
@@ -236,14 +237,14 @@ body{background:#fff}
 
 /* ---------- Kernaussagen ---------- */
 .pointe{margin-top:34px;background:var(--orange);color:#fff;border-radius:var(--r);padding:26px 28px}
-.pointe .pk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+.pointe .pk{font-family:var(--mono);font-size:.97rem;letter-spacing:.14em;text-transform:uppercase;
   color:rgba(255,255,255,.78);margin:0 0 10px}
-.pointe p{margin:0;font-size:clamp(1.12rem,2.1vw,1.45rem);font-weight:300;line-height:1.48}
+.pointe p{margin:0;font-size:clamp(1.4rem,2.1vw,1.62rem);font-weight:300;line-height:1.48}
 .pointe p b{font-weight:700}
-footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
+footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
   border-top:1px solid var(--grey-xl);padding-top:20px}
 .build{font-family:var(--mono);font-size:.92em;letter-spacing:.02em;opacity:.85}
-.km-titel{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:0 0 8px}
+.km-titel{font-family:var(--mono);font-size:1.03rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:0 0 8px}
 
 /* ---------- Karten mit Auswahl ----------
    Eine Reihe von Knoepfen, darunter der Kasten mit dem Text des
@@ -253,9 +254,9 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
 .wk{appearance:none;font:inherit;text-align:left;cursor:pointer;color:inherit;background:var(--paper);
   border:1px solid var(--grey-xl);border-top:4px solid var(--grey-mid);border-radius:var(--r);
   padding:12px 14px;box-shadow:var(--shadow);transition:.18s var(--ease);min-width:0}
-.wk .n{font-family:var(--mono);font-size:1.2rem;font-weight:600;color:var(--grey);display:block;line-height:1}
-.wk .t{font-weight:700;font-size:.98rem;display:block;margin-top:6px;line-height:1.3}
-.wk .s{font-size:.82rem;color:var(--grey);display:block;margin-top:3px}
+.wk .n{font-family:var(--mono);font-size:1.39rem;font-weight:600;color:var(--grey);display:block;line-height:1}
+.wk .t{font-weight:700;font-size:1.24rem;display:block;margin-top:6px;line-height:1.3}
+.wk .s{font-size:1.16rem;color:var(--grey);display:block;margin-top:3px}
 .wk:hover{transform:translateY(-2px)}
 .wk[aria-pressed="true"]{border-top-color:var(--teal-dk);background:var(--teal-xl)}
 .wk[aria-pressed="true"] .n{color:var(--teal-dk)}
@@ -268,10 +269,10 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
 .kachel{background:var(--paper);border:1px solid var(--grey-xl);border-top:4px solid var(--teal);
   border-radius:var(--r);padding:14px 16px;min-width:0}
 .kachel b{display:block;margin:0 0 6px}
-.kachel p{margin:0;font-size:.92rem;line-height:1.5;color:#3d3d40}
+.kachel p{margin:0;font-size:1.21rem;line-height:1.5;color:#3d3d40}
 .duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .duo > div{min-width:0}
-.duo h3{margin:0 0 8px;font-size:.78rem;font-family:var(--mono);font-weight:500;letter-spacing:.08em;
+.duo h3{margin:0 0 8px;font-size:1.11rem;font-family:var(--mono);font-weight:500;letter-spacing:.08em;
   text-transform:uppercase;color:var(--grey)}
 .duo ul{margin:0;padding-left:1.1em;line-height:1.6}
 
@@ -279,11 +280,11 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
 .leiter{display:grid;gap:6px;max-width:420px}
 .stufe{border:1px solid var(--grey-mid);border-radius:8px;padding:10px 14px;background:var(--paper);
   display:flex;justify-content:space-between;gap:10px;align-items:center;transition:.2s}
-.stufe span{font-family:var(--mono);font-size:.7rem;color:var(--grey)}
+.stufe span{font-family:var(--mono);font-size:1.01rem;color:var(--grey)}
 .stufe.an{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
 .stufe.an span{color:rgba(255,255,255,.8)}
 .stufe.innen{border:2px dashed var(--teal-dk);background:var(--teal-xl);color:var(--teal-dk)}
-.pfeil{text-align:center;color:var(--grey-mid);font-size:1.1rem;line-height:1;transition:.2s}
+.pfeil{text-align:center;color:var(--grey-mid);font-size:1.31rem;line-height:1;transition:.2s}
 .pfeil.an{color:var(--teal-dk)}
 .zwei{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:16px;align-items:start}
 
@@ -294,9 +295,9 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
 .bsp:hover{border-color:var(--teal)}
 .bsp:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 .bsp[aria-pressed="true"]{border-color:var(--teal-dk);box-shadow:0 0 0 1px var(--teal-dk)}
-.bsp .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
+.bsp .k{font-family:var(--mono);font-size:1.01rem;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
 .bsp .l{font-weight:600}
-.bsp .w{grid-row:1 / span 2;grid-column:2;font-size:2.2rem;font-weight:700;font-variant-numeric:tabular-nums}
+.bsp .w{grid-row:1 / span 2;grid-column:2;font-size:2.26rem;font-weight:700;font-variant-numeric:tabular-nums}
 .ktx{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 12px}
 .leer td{color:var(--grey);font-style:italic;white-space:normal}
 
@@ -306,19 +307,19 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
 .qb{appearance:none;font:inherit;color:inherit;cursor:pointer;text-align:left;background:var(--paper);
   border:1px solid var(--grey-mid);border-radius:8px;padding:12px 14px;min-width:0}
 .qb b{display:block}
-.qb span{font-size:.82rem;color:var(--grey)}
+.qb span{font-size:1.16rem;color:var(--grey)}
 .qb[aria-pressed="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
 .qb[aria-pressed="true"] span{color:rgba(255,255,255,.8)}
 .qb:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 .modell{background:var(--navy);color:#fff;border-radius:8px;padding:16px;text-align:center;font-weight:600}
-.modell span{display:block;font-weight:400;font-size:.82rem;opacity:.8}
-.pf{text-align:center;color:var(--grey);font-size:1.3rem;pointer-events:none}
+.modell span{display:block;font-weight:400;font-size:1.16rem;opacity:.8}
+.pf{text-align:center;color:var(--grey);font-size:1.47rem;pointer-events:none}
 .berichte{display:grid;gap:4px}
-.berichte span{background:var(--canvas);border-radius:6px;padding:5px 10px;font-size:.84rem}
+.berichte span{background:var(--canvas);border-radius:6px;padding:5px 10px;font-size:1.17rem}
 .seite{display:grid;gap:6px}
 .zone{appearance:none;font:inherit;color:#3d3d40;cursor:pointer;text-align:left;border:1px dashed var(--grey-mid);
-  background:var(--paper);border-radius:6px;padding:10px 12px;font-size:.88rem;width:100%}
-.zone b{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;display:block;color:var(--grey)}
+  background:var(--paper);border-radius:6px;padding:10px 12px;font-size:1.19rem;width:100%}
+.zone b{font-family:var(--mono);font-size:1.01rem;letter-spacing:.08em;text-transform:uppercase;display:block;color:var(--grey)}
 .zone[aria-pressed="true"]{border-style:solid;border-color:var(--teal-dk);background:var(--teal-xl);color:var(--teal-dk)}
 .zone[aria-pressed="true"] b{color:var(--teal-dk)}
 .zone:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
@@ -332,13 +333,13 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
 }
 @media (max-width:620px){
 .wrap{padding:0 16px 56px}
-.tab{padding:10px 14px;font-size:.88rem}
+.tab{padding:10px 14px;font-size:1.19rem}
 .wahl{grid-template-columns:1fr}
 .kacheln,.duo{grid-template-columns:1fr}
 .ub{grid-template-columns:1fr}
 .quellen{grid-template-columns:1fr}
 .pf{font-size:0}
-.pf::after{content:"↓";font-size:1.3rem}
+.pf::after{content:"↓";font-size:1.47rem}
 .gl{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){
@@ -354,7 +355,7 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
   <p class="eyebrow">Controlling beim CV · Modul 02</p>
   <h1>Das <em>Controlling-Konzept</em></h1>
   <p class="lede">Das Konzept legt fest, welche Anspruchsgruppen im CV welche Personalinformationen erhalten, in welcher Struktur diese in Power BI aufbereitet sind und welche Steuerungsfragen jeder Bericht auslösen soll.</p>
-  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Der Geltungsbereich beschränkt sich zunächst auf das Personalcontrolling. Eine Erweiterung um weitere Controllingfelder ist auf Basis derselben Architektur vorgesehen.</p>
+  <p class="lede" style="font-size:1.22rem;color:var(--grey);margin-top:14px">Der Geltungsbereich beschränkt sich zunächst auf das Personalcontrolling. Eine Erweiterung um weitere Controllingfelder ist auf Basis derselben Architektur vorgesehen.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Das Controlling-Konzept">
@@ -551,7 +552,7 @@ footer{margin-top:36px;font-size:.82rem;color:var(--grey);line-height:1.6;
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.76</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.77</span>
 </footer>
 
 </div>
