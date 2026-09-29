@@ -244,7 +244,7 @@ footer a{color:var(--teal-dk)}
   <script>{const l=new URLSearchParams(location.search).get("lang");if(l)document.currentScript.previousElementSibling.href="index.html?lang="+encodeURIComponent(l);}</script>
   <p class="eyebrow">Sofia's Coffee Dream · Business Intelligence</p>
   <h1>Ein Modell, das <em>die Fachsprache spricht</em></h1>
-  <p class="lede">Zwischen der Datenbank und der Frage „Wie lief der Espresso im März am Coffeebike?" liegt eine Übersetzungsschicht: das semantische Datenmodell. Es ordnet die Welt in <b>Fakten</b> — das, was man zählt — und <b>Dimensionen</b> — das, wonach man zählt. Dieses Modul baut es an Sofias Verkäufen auf, klappt eine Hierarchie auf und zu, und stellt am Ende die Frage, die jedes Projekt einmal stellt: Stern oder Snowflake?</p>
+  <p class="lede">Zwischen der Datenbank und der Frage „Wie lief der Espresso im März am Coffeebike?" liegt eine Übersetzungsschicht: das semantische Datenmodell. Es ordnet die Welt in <b>Fakten</b> (das, was man zählt) und <b>Dimensionen</b> (das, wonach man zählt). Dieses Modul baut es an Sofias Verkäufen auf, klappt eine Hierarchie auf und zu und stellt am Ende die Frage, die jedes Projekt einmal stellt: Stern oder Snowflake?</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Semantische Datenmodelle">
@@ -256,7 +256,7 @@ footer a{color:var(--teal-dk)}
 
 <!-- ============================ TAB A ============================ -->
 <section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
-  <p class="claim">In der Mitte steht, <b>was gemessen wird</b>. Ringsherum steht, <b>wonach gefragt werden kann</b>. Mehr ist ein Sternschema nicht — und genau diese Sparsamkeit macht es lesbar.</p>
+  <p class="claim">In der Mitte steht, <b>was gemessen wird</b>. Ringsherum steht, <b>wonach gefragt werden kann</b>. Mehr ist ein Sternschema nicht, wobei genau diese Sparsamkeit es lesbar macht.</p>
 
   <div class="bar">
     <div class="legend">
@@ -272,11 +272,11 @@ footer a{color:var(--teal-dk)}
 
   <div class="detail" id="detA"></div>
 
-  <h2 class="sec">Das Korn — die wichtigste Zeile des ganzen Modells</h2>
+  <h2 class="sec">Das Korn, die wichtigste Zeile des ganzen Modells</h2>
   <p class="sub">Bevor eine einzige Spalte entsteht, muss ein Satz stehen: Was ist eine Zeile in der Faktentabelle?</p>
 
   <div class="readme">
-    <b>Eine Zeile ist eine Bonzeile: ein Produkt, auf einem Bon, in einer Filiale, zu einem Zeitpunkt, mit einem Zahlweg.</b> Dieser Satz heißt <em>Korn</em> oder <em>Granularität</em>, und er ist die einzige Entscheidung im Modell, die sich später nicht mehr billig korrigieren lässt. Wer das Korn zu grob wählt — etwa „ein Bon" statt „eine Bonzeile" — kann nie wieder nach Produkt auswerten, weil die Information gar nicht erst gespeichert wurde. Wer es zu fein wählt, bezahlt Speicher für eine Genauigkeit, die niemand abfragt. Alle Dimensionen ringsherum sind nur so gut wie dieser eine Satz.
+    <b>Eine Zeile ist eine Bonzeile: ein Produkt, auf einem Bon, in einer Filiale, zu einem Zeitpunkt, mit einem Zahlweg.</b> Dieser Satz heißt <em>Korn</em> oder <em>Granularität</em> und ist die einzige Entscheidung im Modell, die sich später nicht mehr billig korrigieren lässt. Wer das Korn zu grob wählt (etwa „ein Bon" statt „eine Bonzeile"), kann nie wieder nach Produkt auswerten, weil die Information gar nicht erst gespeichert wurde. Wer es zu fein wählt, bezahlt Speicher für eine Genauigkeit, die niemand abfragt. Alle Dimensionen ringsherum sind nur so gut wie dieser eine Satz.
   </div>
   <p class="hint scrollhint">Zeichnung seitlich scrollen</p>
   <p class="hint">Über eine Tabelle fahren oder sie antabben</p>
@@ -287,14 +287,14 @@ footer a{color:var(--teal-dk)}
   <p class="claim">Eine Hierarchie ist ein <b>Weg von grob nach fein</b>, den das Modell kennt. Sie ist der Grund, warum sich ein Bericht auf- und zuklappen lässt, ohne dass jemand eine neue Abfrage schreibt.</p>
 
   <h2 class="sec">Auf- und Zuklappen an Sofias Sortiment</h2>
-  <p class="sub">Warengruppe → Produktgruppe → Produkt, Umsätze Q1 2026. Klicke eine Zeile an. Die Summe bleibt bei jedem Klick dieselbe — sie wird nur feiner aufgeteilt.</p>
+  <p class="sub">Warengruppe → Produktgruppe → Produkt, Umsätze Q1 2026. Klicke eine Zeile an. Die Summe bleibt bei jedem Klick dieselbe, da sie nur feiner aufgeteilt wird.</p>
 
   <div class="htree" id="htree"></div>
 
   <div class="detail" id="detB">
     <p class="dk">Was beim Klicken passiert</p>
     <h4>Drill-down und Roll-up sind zwei Blicke auf dieselbe Summe</h4>
-    <p>Zugeklappt zeigt der Bericht drei Zeilen, aufgeklappt neun. Dahinter steht dieselbe Faktentabelle und dieselbe Summenfunktion — nur die Gruppierung wechselt die Spalte. Genau deshalb muss die Hierarchie im Modell stehen und nicht im Bericht: Wüsste das Modell nicht, dass „Espresso" zu „Heißgetränke" gehört, müsste jede Auswertung diese Zuordnung neu mitbringen.</p>
+    <p>Zugeklappt zeigt der Bericht drei Zeilen, aufgeklappt neun. Dahinter steht dieselbe Faktentabelle und dieselbe Summenfunktion, während allein die Gruppierung die Spalte wechselt. Genau deshalb muss die Hierarchie im Modell stehen und nicht im Bericht: Wüsste das Modell nicht, dass „Espresso" zu „Heißgetränke" gehört, müsste jede Auswertung diese Zuordnung neu mitbringen.</p>
     <p class="warn">Klicke eine Zeile, um sie auf- oder zuzuklappen.</p>
   </div>
 
@@ -304,7 +304,7 @@ footer a{color:var(--teal-dk)}
   <div class="duo">
     <div class="card good">
       <p class="ck">Bauweise A</p>
-      <h3>Flach — eine Spalte je Ebene</h3>
+      <h3>Flach, eine Spalte je Ebene</h3>
       <p class="verdict">✓ So wird es gemacht</p>
       <div class="tscroll">
         <table class="tbl">
@@ -314,14 +314,14 @@ footer a{color:var(--teal-dk)}
       </div>
       <ul>
         <li>Jede Ebene ist eine eigene Spalte, in jeder Zeile steht der vollständige Weg von oben nach unten.</li>
-        <li>Die Auswertung ist ein schlichtes <code>GROUP BY warengruppe</code> — keine Rekursion, kein Sonderfall.</li>
+        <li>Die Auswertung ist ein schlichtes <code>GROUP BY warengruppe</code>, also keine Rekursion und kein Sonderfall.</li>
         <li>Die Tiefe ist bekannt und fest: drei Ebenen, immer. Werkzeuge wie Power BI bauen daraus die Klapp-Hierarchie von selbst.</li>
-        <li>Die Redundanz ist gewollt: „Getränke" steht fünfmal da, und das ist billiger als jeder Join.</li>
+        <li>Die Redundanz ist gewollt: „Getränke" steht fünfmal da, was billiger ist als jeder Join.</li>
       </ul>
     </div>
     <div class="card bad">
       <p class="ck">Bauweise B</p>
-      <h3>Parent-Child — Verweis auf die eigene Zeile</h3>
+      <h3>Parent-Child, ein Verweis auf die eigene Zeile</h3>
       <p class="verdict">✗ Hier fehl am Platz</p>
       <div class="tscroll">
         <table class="tbl">
@@ -332,21 +332,21 @@ footer a{color:var(--teal-dk)}
       <ul>
         <li>Alle Ebenen liegen in einer Spalte, verbunden über einen Verweis auf die eigene Tabelle.</li>
         <li>Die Auswertung braucht eine rekursive Abfrage, weil die Tiefe erst zur Laufzeit feststeht.</li>
-        <li>Das ist die richtige Bauweise, wenn die Tiefe wirklich schwankt — Organigramme, Kontenpläne, Stücklisten.</li>
-        <li>Sofias Sortiment hat immer drei Ebenen. Wer hier Parent-Child baut, kauft sich Flexibilität, die niemand braucht, und bezahlt sie bei jeder Abfrage.</li>
+        <li>Das ist die richtige Bauweise, wenn die Tiefe wirklich schwankt (Organigramme, Kontenpläne, Stücklisten).</li>
+        <li>Sofias Sortiment hat immer drei Ebenen. Wer hier Parent-Child baut, kauft sich Flexibilität, die niemand braucht, um sie bei jeder Abfrage zu bezahlen.</li>
       </ul>
     </div>
   </div>
 
   <div class="readme warn">
-    <b>Die Faustregel.</b> Ist die Zahl der Ebenen bekannt und für alle Zweige gleich, wird die Hierarchie <b>flach</b> in die Dimensionstabelle geschrieben — eine Spalte je Ebene. Parent-Child ist die Notlösung für den Fall, dass die Tiefe von Zeile zu Zeile schwankt. Elegant wirkt es nur auf den ersten Blick. Sofias Kaffee hat immer eine Warengruppe, immer eine Produktgruppe und immer einen Namen. Drei Spalten, fertig.
+    <b>Die Faustregel.</b> Ist die Zahl der Ebenen bekannt und für alle Zweige gleich, wird die Hierarchie <b>flach</b> in die Dimensionstabelle geschrieben, mit einer Spalte je Ebene. Parent-Child ist die Notlösung für den Fall, dass die Tiefe von Zeile zu Zeile schwankt. Elegant wirkt es nur auf den ersten Blick. Sofias Kaffee hat immer eine Warengruppe, immer eine Produktgruppe und immer einen Namen. Drei Spalten, fertig.
   </div>
   <p class="hint">Zeilen anklicken zum Auf- und Zuklappen · Tabellen seitlich scrollbar</p>
 </section>
 
 <!-- ============================ TAB C ============================ -->
 <section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c">
-  <p class="claim">Das Snowflake-Schema entsteht, wenn man die Hierarchie aus der Dimensionstabelle <b>herauslöst und normalisiert</b>. Aus einer Tabelle werden drei — und aus einem Join werden drei.</p>
+  <p class="claim">Das Snowflake-Schema entsteht, wenn man die Hierarchie aus der Dimensionstabelle <b>herauslöst und normalisiert</b>. Aus einer Tabelle werden drei und aus einem Join werden drei.</p>
 
   <div class="bar">
     <div class="legend">
@@ -391,7 +391,7 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <div class="readme warn">
-    <b>Rechne nach — die Normalisierung spart hier gar nichts.</b> Flach sind es 9 Zeilen mit 36 Feldern. Normalisiert sind es 17 Zeilen mit 48 Feldern, weil jede ausgelagerte Tabelle einen eigenen Schlüssel und jede Kindzeile einen Fremdschlüssel braucht. Der Speicherplatz, um dessentwillen normalisiert wird, existiert bei Dimensionen dieser Größe schlicht nicht: Sofias Produktdimension hat neun Zeilen, ihre Faktentabelle Zehntausende. Alles, was ein Data Warehouse an Platz kostet, steckt in der Mitte des Sterns — und dort ändert das Snowflake-Schema kein einziges Byte.
+    <b>Rechne nach, denn die Normalisierung spart hier gar nichts.</b> Flach sind es 9 Zeilen mit 36 Feldern. Normalisiert sind es 17 Zeilen mit 48 Feldern, weil jede ausgelagerte Tabelle einen eigenen Schlüssel und jede Kindzeile einen Fremdschlüssel braucht. Der Speicherplatz, um dessentwillen normalisiert wird, existiert bei Dimensionen dieser Größe schlicht nicht: Sofias Produktdimension hat neun Zeilen, ihre Faktentabelle Zehntausende. Alles, was ein Data Warehouse an Platz kostet, steckt in der Mitte des Sterns, wo das Snowflake-Schema kein einziges Byte ändert.
   </div>
   <p class="hint scrollhint">Zeichnung seitlich scrollen</p>
   <p class="hint">Oben umschalten · Tabellen in der Zeichnung überfahren</p>
@@ -399,7 +399,7 @@ footer a{color:var(--teal-dk)}
 
 <!-- ============================ TAB D ============================ -->
 <section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d">
-  <p class="claim">Die Frage wird oft als Geschmacksfrage geführt. Sie ist keine: Die beiden Formen optimieren auf <b>verschiedene Ziele</b>, und in einem Data Warehouse ist nur eines davon knapp.</p>
+  <p class="claim">Die Frage wird oft als Geschmacksfrage geführt. Sie ist keine: Die beiden Formen optimieren auf <b>verschiedene Ziele</b>, von denen in einem Data Warehouse nur eines knapp ist.</p>
 
   <div class="tscroll">
     <table class="mx">
@@ -413,29 +413,29 @@ footer a{color:var(--teal-dk)}
   <div class="detail" id="detD">
     <p class="dk">Die Abwägung</p>
     <h4>Lesen ist häufig, Ordnen ist selten</h4>
-    <p>Ein Data Warehouse wird tausendmal gelesen und einmal beladen. Das Sternschema optimiert auf den häufigen Fall: wenige Joins, kurze Wege, ein Modell, das eine Fachanwenderin ohne Erklärung versteht. Das Snowflake-Schema optimiert auf Ordnung — auf Redundanzfreiheit und auf saubere Pflege von Attributen, die zu einer Ebene und nicht zum Einzelprodukt gehören.</p>
+    <p>Ein Data Warehouse wird tausendmal gelesen und einmal beladen. Das Sternschema optimiert auf den häufigen Fall: wenige Joins, kurze Wege, ein Modell, das eine Fachanwenderin ohne Erklärung versteht. Das Snowflake-Schema optimiert auf Ordnung, also auf Redundanzfreiheit und auf saubere Pflege von Attributen, die zu einer Ebene und nicht zum Einzelprodukt gehören.</p>
     <p class="warn">Über eine Zeile fahren, um die Begründung zu sehen.</p>
   </div>
 
   <h2 class="sec">Wann Snowflake trotzdem richtig ist</h2>
-  <p class="sub">Es gibt drei Fälle, und keiner davon heißt „weil es sauberer aussieht".</p>
+  <p class="sub">Es gibt drei Fälle, von denen keiner „weil es sauberer aussieht" heißt.</p>
 
   <div class="readme">
-    <b>Erstens: sehr große Dimensionen mit breiten Attributen.</b> Eine Kundendimension mit Millionen Zeilen und einer langen Adressenstruktur spart durch Auslagerung tatsächlich messbar Platz. Bei neun Produkten nicht. <b>Zweitens: geteilte Ebenen.</b> Wenn dieselbe Warengruppe auch in einer Einkaufs- und einer Planungsdimension vorkommt, ist eine eigene Tabelle der ehrlichere Ort für sie — sie wird dann zur konformen Sub-Dimension und garantiert, dass „Getränke" überall dasselbe heißt. <b>Drittens: das Werkzeug verlangt es.</b> Manche Datenbanken und OLAP-Engines bilden Hierarchieebenen nur aus eigenen Tabellen ab. Das ist eine Randbedingung des Werkzeugs — aber eine, die zählt.
+    <b>Erstens: sehr große Dimensionen mit breiten Attributen.</b> Eine Kundendimension mit Millionen Zeilen und einer langen Adressenstruktur spart durch Auslagerung tatsächlich messbar Platz. Bei neun Produkten nicht. <b>Zweitens: geteilte Ebenen.</b> Wenn dieselbe Warengruppe auch in einer Einkaufs- und einer Planungsdimension vorkommt, ist eine eigene Tabelle der ehrlichere Ort für sie, da sie dann zur konformen Sub-Dimension wird und garantiert, dass „Getränke" überall dasselbe heißt. <b>Drittens: das Werkzeug verlangt es.</b> Manche Datenbanken und OLAP-Engines bilden Hierarchieebenen nur aus eigenen Tabellen ab. Das ist eine Randbedingung des Werkzeugs, aber eine, die zählt.
   </div>
 
   <h2 class="sec">Wo dieses Modul im Kurs steht</h2>
   <p class="sub">Das semantische Modell ist die Grundlage für die beiden Fragen, die danach kommen.</p>
 
   <div class="readme">
-    <b>Erst das Modell, dann die Zeit, dann der Speicher.</b> Steht der Stern, stellt sich sofort die nächste Frage: Was passiert, wenn sich ein Dimensionsattribut ändert — wenn Sofia den Espresso von „Heißgetränke" nach „Klassiker" umgruppiert? Das ist das Thema <a href="scd-dashboard.html">Slowly Changing Dimensions</a>. Und wenn geklärt ist, was das Modell weiß, folgt die Frage, wo die Summen liegen: <a href="decks/OLAP_Storage_Sofias_Coffee_World.pptx" download>MOLAP, ROLAP und HOLAP</a>. Beide Fragen setzen voraus, dass es einen Stern gibt, über den man sie stellen kann.
+    <b>Erst das Modell, dann die Zeit, dann der Speicher.</b> Steht der Stern, stellt sich sofort die nächste Frage: Was passiert, wenn sich ein Dimensionsattribut ändert, wenn also Sofia den Espresso von „Heißgetränke" nach „Klassiker" umgruppiert? Das ist das Thema <a href="scd-dashboard.html">Slowly Changing Dimensions</a>. Und wenn geklärt ist, was das Modell weiß, folgt die Frage, wo die Summen liegen: <a href="decks/OLAP_Storage_Sofias_Coffee_World.pptx" download>MOLAP, ROLAP und HOLAP</a>. Beide Fragen setzen voraus, dass es einen Stern gibt, über den man sie stellen kann.
   </div>
   <p class="hint">Zeile überfahren für die Begründung</p>
 </section>
 
 <div class="pointe">
   <p class="pk">Der eine Satz</p>
-  <p><b>Das Sternschema optimiert das Lesen, das Snowflake-Schema die Ordnung.</b> In einem Data Warehouse wird tausendmal gelesen und einmal geordnet — deshalb ist der Stern der Normalfall und das Snowflake die begründungspflichtige Ausnahme. Wer normalisiert, muss sagen können, welches Problem er damit löst.</p>
+  <p><b>Das Sternschema optimiert das Lesen, das Snowflake-Schema die Ordnung.</b> In einem Data Warehouse wird tausendmal gelesen und einmal geordnet, weshalb der Stern der Normalfall ist und das Snowflake die begründungspflichtige Ausnahme. Wer normalisiert, muss sagen können, welches Problem er damit löst.</p>
 </div>
 
 <footer>
@@ -453,19 +453,19 @@ Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.83</
    ===================================================================== */
 const REG = {
  fakt:["FAKT_VERKAUF · Faktentabelle",
-   "Die Mitte des Sterns. Hier stehen die Zahlen, die man addieren will — Umsatz und Menge — und sonst nichts als Fremdschlüssel. Sie ist die einzige Tabelle, die wirklich wächst: Sofias Dimensionen haben zusammen keine hundert Zeilen, ihre Bonzeilen Zehntausende im Quartal.",
+   "Die Mitte des Sterns. Hier stehen die Zahlen, die man addieren will (Umsatz und Menge), sonst nichts als Fremdschlüssel. Sie ist die einzige Tabelle, die wirklich wächst: Sofias Dimensionen haben zusammen keine hundert Zeilen, ihre Bonzeilen Zehntausende im Quartal.",
    "Korn: eine Bonzeile · Q1 2026: 145.500 €"],
  zeit:["DIM_ZEIT · Zeitdimension",
    "Die Dimension, die jedes Warehouse hat und die niemand aus einem Vorsystem lädt: Sie wird erzeugt. Eine Zeile je Tag, dazu Monat, Quartal, Jahr, Kalenderwoche, Feiertagskennzeichen. Damit lässt sich nach Quartal gruppieren, ohne dass eine Abfrage je ein Datum zerlegen muss.",
    "Hierarchie: Jahr → Quartal → Monat → Tag"],
  produkt:["DIM_PRODUKT · Produktdimension",
-   "Neun Produkte, und die vollständige Warenhierarchie flach danebengeschrieben. Diese Tabelle ist der Kandidat für die Normalisierung — und damit der Ort, an dem sich Stern und Snowflake unterscheiden.",
+   "Neun Produkte mit der vollständigen Warenhierarchie flach danebengeschrieben. Diese Tabelle ist der Kandidat für die Normalisierung und damit der Ort, an dem sich Stern und Snowflake unterscheiden.",
    "9 Zeilen · Warengruppe → Produktgruppe → Produkt"],
  filiale:["DIM_FILIALE · Standortdimension",
-   "Ringstraße, Alsergrund und das Coffeebike. Der letzte Eintrag ist der interessante: ein Verkaufsort ohne feste Adresse. Er zwingt zu der Frage, was das Dimensionsattribut eigentlich beschreibt — das Fahrrad oder den Platz, an dem es heute steht.",
+   "Ringstraße, Alsergrund und das Coffeebike. Der letzte Eintrag ist der interessante: ein Verkaufsort ohne feste Adresse. Er zwingt zu der Frage, was das Dimensionsattribut eigentlich beschreibt, nämlich das Fahrrad oder den Platz, an dem es heute steht.",
    "3 Zeilen · Typ: Haus, Haus, mobil"],
  zahlweg:["DIM_ZAHLWEG · Zahlwegdimension",
-   "Bar oder EC-Karte. Zwei Zeilen, und damit ein Grenzfall: Eine Dimension mit so wenigen Ausprägungen und ohne eigene Attribute würde man in der Praxis oft mit anderen kleinen Merkmalen zu einer Sammel-Dimension zusammenfassen, statt für sie eine eigene Tabelle zu führen.",
+   "Bar oder EC-Karte. Zwei Zeilen und damit ein Grenzfall: Eine Dimension mit so wenigen Ausprägungen und ohne eigene Attribute würde man in der Praxis oft mit anderen kleinen Merkmalen zu einer Sammel-Dimension zusammenfassen, statt für sie eine eigene Tabelle zu führen.",
    "2 Zeilen · Bar, EC-Karte"],
  pgruppe:["DIM_PRODUKTGRUPPE · ausgelagerte Ebene",
    "Existiert nur im Snowflake-Schema. Die mittlere Hierarchieebene bekommt eine eigene Tabelle mit eigenem Schlüssel; die Produktdimension verweist nur noch darauf. Was vorher eine Spalte war, ist jetzt ein Join.",
@@ -516,7 +516,7 @@ document.addEventListener("focusout", e=>{if(e.target.closest&&e.target.closest(
 addEventListener("scroll", hideTip, {passive:true});
 
 /* =====================================================================
-   2 · Die Schemazeichnung — eine Mechanik, zwei Formen
+   2 · Die Schemazeichnung, eine Mechanik mit zwei Formen
    ===================================================================== */
 const NS="http://www.w3.org/2000/svg";
 const el=(n,a={})=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
@@ -682,7 +682,7 @@ document.getElementById("flatBody").innerHTML =
   `<tr><td class="m">…</td><td colspan="3" style="color:var(--grey)">4 weitere Zeilen</td></tr>`;
 
 /* Reiter 02 · Parent-Child, gekuerzt */
-const PC=[[1,"—","Getränke"],[2,"—","Speisen"],[3,"—","Bohnen"],
+const PC=[[1,"NULL","Getränke"],[2,"NULL","Speisen"],[3,"NULL","Bohnen"],
           [4,1,"Heißgetränke"],[5,1,"Kaltgetränke"],[6,4,"Espresso"]];
 document.getElementById("pcBody").innerHTML =
   PC.map(([id,par,n])=>`<tr><td class="m">${id}</td><td class="m">${par}</td><td>${n}</td></tr>`).join("") +
@@ -728,7 +728,7 @@ const MX=[
  ["Redundanz",
   ["Hoch und gewollt. „Getränke“ steht fünfmal in der Tabelle.","s"],
   ["Keine. Jeder Wert steht genau einmal.","n"],
-  "Redundanz ist in einer operativen Datenbank ein Fehler, weil dort geändert wird. In einer Dimensionstabelle wird geladen und nie geändert — die Gefahr, die Normalisierung abwehrt, tritt hier gar nicht erst auf."],
+  "Redundanz ist in einer operativen Datenbank ein Fehler, weil dort geändert wird. In einer Dimensionstabelle wird geladen und nie geändert, sodass die Gefahr, die Normalisierung abwehrt, hier gar nicht erst auftritt."],
  ["Speicherbedarf",
   ["36 Felder für neun Produkte.","s"],
   ["48 Felder für dieselben neun Produkte.","n"],
@@ -748,7 +748,7 @@ const MX=[
  ["Pflege der Hierarchie",
   ["Eine Umbenennung trifft viele Zeilen und muss im Ladeprozess sauber laufen.","n"],
   ["Eine Umbenennung trifft genau eine Zeile.","n"],
-  "Der einzige Punkt, an dem das Snowflake-Schema sauber gewinnt — und der Grund, warum geteilte Ebenen als eigene Tabelle sinnvoll sein können."],
+  "Der einzige Punkt, an dem das Snowflake-Schema sauber gewinnt, also auch der Grund, warum geteilte Ebenen als eigene Tabelle sinnvoll sein können."],
  ["Werkzeugunterstützung",
   ["Der Normalfall. Power BI, Tableau und die meisten OLAP-Engines erwarten genau das.","s"],
   ["Wird unterstützt, aber selten empfohlen.","n"],
@@ -776,11 +776,11 @@ mxBody.addEventListener("pointerleave",()=>{detD.innerHTML=DET_D;});
    ===================================================================== */
 document.getElementById("detA").innerHTML =
   `<p class="dk">Der Aufbau</p><h4>Vier Dimensionen, eine Faktentabelle, vier Fremdschlüssel</h4>
-   <p>Jede Dimensionstabelle hat einen künstlichen Schlüssel — das <code style="font-family:var(--mono)">_sk</code> steht für Surrogate Key. Die Faktentabelle speichert nur diese Schlüssel und die Messgrößen. Sie enthält keinen einzigen Klartext, und genau deshalb bleibt sie schmal, obwohl sie die mit Abstand meisten Zeilen hat.</p>
+   <p>Jede Dimensionstabelle hat einen künstlichen Schlüssel, wobei das <code style="font-family:var(--mono)">_sk</code> für Surrogate Key steht. Die Faktentabelle speichert nur diese Schlüssel und die Messgrößen. Sie enthält keinen einzigen Klartext, weshalb sie schmal bleibt, obwohl sie die mit Abstand meisten Zeilen hat.</p>
    <p class="warn">Über eine Tabelle fahren, um zu sehen, was sie enthält und warum sie da ist.</p>`;
 document.getElementById("detC").innerHTML =
   `<p class="dk">Die Umformung</p><h4>Nur ein Ast des Sterns verändert sich</h4>
-   <p>Schalte oben um. Zeit, Filiale und Zahlweg bleiben unberührt — sie haben keine Hierarchie, die sich auslagern ließe. Nur die Produktdimension zerfällt in drei Tabellen, und die Faktentabelle merkt davon nichts: Sie zeigt weiterhin auf <code style="font-family:var(--mono)">produkt_sk</code>. Ein Snowflake-Schema ist also ein Stern mit ausgebauten Ästen. Ein anderes Modell wird daraus nicht.</p>
+   <p>Schalte oben um. Zeit, Filiale und Zahlweg bleiben unberührt, da sie keine Hierarchie haben, die sich auslagern ließe. Nur die Produktdimension zerfällt in drei Tabellen, wovon die Faktentabelle nichts merkt: Sie zeigt weiterhin auf <code style="font-family:var(--mono)">produkt_sk</code>. Ein Snowflake-Schema ist also ein Stern mit ausgebauten Ästen. Ein anderes Modell wird daraus nicht.</p>
    <p class="warn">Über eine Tabelle fahren, um zu sehen, was sie enthält.</p>`;
 
 const tabs=[...document.querySelectorAll('[role="tab"]')], keys=["a","b","c","d"];
