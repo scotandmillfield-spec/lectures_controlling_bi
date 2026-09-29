@@ -70,7 +70,7 @@ p.sub{margin:0 0 18px;color:var(--grey);font-size:1.28rem;line-height:1.6}
 .stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   box-shadow:var(--shadow);padding:12px 8px 4px;overflow-x:auto}
 .stage:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
-svg.schema{width:100%;min-width:960px;height:auto;display:block}
+svg.schema{width:100%;min-width:840px;height:auto;display:block}
 .node{cursor:help}
 .node .hit{fill:transparent}
 .node:focus-visible{outline:none}
@@ -227,6 +227,13 @@ footer a{color:var(--teal-dk)}
   letter-spacing:.1em;text-transform:uppercase;color:var(--teal-dk);text-decoration:none}
 .zurueck:hover{text-decoration:underline;text-underline-offset:3px}
 .zurueck:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:3px}
+
+/* Erst wenn der Platz wirklich fehlt, behaelt die Zeichnung ihre
+   natuerliche Breite und der Rahmen scrollt. Auf einem breiten Schirm
+   passt sie sich wie zuvor ein. */
+@media (max-width:900px){
+  svg.schema{min-width:960px}
+}
 </style>
 </head>
 <body>
@@ -432,7 +439,7 @@ footer a{color:var(--teal-dk)}
 </div>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.77</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.78</span>
 </footer>
 
 </div>
@@ -822,7 +829,9 @@ function makeBlocks(panel){
       inhalt.push(kinder[j]); j++;
     }
     nr++;
-    const offen = nr === 1, bid = "blk-" + (panel.id || "p") + "-" + nr;
+    /* Jeder Block steht beim Laden zu. Wer die Lektion oeffnet, sieht
+       zuerst ihre Gliederung und entscheidet, was er aufklappt. */
+    const offen = false, bid = "blk-" + (panel.id || "p") + "-" + nr;
     const wrap = document.createElement("section");
     wrap.className = "blk";
     wrap.dataset.open = String(offen);

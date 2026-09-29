@@ -166,7 +166,7 @@ table.tbl tbody tr:hover td{background:var(--sand-xl)}
 .mapstage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   box-shadow:var(--shadow);padding:12px 10px 6px;overflow-x:auto}
 .mapstage:focus-visible,.stage:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
-svg.rm{width:100%;min-width:560px;height:auto;display:block}
+svg.rm{width:100%;min-width:340px;height:auto;display:block}
 svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .rm .zone{stroke:#fff;stroke-width:1.5}
 .rm .zg{fill:#E6F1E5} .rm .zy{fill:#FBF2D9} .rm .zr{fill:#FBE4DC}
@@ -236,7 +236,7 @@ svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 /* ---------- Prozesskreis ---------- */
 .stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   box-shadow:var(--shadow);padding:14px 10px 6px;overflow-x:auto}
-svg.proc{width:100%;min-width:660px;height:auto;display:block}
+svg.proc{width:100%;min-width:560px;height:auto;display:block}
 svg.proc text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .proc .pbox{fill:var(--paper);stroke:var(--grey-mid);stroke-width:1.4;transition:.2s var(--ease)}
 .proc .ph{cursor:pointer}
@@ -253,7 +253,7 @@ svg.proc text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .proc .ctrs{font-size:16px;text-anchor:middle;fill:var(--grey)}
 
 /* ---------- Balanced Chance- und Risk-Card ---------- */
-svg.bcr{width:100%;min-width:1040px;height:auto;display:block}
+svg.bcr{width:100%;min-width:760px;height:auto;display:block}
 svg.bcr text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .bcr .band{stroke:#fff;stroke-width:1.5}
 .bcr .bl{font-family:var(--mono);font-size:15.5px;font-weight:600;letter-spacing:.05em;fill:var(--teal-dk)}
@@ -647,6 +647,15 @@ footer a{color:var(--teal-dk)}
   .zuz{grid-template-columns:1fr}
   .zuz .zb{justify-content:flex-start}
 }
+
+/* Erst wenn der Platz wirklich fehlt, behaelt die Zeichnung ihre
+   natuerliche Breite und der Rahmen scrollt. Auf einem breiten Schirm
+   passt sie sich wie zuvor ein. */
+@media (max-width:900px){
+  svg.rm{min-width:560px}
+  svg.proc{min-width:660px}
+  svg.bcr{min-width:1040px}
+}
 </style>
 </head>
 <body>
@@ -732,7 +741,7 @@ footer a{color:var(--teal-dk)}
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.77</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.78</span>
 </footer>
 
 </div>
@@ -785,7 +794,9 @@ function makeBlocks(panel){
       inhalt.push(kinder[j]); j++;
     }
     nr++;
-    const offen = nr === 1, bid = "blk-" + (panel.id || "p") + "-" + nr;
+    /* Jeder Block steht beim Laden zu. Wer die Lektion oeffnet, sieht
+       zuerst ihre Gliederung und entscheidet, was er aufklappt. */
+    const offen = false, bid = "blk-" + (panel.id || "p") + "-" + nr;
     const wrap = document.createElement("section");
     wrap.className = "blk";
     wrap.dataset.open = String(offen);
