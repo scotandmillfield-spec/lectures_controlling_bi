@@ -288,19 +288,32 @@ Gruppe steht. Er spricht in vollständigen Sätzen, er benutzt Fachbegriffe dort
 hingehören, und verzichtet auf die Figuren, mit denen ein Text sich selbst interessant machen
 will.
 
-#### Warum das hier steht und nicht in der Tabelle
+#### Warum manches hier steht und nicht in der Tabelle
 
-Ein regulärer Ausdruck findet diese Dinge nicht. Den Gedankenstrich könnte er finden, allerdings
-stehen in den ausgelieferten Dateien noch **867** davon, von denen jeder eine eigene Entscheidung zwischen
-Komma, Punkt und Streichung braucht. Ein Suchen und Ersetzen würde dort Sätze zerstören, weshalb
-die Altlast erst aufgeräumt wird, wenn ein Text ohnehin angefasst wird.
+Ein regulärer Ausdruck findet die meisten dieser Dinge nicht. Die Sentenz an der Stelle der
+Aussage, das Passiv ohne Handelnden, die Dreierfigur ohne Verb und das Anhängsel in seinen
+Verkleidungen zeigen sich beim Lesen und nicht an einem Zeichen. Deshalb stehen sie oben als Regel
+und nicht unten als Muster.
 
-Dasselbe gilt für die Fügung „, und", von der noch **217** Stück verteilt sind (die Zahl ist gegenüber den 196 gewachsen, weil seitdem Module dazugekommen sind). Dazu kommen **98** Semikola im Fließtext, von denen die meisten zwei gleichgewichtige Aussagen verbinden und deshalb bleiben. Welche davon ein getarntes Anhängsel sind, entscheidet sich beim Lesen und nicht am Zeichen. Sauber sind bisher
-`plattform/liquiditaet-begriff.html`, `plattform/liquiditaet-bwa.html`,
-`plattform/liquiditaet-vorschau.html` und `cv-mx/controlling-leitbild.html`. Der Lernpfad
-Liquiditätsplanung ist damit bis auf das Modul `liquiditaet-tagesplan.html` durch, das noch eine
-Hülle ist. Sobald alle Dateien durch sind, wandern beide Muster in die Prüftabelle. Ab dann meldet
-die Prüfung jeden neuen Fund.
+**[erledigt] Der Gedankenstrich und die Fügung „, und" stehen jetzt in der Prüftabelle.** Beide
+waren jahrelang Altlast, weil jede einzelne Stelle eine eigene Entscheidung zwischen Komma, Punkt,
+Klammer und Unterordnung braucht und ein Suchen und Ersetzen dort Sätze zerstört hätte. Der
+Durchgang, der sie aufgeräumt hat, hat 1.059 Stellen in 20 deutschen Dateien angefasst, davon 611
+Striche und 179 Fügungen. Seitdem führt keine deutsche Datei mehr eines von beiden, weshalb die
+Prüfung ab jetzt jeden neuen Fund meldet.
+
+- **Der Strich ist `hart`**, da er ausnahmslos falsch ist.
+- **Die Fügung ist `prüfen`**, da das Komma vor dem „und" auch einen eingeschobenen Nebensatz
+  schließen kann. „Die Leitfragen beschreiben, was ein Bericht abdeckt, und dienen als Leitfaden"
+  ist richtiges Deutsch und trotzdem ein Fund. Wer so eine Stelle stehen lassen will, setzt
+  `sprache:ok` dahinter.
+- **Die vier durchgehend englischen Module bleiben außen vor**, weil für das Englische nichts
+  festgelegt ist. Sie stehen im Prüfskript als Liste, nicht als Regel.
+
+**Die Semikola bleiben Handarbeit.** Es sind **220** im Fließtext. Sie sind alle gelesen worden,
+und sie verbinden zwei gleichgewichtige Aussagen, weshalb sie stehen bleiben. Ein Muster dafür
+kann es nicht geben: Ob der zweite Teil eine eigene Angabe macht oder die erste nur in vageren
+Worten wiederholt, entscheidet der Inhalt und nicht das Zeichen.
 
 **Für neu geschriebene und überarbeitete Texte gelten die Regeln vollständig, ab sofort.**
 
@@ -331,6 +344,8 @@ es gibt keine zweite Liste, die auseinanderlaufen könnte.
 | `ERGÄNZUNG` | hart | Herkunftsetikett am Inhalt. | Eine Überschrift, die den Inhalt benennt |
 | `Lerneinheit` | hart | Kein Begriff dieser Plattform. | „Modul“ oder „Lektion“, je nach Ebene |
 | `\bKapitel\b` | prüfen | Kein Begriff dieser Plattform. | „Lektion“ oder „Abschnitt“ |
+| `—` | hart | Der Gedankenstrich kommt nicht vor, weder als Einschub mitten im Satz noch als Anhängsel am Ende. | Ein Komma, ein Punkt oder eine Klammer, je nachdem was der Nachtrag sagt. |
+| `, und\b` | prüfen | Zwei Hauptsätze werden nicht mit „, und“ aneinandergehängt. Schließt das Komma allerdings einen eingeschobenen Nebensatz und folgt danach ein zweites Prädikat desselben Subjekts, ist es richtig. | Zwei Sätze, deren zweiter mit einem anknüpfenden Adverb beginnt, oder den zweiten Hauptsatz unterordnen. |
 | `\b([Tt]rage|[Tt]rägst|[Tt]rägt|[Tt]ragen|[Tt]ragt|[Tt]rug|[Tt]rugen|[Tt]rüge|[Gg]etragen|[Tt]ragend[ers]*)\b` | hart | Das Verb „tragen“ ist eine Verlegenheitslösung: Es klingt nach Aussage und sagt nichts. | Das konkrete Verb: „hält aus“, „gibt her“, „ruht auf“, „steht auf“, „hat“, „reicht“ |
 | `, (keineswegs|jedoch nicht|nicht aber|aber nicht|nicht jedoch)[^.,;:]{0,50}\.` | prüfen | Ein verbloser Nachtrag am Satzende macht aus einer Einschränkung eine Pointe (Regel 1 der acht Regeln aus Maiks Fachartikeln). | Die Einschränkung in den Satz holen („der häufigste, aber nicht der einzige Weg“) oder als eigenen Satz mit eigenem Verb schreiben. |
 | `\bsondern\b` | hart | Die Figur „nicht X, sondern Y“ klingt nach Schärfe und sagt zuerst, was etwas nicht ist. Der Leser hält die Verneinung im Kopf, bis die Behauptung endlich kommt. | Den Satz positiv stellen: „Ein Risiko ist ein bewertetes Ereignis.“ |
@@ -1110,13 +1125,32 @@ print(f"{len(regeln)} Regeln gelesen\n")
 ESC = re.compile(r"\\u([0-9a-fA-F]{4})")
 klar = lambda z: ESC.sub(lambda m: chr(int(m.group(1), 16)), z)
 
+# Durchgehend englische Module. Fuer das Englische ist nichts festgelegt,
+# weshalb der Gedankenstrich dort stehen bleibt. Wird eines dieser Module
+# ins Deutsche uebersetzt, kommt es aus dieser Liste heraus.
+ENGLISCH = {
+    "vorlesung/balanced-scorecard.html",
+    "vorlesung/bi-reference-architecture.html",
+    "vorlesung/controlling-pyramid.html",
+    "vorlesung/scd-dashboard.html",
+    # gehoert zu keinem Einstieg und bleibt unberuehrt
+    "foerdermittel-radar-elearning-plattform.html",
+}
+
+# In einer zweisprachigen Datei steht der englische Zweig hinter en:.
+# Er wird leer gemacht, statt die ganze Zeile zu ueberspringen, damit ein
+# de: weiter hinten auf derselben Zeile weiter geprueft wird.
+EN_ZWEIG = re.compile(r"""\ben\s*:\s*("[^"]*"|'[^']*'|`[^`]*`|\[[^\]]*\])""")
+
 hart = weich = 0
 for datei in sorted(glob.glob("*.html") + glob.glob("*/*.html")):
+    if datei in ENGLISCH:
+        continue
     zeilen = io.open(datei, encoding="utf-8").read().split("\n")
     for nr, z in enumerate(zeilen, 1):
         if "sprache:ok" in z:
             continue
-        z = klar(z)
+        z = EN_ZWEIG.sub("en:''", klar(z))
         for muster, grad, warum, statt in regeln:
             if re.search(muster, z):
                 streng = grad == "hart"

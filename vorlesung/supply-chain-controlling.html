@@ -1399,7 +1399,7 @@ function renderMeasures(){
        <td style="color:var(--grey);font-size:.92em">${r.wirkt}</td>
        <td class="n"><input type="number" step="0.1" min="0.1" value="${r.nutzen}" data-m="${r.id}" data-f="nutzen" aria-label="Nutzen von ${r.id} in Punkten"></td>
        <td class="n"><input type="number" step="5" min="1" value="${r.aufwand}" data-m="${r.id}" data-f="aufwand" aria-label="Aufwand von ${r.id} in Tausend Euro"></td>
-       <td class="n">${isFinite(r.quot) ? nf1(r.quot) : "—"}</td>
+       <td class="n">${isFinite(r.quot) ? nf1(r.quot) : "k. A."}</td>
        <td class="rank">${r.rang}</td>
      </tr>`).join("");
   const best = order[0];

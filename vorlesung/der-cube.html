@@ -597,7 +597,7 @@ function drawCube(svgId, st, onReadout){
     const t=add(g,"text",{x:x+cw/2,y:y+ch/2,"text-anchor":"middle",class:"t-v"+(on?" light":"")});
     t.textContent=eur(v);
     add(g,"rect",{class:"hit",x,y,width:cw,height:ch});
-    const adr = `${wg} · ${mo} · ${fiSel.length===FIL.length?"beide Filialen":fiSel[0]||"—"}`;
+    const adr = `${wg} · ${mo} · ${fiSel.length===FIL.length?"beide Filialen":fiSel[0]||"keine Filiale"}`;
     g.addEventListener("pointerenter",e=>showTip(
       `<p class="th">${on?"in der Auswahl":"außerhalb der Auswahl"}</p><p>${adr}</p>`+
       `<p class="extra">${eur(v)}${fiSel.length>1?" · Summe über beide Filialen":""}</p>`,g,e));

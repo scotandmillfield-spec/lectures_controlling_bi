@@ -259,10 +259,10 @@ svg.hier .edge.hot{stroke:var(--orange);stroke-width:2.2}
 
 /* ---------- Der Pfadplaner: die Buehne ----------
    Die Elemente liegen als Kaesten auf einer Flaeche und sind mit Pfeilen
-   verbunden. Ein Knoten hat eine feste Groesse — deshalb laesst sich jeder
-   Pfeil rechnen statt messen. Das ist Absicht: In einem
-   zugeklappten Block liefert jede Messung nur Nullen, und die Zeichnung
-   entartete auf einen Punkt.                                            */
+   verbunden. Ein Knoten hat eine feste Groesse, weshalb sich jeder
+   Pfeil rechnen laesst statt messen. Das ist Absicht: In einem
+   zugeklappten Block liefert jede Messung nur Nullen, sodass die Zeichnung
+   auf einen Punkt entartete.                                            */
 .pfp{display:grid;grid-template-columns:minmax(0,1fr) 264px;gap:14px;align-items:start}
 .pfp>*{min-width:0}
 
@@ -276,8 +276,8 @@ svg.hier .edge.hot{stroke:var(--orange);stroke-width:2.2}
 .bue-lin .lin{fill:none;stroke:var(--teal-dk);stroke-width:1.7;opacity:.75}
 .bue-lin .band{fill:none;stroke:var(--orange);stroke-width:2;stroke-dasharray:6 4}
 
-/* Ein Knoten. Die Groesse steht hier und nirgends sonst — das Skript
-   rechnet mit denselben Zahlen (NB, NH).                              */
+/* Ein Knoten. Die Groesse steht hier und nirgends sonst, da das Skript
+   mit denselben Zahlen rechnet (NB, NH).                              */
 .kn{position:absolute;box-sizing:border-box;width:152px;height:64px;
   background:var(--paper);border:1px solid var(--grey-xl);border-left-width:3px;
   border-radius:10px;box-shadow:var(--shadow);padding:7px 10px;cursor:grab;
@@ -488,7 +488,7 @@ footer a{color:var(--teal-dk)}
         <text class="cap" x="76" y="30">Ebene 1 · Lernpfad</text>
         <text class="lbl" x="76" y="47">Grundlagen</text>
       </g>
-      <g class="node" tabindex="0" role="button" data-th="Zweiter Lernpfad" data-tt="Ein zweiter Pfad greift auf dasselbe Modul zu. Dafür ist am Modul nichts zu ändern — es steht einfach in zwei steps-Listen.">
+      <g class="node" tabindex="0" role="button" data-th="Zweiter Lernpfad" data-tt="Ein zweiter Pfad greift auf dasselbe Modul zu. Dafür ist am Modul nichts zu ändern, da es einfach in zwei steps-Listen steht.">
         <rect x="580" y="14" width="260" height="48" rx="9" fill="var(--navy-xl)" stroke="var(--navy)"/>
         <text class="cap" x="596" y="30">Ebene 1 · Lernpfad</text>
         <text class="lbl" x="596" y="47">Vertiefung</text>

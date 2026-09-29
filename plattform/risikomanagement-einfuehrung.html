@@ -158,8 +158,8 @@ table.tbl tbody tr:hover td{background:var(--sand-xl)}
 .fmark.f4{background:var(--grey-xl);color:#5a5a5c}
 /* ---------- Risk-Map ----------
    Die drei Zonenfarben sind die einzige Stelle, an der Signalfarben
-   auftreten. Dekorativ erscheinen sie nirgends, und die Bedeutung
-   hängt nie an ihnen allein: jede Zone hat ihren Namen, jeder Punkt seine
+   auftreten. Dekorativ erscheinen sie nirgends, wobei die Bedeutung
+   nie an ihnen allein hängt: jede Zone hat ihren Namen, jeder Punkt seine
    Kennung, jede rote Position zusaetzlich das Warndreieck.          */
 .mapwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
 .mapwrap>*{min-width:0}
@@ -1098,7 +1098,7 @@ function procDetail(){
      <p style="font-weight:600;color:var(--teal-dk)">${ph.frage}</p>
      <p>${ph.det}</p>
      <p style="margin-top:14px;padding-top:12px;border-top:1px solid var(--grey-xl)">
-       <b>In der gröberen Dreiteilung:</b> ${kb}${procSel <= 1 ? " — dort sind Identifikation und Beurteilung zu <b>einem</b> Punkt zusammengefasst. Beide Zählungen stimmen; sie schneiden nur verschieden tief. Genau solche Schnittunterschiede kosten in Prüfungen Punkte." : "."}</p>`;
+       <b>In der gröberen Dreiteilung:</b> ${kb}${procSel <= 1 ? ", da dort Identifikation und Beurteilung zu <b>einem</b> Punkt zusammengefasst. Beide Zählungen stimmen; sie schneiden nur verschieden tief. Genau solche Schnittunterschiede kosten in Prüfungen Punkte." : "."}</p>`;
 }
 $("zVier").addEventListener("click", () => {
   procMode = "vier";
@@ -1282,7 +1282,7 @@ function qRender(){
     : fertig + " von " + QZAHL + " beantwortet · " + treffer + " richtig";
   $("qResult").innerHTML = fertig < QZAHL ? "" :
     `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
-      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen — der Vorrat hat " + FRAGEN.length + "." :
+      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen, da der Vorrat " + FRAGEN.length + " hat." :
       treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben; sie sind der eigentliche Lernstoff." :
       "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind die Grenze zwischen Gefahr und Risiko, die drei Faktoren des Risikopotenzials und der Unterschied zwischen Risiko- und Krisenmanagement."}</div>`;
 }
