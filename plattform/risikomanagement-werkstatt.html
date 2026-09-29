@@ -158,8 +158,8 @@ table.tbl tbody tr:hover td{background:var(--sand-xl)}
 .fmark.f4{background:var(--grey-xl);color:#5a5a5c}
 /* ---------- Risk-Map ----------
    Die drei Zonenfarben sind die einzige Stelle, an der Signalfarben
-   auftreten. Dekorativ erscheinen sie nirgends, und die Bedeutung
-   hängt nie an ihnen allein: jede Zone hat ihren Namen, jeder Punkt seine
+   auftreten. Dekorativ erscheinen sie nirgends, wobei die Bedeutung
+   nie an ihnen allein hängt: jede Zone hat ihren Namen, jeder Punkt seine
    Kennung, jede rote Position zusaetzlich das Warndreieck.          */
 .mapwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
 .mapwrap>*{min-width:0}
@@ -582,11 +582,11 @@ footer a{color:var(--teal-dk)}
   <p class="claim">Jetzt bist Du dran. Erfasse Deine eigenen Risiken, bewerte sie, wähle Strategien und nimm am Ende einen <b>Maßnahmenplan</b> mit, den Du in eine Sitzung legen kannst.</p>
 
   <div class="readme warn">
-    <b>Nichts wird gespeichert.</b> Alles, was Du hier einträgst, lebt nur im Speicher dieses Browserfensters. Schließt Du das Fenster, ist es weg — es gibt keine Datenbank, keinen Server und keinen Zwischenspeicher. Bevor Du gehst: <b>Schritt 4 als PDF sichern.</b>
+    <b>Nichts wird gespeichert.</b> Alles, was Du hier einträgst, lebt nur im Speicher dieses Browserfensters. Schließt Du das Fenster, ist es weg, da es keine Datenbank, keinen Server und keinen Zwischenspeicher gibt. Bevor Du gehst: <b>Schritt 4 als PDF sichern.</b>
   </div>
 
   <h2 class="sec">Schritt 1 · Risiken erfassen</h2>
-  <p class="sub">Ein Risiko ist erst dann eines, wenn es bewertet ist — deshalb gehören zu jedem Eintrag beide Achsen <b>und</b> je eine Begründung. Die Begründung ist kein Beiwerk: Sie ist das Einzige, worüber sich in der nächsten Sitzung sachlich streiten lässt. Ein Cyber-Risiko ist als Beispiel schon eingetragen.</p>
+  <p class="sub">Ein Risiko ist erst dann eines, wenn es bewertet ist, weshalb zu jedem Eintrag beide Achsen gehören, <b>und</b> je eine Begründung. Die Begründung ist kein Beiwerk: Sie ist das Einzige, worüber sich in der nächsten Sitzung sachlich streiten lässt. Ein Cyber-Risiko ist als Beispiel schon eingetragen.</p>
 
   <div class="wsbar">
     <div class="seg" role="group" aria-label="Risikoliste">
@@ -598,7 +598,7 @@ footer a{color:var(--teal-dk)}
   <div class="wslist" id="wsList"></div>
 
   <h2 class="sec">Schritt 2 · Die Risk-Map</h2>
-  <p class="sub">Deine Risiken auf derselben Karte wie im <a href="risikomanagement-prozess.html">Prozessmodul</a> — mit derselben Toleranzlinie bei W × S = 12. Die Punkte wandern mit, während Du oben die Regler bewegst.</p>
+  <p class="sub">Deine Risiken auf derselben Karte wie im <a href="risikomanagement-prozess.html">Prozessmodul</a>, mit derselben Toleranzlinie bei W × S = 12. Die Punkte wandern mit, während Du oben die Regler bewegst.</p>
   <div class="mapwrap">
     <div class="mapstage" tabindex="0">
       <svg class="rm" id="rmWs" viewBox="0 0 560 580" role="img"
@@ -612,11 +612,11 @@ footer a{color:var(--teal-dk)}
   <p class="hint scrollhint">Karte seitlich scrollbar</p>
 
   <h2 class="sec">Schritt 3 · Normstrategie und Maßnahme</h2>
-  <p class="sub">Für jedes Risiko eine der fünf Strategien wählen. Die Wahl setzt die Zielposition vor — verschiebe sie danach so, wie Deine Maßnahme wirklich wirkt. <b>Waagerecht ist korrektiv, senkrecht ist präventiv.</b></p>
+  <p class="sub">Für jedes Risiko eine der fünf Strategien wählen. Die Wahl setzt die Zielposition vor, die Du danach so verschiebst, wie Deine Maßnahme wirklich wirkt. <b>Waagerecht ist korrektiv, senkrecht ist präventiv.</b></p>
   <div class="wslist" id="wsStrat"></div>
 
   <h2 class="sec">Schritt 4 · Der Maßnahmenplan</h2>
-  <p class="sub">Das Ergebnis, druckfertig. Im Druckdialog Deines Browsers wählst Du als Ziel <b>„Als PDF speichern“</b> — damit brauchst Du keine zusätzliche Software.</p>
+  <p class="sub">Das Ergebnis, druckfertig. Im Druckdialog Deines Browsers wählst Du als Ziel <b>„Als PDF speichern“</b>, womit Du keine zusätzliche Software brauchst.</p>
   <p style="margin:0 0 16px"><button class="btn" id="wsPdf">Als PDF sichern</button></p>
 
   <div id="wsPrint">
@@ -695,17 +695,17 @@ footer a{color:var(--teal-dk)}
   <div class="ck10" id="ck7"></div>
 
   <div class="readme" style="margin-top:18px">
-    <b>Warum Punkt 5 der wichtigste ist.</b> Getrennt schätzen, dann aufdecken. Sobald der Ranghöchste im Raum seine Zahl zuerst nennt, schätzt niemand mehr unabhängig, und die Runde produziert eine Zahl statt einer Erkenntnis. Der Unterschied zwischen den Schätzungen ist das Wertvollste, was so ein Termin hergibt — er zeigt, wo zwei Leute über verschiedene Dinge reden. Genau diesen Effekt macht das <a href="risikomanagement-prozess.html">Prozessmodul</a> in seiner ersten Lektion sichtbar.
+    <b>Warum Punkt 5 der wichtigste ist.</b> Getrennt schätzen, dann aufdecken. Sobald der Ranghöchste im Raum seine Zahl zuerst nennt, schätzt niemand mehr unabhängig, sodass die Runde eine Zahl statt einer Erkenntnis produziert. Der Unterschied zwischen den Schätzungen ist das Wertvollste, was so ein Termin hergibt, da er zeigt, wo zwei Leute über verschiedene Dinge reden. Genau diesen Effekt macht das <a href="risikomanagement-prozess.html">Prozessmodul</a> in seiner ersten Lektion sichtbar.
   </div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der Termin ist nicht dazu da, die richtigen Zahlen zu finden. Er ist dazu da, die Stellen zu finden, an denen zwei erfahrene Leute <b>weit auseinanderliegen</b> — und herauszufinden, warum.</p>
+    <p>Der Termin ist nicht dazu da, die richtigen Zahlen zu finden. Er ist dazu da, die Stellen zu finden, an denen zwei erfahrene Leute <b>weit auseinanderliegen</b>. Warum sie auseinanderliegen, klärt die Runde dort.</p>
   </div>
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.81</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.83</span>
 </footer>
 
 </div>
@@ -714,12 +714,12 @@ Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.81</
 <script>
 "use strict";
 /* =====================================================================
-   0 · LERNEINHEIT — sämtliche Inhalte an einer Stelle.
+   0 · MODUL, sämtliche Inhalte an einer Stelle.
    Risikofaktor, Zone, Nettoposition, Effizienz und Rangfolge stehen
    bewusst NICHT hier. Sie werden aus den Rohwerten gerechnet, damit
    eine Änderung an W, S oder Aufwand sofort durch die Seite wirkt.
    ===================================================================== */
-const LERNEINHEIT = {
+const MODUL = {
   meta:{thema:"Controlling und Risikomanagement der Supply Chain",
         titel:"Der Risikomanagement-Prozess", dauerMin:90, stand:"2026-09"},
 
@@ -741,34 +741,34 @@ const LERNEINHEIT = {
          {id:"y", von:6,  bis:11, name:"Beobachtungsbereich", kurz:"Gelb",
           bed:"Maßnahmen prüfen, die Wirtschaftlichkeit entscheidet"},
          {id:"r", von:12, bis:25, name:"Handlungsbereich",    kurz:"Rot",
-          bed:"Maßnahmen erforderlich — in der Karte mit Warndreieck markiert"}],
+          bed:"Maßnahmen erforderlich, in der Karte mit Warndreieck markiert"}],
   toleranzlinie:12,
 
   risiken:[
     {id:"R1", name:"Ransomware-Angriff legt das ERP-System still", kat:"infrastrukturell, Cyber",
      brutto:{w:4,s:5},
-     begr:"Angriffe dieser Art treffen Industrieunternehmen inzwischen mehrmals jährlich, wenn auch nicht jeder erfolgreich ist — W = 4. Ein stillstehendes ERP legt Disposition, Versand und Fakturierung gleichzeitig lahm; ohne Fakturierung reißt der Zahlungseingang ab — S = 5."},
+     begr:"Angriffe dieser Art treffen Industrieunternehmen inzwischen mehrmals jährlich, wenn auch nicht jeder erfolgreich ist (W = 4). Ein stillstehendes ERP legt Disposition, Versand und Fakturierung gleichzeitig lahm; ohne Fakturierung reißt der Zahlungseingang ab (S = 5)."},
     {id:"R2", name:"Ausfall des Single-Source-Lieferanten für Steuergeräte", kat:"lieferantenseitig",
      brutto:{w:2,s:5},
-     begr:"Ein Ausfall dieser Größenordnung tritt etwa alle fünf bis zehn Jahre ein — W = 2. Ohne qualifizierte Zweitquelle steht die Montage; S = 5. Es ist derselbe Partner, den das Modul Supply Chain Controlling als kritischen Kettenabschnitt ausweist."},
+     begr:"Ein Ausfall dieser Größenordnung tritt etwa alle fünf bis zehn Jahre ein (W = 2). Ohne qualifizierte Zweitquelle steht die Montage (S = 5). Es ist derselbe Partner, den das Modul Supply Chain Controlling als kritischen Kettenabschnitt ausweist."},
     {id:"R3", name:"Erdbeben am asiatischen Fertigungsstandort eines Vorlieferanten",
      kat:"Katastrophe, schwarzer Schwan", brutto:{w:1,s:5},
-     begr:"Am konkreten Standort seltener als alle zehn Jahre — W = 1. Fällt der Standort aus, ist ein Kettenglied auf unabsehbare Zeit vernichtet; S = 5. Der Fall, an dem die multiplikative Bewertung scheitert."},
+     begr:"Am konkreten Standort seltener als alle zehn Jahre (W = 1). Fällt der Standort aus, ist ein Kettenglied auf unabsehbare Zeit vernichtet (S = 5). Der Fall, an dem die multiplikative Bewertung scheitert."},
     {id:"R4", name:"Stromausfall am Zentrallager bei gleichzeitigem Notstromausfall",
      kat:"infrastrukturell", brutto:{w:1,s:4},
-     begr:"Das Zusammentreffen beider Ausfälle ist selten — W = 1. Tritt es ein, steht das Zentrallager: Lieferausfall und Vertragsstrafen, aber kein Existenzverlust; S = 4. Vorbild ist der Fall Krankenhaus Boberg 2008."},
+     begr:"Das Zusammentreffen beider Ausfälle ist selten (W = 1). Tritt es ein, steht das Zentrallager: Lieferausfall und Vertragsstrafen, aber kein Existenzverlust (S = 4). Vorbild ist der Fall Krankenhaus Boberg 2008."},
     {id:"R5", name:"Streik beim Hauptfrachtführer", kat:"infrastrukturell, Personal",
      brutto:{w:3,s:3},
-     begr:"Tarifrunden und Arbeitskämpfe treten etwa alle ein bis fünf Jahre auf — W = 3. Ausweichspediteure sind teurer und langsamer, die Lieferfähigkeit leidet spürbar und der Kunde merkt es; S = 3."},
+     begr:"Tarifrunden und Arbeitskämpfe treten etwa alle ein bis fünf Jahre auf (W = 3). Ausweichspediteure sind teurer und langsamer, die Lieferfähigkeit leidet spürbar und der Kunde merkt es (S = 3)."},
     {id:"R6", name:"Wechselkursschwankung bei Importteilen", kat:"kaufmännisch, exogen",
      brutto:{w:4,s:2},
-     begr:"Spürbare Ausschläge gibt es mehrmals jährlich — W = 4. Sie belasten die Marge, nicht die Lieferfähigkeit; S = 2. Das einzige Risiko im Katalog, das sich sauber in Euro messen ließe."},
+     begr:"Spürbare Ausschläge gibt es mehrmals jährlich (W = 4). Sie belasten die Marge, nicht die Lieferfähigkeit (S = 2). Das einzige Risiko im Katalog, das sich sauber in Euro messen ließe."},
     {id:"R7", name:"Fehlprognose durch Bullwhip-Effekt, Überbestände", kat:"kundenseitig",
      brutto:{w:4,s:3},
-     begr:"Prognosefehler entstehen mehrmals jährlich — W = 4. Überbestände binden Kapital und Lagerfläche, die an anderer Stelle fehlt; die Lieferfähigkeit im übrigen Sortiment leidet; S = 3."},
+     begr:"Prognosefehler entstehen mehrmals jährlich (W = 4). Überbestände binden Kapital und Lagerfläche, die an anderer Stelle fehlt; die Lieferfähigkeit im übrigen Sortiment leidet (S = 3)."},
     {id:"R8", name:"Neue Rücknahmepflicht erzwingt Aufbau der Entsorgungslogistik",
      kat:"gesetzlich und regulatorisch", brutto:{w:2,s:3},
-     begr:"Neue Pflichten dieser Art kommen etwa alle fünf bis zehn Jahre — W = 2. Der Aufbau bindet Zeit, Geld und Genehmigungen (abfallrechtliche Transportgenehmigung mit Sachkundenachweis); S = 3."}
+     begr:"Neue Pflichten dieser Art kommen etwa alle fünf bis zehn Jahre (W = 2). Der Aufbau bindet Zeit, Geld und Genehmigungen (abfallrechtliche Transportgenehmigung mit Sachkundenachweis) (S = 3)."}
   ],
 
   massnahmen:[
@@ -783,7 +783,7 @@ const LERNEINHEIT = {
      wirk:"Verhindert den Angriff nicht, verkürzt aber den Stillstand von Wochen auf Tage."},
     {id:"M4", risikoId:"R1", name:"Cyber-Versicherung",
      typ:"korrektiv", dW:0, dS:-1, aufwand:30,
-     wirk:"Überwälzung. Verschiebt die finanzielle Folge; das Ereignis tritt trotzdem ein."}
+     wirk:"Überwälzung. Sie verschiebt die finanzielle Folge, während das Ereignis trotzdem eintritt."}
   ],
 
   strategien:[
@@ -794,7 +794,7 @@ const LERNEINHEIT = {
     {id:"diversify", de:"Diversifizieren", en:"Diversification", richtung:"waagerecht", typ:"korrektiv",
      dW:0, dS:-2, teilt:true,
      kurz:"Aus einem großen Kreis werden zwei kleinere.",
-     text:"Ebenfalls waagerecht nach links, aber mit einer zusätzlichen Aussage: Aus einem Risiko werden zwei kleinere. Zwei Lieferanten statt einem, zwei Standorte statt einem. Die Summe der Ausmaße kann gleich bleiben — das Einzelereignis wird tragbar."},
+     text:"Ebenfalls waagerecht nach links, aber mit einer zusätzlichen Aussage: Aus einem Risiko werden zwei kleinere. Zwei Lieferanten statt einem, zwei Standorte statt einem. Die Summe der Ausmaße kann gleich bleiben, während das Einzelereignis tragbar wird."},
     {id:"avoid", de:"Vermeiden", en:"Avoidance", richtung:"senkrecht", typ:"praeventiv",
      dW:-99, dS:0, teilt:false,
      kurz:"Die Wahrscheinlichkeit wird gegen null gedrückt.",
@@ -806,7 +806,7 @@ const LERNEINHEIT = {
     {id:"accept", de:"Akzeptieren", en:"Acceptance", richtung:"keine", typ:"keiner",
      dW:0, dS:0, teilt:false,
      kurz:"Der Punkt bleibt, wo er ist.",
-     text:"Keine Bewegung. Akzeptieren ist eine bewusste Entscheidung nach der Bewertung, und sie gehört dokumentiert. Ignorieren dagegen ist das Auslassen der Bewertung."}
+     text:"Keine Bewegung. Akzeptieren ist eine bewusste Entscheidung nach der Bewertung, die dokumentiert gehört. Ignorieren dagegen ist das Auslassen der Bewertung."}
   ],
 
   einstieg:{risikoIds:["R3","R7"]},
@@ -814,12 +814,12 @@ const LERNEINHEIT = {
   prozess:{
     phasen:[
       {name:"Risikoidentifikation", sym:"Lupe", frage:"Welche Risiken existieren überhaupt?",
-       det:"Identifikation interner und externer Risiken, Erstellung eines Risikoprofils nach Kategorien und Risikofeldern — und die Berücksichtigung der Grenzen: Vollständigkeit ist nicht erreichbar."},
+       det:"Identifikation interner und externer Risiken, Erstellung eines Risikoprofils nach Kategorien und Risikofeldern sowie die Berücksichtigung der Grenzen, da Vollständigkeit nicht erreichbar ist."},
       {name:"Risikobeurteilung", sym:"f(x)", frage:"Wie groß ist jedes einzelne?",
        det:"Bewertung in den Dimensionen Schadenhöhe und Eintrittswahrscheinlichkeit, auf kardinaler, ordinaler oder nominaler Skala. Ergebnis ist die Position in der Risk-Map und der Risikofaktor."},
       {name:"Risikosteuerung", sym:"Steuerrad", frage:"Was tun wir dagegen?",
-       det:"Fünf Strategien: Überwälzen, Diversifizieren, Vermeiden, Verringern, Akzeptieren. Jede ist eine Bewegung in der Karte — und jede Bewegung kostet Geld, weshalb die Aufwand-Nutzen-Analyse dazugehört."},
-      {name:"Risikoüberwachung", sym:"Streudiagramm", frage:"Wirkt es, und was hat sich verändert?",
+       det:"Fünf Strategien: Überwälzen, Diversifizieren, Vermeiden, Verringern, Akzeptieren. Jede ist eine Bewegung in der Karte. Da jede Bewegung Geld kostet, gehört die Aufwand-Nutzen-Analyse dazu."},
+      {name:"Risikoüberwachung", sym:"Streudiagramm", frage:"Wirkt es und was hat sich verändert?",
        det:"Kennzahlen und Indikatoren zur Messung der Zielerreichung und zur Früherkennung, Zuordnung der zielbedrohenden Risiken, Erfassung der steuernden Maßnahmen. Instrument: die Balanced Chance- und Risk-Card."}
     ],
     dreiteilung:["Risikoidentifikation und -analyse","Steuerung auftretender Risiken","Risikokontrolle"],
@@ -834,7 +834,7 @@ const LERNEINHEIT = {
      inhalt:"Störungen bei den Abnehmern, die sich rückwärts durch die Kette fortpflanzen.",
      bsp:"Der Bullwhip-Effekt: Kleine Nachfrageschwankungen beim Endkunden schaukeln sich stromaufwärts zu großen Bestellausschlägen auf."},
     {name:"Gesetzlich und regulatorisch", herkunft:"exogen",
-     inhalt:"Neue Pflichten erzwingen neue Strukturen — oft mit erheblichem Vorlauf und ohne Verhandlungsspielraum.",
+     inhalt:"Neue Pflichten erzwingen neue Strukturen, oft mit erheblichem Vorlauf und ohne Verhandlungsspielraum.",
      bsp:"Rücknahmepflicht für Altgeräte und Verpackungen: Aufbau einer Entsorgungslogistik, abfallrechtliche Transportgenehmigung mit Sachkundenachweis."},
     {name:"Infrastrukturell", herkunft:"endogen",
      inhalt:"IT-Ausfall, Maschinenschaden, Personalausfall durch Krankheit, Streik oder Betrug, Versorgungsstörungen.",
@@ -850,18 +850,18 @@ const LERNEINHEIT = {
     {t:"R7 gegen R2",
      p:"Der Bullwhip-Effekt liegt mit Risikofaktor 12 im roten Bereich, der Ausfall des Single-Source-Lieferanten mit 10 im gelben. Nach der Zahl ist die Fehlprognose das dringendere Problem. Würdest Du dieser Reihenfolge folgen? Die Karte <b>ordnet</b>, sie entscheidet nicht."},
     {t:"R6 und der Preis der Vergleichbarkeit",
-     p:"Die Wechselkursschwankung ist die einzige Position im Katalog, die sich sauber <b>kardinal</b> messen ließe, nämlich in Euro. Sie wird trotzdem ordinal eingestuft, um mit den übrigen vergleichbar zu bleiben. Damit geht Information verloren. Das ist der Preis der Vergleichbarkeit — und er ist bewusst zu zahlen, nicht zu übersehen."}
+     p:"Die Wechselkursschwankung ist die einzige Position im Katalog, die sich sauber <b>kardinal</b> messen ließe, nämlich in Euro. Sie wird trotzdem ordinal eingestuft, um mit den übrigen vergleichbar zu bleiben. Damit geht Information verloren. Das ist der Preis der Vergleichbarkeit, der bewusst zu zahlen statt zu übersehen ist."}
   ],
 
   zuordnung:[
     {pos:"Hohe Wahrscheinlichkeit, geringes Ausmaß (W 5, S 2)",
-     a:"<b>Verringern oder akzeptieren.</b> Ein Ereignis, das laufend eintritt und kaum wehtut, ist ein Betriebskostenthema. Überwälzen lohnt selten — eine Versicherung, die monatlich zahlt, kostet mehr als der Schaden. Präventiv die Häufigkeit zu senken ist meist wirtschaftlicher als jede korrektive Maßnahme."},
+     a:"<b>Verringern oder akzeptieren.</b> Ein Ereignis, das laufend eintritt und kaum wehtut, ist ein Betriebskostenthema. Überwälzen lohnt selten, da eine Versicherung, die monatlich zahlt, mehr kostet als der Schaden. Präventiv die Häufigkeit zu senken ist meist wirtschaftlicher als jede korrektive Maßnahme."},
     {pos:"Geringe Wahrscheinlichkeit, existenzbedrohendes Ausmaß (W 1, S 5)",
-     a:"<b>Überwälzen — und ein Notfallplan.</b> Das ist die Position des schwarzen Schwans. Der Risikofaktor sagt „grün“, die Existenzfrage sagt etwas anderes. Präventiv lässt sich an einer Wahrscheinlichkeit von 1 kaum noch etwas senken; korrektiv lässt sich die Folge verlagern. Genau hier versagt die Zahl und muss das Urteil einspringen."},
+     a:"<b>Überwälzen und ein Notfallplan.</b> Das ist die Position des schwarzen Schwans. Der Risikofaktor sagt „grün“, die Existenzfrage sagt etwas anderes. Präventiv lässt sich an einer Wahrscheinlichkeit von 1 kaum noch etwas senken; korrektiv lässt sich die Folge verlagern. Genau hier versagt die Zahl und muss das Urteil einspringen."},
     {pos:"Hohe Wahrscheinlichkeit, hohes Ausmaß (W 4, S 5)",
-     a:"<b>Verringern, und zwar auf beiden Achsen.</b> Die rote Ecke duldet keine halbe Maßnahme. R1 zeigt es: erst präventiv die Wahrscheinlichkeit senken, dann korrektiv die Folge begrenzen. Vermeiden käme hier dem Verzicht auf das ERP-System gleich — theoretisch wirksam, praktisch keine Option."},
+     a:"<b>Verringern, nämlich auf beiden Achsen.</b> Die rote Ecke duldet keine halbe Maßnahme. R1 zeigt es: erst präventiv die Wahrscheinlichkeit senken, dann korrektiv die Folge begrenzen. Vermeiden käme hier dem Verzicht auf das ERP-System gleich, also theoretisch wirksam und praktisch keine Option."},
     {pos:"Mittlere Wahrscheinlichkeit, mittleres Ausmaß (W 3, S 3)",
-     a:"<b>Diversifizieren, wenn es strukturell geht.</b> Die Mitte der Karte ist die Zone, in der sich Aufteilung lohnt: ein zweiter Frachtführer, ein zweiter Standort. Aus einem mittleren Risiko werden zwei kleine, und keines davon erreicht mehr die Toleranzlinie."}
+     a:"<b>Diversifizieren, wenn es strukturell geht.</b> Die Mitte der Karte ist die Zone, in der sich Aufteilung lohnt: ein zweiter Frachtführer, ein zweiter Standort. Aus einem mittleren Risiko werden zwei kleine, von denen keines mehr die Toleranzlinie erreicht."}
   ],
 
   ueberwachung:[
@@ -873,23 +873,23 @@ const LERNEINHEIT = {
 
   denkfehler:[
     ["Risiko und Gefahr sind dasselbe.",
-     "Sind Wahrscheinlichkeit und Auswirkungen nicht bekannt, spricht man von einer <b>Gefahr</b>. Erst die Bewertung macht daraus ein Risiko — und erst dann ist es in eine Karte eintragbar."],
+     "Sind Wahrscheinlichkeit und Auswirkungen nicht bekannt, spricht man von einer <b>Gefahr</b>. Erst die Bewertung macht daraus ein Risiko, das sich danach in eine Karte eintragen lässt."],
     ["Ein niedriger Risikofaktor bedeutet, dass nichts zu tun ist.",
      "Ein schwarzer Schwan mit Wahrscheinlichkeit 1 und Ausmaß 5 landet im grünen Bereich und kann trotzdem ein Kettenglied vernichten. Für ihn ist der <b>Notfallplan</b> zuständig, nicht die Karte."],
     ["Die Risikotoleranzlinie ist eine Diagonale.",
-     "Da der Risikofaktor ein <b>Produkt</b> ist, ist die Linie gleichen Risikos eine <b>Hyperbel</b>. Die Punkte 2 × 6 und 6 × 2 liegen auf derselben Linie — eine Gerade würde sie trennen."],
+     "Da der Risikofaktor ein <b>Produkt</b> ist, ist die Linie gleichen Risikos eine <b>Hyperbel</b>. Die Punkte 2 × 6 und 6 × 2 liegen auf derselben Linie, während eine Gerade sie trennen würde."],
     ["Wirkungen mehrerer Maßnahmen addieren sich.",
      "Der Risikofaktor ist multiplikativ. Die Summe der Einzelwirkungen liegt regelmäßig <b>über</b> der tatsächlichen Gesamtwirkung. Bei R1 stehen 22 Punkten Einzelsumme nur 16 Punkte echte Wirkung gegenüber."],
     ["Überwälzen senkt das Risiko.",
      "Jedenfalls nicht die Eintrittswahrscheinlichkeit. Eine Versicherung verhindert kein Ereignis, sie verschiebt die finanzielle Folge. In der Karte ist das eine <b>waagerechte</b> Bewegung, keine senkrechte."],
     ["Akzeptieren heißt, das Risiko zu ignorieren.",
-     "Akzeptieren ist eine <b>bewusste Entscheidung nach Bewertung</b> und gehört dokumentiert. Ignorieren ist das Auslassen der Bewertung — der Unterschied ist im Schadensfall auch ein haftungsrechtlicher."],
+     "Akzeptieren ist eine <b>bewusste Entscheidung nach Bewertung</b> und gehört dokumentiert. Ignorieren ist das Auslassen der Bewertung, wobei der Unterschied im Schadensfall auch ein haftungsrechtlicher ist."],
     ["Vermeiden ist immer die beste Strategie.",
      "Vermeiden bedeutet regelmäßig den Verzicht auf die zugrunde liegende Aktivität und damit auch auf deren <b>Ertrag</b>. Die Aufwand-Nutzen-Analyse entscheidet, nicht die Vorliebe."],
     ["Das Bruttorisiko ist ein theoretischer Wert ohne Nutzen.",
      "Ohne Bruttowert lässt sich die Wirkung der bereits <b>bestehenden</b> Maßnahmen nicht beziffern. Wer nur Nettorisiken führt, kann seine laufenden Kontrollen nicht rechtfertigen."],
     ["Der Risikomanagement-Prozess ist einmal zu durchlaufen.",
-     "Er ist ein <b>periodischer Kreislauf</b>. Ein einmaliger Durchlauf ist eine Momentaufnahme — und veraltet in dem Moment, in dem sich die Kette verändert."],
+     "Er ist ein <b>periodischer Kreislauf</b>. Ein einmaliger Durchlauf ist eine Momentaufnahme, die in dem Moment veraltet, in dem sich die Kette verändert."],
     ["Risikomanagement und Krisenmanagement sind dasselbe.",
      "Risikomanagement setzt an, <b>bevor</b> Risiken absehbar sind. Wird erst bei akutem Risiko gehandelt, ist es Krisenmanagement."]
   ],
@@ -901,7 +901,7 @@ const LERNEINHEIT = {
     ["Die vier Phasen",     "Identifikation → Beurteilung → Steuerung → Überwachung → zurück zur Identifikation. Eine gröbere Zählung fasst die ersten beiden zu einem Punkt zusammen: drei Hauptpunkte statt vier Phasen."],
     ["Die beiden Achsen",   "Senkrecht die Eintrittswahrscheinlichkeit W, waagerecht das Schadensausmaß S. Beide hier ordinal 1 bis 5, mit verankerten Stufenbezeichnungen."],
     ["Risikofaktor",        "<code>RF = T × W</code>, bei Fünferskalen zwischen 1 und 25. Zonen: 1–5 grün, 6–11 gelb, 12–25 rot."],
-    ["Toleranzlinie",       "Die Kurve aller Punkte mit W × S = 12 — eine <b>Hyperbel</b>, keine Gerade."],
+    ["Toleranzlinie",       "Die Kurve aller Punkte mit W × S = 12, also eine <b>Hyperbel</b> und keine Gerade."],
     ["Effizienz",           "<code>Effizienz = RF vorher − RF nachher</code>. Je größer die Differenz, desto höher die Effizienz."],
     ["Brutto und Netto",    "Bruttorisiko ist der Ausgangspunkt vor allen Maßnahmen, Nettorisiko der Endpunkt danach. Der Pfeil dazwischen ist das Managementobjekt."],
     ["Fünf Strategien",     "Überwälzen (waagerecht, korrektiv) · Diversifizieren (waagerecht, korrektiv, teilt auf) · Vermeiden (senkrecht, präventiv) · Verringern (diagonal, beides) · Akzeptieren (keine Bewegung)."],
@@ -946,17 +946,17 @@ const nf1 = v => v.toFixed(1).replace(".", ",");
 const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
 
 const RF   = (w, s) => w * s;
-const ZONE = rf => LERNEINHEIT.zonen.find(z => rf >= z.von && rf <= z.bis) || LERNEINHEIT.zonen[2];
-const ankW = v => LERNEINHEIT.skalen.w[v-1];
-const ankS = v => LERNEINHEIT.skalen.s[v-1];
-const risk = id => LERNEINHEIT.risiken.find(r => r.id === id);
+const ZONE = rf => MODUL.zonen.find(z => rf >= z.von && rf <= z.bis) || MODUL.zonen[2];
+const ankW = v => MODUL.skalen.w[v-1];
+const ankS = v => MODUL.skalen.s[v-1];
+const risk = id => MODUL.risiken.find(r => r.id === id);
 /* =====================================================================
    2 · Tooltip
    ===================================================================== */
 const REG = {
-  pot1:["Faktor 1 · Bedrohung","Eine konkrete, begründete Bedrohung: ein benennbares Ereignis mit benennbarer Ursache. „Irgendwann könnte etwas passieren“ genügt nicht — daran lässt sich weder eine Wahrscheinlichkeit noch eine Maßnahme festmachen.","Ohne sie: kein Risikopotenzial"],
-  pot2:["Faktor 2 · Schwachstelle","Die Stelle in der Kette, an der die Bedrohung wirksam werden kann. Ein Angriff auf ein System, das es nicht gibt, ist folgenlos; eine Naturkatastrophe an einem Standort ohne eigene Wertschöpfung ebenso.","Eine Bedrohung ohne Schwachstelle trifft ins Leere"],
-  pot3:["Faktor 3 · Bedeutender Wert","Hinter der Schwachstelle muss etwas stehen, dessen Verlust zählt — Umsatz, Lieferfähigkeit, Reputation, Menschenleben. Eine Schwachstelle ohne bedeutenden Wert dahinter ist folgenlos.","Alle drei müssen zusammentreffen"]
+  pot1:["Faktor 1 · Bedrohung","Eine konkrete, begründete Bedrohung: ein benennbares Ereignis mit benennbarer Ursache. „Irgendwann könnte etwas passieren“ genügt nicht, da sich daran weder eine Wahrscheinlichkeit noch eine Maßnahme festmachen lässt.","Ohne sie: kein Risikopotenzial"],
+  pot2:["Faktor 2 · Schwachstelle","Die Stelle in der Kette, an der die Bedrohung wirksam werden kann. Ein Angriff auf ein System, das es nicht gibt, ist folgenlos. Dasselbe gilt für eine Naturkatastrophe an einem Standort ohne eigene Wertschöpfung.","Eine Bedrohung ohne Schwachstelle trifft ins Leere"],
+  pot3:["Faktor 3 · Bedeutender Wert","Hinter der Schwachstelle muss etwas stehen, dessen Verlust zählt, also Umsatz, Lieferfähigkeit, Reputation oder Menschenleben. Eine Schwachstelle ohne bedeutenden Wert dahinter ist folgenlos.","Alle drei müssen zusammentreffen"]
 };
 const tip = $("tip");
 function showTip(e0, ev){
@@ -989,7 +989,7 @@ document.addEventListener("focusout", e => {if(e.target.closest && e.target.clos
 addEventListener("scroll", hideTip, {passive:true});
 
 /* =====================================================================
-   3 · Die Risk-Map — eine Zeichenmechanik, drei Instanzen
+   3 · Die Risk-Map, eine Zeichenmechanik mit drei Instanzen
    ===================================================================== */
 const MX0 = 88, MX1 = 520, MY0 = 36, MY1 = 468;
 const mx = s => MX0 + (s-1)/4 * (MX1-MX0);          /* Schadensausmass, waagerecht */
@@ -1095,7 +1095,7 @@ function drawMarks(layer, marks, opts){
 }
 
 /* =====================================================================
-   9 · Lektion 05 — die Werkstatt
+   9 · Lektion 05, die Werkstatt
    Alles lebt in WS. Kein Speicher, keine Persistenz: Schliesst das
    Fenster, ist die Analyse weg. Genau das steht auch oben im Kasten.
    ===================================================================== */
@@ -1107,11 +1107,11 @@ const WS = {
     desc:"Ein Angreifer verschafft sich über eine Phishing-Mail Zugang zum Netz, verschlüsselt die Kundendatenbank und fordert Lösegeld. Bestellannahme, Rechnungsstellung und Versand stehen bis zur Wiederherstellung still.",
     w:4, s:5,
     bw:"Phishing-Wellen erreichen den Betrieb mehrmals im Jahr; eine einzige unbedachte Anmeldung genügt.",
-    bs:"Ohne Kundendaten steht der Vertrieb vollständig; dazu Meldepflicht und ein Vertrauensschaden, der über Monate nachwirkt.",
+    bs:"Ohne Kundendaten steht der Vertrieb vollständig, dazu kommen Meldepflicht und ein Vertrauensschaden, der über Monate nachwirkt.",
     strat:"", massn:"", zw:4, zs:5
   }]
 };
-const STRATS_WS = LERNEINHEIT.strategien;
+const STRATS_WS = MODUL.strategien;
 const escA = t => String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 const zoneKl = rf => ZONE(rf).id;
 
@@ -1136,7 +1136,7 @@ function wsBuildList(){
                placeholder="Kurz und konkret, zum Beispiel „Ausfall des Hauptlieferanten“">
       </div>
       <div class="fld">
-        <label for="f-desc-${r.id}">Kurzbeschreibung <span style="font-weight:400;color:var(--grey)">— was genau passiert, und was ist die Folge?</span></label>
+        <label for="f-desc-${r.id}">Kurzbeschreibung <span style="font-weight:400;color:var(--grey)">was genau passiert und was die Folge ist</span></label>
         <textarea id="f-desc-${r.id}" data-f="desc" maxlength="300" rows="3"
                   placeholder="Höchstens 300 Zeichen. Ursache, Ereignis, Wirkung."></textarea>
         <p class="cnt" id="cnt-${r.id}"></p>
@@ -1198,7 +1198,7 @@ function wsBuildStrat(){
         <div class="fld" style="margin:0">
           <label for="f-strat-${r.id}">Normstrategie</label>
           <select id="f-strat-${r.id}" data-f="strat">
-            <option value="">— bitte wählen —</option>
+            <option value="">bitte wählen</option>
             ${STRATS_WS.map(t => `<option value="${t.id}">${t.de} · ${t.en}</option>`).join("")}
           </select>
           <p class="mvhint" id="mv-${r.id}"></p>
@@ -1206,7 +1206,7 @@ function wsBuildStrat(){
         <div class="fld" style="margin:0">
           <label for="f-massn-${r.id}">Konkrete Maßnahme</label>
           <input type="text" id="f-massn-${r.id}" data-f="massn" maxlength="200"
-                 placeholder="Was wird getan, und von wem?">
+                 placeholder="Was wird getan und von wem?">
         </div>
       </div>
       <div class="wsduo" style="margin-top:14px">
@@ -1267,7 +1267,7 @@ function wsRefresh(){
       const t = STRATS_WS.find(x => x.id === r.strat);
       mv.innerHTML = t
         ? `<b>${t.de}</b> bewegt ${t.richtung === "keine" ? "gar nicht" : t.richtung}, wirkt <b>${t.typ}</b>. ${t.kurz}`
-        : "Noch keine Strategie gewählt — das Ziel entspricht dem Ist-Stand.";
+        : "Noch keine Strategie gewählt, das Ziel entspricht dem Ist-Stand.";
     }
   });
 
@@ -1316,7 +1316,7 @@ function wsFigs(){
          <p>${esc(kritisch.id)} liegt mit Risikofaktor <b>${RF(kritisch.w, kritisch.s)}</b> im Handlungsbereich. ${kritisch.desc ? esc(kritisch.desc) : "Noch keine Beschreibung hinterlegt."}</p>
          <p class="warn">Über der Toleranzlinie ist eine Maßnahme fällig. Zur Wahl steht sie dort nicht mehr. Weiter in Schritt 3.</p>`
       : `<p class="dk">Stand</p><h4>Nichts über der Toleranzlinie</h4>
-         <p>Kein Eintrag erreicht den Handlungsbereich. Das ist kein Freibrief: Prüfe die Zeile mit dem höchsten Schadensausmaß gesondert — ein seltenes Ereignis mit Ausmaß 5 ist rechnerisch grün und trotzdem existenzbedrohend.</p>`;
+         <p>Kein Eintrag erreicht den Handlungsbereich. Das ist kein Freibrief: Prüfe die Zeile mit dem höchsten Schadensausmaß gesondert, da ein seltenes Ereignis mit Ausmaß 5 rechnerisch grün und trotzdem existenzbedrohend ist.</p>`;
 }
 
 function wsTabellen(){
@@ -1324,16 +1324,16 @@ function wsTabellen(){
     const rf = RF(r.w, r.s), z = ZONE(rf);
     return `<tr><td class="id">${esc(r.id)}</td>
       <td><b>${esc(r.name) || "<span style='color:#8A8A89'>ohne Bezeichnung</span>"}</b></td>
-      <td>${esc(r.desc) || "<span style='color:#8A8A89'>—</span>"}</td>
+      <td>${esc(r.desc) || "<span style='color:#8A8A89'>ohne Angabe</span>"}</td>
       <td class="n">${r.w}</td><td class="n">${r.s}</td><td class="n"><b>${rf}</b></td>
       <td><span class="zpill ${z.id}">${z.kurz}</span></td></tr>`;
   }).join("") || `<tr><td colspan="7" style="color:var(--grey)">Noch kein Risiko erfasst.</td></tr>`;
 
   $("wsBegrBody").innerHTML = WS.risiken.map(r =>
     `<tr><td class="id">${esc(r.id)}</td>
-       <td>${esc(r.bw) || "<span style='color:#8A8A89'>—</span>"}</td>
-       <td>${esc(r.bs) || "<span style='color:#8A8A89'>—</span>"}</td></tr>`).join("")
-    || `<tr><td colspan="3" style="color:var(--grey)">—</td></tr>`;
+       <td>${esc(r.bw) || "<span style='color:#8A8A89'>ohne Angabe</span>"}</td>
+       <td>${esc(r.bs) || "<span style='color:#8A8A89'>ohne Angabe</span>"}</td></tr>`).join("")
+    || `<tr><td colspan="3" style="color:var(--grey)">Noch kein Risiko erfasst.</td></tr>`;
 
   let si = 0, sz = 0;
   $("wsPlanBody").innerHTML = WS.risiken.map(r => {
@@ -1359,7 +1359,7 @@ function wsTabellen(){
       {day:"2-digit", month:"long", year:"numeric"}) +
     " · " + WS.risiken.length + (WS.risiken.length === 1 ? " Risiko" : " Risiken");
   $("wsNote").innerHTML =
-    "Der Risikofaktor ist das Produkt aus Eintrittswahrscheinlichkeit und Schadensausmaß; die Toleranzlinie liegt bei 12. Die Spalte <b>Wirkung</b> ist die Differenz der Risikofaktoren vor und nach der Maßnahme — je größer sie ist, desto effizienter die Maßnahme. Weil der Risikofaktor ein Produkt ist, addieren sich die Wirkungen mehrerer Maßnahmen nicht." +
+    "Der Risikofaktor ist das Produkt aus Eintrittswahrscheinlichkeit und Schadensausmaß; die Toleranzlinie liegt bei 12. Die Spalte <b>Wirkung</b> ist die Differenz der Risikofaktoren vor und nach der Maßnahme. Je größer sie ist, desto effizienter die Maßnahme. Weil der Risikofaktor ein Produkt ist, addieren sich die Wirkungen mehrerer Maßnahmen nicht." +
     (offen ? " <b>Achtung:</b> Für " + offen + (offen === 1 ? " Risiko" : " Risiken") + " ist noch keine Strategie gewählt." : "");
 }
 
@@ -1424,16 +1424,16 @@ wsBuildList(); wsBuildStrat(); wsRefresh();
 const CHECK7 = [
   ["Lade sechs bis acht Leute ein, nicht zwanzig",
    "Die Runde muss klein genug sein, dass jeder einmal widerspricht. Nimm Einkauf, Produktion, Qualität, Logistik und eine Person, die den Kunden kennt. Wer nur zuhört, sitzt falsch.",
-   "Es wird ein großer Kreis geladen, damit sich niemand übergangen fühlt. Am Ende reden drei, und die Bewertung ist die Meinung dieser drei."],
+   "Es wird ein großer Kreis geladen, damit sich niemand übergangen fühlt. Am Ende reden drei, deren Meinung die Bewertung dann ist."],
   ["Setz zwei Stunden an, nicht einen Tag",
    "Zwei Stunden reichen für acht bis zwölf Risiken mit Bewertung. Ein Tagesworkshop erzeugt fünfzig Einträge, von denen in einem halben Jahr niemand mehr weiß, was gemeint war.",
-   "Der Termin wird zum Jahresereignis aufgeblasen. Damit findet er einmal statt und danach nie wieder — und Risikomanagement lebt von der Wiederholung."],
+   "Der Termin wird zum Jahresereignis aufgeblasen. Damit findet er einmal statt und danach nie wieder, obwohl Risikomanagement von der Wiederholung lebt."],
   ["Schick die Skala vorher herum",
    "Beide Skalen, mit den Ankern: „etwa alle ein bis fünf Jahre“, „Lieferausfall, Vertragsstrafen, Imageschaden“. Wer die Stufen zum ersten Mal im Raum sieht, schätzt die ersten drei Risiken auf einer anderen Grundlage als die letzten drei.",
    "Die Skala wird zu Beginn kurz erklärt. Nach zwanzig Minuten benutzt jeder wieder sein eigenes Gefühl für „mittel“."],
   ["Lass erst sammeln, dann bewerten",
    "Zwei getrennte Runden. Solange gesammelt wird, ist jede Nennung willkommen und keine wird kommentiert. Erst danach kommen Zahlen ins Spiel.",
-   "Es wird gleich beim Nennen bewertet und diskutiert. Nach dem vierten Risiko ist die Zeit weg, und die Liste bricht mittendrin ab."],
+   "Es wird gleich beim Nennen bewertet und diskutiert. Nach dem vierten Risiko ist die Zeit weg, sodass die Liste mittendrin abbricht."],
   ["Lass jeden für sich schätzen, bevor diskutiert wird",
    "Jeder schreibt seine beiden Zahlen auf, ohne sie zu zeigen. Erst dann werden sie aufgedeckt. Das ist der ganze Trick: Wer zuerst hört, was der Werkleiter sagt, schätzt danach nicht mehr unabhängig.",
    "Die Runde einigt sich im Gespräch auf eine Zahl. Was wie Konsens aussieht, ist die Zahl der lautesten Stimme."],
@@ -1441,8 +1441,8 @@ const CHECK7 = [
    "Wo zwei Leute weit auseinanderliegen, steckt Information: Sie reden über verschiedene Szenarien oder kennen verschiedene Vorfälle. Diese Stellen sind die wertvollsten des ganzen Termins.",
    "Aus fünf Schätzungen wird ein Mittelwert gebildet und weitergegangen. Die eine Person, die etwas wusste, was die anderen nicht wussten, wird damit weggerechnet."],
   ["Geh nicht ohne Namen und Datum aus dem Raum",
-   "Zu jeder Maßnahme gehören eine verantwortliche Person und ein Termin. Beides gehört ins Protokoll, bevor die Runde sich auflöst — nachträglich ordnet das niemand mehr zu.",
-   "Die Maßnahmen werden „im Nachgang zugeordnet“. Sie werden es nicht, und beim nächsten Termin fängt die Runde wieder bei null an."]
+   "Zu jeder Maßnahme gehören eine verantwortliche Person und ein Termin. Beides gehört ins Protokoll, bevor die Runde sich auflöst, da das nachträglich niemand mehr zuordnet.",
+   "Die Maßnahmen werden „im Nachgang zugeordnet“. Sie werden es nicht, sodass die Runde beim nächsten Termin wieder bei null anfängt."]
 ];
 $("ck7").innerHTML = CHECK7.map(([t, p, f]) =>
   `<div class="ckitem"><h3>${t}</h3><p>${p}</p>
@@ -1454,13 +1454,13 @@ $("ck7").innerHTML = CHECK7.map(([t, p, f]) =>
 const FRAGEN = [
   ["Ein Risiko wird mit W = 4 und S = 3 bewertet. Wie hoch ist der Risikofaktor?",
    ["7","12","1,33","43"], 1,
-   "Der Risikofaktor ist das Produkt: 4 · 3 = 12. Eine Summe wäre 7 — genau diese Verwechslung ändert die Zone."],
+   "Der Risikofaktor ist das Produkt: 4 · 3 = 12. Eine Summe wäre 7. Genau diese Verwechslung ändert die Zone."],
   ["In welcher Zone liegt ein Risiko mit dem Risikofaktor 12?",
    ["Akzeptanzbereich","Beobachtungsbereich","Handlungsbereich","Außerhalb der Skala"], 2,
    "Ab 12 beginnt der rote Handlungsbereich. Der Wert liegt genau auf der Toleranzlinie und gehört damit schon dazu."],
   ["Zwei Risiken: A hat W = 2 und S = 5, B hat W = 5 und S = 2. Was gilt?",
    ["A ist gefährlicher","B ist gefährlicher","Beide haben denselben Risikofaktor","Die Frage ist ohne Skala nicht zu beantworten"], 2,
-   "Beide ergeben 10. Dass sie trotzdem völlig verschieden zu behandeln sind, ist die Schwäche des Produkts — und der Grund, warum die Position in der Karte mehr sagt als die Zahl."],
+   "Beide ergeben 10. Dass sie trotzdem völlig verschieden zu behandeln sind, ist die Schwäche des Produkts und zugleich der Grund, warum die Position in der Karte mehr sagt als die Zahl."],
   ["Welche Form hat die Toleranzlinie in der Risk-Map?",
    ["Eine Gerade von Ecke zu Ecke","Eine Hyperbel","Ein Kreisbogen","Eine Treppe"], 1,
    "Weil der Risikofaktor ein Produkt ist, verbindet die Linie alle Punkte mit W · S = 12. Das ist eine Hyperbel. Eine Diagonale wäre die Linie gleicher Summe."],
@@ -1484,7 +1484,7 @@ const FRAGEN = [
    "Häufig, aber unwesentlich: Der Schaden lässt sich aus dem Tagesgeschäft auffangen. Eine Versicherung für Kleinschäden kostet mehr als die Schäden."],
   ["Was bedeutet die Normstrategie „Vermeiden“ in letzter Konsequenz?",
    ["Die Wahrscheinlichkeit auf null senken","Die Aktivität aufgeben, aus der das Risiko entsteht","Das Risiko an einen Dritten geben","Das Risiko nicht dokumentieren"], 1,
-   "Vermeiden heißt, die Ursache zu entfernen — und wenn die Ursache das Geschäft selbst ist, heißt es, dieses Geschäft nicht zu machen. Deshalb ist es die teuerste Strategie."],
+   "Vermeiden heißt, die Ursache zu entfernen. Ist die Ursache das Geschäft selbst, heißt es, dieses Geschäft nicht zu machen. Deshalb ist es die teuerste Strategie."],
   ["Was misst die Effizienz einer Maßnahme in der Aufwand-Nutzen-Betrachtung?",
    ["Den absoluten Rückgang des Risikofaktors","Den Rückgang je eingesetzter Aufwandseinheit","Die Zahl der abgedeckten Risiken","Die Laufzeit der Maßnahme"], 1,
    "Sonst gewinnt immer die teuerste Maßnahme. Erst der Bezug auf den Aufwand macht Maßnahmen vergleichbar."],
@@ -1501,17 +1501,17 @@ const FRAGEN = [
    ["Nichts, das genügt","Ein benennbares Ereignis mit Ursache","Eine Kostenschätzung","Ein Verantwortlicher"], 1,
    "Ohne benennbares Ereignis und ermittelbare Ursache lässt sich weder eine Wahrscheinlichkeit festmachen noch eine Maßnahme ansetzen. Das ist eine Gefahr, kein Risiko."],
   ["Du bewertest ein Risiko und stellst fest, dass Du für die Wahrscheinlichkeit keine Grundlage hast. Was tust Du?",
-   ["Die Mitte ansetzen","Notieren, was fehlt, und die Bewertung offen lassen","Das Risiko streichen","Den höchsten Wert ansetzen"], 1,
+   ["Die Mitte ansetzen","Notieren, was fehlt, dann die Bewertung offen lassen","Das Risiko streichen","Den höchsten Wert ansetzen"], 1,
    "Eine erfundene Zahl sieht in der Karte genauso aus wie eine begründete. Was offen ist, gehört sichtbar offen gehalten, bis die Grundlage da ist."],
   ["Was ändert sich am Ergebnis, wenn zwei Personen dasselbe Risiko unterschiedlich schätzen?",
    ["Nichts, der Mittelwert stimmt","Die Zone kann kippen und damit die Handlungspflicht","Nur die Reihenfolge ändert sich","Die Karte lässt sich nicht zeichnen"], 1,
    "Der Sprung von 11 auf 12 ist eine Stufe auf einer Achse und zugleich der Wechsel von Gelb nach Rot. Genau deshalb sind verankerte Skalen keine Formsache."],
   ["Wozu dient die Begründung, die zu jeder Schätzung erfasst wird?",
    ["Zur Dokumentationspflicht","Damit beim nächsten Durchlauf nachvollziehbar ist, worauf die Zahl beruhte","Zur Berechnung des Risikofaktors","Für den Prüfer"], 1,
-   "Ohne sie ist eine Zahl in sechs Monaten nicht mehr überprüfbar. Mit ihr lässt sich sagen, ob die Annahme noch gilt — und das ist die Arbeit der Überwachung."],
+   "Ohne sie ist eine Zahl in sechs Monaten nicht mehr überprüfbar. Mit ihr lässt sich sagen, ob die Annahme noch gilt. Das ist die Arbeit der Überwachung."],
   ["Ein Risiko wandert nach der Maßnahme von RF 16 auf RF 9. Was ist erreicht?",
    ["Es ist beseitigt","Es ist aus dem roten in den gelben Bereich gewandert","Es ist im Akzeptanzbereich","Es ist unverändert"], 1,
-   "Von 16 in den Handlungsbereich auf 9 in den Beobachtungsbereich. Beseitigt ist es nicht — Risikomanagement begrenzt, es beseitigt nicht."],
+   "Von 16 in den Handlungsbereich auf 9 in den Beobachtungsbereich. Beseitigt ist es nicht, da Risikomanagement begrenzt und nicht beseitigt."],
   ["Warum wird in dieser Werkstatt nichts gespeichert?",
    ["Aus Datenschutzgründen","Weil die Module ohne Server laufen und Browser-Speicher ausgeschlossen ist","Weil die Daten wertlos sind","Damit niemand schummelt"], 1,
    "Jede Datei läuft per Doppelklick, ohne Server und ohne Speicher. Was Du behalten willst, nimmst Du als PDF mit."],
@@ -1554,9 +1554,9 @@ function qRender(){
     : fertig + " von " + QZAHL + " beantwortet · " + treffer + " richtig";
   $("qResult").innerHTML = fertig < QZAHL ? "" :
     `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
-      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen — der Vorrat hat " + FRAGEN.length + "." :
-      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben; sie sind der eigentliche Lernstoff." :
-      "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind das Produkt im Risikofaktor, die Richtung, in die eine Maßnahme den Punkt bewegt, und der Unterschied zwischen Brutto und Netto."}</div>`;
+      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen, da der Vorrat " + FRAGEN.length + " hat." :
+      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben, da sie erklären, warum die gewählte Antwort nicht zutrifft." :
+      "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind das Produkt im Risikofaktor, die Richtung, in die eine Maßnahme den Punkt bewegt, und der Unterschied zwischen Brutto und Netto."}</div>`;  /* sprache:ok, das Komma schliesst den Relativsatz davor */
 }
 $("quiz").addEventListener("click", e => {
   const b = e.target.closest(".qopt"); if(!b || b.disabled) return;

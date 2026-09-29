@@ -493,7 +493,7 @@ svg.map text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle;po
   <script>{const l=new URLSearchParams(location.search).get("lang");if(l)document.currentScript.previousElementSibling.href="index.html?lang="+encodeURIComponent(l);}</script>
   <p class="eyebrow">Controlling und Risikomanagement der Supply Chain</p>
   <h1>Die Supply Chain Map, <em>bevor bewertet wird</em></h1>
-  <p class="lede">Bevor ein Partner der Kette bewertet werden kann, muss feststehen, wer überhaupt zur Kette gehört und wie die Partner miteinander verbunden sind. Diese Aufgabe übernimmt die Supply Chain Map, die im Supply Chain Controlling vor dem Beanspruchungs- und Belastbarkeitsportfolio steht. Das Modul zeigt, wie eine solche Karte Ebene für Ebene entsteht, warum ihr Aggregationsniveau die eigentliche Schwierigkeit ist und wie sich an ihr gemeinsame Abhängigkeiten finden lassen, die in keiner Lieferantenliste auffallen.</p>
+  <p class="lede">Bevor ein Partner der Kette bewertet werden kann, muss feststehen, wer überhaupt zur Kette gehört und wie die Partner miteinander verbunden sind. Diese Aufgabe übernimmt die Supply Chain Map, die im Supply Chain Controlling vor dem Beanspruchungs- und Belastbarkeitsportfolio steht. Das Modul zeigt, wie eine solche Karte Ebene für Ebene entsteht, warum ihr Aggregationsniveau am schwersten festzulegen ist und wie sich an ihr gemeinsame Abhängigkeiten finden lassen, die in keiner Lieferantenliste auffallen.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Die Supply Chain Map">
@@ -513,7 +513,7 @@ svg.map text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle;po
   <div class="trio">
     <div class="card" style="border-left:3px solid var(--orange);background:var(--orange-xl)">
       <p class="ck">Schritt 1 · dieses Modul</p><h3>Supply Chain Map</h3>
-      <p><b>Wo</b> steht ein Partner in der Kettenarchitektur, und mit welchen vor- und nachgelagerten Stufen ist er verbunden?</p>
+      <p><b>Wo</b> steht ein Partner in der Kettenarchitektur und mit welchen vor- und nachgelagerten Stufen ist er verbunden?</p>
     </div>
     <div class="card">
       <p class="ck">Schritt 2</p><h3>Beanspruchungs- und Belastbarkeitsportfolio</h3>
@@ -658,7 +658,7 @@ svg.map text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle;po
   <p class="claim">Wenn Du für Dein eigenes Unternehmen eine erste Supply Chain Map anlegen willst, helfen Dir die folgenden sieben Schritte. Für eine erste Fassung genügen in der Regel die Einkaufsdaten, die Kundenliste und einige Gespräche mit den wichtigsten Lieferanten.</p>
 
   <h2 class="sec">Sieben Schritte zur ersten Karte</h2>
-  <p class="sub">Zu jedem Schritt stehen der Grund, aus dem er nötig ist, und der Fehler, der an dieser Stelle am häufigsten gemacht wird.</p>
+  <p class="sub">Zu jedem Schritt stehen der Grund, aus dem er nötig ist, sowie der Fehler, der an dieser Stelle am häufigsten gemacht wird.</p>
   <div class="ck10" id="ck7"></div>
 
   <h2 class="sec">Glossar</h2>
@@ -672,7 +672,7 @@ svg.map text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle;po
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.81</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.83</span>
 </footer>
 
 </div>
@@ -714,9 +714,9 @@ const STUFEN = [
   {kurz:"Lieferanten", art:"operative Daten wie Liefermengen, Termine, Preise und Qualität", quelle:"eigene Beschaffung und Qualitätssicherung", lage:"gut",
    text:"Mit den direkten Lieferanten besteht eine eigene Geschäftsbeziehung. Die operativen Daten liegen deshalb aus der eigenen Beschaffung vor und sind in der Regel verlässlich."},
   {kurz:"Betrachtetes Unternehmen", art:"alle eigenen Daten", quelle:"eigene Systeme", lage:"gut",
-   text:"Von diesem Unternehmen aus wird die Karte gezeichnet, und von hier aus werden alle Ebenen gezählt."},
+   text:"Von diesem Unternehmen aus wird die Karte gezeichnet, von wo aus auch alle Ebenen gezählt werden."},
   {kurz:"Kunden", art:"Abrufe, Prognosen und Absatzmengen", quelle:"eigener Vertrieb", lage:"gut",
-   text:"Die direkten Kunden sind aus dem eigenen Vertrieb bekannt. Ihre Abrufe und Prognosen bestimmen, was die Kette liefern muss."},
+   text:"Die direkten Kunden sind aus dem eigenen Vertrieb bekannt. Ihre Abrufe und Prognosen bestimmen, was die Kette liefern muss."}, /* sprache:ok - dritte Person, die Kunden */
   {kurz:"Kunden der Kunden", art:"Marktentwicklung und allgemeine Nachfrage", quelle:"Marktberichte und Auskünfte der Kunden", lage:"grob",
    text:"Über die Kunden der Kunden ist meist nur bekannt, wie sich ihr Markt entwickelt. Einzelne Abnehmer lassen sich auf dieser Ebene selten benennen."}
 ];
@@ -931,7 +931,7 @@ function zeigeAusfall(){
   const loesung = [];
   if(gefunden.has("S2")) loesung.push(`<p><b>Auf Ebene 2 ist es der Oberflächenveredler.</b> Er beliefert die Präzisionsdreherei Nord und die Elektronikmodule Ost. Fällt er aus, sind zwei der vier Lieferanten der Ebene 1 zugleich betroffen, obwohl sie auf Ebene 1 nichts miteinander zu tun haben. Jeder andere Vorlieferant der Ebene 2 trifft nur einen Lieferanten.</p>`);
   if(gefunden.has("R1")) loesung.push(`<p><b>Auf Ebene 3 trifft der Markt für Stahl und Erz ebenfalls zwei Lieferanten.</b> Er beliefert das Halbzeugwerk und den Werkzeugbau und trifft damit die Präzisionsdreherei Nord und die Kunststofftechnik Süd. Auf dieser Ebene ist eine gemeinsame Abhängigkeit weniger überraschend, da ganze Branchen am selben Rohstoffmarkt hängen. Sie lässt sich zudem kaum vermeiden, sodass hier eher die Beobachtung des Markts hilft als ein Wechsel des Lieferanten.</p>`);
-  if(gefunden.has("R1") && !gefunden.has("S2")) loesung.unshift(`<p>Auf Ebene 2 fehlt noch der Vorlieferant, dessen Ausfall zwei Lieferanten zugleich trifft. Er ist die eigentliche Antwort auf die Aufgabe.</p>`);
+  if(gefunden.has("R1") && !gefunden.has("S2")) loesung.unshift(`<p>Auf Ebene 2 fehlt noch der Vorlieferant, dessen Ausfall zwei Lieferanten zugleich trifft. Er ist die gesuchte Antwort auf die Aufgabe.</p>`);
   else if(gefunden.has("S2") && !gefunden.has("R1")) loesung.push(`<p>Auf Ebene 3 gibt es einen zweiten Knoten, dessen Ausfall ebenfalls zwei Lieferanten der Ebene 1 trifft. Findest Du ihn?</p>`);
   $("aLoesung").innerHTML = loesung.length ? `<p class="dk">Auflösung</p>` + loesung.join("")
     : `<p class="dk">Noch nicht gefunden</p><p>Klicke nacheinander die Vorlieferanten der Ebene 2 an und vergleiche im Protokoll, wie viele Lieferanten der Ebene 1 jeweils betroffen sind.</p>`;
@@ -957,7 +957,7 @@ const FRAGEN = [
    "Die Karte zeigt, wer zur Kette gehört und wie die Partner verbunden sind. Die Bewertung dieser Verbindungen übernimmt erst das Beanspruchungs- und Belastbarkeitsportfolio."],
   ["In welcher Reihenfolge werden die drei Instrumente eingesetzt?",
    ["Supply Chain Map, Beanspruchungs- und Belastbarkeitsportfolio, Supply Chain Valuation","Portfolio, Supply Chain Map, Supply Chain Valuation","Supply Chain Valuation, Portfolio, Supply Chain Map","Die Reihenfolge ist beliebig"], 0,
-   "Jedes Instrument baut auf dem vorigen auf. Das Portfolio bewertet die Beziehungen, die die Karte sichtbar gemacht hat, und die Valuation bewertet die Empfehlungen, die aus dem Portfolio folgen."],
+   "Jedes Instrument baut auf dem vorigen auf. Das Portfolio bewertet die Beziehungen, die die Karte sichtbar gemacht hat. Die Valuation bewertet die Empfehlungen, die aus dem Portfolio folgen."],
   ["Was steht auf Ebene 0 einer Supply Chain Map?",
    ["Das betrachtete Unternehmen, von dem aus die Karte gezeichnet wird","Der wichtigste Rohstoffmarkt","Der größte Lieferant","Der Endkunde"], 0,
    "Von Ebene 0 aus werden alle anderen Ebenen gezählt. Die direkten Lieferanten stehen deshalb auf Ebene 1 und deren Lieferanten auf Ebene 2."],
@@ -983,7 +983,7 @@ const FRAGEN = [
    ["Ebene 1 und die wichtigsten Partner der Ebene 2 einzeln, tiefere Ebenen nach Märkten oder Regionen zusammengefasst","Alle Ebenen einzeln","Alle Ebenen zusammengefasst","Nur die Kundenseite einzeln"], 0,
    "Dieser Mittelweg zeigt dort Einzelheiten, wo verlässliche Daten vorliegen. Tiefere Ebenen bleiben lesbar, weil sie nach Märkten oder Regionen zusammengefasst werden."],
   ["Darf das Aggregationsniveau je Ebene verschieden sein?",
-   ["Ja, solange es für alle Partner derselben Ebene gleich festgelegt ist","Nein, alle Ebenen müssen gleich fein sein","Ja, und es darf auch innerhalb einer Ebene beliebig wechseln","Nein, nur die Ebene 1 darf aggregiert werden"], 0,
+   ["Ja, solange es für alle Partner derselben Ebene gleich festgelegt ist","Nein, alle Ebenen müssen gleich fein sein","Ja, es darf auch innerhalb einer Ebene beliebig wechseln","Nein, nur die Ebene 1 darf aggregiert werden"], 0,
    "Verschiedene Ebenen dürfen verschieden fein dargestellt werden. Innerhalb einer Ebene muss die Regel jedoch einheitlich sein, weil sich die Daten sonst nicht konsistent konsolidieren lassen."],
   ["Für das betrachtete Unternehmen ist die Präzisionsdreherei Nord ein Lieferant der Ebene 1. Was ist das betrachtete Unternehmen aus Sicht der Präzisionsdreherei?",
    ["Ein Kunde der ersten nachgelagerten Ebene","Ein Lieferant der Ebene 1","Ebene 0","Ein Vorlieferant der Ebene 2"], 0,
@@ -1008,7 +1008,7 @@ const FRAGEN = [
    "Mit den direkten Lieferanten besteht eine eigene Geschäftsbeziehung. Beschaffung und Qualitätssicherung erfassen diese Daten deshalb laufend."],
   ["Warum gehört auch die Kundenseite auf die Karte?",
    ["Weil Abrufe und Prognosen der Kunden bestimmen, was die Kette liefern muss","Weil Kunden immer das größte Risiko darstellen","Weil das Portfolio nur Kunden bewertet","Weil Lieferanten sonst nicht gezeigt werden dürfen"], 0,
-   "Die Karte erfasst vor- und nachgelagerte Partner. Ein Ausfall auf der Lieferseite wirkt über das eigene Unternehmen bis zu den Kunden weiter, und ihre Nachfrage bestimmt die Beanspruchung der Kette."],
+   "Die Karte erfasst vor- und nachgelagerte Partner. Ein Ausfall auf der Lieferseite wirkt über das eigene Unternehmen bis zu den Kunden weiter, deren Nachfrage die Beanspruchung der Kette bestimmt."],
   ["Was übergibt die Karte im Lehrbeispiel an das Portfolio?",
    ["Den Hinweis, dass zwei Lieferanten über denselben Vorlieferanten verbunden sind","Eine fertige Bewertung der Belastbarkeit","Den Wert der Managementempfehlungen","Eine Rangfolge aller Kunden"], 0,
    "Im Portfolio erscheinen beide Lieferanten als getrennte Punkte. Ohne den Hinweis aus der Karte ginge ihre gemeinsame Abhängigkeit beim Lesen des Portfolios verloren."],
@@ -1115,7 +1115,7 @@ const GLOSSAR = [
   ["Flankierende Informationen", "Flankierende Informationen sind technische, juristische, politische oder makroökonomische Angaben, die an Gewicht gewinnen, je weiter ein Partner von Ebene 0 entfernt ist."],
   ["Gemeinsame Abhängigkeit", "Eine gemeinsame Abhängigkeit liegt vor, wenn mehrere Lieferanten der Ebene 1 an derselben Quelle hängen und ein einziger Ausfall sie deshalb zugleich trifft."],
   ["Standpunkt", "Der Standpunkt bestimmt, welches Unternehmen auf Ebene 0 steht. Mit ihm ändern sich die Nummern aller Ebenen, während die Partner dieselben bleiben."],
-  ["Beanspruchungs- und Belastbarkeitsportfolio", "Das Portfolio bewertet die Beziehungen, die die Karte sichtbar gemacht hat, und folgt deshalb im Supply Chain Controlling auf die Supply Chain Map."],
+  ["Beanspruchungs- und Belastbarkeitsportfolio", "Das Portfolio bewertet die Beziehungen, die die Karte sichtbar gemacht hat. Deshalb folgt es ihr im Supply Chain Controlling."],
   ["Supply Chain Valuation", "Die Supply Chain Valuation stellt den zusätzlichen Aufwand einer Managementempfehlung den höheren Wertschöpfungserträgen gegenüber und bildet damit den dritten Schritt."]
 ];
 $("glos").innerHTML = GLOSSAR.map(([b, t]) => `<div><b>${esc(b)}</b>: ${t}</div>`).join("");

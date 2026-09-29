@@ -522,7 +522,7 @@ input[type=range]:focus-visible{outline:2px solid var(--orange);outline-offset:4
 
 <!-- ==================== LEKTION 03 · QUIZ ==================== -->
 <section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
-  <p class="claim">Das Quiz fragt ab, was im Bericht steht, und zieht dafür fünf Fragen zufällig aus einem größeren Vorrat.</p>
+  <p class="claim">Das Quiz fragt ab, was im Bericht steht. Dafür zieht es fünf Fragen zufällig aus einem größeren Vorrat.</p>
 
   <h2 class="sec">Fünf Fragen zum Ablesen der Personalstrukturanalyse</h2>
   <p class="sub">Jede Antwort lässt sich im Bericht der ersten Lektion ablesen.</p>
@@ -554,7 +554,7 @@ input[type=range]:focus-visible{outline:2px solid var(--orange);outline-offset:4
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.81</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.83</span>
 </footer>
 
 </div>
@@ -610,8 +610,8 @@ const kpiDelta = p => vz(p.d, p.n) + (p.de || "");
 /* =====================================================================
    DIE ANLEITUNGSTEXTE
    Hier stehen die Erlaeuterungen, eine je Element des Berichts. Sie
-   stehen im Tooltip oben, in der Du-Form, und leiten jemanden ohne
-   BI-Erfahrung an: was er an dieser Stelle sieht und wie er damit
+   stehen im Tooltip oben, in der Du-Form. Sie leiten damit jemanden
+   ohne BI-Erfahrung an: was er an dieser Stelle sieht und wie er damit
    umgeht. Darunter setzt das Modul von selbst „Beispiel hier“ mit den
    Zahlen aus TIPS. Ein leerer Eintrag zeigt den Platzhalter FOLGT.
    Die Eintraege py, fs und bz gelten fuer alle Balken ihres Diagramms.
@@ -1009,7 +1009,7 @@ const FRAGEN = [
   ["Wie hoch ist das Durchschnittsalter?", ["46,1 Jahre","44,8 Jahre","56 Jahre","7,9 Jahre"], 0, "Die Kachel Ø Alter (J.) zeigt 46,1."],
   ["Wie lange gehören die Mitarbeitenden im Durchschnitt zum Verband?", ["7,9 Jahre","5 Jahre","46,1 Jahre","10 Jahre"], 0, "Die Kachel Ø Zugehörigkeit (J.) zeigt 7,9."],
   ["Wie viele Mitarbeitende berücksichtigt der Bericht nicht?", ["98","317","8,3","26,2"], 0, "Rechts über der Kennzahlenzeile steht „Nicht berücksichtigt: 98 Mitarbeitende“."],
-  ["Aus welcher Quelle stammen die Daten, und mit welchem Stand?", ["KIDICAP, 31.08.2026","Vivendi, 31.08.2026","Zeiterfassung, 31.12.2025","KIDICAP, 01.01.2026"], 0, "Oben rechts steht „Quelle & Stand · KIDICAP: 31.08.2026“."],
+  ["Aus welcher Quelle stammen die Daten und mit welchem Stand?", ["KIDICAP, 31.08.2026","Vivendi, 31.08.2026","Zeiterfassung, 31.12.2025","KIDICAP, 01.01.2026"], 0, "Oben rechts steht „Quelle & Stand · KIDICAP: 31.08.2026“."],
   ["Wie hoch ist der Frauenanteil in der Altersstruktur?", ["82,0 %","70,1 %","49,3 %","35,1 %"], 0, "Über der Altersstruktur steht „Frauen · Anteil: 82,0 %“."],
   ["In welcher Altersklasse arbeiten die meisten Frauen?", ["56-60","61-65","51-55","36-40"], 0, "Der längste Balken rechts gehört zur Klasse 56-60 mit 147,6 Köpfen."],
   ["Wie viele Köpfe sind 56 Jahre oder älter?", ["317","262,3","147,6","856"], 0, "Das sagt der Hinweistext unter der Altersstruktur, dazu 35,1 % des Kopfbestands."],
@@ -1074,10 +1074,10 @@ qZiehen();
    ===================================================================== */
 const CK = [
   "Deckt der VB-Ist den Stellenplan beziehungsweise den refinanzierten Personalschlüssel?",
-  "Wird die geforderte Fachkraftquote eingehalten, und wie stabil ist sie bei absehbaren Austritten?",
-  "Wie hoch ist der Anteil befristeter Verträge, und aus welchem Grund wird befristet?",
-  "Welche Altersgruppen dominieren, und droht in bestimmten Bereichen eine Häufung von Renteneintritten?",
-  "Wie verteilt sich die Betriebszugehörigkeit, und gibt es Bereiche mit auffällig geringer Bindung?"
+  "Wird die geforderte Fachkraftquote eingehalten und wie stabil ist sie bei absehbaren Austritten?",
+  "Wie hoch ist der Anteil befristeter Verträge und aus welchem Grund wird befristet?",
+  "Welche Altersgruppen dominieren und droht in bestimmten Bereichen eine Häufung von Renteneintritten?",
+  "Wie verteilt sich die Betriebszugehörigkeit und gibt es Bereiche mit auffällig geringer Bindung?"
 ];
 $("ckListe").innerHTML = CK.map(f => `<div class="ckitem"><h3>${esc(f)}</h3><p class="folgt" style="color:var(--grey);font-style:italic">Hinweis zum Bericht folgt.</p></div>`).join("");
 

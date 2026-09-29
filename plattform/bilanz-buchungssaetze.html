@@ -158,8 +158,8 @@ table.tbl tbody tr:hover td{background:var(--sand-xl)}
 .fmark.f4{background:var(--grey-xl);color:#5a5a5c}
 /* ---------- Risk-Map ----------
    Die drei Zonenfarben sind die einzige Stelle, an der Signalfarben
-   auftreten. Dekorativ erscheinen sie nirgends, und die Bedeutung
-   hängt nie an ihnen allein: jede Zone hat ihren Namen, jeder Punkt seine
+   auftreten. Dekorativ erscheinen sie nirgends, wobei die Bedeutung
+   nie an ihnen allein hängt: jede Zone hat ihren Namen, jeder Punkt seine
    Kennung, jede rote Position zusaetzlich das Warndreieck.          */
 .mapwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
 .mapwrap>*{min-width:0}
@@ -782,7 +782,7 @@ footer a{color:var(--teal-dk)}
     <div class="card" style="border-left:3px solid var(--teal-dk)">
       <p class="ck">Erste Frage</p><h3>Was hat sich verändert?</h3>
       <p>Eine Maschine kommt ins Haus, ein Betrag verlässt das Konto, eine Schuld entsteht. Jede Buchung hält fest, welche Posten des Vermögens und des Kapitals sich bewegt haben.</p>
-      <p>Diese Frage beantwortet die Bilanz am Ende des Jahres — und sie kann es nur, weil jede einzelne Bewegung dorthin zurückführt.</p>
+      <p>Diese Frage beantwortet die Bilanz am Ende des Jahres, was sie nur kann, weil jede einzelne Bewegung dorthin zurückführt.</p>
     </div>
     <div class="card" style="border-left:3px solid var(--ochre)">
       <p class="ck">Zweite Frage</p><h3>Womit wurde es bezahlt?</h3>
@@ -793,11 +793,11 @@ footer a{color:var(--teal-dk)}
   <div class="merk" style="margin-top:16px">
     <h3>Die Begriffe, in der Reihenfolge, in der sie gebraucht werden</h3>
     <dl>
-      <dt>Konto</dt><dd>Ein Sammelplatz für gleichartige Bewegungen. Es hat zwei Seiten: links Soll, rechts Haben. Die beiden Wörter bedeuten nichts, was ihr Alltagssinn nahelegt — sie sind Namen für links und rechts.</dd>
+      <dt>Konto</dt><dd>Ein Sammelplatz für gleichartige Bewegungen. Es hat zwei Seiten: links Soll, rechts Haben. Die beiden Wörter bedeuten nichts, was ihr Alltagssinn nahelegt, da sie Namen für links und rechts sind.</dd>
       <dt>Bestandskonto</dt><dd>Ein Konto, das aus der Bilanz kommt und wieder dorthin zurückgeht: Bank, Maschinen, Verbindlichkeiten. Sein Saldo am Jahresende ist der Betrag, der im Abschluss steht.</dd>
       <dt>Erfolgskonto</dt><dd>Ein Konto der Gewinn- und Verlustrechnung: Materialaufwand, Umsatzerlöse, Zinsen. Es beginnt jedes Jahr bei null und endet im Eigenkapital.</dd>
       <dt>Buchungssatz</dt><dd>Die Anweisung, geschrieben als <span class="m" style="font-family:var(--mono)">Sollkonto an Habenkonto Betrag</span>. Das Wörtchen „an“ ist reine Schreibweise und bedeutet keine Richtung.</dd>
-      <dt>Beleg</dt><dd>Der Grund für die Buchung, auf Papier oder als Datei. <b>Keine Buchung ohne Beleg</b> — der Satz ist der älteste der Buchführung und steht heute in den Grundsätzen ordnungsmäßiger Buchführung.</dd>
+      <dt>Beleg</dt><dd>Der Grund für die Buchung, auf Papier oder als Datei. <b>Keine Buchung ohne Beleg</b>. Dieser Satz ist der älteste der Buchführung und steht heute in den Grundsätzen ordnungsmäßiger Buchführung.</dd>
     </dl>
   </div>
 
@@ -815,7 +815,7 @@ footer a{color:var(--teal-dk)}
   </table>
   </div>
   <div class="readme" style="margin-top:16px">
-    <b>Die Merkhilfe, die wirklich hilft.</b> Aufwand und Ertrag sind verkleidetes Eigenkapital. Ein Aufwand verringert das Eigenkapital, und weil das Eigenkapital ein Passivkonto ist, steht seine Abnahme im Soll — deshalb steht der Aufwand im Soll. Ein Ertrag erhöht das Eigenkapital und steht deshalb im Haben. Wer sich das einmal zurechtgelegt hat, braucht die letzten beiden Zeilen der Tabelle nicht mehr.
+    <b>Die Merkhilfe, die wirklich hilft.</b> Aufwand und Ertrag sind verkleidetes Eigenkapital. Ein Aufwand verringert das Eigenkapital. Weil das Eigenkapital ein Passivkonto ist, steht seine Abnahme im Soll, weshalb der Aufwand im Soll steht. Ein Ertrag erhöht das Eigenkapital und steht deshalb im Haben. Wer sich das einmal zurechtgelegt hat, braucht die letzten beiden Zeilen der Tabelle nicht mehr.
   </div>
 
   <h2 class="sec">Vier Sätze zum Mitlesen</h2>
@@ -826,11 +826,11 @@ footer a{color:var(--teal-dk)}
     <li><b>Löhne von 1.200 T€ werden überwiesen.</b> Aufwand entsteht, also im Soll. Das Bankguthaben nimmt ab, also Aktivkonto im Haben. <span class="m" style="font-family:var(--mono);color:var(--teal-dk)">Löhne und Gehälter an Bank 1.200</span></li>
     <li><b>Ein Darlehen von 2.000 T€ wird getilgt.</b> Die Schuld nimmt ab, also Passivkonto im Soll. Das Bankguthaben nimmt ab, also Aktivkonto im Haben. <span class="m" style="font-family:var(--mono);color:var(--teal-dk)">Verbindlichkeiten gegenüber Kreditinstituten an Bank 2.000</span></li>
   </ul>
-  <p class="sub" style="margin-top:12px">Ein Satz kann auch mehr als zwei Konten berühren — beim Kauf mit Vorsteuer sind es drei. Das Prinzip ändert sich dadurch nicht: Die Summe im Soll entspricht der Summe im Haben.</p>
+  <p class="sub" style="margin-top:12px">Ein Satz kann auch mehr als zwei Konten berühren, da es beim Kauf mit Vorsteuer drei sind. Das Prinzip ändert sich dadurch nicht: Die Summe im Soll entspricht der Summe im Haben.</p>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Soll und Haben heißen links und rechts und meinen nichts weiter. Wer bei jeder Buchung fragt „<b>welches Konto nimmt zu, und womit</b>“, kommt ohne jede Eselsbrücke aus.</p>
+    <p>Soll und Haben heißen links und rechts und meinen nichts weiter. Wer bei jeder Buchung fragt „<b>welches Konto nimmt zu und womit</b>“, kommt ohne jede Eselsbrücke aus.</p>
   </div>
 </section>
 
@@ -846,7 +846,7 @@ footer a{color:var(--teal-dk)}
       <div class="bal"><i style="height:38px"></i><i class="neu" style="height:14px"></i><i class="weg" style="height:14px"></i><i class="p" style="height:38px"></i></div>
       <h4>Aktivtausch</h4>
       <p class="bs">Bank an Forderungen 40</p>
-      <p>Zwei Aktivkonten. Ein Posten wird gegen einen anderen getauscht, die <b>Bilanzsumme bleibt gleich</b>. Der Kunde zahlt — Geld statt Forderung.</p>
+      <p>Zwei Aktivkonten. Ein Posten wird gegen einen anderen getauscht, die <b>Bilanzsumme bleibt gleich</b>. Der Kunde zahlt, also Geld statt Forderung.</p>
     </div>
     <div class="bufk">
       <p class="fn">Fall 2</p>
@@ -876,10 +876,10 @@ footer a{color:var(--teal-dk)}
   <div class="merk">
     <h3>Zwei Seiten, zwei Konten</h3>
     <dl>
-      <dt>Die Rechnung</dt><dd>Ein Satz hat ein Sollkonto und ein Habenkonto. Jedes von beiden liegt entweder auf der Aktiv- oder auf der Passivseite. Zwei mal zwei ergibt vier Kombinationen, und jede hat einen Namen.</dd>
+      <dt>Die Rechnung</dt><dd>Ein Satz hat ein Sollkonto und ein Habenkonto. Jedes von beiden liegt entweder auf der Aktiv- oder auf der Passivseite. Zwei mal zwei ergibt vier Kombinationen, von denen jede einen Namen hat.</dd>
       <dt>Warum die Bilanz dabei aufgeht</dt><dd>In jedem der vier Fälle bewegen sich beide Seiten um denselben Betrag oder gar nicht. Deshalb kann eine korrekte Buchung die Gleichheit von Aktiva und Passiva nie zerstören. Geht die Bilanz nicht auf, wurde nicht doppelt gebucht.</dd>
       <dt>Die andere Benennung</dt><dd>Bilanzverlängerung heißt auch Aktiv-Passiv-Mehrung, Bilanzverkürzung auch Aktiv-Passiv-Minderung. Beide Wortpaare meinen dasselbe; welches in einer Prüfung verlangt wird, steht in der Aufgabe.</dd>
-      <dt>Wo die Erfolgskonten bleiben</dt><dd>Sie fallen aus der Aufzählung scheinbar heraus und gehören doch dazu — als Stellvertreter des Eigenkapitals und damit der Passivseite. Das ist der Gegenstand der nächsten Lektion.</dd>
+      <dt>Wo die Erfolgskonten bleiben</dt><dd>Sie fallen aus der Aufzählung scheinbar heraus und gehören doch dazu, nämlich als Stellvertreter des Eigenkapitals und damit der Passivseite. Das ist der Gegenstand der nächsten Lektion.</dd>
     </dl>
   </div>
 
@@ -909,8 +909,8 @@ footer a{color:var(--teal-dk)}
     <div class="card" style="border-left:3px solid var(--teal-dk)">
       <p class="ck">Erfolgsneutral</p><h3>Nur Bestandskonten</h3>
       <p class="bs" style="font-family:var(--mono);font-size:1.14rem;color:var(--teal-dk)">Bank an Forderungen 40</p>
-      <p>Beide Konten kommen aus der Bilanz und gehen dorthin zurück. Das Eigenkapital bleibt, wo es war, und die Gewinn- und Verlustrechnung erfährt von dem Vorgang nichts.</p>
-      <p>Der Kunde hat gezahlt. Reicher ist das Unternehmen dadurch nicht geworden — reicher wurde es, als die Rechnung geschrieben wurde.</p>
+      <p>Beide Konten kommen aus der Bilanz und gehen dorthin zurück. Das Eigenkapital bleibt, wo es war, während die Gewinn- und Verlustrechnung von dem Vorgang nichts erfährt.</p>
+      <p>Der Kunde hat gezahlt. Reicher ist das Unternehmen dadurch nicht geworden, da es reicher wurde, als die Rechnung geschrieben wurde.</p>
     </div>
     <div class="card" style="border-left:3px solid var(--ochre)">
       <p class="ck">Erfolgswirksam</p><h3>Ein Erfolgskonto ist dabei</h3>
@@ -920,7 +920,7 @@ footer a{color:var(--teal-dk)}
     </div>
   </div>
   <div class="readme" style="margin-top:16px">
-    <b>Die vier Grundfälle gelten weiter.</b> Ein Erfolgskonto steht für das Eigenkapital und damit für die Passivseite. „Löhne und Gehälter an Bank“ ist deshalb passiv im Soll und aktiv im Haben — eine Bilanzverkürzung. „Forderungen an Umsatzerlöse“ ist aktiv im Soll und passiv im Haben, also eine Bilanzverlängerung. Wer die Erfolgskonten so einordnet, braucht keine fünfte und sechste Kategorie.
+    <b>Die vier Grundfälle gelten weiter.</b> Ein Erfolgskonto steht für das Eigenkapital und damit für die Passivseite. „Löhne und Gehälter an Bank“ ist deshalb passiv im Soll und aktiv im Haben, also eine Bilanzverkürzung. „Forderungen an Umsatzerlöse“ ist aktiv im Soll und passiv im Haben, also eine Bilanzverlängerung. Wer die Erfolgskonten so einordnet, braucht keine fünfte und sechste Kategorie.
   </div>
 
   <h2 class="sec">Vier Stellen, an denen es regelmäßig schiefgeht</h2>
@@ -929,7 +929,7 @@ footer a{color:var(--teal-dk)}
   <table class="tbl">
     <thead><tr><th>Vorgang</th><th>Wirkt auf den Erfolg?</th><th>Warum</th></tr></thead>
     <tbody>
-      <tr><td class="crit">Ein Kunde zahlt eine offene Rechnung</td><td>Nein</td><td>Der Ertrag ist bei der Rechnungsstellung entstanden. Jetzt wird nur eine Forderung zu Bankguthaben — ein Aktivtausch.</td></tr>
+      <tr><td class="crit">Ein Kunde zahlt eine offene Rechnung</td><td>Nein</td><td>Der Ertrag ist bei der Rechnungsstellung entstanden. Jetzt wird nur eine Forderung zu Bankguthaben, also ein Aktivtausch.</td></tr>
       <tr><td class="crit">Ein Darlehen wird aufgenommen</td><td>Nein</td><td>Geld kommt herein und eine Schuld entsteht. Eine Bilanzverlängerung. Nur die Zinsen darauf sind Aufwand.</td></tr>
       <tr><td class="crit">Eine Maschine wird gekauft</td><td>Nein</td><td>Der Kaufpreis wird aktiviert. Zum Aufwand wird er erst über die Abschreibungen, verteilt über die Nutzungsdauer.</td></tr>
       <tr><td class="crit">Eine Privatentnahme des Inhabers</td><td>Nein</td><td>Sie mindert das Eigenkapital unmittelbar, ohne über die Gewinn- und Verlustrechnung zu laufen. Kein Aufwand, obwohl Geld das Haus verlässt.</td></tr>
@@ -940,20 +940,20 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <h2 class="sec">Vom Konto in den Abschluss</h2>
-  <p class="sub">Was am Jahresende mit den beiden Kontenarten geschieht, und warum die Bilanz dabei wieder aufgeht.</p>
+  <p class="sub">Was am Jahresende mit den beiden Kontenarten geschieht und warum die Bilanz dabei wieder aufgeht.</p>
   <div class="merk">
     <h3>Der Abschluss in vier Schritten</h3>
     <dl>
       <dt>Erfolgskonten schließen</dt><dd>Alle Aufwands- und Ertragskonten werden über das Gewinn- und Verlustkonto abgeschlossen. Dessen Saldo ist der Jahresüberschuss oder der Jahresfehlbetrag.</dd>
       <dt>Das Ergebnis ins Eigenkapital</dt><dd>Der Saldo wandert in das Eigenkapital und erscheint dort als eigener Posten, § 266 Abs. 3 A. V. HGB. Damit schließt sich der Kreis zu Modul 01.</dd>
       <dt>Bestandskonten schließen</dt><dd><!-- sprache:ok — dritte Person, gemeint sind die Bestandskonten -->Ihre Salden ergeben die Schlussbilanz. Weil jede Buchung des Jahres doppelt erfasst wurde, stimmen beide Seiten überein.</dd>
-      <dt>Und im nächsten Jahr</dt><dd>Die Schlussbilanz wird zur Eröffnungsbilanz, § 252 Abs. 1 Nr. 1 HGB verlangt das. Die Erfolgskonten fangen wieder bei null an — deshalb heißt die Gewinn- und Verlustrechnung eine Stromgröße.</dd>
+      <dt>Und im nächsten Jahr</dt><dd>Die Schlussbilanz wird zur Eröffnungsbilanz, § 252 Abs. 1 Nr. 1 HGB verlangt das. Die Erfolgskonten fangen wieder bei null an, weshalb die Gewinn- und Verlustrechnung eine Stromgröße heißt.</dd>
     </dl>
   </div>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Geld, das das Haus verlässt, ist nicht schon deshalb Aufwand. Und Aufwand entsteht auch dann, wenn kein Geld fließt. <b>Erfolg und Zahlung sind zwei verschiedene Fragen</b>, und die Buchführung hält sie auseinander.</p>
+    <p>Geld, das das Haus verlässt, ist nicht schon deshalb Aufwand. Und Aufwand entsteht auch dann, wenn kein Geld fließt. <b>Erfolg und Zahlung sind zwei verschiedene Fragen</b>, die die Buchführung auseinanderhält.</p>
   </div>
 </section>
 
@@ -1020,7 +1020,7 @@ footer a{color:var(--teal-dk)}
       </div>
     </div>
     <input type="file" id="buDatei" accept="application/json,.json" hidden aria-hidden="true">
-    <p class="sub" style="margin:0 0 12px">Die Schlussbilanz lässt sich zusätzlich im Format des ersten Moduls speichern — dann liest sie das Formular dort und das Auswertungsblatt aus Modul 03 ohne Umweg ein.</p>
+    <p class="sub" style="margin:0 0 12px">Die Schlussbilanz lässt sich zusätzlich im Format des ersten Moduls speichern, worauf das Formular dort und das Auswertungsblatt aus Modul 03 sie ohne Umweg einlesen.</p>
     <div class="seg" role="group" aria-label="Weitergeben" style="margin:0 0 12px">
       <button id="buAlsBilanz" type="button">Schlussbilanz als Bilanz-JSON</button>
     </div>
@@ -1034,7 +1034,7 @@ footer a{color:var(--teal-dk)}
   <ul>
     <li><b>Zusammengesetzte Sätze.</b> Ein Kauf mit Vorsteuer berührt drei Konten. Hier geht immer ein Konto gegen ein Konto; wer einen Vorsteuerfall üben will, bucht ihn als zwei Sätze.</li>
     <li><b>Der Kontenrahmen.</b> Ein SKR 03 hat über tausend Konten, das Blatt hat vierunddreißig. Sie reichen für die Fälle dieses Moduls und für keine Buchhaltung.</li>
-    <li><b>Die Bewertung.</b> Mit welchem Betrag ein Posten anzusetzen ist — Anschaffungskosten, Abschreibungsmethode, Höhe einer Rückstellung — entscheidet das Bilanzrecht, nicht die Buchungstechnik. Das Blatt nimmt den Betrag, den Du einträgst.</li>
+    <li><b>Die Bewertung.</b> Mit welchem Betrag ein Posten anzusetzen ist (Anschaffungskosten, Abschreibungsmethode, Höhe einer Rückstellung), entscheidet das Bilanzrecht, nicht die Buchungstechnik. Das Blatt nimmt den Betrag, den Du einträgst.</li>
     <li><b>Die Ordnungsmäßigkeit.</b> Belegzwang, Unveränderbarkeit, Aufbewahrungsfristen, Journalführung in zeitlicher Ordnung: Die Grundsätze ordnungsmäßiger Buchführung sind der Grund, warum eine Buchhaltung ein System ist und keine Tabelle.</li>
   </ul>
 
@@ -1061,7 +1061,7 @@ footer a{color:var(--teal-dk)}
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Die beiden häufigsten Fehler haben dieselbe Wurzel: Man denkt an das Geld statt an die Konten. <b>Buchführung fragt, was sich verändert</b> — die Zahlung ist nur einer von vielen möglichen Anlässen.</p>
+    <p>Die beiden häufigsten Fehler haben dieselbe Wurzel: Man denkt an das Geld statt an die Konten. <b>Buchführung fragt, was sich verändert</b>, da die Zahlung nur einer von vielen möglichen Anlässen ist.</p>
   </div>
 </section>
 
@@ -1074,7 +1074,7 @@ footer a{color:var(--teal-dk)}
   <div class="ck10" id="ck7"></div>
 
   <div class="readme" style="margin-top:18px">
-    <b>Warum das die Mühe lohnt, obwohl Du nicht buchst.</b> Wer einmal gesehen hat, wie ein Vorgang als Buchungssatz aussieht, liest jede Auswertung anders. Eine Abweichung im Materialaufwand ist dann eine Menge einzelner Sätze, die jemand gebucht hat — jeder mit einem Beleg und einem Konto dahinter, nach denen sich fragen lässt. Damit hat die Zahl einen Adressaten. Genau daraus wird Controlling.
+    <b>Warum das die Mühe lohnt, obwohl Du nicht buchst.</b> Wer einmal gesehen hat, wie ein Vorgang als Buchungssatz aussieht, liest jede Auswertung anders. Eine Abweichung im Materialaufwand ist dann eine Menge einzelner Sätze, die jemand gebucht hat, jeder mit einem Beleg und einem Konto dahinter, nach denen sich fragen lässt. Damit hat die Zahl einen Adressaten. Genau daraus wird Controlling.
   </div>
 
   <h2 class="sec">Glossar</h2>
@@ -1083,12 +1083,12 @@ footer a{color:var(--teal-dk)}
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Die vier Module dieses Lernpfads schließen hier zusammen: Der Buchungssatz erzeugt die Bilanz, die Bilanz und die Erfolgsrechnung erzeugen die Kennzahlen, und die Kennzahlen erzeugen die Frage. <b>Am Anfang steht ein Beleg.</b></p>
+    <p>Die vier Module dieses Lernpfads schließen hier zusammen: Der Buchungssatz erzeugt die Bilanz, die Bilanz und die Erfolgsrechnung erzeugen die Kennzahlen und die Kennzahlen erzeugen die Frage. <b>Am Anfang steht ein Beleg.</b></p>
   </div>
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.81</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.83</span>
 </footer>
 
 </div>
@@ -1109,7 +1109,7 @@ const esc = s => String(s == null ? "" : s)
    geht es um die Wirkung eines Satzes und nicht um Vollstaendigkeit.
 
    Jedes Konto kennt seine Art und den Posten der Bilanz, unter dem es
-   erscheint. Die Art entscheidet ueber alles Weitere:
+   erscheint. Die Art entscheidet, welche Seite zunimmt und welche abnimmt:
      "aktiv"   nimmt im Soll zu
      "passiv"  nimmt im Haben zu
      "aufwand" nimmt im Soll zu und mindert das Eigenkapital
@@ -1172,13 +1172,13 @@ KONTEN.forEach(k => { KONTO[k.nr] = k; });
 
 /* Fuer die vier Grundfaelle zaehlt allein, auf welcher Bilanzseite ein
    Konto wirkt. Ein Aufwandskonto ist Eigenkapital im Soll, ein
-   Ertragskonto Eigenkapital im Haben — beide also Passivseite. */
+   Ertragskonto Eigenkapital im Haben, beide also Passivseite. */
 const seiteVon = k => k.art === "aktiv" ? "A" : "P";
 const istErfolg = k => k.art === "aufwand" || k.art === "ertrag";
 
 /* Das Journal: die gebuchten Saetze in der Reihenfolge der Eingabe.
-   Die Kontostaende leben nicht im DOM und auch nicht als Summen — sie
-   werden bei jeder Aenderung aus der Eroeffnungsbilanz und dem Journal
+   Die Kontostaende leben nicht im DOM und auch nicht als Summen, da sie
+   bei jeder Aenderung aus der Eroeffnungsbilanz und dem Journal
    neu gerechnet. Ein Storno ist dann das Entfernen einer Zeile und
    sonst nichts. */
 let JOURNAL = [];
@@ -1239,8 +1239,8 @@ const START = posten(staende());
 /* =====================================================================
    2 · Der Grundfall eines Satzes
 
-   Zwei Seiten, zwei Konten, vier Kombinationen. Mehr gibt es nicht —
-   und weil Erfolgskonten zur Passivseite zaehlen, gilt das auch fuer
+   Zwei Seiten, zwei Konten, vier Kombinationen. Mehr gibt es nicht.
+   Weil Erfolgskonten zur Passivseite zaehlen, gilt das auch fuer
    erfolgswirksame Saetze.
    ===================================================================== */
 const FAELLE = {
@@ -1308,7 +1308,7 @@ function buZeichnen(){
 
   const diff = p.sumA - p.sumP;
   $("buErgebnis").innerHTML = diff !== 0
-    ? `<b>Die Bilanz geht nicht auf.</b> Differenz ${zahl(Math.abs(diff))} T€ — das wäre ein Fehler im Blatt und nicht in Deiner Buchung.`
+    ? `<b>Die Bilanz geht nicht auf.</b> Differenz ${zahl(Math.abs(diff))} T€, was ein Fehler im Blatt wäre und nicht in Deiner Buchung.`
     : `Erträge <b>${zahl(p.ertrag)}</b> · Aufwendungen <b>${zahl(p.aufwand)}</b> · Ergebnis <b>${zahl(p.GUV)}</b> T€.
        Die Bilanzsumme hat sich um <b>${vzahl(p.sumA - START.sumA)}</b> T€ verändert.`;
 
@@ -1399,7 +1399,7 @@ $("buLeer").addEventListener("click", () => {
    4 · Mitnehmen: als Text, als Journal, als Bilanz
 
    Der Umweg ueber eine Datei ist derselbe wie in den Vormodulen: Ueber
-   file:// gibt es keinen Server, und localStorage ist im ganzen Projekt
+   file:// gibt es keinen Server; localStorage ist im ganzen Projekt
    ausgeschlossen. Ein Blob als Download und ein FileReader beim Laden
    kommen ohne beides aus.
 
@@ -1455,7 +1455,7 @@ const heute = () => new Date().toISOString().slice(0, 10);
 
 $("buSave").addEventListener("click", () => {
   if(JOURNAL.length === 0){
-    $("buMsg").textContent = "Noch kein Satz gebucht — es gäbe nichts zu speichern.";
+    $("buMsg").textContent = "Noch kein Satz gebucht, es gäbe also nichts zu speichern.";
     return;
   }
   const d = {format:JOU_FORMAT, fassung:JOU_FASSUNG, erzeugt:heute(), einheit:"T€",
@@ -1499,12 +1499,12 @@ $("buDatei").addEventListener("change", e => {
     try { d = JSON.parse(leser.result); }
     catch(err){ $("buMsg").textContent = "Das ist kein lesbares JSON."; return; }
     if(d && d.format === "bilanz-hgb"){
-      $("buMsg").textContent = "Das ist eine Bilanz. Dieses Blatt erwartet ein Journal —"
-        + " die Bilanz gehört in das Formular des ersten Moduls.";
+      $("buMsg").textContent = "Das ist eine Bilanz. Dieses Blatt erwartet ein Journal."
+        + " Die Bilanz gehört in das Formular des ersten Moduls.";
       return;
     }
     if(!d || !Array.isArray(d.saetze)){
-      $("buMsg").textContent = "In der Datei steht kein Feld „saetze“ — sie stammt wohl aus etwas anderem.";
+      $("buMsg").textContent = "In der Datei steht kein Feld „saetze“, sie stammt wohl aus etwas anderem.";
       return;
     }
     const gut = [], schlecht = [];
@@ -1541,9 +1541,9 @@ $("buCopy").addEventListener("click", () => {
   if(navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(feld.value)
       .then(() => { $("buMsg").textContent = "Kopiert."; })
-      .catch(() => { $("buMsg").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand."; });
+      .catch(() => { $("buMsg").textContent = "Klappt hier nicht. Der Text ist markiert, kopier ihn von Hand."; });
   } else {
-    $("buMsg").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand.";
+    $("buMsg").textContent = "Klappt hier nicht. Der Text ist markiert, kopier ihn von Hand.";
   }
 });
 
@@ -1555,15 +1555,15 @@ buZeichnen();
    ===================================================================== */
 const ZU_POS = [
   ["Ein Kunde überweist eine offene Rechnung über 4.200 T€", "aa",
-   "Aktivtausch. Bank an Forderungen aus Lieferungen und Leistungen. Zwei Aktivkonten, die Bilanzsumme rührt sich nicht — der Ertrag ist bei der Rechnungsstellung entstanden."],
+   "Aktivtausch. Bank an Forderungen aus Lieferungen und Leistungen. Zwei Aktivkonten, die Bilanzsumme rührt sich nicht, da der Ertrag bei der Rechnungsstellung entstanden ist."],
   ["Roh-, Hilfs- und Betriebsstoffe werden bar bezahlt und eingelagert", "aa",
    "Aktivtausch. Roh-, Hilfs- und Betriebsstoffe an Kasse. Aus Geld wird Vorrat; verbraucht ist noch nichts, also entsteht auch kein Aufwand."],
   ["Eine Maschine wird für 900 T€ auf Ziel gekauft", "ap",
    "Bilanzverlängerung. Technische Anlagen und Maschinen an Verbindlichkeiten aus Lieferungen und Leistungen. Das Vermögen wächst, die Schulden wachsen mit."],
   ["Die Bank schreibt ein Darlehen über 5.000 T€ gut", "ap",
-   "Bilanzverlängerung. Bank an Verbindlichkeiten gegenüber Kreditinstituten. Geld kommt herein und eine Schuld entsteht — kein Ertrag, nur die Zinsen darauf wären Aufwand."],
+   "Bilanzverlängerung. Bank an Verbindlichkeiten gegenüber Kreditinstituten. Geld kommt herein und eine Schuld entsteht, also kein Ertrag, während allein die Zinsen darauf Aufwand wären."],
   ["Eine Lieferantenrechnung über 500 T€ wird per Bank bezahlt", "pa",
-   "Bilanzverkürzung. Verbindlichkeiten aus Lieferungen und Leistungen an Bank. Beide Seiten schrumpfen; der Aufwand ist beim Wareneingang entstanden."],
+   "Bilanzverkürzung. Verbindlichkeiten aus Lieferungen und Leistungen an Bank. Beide Seiten schrumpfen, da der Aufwand beim Wareneingang entstanden ist."],
   ["Ein Darlehen wird mit 2.000 T€ getilgt", "pa",
    "Bilanzverkürzung. Verbindlichkeiten gegenüber Kreditinstituten an Bank. Die klassische Tilgung: Schuld und Guthaben verschwinden gemeinsam."],
   ["Eine Lieferantenschuld wird in ein Bankdarlehen umgeschuldet", "pp",
@@ -1571,19 +1571,19 @@ const ZU_POS = [
   ["Aus dem Jahresüberschuss werden 1.000 T€ in die Gewinnrücklagen eingestellt", "pp",
    "Passivtausch. Innerhalb des Eigenkapitals wird umgegliedert. Ergebnisverwendung ist kein Aufwand und berührt die Bilanzsumme nicht."],
   ["Löhne von 1.900 T€ werden überwiesen", "pa",
-   "Bilanzverkürzung, und erfolgswirksam. Löhne und Gehälter an Bank. Der Aufwand steht für das Eigenkapital und damit für die Passivseite — deshalb passiv im Soll."],
+   "Bilanzverkürzung und erfolgswirksam. Löhne und Gehälter an Bank. Der Aufwand steht für das Eigenkapital und damit für die Passivseite, weshalb er passiv im Soll steht."],
   ["Eine Abschreibung von 380 T€ wird auf eine Maschine gebucht", "pa",
-   "Bilanzverkürzung, und erfolgswirksam. Abschreibungen an Technische Anlagen und Maschinen. Ergebnis und Vermögen sinken gemeinsam, ohne dass Geld fließt."],
+   "Bilanzverkürzung und erfolgswirksam. Abschreibungen an Technische Anlagen und Maschinen. Ergebnis und Vermögen sinken gemeinsam, ohne dass Geld fließt."],
   ["Eine Rechnung über 7.600 T€ wird an einen Kunden geschrieben", "ap",
-   "Bilanzverlängerung, und erfolgswirksam. Forderungen aus Lieferungen und Leistungen an Umsatzerlöse. Der Ertrag erhöht das Eigenkapital, die Forderung das Vermögen."],
+   "Bilanzverlängerung und erfolgswirksam. Forderungen aus Lieferungen und Leistungen an Umsatzerlöse. Der Ertrag erhöht das Eigenkapital, die Forderung das Vermögen."],
   ["Eine Rückstellung für einen drohenden Prozess wird mit 600 T€ gebildet", "ap",
-   "Bilanzverlängerung, und erfolgswirksam. Sonstige betriebliche Aufwendungen an Rückstellungen. Aufwand ohne Zahlung: Das Eigenkapital sinkt, die Rückstellung wächst, die Bilanzsumme steigt."],
+   "Bilanzverlängerung und erfolgswirksam. Sonstige betriebliche Aufwendungen an Rückstellungen. Aufwand ohne Zahlung: Das Eigenkapital sinkt, die Rückstellung wächst, die Bilanzsumme steigt."],
   ["Die Investitionszuwendung für die Bädersanierung des Pflegeheims geht mit 150 T€ ein", "ap",
    "Bilanzverlängerung, dabei erfolgsneutral. Bank an Sonderposten aus Zuwendungen. Das Geld ist da, ein Ertrag entsteht dabei nicht, weil der Sonderposten auf die Passivseite kommt."],
   ["Der Sonderposten wird zum Jahresende mit 92 T€ anteilig aufgelöst", "pp",
    "Passivtausch, dabei erfolgswirksam. Sonderposten aus Zuwendungen an Erträge aus der Auflösung von Sonderposten. Der Ertrag erhöht das Eigenkapital, der Sonderposten sinkt um denselben Betrag."],
   ["Die März-Leistung des Pflegeheims wird mit 347,2 T€ abgegrenzt, bevor die Rechnung hinausgeht", "ap",
-   "Bilanzverlängerung, und erfolgswirksam. Forderungen aus noch nicht abgerechneten Leistungen an Erlöse. Der Ertrag gehört in den März, weil dort die Leistung erbracht wurde."]
+   "Bilanzverlängerung und erfolgswirksam. Forderungen aus noch nicht abgerechneten Leistungen an Erlöse. Der Ertrag gehört in den März, weil dort die Leistung erbracht wurde."]
 ];
 let zuStand = [];
 const ZU_NAME = {aa:"Aktivtausch", pp:"Passivtausch", ap:"Verlängerung", pa:"Verkürzung"};
@@ -1623,19 +1623,19 @@ const CHECK7 = [
    "Nicht die Auswertung, das Journal: jede Buchung in zeitlicher Ordnung, mit Datum, Beleg, Soll, Haben und Betrag. Ein normaler Dienstag genügt. Danach weißt Du, wie Dein Unternehmen aussieht, wenn es gebucht wird.",
    "Es wird die Summen- und Saldenliste angefordert. Die ist verdichtet und zeigt gerade nicht, was einzeln passiert ist."],
   ["Such Dir fünf Buchungen heraus und lies sie laut",
-   "„Wareneingang an Verbindlichkeiten“ — welches Konto nimmt zu, und womit? Wer fünf Sätze übersetzen kann, hat das Prinzip. Das dauert eine halbe Stunde und ersetzt zwei Lehrbücher.",
+   "Bei „Wareneingang an Verbindlichkeiten“ lautet die Frage, welches Konto zunimmt und womit. Wer fünf Sätze übersetzen kann, hat das Prinzip. Das dauert eine halbe Stunde und ersetzt zwei Lehrbücher.",
    "Es wird überflogen. Buchungssätze erschließen sich beim Nachsprechen und nicht beim Ansehen."],
   ["Frag nach dem Kontenrahmen und such die zwanzig meistbenutzten Konten",
    "Jedes Haus hat einen, meist SKR 03 oder SKR 04. Die zwanzig Konten mit den meisten Buchungen beschreiben Dein Geschäft genauer als jedes Organigramm.",
    "Der ganze Rahmen wird ausgedruckt. Tausend Konten sagen weniger als zwanzig, in denen etwas passiert."],
   ["Geh einen Geschäftsvorfall vom Beleg bis in die Bilanz durch",
    "Eine Eingangsrechnung: Wer erfasst sie, auf welches Konto, wann wird bezahlt, wo taucht sie im Abschluss auf? Dieser eine Durchgang zeigt Dir mehr über Dein Unternehmen als jede Prozessbeschreibung.",
-   "Es wird beim Buchungssatz aufgehört. Der interessante Teil beginnt danach — bei der Frage, wer entscheidet, auf welches Konto gebucht wird."],
+   "Es wird beim Buchungssatz aufgehört. Der interessante Teil beginnt danach, nämlich bei der Frage, wer entscheidet, auf welches Konto gebucht wird."],
   ["Lass Dir die Abgrenzungsbuchungen zum Monatsende zeigen",
    "Rückstellungen, Abgrenzungen, Abschreibungen: Hier entsteht der größte Teil des Ermessens. Wer sie kennt, weiß, an welchen Stellen ein Ergebnis gestaltbar ist.",
    "Man verlässt sich auf das laufende Geschäft. Das ist der Teil, in dem am wenigsten Spielraum steckt."],
   ["Buch Deine eigenen Fälle im Blatt aus Lektion 04 nach",
-   "Nimm drei echte Vorfälle Deines Hauses und bau sie hier nach. Wo Du zögerst, welches Konto es ist, liegt Deine Wissenslücke — und die ist jetzt benannt.",
+   "Nimm drei echte Vorfälle Deines Hauses und bau sie hier nach. Wo Du zögerst, welches Konto es ist, liegt Deine Wissenslücke, die damit benannt ist.",
    "Es werden die Beispiele durchgeklickt. Der Lerneffekt entsteht am eigenen Fall, an dem Du weißt, was wirtschaftlich geschehen ist."],
   ["Verabrede ein halbstündiges Gespräch mit der Buchhaltung",
    "Mit den Fragen, die beim Durchgehen entstanden sind. Buchhalter werden selten gefragt und erklären gern; Du bekommst dabei Antworten, die in keiner Auswertung stehen.",
@@ -1661,16 +1661,16 @@ const GLOSSAR = [
   ["Erfolgsneutral", "Eine Buchung, die nur Bestandskonten berührt. Das Eigenkapital bleibt, wo es war."],
   ["Erfolgswirksam", "Eine Buchung mit einem Erfolgskonto. Sie verändert das Eigenkapital über die Gewinn- und Verlustrechnung."],
   ["Saldo", "Die Differenz der beiden Kontoseiten. Er steht auf der schwächeren Seite und schließt das Konto ab."],
-  ["Beleg", "Der Nachweis für eine Buchung. Keine Buchung ohne Beleg — der älteste Satz der Buchführung."],
+  ["Beleg", "Der Nachweis für eine Buchung. Keine Buchung ohne Beleg, der älteste Satz der Buchführung."],
   ["Journal", "Alle Buchungen in zeitlicher Ordnung. Das Hauptbuch ordnet dieselben Buchungen nach Konten."],
   ["Kontenrahmen", "Das Gliederungsschema der Konten einer Branche, etwa SKR 03 oder SKR 04. Der Kontenplan ist die Auswahl daraus, die ein Haus wirklich benutzt."],
   ["Eröffnungsbilanz", "Die Schlussbilanz des Vorjahres, unverändert übernommen (§ 252 Abs. 1 Nr. 1 HGB)."],
-  ["Abgrenzung", "Eine Buchung, die Aufwand oder Ertrag der Periode zuordnet, in die er gehört — unabhängig von der Zahlung."],
+  ["Abgrenzung", "Eine Buchung, die Aufwand oder Ertrag der Periode zuordnet, in die er gehört, unabhängig von der Zahlung."],
   ["Storno", "Die Rücknahme einer Buchung durch eine Gegenbuchung. Gelöscht wird in einer ordnungsmäßigen Buchführung nie."],
   ["Grundsätze ordnungsmäßiger Buchführung", "Die Regeln, nach denen eine Buchführung geführt wird: vollständig, richtig, zeitgerecht, geordnet und nachprüfbar (§ 239 HGB)."],
   ["Privatentnahme", "Eine Entnahme des Inhabers. Sie mindert das Eigenkapital unmittelbar und ist kein Aufwand."]
 ];
-$("glos").innerHTML = GLOSSAR.map(([b, t]) => `<div><b>${esc(b)}</b> — ${t}</div>`).join("");
+$("glos").innerHTML = GLOSSAR.map(([b, t]) => `<div><b>${esc(b)}</b>: ${t}</div>`).join("");
 
 /* =====================================================================
    8 · Uebung: fuenf Fragen, zufaellig aus dem Vorrat
@@ -1678,13 +1678,13 @@ $("glos").innerHTML = GLOSSAR.map(([b, t]) => `<div><b>${esc(b)}</b> — ${t}</d
 const FRAGEN = [
   ["Was besagt die Grundregel der doppelten Buchführung?",
    ["Jeder Vorfall wird auf zwei Konten mit demselben Betrag erfasst","Jede Buchung wird zweimal geprüft","Jedes Konto hat zwei Salden","Jeder Beleg wird zweifach abgelegt"], 0,
-   "Einmal im Soll, einmal im Haben. Daraus folgt alles Weitere — auch, dass die Summe aller Sollbuchungen der Summe aller Habenbuchungen entspricht."],
+   "Einmal im Soll, einmal im Haben. Daraus folgt, dass die Summe aller Sollbuchungen der Summe aller Habenbuchungen entspricht."],
   ["Auf welcher Seite nimmt ein Aktivkonto zu?",
    ["Im Soll","Im Haben","Auf beiden, je nach Vorfall","Das hängt vom Kontenrahmen ab"], 0,
    "Aktivkonten nehmen im Soll zu und im Haben ab. Bei Passivkonten ist es umgekehrt."],
   ["Warum steht ein Aufwand im Soll?",
    ["Weil er das Eigenkapital mindert und dessen Abnahme im Soll steht","Weil Aufwendungen immer bezahlt werden","Weil er ein Aktivkonto ist","Weil das HGB es so vorschreibt"], 0,
-   "Aufwand und Ertrag sind verkleidetes Eigenkapital. Das Eigenkapital ist ein Passivkonto, seine Abnahme steht im Soll — deshalb der Aufwand dort."],
+   "Aufwand und Ertrag sind verkleidetes Eigenkapital. Das Eigenkapital ist ein Passivkonto, seine Abnahme steht im Soll, weshalb der Aufwand dort steht."],
   ["Was bedeutet das Wort „an“ im Buchungssatz?",
    ["Nichts, es trennt nur Soll- und Habenkonto","Die Richtung der Zahlung","Dass der Betrag überwiesen wird","Dass ein Beleg vorliegt"], 0,
    "Es ist reine Schreibweise. „Bank an Forderungen“ heißt: Bank im Soll, Forderungen im Haben."],
@@ -1693,7 +1693,7 @@ const FRAGEN = [
    "Zwei Konten, jedes entweder aktiv oder passiv: zwei mal zwei. Aktivtausch, Passivtausch, Bilanzverlängerung, Bilanzverkürzung."],
   ["Ein Kunde zahlt eine offene Rechnung. Welcher Grundfall ist das?",
    ["Aktivtausch","Bilanzverlängerung","Bilanzverkürzung","Passivtausch"], 0,
-   "Bank an Forderungen — zwei Aktivkonten. Die Bilanzsumme rührt sich nicht, und der Ertrag ist schon bei der Rechnungsstellung entstanden."],
+   "Bank an Forderungen, also zwei Aktivkonten. Die Bilanzsumme rührt sich nicht, da der Ertrag schon bei der Rechnungsstellung entstanden ist."],
   ["Eine Maschine wird auf Ziel gekauft. Welcher Grundfall ist das?",
    ["Bilanzverlängerung","Aktivtausch","Bilanzverkürzung","Passivtausch"], 0,
    "Technische Anlagen an Verbindlichkeiten aus Lieferungen und Leistungen. Aktiv im Soll, passiv im Haben: Beide Seiten wachsen."],
@@ -1708,13 +1708,13 @@ const FRAGEN = [
    "Das ist die ganze Prüfung. Zwei Bestandskonten bleiben erfolgsneutral, gleich wie viel Geld bewegt wird."],
   ["Ein Darlehen von 5.000 T€ wird aufgenommen. Wirkt das auf den Erfolg?",
    ["Nein, es ist eine Bilanzverlängerung","Ja, es ist ein Ertrag","Ja, es ist ein Aufwand","Nur in Höhe der Zinsen im selben Jahr"], 0,
-   "Geld kommt herein und eine Schuld entsteht — beides Bestandskonten. Erst die Zinsen darauf sind Aufwand, und sie sind eine eigene Buchung."],
+   "Geld kommt herein und eine Schuld entsteht, also beides Bestandskonten. Erst die Zinsen darauf sind Aufwand, der eine eigene Buchung verlangt."],
   ["Eine Maschine wird gekauft. Wann wird daraus Aufwand?",
    ["Über die Abschreibungen, verteilt über die Nutzungsdauer","Sofort in voller Höhe","Bei der Bezahlung","Beim Verkauf der Maschine"], 0,
    "Der Kaufpreis wird aktiviert. Die Abschreibung verteilt ihn auf die Jahre, in denen die Maschine genutzt wird."],
   ["Eine Rückstellung wird gebildet. Was geschieht?",
    ["Aufwand entsteht, ohne dass Geld fließt","Geld fließt, ohne dass Aufwand entsteht","Weder noch","Beides gleichzeitig"], 0,
-   "Der Klassiker unter den zahlungsunwirksamen Aufwendungen. Sonstige betriebliche Aufwendungen an Rückstellungen — eine Bilanzverlängerung."],
+   "Der Klassiker unter den zahlungsunwirksamen Aufwendungen. Sonstige betriebliche Aufwendungen an Rückstellungen, also eine Bilanzverlängerung."],
   ["Wie wird „Abschreibungen an Maschinen“ eingeordnet?",
    ["Bilanzverkürzung und erfolgswirksam","Aktivtausch und erfolgsneutral","Bilanzverlängerung und erfolgswirksam","Passivtausch und erfolgsneutral"], 0,
    "Das Aufwandskonto zählt zur Passivseite, das Maschinenkonto zur Aktivseite: passiv im Soll, aktiv im Haben. Ergebnis und Vermögen sinken gemeinsam."],
@@ -1726,8 +1726,8 @@ const FRAGEN = [
    "Ihr Saldo ist der Jahresüberschuss oder Jahresfehlbetrag und erscheint im Eigenkapital, § 266 Abs. 3 A. V. HGB. Im neuen Jahr beginnen sie wieder bei null."],
   ["Was verlangt § 252 Abs. 1 Nr. 1 HGB für den Jahresbeginn?",
    ["Die Eröffnungsbilanz stimmt mit der Schlussbilanz des Vorjahres überein","Alle Konten beginnen bei null","Die Bilanz wird neu bewertet","Die Erfolgskonten werden vorgetragen"], 0,
-   "Die Bilanzidentität. Ohne sie ließen sich zwei Jahre nicht aneinanderfügen, und jede Zeitreihe wäre wertlos."],
-  ["Eine Privatentnahme des Inhabers — was ist sie?",
+   "Die Bilanzidentität. Ohne sie ließen sich zwei Jahre nicht aneinanderfügen, sodass jede Zeitreihe wertlos wäre."],
+  ["Was ist eine Privatentnahme des Inhabers?",
    ["Eine unmittelbare Minderung des Eigenkapitals, kein Aufwand","Ein Aufwand wie jeder andere","Ein Ertrag","Ein reiner Aktivtausch"], 0,
    "Geld verlässt das Haus, ohne dass ein Aufwand entsteht. Sie läuft am Gewinn- und Verlustkonto vorbei direkt ins Eigenkapital."],
   ["Wie wird die vom Kunden vereinnahmte Umsatzsteuer gebucht?",
@@ -1746,7 +1746,7 @@ const FRAGEN = [
    ["Durch eine Gegenbuchung, ein Storno","Durch Löschen der Zeile","Durch Überschreiben des Betrags","Gar nicht, sie bleibt bestehen"], 0,
    "§ 239 Abs. 3 HGB verlangt, dass der ursprüngliche Inhalt feststellbar bleibt. Gelöscht wird deshalb nie."],
   ["Roh-, Hilfs- und Betriebsstoffe werden bar gekauft und eingelagert. Wirkt das auf den Erfolg?",
-   ["Nein, aus Geld wird Vorrat — ein Aktivtausch","Ja, Materialaufwand entsteht","Ja, aber nur in Höhe der Umsatzsteuer","Nur wenn bar gezahlt wird"], 0,
+   ["Nein, aus Geld wird Vorrat, also ein Aktivtausch","Ja, Materialaufwand entsteht","Ja, aber nur in Höhe der Umsatzsteuer","Nur wenn bar gezahlt wird"], 0,
    "Zum Aufwand wird der Vorrat erst beim Verbrauch. Bis dahin ist er Vermögen."],
   ["Was ist der Saldo eines Kontos?",
    ["Die Differenz der beiden Kontoseiten","Die Summe aller Buchungen","Der größere der beiden Seitenbeträge","Der Betrag der letzten Buchung"], 0,
@@ -1759,7 +1759,7 @@ const FRAGEN = [
    "Der Sonderposten sinkt, der Ertrag erhöht das Eigenkapital um denselben Betrag. Beide Konten stehen auf der Passivseite, weshalb die Bilanzsumme sich nicht rührt."],
   ["Die Leistung eines Monats ist erbracht, die Rechnung geht erst im Folgemonat hinaus. Wie wird abgegrenzt?",
    ["Forderungen aus noch nicht abgerechneten Leistungen an Erlöse","Erlöse an Forderungen aus Lieferungen und Leistungen","Bank an Erlöse","Es wird erst mit der Rechnung gebucht"], 0,
-   "Eine Bilanzverlängerung, und erfolgswirksam. Der Ertrag gehört in den Monat der Leistung. Die Abgrenzung läuft über ein eigenes Sachkonto und wird mit der Rechnung wieder aufgelöst, damit der Debitor allein die Rechnung führt."]
+   "Eine Bilanzverlängerung und erfolgswirksam. Der Ertrag gehört in den Monat der Leistung. Die Abgrenzung läuft über ein eigenes Sachkonto und wird mit der Rechnung wieder aufgelöst, damit der Debitor allein die Rechnung führt."]
 ];
 let qAktuell = [];
 const QZAHL = 5;
@@ -1800,9 +1800,9 @@ function qRender(){
     : fertig + " von " + QZAHL + " beantwortet · " + treffer + " richtig";
   $("qResult").innerHTML = fertig < QZAHL ? "" :
     `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
-      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen — der Vorrat hat " + FRAGEN.length + "." :
-      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben; sie sind der eigentliche Lernstoff." :
-      "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind die Seite, auf der ein Konto zunimmt, und die Frage, ob ein Zahlungsvorgang schon ein Aufwand ist."}</div>`;
+      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen, da der Vorrat " + FRAGEN.length + " hat." :
+      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben, da sie erklären, warum die gewählte Antwort nicht zutrifft." :
+      "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind die Seite, auf der ein Konto zunimmt, und die Frage, ob ein Zahlungsvorgang schon ein Aufwand ist."}</div>`;  /* sprache:ok, das Komma schliesst den Relativsatz davor */
 }
 $("quiz").addEventListener("click", e => {
   const b = e.target.closest(".qopt"); if(!b || b.disabled) return;

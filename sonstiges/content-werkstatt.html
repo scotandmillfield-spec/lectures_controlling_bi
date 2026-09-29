@@ -259,10 +259,10 @@ svg.hier .edge.hot{stroke:var(--orange);stroke-width:2.2}
 
 /* ---------- Der Pfadplaner: die Buehne ----------
    Die Elemente liegen als Kaesten auf einer Flaeche und sind mit Pfeilen
-   verbunden. Ein Knoten hat eine feste Groesse — deshalb laesst sich jeder
-   Pfeil rechnen statt messen. Das ist Absicht: In einem
-   zugeklappten Block liefert jede Messung nur Nullen, und die Zeichnung
-   entartete auf einen Punkt.                                            */
+   verbunden. Ein Knoten hat eine feste Groesse, weshalb sich jeder
+   Pfeil rechnen laesst statt messen. Das ist Absicht: In einem
+   zugeklappten Block liefert jede Messung nur Nullen, sodass die Zeichnung
+   auf einen Punkt entartete.                                            */
 .pfp{display:grid;grid-template-columns:minmax(0,1fr) 264px;gap:14px;align-items:start}
 .pfp>*{min-width:0}
 
@@ -276,8 +276,8 @@ svg.hier .edge.hot{stroke:var(--orange);stroke-width:2.2}
 .bue-lin .lin{fill:none;stroke:var(--teal-dk);stroke-width:1.7;opacity:.75}
 .bue-lin .band{fill:none;stroke:var(--orange);stroke-width:2;stroke-dasharray:6 4}
 
-/* Ein Knoten. Die Groesse steht hier und nirgends sonst — das Skript
-   rechnet mit denselben Zahlen (NB, NH).                              */
+/* Ein Knoten. Die Groesse steht hier und nirgends sonst, da das Skript
+   mit denselben Zahlen rechnet (NB, NH).                              */
 .kn{position:absolute;box-sizing:border-box;width:152px;height:64px;
   background:var(--paper);border:1px solid var(--grey-xl);border-left-width:3px;
   border-radius:10px;box-shadow:var(--shadow);padding:7px 10px;cursor:grab;
@@ -488,7 +488,7 @@ footer a{color:var(--teal-dk)}
         <text class="cap" x="76" y="30">Ebene 1 · Lernpfad</text>
         <text class="lbl" x="76" y="47">Grundlagen</text>
       </g>
-      <g class="node" tabindex="0" role="button" data-th="Zweiter Lernpfad" data-tt="Ein zweiter Pfad greift auf dasselbe Modul zu. Dafür ist am Modul nichts zu ändern — es steht einfach in zwei steps-Listen.">
+      <g class="node" tabindex="0" role="button" data-th="Zweiter Lernpfad" data-tt="Ein zweiter Pfad greift auf dasselbe Modul zu. Dafür ist am Modul nichts zu ändern, da es einfach in zwei steps-Listen steht.">
         <rect x="580" y="14" width="260" height="48" rx="9" fill="var(--navy-xl)" stroke="var(--navy)"/>
         <text class="cap" x="596" y="30">Ebene 1 · Lernpfad</text>
         <text class="lbl" x="596" y="47">Vertiefung</text>
@@ -542,13 +542,13 @@ footer a{color:var(--teal-dk)}
   <p class="txt">Ein Modul weiß selbst nicht, zu welchen Pfaden es gehört. Das ist Absicht und der Grund, warum ein neuer Pfad keine Arbeit an bestehenden Modulen macht.</p>
 
   <h2 class="sec">Die Lektion</h2>
-  <p class="txt">Eine Lektion ist ein <b>Reiter innerhalb eines Moduls</b> — die kleinste Einheit, die jemand am Stück durcharbeitet. Sie ist der Ort, an dem die Größe geregelt wird: 15 bis 20 Minuten, dann ist Schluss. Wächst der Stoff darüber hinaus, wird die Lektion geteilt.</p>
-  <p class="txt">Innerhalb einer Lektion gliedern Abschnitte den Text. Sie klappen auf und zu, der erste steht offen. Auch dafür ist beim Schreiben nichts zu tun — die Mechanik baut sich aus den Überschriften selbst.</p>
+  <p class="txt">Eine Lektion ist ein <b>Reiter innerhalb eines Moduls</b>, die kleinste Einheit, die jemand am Stück durcharbeitet. Sie ist der Ort, an dem die Größe geregelt wird: 15 bis 20 Minuten, dann ist Schluss. Wächst der Stoff darüber hinaus, wird die Lektion geteilt.</p>
+  <p class="txt">Innerhalb einer Lektion gliedern Abschnitte den Text. Sie klappen auf und zu, wobei beim Laden jeder Block zusteht. Auch dafür ist beim Schreiben nichts zu tun, da die Mechanik sich aus den Überschriften selbst baut.</p>
 
   <h2 class="sec">Warum die Pfeile nur nach unten zeigen</h2>
   <p class="txt">Ein Pfad verweist auf Module. Ein Modul verweist <b>nie</b> zurück auf einen Pfad. Auf dieser einen Asymmetrie ruht die ganze Konstruktion.</p>
   <ul class="txt">
-    <li><b>Ein Modul in mehreren Pfaden</b> kostet nichts. Es steht einfach in mehreren Reihenfolgen — an der Datei ändert sich kein Zeichen.</li>
+    <li><b>Ein Modul in mehreren Pfaden</b> kostet nichts. Es steht einfach in mehreren Reihenfolgen, ohne dass sich an der Datei ein Zeichen ändert.</li>
     <li><b>Ein neuer Pfad</b> ist ein Eintrag in einer Liste, keine Migration.</li>
     <li><b>Ein Modul umhängen</b> heißt: eine Kennung aus einer Liste nehmen und in eine andere schreiben.</li>
   </ul>
@@ -556,7 +556,7 @@ footer a{color:var(--teal-dk)}
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Drei Ebenen, und die Abhängigkeit läuft nur in eine Richtung. Deshalb kostet ein neuer Lernpfad <b>eine Zeile</b> und kein einziges Modul.</p>
+    <p>Es gibt drei Ebenen, deren Abhängigkeit nur in eine Richtung läuft. Deshalb kostet ein neuer Lernpfad <b>eine Zeile</b> und kein einziges Modul.</p>
   </div>
 </section>
 
@@ -578,19 +578,19 @@ footer a{color:var(--teal-dk)}
       <p class="ck">Pflicht · vorletzte Lektion</p>
       <h3>Das Quiz</h3>
       <p>Ein Vorrat von mindestens zwanzig Fragen, aus dem beim Laden <b>fünf zufällig</b> gezogen werden. Beim Neuladen kommen andere.</p>
-      <p>Jede Antwort bringt sofort eine Begründung, auch die richtige. Die Begründung ist der eigentliche Lernstoff, nicht der Punktestand — der wird nirgends gespeichert.</p>
+      <p>Jede Antwort bringt sofort eine Begründung, auch die richtige. Die Begründung erklärt, warum eine Antwort zutrifft, während der Punktestand nirgends gespeichert wird.</p>
     </div>
     <div class="card" style="border-left:3px solid var(--orange)">
       <p class="ck">Pflicht · letzte Lektion</p>
       <h3>Der Praxiseinstieg</h3>
       <p>Was jemand als Erstes tut, der das Gelernte im eigenen Unternehmen einführen will. Der Form nach eine Checkliste, dem Ton nach keine.</p>
-      <p>Konkrete erste Schritte mit dem, was dabei schiefgeht — keine Kästchen zum Abhaken um des Abhakens willen. Hierhin gehört auch das Glossar, wenn das Modul eines hat.</p>
+      <p>Hier stehen konkrete erste Schritte samt dem, was dabei schiefgeht. Kästchen zum Abhaken um des Abhakens willen stehen nicht darin. Hierhin gehört auch das Glossar, wenn das Modul eines hat.</p>
     </div>
   </div>
 
   <h2 class="sec">Die Reihenfolge ist nicht beliebig</h2>
-  <p class="txt">Erst Inhalt, dann Quiz, dann Praxiseinstieg. Das Quiz prüft, was gerade gelesen wurde — es steht deshalb <b>hinter</b> dem Stoff und vor der Anwendung. Der Praxiseinstieg schaut nach vorn und ist die letzte Lektion, weil er der letzte Eindruck sein soll.</p>
-  <p class="txt">Umgedreht ergäbe es keinen Sinn: Ein Quiz am Ende prüft gegen eine Checkliste, die niemand als Prüfstoff gemeint hat, und ein Praxiseinstieg in der Mitte wird überblättert.</p>
+  <p class="txt">Erst Inhalt, dann Quiz, dann Praxiseinstieg. Das Quiz prüft, was gerade gelesen wurde, weshalb es <b>hinter</b> dem Stoff und vor der Anwendung steht. Der Praxiseinstieg schaut nach vorn und ist die letzte Lektion, weil er der letzte Eindruck sein soll.</p>
+  <p class="txt">Umgedreht ergäbe es keinen Sinn: Ein Quiz am Ende prüft gegen eine Checkliste, die niemand als Prüfstoff gemeint hat. Ein Praxiseinstieg in der Mitte wird zudem überblättert.</p>
 
   <blockquote class="q">
     Wir richten uns an Praktiker, nicht an Theoretiker. Auch wo Theorie unumgänglich ist, muss am Ende etwas stehen, das jemand am Montag anfassen kann.
@@ -622,7 +622,7 @@ footer a{color:var(--teal-dk)}
         <div class="pv" id="vA">5</div>
       </div>
       <div class="prow">
-        <div class="pn">Interaktive Elemente<span class="pd">Diagramm, Rechner, Simulation — etwas, das reagiert</span></div>
+        <div class="pn">Interaktive Elemente<span class="pd">Diagramm, Rechner oder Simulation, also etwas, das reagiert</span></div>
         <div class="sl"><input type="range" id="rI" min="0" max="6" step="1" value="2" aria-label="Anzahl interaktiver Elemente"></div>
         <div class="pv" id="vI">2</div>
       </div>
@@ -631,7 +631,7 @@ footer a{color:var(--teal-dk)}
         <div class="sl"><input type="range" id="rK" min="0" max="14" step="1" value="4" aria-label="Anzahl Karten und Tabellen"></div>
         <div class="pv" id="vK">4</div>
       </div>
-      <p class="note">Die Schätzung rechnet mit 180 Wörtern je Minute — langsamer als beim Roman, weil Fachtext gelesen und nicht überflogen wird.</p>
+      <p class="note">Die Schätzung rechnet mit 180 Wörtern je Minute, also langsamer als beim Roman, weil Fachtext gelesen und nicht überflogen wird.</p>
     </div>
 
     <div class="gauge">
@@ -645,7 +645,7 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <h2 class="sec">Was in einer Lektion steht</h2>
-  <p class="txt">Der Aufbau ist immer derselbe, und er entsteht beim Schreiben von allein:</p>
+  <p class="txt">Der Aufbau ist immer derselbe und entsteht beim Schreiben von allein:</p>
   <ul class="txt">
     <li><b>Die Kernaussage</b> ganz oben, ein bis zwei Sätze, immer sichtbar. Sie beantwortet, warum jemand weiterliest.</li>
     <li><b>Abschnitte</b> darunter, jeder mit einer Überschrift. Sie werden zur Laufzeit zu auf- und zuklappbaren Blöcken, die beim Laden alle zustehen. Wer die Lektion öffnet, sieht zuerst ihre Gliederung. Am Text ist dafür nichts zu tun.</li>
@@ -654,7 +654,7 @@ footer a{color:var(--teal-dk)}
   <p class="txt">Kernaussage und Pointe bleiben außerhalb der Klappmechanik. Wer eine Lektion zuklappt, sieht immer noch, worum es ging und was am Ende steht.</p>
 
   <h2 class="sec">Der Pointe-Kasten</h2>
-  <p class="txt">Jede Lektion endet mit einem orangefarbenen Kasten und einem einzigen Gedanken darin. Das ist die schwerste Zeile des ganzen Moduls, und sie lohnt die Zeit: Wer sie nicht schreiben kann, hat meist auch die Lektion noch nicht fertig gedacht.</p>
+  <p class="txt">Jede Lektion endet mit einem orangefarbenen Kasten und einem einzigen Gedanken darin. Das ist die schwerste Zeile des ganzen Moduls, die die Zeit lohnt. Wer sie nicht schreiben kann, hat meist auch die Lektion noch nicht fertig gedacht.</p>
   <div class="yn">
     <div class="ynb ja">
       <h3>Das ist eine Pointe</h3>
@@ -676,13 +676,13 @@ footer a{color:var(--teal-dk)}
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Die Größe wird an der Lektion geregelt, nie am Modul. Ein Modul darf zwölf Lektionen haben — <b>eine Lektion darf keine dreißig Minuten haben</b>.</p>
+    <p>Die Größe wird an der Lektion geregelt, nie am Modul. Ein Modul darf zwölf Lektionen haben, <b>während eine Lektion keine dreißig Minuten haben darf</b>.</p>
   </div>
 </section>
 
 <!-- ==================== LEKTION 03 · DIE REGELN DES HAUSES ==================== -->
 <section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
-  <p class="claim">Fünf Regeln entscheiden darüber, ob aus einem guten Text ein Modul wird oder eine Rückfrage. Vier davon kosten nichts, wenn Du sie vorher kennst, und Tage, wenn Du sie hinterher erfährst.</p>
+  <p class="claim">Fünf Regeln entscheiden darüber, ob aus einem guten Text ein Modul wird oder eine Rückfrage. Vier davon kosten nichts, wenn Du sie vorher kennst. Erfährst Du sie hinterher, kosten sie Tage.</p>
 
   <h2 class="sec">Der Fall gehört Sofia</h2>
   <p class="sub">Alle Module spielen im selben Wiener Kaffeehausbetrieb. Dreh eine Karte um, wenn Du eine Angabe brauchst.</p>
@@ -693,10 +693,10 @@ footer a{color:var(--teal-dk)}
 
   <h2 class="sec">Wann ein eigener Fall erlaubt ist</h2>
   <p class="txt">Sofia ist der Normalfall, ein eigener Fall die <b>begründete Ausnahme</b>. Es gibt sie: Die Module zur Supply Chain Map und zum Supply Chain Controlling arbeiten mit vier Vorlieferanten und eigenen Beispielzahlen, weil Sofias Betrieb keine benannten Lieferanten hat.</p>
-  <p class="txt">Die Überlegung dahinter lohnt sich zu kennen, weil sie auch für Deinen Fall gilt: Lieber ein sichtbar getrennter Fall als ein stillschweigend gedehnter Kanon. Der Kanon wird nicht um vier Lieferanten erweitert, nur damit ein Portfolio vier Punkte bekommt. Wo das nötig ist, sagt es die Kachel im ersten Satz und der Fußtext des Moduls — niemand soll raten müssen, warum hier plötzlich Lastwagen vorkommen.</p>
+  <p class="txt">Die Überlegung dahinter lohnt sich zu kennen, weil sie auch für Deinen Fall gilt: Lieber ein sichtbar getrennter Fall als ein stillschweigend gedehnter Kanon. Der Kanon wird nicht um vier Lieferanten erweitert, nur damit ein Portfolio vier Punkte bekommt. Wo das nötig ist, sagt es die Kachel im ersten Satz und der Fußtext des Moduls, da niemand raten soll, warum hier plötzlich Lastwagen vorkommen.</p>
 
   <h2 class="sec">Quellen</h2>
-  <p class="sub">Die klarste Regel im Haus, und die mit den meisten Rückfragen.</p>
+  <p class="sub">Das ist die klarste Regel im Haus und zugleich die mit den meisten Rückfragen.</p>
   <div class="yn">
     <div class="ynb ja">
       <h3>Erwünscht</h3>
@@ -713,7 +713,7 @@ footer a{color:var(--teal-dk)}
         <li><b>Kursbücher</b> in jeder Form: kein Verweis, keine Seitenzahl, keine Lektionsnummer.</li>
         <li><b>Kurskennungen</b> aus einem Studienprogramm.</li>
         <li><b>Reproduzierte Abbildungen</b> und Tabellen. Grafiken werden eigenständig neu aufgebaut.</li>
-        <li><b>Herkunftsetiketten</b> am Inhalt — kein „Fachliteratur“, kein „Folie 7“, kein „Ergänzung“ als Beschriftung.</li>
+        <li><b>Herkunftsetiketten</b> am Inhalt, also kein „Fachliteratur“, kein „Folie 7“, kein „Ergänzung“ als Beschriftung.</li>
       </ul>
     </div>
   </div>
@@ -722,7 +722,7 @@ footer a{color:var(--teal-dk)}
 
   <h2 class="sec">Sprache und Anrede</h2>
   <ul class="txt">
-    <li><b>Die Anrede ist immer „Du“</b>, mit großem D. „Klicke eine Zeile an“, „Deine erste Schätzung“, „entscheiden musst Du“. Kein „Sie“, nirgends — auch nicht in Tooltips, Detailkästen oder auf Schaltflächen.</li>
+    <li><b>Die Anrede ist immer „Du“</b>, mit großem D. „Klicke eine Zeile an“, „Deine erste Schätzung“, „entscheiden musst Du“. Kein „Sie“, nirgends, auch nicht in Tooltips, Detailkästen oder auf Schaltflächen.</li>
     <li><b>Innerhalb einer Lektion wird die Sprache nicht gemischt.</b> Die Lektion ist die kleinste Einheit, die eine Sprache hat. Halbe Sätze auf Deutsch und Tooltips auf Englisch sind der Fehler, den diese Regel verhindert.</li>
     <li><b>Die Sprache muss sichtbar sein.</b> Eine deutsche Lektion in einem englischen Modul ist mit <code>DE</code> in der Beschriftung gekennzeichnet, ein durchgehend deutsches Modul einen Hinweis auf seiner Kachel. Niemand soll beim Klicken überrascht werden.</li>
     <li><b>Namen und Zahlen des Kanons bleiben unverändert.</b> Sofia heißt in beiden Sprachen Sofia, die Ringstraße bleibt die Ringstraße, 145.500 € bleiben 145.500 €. Übersetzt werden Fließtext und Bedienelemente, nicht der Fall.</li>
@@ -734,7 +734,7 @@ footer a{color:var(--teal-dk)}
     <div class="card">
       <p class="ck">Geht nicht</p>
       <h3>Nachladen von Nachbardateien</h3>
-      <p>Eine Datei, die eine zweite nachlädt, scheitert beim direkten Öffnen im Browser. Deshalb liegen alle Daten <b>eingebettet</b> in der Datei selbst — auch die Zahlen einer Tabelle, auch ein Foliensatz-Verweis.</p>
+      <p>Eine Datei, die eine zweite nachlädt, scheitert beim direkten Öffnen im Browser. Deshalb liegen alle Daten <b>eingebettet</b> in der Datei selbst, also auch die Zahlen einer Tabelle und auch ein Foliensatz-Verweis.</p>
     </div>
     <div class="card">
       <p class="ck">Geht nicht</p>
@@ -764,7 +764,7 @@ footer a{color:var(--teal-dk)}
   <p class="claim">Bevor eine Zeile Text entsteht, wird die Struktur gebaut. Hier liegt sie als <b>Bühne</b> vor Dir: Elemente draufziehen, mit Pfeilen verbinden, anklicken und benennen. Am Ende fällt ein Auftrag heraus.</p>
 
   <h2 class="sec">Die Bühne</h2>
-  <p class="sub">Zieh ein Element aus der Leiste auf die Fläche — oder klick es an, dann legt es sich selbst hin. Vom Punkt am rechten Rand ziehst Du einen Pfeil zum nächsten Element. Ein Klick auf ein Element öffnet rechts seine Stammdaten. <b>Was weiter oben liegt, kommt zuerst</b> — die Nummer im Kasten zeigt es sofort. Auf einem schmalen Bildschirm ist die Fläche breiter als das Bild: Schieb sie mit dem Finger, die Stammdaten stehen dann darunter.</p>
+  <p class="sub">Zieh ein Element aus der Leiste auf die Fläche, oder klick es an, dann legt es sich selbst hin. Vom Punkt am rechten Rand ziehst Du einen Pfeil zum nächsten Element. Ein Klick auf ein Element öffnet rechts seine Stammdaten. <b>Was weiter oben liegt, kommt zuerst</b>. Die Nummer im Kasten zeigt es sofort. Auf einem schmalen Bildschirm ist die Fläche breiter als das Bild: Schieb sie mit dem Finger, die Stammdaten stehen dann darunter.</p>
 
   <div class="bar">
     <div class="pal">
@@ -793,7 +793,7 @@ footer a{color:var(--teal-dk)}
   <p class="pmsg" id="pfpHint" role="status"></p>
 
   <h3 class="sub3" style="margin-top:30px">Der Auftrag</h3>
-  <p class="sub">Ein Klick, und die Bühne wird zu einem Text, den Claude Code lesen kann. Was noch fehlt, steht vorher im gelben Kasten.</p>
+  <p class="sub">Ein Klick macht aus der Bühne einen Text, den Claude Code lesen kann. Was noch fehlt, steht vorher im gelben Kasten.</p>
   <div class="pout">
     <div class="bar" style="margin-bottom:12px">
       <button class="btn solid" id="pfpGo" type="button">Auftrag erzeugen</button>
@@ -806,12 +806,12 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <h2 class="sec">Was die Bühne kann und was nicht</h2>
-  <p class="txt">Ein neues Thema fängt selten mit einem Satz an. Es fängt mit der Frage an, in welche Portionen es zerfällt und in welcher Reihenfolge sie stehen. Genau dafür ist dieser Reiter da: Du legst die Teile hin, verbindest sie, gibst jedem einen Namen und einen Satz, und drückst am Ende auf einen Knopf.</p>
-  <p class="txt">Heraus kommt ein Text. Den kopierst Du in Claude Code, und daraus entstehen die Dateien — <b>als Hüllen</b>, mit Deiner Struktur, Deinen Überschriften und Deinen Sätzen darunter, aber ohne Inhalt. Die Kacheln stehen dann auf <i>Geplant</i> und lassen sich trotzdem öffnen. Geschrieben wird danach, Block für Block.</p>
+  <p class="txt">Ein neues Thema fängt selten mit einem Satz an. Es fängt mit der Frage an, in welche Portionen es zerfällt und in welcher Reihenfolge sie stehen. Genau dafür ist dieser Reiter da: Du legst die Teile hin, verbindest sie, gibst jedem einen Namen und einen Satz und drückst am Ende auf einen Knopf.</p>
+  <p class="txt">Heraus kommt ein Text. Den kopierst Du in Claude Code, woraus die Dateien <b>als Hüllen</b> entstehen, mit Deiner Struktur, Deinen Überschriften und Deinen Sätzen darunter, aber ohne Inhalt. Die Kacheln stehen dann auf <i>Geplant</i> und lassen sich trotzdem öffnen. Geschrieben wird danach, Block für Block.</p>
 
   <h3 class="sub3">Vier Regeln, mehr sind es nicht</h3>
   <ul class="txt">
-    <li><b>Jedes Element hat genau einen Platz.</b> Ziehst Du einen zweiten Pfeil darauf, löst sich der erste. Ein Block hängt an einer Lektion, eine Lektion an einem Modul, ein Modul am Lernpfad — anderes nimmt die Bühne nicht an.</li>
+    <li><b>Jedes Element hat genau einen Platz.</b> Ziehst Du einen zweiten Pfeil darauf, löst sich der erste. Ein Block hängt an einer Lektion, eine Lektion an einem Modul, ein Modul am Lernpfad, während die Bühne anderes nicht annimmt.</li>
     <li><b>Die Höhe entscheidet die Reihenfolge.</b> Was weiter oben liegt, kommt zuerst. Schiebst Du einen Kasten nach oben, ändert sich seine Nummer, während Du ihn noch in der Hand hast.</li>
     <li><b>Quiz und Praxiseinstieg hängen von selbst an jedem Modul.</b> Sie stehen nicht auf der Bühne, weil sie nichts zu entscheiden geben. Im Auftrag sind sie da.</li>
     <li><b>Ein Element ohne Anschluss ist gestrichelt und rot.</b> Es geht nicht verloren, aber es kommt auch nicht in den Auftrag. „Anordnen“ sammelt alle Losen unten ein.</li>
@@ -836,10 +836,10 @@ footer a{color:var(--teal-dk)}
       </ul>
     </div>
   </div>
-  <p class="txt" style="margin-top:14px"><b>Kopier den erzeugten Text heraus, bevor Du gehst.</b> Er ist das Einzige, was den Entwurf überlebt — dieselbe Regel wie überall in dieser Sammlung: kein Speicher, keine Datenbank, kein Server.</p>
+  <p class="txt" style="margin-top:14px"><b>Kopier den erzeugten Text heraus, bevor Du gehst.</b> Er ist das Einzige, was den Entwurf überlebt, nach derselben Regel wie überall in dieser Sammlung: kein Speicher, keine Datenbank, kein Server.</p>
 
   <h3 class="sub3">Ohne Maus</h3>
-  <p class="txt">Jeder Kasten ist mit der Tabulatortaste erreichbar. Die Pfeiltasten schieben ihn, mit gedrückter Umschalttaste feiner. <span class="key">Entf</span> nimmt ihn weg. Verbunden wird über das Feld <i>Hängt an</i> in den Stammdaten — das ist der verlässliche Weg, der Pfeil ist der bequeme.</p>
+  <p class="txt">Jeder Kasten ist mit der Tabulatortaste erreichbar. Die Pfeiltasten schieben ihn, mit gedrückter Umschalttaste feiner. <span class="key">Entf</span> nimmt ihn weg. Verbinden kannst Du über das Feld <i>Hängt an</i> in den Stammdaten. Das ist der verlässliche Weg, der Pfeil ist der bequeme.</p>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
@@ -877,7 +877,7 @@ footer a{color:var(--teal-dk)}
   <div class="steps" id="steps"></div>
 
   <h2 class="sec">Der Briefing-Bogen</h2>
-  <p class="sub">Fülle aus, was Du weißt. Der Bogen erzeugt daraus einen Text, den Du zusammen mit Deinem Material abgibst. Nichts davon wird gespeichert — kopier ihn heraus, bevor Du die Seite schließt.</p>
+  <p class="sub">Fülle aus, was Du weißt. Der Bogen erzeugt daraus einen Text, den Du zusammen mit Deinem Material abgibst. Nichts davon wird gespeichert, weshalb Du ihn herauskopierst, bevor Du die Seite schließt.</p>
 
   <div class="brief">
     <div class="bform">
@@ -888,12 +888,12 @@ footer a{color:var(--teal-dk)}
       </div>
       <div class="bf">
         <label for="bFrage">Welche Frage beantwortet das Modul?</label>
-        <span class="why">Ein Satz, und zwar die Frage, nicht das Thema. „Welche Kosten darf ich einer Filiale zurechnen?“ statt „Kostenrechnung“.</span>
+        <span class="why">Ein Satz, nämlich die Frage und nicht das Thema. „Welche Kosten darf ich einer Filiale zurechnen?“ statt „Kostenrechnung“.</span>
         <textarea id="bFrage" placeholder="Welche Frage soll jemand nach dem Modul beantworten können?"></textarea>
       </div>
       <div class="bf">
         <span class="lg">Spielt es in Sofias Kaffeehausbetrieb?</span>
-        <span class="why">Sofia ist der Normalfall. Ein eigener Fall ist erlaubt, aber begründungspflichtig — er wird dann sichtbar getrennt ausgewiesen.</span>
+        <span class="why">Sofia ist der Normalfall. Ein eigener Fall ist erlaubt, aber begründungspflichtig. Er wird dann sichtbar getrennt ausgewiesen.</span>
         <div class="radios">
           <label><input type="radio" name="bFall" value="sofia" checked> Ja, Sofias Betrieb gibt das Thema her.</label>
           <label><input type="radio" name="bFall" value="eigen"> Nein, es braucht einen eigenen Fall.</label>
@@ -931,7 +931,7 @@ footer a{color:var(--teal-dk)}
       <div class="bf">
         <label for="bLekt">Die Inhaltslektionen, eine je Zeile</label>
         <span class="why">Titel und ein Satz dazu. Quiz und Praxiseinstieg kommen automatisch dazu, die musst Du hier nicht aufführen.</span>
-        <textarea id="bLekt" rows="4" placeholder="Der Begriff — woher der Deckungsbeitrag kommt und was er deckt&#10;Die Rechnung — ein- und mehrstufig an Sofias Zahlen"></textarea>
+        <textarea id="bLekt" rows="4" placeholder="Der Begriff · woher der Deckungsbeitrag kommt und was er deckt&#10;Die Rechnung · ein- und mehrstufig an Sofias Zahlen"></textarea>
       </div>
       <div class="bf">
         <label for="bInter">Was soll man anfassen können?</label>
@@ -940,7 +940,7 @@ footer a{color:var(--teal-dk)}
       </div>
       <div class="bf">
         <label for="bZahlen">Verbindliche Zahlen</label>
-        <span class="why">Jede Zahl, die im Modul steht, muss von irgendwoher kommen. Nenne sie hier vollständig — erfunden wird nichts.</span>
+        <span class="why">Jede Zahl, die im Modul steht, muss von irgendwoher kommen. Nenne sie hier vollständig, da nichts erfunden wird.</span>
         <textarea id="bZahlen" placeholder="Wareneinsatz 31 %, Personalkosten 38 % vom Umsatz, Quartalsumsatz Ringstraße 145.500 €"></textarea>
       </div>
       <div class="bf">
@@ -960,7 +960,7 @@ footer a{color:var(--teal-dk)}
       </div>
       <div class="bf">
         <label for="bMaterial">Material, das Du mitlieferst</label>
-        <span class="why">PDF, Grafiken, Foliensatz, Tabellen. Grafiken werden neu aufgebaut; sie dienen als Vorlage, nicht als Datei.</span>
+        <span class="why">PDF, Grafiken, Foliensatz, Tabellen. Grafiken werden neu aufgebaut, da sie als Vorlage dienen und nicht als Datei.</span>
         <textarea id="bMaterial" placeholder="Ein PDF mit dem Ablauf, zwei Skizzen als PNG, eine Tabelle mit den Quartalszahlen"></textarea>
       </div>
     </div>
@@ -978,7 +978,7 @@ footer a{color:var(--teal-dk)}
   </div>
 
   <h2 class="sec">Glossar</h2>
-  <p class="sub">Die Begriffe, die in Rückmeldungen vorkommen, und was sie hier genau bedeuten.</p>
+  <p class="sub">Hier stehen die Begriffe, die in Rückmeldungen vorkommen, mit ihrer Bedeutung in dieser Sammlung.</p>
   <div class="glos"><dl id="glossar"></dl></div>
 
   <div class="pointe">
@@ -988,7 +988,7 @@ footer a{color:var(--teal-dk)}
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.81</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.83</span>
 </footer>
 
 </div>
@@ -1046,15 +1046,15 @@ const KANON = [
   ["Das Unternehmen", "Zwei Kaffeehäuser",
    "Zwei Kaffeehäuser in Wien (Ringstraße und Alsergrund), eine eigene Rösterei, ein Coffeebike, Import von fair gehandeltem Rohkaffee aus Peru und Großhandel an Bäckereien und andere Kaffeehäuser. <b>Keine vier Filialen und keine eigene Bäckerei.</b>"],
   ["Die Personen", "Keine Nachnamen",
-   "Sofia ist die Inhaberin, Nguyen die Werkstudentin für Controlling und BI, Alex der Controller. Dazu Anna, Jonas, Klara, Elif und Tobias. <b>Niemand hat einen Nachnamen</b>, und neue Namen werden nicht ohne Rückfrage erfunden."],
+   "Sofia ist die Inhaberin, Nguyen die Werkstudentin für Controlling und BI, Alex der Controller. Dazu Anna, Jonas, Klara, Elif und Tobias. <b>Niemand hat einen Nachnamen</b>. Neue Namen werden zudem nicht ohne Rückfrage erfunden."],
   ["Die Regieanweisung", "Sofia fragt falsch, Nguyen fragt richtig",
-   "Sofia hat gute Ideen und handelt zu schnell: Sie liest eine Kennzahl und zieht sofort einen Schluss. Nguyen fragt, was die Zahl eigentlich zählt. Alex bringt die Methode dazu. <b>Dieses Muster zieht sich durch jedes Modul</b> — Sofia ist die Ungeduldige, und dumm ist sie an keiner Stelle."],
+   "Sofia hat gute Ideen und handelt zu schnell: Sie liest eine Kennzahl und zieht sofort einen Schluss. Nguyen fragt, was die Zahl eigentlich zählt. Alex bringt die Methode dazu. <b>Dieses Muster zieht sich durch jedes Modul</b>. Sofia ist darin die Ungeduldige, ohne an einer Stelle dumm zu sein."],
   ["Die Standorte", "Drei Verkaufsorte, einer davon mobil",
    "Ringstraße liegt zentral: Touristen und Pendler, gleichmäßige Auslastung, höherer Bon. Alsergrund liegt universitätsnah: die Nachfrage folgt dem Semesterrhythmus, kleinerer Bon, hohe Frequenz. Das Coffeebike wechselt den Standort täglich."],
   ["Die Zahl, die nicht wandert", "145.500 €",
-   "Die Quartalssumme bleibt über alle Varianten der Slowly Changing Dimensions hinweg gleich: <b>145.500 €</b>. Genau das ist der didaktische Kern — die Summe stimmt immer, und trotzdem sagt jeder Bericht etwas anderes. Diese Zahl wird nie angepasst."],
+   "Die Quartalssumme bleibt über alle Varianten der Slowly Changing Dimensions hinweg gleich: <b>145.500 €</b>. Genau das ist der didaktische Kern, da die Summe immer stimmt und trotzdem jeder Bericht etwas anderes sagt. Diese Zahl wird nie angepasst."],
   ["Der Anfang", "Erst kam das Rad",
-   "Angefangen hat alles mit dem Coffeebike. Es ist der erste Zweig — Kaffeehäuser, Rösterei und Großhandel sind daraus gewachsen. Deshalb taucht es in der Fallstudie zweimal auf: als Keimzelle und als Traum."]
+   "Angefangen hat alles mit dem Coffeebike. Es ist der erste Zweig, aus dem Kaffeehäuser, Rösterei und Großhandel gewachsen sind. Deshalb taucht es in der Fallstudie zweimal auf: als Keimzelle und als Traum."]
 ];
 $("kanon").innerHTML = KANON.map(([kat, wort, txt], i) =>
   "<button class=\"flip\" type=\"button\" aria-expanded=\"false\" data-i=\"" + i + "\">" +
@@ -1090,10 +1090,10 @@ function plZeichne(){
   fill.style.background = farbe;
   $("gN").style.color = farbe === "var(--grey-mid)" ? "var(--grey)" : farbe;
   $("gV").innerHTML =
-    m < ZIEL[0] ? "<b>Reichlich knapp.</b> Das ist kein Fehler — eine kurze Lektion ist besser als eine überladene. Prüfe nur, ob wirklich eine eigene Lektion daraus werden muss oder ob der Stoff zu einer anderen gehört." :
+    m < ZIEL[0] ? "<b>Reichlich knapp.</b> Das ist kein Fehler, da eine kurze Lektion besser ist als eine überladene. Prüfe nur, ob wirklich eine eigene Lektion daraus werden muss oder ob der Stoff zu einer anderen gehört." :
     m <= ZIEL[1] ? "<b>Im Korridor.</b> Das ist die Größe, für die alles hier gebaut ist: eine Sitzung, ein Thema, ein Ende, das man erreicht." :
-    m <= 26 ? "<b>Zu lang.</b> Such die Naht: Meist gibt es einen Abschnitt, ab dem eine neue Frage anfängt. Dort wird geteilt — zwei Lektionen sind kein Makel, eine Obergrenze für ihre Zahl gibt es nicht." :
-    "<b>Deutlich zu lang.</b> Wer das am Stück durcharbeitet, hört vorher auf. Teile in zwei oder drei Lektionen; die Klammer darum ist ohnehin schon das Modul.";
+    m <= 26 ? "<b>Zu lang.</b> Such die Naht: Meist gibt es einen Abschnitt, ab dem eine neue Frage anfängt. Dort wird geteilt. Zwei Lektionen sind kein Makel, eine Obergrenze für ihre Zahl gibt es nicht." :
+    "<b>Deutlich zu lang.</b> Wer das am Stück durcharbeitet, hört vorher auf. Teile in zwei oder drei Lektionen, da die Klammer darum ohnehin schon das Modul ist.";
 }
 [["rW","vW","w",1],["rA","vA","a",1],["rI","vI","i",1],["rK","vK","k",1]].forEach(([r, v, key]) => {
   $(r).addEventListener("input", () => {
@@ -1108,35 +1108,35 @@ plZeichne();
    4 · Die zehn Punkte
    ===================================================================== */
 const STEPS = [
-  ["Schreib die Frage auf, die das Modul beantwortet", "Ein Satz, und zwar eine Frage",
-   "<p>Die Frage zählt, nicht das Thema. „Kostenrechnung“ ist ein Thema. „Welche Kosten darf ich einer Filiale zurechnen?“ ist eine Frage, und aus ihr ergibt sich sofort, was ins Modul gehört und was nicht.</p><p>Diese Zeile wird später zur Kernaussage der ersten Lektion und zum Untertitel der Kachel.</p>",
+  ["Schreib die Frage auf, die das Modul beantwortet", "Ein Satz, nämlich eine Frage",
+   "<p>Die Frage zählt, nicht das Thema. „Kostenrechnung“ ist ein Thema. „Welche Kosten darf ich einer Filiale zurechnen?“ ist eine Frage, aus der sich sofort ergibt, was ins Modul gehört und was nicht.</p><p>Diese Zeile wird später zur Kernaussage der ersten Lektion und zum Untertitel der Kachel.</p>",
    "Bleibt sie offen, wächst das Modul während des Schreibens, weil kein Kriterium sagt, wo Schluss ist."],
   ["Entscheide über den Fall", "Sofia oder ein eigener",
-   "<p>Der Normalfall ist Sofias Kaffeehausbetrieb. Prüfe, ob er Dein Thema hergibt: Gibt es dort die Rollen, die Mengen, die Konflikte, die Du brauchst?</p><p>Gibt er es nicht her, ist ein eigener Fall erlaubt — aber er wird begründet und sichtbar getrennt ausgewiesen, in der Kachel und im Fußtext.</p>",
+   "<p>Der Normalfall ist Sofias Kaffeehausbetrieb. Prüfe, ob er Dein Thema hergibt: Gibt es dort die Rollen, die Mengen, die Konflikte, die Du brauchst?</p><p>Gibt er es nicht her, ist ein eigener Fall erlaubt, wobei er begründet und sichtbar getrennt ausgewiesen wird, in der Kachel und im Fußtext.</p>",
    "Der Kanon wird nicht stillschweigend gedehnt. Vier erfundene Lieferanten in einem Modul sind schlimmer als ein offen getrennter Fall."],
   ["Ordne das Modul einem Lernpfad zu", "Bestehend, neu oder keiner",
    "<p>Drei Möglichkeiten: Es gehört in einen vorhandenen Pfad, es begründet einen neuen, oder es steht für sich. Alle drei sind in Ordnung.</p><p>Beim vorhandenen Pfad sag auch die Position: vor oder nach welchem Modul? Beim neuen Pfad brauchst Du einen Namen und einen Satz, der den Bogen beschreibt.</p>",
    "Ohne Zuordnung landet das Modul in der Kachelliste, aber in keiner Reihenfolge. Gefunden wird es dann nur über die Suche."],
   ["Leg die Sprache fest", "Und begründe Deutsch",
-   "<p>Deutsch ist zulässig, wo die Fachbegriffe übersetzt schief würden — Pflegesatz, Personalkostenquote, Jahresabschluss. Nicht aus Bequemlichkeit.</p><p>Zweisprachig ist die aufwendigste Variante und die beste, wenn das Modul in beiden Kontexten gebraucht wird. Sag es vorher, nicht nachträglich: Ein Modul im Nachhinein zweisprachig zu machen kostet mehr als es gleich so anzulegen.</p>",
+   "<p>Deutsch ist zulässig, wo die Fachbegriffe übersetzt schief würden (Pflegesatz, Personalkostenquote, Jahresabschluss). Nicht aus Bequemlichkeit.</p><p>Zweisprachig ist die aufwendigste Variante und die beste, wenn das Modul in beiden Kontexten gebraucht wird. Sag es vorher, nicht nachträglich: Ein Modul im Nachhinein zweisprachig zu machen kostet mehr als es gleich so anzulegen.</p>",
    "Innerhalb einer Lektion wird nie gemischt. Halbe Sätze in der einen und Tooltips in der anderen Sprache sind der Fehler, den die Regel verhindert."],
   ["Schneide die Lektionen", "15 bis 20 Minuten je Stück",
    "<p>Zerleg den Stoff in Portionen, die jemand am Stück durcharbeiten kann. Gib jeder einen Titel und einen Satz.</p><p>Der Planer in der Lektion über den Bauplan hilft beim Schätzen. Faustregel: Wenn Du zwei Grafiken und über 1.500 Wörter in derselben Lektion hast, sind es zwei.</p>",
-   "Quiz und Praxiseinstieg musst Du nicht aufführen — die kommen ohnehin dazu. Aber sie zählen mit, wenn Du überlegst, wie groß das Modul insgesamt wird."],
+   "Quiz und Praxiseinstieg musst Du nicht aufführen, da sie ohnehin dazukommen. Sie zählen jedoch mit, wenn Du überlegst, wie groß das Modul insgesamt wird."],
   ["Sammle die Zahlen", "Jede einzelne, vollständig",
-   "<p>Jede Zahl, die im Modul steht, muss von irgendwoher kommen. Liefere sie als Tabelle oder Liste, nicht als Verweis auf ein System, das hier niemand aufmacht.</p><p>Gehört die Zahl zu Sofias Betrieb, wird sie in den Kanon aufgenommen und gilt ab dann für alle Module.</p><p>Dasselbe gilt für Beispiele, Fälle, Annahmen und Tipps. Das Modul enthält allein, was Du lieferst, und nichts, was jemand dazuerfunden hat.</p>",
-   "Fehlt eine Zahl, wird sie nachgefragt und nie erfunden. Das kostet einen Tag — eine erfundene Zahl kostet später ein ganzes Modul."],
+   "<p>Jede Zahl, die im Modul steht, muss von irgendwoher kommen. Liefere sie als Tabelle oder Liste, nicht als Verweis auf ein System, das hier niemand aufmacht.</p><p>Gehört die Zahl zu Sofias Betrieb, wird sie in den Kanon aufgenommen und gilt ab dann für alle Module.</p><p>Dasselbe gilt für Beispiele, Fälle, Annahmen und Tipps. Das Modul enthält allein, was Du lieferst. Was jemand dazuerfunden hat, steht nicht darin.</p>",
+   "Fehlt eine Zahl, wird sie nachgefragt und nie erfunden. Das kostet einen Tag, während eine erfundene Zahl später ein ganzes Modul kostet."],
   ["Nenn die Quellen", "Autor und Jahr",
    "<p>Fachliteratur und Normen sind erwünscht und sollen im Fließtext auftauchen: als Zitat mit Seitenangabe oder als Hinweis im Satz.</p><p>Kursbücher und Kurskennungen können nicht verwendet werden, auch nicht als stiller Hintergrund. Abbildungen daraus werden eigenständig neu aufgebaut.</p>",
    "Ein Block, der mit „Fachliteratur“ überschrieben ist, sagt nichts über den Inhalt. Genannt wird der Autor, nicht die Gattung der Quelle."],
   ["Markier, was man anfassen können soll", "Was reagiert, wenn jemand klickt",
    "<p>Das ist der Unterschied zwischen einem Modul und einem PDF. Sag konkret, welches Element reagieren soll und worauf: ein Regler, der eine Kurve wandern lässt, ein Schalter, der ein Sternschema in ein Snowflake dreht, eine Karte, auf der sich ein Punkt bewegt.</p><p>Eine Grafik, die nur dasteht, ist ein Bild. Bilder sind erlaubt, aber sie sind nicht der Grund, warum es diese Plattform gibt.</p>",
-   "Bewegung nur, wo sie etwas aussagt. Ein Balken, der auf seinen Wert wächst, erklärt etwas — ein Element, das beim Scrollen einfliegt, hält nur auf."],
+   "Bewegung nur, wo sie etwas aussagt. Ein Balken, der auf seinen Wert wächst, erklärt etwas; ein Element, das beim Scrollen einfliegt, hält nur auf."],
   ["Schreib die Pointe und den Fragenvorrat", "Der Satz und die zwanzig Fragen",
    "<p>Jede Lektion endet mit einem Satz, der hängen bleiben soll. Er überrascht, oder er dreht etwas um, das vorher selbstverständlich schien. Eine Zusammenfassung ist keine Pointe.</p><p>Dazu der Fragenvorrat für das Quiz: mindestens zwanzig Fragen mit je vier Antworten, einer richtigen und einer Begründung. Die Begründung ist wichtiger als die Frage.</p>",
    "Wer die Pointe nicht schreiben kann, hat die Lektion meist noch nicht zu Ende gedacht. Das ist ein nützliches Signal, kein Formfehler."],
   ["Stell das Material bereit", "PDF und Grafiken, dann übernimmt der Einbau",
-   "<p>Am Ende steht ein Ordner: Dein Text als PDF oder Dokument, die Skizzen als Bilddateien, die Zahlen als Tabelle, dazu der Briefing-Bogen von dieser Seite. Damit wird das Modul gebaut.</p><p>Grafiken werden dabei <b>neu aufgebaut</b> — sie dienen als Vorlage für Aufbau und Aussage, nicht als Datei, die eingebettet wird. Eine saubere Handskizze ist deshalb genauso brauchbar wie eine fertige Zeichnung.</p>",
+   "<p>Am Ende steht ein Ordner: Dein Text als PDF oder Dokument, die Skizzen als Bilddateien, die Zahlen als Tabelle, dazu der Briefing-Bogen von dieser Seite. Damit wird das Modul gebaut.</p><p>Grafiken werden dabei <b>neu aufgebaut</b>, da sie als Vorlage für Aufbau und Aussage dienen und nicht als Datei, die eingebettet wird. Eine saubere Handskizze ist deshalb genauso brauchbar wie eine fertige Zeichnung.</p>",
    "Liefere lieber zu viel Kontext als zu wenig. Was in Deinem Kopf offensichtlich ist, ist beim Einbau eine Rückfrage."]
 ];
 $("steps").innerHTML = STEPS.map(([hd, sub, bd, warn], i) => {
@@ -1175,7 +1175,7 @@ const rad = name => (document.querySelector("input[name=" + name + "]:checked") 
 const val = id => $(id).value.trim();
 
 function zeile(titel, text){
-  return titel + "\n" + (text ? text : "— offen —") + "\n\n";
+  return titel + "\n" + (text ? text : "(offen)") + "\n\n";
 }
 function briefing(){
   const fall = rad("bFall"), pfad = rad("bPfad"), spr = rad("bSpr");
@@ -1212,7 +1212,7 @@ $("bGo").addEventListener("click", () => {
   const box = $("bMiss");
   box.hidden = fehlt.length === 0;
   if(fehlt.length) box.innerHTML = "<b>Noch offen:</b> " + fehlt.join(", ") +
-    ". Der Bogen lässt sich trotzdem abgeben — dann kommt die Frage eben später zurück.";
+    ". Der Bogen lässt sich trotzdem abgeben, dann kommt die Frage eben später zurück.";
   $("bMsg").textContent = "";
 });
 $("bCopy").addEventListener("click", () => {
@@ -1227,9 +1227,9 @@ $("bCopy").addEventListener("click", () => {
   if(navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(feld.value)
       .then(() => { $("bMsg").textContent = "Kopiert."; })
-      .catch(() => { $("bMsg").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand."; });
+      .catch(() => { $("bMsg").textContent = "Klappt hier nicht. Der Text ist markiert, kopier ihn von Hand."; });
   } else {
-    $("bMsg").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand.";
+    $("bMsg").textContent = "Klappt hier nicht. Der Text ist markiert, kopier ihn von Hand.";
   }
 });
 
@@ -1238,14 +1238,14 @@ $("bCopy").addEventListener("click", () => {
    ===================================================================== */
 const GLOSSAR = [
   ["Modul", "Eine Kachel auf der Startseite, eine HTML-Datei, ein Thema. Die Einheit, die man weitergeben kann."],
-  ["Lektion", "Ein Reiter innerhalb eines Moduls. Die kleinste Einheit, die jemand am Stück durcharbeitet, und die Ebene, auf der die Größe geregelt wird."],
-  ["Lernpfad", "Eine Reihenfolge von Modulen, die zusammen Sinn ergibt. Zeigt die Reihenfolge an, erzwingt sie aber nicht — spätere Schritte bleiben klickbar."],
+  ["Lektion", "Ein Reiter innerhalb eines Moduls. Die kleinste Einheit, die jemand am Stück durcharbeitet. Auf dieser Ebene wird die Größe geregelt."],
+  ["Lernpfad", "Eine Reihenfolge von Modulen, die zusammen Sinn ergibt. Zeigt die Reihenfolge an, erzwingt sie aber nicht, da spätere Schritte klickbar bleiben."],
   ["Spur", "Der grobe Fachbereich einer Kachel auf der Startseite, etwa Business Intelligence oder Controlling. Spur und Lernpfad sind zwei Sichten auf dieselbe Liste, nicht zwei Filter, die sich kreuzen lassen."],
   ["Inhaltslektion", "Eine Lektion mit Stoff. Mindestens eine gibt es je Modul, nach oben ist die Zahl offen."],
-  ["Pflichtlektion", "Das Quiz und der Praxiseinstieg. Sie stehen am Ende jedes Moduls, in dieser Reihenfolge, und werden nicht nachgereicht."],
+  ["Pflichtlektion", "Das Quiz und der Praxiseinstieg. Sie stehen am Ende jedes Moduls, in dieser Reihenfolge, ohne je nachgereicht zu werden."],
   ["Praxiseinstieg", "Die letzte Lektion: was jemand als Erstes tut, der das Gelernte im eigenen Unternehmen einführen will. Der Form nach eine Checkliste, dem Ton nach keine."],
   ["Pointe", "Der orangefarbene Kasten am Ende jeder Lektion mit dem einen Satz, der hängen bleiben soll. Eine Zusammenfassung ist keine Pointe."],
-  ["Block", "Ein auf- und zuklappbarer Abschnitt innerhalb einer Lektion. Entsteht zur Laufzeit aus den Überschriften; der erste steht offen, die übrigen zu."],
+  ["Block", "Ein auf- und zuklappbarer Abschnitt innerhalb einer Lektion. Entsteht zur Laufzeit aus den Überschriften, wobei beim Laden jeder Block zusteht."],
   ["Kanon", "Die verbindliche Sammlung aller Namen, Zahlen, Standorte und Festlegungen zu Sofias Betrieb. Was dort steht, wird nicht abgewandelt; was fehlt, wird erfragt und nicht erfunden."],
   ["Kernaussage", "Der Satz ganz oben in einer Lektion, immer sichtbar. Er beantwortet, warum jemand weiterliest."],
   ["Sprachschalter", "Der Umschalter zwischen Deutsch und Englisch. Die Wahl reist als Parameter in der Adresse mit, nicht im Speicher des Browsers."]
@@ -1258,11 +1258,11 @@ $("glossar").innerHTML = GLOSSAR.map(([t, d]) =>
    ===================================================================== */
 const FRAGEN = [
   ["Wie heißt ein Reiter innerhalb eines Moduls?",
-   ["Lektion", "Kapitel", "Lerneinheit", "Abschnitt"], 0,  <!-- sprache:ok -->
-   "Lektion. „Lerneinheit“ und „Kapitel“ sind keine Begriffe dieser Plattform mehr; wo sie noch stehen, sind sie Reste."],  <!-- sprache:ok -->
+   ["Lektion", "Kapitel", "Lerneinheit", "Abschnitt"], 0,  /* sprache:ok - der Fragentext handelt von diesen Woertern */
+   "Lektion. „Lerneinheit“ und „Kapitel“ sind keine Begriffe dieser Plattform mehr; wo sie noch stehen, sind sie Reste."],  /* sprache:ok - die Begruendung nennt die verbotenen Woerter */
   ["Wie viele Fragen zieht ein Quiz beim Laden aus seinem Vorrat?",
    ["Drei", "Fünf", "Zehn", "Alle"], 1,
-   "Fünf, zufällig gezogen. Beim Neuladen kommen andere — ein Quiz, das man auswendig lernen kann, prüft die Reihenfolge und nicht den Stoff."],
+   "Fünf, zufällig gezogen. Beim Neuladen kommen andere, da ein Quiz, das man auswendig lernen kann, die Reihenfolge prüft und nicht den Stoff."],
   ["Wie viele Lektionen hat ein Modul mindestens?",
    ["Eine", "Zwei", "Drei", "Vier"], 2,
    "Drei: mindestens eine Inhaltslektion, dann das Quiz, dann der Praxiseinstieg."],
@@ -1271,52 +1271,52 @@ const FRAGEN = [
    "Der Praxiseinstieg. Er schaut nach vorn und soll der letzte Eindruck sein; das Quiz steht davor, weil es prüft, was gerade gelesen wurde."],
   ["Wie lange soll eine Lektion zum Durcharbeiten brauchen?",
    ["5 bis 10 Minuten", "15 bis 20 Minuten", "30 bis 45 Minuten", "So lange wie nötig"], 1,
-   "15 bis 20 Minuten — durchzuarbeiten, nicht zu verstehen. Verstehen braucht länger und lässt sich nicht planen."],
+   "15 bis 20 Minuten, durchzuarbeiten und nicht zu verstehen. Verstehen braucht länger und lässt sich nicht planen."],
   ["Eine Lektion wächst auf geschätzte 28 Minuten. Was tust Du?",
    ["Text kürzen, bis es passt", "Die Lektion teilen", "Ein zweites Modul anlegen", "Nichts, die Grenze ist eine Empfehlung"], 1,
-   "Teilen, nicht stauchen. Zwei Lektionen sind kein Makel — eine Obergrenze für ihre Zahl gibt es nicht."],
+   "Teilen, nicht stauchen. Zwei Lektionen sind kein Makel. Eine Obergrenze für ihre Zahl gibt es nicht."],
   ["Wer verweist auf wen?",
    ["Das Modul auf seine Lernpfade", "Der Lernpfad auf seine Module", "Beide aufeinander", "Die Startseite auf beide getrennt"], 1,
    "Der Pfad verweist auf Module, nie umgekehrt. Diese Asymmetrie ist der Grund, warum ein neuer Pfad keine Änderung an einer Moduldatei kostet."],
   ["Ein Modul soll zusätzlich in einen zweiten Lernpfad. Was ist zu ändern?",
    ["Eine Zeile in der Pfadliste", "Die Kachel des Moduls", "Der Kopf der Moduldatei", "Beides, Pfadliste und Modul"], 0,
-   "Nur die Pfadliste. Das Modul weiß selbst nicht, zu welchen Pfaden es gehört — genau deshalb ist es so gebaut."],
+   "Nur die Pfadliste. Das Modul weiß selbst nicht, zu welchen Pfaden es gehört, weshalb ein neuer Pfad keine Änderung an einer Moduldatei kostet."],
   ["Ein neues Modul ist fertig, erscheint aber nicht auf der Startseite. Woran liegt das meistens?",
    ["Es fehlt der Eintrag in der Kachelliste", "Die Datei liegt im falschen Ordner", "Der Lernpfad fehlt", "Die Suche findet es nicht"], 0,
    "Die Startseite kennt nur, was in ihrer Liste steht. Das ist der häufigste Fehler beim Anlegen eines Moduls."],
   ["Darf ein Modul Daten aus einer Nachbardatei nachladen?",
    ["Ja, wenn die Datei danebenliegt", "Ja, aber nur Textdateien", "Nein, alle Daten werden eingebettet", "Nur beim Start über einen Server"], 2,
-   "Nein. Beim direkten Öffnen im Browser schlägt das fehl, und genau dieser Fall muss funktionieren. Alle Daten liegen eingebettet in der Datei."],
+   "Nein. Beim direkten Öffnen im Browser schlägt das fehl, obwohl genau dieser Fall funktionieren muss. Alle Daten liegen eingebettet in der Datei."],
   ["Was passiert mit einem Quizergebnis, wenn die Seite geschlossen wird?",
    ["Es bleibt im Browser gespeichert", "Es wird verworfen", "Es wandert in die Startseite", "Es hängt an der Adresse"], 1,
    "Es ist weg. Der Browser-Speicher ist ausgeschlossen; wer etwas behalten will, druckt es als PDF oder kopiert es heraus."],
   ["Wie viele Kaffeehäuser betreibt Sofia?",
    ["Eines", "Zwei", "Drei", "Vier"], 1,
-   "Zwei: Ringstraße und Alsergrund. Dazu kommen eine eigene Rösterei und das Coffeebike — aber es sind keine vier Filialen."],
+   "Zwei: Ringstraße und Alsergrund. Dazu kommen eine eigene Rösterei und das Coffeebike, wobei es keine vier Filialen sind."],
   ["Was gehört nicht zu Sofias Betrieb?",
    ["Eine eigene Rösterei", "Eine eigene Bäckerei", "Ein Coffeebike", "Import von Rohkaffee aus Peru"], 1,
    "Eine eigene Bäckerei gibt es nicht. Kuchen und Gebäck werden zugekauft, teils bei denselben Bäckereien, die von Sofia Bohnen beziehen."],
   ["Welche Zahl bleibt über alle Varianten der Slowly Changing Dimensions gleich?",
    ["Die Quartalssumme von 145.500 €", "Der Umsatz der Ringstraße", "Der Umsatz des Alsergrunds", "Der Monatsumsatz im März"], 0,
-   "Die Quartalssumme. Genau darin liegt der didaktische Kern: Die Summe stimmt immer, und trotzdem sagt jeder Bericht etwas anderes."],
+   "Die Quartalssumme. Das ist der didaktische Kern, da die Summe immer stimmt und trotzdem jeder Bericht etwas anderes sagt."],
   ["Wie werden die Personen des Falls benannt?",
    ["Vorname und Nachname", "Nur Vorname", "Nur Rolle", "Kürzel aus zwei Buchstaben"], 1,
-   "Nur der Vorname. Sofia, Nguyen, Alex, Anna, Jonas, Klara, Elif — niemand hat einen Nachnamen."],
+   "Nur der Vorname. Sofia, Nguyen, Alex, Anna, Jonas, Klara und Elif kommen alle ohne Nachnamen aus."],
   ["Eine Angabe zu Sofias Betrieb fehlt Dir. Was tust Du?",
    ["Eine plausible Angabe ergänzen", "Nachfragen und die Lücke offen lassen", "Die Stelle weglassen", "Eine Angabe aus einem anderen Modul übernehmen"], 1,
-   "Nachfragen. Eine erfundene Angabe fällt oft erst drei Module später auf, und dann ist sie an mehreren Stellen verankert."],
+   "Nachfragen. Eine erfundene Angabe fällt oft erst drei Module später auf, wenn sie schon an mehreren Stellen verankert ist."],
   ["Darf aus einem Kursbuch zitiert werden?",  <!-- sprache:ok -->
    ["Ja, mit Seitenangabe", "Ja, wenn die Auflage genannt wird", "Nein, in keiner Form", "Nur in der Fußzeile"], 2,
    "In keiner Form: kein Verweis, keine Seitenzahl, keine Lektionsnummer, keine Kurskennung und keine reproduzierte Abbildung."],
   ["Darf eine Aussage auf Horváth zurückgeführt werden?",
    ["Nein, Namen sind ausgeschlossen", "Ja, mit Autor und Jahr im Fließtext", "Nur im Quellenverzeichnis", "Nur wenn es ein wörtliches Zitat ist"], 1,
-   "Ja, und das ist erwünscht. Fachliteratur wird im Fließtext genannt, mit Autor und Jahr — das ist Zitieren, kein Etikettieren."],
+   "Ja, das ist erwünscht. Fachliteratur wird im Fließtext genannt, mit Autor und Jahr. Das ist Zitieren, kein Etikettieren."],
   ["Was gehört nicht als Beschriftung an einen Inhaltsblock?",
    ["Eine Überschrift", "Ein Hinweis auf die Herkunft wie „Fachliteratur“", "Eine Kernaussage", "Eine Zahl"], 1,
    "Herkunftsetiketten. Die Module stehen für sich; wer sie liest, soll sich mit dem Gegenstand befassen und nicht mit seiner Provenienz."],
   ["Wie lautet die Anrede in den Modulen?",
    ["Sie, durchgehend", "Du, durchgehend", "Unpersönlich, gar keine Anrede", "Je nach Modul verschieden"], 1,
-   "Du, mit großem D, und zwar überall — auch in Tooltips, Detailkästen und auf Schaltflächen."],
+   "Du, mit großem D, nämlich überall, auch in Tooltips, Detailkästen und auf Schaltflächen."],
   ["Darf innerhalb einer Lektion zwischen Deutsch und Englisch gewechselt werden?",
    ["Ja, bei Fachbegriffen", "Ja, in Tooltips", "Nein, die Lektion ist die kleinste Spracheinheit", "Nur in der Kernaussage"], 2,
    "Nein. Halbe Sätze in der einen und Tooltips in der anderen Sprache sind genau der Fehler, den diese Regel verhindert."],
@@ -1372,8 +1372,8 @@ function qRender(){
     : fertig + " von " + QZAHL + " beantwortet · " + treffer + " richtig";
   $("qResult").innerHTML = fertig < QZAHL ? "" :
     "<div class=\"qscore\"><b>" + treffer + " von " + QZAHL + " richtig.</b> " + (
-      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen — der Vorrat hat " + FRAGEN.length + "." :
-      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben; sie sind der eigentliche Lernstoff." :
+      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen, da der Vorrat " + FRAGEN.length + " hat." :
+      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben, da sie erklären, warum die gewählte Antwort nicht zutrifft." :
       "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind die Richtung der Verweise zwischen Pfad und Modul, die Regel zu den Quellen und der Kanon des Falls."
     ) + "</div>";
 }
@@ -1390,7 +1390,7 @@ qZiehen();
 /* =====================================================================
    Der Pfadplaner
    Ein Graph im Speicher: Knoten mit Ort und Typ, Kanten dazwischen.
-   Der Baum entsteht erst beim Lesen — Kinder eines Knotens sind die,
+   Der Baum entsteht erst beim Lesen, da Kinder eines Knotens die sind,
    deren Kante von ihm ausgeht, sortiert nach ihrer Hoehe auf der
    Buehne. Deshalb aendert ein Schieben die Reihenfolge, ohne dass
    irgendwo eine Liste umsortiert werden muesste.
@@ -1400,8 +1400,8 @@ qZiehen();
    verschiedenen Lektionen gegeneinander ausgespielt.
    ===================================================================== */
 const NB = 152, NH = 64;                       /* Knotengroesse, wie im CSS */
-/* Vier Spalten mit 34px Luft fuer den Pfeil. Weiter auseinander, und die
-   letzte Spalte faellt aus dem Bild.                                    */
+/* Vier Spalten mit 34px Luft fuer den Pfeil. Weiter auseinander faellt die
+   letzte Spalte aus dem Bild.                                      */
 const SPALTE = {pfad:14, modul:200, lektion:386, block:572};
 const REGEL   = {pfad:"modul", modul:"lektion", lektion:"block"};
 const TYPNAME = {pfad:"Lernpfad", modul:"Modul", lektion:"Lektion", block:"Block"};
@@ -1558,8 +1558,8 @@ function pfpStammdaten(){
   }
   const BEZ = {pfad:["Name des Lernpfads", "Ein Satz dazu"],
                modul:["Bezeichnung des Moduls", "Kurzinhalt für die Kachel"],
-               lektion:["Bezeichnung der Lektion", "Kernaussage — der erste Absatz"],
-               block:["Überschrift des Blocks", "Kurzinhalt — der erste Absatz darunter"]};
+               lektion:["Bezeichnung der Lektion", "Kernaussage · der erste Absatz"],
+               block:["Überschrift des Blocks", "Kurzinhalt · der erste Absatz darunter"]};
   const nr = pfpNummer(k);
   let h = '<p class="kn-num">' + TYPNAME[k.typ] + (nr ? " " + nr : "") + '</p>';
   h += '<label for="pfpFName">' + BEZ[k.typ][0] + '</label>';
@@ -1580,7 +1580,7 @@ function pfpStammdaten(){
     const kand = PLAN.knoten.filter(n => n.typ === et).sort((x, y) => x.y - y.y);
     const jetzt = pfpEltern(k.id) || "";
     h += '<label for="pfpFAn">Hängt an</label><select id="pfpFAn">' +
-         '<option value=""' + (jetzt ? "" : " selected") + '>— ohne Anschluss —</option>' +
+         '<option value=""' + (jetzt ? "" : " selected") + '>ohne Anschluss</option>' +
          kand.map(n => '<option value="' + n.id + '"' + (jetzt === n.id ? " selected" : "") +
            '>' + pfpEsc((n.name.trim() || TYPNAME[n.typ] + " ohne Namen")) + '</option>').join("") +
          '</select>';
@@ -1591,7 +1591,7 @@ function pfpStammdaten(){
 
   const abl = () => {
     const e = $("pfpFAbl"); if(!e) return;
-    if(k.typ === "pfad")  e.textContent = "Kennung: " + (pfpSlug(k.name) || "—");
+    if(k.typ === "pfad")  e.textContent = "Kennung: " + (pfpSlug(k.name) || "noch offen");
     else if(k.typ === "modul") e.textContent = (pfpSlug(k.name) || "noch-ohne-namen") + ".html";
     else e.textContent = "";
   };
@@ -1787,7 +1787,7 @@ document.querySelectorAll(".pal-el").forEach(btn => {
     }
     const dran = pfpAnhaengen(k);
     pfpWahl = k.id;
-    pfpMelde(dran ? "" : TYPNAME[typ] + " liegt ohne Anschluss da — es fehlt " +
+    pfpMelde(dran ? "" : TYPNAME[typ] + " liegt ohne Anschluss da, es fehlt " +
                          (typ === "modul" ? "der Lernpfad" :
                           typ === "lektion" ? "ein Modul" : "eine Lektion") + " darüber.");
     pfpZeichne();
@@ -1826,7 +1826,7 @@ $("pfpLeer").addEventListener("click", () => {
   const w = pfpNeu("pfad", SPALTE.pfad, 24);
   pfpWahl = w.id;
   $("pfpOut").value = ""; $("pfpMsg").textContent = ""; $("pfpMiss").hidden = true;
-  pfpMelde("Leer. Der Lernpfad bleibt — ohne ihn hat nichts einen Platz.");
+  pfpMelde("Leer. Der Lernpfad bleibt, da ohne ihn nichts einen Platz hat.");
   pfpZeichne();
 });
 
@@ -1864,7 +1864,7 @@ $("pfpBsp").addEventListener("click", () => {
 const pfpSpurName = k => (SPUREN.find(s => s[0] === k)   || ["", k])[1];
 const pfpSprName  = k => (SPRACHEN.find(s => s[0] === k) || ["", k])[1];
 const pfpLinie    = z => "".padEnd(62, z);
-const pfpWert     = v => (v || "").trim() || "— noch offen —";
+const pfpWert     = v => (v || "").trim() || "(noch offen)";
 
 function pfpBaum(){
   const w = pfpWurzel();
@@ -1893,7 +1893,7 @@ function pfpLuecken(){
   });
   const los = PLAN.knoten.filter(pfpLos);
   if(los.length) fehlt.push(los.length + " Element" + (los.length > 1 ? "e" : "") +
-    " ohne Anschluss — sie kommen nicht in den Auftrag");
+    " ohne Anschluss, sie kommen nicht in den Auftrag");
   return fehlt;
 }
 
@@ -1905,7 +1905,7 @@ function pfpAuftrag(){
   s += "und die Saetze darunter stehen, der Inhalt kommt spaeter.\n\n";
 
   s += "LERNPFAD\n";
-  s += "  Kennung    " + (pfpSlug(t.pfad.name) || "— noch offen —") + "\n";
+  s += "  Kennung    " + (pfpSlug(t.pfad.name) || "(noch offen)") + "\n";
   s += "  Titel      " + pfpWert(t.pfad.name) + "\n";
   s += "  Ein Satz   " + pfpWert(t.pfad.text) + "\n\n";
 
@@ -1963,8 +1963,8 @@ $("pfpGo").addEventListener("click", () => {
   if(!t || !t.module.length){
     $("pfpOut").value = "";
     $("pfpMiss").hidden = false;
-    $("pfpMiss").innerHTML = "<b>Noch kein Modul am Lernpfad.</b> Leg eines an und verbinde es " +
-      "— oder lade das Beispiel, um zu sehen, wie es gemeint ist.";
+    $("pfpMiss").innerHTML = "<b>Noch kein Modul am Lernpfad.</b> Leg eines an und verbinde es" +
+      ", oder lade das Beispiel, um zu sehen, wie es gemeint ist.";
     $("pfpMsg").textContent = "";
     return;
   }
@@ -1975,7 +1975,7 @@ $("pfpGo").addEventListener("click", () => {
     const zeig = fehlt.slice(0, 6).join(", ");
     $("pfpMiss").innerHTML = "<b>Noch offen:</b> " + zeig +
       (fehlt.length > 6 ? " und " + (fehlt.length - 6) + " weitere Stellen" : "") +
-      ". Der Auftrag lässt sich trotzdem abgeben — die offenen Stellen stehen darin als solche.";
+      ". Der Auftrag lässt sich trotzdem abgeben, da die offenen Stellen darin als solche stehen.";
   }
   $("pfpMsg").textContent = "";
 });
@@ -1994,9 +1994,9 @@ $("pfpCopy").addEventListener("click", () => {
   if(navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(feld.value)
       .then(() => { $("pfpMsg").textContent = "Kopiert."; })
-      .catch(() => { $("pfpMsg").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand."; });
+      .catch(() => { $("pfpMsg").textContent = "Klappt hier nicht. Der Text ist markiert, kopier ihn von Hand."; });
   } else {
-    $("pfpMsg").textContent = "Klappt hier nicht — der Text ist markiert, kopier ihn von Hand.";
+    $("pfpMsg").textContent = "Klappt hier nicht. Der Text ist markiert, kopier ihn von Hand.";
   }
 });
 
