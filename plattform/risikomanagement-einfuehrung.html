@@ -748,12 +748,12 @@ Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.83</
 <script>
 "use strict";
 /* =====================================================================
-   0 · LERNEINHEIT — sämtliche Inhalte an einer Stelle.
+   0 · MODUL — sämtliche Inhalte an einer Stelle.
    Risikofaktor, Zone, Nettoposition, Effizienz und Rangfolge stehen
    bewusst NICHT hier. Sie werden aus den Rohwerten gerechnet, damit
    eine Änderung an W, S oder Aufwand sofort durch die Seite wirkt.
    ===================================================================== */
-const LERNEINHEIT = {
+const MODUL = {
   meta:{thema:"Controlling und Risikomanagement der Supply Chain",
         titel:"Der Risikomanagement-Prozess", dauerMin:90, stand:"2026-09"},
 
@@ -980,10 +980,10 @@ const nf1 = v => v.toFixed(1).replace(".", ",");
 const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
 
 const RF   = (w, s) => w * s;
-const ZONE = rf => LERNEINHEIT.zonen.find(z => rf >= z.von && rf <= z.bis) || LERNEINHEIT.zonen[2];
-const ankW = v => LERNEINHEIT.skalen.w[v-1];
-const ankS = v => LERNEINHEIT.skalen.s[v-1];
-const risk = id => LERNEINHEIT.risiken.find(r => r.id === id);
+const ZONE = rf => MODUL.zonen.find(z => rf >= z.von && rf <= z.bis) || MODUL.zonen[2];
+const ankW = v => MODUL.skalen.w[v-1];
+const ankS = v => MODUL.skalen.s[v-1];
+const risk = id => MODUL.risiken.find(r => r.id === id);
 /* =====================================================================
    2 · Tooltip
    ===================================================================== */
@@ -1059,7 +1059,7 @@ function drawProc(){
   el(svg,"path",{class:"arw", d:"M370 297 H296", "marker-end":"url(#pArrow)"});
   el(svg,"path",{class:"arw back", d:"M173 246 V130", "marker-end":"url(#pArrow)"});
 
-  LERNEINHEIT.prozess.phasen.forEach((ph, i) => {
+  MODUL.prozess.phasen.forEach((ph, i) => {
     const [x, y] = PB[i];
     const g = el(svg,"g",{class:"ph" + (i === procSel ? " on" : ""), tabindex:"0", role:"button",
                           "aria-label":"Phase " + (i+1) + ": " + ph.name});
@@ -1091,8 +1091,8 @@ function drawProc(){
   });
 }
 function procDetail(){
-  const ph = LERNEINHEIT.prozess.phasen[procSel];
-  const kb = procSel <= 1 ? LERNEINHEIT.prozess.dreiteilung[0] : LERNEINHEIT.prozess.dreiteilung[procSel-1];
+  const ph = MODUL.prozess.phasen[procSel];
+  const kb = procSel <= 1 ? MODUL.prozess.dreiteilung[0] : MODUL.prozess.dreiteilung[procSel-1];
   $("procDetail").innerHTML =
     `<p class="dk">Phase ${procSel+1} · Symbol ${ph.sym}</p><h4>${ph.name}</h4>
      <p style="font-weight:600;color:var(--teal-dk)">${ph.frage}</p>
@@ -1115,7 +1115,7 @@ drawProc(); procDetail();
 /* ---------- Risikoquellen ---------- */
 let qMode = "quelle";
 function drawQuellen(){
-  $("quellen").innerHTML = LERNEINHEIT.quellen.map((q, i) => {
+  $("quellen").innerHTML = MODUL.quellen.map((q, i) => {
     const endo = q.herkunft === "endogen";
     const stripe = qMode === "herkunft" ? (endo ? "var(--teal-dk)" : "var(--ochre)") : "var(--grey-xl)";
     return `<button class="task" aria-expanded="false" style="border-left:3px solid ${stripe}">

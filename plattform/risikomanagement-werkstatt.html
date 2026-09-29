@@ -714,12 +714,12 @@ Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.83</
 <script>
 "use strict";
 /* =====================================================================
-   0 · LERNEINHEIT — sämtliche Inhalte an einer Stelle.
+   0 · MODUL — sämtliche Inhalte an einer Stelle.
    Risikofaktor, Zone, Nettoposition, Effizienz und Rangfolge stehen
    bewusst NICHT hier. Sie werden aus den Rohwerten gerechnet, damit
    eine Änderung an W, S oder Aufwand sofort durch die Seite wirkt.
    ===================================================================== */
-const LERNEINHEIT = {
+const MODUL = {
   meta:{thema:"Controlling und Risikomanagement der Supply Chain",
         titel:"Der Risikomanagement-Prozess", dauerMin:90, stand:"2026-09"},
 
@@ -946,10 +946,10 @@ const nf1 = v => v.toFixed(1).replace(".", ",");
 const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
 
 const RF   = (w, s) => w * s;
-const ZONE = rf => LERNEINHEIT.zonen.find(z => rf >= z.von && rf <= z.bis) || LERNEINHEIT.zonen[2];
-const ankW = v => LERNEINHEIT.skalen.w[v-1];
-const ankS = v => LERNEINHEIT.skalen.s[v-1];
-const risk = id => LERNEINHEIT.risiken.find(r => r.id === id);
+const ZONE = rf => MODUL.zonen.find(z => rf >= z.von && rf <= z.bis) || MODUL.zonen[2];
+const ankW = v => MODUL.skalen.w[v-1];
+const ankS = v => MODUL.skalen.s[v-1];
+const risk = id => MODUL.risiken.find(r => r.id === id);
 /* =====================================================================
    2 · Tooltip
    ===================================================================== */
@@ -1111,7 +1111,7 @@ const WS = {
     strat:"", massn:"", zw:4, zs:5
   }]
 };
-const STRATS_WS = LERNEINHEIT.strategien;
+const STRATS_WS = MODUL.strategien;
 const escA = t => String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 const zoneKl = rf => ZONE(rf).id;
 
