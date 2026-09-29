@@ -553,7 +553,7 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.65`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.76`.
 Keine Quellenverzeichnisse, keine Legenden, keine Beschreibung des Falls und kein Hinweis
 darauf, woher eine Abbildung stammt. Sie steht in jeder ausgelieferten Datei gleich, im Markup
 als `<footer>` und auf den zweisprachigen Seiten als Eintrag `footer` im `UI`-Wörterbuch. Dort
@@ -562,7 +562,7 @@ ist sie ein einfacher String, weil ein Name und eine Nummer in beiden Sprachen d
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.65</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.76</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
@@ -919,6 +919,29 @@ Bewegung nur, wo sie etwas aussagt. Ein Balken, der auf seinen Wert wächst, erk
 Ein Element, das beim Scrollen einfliegt, hält nur auf.
 
 Zahlen mit `font-variant-numeric: tabular-nums`, Kennungen und Codes in der Monospace.
+
+### Die Schriftgrößen
+
+**[Prototyp] Barrierefreiheit schlägt die Abstufung.** Die Module sind am Schreibtisch entstanden
+und lesen sich dort. Auf dem Beamer im Seminarraum und für jeden, der nicht gut sieht, waren sie zu
+klein: In `plattform/liquiditaet-begriff.html` standen 355 von 2.025 Textstellen bei höchstens zwölf
+Pixeln, die kleinste bei neun. Die Abstufung nach Bedeutung, die diese kleinen Größen herstellen
+sollten, ist weniger wert als Lesbarkeit.
+
+- **Unter 15px fällt nichts**, auch keine Beschriftung, keine Kennung und keine Fußnote.
+- **Der Fließtext liegt bei rund 19px**, der Vorspann `.lede` bei 21px. Er ist der Bezug, an dem die
+  übrigen Größen ausgerichtet sind.
+- **Die Rangfolge bleibt, der Abstand wird kleiner.** Abgebildet wird über Stützpunkte, zwischen
+  denen linear interpoliert wird, sodass keine zwei Größen die Plätze tauschen.
+- **Größen im Markup werden `rem`**, damit sie der Schrifteinstellung des Browsers folgen. In `px`
+  bleibt allein, was eine Zeichnung in SVG beschriftet, da `px` dort eine Zeichnungseinheit ist und
+  keine Bildschirmgröße.
+- **Eine Kernaussage darf auf dem Telefon nicht kleiner werden als der Absatz darunter.** Die
+  `clamp`-Größen von `.lede`, `.claim` und `.pointe p` hatten untere Grenzen unterhalb des
+  Fließtextes, wodurch sich die Rangfolge auf schmalem Schirm umdrehte.
+
+`plattform/liquiditaet-begriff.html` ist der erste Fall. Ob die Stufe so bleibt und auf die übrigen
+Module wandert, entscheidet Maik am fertigen Beispiel.
 
 Lektionen sind für Facetten derselben Frage da, nicht für verschiedene Themen — sonst sind es
 zwei Module. Wie viele es werden, entscheidet der Stoff; die Grenze zieht die 15-bis-20-Minuten-Regel
