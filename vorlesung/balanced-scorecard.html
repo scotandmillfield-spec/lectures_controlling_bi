@@ -733,7 +733,7 @@ function renderBars(){
     const dim=filter&&filter!==k;
     box.insertAdjacentHTML("beforeend",
       `<div class="pbar" style="opacity:${dim?.35:1}">
-        <span style="font-size:.74rem;color:#4a4a4d">${label}</span>
+        <span style="font-size:1.05rem;color:#4a4a4d">${label}</span>
         <span class="track"><i style="width:${v}%;background:${PCOLOR[k]}"></i></span>
         <span class="pv">${v}%</span></div>`);
   });

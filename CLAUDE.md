@@ -922,11 +922,11 @@ Zahlen mit `font-variant-numeric: tabular-nums`, Kennungen und Codes in der Mono
 
 ### Die Schriftgrößen
 
-**[Prototyp] Barrierefreiheit schlägt die Abstufung.** Die Module sind am Schreibtisch entstanden
+**[gesetzt] Barrierefreiheit schlägt die Abstufung.** Die Module sind am Schreibtisch entstanden
 und lesen sich dort. Auf dem Beamer im Seminarraum und für jeden, der nicht gut sieht, waren sie zu
 klein: In `plattform/liquiditaet-begriff.html` standen 355 von 2.025 Textstellen bei höchstens zwölf
 Pixeln, die kleinste bei neun. Die Abstufung nach Bedeutung, die diese kleinen Größen herstellen
-sollten, ist weniger wert als Lesbarkeit.
+sollten, ist weniger wert als Lesbarkeit. Die Stufe gilt für alle Einstiege.
 
 - **Unter 15px fällt nichts**, auch keine Beschriftung, keine Kennung und keine Fußnote.
 - **Der Fließtext liegt bei rund 19px**, der Vorspann `.lede` bei 21px. Er ist der Bezug, an dem die
@@ -940,8 +940,23 @@ sollten, ist weniger wert als Lesbarkeit.
   `clamp`-Größen von `.lede`, `.claim` und `.pointe p` hatten untere Grenzen unterhalb des
   Fließtextes, wodurch sich die Rangfolge auf schmalem Schirm umdrehte.
 
-`plattform/liquiditaet-begriff.html` ist der erste Fall. Ob die Stufe so bleibt und auf die übrigen
-Module wandert, entscheidet Maik am fertigen Beispiel.
+**Eine Größe steht an vier Stellen, nicht an einer.** Wer eine Datei umstellt, sucht an allen vieren,
+da die ersten beiden Durchgänge der Umstellung an den hinteren zwei vorbeiliefen.
+
+1. Im Stilblock, der Normalfall.
+2. Im `style`-Attribut eines Elements, auch innerhalb einer Vorlagenzeichenkette des Skripts.
+3. Als Eigenschaft `style:"…"` in einem Objekt, das ein Hilfsskript an ein SVG-Element schreibt.
+4. In einem Stilblock, den das Skript zur Laufzeit in den Kopf der Seite schreibt, etwa dem des
+   Bearbeitungsmodus.
+
+**Größere Schrift sprengt enge Zeilen.** Beim Nachziehen auf die übrigen Module liefen zehn Stellen
+über den Rand, alle nach demselben Muster. Eine Reihe von Schaltflächen ohne `flex-wrap`, eine
+Rasterspalte, die für den längeren Text zu schmal wurde, und ein langes deutsches Kompositum in
+einem schmalen Kasten. Die Gegenmittel sind `flex-wrap:wrap`, eine Spalte weniger unterhalb von
+620px sowie `overflow-wrap:anywhere` an Beschriftungen, die aus einem einzigen Wort bestehen.
+
+**Ein Wert von `0` bleibt `0`.** In `cv-mx/controlling-konzept.html` steht ein `font-size:0` als
+Layouttrick gegen den Abstand zwischen zwei Elementen. An einer Untergrenze von 15px zerbricht er.
 
 Lektionen sind für Facetten derselben Frage da, nicht für verschiedene Themen — sonst sind es
 zwei Module. Wie viele es werden, entscheidet der Stoff; die Grenze zieht die 15-bis-20-Minuten-Regel

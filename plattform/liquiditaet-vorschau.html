@@ -210,7 +210,8 @@ svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .zonekey i{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.08)}
 .zonekey i.g{background:#E6F1E5} .zonekey i.y{background:#FBF2D9} .zonekey i.r{background:#FBE4DC}
 
-.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:10px;margin:0 0 14px}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:0 0 14px}
+.fig .fk,.fig .fn{hyphens:auto;overflow-wrap:anywhere}
 .figs>*{min-width:0}
 .fig{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 15px}
 .fig .fk{font-family:var(--mono);font-size:15px;letter-spacing:.11em;text-transform:uppercase;
@@ -224,7 +225,7 @@ svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 /* ---------- Regler ---------- */
 .rgrid{display:grid;gap:12px}
 .rrow{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 16px}
-.rrow .rl{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin:0 0 8px}
+.rrow .rl{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;align-items:baseline;margin:0 0 8px}
 .rrow .rn{font-size:1.2rem;font-weight:600}
 .rrow .rv{font-family:var(--mono);font-size:1.16rem;color:var(--teal-dk);font-weight:600;
   text-align:right;flex:none}
@@ -359,7 +360,7 @@ svg.bcr text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .wsduo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .wsduo>*{min-width:0}
 .wsax{background:var(--canvas);border-radius:9px;padding:13px 15px}
-.wsax .axh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin:0 0 8px}
+.wsax .axh{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 10px;align-items:baseline;margin:0 0 8px}
 .wsax .axn{font-size:1.16rem;font-weight:700}
 .wsax .axv{font-family:var(--mono);font-size:1.11rem;font-weight:600;color:var(--teal-dk);text-align:right}
 .wsax input[type=range]{width:100%;accent-color:var(--teal-dk);display:block;margin:0 0 4px}
@@ -623,7 +624,7 @@ footer a{color:var(--teal-dk)}
   padding:11px 14px;box-shadow:var(--shadow)}
 .zuz>*{min-width:0}
 .zuz .zt{font-size:1.21rem;color:var(--ink);line-height:1.4}
-.zuz .zb{display:flex;gap:6px;flex:none}
+.zuz .zb{display:flex;gap:6px;flex:none;flex-wrap:wrap}
 .zub{appearance:none;font:inherit;font-size:1.16rem;font-weight:600;cursor:pointer;
   border:1px solid var(--grey-xl);background:var(--paper);color:var(--grey);
   border-radius:7px;padding:6px 12px;transition:.14s}
@@ -964,7 +965,7 @@ footer a{color:var(--teal-dk)}
   <p class="eyebrow">Liquiditätsplanung · Modul 04</p>
   <h1>Die <em>Liquiditätsvorschau</em></h1>
   <p class="lede">Eine BWA weist den Periodenerfolg aus, also die Erträge und Aufwendungen eines Monats. Eine Liquiditätsvorschau weist Ein- und Auszahlungen aus. Zwischen beiden liegt je Position eine Regel. Darunter stehen vier Posten, die in keiner betriebswirtschaftlichen Auswertung vorkommen. In diesem Modul baust Du beides zusammen und liest am Ende ab, in welchem Monat der Kontostand unter null rutscht.</p>
-  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Grundlage sind zwei Reihen zu je zwölf Monaten, nämlich die Planung aus dem Modul „Die BWA lesen“ und die letzten zwölf gebuchten Monate. Ein Startmonat entscheidet darüber, welche Reihe in welcher Spalte erscheint; ohne Änderung beginnt die Vorschau im Januar. Der Anfangsbestand von 3.900 T€ ist dann der Posten „Kassenbestand und Guthaben bei Kreditinstituten“ aus der Bilanz des ersten Moduls im Lernpfad Bilanzanalyse.</p>
+  <p class="lede" style="font-size:1.22rem;color:var(--grey);margin-top:14px">Grundlage sind zwei Reihen zu je zwölf Monaten, nämlich die Planung aus dem Modul „Die BWA lesen“ und die letzten zwölf gebuchten Monate. Ein Startmonat entscheidet darüber, welche Reihe in welcher Spalte erscheint; ohne Änderung beginnt die Vorschau im Januar. Der Anfangsbestand von 3.900 T€ ist dann der Posten „Kassenbestand und Guthaben bei Kreditinstituten“ aus der Bilanz des ersten Moduls im Lernpfad Bilanzanalyse.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Die Liquiditätsvorschau">
@@ -1234,12 +1235,12 @@ footer a{color:var(--teal-dk)}
     <div class="unten">
       <label for="vuBest" id="vuBestL">Anfangsbestand (Kasse und Bank)</label>
       <input type="text" id="vuBest" inputmode="numeric" value="3.900" aria-label="Anfangsbestand in Tausend Euro">
-      <span class="m" id="vuBestH" style="font-family:var(--mono);font-size:.74rem;color:var(--grey)">aus der Bilanz</span>
+      <span class="m" id="vuBestH" style="font-family:var(--mono);font-size:1.05rem;color:var(--grey)">aus der Bilanz</span>
     </div>
     <div class="unten">
       <label for="vuLinie">Kontokorrentlinie</label>
       <input type="text" id="vuLinie" inputmode="numeric" value="2.000" aria-label="Kontokorrentlinie in Tausend Euro">
-      <span class="m" style="font-family:var(--mono);font-size:.74rem;color:var(--grey)">der Bestand darf so weit ins Minus</span>
+      <span class="m" style="font-family:var(--mono);font-size:1.05rem;color:var(--grey)">der Bestand darf so weit ins Minus</span>
     </div>
     <div class="unten">
       <label for="vuInv">Investitionen</label>
@@ -1254,7 +1255,7 @@ footer a{color:var(--teal-dk)}
     <div class="unten">
       <label for="vuTil">Tilgung, monatlich</label>
       <input type="text" id="vuTil" inputmode="numeric" value="250" aria-label="Tilgung je Monat in Tausend Euro">
-      <span class="m" style="font-family:var(--mono);font-size:.74rem;color:var(--grey)">jeden Monat</span>
+      <span class="m" style="font-family:var(--mono);font-size:1.05rem;color:var(--grey)">jeden Monat</span>
     </div>
     <div class="unten">
       <label for="vuEnt">Entnahme oder Ausschüttung</label>

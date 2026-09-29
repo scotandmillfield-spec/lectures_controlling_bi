@@ -211,7 +211,8 @@ svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .zonekey i{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.08)}
 .zonekey i.g{background:#E6F1E5} .zonekey i.y{background:#FBF2D9} .zonekey i.r{background:#FBE4DC}
 
-.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:10px;margin:0 0 14px}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:0 0 14px}
+.fig .fk,.fig .fn{hyphens:auto;overflow-wrap:anywhere}
 .figs>*{min-width:0}
 .fig{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 15px}
 .fig .fk{font-family:var(--mono);font-size:15px;letter-spacing:.11em;text-transform:uppercase;
@@ -225,7 +226,7 @@ svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 /* ---------- Regler ---------- */
 .rgrid{display:grid;gap:12px}
 .rrow{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 16px}
-.rrow .rl{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin:0 0 8px}
+.rrow .rl{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;align-items:baseline;margin:0 0 8px}
 .rrow .rn{font-size:1.2rem;font-weight:600}
 .rrow .rv{font-family:var(--mono);font-size:1.16rem;color:var(--teal-dk);font-weight:600;
   text-align:right;flex:none}
@@ -360,7 +361,7 @@ svg.bcr text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .wsduo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .wsduo>*{min-width:0}
 .wsax{background:var(--canvas);border-radius:9px;padding:13px 15px}
-.wsax .axh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin:0 0 8px}
+.wsax .axh{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 10px;align-items:baseline;margin:0 0 8px}
 .wsax .axn{font-size:1.16rem;font-weight:700}
 .wsax .axv{font-family:var(--mono);font-size:1.11rem;font-weight:600;color:var(--teal-dk);text-align:right}
 .wsax input[type=range]{width:100%;accent-color:var(--teal-dk);display:block;margin:0 0 4px}
@@ -624,7 +625,7 @@ footer a{color:var(--teal-dk)}
   padding:11px 14px;box-shadow:var(--shadow)}
 .zuz>*{min-width:0}
 .zuz .zt{font-size:1.21rem;color:var(--ink);line-height:1.4}
-.zuz .zb{display:flex;gap:6px;flex:none}
+.zuz .zb{display:flex;gap:6px;flex:none;flex-wrap:wrap}
 .zub{appearance:none;font:inherit;font-size:1.16rem;font-weight:600;cursor:pointer;
   border:1px solid var(--grey-xl);background:var(--paper);color:var(--grey);
   border-radius:7px;padding:6px 12px;transition:.14s}
@@ -750,7 +751,7 @@ footer a{color:var(--teal-dk)}
   <p class="eyebrow">Bilanzanalyse · Modul 04</p>
   <h1>Buchungssätze und ihre <em>Wirkung</em></h1>
   <p class="lede">Die drei Module davor haben die Bilanz gelesen, gegliedert und ausgewertet. Hier wird sie bewegt. Ein Buchungssatz ist eine Anweisung an zwei Konten. Jede solche Anweisung verschiebt etwas, meistens innerhalb der Bilanz, manchmal über die Gewinn- und Verlustrechnung durch das Eigenkapital hindurch. Am Ende buchst Du eigene Sätze und siehst die Bilanz daneben mitwandern.</p>
-  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Durchgehend <b>HGB</b>. Die Beispielzahlen sind dieselben wie in den Vormodulen, in vollen Tausend Euro. Die Eröffnungsbilanz in Lektion 04 sind genau die Zahlen aus Modul 01.</p>
+  <p class="lede" style="font-size:1.22rem;color:var(--grey);margin-top:14px">Durchgehend <b>HGB</b>. Die Beispielzahlen sind dieselben wie in den Vormodulen, in vollen Tausend Euro. Die Eröffnungsbilanz in Lektion 04 sind genau die Zahlen aus Modul 01.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Buchungssätze und ihre Wirkung">
@@ -898,13 +899,13 @@ footer a{color:var(--teal-dk)}
   <div class="duo">
     <div class="card" style="border-left:3px solid var(--teal-dk)">
       <p class="ck">Erfolgsneutral</p><h3>Nur Bestandskonten</h3>
-      <p class="bs" style="font-family:var(--mono);font-size:.8rem;color:var(--teal-dk)">Bank an Forderungen 40</p>
+      <p class="bs" style="font-family:var(--mono);font-size:1.14rem;color:var(--teal-dk)">Bank an Forderungen 40</p>
       <p>Beide Konten kommen aus der Bilanz und gehen dorthin zurück. Das Eigenkapital bleibt, wo es war, und die Gewinn- und Verlustrechnung erfährt von dem Vorgang nichts.</p>
       <p>Der Kunde hat gezahlt. Reicher ist das Unternehmen dadurch nicht geworden — reicher wurde es, als die Rechnung geschrieben wurde.</p>
     </div>
     <div class="card" style="border-left:3px solid var(--ochre)">
       <p class="ck">Erfolgswirksam</p><h3>Ein Erfolgskonto ist dabei</h3>
-      <p class="bs" style="font-family:var(--mono);font-size:.8rem;color:var(--ochre)">Löhne und Gehälter an Bank 1.200</p>
+      <p class="bs" style="font-family:var(--mono);font-size:1.14rem;color:var(--ochre)">Löhne und Gehälter an Bank 1.200</p>
       <p>Ein Aufwand ist entstanden. Er läuft über die Gewinn- und Verlustrechnung in das Eigenkapital und verringert es um denselben Betrag.</p>
       <p>Deshalb ist der Jahresüberschuss kein eigenständiger Posten, den jemand festlegt. Er ist die Summe aller erfolgswirksamen Buchungen eines Jahres.</p>
     </div>

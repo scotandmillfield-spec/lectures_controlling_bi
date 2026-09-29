@@ -211,7 +211,8 @@ svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .zonekey i{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.08)}
 .zonekey i.g{background:#E6F1E5} .zonekey i.y{background:#FBF2D9} .zonekey i.r{background:#FBE4DC}
 
-.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:10px;margin:0 0 14px}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:0 0 14px}
+.fig .fk,.fig .fn{hyphens:auto;overflow-wrap:anywhere}
 .figs>*{min-width:0}
 .fig{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 15px}
 .fig .fk{font-family:var(--mono);font-size:15px;letter-spacing:.11em;text-transform:uppercase;
@@ -225,7 +226,7 @@ svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 /* ---------- Regler ---------- */
 .rgrid{display:grid;gap:12px}
 .rrow{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 16px}
-.rrow .rl{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin:0 0 8px}
+.rrow .rl{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;align-items:baseline;margin:0 0 8px}
 .rrow .rn{font-size:1.2rem;font-weight:600}
 .rrow .rv{font-family:var(--mono);font-size:1.16rem;color:var(--teal-dk);font-weight:600;
   text-align:right;flex:none}
@@ -360,7 +361,7 @@ svg.bcr text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .wsduo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .wsduo>*{min-width:0}
 .wsax{background:var(--canvas);border-radius:9px;padding:13px 15px}
-.wsax .axh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin:0 0 8px}
+.wsax .axh{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 10px;align-items:baseline;margin:0 0 8px}
 .wsax .axn{font-size:1.16rem;font-weight:700}
 .wsax .axv{font-family:var(--mono);font-size:1.11rem;font-weight:600;color:var(--teal-dk);text-align:right}
 .wsax input[type=range]{width:100%;accent-color:var(--teal-dk);display:block;margin:0 0 4px}
@@ -624,7 +625,7 @@ footer a{color:var(--teal-dk)}
   padding:11px 14px;box-shadow:var(--shadow)}
 .zuz>*{min-width:0}
 .zuz .zt{font-size:1.21rem;color:var(--ink);line-height:1.4}
-.zuz .zb{display:flex;gap:6px;flex:none}
+.zuz .zb{display:flex;gap:6px;flex:none;flex-wrap:wrap}
 .zub{appearance:none;font:inherit;font-size:1.16rem;font-weight:600;cursor:pointer;
   border:1px solid var(--grey-xl);background:var(--paper);color:var(--grey);
   border-radius:7px;padding:6px 12px;transition:.14s}
@@ -711,7 +712,8 @@ footer a{color:var(--teal-dk)}
   .bwakopf,.bwz{grid-template-columns:minmax(0,1fr) 72px 54px;gap:6px;padding-left:12px;padding-right:12px}
   .bwakopf .sp.kum,.bwz .k{display:none}
   .laufb{height:130px;gap:3px}
-  .laufm{gap:3px;font-size:.94rem}
+  .laufm{gap:2px;font-size:.94rem}
+  .laufm>*{min-width:0;overflow:hidden}
   .ls .zt{display:none}
 }
 
@@ -724,7 +726,7 @@ footer a{color:var(--teal-dk)}
   <p class="eyebrow">Liquiditätsplanung · Modul 03</p>
   <h1>Die <em>BWA</em> lesen</h1>
   <p class="lede">Die betriebswirtschaftliche Auswertung ist der Monatsbericht aus der Finanzbuchhaltung, der am siebten Werktag kommt und die einzige laufende Zahlenquelle ist, die fast jedes Unternehmen hat und die dabei vorläufig bleibt. Wer sie zum Ausgangspunkt einer Liquiditätsvorschau macht, muss beides wissen.</p>
-  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Die Beispielzahlen sind dieselben wie in den Vormodulen, in vollen Tausend Euro. Die zwölf Monate summieren sich hier genau auf die Gewinn- und Verlustrechnung aus dem Lernpfad Bilanzanalyse.</p>
+  <p class="lede" style="font-size:1.22rem;color:var(--grey);margin-top:14px">Die Beispielzahlen sind dieselben wie in den Vormodulen, in vollen Tausend Euro. Die zwölf Monate summieren sich hier genau auf die Gewinn- und Verlustrechnung aus dem Lernpfad Bilanzanalyse.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Die BWA lesen">

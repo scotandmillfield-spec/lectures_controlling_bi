@@ -211,7 +211,8 @@ svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .zonekey i{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.08)}
 .zonekey i.g{background:#E6F1E5} .zonekey i.y{background:#FBF2D9} .zonekey i.r{background:#FBE4DC}
 
-.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:10px;margin:0 0 14px}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:0 0 14px}
+.fig .fk,.fig .fn{hyphens:auto;overflow-wrap:anywhere}
 .figs>*{min-width:0}
 .fig{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 15px}
 .fig .fk{font-family:var(--mono);font-size:.94rem;letter-spacing:.11em;text-transform:uppercase;
@@ -225,7 +226,7 @@ svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 /* ---------- Regler ---------- */
 .rgrid{display:grid;gap:12px}
 .rrow{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 16px}
-.rrow .rl{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin:0 0 8px}
+.rrow .rl{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;align-items:baseline;margin:0 0 8px}
 .rrow .rn{font-size:1.2rem;font-weight:600}
 .rrow .rv{font-family:var(--mono);font-size:1.16rem;color:var(--teal-dk);font-weight:600;
   text-align:right;flex:none}
@@ -360,7 +361,7 @@ svg.bcr text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .wsduo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .wsduo>*{min-width:0}
 .wsax{background:var(--canvas);border-radius:9px;padding:13px 15px}
-.wsax .axh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin:0 0 8px}
+.wsax .axh{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 10px;align-items:baseline;margin:0 0 8px}
 .wsax .axn{font-size:1.16rem;font-weight:700}
 .wsax .axv{font-family:var(--mono);font-size:1.11rem;font-weight:600;color:var(--teal-dk);text-align:right}
 .wsax input[type=range]{width:100%;accent-color:var(--teal-dk);display:block;margin:0 0 4px}
@@ -717,7 +718,7 @@ footer a{color:var(--teal-dk)}
 
   <div id="modeB" hidden>
     <div class="bar" style="margin-top:20px">
-      <label class="chk" style="display:inline-flex;align-items:center;gap:9px;font-size:.88rem;font-weight:600;color:#3d3d40;cursor:pointer;background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:10px 15px">
+      <label class="chk" style="display:inline-flex;align-items:center;gap:9px;font-size:1.19rem;font-weight:600;color:#3d3d40;cursor:pointer;background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:10px 15px">
         <input type="checkbox" id="isoToggle" style="accent-color:var(--teal-dk);width:16px;height:16px"> Isolinie gleichen Risikofaktors zeigen
       </label>
       <p class="legend" style="margin:0"><span class="key">Frei benennbar — die Bezeichnung erscheint an der Karte.</span></p>
@@ -725,14 +726,14 @@ footer a{color:var(--teal-dk)}
     <div class="duo">
       <div class="card">
         <p class="ck">Eigenes Risiko</p>
-        <label for="bName" style="display:block;font-size:.86rem;font-weight:600;margin:0 0 7px">Bezeichnung</label>
+        <label for="bName" style="display:block;font-size:1.18rem;font-weight:600;margin:0 0 7px">Bezeichnung</label>
         <input type="text" id="bName" value="Eigenes Risiko" maxlength="42"
-               style="width:100%;font-family:var(--sans);font-size:.9rem;padding:9px 11px;border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper);color:var(--ink)">
+               style="width:100%;font-family:var(--sans);font-size:1.2rem;padding:9px 11px;border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper);color:var(--ink)">
         <div class="rgrid" id="bSliders" style="margin-top:14px"></div>
       </div>
       <div class="detail" style="min-height:0">
         <p class="dk">Die Rechnung, mit eingesetzten Zahlen</p>
-        <div class="calc" id="bCalc" style="font-family:var(--mono);font-size:.8rem;background:var(--canvas);border-radius:7px;padding:11px 13px;line-height:1.75;color:#3d3d40;white-space:pre-wrap;font-variant-numeric:tabular-nums;overflow-x:auto"></div>
+        <div class="calc" id="bCalc" style="font-family:var(--mono);font-size:1.14rem;background:var(--canvas);border-radius:7px;padding:11px 13px;line-height:1.75;color:#3d3d40;white-space:pre-wrap;font-variant-numeric:tabular-nums;overflow-x:auto"></div>
         <p style="margin-top:12px" id="bIso"></p>
       </div>
     </div>
@@ -754,12 +755,12 @@ footer a{color:var(--teal-dk)}
   <div class="duo" style="margin-top:14px">
     <div class="card"><p class="ck">Unternehmen A</p><h3>Sprinkleranlage</h3>
       <p>Die Anlage senkt die Tragweite eines Brandes. Die Wahrscheinlichkeit, dass es brennt, bleibt dagegen unverändert.</p>
-      <div class="calc" style="font-family:var(--mono);font-size:.82rem;background:var(--canvas);border-radius:7px;padding:11px 13px;line-height:1.8;white-space:pre;font-variant-numeric:tabular-nums;overflow-x:auto">vorher:   10 (T) × 3 (W) = 30
+      <div class="calc" style="font-family:var(--mono);font-size:1.16rem;background:var(--canvas);border-radius:7px;padding:11px 13px;line-height:1.8;white-space:pre;font-variant-numeric:tabular-nums;overflow-x:auto">vorher:   10 (T) × 3 (W) = 30
 nachher:   9 (T) × 3 (W) = 27
 Differenz: 30 − 27       =  3</div></div>
     <div class="card" style="border-left:3px solid #2E7D4F"><p class="ck">Unternehmen B</p><h3>Schulung der Mitarbeitenden</h3>
       <p>Ergänzend hinsichtlich der Vermeidung von Bränden und Brandschäden.</p>
-      <div class="calc" style="font-family:var(--mono);font-size:.82rem;background:var(--canvas);border-radius:7px;padding:11px 13px;line-height:1.8;white-space:pre;font-variant-numeric:tabular-nums;overflow-x:auto">vorher:   10 (T) × 3 (W) = 30
+      <div class="calc" style="font-family:var(--mono);font-size:1.16rem;background:var(--canvas);border-radius:7px;padding:11px 13px;line-height:1.8;white-space:pre;font-variant-numeric:tabular-nums;overflow-x:auto">vorher:   10 (T) × 3 (W) = 30
 nachher:   4 (T) × 1 (W) =  4
 Differenz: 30 −  4       = 26</div>
       <p style="margin-top:10px;font-weight:600;color:#2E7D4F">Die zweite Maßnahme ist deutlich effektiver — und sie wirkt auf <b>beide</b> Achsen.</p></div>
@@ -904,9 +905,9 @@ Differenz: 30 −  4       = 26</div>
     </div>
     <div class="duo" style="margin-top:14px">
       <div class="card"><p class="ck">Kennzahlen der übrigen Perspektiven</p><h3>Klassisch</h3>
-        <p class="m" style="font-family:var(--mono);font-size:.8rem;line-height:1.7">Return on Equity · Days Sales Outstanding · Employee Satisfaction · Training hours per year · Net Promoter Score · Customer Retention Rate · Warranty Rate</p></div>
+        <p class="m" style="font-family:var(--mono);font-size:1.14rem;line-height:1.7">Return on Equity · Days Sales Outstanding · Employee Satisfaction · Training hours per year · Net Promoter Score · Customer Retention Rate · Warranty Rate</p></div>
       <div class="card" style="border-left:3px solid var(--ochre)"><p class="ck">Cyberbezogene Risikoindikatoren</p><h3>Neu</h3>
-        <p class="m" style="font-family:var(--mono);font-size:.8rem;line-height:1.7">Expected Annual Loss · Cyber Resilience Index · Cyber-Value at Risk · Meantime to detect · Meantime to respond · CLI · Phishing click through rate · Service Downtime per Customer · Patch Compliance Rate</p></div>
+        <p class="m" style="font-family:var(--mono);font-size:1.14rem;line-height:1.7">Expected Annual Loss · Cyber Resilience Index · Cyber-Value at Risk · Meantime to detect · Meantime to respond · CLI · Phishing click through rate · Service Downtime per Customer · Patch Compliance Rate</p></div>
     </div>
     <div class="readme warn" style="margin-top:14px">
       <b>Die Aussage der gestrichelten Linien.</b> Sie verbinden die Cyber-Resilience-Kennzahlen mit den übrigen Perspektiven. Ein Cyberrisiko ist damit ein Finanz-, Markt- und Prozessthema — mit entsprechend verteilter Verantwortung bis ins C-Level. In der IT-Abteilung allein lässt es sich nicht halten.
@@ -1690,7 +1691,7 @@ $("nMass").innerHTML = MASS.map(m =>
      <input type="checkbox" data-m="${m.id}">
      <span><span class="mt">${m.id} · ${m.name}<span class="tag ${m.typ === "praeventiv" ? "pre" : "kor"}">${m.typ === "praeventiv" ? "präventiv" : "korrektiv"}</span></span>
        <span class="mm">${m.dW ? "W " + m.dW : ""}${m.dW && m.dS ? " · " : ""}${m.dS ? "S " + m.dS : ""} · ${m.aufwand} T€</span>
-       <span class="mm" style="font-family:var(--sans);font-size:.82rem;color:#3d3d40;margin-top:6px;display:block">${m.wirk}</span></span>
+       <span class="mm" style="font-family:var(--sans);font-size:1.16rem;color:#3d3d40;margin-top:6px;display:block">${m.wirk}</span></span>
    </label>`).join("");
 
 function nettoPfad(){
@@ -1757,7 +1758,7 @@ $("anBody").innerHTML = anRows.map((r, i) =>
   `<tr${i === 0 ? ' style="background:var(--teal-xl)"' : ""}>
      <td class="m" style="font-weight:700;color:var(--teal-dk)">${r.id}</td>
      <td class="crit">${r.name}</td>
-     <td><span class="tag ${r.typ === "praeventiv" ? "pre" : "kor"}" style="display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;border-radius:4px;padding:3px 7px;background:${r.typ === "praeventiv" ? "#E6F1E5" : "var(--orange-xl)"};color:${r.typ === "praeventiv" ? "#2E7D4F" : "#A85B00"}">${r.typ === "praeventiv" ? "präventiv" : "korrektiv"}</span></td>
+     <td><span class="tag ${r.typ === "praeventiv" ? "pre" : "kor"}" style="display:inline-block;font-family:var(--mono);font-size:.94rem;letter-spacing:.09em;text-transform:uppercase;font-weight:600;border-radius:4px;padding:3px 7px;background:${r.typ === "praeventiv" ? "#E6F1E5" : "var(--orange-xl)"};color:${r.typ === "praeventiv" ? "#2E7D4F" : "#A85B00"}">${r.typ === "praeventiv" ? "präventiv" : "korrektiv"}</span></td>
      <td class="n">${clamp(R1.brutto.w + r.dW)} × ${clamp(R1.brutto.s + r.dS)} = ${r.rfAllein}</td>
      <td class="n">${r.nutzen}</td><td class="n">${r.aufwand}</td>
      <td class="n" style="font-weight:700">${nf1(r.quot)}</td>
@@ -1921,15 +1922,15 @@ function drawBcr(){
 
   BCR_COLS.forEach(c => {
     const g = el(svg,"g",{class:"step" + on(c.stufe)});
-    el(g,"text",{class:"hd", x:c.x + c.w/2, y:62, style:"fill:var(--grey);font-size:9px"}, c.h);
+    el(g,"text",{class:"hd", x:c.x + c.w/2, y:62, style:"fill:var(--grey);font-size:15px"}, c.h);
   });
 
   if(bcrStep >= 3)
-    el(svg,"text",{class:"ct", x:BCR_L, y:yEnd+24, style:"fill:var(--grey);font-size:9.5px"},
+    el(svg,"text",{class:"ct", x:BCR_L, y:yEnd+24, style:"fill:var(--grey);font-size:15.25px"},
        "Beurteilungsskala: nicht signifikant · gering · mittel · erhöht · bedrohlich    ·    Ausmaß: < 10 % · 10–25 % · 25–50 % · > 50 %");
   if(bcrStep >= 4)
     el(svg,"text",{class:"ct", x:BCR_L, y:yEnd+44,
-                   style:"fill:var(--ochre);font-size:10px;font-weight:600"},
+                   style:"fill:var(--ochre);font-size:15.5px;font-weight:600"},
        "Jede Zeile ist eine Einheit: dasselbe strategische Ziel, einmal von der Chancenseite und einmal von der Risikoseite gelesen.");
 }
 const BCR_NOTES = [

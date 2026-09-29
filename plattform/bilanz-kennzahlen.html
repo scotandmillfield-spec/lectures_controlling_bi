@@ -211,7 +211,8 @@ svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .zonekey i{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.08)}
 .zonekey i.g{background:#E6F1E5} .zonekey i.y{background:#FBF2D9} .zonekey i.r{background:#FBE4DC}
 
-.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:10px;margin:0 0 14px}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:0 0 14px}
+.fig .fk,.fig .fn{hyphens:auto;overflow-wrap:anywhere}
 .figs>*{min-width:0}
 .fig{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 15px}
 .fig .fk{font-family:var(--mono);font-size:15px;letter-spacing:.11em;text-transform:uppercase;
@@ -225,7 +226,7 @@ svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 /* ---------- Regler ---------- */
 .rgrid{display:grid;gap:12px}
 .rrow{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:13px 16px}
-.rrow .rl{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin:0 0 8px}
+.rrow .rl{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;align-items:baseline;margin:0 0 8px}
 .rrow .rn{font-size:1.2rem;font-weight:600}
 .rrow .rv{font-family:var(--mono);font-size:1.16rem;color:var(--teal-dk);font-weight:600;
   text-align:right;flex:none}
@@ -360,7 +361,7 @@ svg.bcr text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .wsduo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .wsduo>*{min-width:0}
 .wsax{background:var(--canvas);border-radius:9px;padding:13px 15px}
-.wsax .axh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin:0 0 8px}
+.wsax .axh{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 10px;align-items:baseline;margin:0 0 8px}
 .wsax .axn{font-size:1.16rem;font-weight:700}
 .wsax .axv{font-family:var(--mono);font-size:1.11rem;font-weight:600;color:var(--teal-dk);text-align:right}
 .wsax input[type=range]{width:100%;accent-color:var(--teal-dk);display:block;margin:0 0 4px}
@@ -624,7 +625,7 @@ footer a{color:var(--teal-dk)}
   padding:11px 14px;box-shadow:var(--shadow)}
 .zuz>*{min-width:0}
 .zuz .zt{font-size:1.21rem;color:var(--ink);line-height:1.4}
-.zuz .zb{display:flex;gap:6px;flex:none}
+.zuz .zb{display:flex;gap:6px;flex:none;flex-wrap:wrap}
 .zub{appearance:none;font:inherit;font-size:1.16rem;font-weight:600;cursor:pointer;
   border:1px solid var(--grey-xl);background:var(--paper);color:var(--grey);
   border-radius:7px;padding:6px 12px;transition:.14s}
@@ -711,7 +712,7 @@ footer a{color:var(--teal-dk)}
   <p class="eyebrow">Bilanzanalyse · Modul 03</p>
   <h1>Jahresabschlussanalyse mit <em>Kennzahlen</em></h1>
   <p class="lede">Bilanz und Gewinn- und Verlustrechnung liegen vor. Jetzt wird gerechnet: Vermögens- und Kapitalstruktur, Liquidität, Rentabilität. Am Ende steht ein Auswertungsblatt, das die Dateien aus den ersten beiden Modulen einliest und zwei Jahre nebeneinander stellt, denn eine einzelne Kennzahl ist ohne Vergleichsmaßstab kaum auswertbar.</p>
-  <p class="lede" style="font-size:.95rem;color:var(--grey);margin-top:14px">Durchgehend <b>HGB</b>. Die Beispielzahlen sind dieselben wie in den Vormodulen, in vollen Tausend Euro.</p>
+  <p class="lede" style="font-size:1.22rem;color:var(--grey);margin-top:14px">Durchgehend <b>HGB</b>. Die Beispielzahlen sind dieselben wie in den Vormodulen, in vollen Tausend Euro.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Jahresabschlussanalyse mit Kennzahlen">
@@ -818,13 +819,13 @@ footer a{color:var(--teal-dk)}
   <div class="duo">
     <div class="card" style="border-left:3px solid var(--teal-dk)">
       <p class="ck">Die strenge Regel</p><h3>Anlagendeckung I</h3>
-      <p class="m" style="font-family:var(--mono);font-size:.82rem;color:var(--teal-dk)">Eigenkapital ÷ Anlagevermögen</p>
+      <p class="m" style="font-family:var(--mono);font-size:1.16rem;color:var(--teal-dk)">Eigenkapital ÷ Anlagevermögen</p>
       <p>Die goldene Bilanzregel im engen Sinn: Das Anlagevermögen soll vollständig aus Eigenkapital finanziert sein, also ein Wert von mindestens 100 %.</p>
       <p>In der Praxis erreichen das wenige Industrieunternehmen. Das Beispiel kommt auf <b>83,3 %</b>. Das ist kein Alarm, es verlangt aber einen Blick auf den zweiten Deckungsgrad.</p>
     </div>
     <div class="card" style="border-left:3px solid var(--ochre)">
       <p class="ck">Die brauchbare Regel</p><h3>Anlagendeckung II</h3>
-      <p class="m" style="font-family:var(--mono);font-size:.82rem;color:var(--ochre)">(Eigenkapital + langfristiges Fremdkapital) ÷ Anlagevermögen</p>
+      <p class="m" style="font-family:var(--mono);font-size:1.16rem;color:var(--ochre)">(Eigenkapital + langfristiges Fremdkapital) ÷ Anlagevermögen</p>
       <p>Die goldene Bilanzregel im weiten Sinn. Ein langfristiges Darlehen finanziert eine Maschine genauso zuverlässig wie Eigenkapital, solange seine Laufzeit die Nutzungsdauer abdeckt.</p>
       <p>Unter 100 % wird Langfristiges kurzfristig finanziert. Dann hängt das Unternehmen an der Verlängerung seiner Kredite — der Weg, auf dem ein gewinnbringendes Haus zahlungsunfähig wird.</p>
     </div>
@@ -854,9 +855,9 @@ footer a{color:var(--teal-dk)}
   <table class="tbl">
     <thead><tr><th>Grad</th><th>Zähler</th><th>Anhaltswert</th><th>Was er wirklich prüft</th></tr></thead>
     <tbody>
-      <tr><td class="crit">Erster Grad<br><span class="m" style="font-size:.76rem;color:var(--grey)">cash ratio</span></td><td class="m">Kasse und Bankguthaben</td><td class="m">10 – 30 %</td><td>Ob morgen gezahlt werden kann. Ein hoher Wert ist keine Auszeichnung: Geld auf dem Konto verdient nichts.</td></tr>
-      <tr><td class="crit">Zweiter Grad<br><span class="m" style="font-size:.76rem;color:var(--grey)">quick ratio</span></td><td class="m">+ Forderungen und Wertpapiere</td><td class="m">um 100 %</td><td>Ob die kurzfristigen Schulden aus dem gedeckt sind, was ohne Verkauf von Ware hereinkommt. Der aussagekräftigste der drei.</td></tr>
-      <tr><td class="crit">Dritter Grad<br><span class="m" style="font-size:.76rem;color:var(--grey)">current ratio</span></td><td class="m">+ Vorräte, also das ganze Umlaufvermögen</td><td class="m">150 – 200 %</td><td>Ob das gesamte kurzfristige Vermögen die kurzfristigen Schulden übersteigt. Weit von der Zahlungsfähigkeit entfernt.</td></tr>
+      <tr><td class="crit">Erster Grad<br><span class="m" style="font-size:1.08rem;color:var(--grey)">cash ratio</span></td><td class="m">Kasse und Bankguthaben</td><td class="m">10 – 30 %</td><td>Ob morgen gezahlt werden kann. Ein hoher Wert ist keine Auszeichnung: Geld auf dem Konto verdient nichts.</td></tr>
+      <tr><td class="crit">Zweiter Grad<br><span class="m" style="font-size:1.08rem;color:var(--grey)">quick ratio</span></td><td class="m">+ Forderungen und Wertpapiere</td><td class="m">um 100 %</td><td>Ob die kurzfristigen Schulden aus dem gedeckt sind, was ohne Verkauf von Ware hereinkommt. Der aussagekräftigste der drei.</td></tr>
+      <tr><td class="crit">Dritter Grad<br><span class="m" style="font-size:1.08rem;color:var(--grey)">current ratio</span></td><td class="m">+ Vorräte, also das ganze Umlaufvermögen</td><td class="m">150 – 200 %</td><td>Ob das gesamte kurzfristige Vermögen die kurzfristigen Schulden übersteigt. Weit von der Zahlungsfähigkeit entfernt.</td></tr>
     </tbody>
   </table>
   </div>
@@ -940,7 +941,7 @@ footer a{color:var(--teal-dk)}
   <div class="merk">
     <h3>Return on Investment = Umsatzrentabilität × Kapitalumschlag</h3>
     <dl>
-      <dt>Die Zerlegung</dt><dd><span class="m" style="font-family:var(--mono);font-size:.82rem">Ergebnis ÷ Kapital = (Ergebnis ÷ Umsatz) × (Umsatz ÷ Kapital)</span> — der Umsatz kürzt sich weg, und übrig bleiben zwei Fragen statt einer.</dd>
+      <dt>Die Zerlegung</dt><dd><span class="m" style="font-family:var(--mono);font-size:1.16rem">Ergebnis ÷ Kapital = (Ergebnis ÷ Umsatz) × (Umsatz ÷ Kapital)</span> — der Umsatz kürzt sich weg, und übrig bleiben zwei Fragen statt einer.</dd>
       <dt>Erste Ursache: die Marge</dt><dd>Wie viel bleibt je Euro Umsatz übrig? Daran arbeiten Einkauf, Fertigung und Preisgestaltung.</dd>
       <dt>Zweite Ursache: der Umschlag</dt><dd>Wie oft wird das eingesetzte Kapital im Jahr umgesetzt? Daran arbeiten Lagerhaltung, Forderungsmanagement und die Frage, ob eine Maschine gekauft oder gemietet wird.</dd>
       <dt>Warum das etwas ändert</dt><dd>Zwei Unternehmen mit demselben Return on Investment können völlig verschieden aufgestellt sein. Der Discounter erreicht ihn über den Umschlag, der Spezialmaschinenbauer über die Marge. Eine Maßnahme, die beim einen wirkt, ist beim anderen wirkungslos.</dd>
