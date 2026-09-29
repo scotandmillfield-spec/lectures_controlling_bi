@@ -1109,7 +1109,7 @@ const esc = s => String(s == null ? "" : s)
    geht es um die Wirkung eines Satzes und nicht um Vollstaendigkeit.
 
    Jedes Konto kennt seine Art und den Posten der Bilanz, unter dem es
-   erscheint. Die Art entscheidet ueber alles Weitere:
+   erscheint. Die Art entscheidet, welche Seite zunimmt und welche abnimmt:
      "aktiv"   nimmt im Soll zu
      "passiv"  nimmt im Haben zu
      "aufwand" nimmt im Soll zu und mindert das Eigenkapital
@@ -1801,7 +1801,7 @@ function qRender(){
   $("qResult").innerHTML = fertig < QZAHL ? "" :
     `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
       treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen, da der Vorrat " + FRAGEN.length + " hat." :
-      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben; sie sind der eigentliche Lernstoff." :
+      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben, da sie erklären, warum die gewählte Antwort nicht zutrifft." :
       "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind die Seite, auf der ein Konto zunimmt, und die Frage, ob ein Zahlungsvorgang schon ein Aufwand ist."}</div>`;  /* sprache:ok, das Komma schliesst den Relativsatz davor */
 }
 $("quiz").addEventListener("click", e => {

@@ -1555,7 +1555,7 @@ function qRender(){
   $("qResult").innerHTML = fertig < QZAHL ? "" :
     `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
       treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen, da der Vorrat " + FRAGEN.length + " hat." :
-      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben; sie sind der eigentliche Lernstoff." :
+      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben, da sie erklären, warum die gewählte Antwort nicht zutrifft." :
       "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind das Produkt im Risikofaktor, die Richtung, in die eine Maßnahme den Punkt bewegt, und der Unterschied zwischen Brutto und Netto."}</div>`;  /* sprache:ok, das Komma schliesst den Relativsatz davor */
 }
 $("quiz").addEventListener("click", e => {

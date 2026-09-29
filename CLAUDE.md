@@ -344,6 +344,8 @@ es gibt keine zweite Liste, die auseinanderlaufen könnte.
 | `ERGÄNZUNG` | hart | Herkunftsetikett am Inhalt. | Eine Überschrift, die den Inhalt benennt |
 | `Lerneinheit` | hart | Kein Begriff dieser Plattform. | „Modul“ oder „Lektion“, je nach Ebene |
 | `\bKapitel\b` | prüfen | Kein Begriff dieser Plattform. | „Lektion“ oder „Abschnitt“ |
+| `\b(der|die|das) eigentlich` | prüfen | Behauptet Wichtigkeit an der Stelle, an der die Aussage stehen müsste (siehe „Das Anhängsel überlebt seine Verkleidung“). Als Adverb mitten im Satz („was die Zahl eigentlich zählt“) ist das Wort richtig. | Die Sache hinschreiben: „da sie erklären, warum die Antwort nicht zutrifft“ statt „der eigentliche Lernstoff“. |
+| `[Gg]enau darin liegt|\balles Weitere\b` | hart | Dieselbe Sorte. Beide nennen nicht, worin es liegt oder was alles folgt. | Den Inhalt nennen: „Daraus folgt, dass die Summe aller Sollbuchungen …“ |
 | `—` | hart | Der Gedankenstrich kommt nicht vor, weder als Einschub mitten im Satz noch als Anhängsel am Ende. | Ein Komma, ein Punkt oder eine Klammer, je nachdem was der Nachtrag sagt. |
 | `, und\b` | prüfen | Zwei Hauptsätze werden nicht mit „, und“ aneinandergehängt. Schließt das Komma allerdings einen eingeschobenen Nebensatz und folgt danach ein zweites Prädikat desselben Subjekts, ist es richtig. | Zwei Sätze, deren zweiter mit einem anknüpfenden Adverb beginnt, oder den zweiten Hauptsatz unterordnen. |
 | `\b([Tt]rage|[Tt]rägst|[Tt]rägt|[Tt]ragen|[Tt]ragt|[Tt]rug|[Tt]rugen|[Tt]rüge|[Gg]etragen|[Tt]ragend[ers]*)\b` | hart | Das Verb „tragen“ ist eine Verlegenheitslösung: Es klingt nach Aussage und sagt nichts. | Das konkrete Verb: „hält aus“, „gibt her“, „ruht auf“, „steht auf“, „hat“, „reicht“ |

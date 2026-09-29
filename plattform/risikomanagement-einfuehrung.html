@@ -1283,7 +1283,7 @@ function qRender(){
   $("qResult").innerHTML = fertig < QZAHL ? "" :
     `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
       treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen, da der Vorrat " + FRAGEN.length + " hat." :
-      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben; sie sind der eigentliche Lernstoff." :
+      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben, da sie erklären, warum die gewählte Antwort nicht zutrifft." :
       "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind die Grenze zwischen Gefahr und Risiko, die drei Faktoren des Risikopotenzials und der Unterschied zwischen Risiko- und Krisenmanagement."}</div>`;
 }
 $("quiz").addEventListener("click", e => {

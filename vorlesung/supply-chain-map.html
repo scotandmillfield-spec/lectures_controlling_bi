@@ -493,7 +493,7 @@ svg.map text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle;po
   <script>{const l=new URLSearchParams(location.search).get("lang");if(l)document.currentScript.previousElementSibling.href="index.html?lang="+encodeURIComponent(l);}</script>
   <p class="eyebrow">Controlling und Risikomanagement der Supply Chain</p>
   <h1>Die Supply Chain Map, <em>bevor bewertet wird</em></h1>
-  <p class="lede">Bevor ein Partner der Kette bewertet werden kann, muss feststehen, wer überhaupt zur Kette gehört und wie die Partner miteinander verbunden sind. Diese Aufgabe übernimmt die Supply Chain Map, die im Supply Chain Controlling vor dem Beanspruchungs- und Belastbarkeitsportfolio steht. Das Modul zeigt, wie eine solche Karte Ebene für Ebene entsteht, warum ihr Aggregationsniveau die eigentliche Schwierigkeit ist und wie sich an ihr gemeinsame Abhängigkeiten finden lassen, die in keiner Lieferantenliste auffallen.</p>
+  <p class="lede">Bevor ein Partner der Kette bewertet werden kann, muss feststehen, wer überhaupt zur Kette gehört und wie die Partner miteinander verbunden sind. Diese Aufgabe übernimmt die Supply Chain Map, die im Supply Chain Controlling vor dem Beanspruchungs- und Belastbarkeitsportfolio steht. Das Modul zeigt, wie eine solche Karte Ebene für Ebene entsteht, warum ihr Aggregationsniveau am schwersten festzulegen ist und wie sich an ihr gemeinsame Abhängigkeiten finden lassen, die in keiner Lieferantenliste auffallen.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Die Supply Chain Map">
@@ -931,7 +931,7 @@ function zeigeAusfall(){
   const loesung = [];
   if(gefunden.has("S2")) loesung.push(`<p><b>Auf Ebene 2 ist es der Oberflächenveredler.</b> Er beliefert die Präzisionsdreherei Nord und die Elektronikmodule Ost. Fällt er aus, sind zwei der vier Lieferanten der Ebene 1 zugleich betroffen, obwohl sie auf Ebene 1 nichts miteinander zu tun haben. Jeder andere Vorlieferant der Ebene 2 trifft nur einen Lieferanten.</p>`);
   if(gefunden.has("R1")) loesung.push(`<p><b>Auf Ebene 3 trifft der Markt für Stahl und Erz ebenfalls zwei Lieferanten.</b> Er beliefert das Halbzeugwerk und den Werkzeugbau und trifft damit die Präzisionsdreherei Nord und die Kunststofftechnik Süd. Auf dieser Ebene ist eine gemeinsame Abhängigkeit weniger überraschend, da ganze Branchen am selben Rohstoffmarkt hängen. Sie lässt sich zudem kaum vermeiden, sodass hier eher die Beobachtung des Markts hilft als ein Wechsel des Lieferanten.</p>`);
-  if(gefunden.has("R1") && !gefunden.has("S2")) loesung.unshift(`<p>Auf Ebene 2 fehlt noch der Vorlieferant, dessen Ausfall zwei Lieferanten zugleich trifft. Er ist die eigentliche Antwort auf die Aufgabe.</p>`);
+  if(gefunden.has("R1") && !gefunden.has("S2")) loesung.unshift(`<p>Auf Ebene 2 fehlt noch der Vorlieferant, dessen Ausfall zwei Lieferanten zugleich trifft. Er ist die gesuchte Antwort auf die Aufgabe.</p>`);
   else if(gefunden.has("S2") && !gefunden.has("R1")) loesung.push(`<p>Auf Ebene 3 gibt es einen zweiten Knoten, dessen Ausfall ebenfalls zwei Lieferanten der Ebene 1 trifft. Findest Du ihn?</p>`);
   $("aLoesung").innerHTML = loesung.length ? `<p class="dk">Auflösung</p>` + loesung.join("")
     : `<p class="dk">Noch nicht gefunden</p><p>Klicke nacheinander die Vorlieferanten der Ebene 2 an und vergleiche im Protokoll, wie viele Lieferanten der Ebene 1 jeweils betroffen sind.</p>`;

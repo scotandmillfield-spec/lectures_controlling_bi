@@ -1545,7 +1545,7 @@ const CHECK7 = [
    "Eine einzelne Bilanz ist wenig aussagekräftig. Erst die Veränderung zeigt etwas: Vorräte plus vierzig Prozent bei gleichem Umsatz ist eine Frage, keine Zahl. § 265 Abs. 2 HGB verlangt die Vorjahresspalte ohnehin.",
    "Es wird nur das aktuelle Jahr angesehen, weil es das aktuelle ist. Der interessanteste Teil der Information liegt in der Differenz."],
   ["Rechne die drei Kennzahlen aus Lektion 04 für beide Jahre",
-   "Eigenkapitalquote, Anlagendeckung, Verschuldungsgrad. Drei Zahlen, zweimal. Die Richtung der Veränderung ist die eigentliche Aussage.",
+   "Eigenkapitalquote, Anlagendeckung, Verschuldungsgrad. Drei Zahlen, zweimal. Die Richtung der Veränderung sagt mehr als der Wert eines einzelnen Jahres.",
    "Es werden fünfzehn Kennzahlen gerechnet, weil eine Liste im Umlauf ist. Niemand kann danach sagen, welche davon eine Entscheidung geändert hätte."],
   ["Schreib drei Fragen auf, die Du dem Finanzchef stellen würdest",
    "Damit endet die Zahlenarbeit und beginnt das Controlling. Gute Fragen klingen wie: „Warum sind die Rückstellungen gestiegen, obwohl kein Prozess läuft?“",
@@ -1704,7 +1704,7 @@ function qRender(){
   $("qResult").innerHTML = fertig < QZAHL ? "" :
     `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
       treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen, da der Vorrat " + FRAGEN.length + " hat." :
-      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben; sie sind der eigentliche Lernstoff." :
+      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben, da sie erklären, warum die gewählte Antwort nicht zutrifft." :
       "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind die Grenze zwischen Anlage- und Umlaufvermögen, der Unterschied zwischen Rückstellung und Verbindlichkeit und das Saldierungsverbot."}</div>`;
 }
 $("quiz").addEventListener("click", e => {
