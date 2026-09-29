@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supply Chain Map · Ebenen, Aggregation und Abhängigkeiten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2; --canvas:#F4F3F0;
+  --green:#2E9E6B; --red:#D9534F;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:1.25rem;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:1rem;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.1rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:20ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:1.32rem;font-weight:300;color:#3d3d40;line-height:1.55;margin:0}
+
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:1.22rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:1.03rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+
+.claim{font-size:clamp(1.5rem,2.35vw,1.72rem);font-weight:300;line-height:1.42;margin:0 0 26px;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--teal-dk)}
+h2.sec{font-size:1.5rem;font-weight:600;letter-spacing:-.014em;margin:34px 0 4px}
+h2.sec:first-child{margin-top:0}
+p.sub{margin:0 0 18px;color:var(--grey);font-size:1.28rem;line-height:1.6}
+.hint{font-family:var(--mono);font-size:.97rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:14px 0 0}
+
+/* ---------- Schaltflaechen ---------- */
+.bar{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;justify-content:space-between;margin:0 0 16px}
+.seg{display:inline-flex;border:1px solid var(--grey-xl);background:var(--paper);border-radius:var(--r);padding:4px;gap:4px;flex-wrap:wrap}
+.seg button{appearance:none;border:0;background:transparent;cursor:pointer;font-family:var(--sans);
+  font-size:1.19rem;font-weight:600;color:var(--grey);padding:9px 16px;border-radius:7px;transition:.16s}
+.seg button:hover{color:var(--teal-dk)}
+.seg button[aria-pressed="true"]{background:var(--teal-dk);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:1.17rem;color:#4a4a4d}
+.key{display:inline-flex;align-items:center;gap:8px}
+.sw{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.06)}
+.sw.q1{background:#FDE8D3} .sw.q2{background:#E1F0F6}
+.sw.q3{background:#F2EBD8}   .sw.q4{background:#EAEAE8}
+
+.btn{appearance:none;border:1px solid var(--teal-dk);background:transparent;color:var(--teal-dk);
+  font-family:var(--sans);font-size:1.19rem;font-weight:600;cursor:pointer;
+  padding:10px 16px;border-radius:8px;transition:.16s}
+.btn:hover{background:var(--teal-dk);color:#fff}
+.btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+/* ---------- Karten ---------- */
+.card{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px}
+.card .ck{font-family:var(--mono);font-size:.95rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 4px}
+.card h3{margin:0 0 8px;font-size:1.28rem;font-weight:700;letter-spacing:-.015em}
+.card p{margin:0 0 10px;font-size:1.2rem;color:#3d3d40;line-height:1.52}
+.card p:last-child{margin-bottom:0}
+.card ul{margin:10px 0 0;padding-left:18px;font-size:1.19rem;color:#3d3d40;line-height:1.5}
+.card li{margin-bottom:5px}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.duo>*{min-width:0}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
+.trio>*{min-width:0}
+.quad{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:stretch}
+.quad>*{min-width:0}
+
+/* ---------- Aufdeckkarten: Wortherkunft, Aufgaben, Denkfehler ---------- */
+.flipgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.flipgrid>*{min-width:0}
+.flip{appearance:none;text-align:left;width:100%;cursor:pointer;font-family:var(--sans);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px 16px 14px;transition:.2s var(--ease);color:var(--ink)}
+.flip:hover{border-color:var(--teal);transform:translateY(-2px)}
+.flip:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.flip .lang{font-family:var(--mono);font-size:.94rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+.flip .word{font-family:var(--mono);font-size:1.26rem;font-weight:600;color:var(--teal-dk);margin:5px 0 0}
+.flip .mean{font-size:1.19rem;color:#3d3d40;margin:9px 0 0;line-height:1.45}
+.flip[aria-expanded="false"] .mean{display:none}
+.flip[aria-expanded="false"]::after{content:"umdrehen";display:block;margin-top:9px;
+  font-family:var(--mono);font-size:.94rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal)}
+.flip[aria-expanded="true"]{border-color:var(--teal);background:var(--teal-xl)}
+
+.deck{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.deck>*{min-width:0}
+.task{appearance:none;text-align:left;width:100%;cursor:pointer;font-family:var(--sans);color:var(--ink);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px;transition:.2s var(--ease);display:flex;flex-direction:column;gap:7px}
+.task:hover{border-color:var(--ochre);transform:translateY(-2px)}
+.task:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.task .no{font-family:var(--mono);font-size:1.03rem;font-weight:600;color:var(--ochre);letter-spacing:.08em}
+.task .hd{font-size:1.22rem;font-weight:600;line-height:1.34}
+.task .bd{font-size:1.18rem;color:#3d3d40;line-height:1.5}
+.task[aria-expanded="false"] .bd{display:none}
+.task[aria-expanded="true"]{border-color:var(--ochre);background:var(--ochre-xl)}
+.counter{font-family:var(--mono);font-size:.97rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:12px 0 0}
+
+.acc{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.acc button{appearance:none;width:100%;text-align:left;cursor:pointer;font-family:var(--sans);
+  background:transparent;border:0;border-bottom:1px solid var(--grey-xl);padding:15px 18px;
+  font-size:1.22rem;font-weight:600;color:var(--ink);display:flex;gap:12px;align-items:flex-start;transition:background .16s}
+.acc button:hover{background:var(--sand-xl)}
+.acc button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.acc button .mk{font-family:var(--mono);color:var(--red);flex:none;font-size:1.2rem;line-height:1.5}
+.acc .ans{padding:0 18px 16px 42px;font-size:1.2rem;color:#3d3d40;line-height:1.55;
+  border-bottom:1px solid var(--grey-xl);background:var(--sand-xl)}
+.acc .ans[hidden]{display:none}
+.acc .ans b{color:var(--green)}
+.acc>*:last-child{border-bottom:0}
+
+/* ---------- Tabellen ---------- */
+.tscroll{overflow-x:auto;border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper)}
+table.tbl{width:100%;min-width:560px;border-collapse:collapse;font-size:1.18rem}
+table.tbl th{background:#F7F7F5;text-align:left;padding:9px 12px;font-family:var(--mono);
+  font-size:.94rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid);white-space:nowrap}
+table.tbl td{padding:9px 12px;border-bottom:1px solid var(--grey-xl);vertical-align:top;line-height:1.45}
+table.tbl tr:last-child td{border-bottom:0}
+table.tbl td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.tbl td.m{font-family:var(--mono);font-size:1.14rem}
+table.tbl td.crit{font-weight:600}
+table.tbl tr.dim td{color:var(--grey-mid);transition:color .3s var(--ease)}
+table.tbl tr.hi td{background:var(--teal-xl)}
+table.tbl tbody tr:hover td{background:var(--sand-xl)}
+.fmark{display:inline-block;width:22px;height:22px;line-height:20px;text-align:center;
+  border-radius:5px;font-family:var(--mono);font-size:1.08rem;font-weight:600;border:1px solid rgba(0,0,0,.08)}
+.fmark.f1{background:var(--orange-xl);color:#A85B00}
+.fmark.f2{background:var(--teal-xl);color:var(--teal-dk)}
+.fmark.f3{background:var(--sand-xl);color:#8A6417}
+.fmark.f4{background:var(--grey-xl);color:#5a5a5c}
+
+/* ---------- Regelkreis ---------- */
+.stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:14px 10px 6px;overflow-x:auto}
+svg.loop{width:100%;min-width:600px;height:auto;display:block}
+svg.loop text{font-family:var(--sans);fill:var(--ink);pointer-events:none;dominant-baseline:middle}
+.loop .nbox{fill:var(--paper);stroke:var(--grey-mid);stroke-width:1.4}
+.loop .nk{font-family:var(--mono);font-size:15px;letter-spacing:.1em;fill:var(--grey);text-transform:uppercase}
+.loop .nt{font-size:19px;font-weight:600}
+.loop .nv{font-family:var(--mono);font-size:18.5px;fill:var(--teal-dk);font-variant-numeric:tabular-nums}
+.loop .arw{fill:none;stroke:var(--grey-mid);stroke-width:2.2;transition:stroke .3s var(--ease)}
+.loop .arw.on{stroke:var(--orange);stroke-width:3.2}
+.loop .arw.ok{stroke:var(--green);stroke-width:3.2}
+.loop .ctr{font-size:19.42px;font-weight:600;text-anchor:middle}
+.loop .ctrs{font-size:17px;text-anchor:middle;fill:var(--grey)}
+
+.slider{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 16px;
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:14px 18px}
+.slider>*{min-width:0}
+.slider label{font-size:1.2rem;font-weight:600;flex:none}
+.slider input[type=range]{flex:1;min-width:180px;accent-color:var(--teal-dk)}
+.slider .out{font-family:var(--mono);font-size:1.27rem;font-weight:600;font-variant-numeric:tabular-nums;
+  color:var(--teal-dk);flex:none;min-width:5.5ch;text-align:right}
+.slider .soll{font-family:var(--mono);font-size:1.11rem;color:var(--grey);flex:none}
+
+/* ---------- Portfolio ---------- */
+.pfwrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;align-items:start}
+.pfwrap>*{min-width:0}
+.pfstage:focus-visible,.stage:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.pfstage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:12px 10px 4px;overflow-x:auto}
+svg.pf{width:100%;min-width:420px;height:auto;display:block}
+svg.pf text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.pf .qz{stroke:#fff;stroke-width:2}
+.pf .qn{font-family:var(--mono);font-size:16px;font-weight:600;letter-spacing:.06em;opacity:.75}
+.pf .ql{font-size:16.5px;font-weight:600;opacity:.85}
+.pf .ax{stroke:var(--grey-mid);stroke-width:1.4}
+.pf .gr{stroke:var(--grey-xl);stroke-width:1}
+.pf .diag{stroke:var(--grey);stroke-width:1.6;stroke-dasharray:7 6;fill:none}
+.pf .tick{font-family:var(--mono);font-size:15.75px;fill:var(--grey);text-anchor:middle}
+.pf .tickY{font-family:var(--mono);font-size:15.75px;fill:var(--grey);text-anchor:end}
+.pf .lgd{font-family:var(--mono);font-size:15.75px;fill:var(--grey);text-anchor:start}
+.pf .atitle{font-family:var(--mono);font-size:15.75px;letter-spacing:.1em;fill:var(--teal-dk);
+  text-transform:uppercase;font-weight:600}
+.pf .pt{cursor:pointer}
+.pf .pt .dot{fill:var(--navy);stroke:#fff;stroke-width:2.5;transition:r .22s var(--ease)}
+.pf .pt .lab{font-size:17.75px;font-weight:700}
+.pf .pt .sub{font-family:var(--mono);font-size:15.5px;fill:var(--grey)}
+.pf .pt:hover .dot,.pf .pt:focus-visible .dot{r:13}
+.pf .pt:focus-visible{outline:none}
+.pf .pt.sel .dot{fill:var(--orange);stroke:var(--orange-xl);stroke-width:4}
+.pf .pt.ghost .dot{fill:var(--grey-mid);opacity:.45}
+.pf .pt.ghost .lab,.pf .pt.ghost .sub{opacity:.45}
+.pf .bub{fill:var(--navy);opacity:.16;stroke:var(--navy);stroke-width:1.4;transition:r .35s var(--ease)}
+.pf .bub.zero{fill:none;stroke:var(--grey);stroke-width:1.6;stroke-dasharray:4 4;opacity:1}
+.pf .live .dot{fill:var(--orange);stroke:#fff;stroke-width:3}
+.pf .gap{stroke:var(--orange);stroke-width:2;stroke-dasharray:4 4}
+
+.detail{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:20px 22px;min-height:260px}
+.detail .dk{font-family:var(--mono);font-size:.98rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--teal-dk);margin:0 0 8px}
+.detail h4{margin:0 0 10px;font-size:1.32rem;font-weight:700;letter-spacing:-.015em}
+.detail p{margin:0 0 11px;font-size:1.27rem;color:#3d3d40;line-height:1.6}
+.detail p:last-child{margin-bottom:0}
+.detail .warn{color:#B25E00;font-weight:600}
+.detail code,code.f{font-family:var(--mono);font-size:1.16rem;background:var(--canvas);
+  border-radius:5px;padding:3px 7px;display:inline-block;font-variant-numeric:tabular-nums}
+.detail .calc{font-family:var(--mono);font-size:1.14rem;background:var(--canvas);border-radius:7px;
+  padding:11px 13px;line-height:1.75;color:#3d3d40;white-space:pre-wrap;
+  font-variant-numeric:tabular-nums;overflow-x:auto}
+.detail .verd{font-weight:700;font-size:1.22rem}
+
+/* ---------- Selbstbewertung ---------- */
+.crit{display:grid;grid-template-columns:1fr 130px 62px;gap:10px 12px;align-items:center;
+  padding:9px 0;border-bottom:1px solid var(--grey-xl)}
+.crit>*{min-width:0}
+.crit:last-of-type{border-bottom:0}
+.crit .cl{font-size:1.18rem;line-height:1.35}
+.crit .cl i{font-family:var(--mono);font-style:normal;color:var(--grey);font-size:1.11rem;margin-right:6px}
+.crit input[type=range]{width:100%;accent-color:var(--teal-dk)}
+.crit .cv{font-family:var(--mono);font-size:1.14rem;color:var(--grey);text-align:right;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.crit select{font-family:var(--mono);font-size:1.14rem;padding:5px 6px;border-radius:6px;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--ink);width:100%}
+.crit select:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
+.chead{display:grid;grid-template-columns:1fr 130px 62px;gap:12px;font-family:var(--mono);
+  font-size:.94rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);padding-bottom:6px;
+  border-bottom:1px solid var(--grey-mid)}
+.chead>*{min-width:0}
+.chead span:nth-child(2),.chead span:nth-child(3){text-align:right}
+
+/* ---------- Skalen-Check ---------- */
+.qz{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px}
+.qz .qq{font-size:1.22rem;font-weight:600;margin:0 0 12px;line-height:1.4}
+.qz .opts{display:flex;gap:9px;flex-wrap:wrap}
+.qz .opt{appearance:none;cursor:pointer;font-family:var(--sans);font-size:1.19rem;font-weight:600;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--grey);
+  padding:9px 15px;border-radius:8px;transition:.16s}
+.qz .opt:hover{border-color:var(--teal);color:var(--teal-dk)}
+.qz .opt:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.qz .opt.right{background:#E8F5EE;border-color:var(--green);color:#1E6B47}
+.qz .opt.wrong{background:#FBEAE9;border-color:var(--red);color:#9C2F2C}
+.qz .fb{margin:12px 0 0;font-size:1.19rem;color:#3d3d40;line-height:1.5}
+.qz .fb[hidden]{display:none}
+
+/* ---------- BBAP-Rechner ---------- */
+table.calc{width:100%;min-width:720px;border-collapse:collapse;font-size:1.18rem}
+table.calc th{background:#F7F7F5;text-align:left;padding:10px 12px;font-family:var(--mono);
+  font-size:.94rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid);white-space:nowrap}
+table.calc th.r{text-align:right}
+table.calc td{padding:10px 12px;border-bottom:1px solid var(--grey-xl);vertical-align:middle}
+table.calc tr:last-child td{border-bottom:0}
+table.calc td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.calc input{font-family:var(--mono);font-size:1.17rem;width:74px;text-align:right;
+  border:1px solid var(--grey-xl);border-radius:6px;padding:6px 8px;background:var(--paper);color:var(--ink);
+  font-variant-numeric:tabular-nums}
+table.calc input:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
+table.calc td.rank{font-family:var(--mono);font-weight:700;text-align:center;color:var(--teal-dk)}
+table.calc tr.best td{background:var(--teal-xl)}
+table.calc tr.best td.rank{color:var(--orange)}
+
+.chk{display:inline-flex;align-items:center;gap:9px;font-size:1.19rem;font-weight:600;
+  color:#3d3d40;cursor:pointer;background:var(--paper);border:1px solid var(--grey-xl);
+  border-radius:var(--r);padding:10px 15px}
+.chk input{accent-color:var(--teal-dk);width:16px;height:16px}
+.chk:focus-within{border-color:var(--teal)}
+
+/* ---------- Kernaussagen ---------- */
+.says{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.says>*{min-width:0}
+.say{background:var(--paper);border:1px solid var(--grey-xl);border-left:3px solid var(--teal-dk);
+  border-radius:var(--r);box-shadow:var(--shadow);padding:18px 20px}
+.say .sn{font-family:var(--mono);font-size:1.03rem;font-weight:600;color:var(--teal-dk);letter-spacing:.1em}
+.say h3{margin:7px 0 8px;font-size:1.25rem;font-weight:700;line-height:1.3;letter-spacing:-.012em}
+.say p{margin:0;font-size:1.19rem;color:#3d3d40;line-height:1.52}
+
+.readme{margin-top:18px;background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:20px 24px;
+  font-size:1.25rem;line-height:1.55}
+.readme.warn{background:var(--orange)}
+.readme b{font-weight:700}
+.readme code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.2);padding:1px 5px;border-radius:4px}
+.readme a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+blockquote.q{margin:0 0 14px;background:var(--paper);border:1px solid var(--grey-xl);
+  border-left:3px solid var(--teal);border-radius:var(--r);padding:16px 20px;
+  font-size:1.28rem;font-weight:300;line-height:1.62;color:#2c2c2f}
+blockquote.q cite{display:block;margin-top:9px;font-style:normal;font-family:var(--mono);
+  font-size:1.05rem;letter-spacing:.06em;color:var(--grey)}
+
+.pointe{margin-top:34px;background:var(--orange);color:#fff;border-radius:var(--r);padding:26px 28px}
+.pointe .pk{font-family:var(--mono);font-size:.97rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin:0 0 10px}
+.pointe p{margin:0;font-size:clamp(1.4rem,2.1vw,1.62rem);font-weight:300;line-height:1.48}
+.pointe p b{font-weight:700}
+
+footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+.build{font-family:var(--mono);font-size:.92em;letter-spacing:.02em;opacity:.85}
+footer a{color:var(--teal-dk)}
+
+.tip{position:fixed;z-index:60;pointer-events:none;opacity:0;transform:translateY(4px);
+  transition:opacity .14s,transform .14s;background:var(--ink);color:#fff;border-radius:9px;
+  padding:12px 14px;font-size:1.16rem;line-height:1.5;max-width:320px;box-shadow:0 10px 30px -8px rgba(0,0,0,.45)}
+.tip.on{opacity:1;transform:translateY(0)}
+.tip .th{font-family:var(--mono);font-size:.99rem;letter-spacing:.1em;text-transform:uppercase;color:#8FD4E6;margin:0 0 5px}
+.tip p{margin:0}
+.tip .extra{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.18);
+  color:var(--orange);font-weight:600;font-family:var(--mono);font-size:1.08rem}
+
+.scrollhint{display:none}
+@media (max-width:980px){
+  .pfwrap{grid-template-columns:1fr}
+  .flipgrid{grid-template-columns:repeat(2,1fr)}
+  .quad{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:900px){
+  .scrollhint{display:block;color:var(--teal-dk)}
+  .duo,.trio{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px 56px}
+  .flipgrid,.quad{grid-template-columns:1fr}
+  .crit,.chead{grid-template-columns:1fr 92px 56px}
+}
+/* ---------- Auf- und zuklappbare Bloecke innerhalb eines Reiters ------
+   Die Bloecke entstehen zur Laufzeit aus der vorhandenen Gliederung:
+   jedes h2.sec eroeffnet einen Block, alles bis zum naechsten h2.sec
+   ist sein Inhalt. Am Markup ist dafuer nichts zu aendern.          */
+.blk{border-top:1px solid var(--grey-xl)}
+.blk:first-of-type{border-top:0}
+.blk h2.sec{margin:0}
+.blk-t{appearance:none;width:100%;background:transparent;border:0;cursor:pointer;
+  display:flex;align-items:center;gap:12px;text-align:left;padding:20px 0 18px;
+  font:inherit;color:inherit;letter-spacing:inherit;transition:color .16s}
+.blk-t:hover{color:var(--teal-dk)}
+.blk-t:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:4px}
+.blk-c{width:13px;height:13px;flex:none;color:var(--teal-dk);
+  transition:transform .22s var(--ease)}
+.blk[data-open="true"] .blk-c{transform:rotate(90deg)}
+.blk-b{padding:0 0 28px}
+.blk-b[hidden]{display:none}
+
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+.zurueck{display:inline-block;margin:0 0 16px;font-family:var(--mono);font-size:1rem;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--teal-dk);text-decoration:none}
+.zurueck:hover{text-decoration:underline;text-underline-offset:3px}
+.zurueck:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:3px}
+
+/* Erst wenn der Platz wirklich fehlt, behaelt die Zeichnung ihre
+   natuerliche Breite und der Rahmen scrollt. Auf einem breiten Schirm
+   passt sie sich wie zuvor ein. */
+@media (max-width:900px){
+  svg.loop{min-width:660px}
+  svg.pf{min-width:660px}
+}
+.glos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px 22px;font-size:1.18rem}
+.glos>*{min-width:0}
+.glos div{padding:7px 0;border-bottom:1px solid var(--grey-xl);line-height:1.45}
+.glos b{color:var(--teal-dk)}
+
+/* ---------- Werkstatt: Risiken erfassen ---------- */
+.wsbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:0 0 16px}
+.wsbar>*{min-width:0}
+.ck10{display:grid;gap:11px;counter-reset:ck}
+.ckitem{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px 18px 16px 60px;position:relative}
+.ckitem::before{counter-increment:ck;content:counter(ck,decimal-leading-zero);
+  position:absolute;left:18px;top:16px;font-family:var(--mono);font-size:1.25rem;font-weight:700;
+  color:var(--teal-dk)}
+.ckitem h3{margin:0 0 6px;font-size:1.24rem;font-weight:700;letter-spacing:-.01em}
+.ckitem p{margin:0 0 8px;font-size:1.18rem;color:#3d3d40;line-height:1.5}
+.ckitem p:last-child{margin-bottom:0}
+.ckitem .trap{font-size:1.16rem;color:#B25E00;line-height:1.45}
+.ckitem .trap b{font-weight:700}
+
+/* ---------- Quiz ---------- */
+.qwrap{display:grid;gap:14px}
+.qcard{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px 20px}
+.qcard .qn{font-family:var(--mono);font-size:1.03rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 7px}
+.qcard .qt{font-size:1.24rem;font-weight:600;line-height:1.4;margin:0 0 13px}
+.qopts{display:grid;gap:8px}
+.qopt{appearance:none;text-align:left;cursor:pointer;font-family:var(--sans);font-size:1.19rem;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--ink);
+  padding:11px 14px;border-radius:8px;transition:.16s;line-height:1.4}
+.qopt:hover:not(:disabled){border-color:var(--teal);background:var(--teal-xl)}
+.qopt:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.qopt:disabled{cursor:default}
+.qopt.right{background:#E8F5EE;border-color:var(--green);color:#1E6B47;font-weight:600}
+.qopt.wrong{background:#FBEAE9;border-color:var(--red);color:#9C2F2C;font-weight:600}
+.qfb{margin:13px 0 0;font-size:1.18rem;color:#3d3d40;line-height:1.5;
+  padding-top:11px;border-top:1px solid var(--grey-xl)}
+.qfb[hidden]{display:none}
+.qscore{background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:18px 22px;
+  font-size:1.24rem;line-height:1.5}
+.qscore b{font-weight:700}
+
+/* ---------- Supply Chain Map ---------- */
+.ebenen{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin:0 0 14px}
+.ebenen>*{min-width:0}
+.ebenen button{appearance:none;cursor:pointer;text-align:left;font-family:var(--sans);color:var(--ink);
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:12px 13px;
+  display:flex;flex-direction:column;gap:3px;transition:border-color .16s,background .16s}
+.ebenen button:hover{border-color:var(--teal)}
+.ebenen button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.ebenen button[aria-pressed="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.ebenen .en{font-family:var(--mono);font-size:.95rem;letter-spacing:.08em;text-transform:uppercase;opacity:.8}
+.ebenen .ek{font-size:1.14rem;font-weight:600;line-height:1.25}
+.fakten{display:grid;grid-template-columns:max-content 1fr;gap:6px 16px;margin:12px 0 0;font-size:1.18rem}
+.fakten>*{min-width:0}
+.fakten dt{font-family:var(--mono);font-size:.95rem;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);padding-top:3px}
+.fakten dd{margin:0;color:#3d3d40}
+.lage{display:inline-flex;gap:3px;vertical-align:middle}
+.lage i{width:16px;height:9px;border-radius:2px;background:var(--grey-xl)}
+.lage i.an{background:var(--teal-dk)}
+#p-a .detail,#p-b .detail,#p-c .detail{min-height:0;margin:0 0 12px}
+.detail .hinweis{font-size:1.18rem;color:var(--teal-dk)}
+.detail a{color:var(--teal-dk)}
+.steuer{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 14px}
+.steuer>*{min-width:0}
+.steuerfeld .pk{font-family:var(--mono);font-size:.95rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:0 0 6px}
+.mapstage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:8px;overflow-x:auto;margin:0 0 12px}
+.mapstage:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+svg.map{display:block;width:100%;height:auto}
+svg.map text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle;pointer-events:none}
+.map .kopf{font-family:var(--mono);font-size:15px;letter-spacing:.1em;fill:var(--teal-dk);font-weight:600}
+.map .kopf2{font-size:16px;fill:var(--grey)}
+.map .kante{fill:none;stroke:var(--grey-mid);stroke-width:1.6}
+.map .kante.heiss{stroke:var(--red);stroke-width:3}
+.map .knoten{cursor:pointer}
+.map .knoten rect{fill:var(--paper);stroke:var(--grey-mid);stroke-width:1.4;transition:fill .16s,stroke .16s}
+.map .knoten text{font-size:15px}
+.map .knoten text.klein{font-size:13px}
+.map .knoten:hover rect{stroke:var(--teal);fill:var(--teal-xl)}
+.map .knoten:focus{outline:none}
+.map .knoten:focus-visible rect{stroke:var(--orange);stroke-width:3}
+.map .knoten.fokus rect{fill:var(--teal-dk);stroke:var(--teal-dk)}
+.map .knoten.fokus text{fill:#fff;font-weight:600}
+.map .knoten.gewaehlt rect{stroke:var(--orange);stroke-width:3}
+.map .knoten.betroffen rect{fill:#FBEAE9;stroke:var(--red)}
+.map .knoten.aus rect{fill:var(--red);stroke:var(--red)}
+.map .knoten.aus text{fill:#fff;font-weight:600}
+.zahlen{display:flex;gap:10px 22px;flex-wrap:wrap;font-family:var(--mono);font-size:1.02rem;
+  letter-spacing:.04em;color:var(--grey);margin:0 0 12px}
+.zahlen b{color:var(--teal-dk);font-size:1.2rem}
+.readout{display:flex;gap:10px 18px;flex-wrap:wrap;align-items:baseline;background:var(--paper);
+  border:1px solid var(--grey-xl);border-left:3px solid var(--red);border-radius:var(--r);padding:14px 18px;margin:0 0 12px}
+.readout>*{min-width:0}
+.readout .q{flex:1 1 320px;font-size:1.22rem;line-height:1.45}
+.readout .cnt{font-family:var(--mono);font-size:.98rem;color:var(--grey)}
+.readout .val{font-family:var(--mono);font-size:1.5rem;font-weight:600;color:var(--red)}
+.protokoll{display:flex;gap:8px;flex-wrap:wrap}
+.protokoll span{font-family:var(--mono);font-size:1rem;background:var(--canvas);border-radius:6px;padding:5px 9px}
+.protokoll span.hoch{background:#FBEAE9;color:#9C2F2C;font-weight:600}
+@media (max-width:900px){
+  svg.map{min-width:760px}
+  .ebenen{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:620px){
+  .steuer{grid-template-columns:1fr}
+  .ebenen{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <a class="zurueck" href="index.html">← Zur Übersicht der Vorlesung</a>
+  <script>{const l=new URLSearchParams(location.search).get("lang");if(l)document.currentScript.previousElementSibling.href="index.html?lang="+encodeURIComponent(l);}</script>
+  <p class="eyebrow">Controlling und Risikomanagement der Supply Chain</p>
+  <h1>Die Supply Chain Map, <em>bevor bewertet wird</em></h1>
+  <p class="lede">Bevor ein Partner der Kette bewertet werden kann, muss feststehen, wer überhaupt zur Kette gehört und wie die Partner miteinander verbunden sind. Diese Aufgabe übernimmt die Supply Chain Map, die im Supply Chain Controlling vor dem Beanspruchungs- und Belastbarkeitsportfolio steht. Das Modul zeigt, wie eine solche Karte Ebene für Ebene entsteht, warum ihr Aggregationsniveau die eigentliche Schwierigkeit ist und wie sich an ihr gemeinsame Abhängigkeiten finden lassen, die in keiner Lieferantenliste auffallen.</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Die Supply Chain Map">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Zweck und Ebenen</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Die Karte aufbauen</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Abhängigkeiten finden</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Quiz</button>
+  <button class="tab" role="tab" id="tab-e" aria-controls="p-e" aria-selected="false" tabindex="-1"><span class="num">05</span> Der erste Schritt</button>
+</div>
+
+<!-- ============================ LEKTION 01 · ZWECK UND EBENEN ============================ -->
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <p class="claim">Die Supply Chain Map schafft einen <b>ganzheitlichen Überblick über alle relevanten Marktpartner</b>, die dem betrachteten Unternehmen vor- oder nachgelagert sind. Sie beantwortet die Frage, wo ein Partner in der Kette steht und mit wem er verbunden ist, bevor das Portfolio bewertet, wie belastbar diese Verbindung ist.</p>
+
+  <h2 class="sec">Drei Instrumente in fester Reihenfolge</h2>
+  <p class="sub">Das Supply Chain Controlling setzt drei Instrumente nacheinander ein. Die Supply Chain Map ist das erste, da jedes weitere auf der Struktur aufbaut, die sie sichtbar macht.</p>
+  <div class="trio">
+    <div class="card" style="border-left:3px solid var(--orange);background:var(--orange-xl)">
+      <p class="ck">Schritt 1 · dieses Modul</p><h3>Supply Chain Map</h3>
+      <p><b>Wo</b> steht ein Partner in der Kettenarchitektur, und mit welchen vor- und nachgelagerten Stufen ist er verbunden?</p>
+    </div>
+    <div class="card">
+      <p class="ck">Schritt 2</p><h3>Beanspruchungs- und Belastbarkeitsportfolio</h3>
+      <p><b>Wie</b> sind die Beziehungen zu bewerten, die die Karte sichtbar gemacht hat? Das Portfolio behandelt das Modul <a href="supply-chain-controlling.html">Supply Chain Controlling</a>.</p>
+    </div>
+    <div class="card">
+      <p class="ck">Schritt 3</p><h3>Supply Chain Valuation</h3>
+      <p><b>Was</b> sind die daraus gewonnenen Managementempfehlungen wert, wenn der zusätzliche Aufwand den höheren Wertschöpfungserträgen gegenübergestellt wird?</p>
+    </div>
+  </div>
+
+  <h2 class="sec">Die Ebenen der Karte</h2>
+  <p class="sub">Die Karte ordnet jeden Partner nach seinem Abstand zum betrachteten Unternehmen, das als Ebene 0 in der Mitte steht. Klicke eine Ebene an, um zu sehen, welche Informationen dort typischerweise vorliegen und woher sie stammen.</p>
+  <div class="ebenen" id="ebenenLeiste" role="group" aria-label="Ebenen der Supply Chain Map"></div>
+  <div class="detail" id="ebenenText"></div>
+
+  <div class="readme">
+    <b>Warum die Gesamtbetrachtung selten angewandt wird.</b> Eine Karte aller Ebenen wird schnell unübersichtlich, da sich die Zahl der Partner mit jeder Ebene vervielfacht. Die größte Herausforderung liegt deshalb im Aggregationsniveau. Je weiter sich die Abfragen von Ebene 0 entfernen, desto stärker treten flankierende Inhalte in den Vordergrund, etwa technische, juristische, politische oder makroökonomische Informationen. Die wichtigste Stellschraube ist eine konsistente Konsolidierung der Daten.
+  </div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Das Portfolio kann nur bewerten, was die Karte zuvor sichtbar gemacht hat. <b>Ein Partner, der auf keiner Karte steht, fehlt deshalb in jeder späteren Bewertung.</b></p>
+  </div>
+</section>
+
+<!-- ============================ LEKTION 02 · DIE KARTE AUFBAUEN ============================ -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
+  <p class="claim">Eine Supply Chain Map entsteht von innen nach außen. Du beginnst bei den direkten Lieferanten und Kunden und nimmst eine Ebene nach der anderen hinzu, bis der Nutzen einer weiteren Ebene den Aufwand ihrer Erhebung <b>nicht mehr rechtfertigt</b>.</p>
+
+  <h2 class="sec">Die Karte zum Ausprobieren</h2>
+  <p class="sub">Stelle ein, wie tief die Karte in die Lieferseite reicht, ob die Kundenseite gezeigt wird und wie stark die äußerste Ebene zusammengefasst ist. Ein Klick auf einen Knoten zeigt, welche Informationen dort vorliegen.</p>
+  <div class="steuer">
+    <div class="steuerfeld">
+      <p class="pk">Sichttiefe auf der Lieferseite</p>
+      <div class="seg" id="mTiefe" role="group" aria-label="Sichttiefe"></div>
+    </div>
+    <div class="steuerfeld">
+      <p class="pk">Kundenseite</p>
+      <div class="seg" id="mKunden" role="group" aria-label="Kundenseite"></div>
+    </div>
+    <div class="steuerfeld">
+      <p class="pk">Rohstoffmärkte</p>
+      <div class="seg" id="mAgg" role="group" aria-label="Aggregationsniveau der Rohstoffmärkte"></div>
+    </div>
+    <div class="steuerfeld">
+      <p class="pk">Ebene 0 ist</p>
+      <div class="seg" id="mFokus" role="group" aria-label="Betrachtetes Unternehmen"></div>
+    </div>
+  </div>
+  <div class="mapstage" tabindex="0"><svg class="map" id="mapB" viewBox="0 0 1000 600" role="img" aria-label="Supply Chain Map mit Lieferanten, Vorlieferanten, Rohstoffmärkten und Kunden"></svg></div>
+  <p class="hint scrollhint">Karte seitlich scrollbar</p>
+  <div class="zahlen" id="mZahlen"></div>
+  <div class="detail" id="mDetail"></div>
+
+  <div class="readme warn">
+    <b>Die Knoten jenseits der Ebene 1 sind ein Lehrbeispiel.</b> Die vier Lieferanten der Ebene 1 sind dieselben wie im Portfolio des Moduls Supply Chain Controlling. Dort heißen sie Vorlieferanten der Ebene 1, während dieses Modul den Begriff Vorlieferant erst ab der Ebene 2 verwendet. Vorlieferanten, Rohstoffmärkte und Kunden sind für dieses Modul angelegt und haben kein reales Vorbild. Sie sollen allein zeigen, wie eine Karte mit jeder Ebene wächst und wo sie unübersichtlich wird.
+  </div>
+
+  <h2 class="sec">Das Aggregationsniveau</h2>
+  <p class="sub">Schalte die Rohstoffmärkte der Ebene 3 zwischen „zusammengefasst“ und „einzeln“ um und vergleiche die Zahl der Knoten.</p>
+  <div class="duo">
+    <div class="card">
+      <p class="ck">Zu fein</p><h3>Die Karte wird unübersichtlich</h3>
+      <p>Wird jede einzelne Quelle der Ebene 3 gezeigt, wächst die Karte schneller, als sie sich lesen lässt. Die meisten dieser Knoten liefern zudem nur grobe Angaben, sodass die Genauigkeit der Darstellung eine Genauigkeit der Daten vortäuscht, die nicht vorhanden ist.</p>
+    </div>
+    <div class="card">
+      <p class="ck">Zu grob</p><h3>Abhängigkeiten verschwinden</h3>
+      <p>Werden zu viele Partner zu einem Knoten zusammengefasst, lässt sich nicht mehr erkennen, ob zwei Lieferanten der Ebene 1 von derselben Quelle abhängen. Eine zu grobe Karte wirkt deshalb beruhigender, als die Lage es rechtfertigt.</p>
+    </div>
+  </div>
+  <div class="readme">
+    <b>Ein bewährter Mittelweg.</b> In der Regel werden die Ebene 1 und die wichtigsten Partner der Ebene 2 einzeln gezeigt, während tiefere Ebenen zu Rohstoffmärkten oder Regionen zusammengefasst werden. Das Aggregationsniveau kann je Ebene verschieden sein. Entscheidend ist, dass es für alle Partner derselben Ebene gleich festgelegt wird, weil sich die Daten sonst nicht konsistent konsolidieren lassen.
+  </div>
+
+  <h2 class="sec">Die Ebene hängt vom Standpunkt ab</h2>
+  <p class="sub">Wähle oben unter „Ebene 0 ist“ einen anderen Partner aus. Die Knoten bleiben dieselben, während sich die Nummern der Ebenen und die Bezeichnungen der Spalten ändern.</p>
+  <div class="readme">
+    <b>Eine Ebene ist keine Eigenschaft des Partners.</b> Für das betrachtete Unternehmen ist die Präzisionsdreherei Nord ein Lieferant der Ebene 1. Aus Sicht der Präzisionsdreherei ist das betrachtete Unternehmen dagegen ein Kunde der ersten nachgelagerten Ebene. Wer Karten mehrerer Unternehmen zusammenführt, muss die Ebenen deshalb vorher auf einen gemeinsamen Standpunkt umrechnen.
+  </div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Eine Karte wird mit jeder Ebene vollständiger und zugleich schwerer zu lesen. <b>Das richtige Aggregationsniveau ist deshalb eine Entscheidung und kein Ergebnis der Datenerhebung.</b></p>
+  </div>
+</section>
+
+<!-- ============================ LEKTION 03 · ABHÄNGIGKEITEN FINDEN ============================ -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
+  <p class="claim">Auf Ebene 1 sieht das Beispiel aus wie <b>vier voneinander unabhängige Lieferanten</b>. Erst die Ebenen dahinter zeigen, ob zwei von ihnen an derselben Quelle hängen und ein einziger Ausfall damit beide zugleich trifft.</p>
+
+  <h2 class="sec">Einen Ausfall durchspielen</h2>
+  <p class="sub">Klicke einen Knoten an, um seinen Ausfall zu simulieren. Die Karte markiert alle Partner, die über ihre Lieferbeziehungen davon betroffen sind. Deine Aufgabe ist es, den Vorlieferanten der Ebene 2 zu finden, dessen Ausfall die meisten Lieferanten der Ebene 1 zugleich trifft.</p>
+  <div class="mapstage" tabindex="0"><svg class="map" id="mapC" viewBox="0 0 1000 600" role="img" aria-label="Supply Chain Map für die Simulation eines Ausfalls"></svg></div>
+  <p class="hint scrollhint">Karte seitlich scrollbar</p>
+  <div class="readout" id="aRead"></div>
+  <div class="detail" id="aDetail"></div>
+
+  <h2 class="sec">Was die Suche zeigt</h2>
+  <p class="sub">Die Auflösung erscheint hier, sobald Du den gesuchten Knoten angeklickt hast.</p>
+  <div class="detail" id="aLoesung"></div>
+
+  <div class="readme">
+    <b>Die Verbindung zur Einstiegsvignette.</b> Das Modul Supply Chain Controlling beginnt mit einer Buchse für wenige Cent, deren fehlerhafte Beschichtung Bänder bei zwei Automobilherstellern stillstehen ließ. Das Lehrbeispiel dieses Moduls ist bewusst daran angelehnt. Auch hier liegt die gemeinsame Schwachstelle bei einem Beschichter, der in keiner Liste der direkten Lieferanten auftaucht und dessen Anteil am Einkaufsvolumen gering sein dürfte.
+  </div>
+
+  <h2 class="sec">Von der Karte ins Portfolio</h2>
+  <p class="sub">Die Karte zeigt die Struktur der Kette, bewertet aber weder die Beanspruchung eines Partners noch seine Belastbarkeit. Diese Bewertung übernimmt das Portfolio für die vier Lieferanten der Ebene 1.</p>
+  <div class="readme">
+    <b>Was die Karte an das Portfolio übergibt.</b> Aus der Suche folgt, dass die Präzisionsdreherei Nord und die Elektronikmodule Ost über denselben Oberflächenveredler verbunden sind. Im Portfolio erscheinen beide als getrennte Punkte, sodass ihre gemeinsame Abhängigkeit dort nicht mehr sichtbar ist. Die Karte liefert deshalb einen Hinweis, den Du beim Lesen des Portfolios mitnehmen solltest. Weiter geht es im Modul <a href="supply-chain-controlling.html">Supply Chain Controlling</a>, Lektion „Das Portfolio“.
+  </div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Eine Lieferantenliste zählt Partner, eine Supply Chain Map zeigt ihre Verbindungen. <b>Gemeinsame Abhängigkeiten werden erst in den Verbindungen sichtbar.</b></p>
+  </div>
+</section>
+
+<!-- ============================ LEKTION 04 · QUIZ ============================ -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
+  <p class="claim">Aus einem größeren Vorrat werden fünf Fragen zufällig gezogen, die Du ohne Zeitdruck beantwortest und deren Bewertung nirgends gespeichert wird. Nach jeder Antwort erscheint die Begründung, auch wenn die Antwort richtig war.</p>
+
+  <h2 class="sec">Übung</h2>
+  <p class="sub">Die meisten Fehlantworten betreffen das Aggregationsniveau, also die Frage, wie fein eine Ebene dargestellt werden sollte.</p>
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Übung">
+      <button id="qNew" type="button">Fünf neue Fragen</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="qStand"></span></p>
+  </div>
+  <div class="qwrap" id="quiz"></div>
+  <div id="qResult" style="margin-top:16px"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Wer erklären kann, warum eine Karte weder zu fein noch zu grob sein darf, hat das Instrument verstanden. <b>Die übrige Arbeit liegt in einer sorgfältigen und einheitlichen Erhebung der Daten.</b></p>
+  </div>
+</section>
+
+<!-- ============================ LEKTION 05 · DER ERSTE SCHRITT ============================ -->
+<section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e" hidden>
+  <p class="claim">Wenn Du für Dein eigenes Unternehmen eine erste Supply Chain Map anlegen willst, helfen Dir die folgenden sieben Schritte. Für eine erste Fassung genügen in der Regel die Einkaufsdaten, die Kundenliste und einige Gespräche mit den wichtigsten Lieferanten.</p>
+
+  <h2 class="sec">Sieben Schritte zur ersten Karte</h2>
+  <p class="sub">Zu jedem Schritt stehen der Grund, aus dem er nötig ist, und der Fehler, der an dieser Stelle am häufigsten gemacht wird.</p>
+  <div class="ck10" id="ck7"></div>
+
+  <h2 class="sec">Glossar</h2>
+  <p class="sub">Das Glossar dient zum Nachschlagen während der Arbeit und ist nicht als Prüfungsliste gedacht.</p>
+  <div class="glos" id="glos"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Die erste Karte muss nicht vollständig sein. <b>Sie muss so angelegt sein, dass sich jede weitere Ebene konsistent hinzufügen lässt.</b></p>
+  </div>
+</section>
+
+<footer>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.81</span>
+</footer>
+
+</div>
+<script>
+"use strict";
+
+/* =====================================================================
+   0 · Hilfsfunktionen
+   ===================================================================== */
+const $  = id => document.getElementById(id);
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const SVGNS = "http://www.w3.org/2000/svg";
+function el(parent, tag, attrs, text){
+  const n = document.createElementNS(SVGNS, tag);
+  for(const k in attrs) n.setAttribute(k, attrs[k]);
+  if(text != null) n.textContent = text;
+  parent.appendChild(n); return n;
+}
+function hideTip(){}
+
+/* =====================================================================
+   1 · Die Kette
+   Die vier Lieferanten der Ebene 1 sind dieselben wie im Portfolio des
+   Moduls Supply Chain Controlling. Vorlieferanten, Rohstoffmaerkte und
+   Kunden sind ein Lehrbeispiel ohne reales Vorbild. Die Stufe zaehlt von
+   den Rohstoffmaerkten (0) bis zu den Endkunden (5). Welche Ebene ein
+   Knoten hat, ergibt sich erst aus dem Standpunkt, siehe ebeneVon().
+   ===================================================================== */
+const STUFE_X = [90, 255, 420, 585, 750, 915];
+const LAGE = {
+  gut:{stufe:3, text:"gut"}, luecke:{stufe:2, text:"lückenhaft"}, grob:{stufe:1, text:"grob"}
+};
+/* Was auf einer Stufe typischerweise bekannt ist, aus Sicht des betrachteten Unternehmens */
+const STUFEN = [
+  {kurz:"Rohstoffmärkte", art:"politische und makroökonomische Informationen", quelle:"öffentliche Quellen und Marktberichte", lage:"grob",
+   text:"Auf dieser Ebene sind einzelne Partner kaum noch bekannt. Betrachtet werden deshalb Rohstoffmärkte und Herkunftsregionen, über die Länderrisiken, Handelsbeschränkungen oder Preisentwicklungen vorliegen."},
+  {kurz:"Vorlieferanten", art:"technische und juristische Informationen", quelle:"Auskünfte der Lieferanten der Ebene 1", lage:"luecke",
+   text:"Mit den Vorlieferanten besteht meist kein eigener Vertrag. Angaben zu Standorten, Zertifikaten und Lieferbeziehungen stammen deshalb überwiegend aus Auskünften der direkten Lieferanten und sind oft lückenhaft."},
+  {kurz:"Lieferanten", art:"operative Daten wie Liefermengen, Termine, Preise und Qualität", quelle:"eigene Beschaffung und Qualitätssicherung", lage:"gut",
+   text:"Mit den direkten Lieferanten besteht eine eigene Geschäftsbeziehung. Die operativen Daten liegen deshalb aus der eigenen Beschaffung vor und sind in der Regel verlässlich."},
+  {kurz:"Betrachtetes Unternehmen", art:"alle eigenen Daten", quelle:"eigene Systeme", lage:"gut",
+   text:"Von diesem Unternehmen aus wird die Karte gezeichnet, und von hier aus werden alle Ebenen gezählt."},
+  {kurz:"Kunden", art:"Abrufe, Prognosen und Absatzmengen", quelle:"eigener Vertrieb", lage:"gut",
+   text:"Die direkten Kunden sind aus dem eigenen Vertrieb bekannt. Ihre Abrufe und Prognosen bestimmen, was die Kette liefern muss."},
+  {kurz:"Kunden der Kunden", art:"Marktentwicklung und allgemeine Nachfrage", quelle:"Marktberichte und Auskünfte der Kunden", lage:"grob",
+   text:"Über die Kunden der Kunden ist meist nur bekannt, wie sich ihr Markt entwickelt. Einzelne Abnehmer lassen sich auf dieser Ebene selten benennen."}
+];
+
+const KNOTEN = [
+  {id:"R1", name:"Markt für Stahl und Erz",      s:0, an:["S1","S4"], teile:["Stahlwerk 1","Stahlwerk 2","Erzhandel"]},
+  {id:"R2", name:"Beschichtungsstoffe",          s:0, an:["S2"],      teile:["Chemiewerk 1","Chemiewerk 2","Fluorpolymerhersteller"]},
+  {id:"R3", name:"Markt für Kunststoffe",        s:0, an:["S3"],      teile:["Petrochemie 1","Petrochemie 2","Rezyklathandel"]},
+  {id:"R4", name:"Halbleiter aus Asien",         s:0, an:["S5","S6"], teile:["Chipfertiger 1","Chipfertiger 2","Chipfertiger 3"]},
+  {id:"R5", name:"Markt für Zellstoff",          s:0, an:["S7"],      teile:["Zellstoffwerk 1","Zellstoffwerk 2","Altpapierhandel"]},
+  {id:"S1", name:"Halbzeugwerk Stahl",           s:1, an:["A"]},
+  {id:"S2", name:"Oberflächenveredler",          s:1, an:["A","C"]},
+  {id:"S3", name:"Granulathandel",               s:1, an:["B"]},
+  {id:"S4", name:"Werkzeugbau",                  s:1, an:["B"]},
+  {id:"S5", name:"Leiterplattenfertiger",        s:1, an:["C"]},
+  {id:"S6", name:"Halbleiterdistributor",        s:1, an:["C"]},
+  {id:"S7", name:"Papierfabrik",                 s:1, an:["D"]},
+  {id:"A",  name:"Präzisionsdreherei Nord",      s:2, an:["U"]},
+  {id:"B",  name:"Kunststofftechnik Süd",        s:2, an:["U"]},
+  {id:"C",  name:"Elektronikmodule Ost",         s:2, an:["U"]},
+  {id:"D",  name:"Verpackungswerk West",         s:2, an:["U"]},
+  {id:"U",  name:"Betrachtetes Unternehmen",     s:3, an:["K1","K2","K3"]},
+  {id:"K1", name:"Großkunde Maschinenbau",       s:4, an:["E1"]},
+  {id:"K2", name:"Großkunde Fahrzeugbau",        s:4, an:["E1"]},
+  {id:"K3", name:"Ersatzteilhandel",             s:4, an:["E1"]},
+  {id:"E1", name:"Betreiber und Endkunden",      s:5, an:[]}
+];
+const FOKUS = [["U","Betrachtetes Unternehmen"], ["A","Präzisionsdreherei Nord"], ["K2","Großkunde Fahrzeugbau"]];
+
+/* Im Modus "einzeln" wird jeder Rohstoffmarkt in seine Quellen zerlegt */
+function knotenListe(einzeln){
+  if(!einzeln) return KNOTEN;
+  const liste = [];
+  KNOTEN.forEach(k => {
+    if(k.s === 0) k.teile.forEach((t, i) => liste.push({id:k.id + "_" + i, name:t, s:0, an:k.an, markt:k.name}));
+    else liste.push(k);
+  });
+  return liste;
+}
+/* Vorgaenger und Nachfolger entlang der Lieferbeziehungen */
+function nachfolger(liste, id){
+  const map = Object.fromEntries(liste.map(k => [k.id, k]));
+  const ges = new Set(), stapel = [id];
+  while(stapel.length){ const k = map[stapel.pop()]; if(!k) continue;
+    k.an.forEach(z => { if(!ges.has(z)){ ges.add(z); stapel.push(z); } }); }
+  return ges;
+}
+function vorgaenger(liste, id){
+  const ges = new Set(), stapel = [id];
+  while(stapel.length){ const z = stapel.pop();
+    liste.filter(k => k.an.includes(z)).forEach(k => { if(!ges.has(k.id)){ ges.add(k.id); stapel.push(k.id); } }); }
+  return ges;
+}
+/* Die Ebene eines Knotens relativ zum Standpunkt */
+function ebeneVon(s, fokusStufe){
+  const d = s - fokusStufe;
+  return d === 0 ? "Ebene 0" : d < 0 ? "Ebene " + (-d) : "Kundenebene " + d;
+}
+
+/* Was eine Spalte aus Sicht des Standpunkts ist. Vom betrachteten
+   Unternehmen aus gelten die Namen der Stufen, von jedem anderen
+   Standpunkt aus nur die Richtung und der Abstand. */
+function rolle(s, fokusStufe){
+  if(fokusStufe === 3) return STUFEN[s].kurz;
+  const d = s - fokusStufe;
+  return d === 0 ? "Standpunkt" : d === -1 ? "direkte Lieferanten" : d < -1 ? "Vorlieferanten"
+    : d === 1 ? "direkte Kunden" : "Kunden der Kunden";
+}
+/* Lange Namen brechen in zwei Zeilen um, damit sie in den Kasten passen */
+function zeilen(name, eng){
+  if(eng || name.length <= 17 || !name.includes(" ")) return [name];
+  const w = name.split(" ");
+  let best = 1, diff = Infinity;
+  for(let i = 1; i < w.length; i++){
+    const d = Math.abs(w.slice(0, i).join(" ").length - w.slice(i).join(" ").length);
+    if(d < diff){ diff = d; best = i; }
+  }
+  return [w.slice(0, best).join(" "), w.slice(best).join(" ")];
+}
+
+/* =====================================================================
+   2 · Die Zeichnung, eine Mechanik fuer beide Karten
+   st: {tiefe, kunden, einzeln, fokus, auswahl, ausfall}
+   ===================================================================== */
+function sichtbar(st){
+  const liste = knotenListe(st.einzeln);
+  const f = liste.find(k => k.id === st.fokus);
+  const vor = vorgaenger(liste, f.id), nach = nachfolger(liste, f.id);
+  const zeigen = liste.filter(k => k.id === f.id ||
+    (vor.has(k.id) && f.s - k.s <= st.tiefe) || (nach.has(k.id) && st.kunden));
+  return {liste, f, zeigen};
+}
+function zeichne(svg, st){
+  svg.textContent = "";
+  const {liste, f, zeigen} = sichtbar(st);
+  const ids = new Set(zeigen.map(k => k.id));
+  const betroffen = st.ausfall ? nachfolger(liste, st.ausfall) : new Set();
+  const pos = {};
+  for(let s = 0; s < 6; s++){
+    const spalte = zeigen.filter(k => k.s === s);
+    if(!spalte.length) continue;
+    const eng = spalte.length > 8, hoehe = eng ? 24 : 44;
+    const oben = 96, unten = 580, schritt = (unten - oben) / spalte.length;
+    spalte.forEach((k, i) => pos[k.id] = {x:STUFE_X[s], y:oben + schritt * (i + .5), h:hoehe, eng});
+    el(svg, "text", {class:"kopf", x:STUFE_X[s], y:34, "text-anchor":"middle"}, ebeneVon(s, f.s).toUpperCase());
+    el(svg, "text", {class:"kopf2", x:STUFE_X[s], y:56, "text-anchor":"middle"}, rolle(s, f.s));
+  }
+  const kanten = el(svg, "g", {});
+  zeigen.forEach(k => k.an.filter(z => ids.has(z)).forEach(z => {
+    const a = pos[k.id], b = pos[z], x1 = a.x + 78, x2 = b.x - 78, m = (x1 + x2) / 2;
+    const heiss = betroffen.has(z) && (betroffen.has(k.id) || k.id === st.ausfall);
+    el(kanten, "path", {class:"kante" + (heiss ? " heiss" : ""), d:`M${x1},${a.y} C${m},${a.y} ${m},${b.y} ${x2},${b.y}`});
+  }));
+  zeigen.forEach(k => {
+    const p = pos[k.id];
+    const kl = ["knoten"];
+    if(k.id === f.id) kl.push("fokus");
+    if(k.id === st.auswahl) kl.push("gewaehlt");
+    if(k.id === st.ausfall) kl.push("aus");
+    else if(betroffen.has(k.id)) kl.push("betroffen");
+    const g = el(svg, "g", {class:kl.join(" "), tabindex:"0", role:"button", "data-id":k.id,
+      "aria-label":k.name + ", " + ebeneVon(k.s, f.s)});
+    el(g, "rect", {x:p.x - 78, y:p.y - p.h/2, width:156, height:p.h, rx:7});
+    const t = el(g, "text", {x:p.x, y:p.y + 1, "text-anchor":"middle", class:p.eng ? "klein" : ""});
+    zeilen(k.name, p.eng).forEach((z, i, a) =>
+      el(t, "tspan", {x:p.x, y:p.y + 1 + (i - (a.length - 1) / 2) * 17}, z));
+  });
+  return {zeigen, f, liste};
+}
+function klickbar(svg, fn){
+  svg.addEventListener("click", e => { const g = e.target.closest(".knoten"); if(g) fn(g.dataset.id); });
+  svg.addEventListener("keydown", e => {
+    if(e.key !== "Enter" && e.key !== " ") return;
+    const g = e.target.closest(".knoten"); if(!g) return; e.preventDefault(); fn(g.dataset.id);
+  });
+}
+const lageBalken = l => `<span class="lage">${[1,2,3].map(i => `<i class="${i <= LAGE[l].stufe ? "an" : ""}"></i>`).join("")}</span> ${LAGE[l].text}`;
+
+/* =====================================================================
+   3 · Lektion 01 · Die Ebenen
+   ===================================================================== */
+let ebeneAktiv = 2;
+function zeigeEbenen(){
+  $("ebenenLeiste").innerHTML = STUFEN.map((s, i) =>
+    `<button type="button" data-s="${i}" aria-pressed="${i === ebeneAktiv}"><span class="en">${ebeneVon(i, 3)}</span><span class="ek">${s.kurz}</span></button>`).join("");
+  const s = STUFEN[ebeneAktiv];
+  $("ebenenText").innerHTML = `<p class="dk">${ebeneVon(ebeneAktiv, 3)} · ${s.kurz}</p><p>${s.text}</p>
+    <dl class="fakten"><dt>Art der Informationen</dt><dd>${s.art}</dd><dt>Quelle</dt><dd>${s.quelle}</dd><dt>Datenlage</dt><dd>${lageBalken(s.lage)}</dd></dl>`;
+}
+$("ebenenLeiste").addEventListener("click", e => { const b = e.target.closest("button"); if(b){ ebeneAktiv = +b.dataset.s; zeigeEbenen(); } });
+zeigeEbenen();
+
+/* =====================================================================
+   4 · Lektion 02 · Die Karte aufbauen
+   ===================================================================== */
+const stB = {tiefe:1, kunden:false, einzeln:false, fokus:"U", auswahl:null, ausfall:null};
+function knoepfe(id, werte, aktiv, schluessel){
+  $(id).innerHTML = werte.map(([w, t]) =>
+    `<button type="button" data-w="${w}" aria-pressed="${String(w) === String(aktiv)}">${t}</button>`).join("");
+  $(id).onclick = e => { const b = e.target.closest("button"); if(!b) return;
+    const w = b.dataset.w; stB[schluessel] = w === "true" ? true : w === "false" ? false : isNaN(+w) ? w : +w;
+    stB.auswahl = null; zeigeKarte(); };
+}
+function zeigeKarte(){
+  knoepfe("mTiefe", [[1,"Ebene 1"],[2,"bis Ebene 2"],[3,"bis Ebene 3"]], stB.tiefe, "tiefe");
+  knoepfe("mKunden", [[false,"ausgeblendet"],[true,"eingeblendet"]], stB.kunden, "kunden");
+  knoepfe("mAgg", [[false,"zusammengefasst"],[true,"einzeln"]], stB.einzeln, "einzeln");
+  knoepfe("mFokus", FOKUS, stB.fokus, "fokus");
+  const {zeigen, f} = zeichne($("mapB"), stB);
+  const kanten = zeigen.reduce((n, k) => n + k.an.filter(z => zeigen.some(x => x.id === z)).length, 0);
+  $("mZahlen").innerHTML = `<span><b>${zeigen.length}</b> Knoten</span><span><b>${kanten}</b> Verbindungen</span>` +
+    `<span>davon auf der äußersten Lieferebene <b>${zeigen.filter(k => k.s === Math.min(...zeigen.map(x => x.s))).length}</b></span>`;
+  const k = zeigen.find(x => x.id === stB.auswahl);
+  if(!k){
+    $("mDetail").innerHTML = `<p class="dk">Knoten anklicken</p><p>Die Karte zeigt ${zeigen.length} Knoten aus Sicht von <b>${f.name}</b>. Erhöhe die Sichttiefe und blende die Kundenseite ein, um zu sehen, wie schnell die Karte wächst.</p>`;
+    return;
+  }
+  const st = STUFEN[k.s];
+  $("mDetail").innerHTML = `<p class="dk">${ebeneVon(k.s, f.s)} · ${st.kurz}</p><h4>${esc(k.name)}</h4>` +
+    (k.markt ? `<p>Diese Quelle gehört zum ${esc(k.markt)}. Im zusammengefassten Modus erscheint sie nur als Teil dieses Markts.</p>` : "") +
+    `<p>${st.text}</p><dl class="fakten"><dt>Art der Informationen</dt><dd>${st.art}</dd><dt>Quelle</dt><dd>${st.quelle}</dd><dt>Datenlage</dt><dd>${lageBalken(st.lage)}</dd></dl>` +
+    (k.s === 2 ? `<p class="hinweis">Diesen Lieferanten bewertet das Portfolio im Modul <a href="supply-chain-controlling.html">Supply Chain Controlling</a>.</p>` : "");
+}
+klickbar($("mapB"), id => { stB.auswahl = stB.auswahl === id ? null : id; zeigeKarte(); });
+zeigeKarte();
+
+/* =====================================================================
+   5 · Lektion 03 · Einen Ausfall durchspielen
+   ===================================================================== */
+const stC = {tiefe:3, kunden:true, einzeln:false, fokus:"U", auswahl:null, ausfall:null};
+const protokoll = new Map();
+const gefunden = new Set();
+function zeigeAusfall(){
+  const {liste} = zeichne($("mapC"), stC);
+  const name = id => liste.find(k => k.id === id).name;
+  if(!stC.ausfall){
+    $("aRead").innerHTML = `<span class="q">Noch ist kein Knoten ausgefallen. Klicke einen an.</span>`;
+    $("aDetail").innerHTML = `<p class="dk">Protokoll</p><p>Hier erscheint jeder Knoten, den Du ausprobiert hast, mit der Zahl der betroffenen Lieferanten der Ebene 1.</p>`;
+  } else {
+    const b = nachfolger(liste, stC.ausfall);
+    const e1 = [...b].filter(id => liste.find(k => k.id === id).s === 2);
+    const kunden = [...b].filter(id => liste.find(k => k.id === id).s >= 4).length;
+    const eigen = liste.find(k => k.id === stC.ausfall);
+    const satz = stC.ausfall === "U" ? "fehlt allen Kunden ihr direkter Lieferant. Für die Aufgabe zählen nur Knoten auf der Lieferseite"
+      : e1.length === 0 ? "ist keiner der vier Lieferanten der Ebene 1 betroffen"
+      : "trifft das auf Ebene 1 " + (e1.length === 1 ? "nur" : "zugleich") + " " + e1.map(id => "die " + esc(name(id))).join(" und ");
+    $("aRead").innerHTML = `<span class="q">Fällt <b>${stC.ausfall === "U" ? "das betrachtete Unternehmen" : esc(eigen.name)}</b> aus, ${satz}.</span>` +
+      `<span class="cnt">${stC.ausfall === "U" ? kunden + " Kundenknoten betroffen" : b.has("U") ? "betrachtetes Unternehmen betroffen · " + kunden + " Kundenknoten" : "betrachtetes Unternehmen nicht betroffen"}</span><span class="val">${e1.length} von 4</span>`;
+    $("aDetail").innerHTML = `<p class="dk">Protokoll</p><div class="protokoll">` +
+      [...protokoll.entries()].map(([id, n]) => `<span class="${n >= 2 ? "hoch" : ""}">${esc(name(id))} · ${n}</span>`).join("") + `</div>`;
+  }
+  const loesung = [];
+  if(gefunden.has("S2")) loesung.push(`<p><b>Auf Ebene 2 ist es der Oberflächenveredler.</b> Er beliefert die Präzisionsdreherei Nord und die Elektronikmodule Ost. Fällt er aus, sind zwei der vier Lieferanten der Ebene 1 zugleich betroffen, obwohl sie auf Ebene 1 nichts miteinander zu tun haben. Jeder andere Vorlieferant der Ebene 2 trifft nur einen Lieferanten.</p>`);
+  if(gefunden.has("R1")) loesung.push(`<p><b>Auf Ebene 3 trifft der Markt für Stahl und Erz ebenfalls zwei Lieferanten.</b> Er beliefert das Halbzeugwerk und den Werkzeugbau und trifft damit die Präzisionsdreherei Nord und die Kunststofftechnik Süd. Auf dieser Ebene ist eine gemeinsame Abhängigkeit weniger überraschend, da ganze Branchen am selben Rohstoffmarkt hängen. Sie lässt sich zudem kaum vermeiden, sodass hier eher die Beobachtung des Markts hilft als ein Wechsel des Lieferanten.</p>`);
+  if(gefunden.has("R1") && !gefunden.has("S2")) loesung.unshift(`<p>Auf Ebene 2 fehlt noch der Vorlieferant, dessen Ausfall zwei Lieferanten zugleich trifft. Er ist die eigentliche Antwort auf die Aufgabe.</p>`);
+  else if(gefunden.has("S2") && !gefunden.has("R1")) loesung.push(`<p>Auf Ebene 3 gibt es einen zweiten Knoten, dessen Ausfall ebenfalls zwei Lieferanten der Ebene 1 trifft. Findest Du ihn?</p>`);
+  $("aLoesung").innerHTML = loesung.length ? `<p class="dk">Auflösung</p>` + loesung.join("")
+    : `<p class="dk">Noch nicht gefunden</p><p>Klicke nacheinander die Vorlieferanten der Ebene 2 an und vergleiche im Protokoll, wie viele Lieferanten der Ebene 1 jeweils betroffen sind.</p>`;
+}
+klickbar($("mapC"), id => {
+  const liste = knotenListe(false);
+  stC.ausfall = stC.ausfall === id ? null : id;
+  if(stC.ausfall){
+    const n = [...nachfolger(liste, id)].filter(z => liste.find(k => k.id === z).s === 2).length;
+    protokoll.set(id, n);
+    if(id === "S2" || id === "R1") gefunden.add(id);
+  }
+  zeigeAusfall();
+});
+zeigeAusfall();
+
+/* =====================================================================
+   6 · Uebung: fuenf Fragen, zufaellig aus dem Vorrat
+   ===================================================================== */
+const FRAGEN = [
+  ["Welche Aufgabe hat die Supply Chain Map im Supply Chain Controlling?",
+   ["Sie schafft einen Überblick über alle relevanten vor- und nachgelagerten Marktpartner","Sie bewertet die Belastbarkeit der Lieferanten","Sie berechnet den Wert einer Managementempfehlung","Sie ersetzt die Lieferantenliste des Einkaufs"], 0,
+   "Die Karte zeigt, wer zur Kette gehört und wie die Partner verbunden sind. Die Bewertung dieser Verbindungen übernimmt erst das Beanspruchungs- und Belastbarkeitsportfolio."],
+  ["In welcher Reihenfolge werden die drei Instrumente eingesetzt?",
+   ["Supply Chain Map, Beanspruchungs- und Belastbarkeitsportfolio, Supply Chain Valuation","Portfolio, Supply Chain Map, Supply Chain Valuation","Supply Chain Valuation, Portfolio, Supply Chain Map","Die Reihenfolge ist beliebig"], 0,
+   "Jedes Instrument baut auf dem vorigen auf. Das Portfolio bewertet die Beziehungen, die die Karte sichtbar gemacht hat, und die Valuation bewertet die Empfehlungen, die aus dem Portfolio folgen."],
+  ["Was steht auf Ebene 0 einer Supply Chain Map?",
+   ["Das betrachtete Unternehmen, von dem aus die Karte gezeichnet wird","Der wichtigste Rohstoffmarkt","Der größte Lieferant","Der Endkunde"], 0,
+   "Von Ebene 0 aus werden alle anderen Ebenen gezählt. Die direkten Lieferanten stehen deshalb auf Ebene 1 und deren Lieferanten auf Ebene 2."],
+  ["Warum wird die Gesamtbetrachtung aller Ebenen selten angewandt?",
+   ["Weil die Karte mit jeder Ebene schnell unübersichtlich wird","Weil tiefere Ebenen für das Risiko keine Rolle spielen","Weil Kunden nie auf eine Karte gehören","Weil die Software dafür fehlt"], 0,
+   "Die Zahl der Partner vervielfacht sich mit jeder Ebene. Eine vollständige Karte wäre deshalb zwar umfassend, ließe sich aber kaum noch lesen."],
+  ["Worin liegt die größte Herausforderung beim Aufbau einer Supply Chain Map?",
+   ["Im Aggregationsniveau","In der Farbwahl der Knoten","In der Zahl der direkten Lieferanten","In der Bewertung der Kunden"], 0,
+   "Entschieden werden muss, wie fein jede Ebene dargestellt wird. Davon hängt ab, ob die Karte lesbar bleibt und ob gemeinsame Abhängigkeiten noch zu erkennen sind."],
+  ["Welche Informationen treten in den Vordergrund, je weiter sich die Abfragen von Ebene 0 entfernen?",
+   ["Flankierende Informationen, etwa technische, juristische, politische oder makroökonomische","Genaue Liefertermine einzelner Bestellungen","Die Preise jeder einzelnen Position","Die Personalkosten der Vorlieferanten"], 0,
+   "Mit wachsendem Abstand fehlt der direkte Zugang zu operativen Daten. An ihre Stelle treten Angaben über Länder, Märkte, Rechtslage und Technik."],
+  ["Was gilt als die wichtigste Stellschraube der Supply Chain Map?",
+   ["Eine konsistente Konsolidierung der Daten","Eine möglichst große Zahl an Knoten","Eine jährliche Neuzeichnung von Hand","Der Verzicht auf die Kundenseite"], 0,
+   "Nur wenn die Daten aller Partner einer Ebene nach denselben Regeln zusammengefasst werden, lassen sich die Ebenen vergleichen und später mit anderen Karten zusammenführen."],
+  ["Was passiert, wenn die Ebene 3 zu fein dargestellt wird?",
+   ["Die Karte wird unübersichtlich und täuscht eine Genauigkeit vor, die die Daten nicht haben","Gemeinsame Abhängigkeiten verschwinden","Die Ebene 1 fällt aus der Karte","Das Portfolio wird genauer"], 0,
+   "Auf Ebene 3 liegen meist nur grobe Angaben vor. Eine sehr feine Darstellung macht die Karte deshalb größer, ohne dass die Aussage verlässlicher wird."],
+  ["Was passiert, wenn eine Ebene zu grob zusammengefasst wird?",
+   ["Es lässt sich nicht mehr erkennen, ob zwei Lieferanten von derselben Quelle abhängen","Die Karte wird unübersichtlich","Die Zahl der Knoten steigt","Die Datenlage wird besser"], 0,
+   "Wer zu viele Partner zu einem Knoten zusammenfasst, verdeckt gerade die Verbindungen, nach denen gesucht wird. Die Karte wirkt dann beruhigender, als die Lage es rechtfertigt."],
+  ["Welches Aggregationsniveau hat sich in der Regel bewährt?",
+   ["Ebene 1 und die wichtigsten Partner der Ebene 2 einzeln, tiefere Ebenen nach Märkten oder Regionen zusammengefasst","Alle Ebenen einzeln","Alle Ebenen zusammengefasst","Nur die Kundenseite einzeln"], 0,
+   "Dieser Mittelweg zeigt dort Einzelheiten, wo verlässliche Daten vorliegen. Tiefere Ebenen bleiben lesbar, weil sie nach Märkten oder Regionen zusammengefasst werden."],
+  ["Darf das Aggregationsniveau je Ebene verschieden sein?",
+   ["Ja, solange es für alle Partner derselben Ebene gleich festgelegt ist","Nein, alle Ebenen müssen gleich fein sein","Ja, und es darf auch innerhalb einer Ebene beliebig wechseln","Nein, nur die Ebene 1 darf aggregiert werden"], 0,
+   "Verschiedene Ebenen dürfen verschieden fein dargestellt werden. Innerhalb einer Ebene muss die Regel jedoch einheitlich sein, weil sich die Daten sonst nicht konsistent konsolidieren lassen."],
+  ["Für das betrachtete Unternehmen ist die Präzisionsdreherei Nord ein Lieferant der Ebene 1. Was ist das betrachtete Unternehmen aus Sicht der Präzisionsdreherei?",
+   ["Ein Kunde der ersten nachgelagerten Ebene","Ein Lieferant der Ebene 1","Ebene 0","Ein Vorlieferant der Ebene 2"], 0,
+   "Die Ebene ist keine Eigenschaft des Partners. Sie hängt davon ab, von welchem Unternehmen aus die Karte gezeichnet wird."],
+  ["Was ist vor dem Zusammenführen der Karten zweier Unternehmen nötig?",
+   ["Die Ebenen müssen auf einen gemeinsamen Standpunkt umgerechnet werden","Nichts, die Ebenen sind in beiden Karten gleich","Alle Kunden müssen entfernt werden","Beide Karten müssen dieselbe Zahl an Knoten haben"], 0,
+   "Jede Karte zählt ihre Ebenen vom eigenen Unternehmen aus. Ohne Umrechnung stünde derselbe Partner in zwei Karten auf verschiedenen Ebenen."],
+  ["Welcher Vorlieferant der Ebene 2 trifft im Lehrbeispiel bei einem Ausfall zwei Lieferanten der Ebene 1 zugleich?",
+   ["Der Oberflächenveredler","Das Halbzeugwerk Stahl","Die Papierfabrik","Der Granulathandel"], 0,
+   "Der Oberflächenveredler beliefert die Präzisionsdreherei Nord und die Elektronikmodule Ost. Auf Ebene 1 wirken beide unabhängig voneinander, obwohl sie an derselben Quelle hängen."],
+  ["Warum ist eine gemeinsame Abhängigkeit auf Ebene 3 weniger überraschend als auf Ebene 2?",
+   ["Weil ganze Branchen am selben Rohstoffmarkt hängen","Weil Ebene 3 nie ausfällt","Weil die Daten auf Ebene 3 am genauesten sind","Weil Rohstoffmärkte keine Risiken haben"], 0,
+   "Viele Lieferanten beziehen ihren Stahl oder ihre Kunststoffe von denselben Märkten. Dort hilft eher die Beobachtung des Markts als ein Wechsel des Lieferanten."],
+  ["Warum findet eine Lieferantenliste die gemeinsame Abhängigkeit im Lehrbeispiel nicht?",
+   ["Weil sie nur die direkten Lieferanten zählt und deren Verbindungen nicht zeigt","Weil sie nach dem Umsatz sortiert ist","Weil sie die Kunden enthält","Weil sie nicht aktuell ist"], 0,
+   "Die Liste zeigt vier voneinander getrennte Lieferanten. Dass zwei davon an demselben Beschichter hängen, wird erst in den Verbindungen der Karte sichtbar."],
+  ["Woher stammen die Angaben über Vorlieferanten der Ebene 2 meistens?",
+   ["Aus Auskünften der Lieferanten der Ebene 1","Aus eigenen Verträgen mit den Vorlieferanten","Aus der eigenen Finanzbuchhaltung","Aus dem eigenen Vertrieb"], 0,
+   "Mit den Vorlieferanten besteht meist kein eigener Vertrag. Die Angaben kommen deshalb aus zweiter Hand und sind oft lückenhaft."],
+  ["Welche Daten liegen für die Lieferanten der Ebene 1 in der Regel verlässlich vor?",
+   ["Operative Daten wie Liefermengen, Termine, Preise und Qualität","Nur makroökonomische Angaben","Nur die Anschrift","Keine, da sie außerhalb des Unternehmens liegen"], 0,
+   "Mit den direkten Lieferanten besteht eine eigene Geschäftsbeziehung. Beschaffung und Qualitätssicherung erfassen diese Daten deshalb laufend."],
+  ["Warum gehört auch die Kundenseite auf die Karte?",
+   ["Weil Abrufe und Prognosen der Kunden bestimmen, was die Kette liefern muss","Weil Kunden immer das größte Risiko darstellen","Weil das Portfolio nur Kunden bewertet","Weil Lieferanten sonst nicht gezeigt werden dürfen"], 0,
+   "Die Karte erfasst vor- und nachgelagerte Partner. Ein Ausfall auf der Lieferseite wirkt über das eigene Unternehmen bis zu den Kunden weiter, und ihre Nachfrage bestimmt die Beanspruchung der Kette."],
+  ["Was übergibt die Karte im Lehrbeispiel an das Portfolio?",
+   ["Den Hinweis, dass zwei Lieferanten über denselben Vorlieferanten verbunden sind","Eine fertige Bewertung der Belastbarkeit","Den Wert der Managementempfehlungen","Eine Rangfolge aller Kunden"], 0,
+   "Im Portfolio erscheinen beide Lieferanten als getrennte Punkte. Ohne den Hinweis aus der Karte ginge ihre gemeinsame Abhängigkeit beim Lesen des Portfolios verloren."],
+  ["Was bewertet die Supply Chain Map selbst?",
+   ["Nichts, sie zeigt die Struktur der Kette und überlässt die Bewertung dem Portfolio","Die Beanspruchung jedes Partners","Die Belastbarkeit jedes Partners","Den Wertbeitrag der Kette"], 0,
+   "Die Karte beantwortet die Frage nach dem Wo. Wie belastbar eine Beziehung ist, beantwortet erst das Beanspruchungs- und Belastbarkeitsportfolio."],
+  ["Wann sollte eine weitere Ebene in die Karte aufgenommen werden?",
+   ["Solange ihr Nutzen den Aufwand der Erhebung rechtfertigt","Immer, bis die Kette vollständig ist","Nie, Ebene 1 genügt","Nur wenn ein Ausfall bereits eingetreten ist"], 0,
+   "Jede Ebene kostet Erhebungsaufwand und macht die Karte schwerer lesbar. Die Tiefe der Karte ist deshalb eine Abwägung und keine Pflicht zur Vollständigkeit."]
+];
+let qAktuell = [];
+const QZAHL = 5;
+const mischen = a => {
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+/* Auch die Antworten werden gemischt. Stuenden sie in der Reihenfolge
+   des Vorrats, waere die richtige immer die erste. */
+function qZiehen(){
+  qAktuell = mischen(FRAGEN.map((f, i) => i)).slice(0, QZAHL)
+    .map(i => ({i, ord:mischen(FRAGEN[i][1].map((o, j) => j)), gewaehlt:null}));
+  qRender();
+}
+function qRender(){
+  $("quiz").innerHTML = qAktuell.map((q, n) => {
+    const [text, opts, richtig, begr] = FRAGEN[q.i];
+    return `<div class="qcard">
+      <p class="qn">Frage ${n + 1} von ${QZAHL}</p>
+      <p class="qt">${text}</p>
+      <div class="qopts">${q.ord.map(j => {
+        let kl = "";
+        if(q.gewaehlt !== null) kl = j === richtig ? " right" : (j === q.gewaehlt ? " wrong" : "");
+        return `<button class="qopt${kl}" type="button" data-q="${n}" data-o="${j}"${q.gewaehlt !== null ? " disabled" : ""}>${opts[j]}</button>`;
+      }).join("")}</div>
+      <p class="qfb"${q.gewaehlt === null ? " hidden" : ""}>${
+        q.gewaehlt === null ? "" :
+        (q.gewaehlt === richtig ? "<b style='color:#1E6B47'>Richtig.</b> " : "<b style='color:#9C2F2C'>Daneben.</b> ") + begr}</p>
+    </div>`;
+  }).join("");
+  const fertig  = qAktuell.filter(q => q.gewaehlt !== null).length;
+  const treffer = qAktuell.filter(q => q.gewaehlt === FRAGEN[q.i][2]).length;
+  $("qStand").textContent = fertig === 0
+    ? QZAHL + " Fragen aus einem Vorrat von " + FRAGEN.length
+    : fertig + " von " + QZAHL + " beantwortet · " + treffer + " richtig";
+  $("qResult").innerHTML = fertig < QZAHL ? "" :
+    `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
+      treffer === QZAHL ? "Du hast alle Fragen richtig beantwortet. Zieh Dir fünf neue Fragen aus dem Vorrat von " + FRAGEN.length + "." :
+      treffer >= 3 ? "Die Begründungen zu den verfehlten Fragen stehen oben und zeigen Dir, woran es gelegen hat." :
+      "Geh die Begründungen oben in Ruhe durch. Am häufigsten liegt der Fehler beim Aggregationsniveau, also bei der Frage, wie fein eine Ebene dargestellt wird."}</div>`;
+}
+$("quiz").addEventListener("click", e => {
+  const b = e.target.closest(".qopt"); if(!b || b.disabled) return;
+  const q = qAktuell[+b.dataset.q]; if(!q || q.gewaehlt !== null) return;
+  q.gewaehlt = +b.dataset.o;
+  qRender();
+});
+$("qNew").addEventListener("click", qZiehen);
+qZiehen();
+
+/* =====================================================================
+   7 · Sieben Schritte zur ersten Karte
+   ===================================================================== */
+const CHECK7 = [
+  ["Leg fest, welches Unternehmen auf Ebene 0 steht",
+   "Von diesem Unternehmen aus werden alle Ebenen gezählt. Bei einem Konzern entscheidest Du damit, ob die Karte für die ganze Gruppe oder für einen einzelnen Standort gilt.",
+   "Es wird für den Konzern gezeichnet, obwohl die Einkaufsdaten nur für einen Standort vorliegen, sodass die Ebene 1 unvollständig bleibt."],
+  ["Zieh die Lieferanten der Ebene 1 aus dem Einkauf",
+   "Die Kreditorenliste der letzten zwölf Monate enthält alle direkten Lieferanten mit ihrem Einkaufsvolumen. Für eine erste Karte genügen in der Regel die Lieferanten, die zusammen den größten Teil des Volumens abdecken, sowie alle, deren Teile sich nicht kurzfristig ersetzen lassen.",
+   "Es wird allein nach dem Einkaufsvolumen ausgewählt, obwohl gerade ein kleiner Lieferant ein Teil liefern kann, ohne das die Produktion stillsteht."],
+  ["Nimm die direkten Kunden auf",
+   "Die Kundenliste des Vertriebs zeigt, wohin die Kette liefert. Abrufe und Prognosen der wichtigsten Kunden bestimmen, wie stark die Kette beansprucht wird.",
+   "Die Karte wird nur für die Lieferseite gezeichnet, obwohl ein Ausfall über das eigene Unternehmen bis zu den Kunden weiterwirkt."],
+  ["Frag die wichtigsten Lieferanten nach ihren Vorlieferanten",
+   "Mit den Vorlieferanten besteht meist kein eigener Vertrag. Du brauchst deshalb die Auskunft der direkten Lieferanten, die Du am besten mit einem kurzen, für alle gleichen Fragebogen einholst.",
+   "Jeder Lieferant wird anders gefragt, sodass die Antworten sich später nicht zusammenführen lassen."],
+  ["Bestimme das Aggregationsniveau je Ebene",
+   "Leg für jede Ebene fest, ob ihre Partner einzeln oder zusammengefasst erscheinen und nach welcher Regel zusammengefasst wird, etwa nach Rohstoffmarkt oder Region. Die Regel gilt für alle Partner derselben Ebene.",
+   "Innerhalb einer Ebene werden manche Partner einzeln und andere zusammengefasst gezeigt, sodass die Karte nicht mehr konsistent konsolidiert werden kann."],
+  ["Such nach Knoten mit mehreren Verbindungen",
+   "Geh die Karte von Ebene 2 aus durch und markiere jeden Knoten, der mehr als einen Lieferanten der Ebene 1 beliefert. Diese Knoten sind die gemeinsamen Abhängigkeiten, nach denen die Karte sucht.",
+   "Die Karte wird gezeichnet und abgelegt, ohne dass jemand sie nach gemeinsamen Abhängigkeiten durchsucht."],
+  ["Gib die Hinweise an das Portfolio weiter",
+   "Die gefundenen Abhängigkeiten gehören als Hinweis zu den betroffenen Lieferanten, wenn diese im Beanspruchungs- und Belastbarkeitsportfolio bewertet werden. Plane außerdem, wann Du die Karte das nächste Mal fortschreibst.",
+   "Im Portfolio werden die Lieferanten einzeln bewertet, ohne dass ihre gemeinsame Abhängigkeit aus der Karte berücksichtigt wird."]
+];
+$("ck7").innerHTML = CHECK7.map(([t, p, f]) =>
+  `<div class="ckitem"><h3>${esc(t)}</h3><p>${p}</p>
+     <p class="trap"><b>Typischer Fehler:</b> ${f}</p></div>`).join("");
+
+/* =====================================================================
+   8 · Glossar
+   ===================================================================== */
+const GLOSSAR = [
+  ["Supply Chain Map", "Die Supply Chain Map ist eine Karte aller relevanten Marktpartner, die dem betrachteten Unternehmen vor- oder nachgelagert sind. Sie zeigt, wo ein Partner in der Kette steht und mit wem er verbunden ist."],
+  ["Ebene 0", "Auf Ebene 0 steht das betrachtete Unternehmen, von dem aus die Karte gezeichnet wird und alle weiteren Ebenen gezählt werden."],
+  ["Ebene 1", "Auf Ebene 1 stehen die direkten Lieferanten, mit denen eine eigene Geschäftsbeziehung besteht."],
+  ["Vorlieferant", "Ein Vorlieferant beliefert einen Lieferanten der Ebene 1 und steht damit auf Ebene 2 oder tiefer."],
+  ["Nachgelagerte Ebene", "Auf den nachgelagerten Ebenen stehen die Kunden und deren Kunden, an die die Kette liefert."],
+  ["Aggregationsniveau", "Das Aggregationsniveau legt fest, wie fein eine Ebene dargestellt wird, also ob ihre Partner einzeln oder zusammengefasst erscheinen."],
+  ["Konsolidierung", "Bei der Konsolidierung werden die Daten mehrerer Partner nach einer einheitlichen Regel zusammengefasst, sodass sie vergleichbar bleiben."],
+  ["Flankierende Informationen", "Flankierende Informationen sind technische, juristische, politische oder makroökonomische Angaben, die an Gewicht gewinnen, je weiter ein Partner von Ebene 0 entfernt ist."],
+  ["Gemeinsame Abhängigkeit", "Eine gemeinsame Abhängigkeit liegt vor, wenn mehrere Lieferanten der Ebene 1 an derselben Quelle hängen und ein einziger Ausfall sie deshalb zugleich trifft."],
+  ["Standpunkt", "Der Standpunkt bestimmt, welches Unternehmen auf Ebene 0 steht. Mit ihm ändern sich die Nummern aller Ebenen, während die Partner dieselben bleiben."],
+  ["Beanspruchungs- und Belastbarkeitsportfolio", "Das Portfolio bewertet die Beziehungen, die die Karte sichtbar gemacht hat, und folgt deshalb im Supply Chain Controlling auf die Supply Chain Map."],
+  ["Supply Chain Valuation", "Die Supply Chain Valuation stellt den zusätzlichen Aufwand einer Managementempfehlung den höheren Wertschöpfungserträgen gegenüber und bildet damit den dritten Schritt."]
+];
+$("glos").innerHTML = GLOSSAR.map(([b, t]) => `<div><b>${esc(b)}</b>: ${t}</div>`).join("");
+
+/* =====================================================================
+   9 · Reiter
+   ===================================================================== */
+const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","d","e"];
+function select(i){
+  tabs.forEach((t, j) => {
+    const on = i === j;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    $("p-" + keys[j]).hidden = !on;
+  });
+  hideTip();
+}
+tabs.forEach((t, i) => {
+  t.addEventListener("click", () => select(i));
+  t.addEventListener("keydown", e => {
+    const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if(!d) return; e.preventDefault();
+    const n = (i + d + tabs.length) % tabs.length; tabs[n].focus(); select(n);
+  });
+});
+select(0);
+
+/* =====================================================================
+   Bloecke zum Auf- und Zuklappen
+   Baut die Abschnitte eines Reiters zur Laufzeit aus der vorhandenen
+   Gliederung: jedes h2.sec eroeffnet einen Block, alles danach bis zum
+   naechsten h2.sec ist sein Inhalt. Was vor dem ersten h2.sec steht -
+   die Kernaussage des Reiters - bleibt immer sichtbar, ebenso ein
+   Pointe-Kasten am Ende. Jeder Block steht beim Laden zu.
+
+   Weil die Knoten nur verschoben und nicht neu erzeugt werden, bleiben
+   alle ids, Verweise und bereits gesetzten Zuhoerer unberuehrt.
+   ===================================================================== */
+function makeBlocks(panel){
+  if(!panel) return 0;
+  const kinder = [...panel.children];
+  const istKopf = n => n.tagName === "H2" && n.classList.contains("sec");
+  const istEnde = n => n.classList.contains("pointe");
+  let i = 0, nr = 0;
+
+  while(i < kinder.length){
+    if(!istKopf(kinder[i])){ i++; continue; }
+    const h2 = kinder[i], inhalt = [];
+    let j = i + 1;
+    while(j < kinder.length && !istKopf(kinder[j]) && !istEnde(kinder[j])){
+      inhalt.push(kinder[j]); j++;
+    }
+    nr++;
+    /* Jeder Block steht beim Laden zu. Wer die Lektion oeffnet, sieht
+       zuerst ihre Gliederung und entscheidet, was er aufklappt. */
+    const offen = false, bid = "blk-" + (panel.id || "p") + "-" + nr;
+    const wrap = document.createElement("section");
+    wrap.className = "blk";
+    wrap.dataset.open = String(offen);
+    panel.insertBefore(wrap, h2);
+
+    h2.innerHTML =
+      `<button class="blk-t" type="button" aria-expanded="${offen}" aria-controls="${bid}">
+         <svg class="blk-c" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2 L8.5 6 L4.5 10"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+         <span>${h2.innerHTML}</span>
+       </button>`;
+    /* Traegt die Ueberschrift eine Uebersetzungskennung, wandert sie auf
+       den inneren Span - sonst wuerde ein spaeterer Durchlauf des
+       Woerterbuchs die Schaltflaeche ueberschreiben.                  */
+    if(h2.dataset.t){
+      h2.querySelector(".blk-t span").dataset.t = h2.dataset.t;
+      delete h2.dataset.t;
+    }
+    wrap.appendChild(h2);
+
+    const body = document.createElement("div");
+    body.className = "blk-b"; body.id = bid;
+    body.hidden = !offen;
+    inhalt.forEach(n => body.appendChild(n));
+    wrap.appendChild(body);
+    i = j;
+  }
+
+  if(nr) panel.addEventListener("click", e => {
+    const b = e.target.closest(".blk-t"); if(!b) return;
+    const wrap = b.closest(".blk"), body = document.getElementById(b.getAttribute("aria-controls"));
+    const offen = wrap.dataset.open === "true";
+    wrap.dataset.open = String(!offen);
+    b.setAttribute("aria-expanded", String(!offen));
+    body.hidden = offen;
+    /* Wer seine Zeichnung aus dem Layout misst, hat in einem zugeklappten
+       Block nur Nullen gemessen. Ein resize ist das Signal, das die
+       betroffenen Module ohnehin schon auswerten.                      */
+    if(!offen) dispatchEvent(new Event("resize"));
+  });
+  return nr;
+}
+document.querySelectorAll(".panel").forEach(makeBlocks);
+</script>
+</body>
+</html>

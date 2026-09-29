@@ -25,6 +25,7 @@ const REIHENFOLGE = [
   "arch",              // BI-Referenzarchitektur
   "bsc",               // Balanced Scorecard
   "pyramid",           // Controlling-Pyramide (Reichmann)
+  "scmap",             // Supply Chain Map
   "scc",               // Supply Chain Controlling
   "kpi",               // Kennzahlensysteme
   "etl",               // ETL und Datenqualität
