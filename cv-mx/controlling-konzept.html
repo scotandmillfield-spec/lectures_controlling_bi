@@ -552,7 +552,7 @@ footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.77</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.78</span>
 </footer>
 
 </div>
@@ -1156,7 +1156,9 @@ function makeBlocks(panel){
       inhalt.push(kinder[j]); j++;
     }
     nr++;
-    const offen = nr === 1, bid = "blk-" + (panel.id || "p") + "-" + nr;
+    /* Jeder Block steht beim Laden zu. Wer die Lektion oeffnet, sieht
+       zuerst ihre Gliederung und entscheidet, was er aufklappt. */
+    const offen = false, bid = "blk-" + (panel.id || "p") + "-" + nr;
     const wrap = document.createElement("section");
     wrap.className = "blk";
     wrap.dataset.open = String(offen);

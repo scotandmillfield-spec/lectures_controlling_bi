@@ -553,7 +553,7 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.77`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.78`.
 Keine Quellenverzeichnisse, keine Legenden, keine Beschreibung des Falls und kein Hinweis
 darauf, woher eine Abbildung stammt. Sie steht in jeder ausgelieferten Datei gleich, im Markup
 als `<footer>` und auf den zweisprachigen Seiten als Eintrag `footer` im `UI`-Wörterbuch. Dort
@@ -562,7 +562,7 @@ ist sie ein einfacher String, weil ein Name und eine Nummer in beiden Sprachen d
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.77</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.78</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
@@ -893,8 +893,11 @@ legt sie mit an.
 
 **Abschnitte innerhalb einer Lektion sind auf- und zuklappbar.** Die Blöcke entstehen zur
 Laufzeit: `makeBlocks(panel)` läuft am Ende jedes Moduls über `document.querySelectorAll(".panel")`,
-jedes `h2.sec` eröffnet einen Block, alles danach bis zum nächsten `h2.sec` ist sein Inhalt. Der
-erste ist offen, die übrigen zu.
+jedes `h2.sec` eröffnet einen Block, alles danach bis zum nächsten `h2.sec` ist sein Inhalt.
+
+**[gesetzt] Jeder Block steht beim Laden zu.** Wer eine Lektion öffnet, sieht zuerst ihre
+Gliederung und entscheidet danach, was er aufklappt. Früher stand der erste Block offen, was eine
+Reihenfolge nahelegte, die der Stoff nicht immer hat.
 
 - **Am Markup ist dafür nichts zu tun** — ein neues `h2.sec` wird automatisch ein Block. Genau
   deshalb ist es so gebaut: Ein neues Modul bekommt die Mechanik durch Kopieren des CSS-Blocks
@@ -972,8 +975,10 @@ in Höhe ihrer eigenen `viewBox`, also genau den Maßstab 1, und ihr Rahmen beko
   hinausragt. Im Netzdiagramm der Standortbestimmung begann „Zahlungsströme" bei x = −13 und wurde
   an jeder Bildschirmbreite abgeschnitten. Wer eine Zeichnung anfasst, misst deshalb die
   Beschriftungen mit `getBBox()` gegen die `viewBox`.
-- **Am Schreibtisch scrollt eine Zeichnung mit, deren Kasten schmaler ist als sie selbst.** Das ist
-  gewollt: Vorher wurde sie dort gestaucht, und ihre Beschriftung fiel unter 15px.
+- **Die natürliche Breite gilt erst unterhalb von 900px.** Auf einem breiten Schirm passt sich die
+  Zeichnung wie zuvor ein, auch wenn ihre Beschriftung dabei etwas unter 15px fällt. Gescrollt wird
+  allein dort, wo der Platz wirklich fehlt. Die Regel steht deshalb in einem
+  `@media (max-width:900px)` am Ende des Stilblocks, und die alte `min-width` bleibt darüber stehen.
 
 Lektionen sind für Facetten derselben Frage da, nicht für verschiedene Themen — sonst sind es
 zwei Module. Wie viele es werden, entscheidet der Stoff; die Grenze zieht die 15-bis-20-Minuten-Regel

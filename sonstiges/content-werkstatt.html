@@ -104,7 +104,7 @@ blockquote.q cite{display:block;margin-top:9px;font-style:normal;font-family:var
 .hierwrap{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   box-shadow:var(--shadow);padding:18px;overflow-x:auto}
 .hierwrap:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
-svg.hier{display:block;width:100%;height:auto;min-width:900px}
+svg.hier{display:block;width:100%;height:auto;min-width:660px}
 svg.hier text{font-family:var(--sans);fill:var(--ink);pointer-events:none;dominant-baseline:middle}
 svg.hier .lbl{font-size:17.75px;font-weight:600}
 svg.hier .cap{font-family:var(--mono);font-size:15px;letter-spacing:.1em;fill:var(--grey);text-transform:uppercase}
@@ -427,6 +427,13 @@ footer a{color:var(--teal-dk)}
   .blk-b[hidden]{display:block!important}
 }
 @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+
+/* Erst wenn der Platz wirklich fehlt, behaelt die Zeichnung ihre
+   natuerliche Breite und der Rahmen scrollt. Auf einem breiten Schirm
+   passt sie sich wie zuvor ein. */
+@media (max-width:900px){
+  svg.hier{min-width:900px}
+}
 </style>
 </head>
 <body>
@@ -641,7 +648,7 @@ footer a{color:var(--teal-dk)}
   <p class="txt">Der Aufbau ist immer derselbe, und er entsteht beim Schreiben von allein:</p>
   <ul class="txt">
     <li><b>Die Kernaussage</b> ganz oben, ein bis zwei Sätze, immer sichtbar. Sie beantwortet, warum jemand weiterliest.</li>
-    <li><b>Abschnitte</b> darunter, jeder mit einer Überschrift. Sie werden zur Laufzeit zu auf- und zuklappbaren Blöcken; der erste steht offen, die übrigen zu. Am Text ist dafür nichts zu tun.</li>
+    <li><b>Abschnitte</b> darunter, jeder mit einer Überschrift. Sie werden zur Laufzeit zu auf- und zuklappbaren Blöcken, die beim Laden alle zustehen. Wer die Lektion öffnet, sieht zuerst ihre Gliederung. Am Text ist dafür nichts zu tun.</li>
     <li><b>Der Pointe-Kasten</b> am Ende, immer sichtbar. Der eine Satz, der hängen bleiben soll.</li>
   </ul>
   <p class="txt">Kernaussage und Pointe bleiben außerhalb der Klappmechanik. Wer eine Lektion zuklappt, sieht immer noch, worum es ging und was am Ende steht.</p>
@@ -981,7 +988,7 @@ footer a{color:var(--teal-dk)}
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.77</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.78</span>
 </footer>
 
 </div>
@@ -2045,7 +2052,9 @@ function makeBlocks(panel){
       inhalt.push(kinder[j]); j++;
     }
     nr++;
-    const offen = nr === 1, bid = "blk-" + (panel.id || "p") + "-" + nr;
+    /* Jeder Block steht beim Laden zu. Wer die Lektion oeffnet, sieht
+       zuerst ihre Gliederung und entscheidet, was er aufklappt. */
+    const offen = false, bid = "blk-" + (panel.id || "p") + "-" + nr;
     const wrap = document.createElement("section");
     wrap.className = "blk"; wrap.dataset.open = String(offen);
     panel.insertBefore(wrap, h2);
