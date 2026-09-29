@@ -158,7 +158,7 @@ table.tbl tbody tr:hover td{background:var(--sand-xl)}
 .fmark.f4{background:var(--grey-xl);color:#5a5a5c}
 /* ---------- Risk-Map ----------
    Die drei Zonenfarben sind die einzige Stelle, an der Signalfarben
-   auftreten. Dekorativ erscheinen sie nirgends, und die Bedeutung
+   auftreten. Dekorativ erscheinen sie nirgends; die Bedeutung
    hängt nie an ihnen allein: jede Zone hat ihren Namen, jeder Punkt seine
    Kennung, jede rote Position zusaetzlich das Warndreieck.          */
 .mapwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
@@ -651,10 +651,69 @@ footer a{color:var(--teal-dk)}
 /* Erst wenn der Platz wirklich fehlt, behaelt die Zeichnung ihre
    natuerliche Breite und der Rahmen scrollt. Auf einem breiten Schirm
    passt sie sich wie zuvor ein. */
+
+/* ---------- Die drei Rechenwerke, der Wasserfall und die Sphaeren ----
+   Drei eigene Zeichnungen dieses Moduls. Farben kommen ausschliesslich
+   aus dem :root-Block; die natuerliche Breite steht unten im
+   @media-Block, damit sich die Zeichnung am Schreibtisch einpasst. */
+svg.cfr{width:100%;min-width:0;height:auto;display:block}
+svg.cfr text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.cfr .rw{fill:var(--paper);stroke:var(--grey-mid);stroke-width:1.4}
+.cfr .rw.a{stroke:var(--teal-dk);stroke-width:2.4}
+.cfr .rk{font-family:var(--mono);font-size:15px;letter-spacing:.1em;fill:var(--grey);text-transform:uppercase}
+.cfr .rt{font-size:19px;font-weight:600}
+.cfr .rq{font-size:16px;fill:#4a4a4d}
+.cfr .vl{fill:none;stroke:var(--ochre);stroke-width:2.4}
+.cfr .vlab{font-family:var(--mono);font-size:15.5px;fill:var(--ochre);font-weight:600;text-anchor:middle}
+
+svg.cfw{width:100%;min-width:0;height:auto;display:block}
+svg.cfw text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.cfw .bal{cursor:pointer}
+.cfw .br{stroke:#fff;stroke-width:1;transition:opacity .2s}
+.cfw .br.plus{fill:var(--teal)}
+.cfw .br.minus{fill:var(--ochre)}
+.cfw .br.start,.cfw .br.ende{fill:var(--navy)}
+.cfw .br.aus{opacity:.14}
+.cfw .bal.mark .br{stroke:var(--orange);stroke-width:3}
+.cfw .bri{stroke:var(--grey-mid);stroke-width:1;stroke-dasharray:3 3}
+.cfw .bz{font-family:var(--mono);font-size:16px;font-variant-numeric:tabular-nums;text-anchor:middle;font-weight:600}
+.cfw .bn{font-size:15.5px;text-anchor:end;fill:#3d3d40}
+.cfw .bax{stroke:var(--grey-mid);stroke-width:1.4}
+
+svg.cfs{width:100%;min-width:0;height:auto;display:block}
+svg.cfs text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
+.cfs .sb{cursor:pointer}
+.cfs .sr{stroke:#fff;stroke-width:1;transition:.2s}
+.cfs .sr.pos{fill:var(--teal)}
+.cfs .sr.neg{fill:var(--red)}
+.cfs .sb:hover .sr,.cfs .sb.on .sr{stroke:var(--navy);stroke-width:2.6}
+.cfs .sn{font-size:16.5px;text-anchor:middle}
+.cfs .ss{font-family:var(--mono);font-size:15.5px;fill:var(--grey);text-anchor:middle}
+.cfs .sz{font-family:var(--mono);font-size:17px;font-weight:700;text-anchor:middle;font-variant-numeric:tabular-nums}
+.cfs .sax{stroke:var(--grey-mid);stroke-width:1.4}
+.cfs .spf{fill:none;stroke:var(--ochre);stroke-width:2.4}
+.cfs .spflab{font-family:var(--mono);font-size:15.5px;fill:var(--ochre);font-weight:600;text-anchor:middle}
+
+/* Die Mustermatrix: drei Schalter, eine Deutung. */
+.mm3{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.mm3>*{min-width:0}
+.mmk{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:14px 16px}
+.mmk .mn{font-size:1.2rem;font-weight:600;margin:0 0 3px}
+.mmk .mw{font-family:var(--mono);font-size:1.08rem;color:var(--grey);margin:0 0 9px;line-height:1.35}
+.mmd{margin:14px 0 0;border-radius:var(--r);padding:16px 18px;border:1px solid var(--grey-xl);
+  background:var(--paper);box-shadow:var(--shadow)}
+.mmd.hier{border-color:var(--teal-dk);background:var(--teal-xl)}
+.mmd .mmz{font-family:var(--mono);font-size:1.62rem;font-weight:700;letter-spacing:.14em;margin:0 0 7px}
+.mmd .mmt{margin:0;font-size:1.21rem;line-height:1.5;color:#3d3d40}
+.mmd .mmt b{color:var(--ink)}
+
 @media (max-width:900px){
   svg.rm{min-width:560px}
   svg.proc{min-width:660px}
   svg.bcr{min-width:1040px}
+  svg.cfr{min-width:700px}
+  svg.cfw{min-width:720px}
+  svg.cfs{min-width:760px}
 }
 </style>
 </head>
@@ -662,11 +721,11 @@ footer a{color:var(--teal-dk)}
 <div class="wrap">
 
 <header class="masthead">
-  <p class="eyebrow">Bilanzanalyse · Der Verband · in Planung</p>
+  <p class="eyebrow">Bilanzanalyse · Der Verband</p>
   <h1>Der <em>Cashflow</em></h1>
   <p class="lede">Dieses Modul arbeitet mit einem Caritasverband, der ein Pflegeheim, eine Beratungsstelle, ein Wohnhaus und einen Secondhandladen unterhält. Du gehst vom Jahresergebnis zum Zahlungsstrom, liest die drei Bereiche der Cashflow-Rechnung und ihre typischen Muster und stellst am Ende eine eigene Rechnung auf.</p>
   <div class="readme" style="margin-top:20px">
-    <b>Dieses Modul ist eine Hülle.</b> Die Lektionen stehen mit Namen und Kernaussage da, ebenso die Überschriften ihrer Abschnitte; der Text und die Werkzeuge kommen noch. Die beiden Pflichtlektionen, Quiz und Praxiseinstieg, sind schon angelegt.
+    <b>Durchgehend HGB, alle Beträge in Tausend Euro.</b> Die Zahlen des Verbands sind zur Veranschaulichung gewählt und in ihrer Größenordnung vor einer Schulung mit jemandem abzustimmen, der den echten Abschluss kennt. Wo eine steuerliche Frage berührt wird, nennt das Modul die Systematik und verweist auf den steuerlichen Berater.
   </div>
 </header>
 
@@ -681,129 +740,1324 @@ footer a{color:var(--teal-dk)}
 </div>
 
 <section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
-  <p class="claim">Der Verband weist 20 T€ Jahresergebnis aus und hat aus laufender Tätigkeit 220 T€ erwirtschaftet. Die indirekte Rechnung nimmt alles zurück, was das Ergebnis berührt hat und das Konto nicht.</p>
-  <div class="readme">
-    <b>Diese Lektion ist noch nicht geschrieben.</b> Die Abschnitte darunter stehen mit Überschrift und Absicht da. Klapp einen auf, um zu sehen, was dort entsteht.
-  </div>
+  <p class="claim">Der Verband weist <b>20 T€ Jahresergebnis</b> aus und hat aus laufender Tätigkeit <b>220 T€</b> erwirtschaftet. Die indirekte Rechnung nimmt alles zurück, was das Ergebnis berührt hat und das Konto nicht.</p>
+
   <h2 class="sec">Drei Rechenwerke und ihre zwei Verbindungsstellen</h2>
-  <p class="sub">Bilanz, Gewinn- und Verlustrechnung sowie Cashflow-Rechnung stehen als drei Kästen nebeneinander; zwei Linien zeigen, wo das Jahresergebnis und der Finanzmittelbestand sie verbinden.</p>
+  <p class="sub">Bilanz, Gewinn- und Verlustrechnung sowie Cashflow-Rechnung beantworten drei verschiedene Fragen. Zwei Zahlen verbinden sie; an diesen beiden Stellen hängt alles Weitere.</p>
+  <div class="stage" tabindex="0" role="group" aria-label="Drei Rechenwerke und ihre zwei Verbindungsstellen, seitlich scrollbar">
+    <svg class="cfr" viewBox="0 0 700 250" role="img" aria-label="Bilanz, Gewinn- und Verlustrechnung und Cashflow-Rechnung als drei Kästen, verbunden durch das Jahresergebnis und den Finanzmittelbestand">
+      <rect class="rw" x="14" y="46" width="200" height="118" rx="9"/>
+      <text class="rk" x="30" y="70">Bestand</text>
+      <text class="rt" x="30" y="97">Bilanz</text>
+      <text class="rq" x="30" y="122">Vermögen und Finanzierung</text>
+      <text class="rq" x="30" y="143">am 31.12.</text>
+
+      <rect class="rw a" x="250" y="46" width="200" height="118" rx="9"/>
+      <text class="rk" x="266" y="70">Erfolg</text>
+      <text class="rt" x="266" y="97">Gewinn- und Verlust-</text>
+      <text class="rt" x="266" y="118">rechnung</text>
+      <text class="rq" x="266" y="143">Erträge und Aufwendungen</text>
+
+      <rect class="rw" x="486" y="46" width="200" height="118" rx="9"/>
+      <text class="rk" x="502" y="70">Zahlung</text>
+      <text class="rt" x="502" y="97">Cashflow-Rechnung</text>
+      <text class="rq" x="502" y="122">Veränderung des Bestands</text>
+      <text class="rq" x="502" y="143">und ihre Herkunft</text>
+
+      <path class="vl" d="M250 84 L214 84"/>
+      <text class="vlab" x="232" y="64">1</text>
+      <text class="vlab" x="232" y="182">Jahresergebnis</text>
+      <text class="vlab" x="232" y="202">+20 T€</text>
+
+      <path class="vl" d="M486 126 L214 126 M214 126 L214 126"/>
+      <text class="vlab" x="350" y="106">2</text>
+      <text class="vlab" x="350" y="218">Finanzmittelbestand 418 → 480 T€</text>
+    </svg>
+  </div>
+  <div class="merk" style="margin-top:16px">
+    <h3>Die zwei Verbindungsstellen</h3>
+    <dl>
+      <dt>Das Jahresergebnis</dt><dd>Es steht als letzte Zeile in der Gewinn- und Verlustrechnung und als Posten im Eigenkapital der Bilanz. Beim Verband sind es 20 T€. Zugleich ist es der Ausgangspunkt der indirekten Cashflow-Rechnung.</dd>
+      <dt>Der Finanzmittelbestand</dt><dd>Er steht in der Bilanz beim Umlaufvermögen, mit 418 T€ am 01.01. und 480 T€ am 31.12. Die Cashflow-Rechnung erklärt die 62 T€ Veränderung dazwischen und endet genau bei diesem Wert.</dd>
+    </dl>
+  </div>
+  <p class="sub" style="margin-top:14px">Damit hat jede Frage ihr Rechenwerk. Ob der Verband Vermögen hat, sagt die Bilanz; ob er einen Überschuss erwirtschaftet hat, sagt die Gewinn- und Verlustrechnung; woher die Veränderung auf dem Konto kommt, sagt allein die Cashflow-Rechnung.</p>
+
   <h2 class="sec">Die Überleitung Schritt für Schritt</h2>
-  <p class="sub">Ein Wasserfall baut sich vom Jahresergebnis bis zum laufenden Cashflow von 220 T€ auf, wobei jeder Balken seine Begründung und den zugehörigen Vorfall im Verband nennt.</p>
+  <p class="sub">Klick Dich durch die sieben Schritte oder lass sie in einem Zug aufbauen. Jeder Balken nennt seine Begründung und den Vorfall im Verband, der dahintersteht.</p>
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Wasserfall">
+      <button id="cfNext" type="button">Nächster Schritt</button>
+      <button id="cfAll" type="button">Alle zeigen</button>
+      <button id="cfReset" type="button">Von vorn</button>
+    </div>
+    <p class="legend" style="margin:0">
+      <span class="key"><span class="sw" style="background:#0F4C5C"></span>Ausgangspunkt und Ergebnis</span>
+      <span class="key"><span class="sw" style="background:#209CBD"></span>bringt Geld</span>
+      <span class="key"><span class="sw" style="background:#B5852C"></span>bindet Geld</span>
+    </p>
+  </div>
+  <div class="stage" tabindex="0" role="group" aria-label="Wasserfall der Überleitung vom Jahresergebnis zum laufenden Cashflow, seitlich scrollbar">
+    <svg class="cfw" id="cfSvg" viewBox="0 0 720 330" role="img" aria-label="Wasserfalldiagramm der sieben Schritte vom Jahresergebnis 20 zum laufenden Cashflow 220"></svg>
+  </div>
+  <p class="bilmsg" id="cfMsg" style="margin-top:10px"></p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Die Überleitung als Tabelle, seitlich scrollbar" style="margin-top:14px">
+    <table class="tbl" id="cfTab"></table>
+  </div>
+  <div class="readme" style="margin-top:16px">
+    <b>Die Vorzeichenregel in einem Satz.</b> Steigt ein Aktivposten, bindet er Geld und kommt mit einem Minus in die Rechnung; steigt ein Passivposten, hält er Geld im Haus und kommt mit einem Plus hinein. Wer diese eine Regel behält, braucht die sieben Zeilen nicht auswendig zu lernen.
+  </div>
+
   <h2 class="sec">Die direkte und die indirekte Methode</h2>
-  <p class="sub">Die direkte Rechnung stellt Einzahlungen gegen Auszahlungen, die indirekte geht vom Jahresergebnis aus; beim laufenden Cashflow kommen beide auf denselben Betrag.</p>
+  <p class="sub">Für den laufenden Cashflow gibt es zwei Wege, die beim selben Betrag ankommen. Welchen Du gehst, hängt daran, ob Du planst oder einen fertigen Abschluss auswertest.</p>
+  <div class="duo">
+    <div class="card" style="border-left:3px solid var(--teal)">
+      <p class="ck">Der erste Weg</p><h3>Direkt: Einzahlungen minus Auszahlungen</h3>
+      <p>Du zählst zusammen, was auf dem Konto eingegangen ist, und ziehst ab, was abgegangen ist. So rechnet eine Liquiditätsvorschau, weil sie nach vorn schaut und jede Position mit einer Regel für ihren Zahlungszeitpunkt versieht (siehe <a href="liquiditaet-vorschau.html">Die Liquiditätsvorschau</a>).</p>
+      <p>Der Weg ist anschaulich und setzt voraus, dass Du an die Zahlungsströme herankommst. Aus einem veröffentlichten Abschluss lässt er sich nicht rekonstruieren.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ochre)">
+      <p class="ck">Der zweite Weg</p><h3>Indirekt: vom Jahresergebnis aus</h3>
+      <p>Du beginnst beim Jahresergebnis und korrigierst alles heraus, was das Ergebnis berührt hat und das Konto nicht. Genau das macht der Wasserfall darüber. So wird aus einem Abschluss analysiert, weil Bilanz und Gewinn- und Verlustrechnung dafür ausreichen.</p>
+      <p>Der Weg ist rechnerisch bequem und erklärt weniger von selbst. Deshalb steht neben jeder Zeile, welcher Vorfall im Verband hinter ihr steht.</p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:14px">Beim Cashflow aus laufender Tätigkeit kommen beide Methoden auf denselben Betrag, nämlich auf 220 T€. Sie unterscheiden sich allein im Weg dorthin und in der Frage, welche Daten Du dafür brauchst.</p>
+
+  <h2 class="sec">Plus oder minus? Acht Veränderungen einordnen</h2>
+  <p class="sub">Sag für jede Veränderung, mit welchem Vorzeichen sie in die indirekte Rechnung eingeht. Die Begründung erscheint nach jeder Antwort, auch nach der richtigen.</p>
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Übung">
+      <button id="zuNew" type="button">Von vorn</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="zuStand"></span></p>
+  </div>
+  <div class="zu" id="zuListe"></div>
+
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Jahresergebnis und Cashflow messen zwei verschiedene Dinge. Bezahlt wird aus dem Cashflow.</p>
+    <p>Jahresergebnis und Cashflow messen zwei verschiedene Dinge. <b>Bezahlt wird aus dem Cashflow.</b></p>
   </div>
 </section>
 <section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
-  <p class="claim">Die Cashflow-Rechnung teilt die Veränderung des Finanzmittelbestands in drei Bereiche. Erst die drei Vorzeichen zusammen ergeben ein Bild.</p>
-  <div class="readme">
-    <b>Diese Lektion ist noch nicht geschrieben.</b> Die Abschnitte darunter stehen mit Überschrift und Absicht da. Klapp einen auf, um zu sehen, was dort entsteht.
-  </div>
+  <p class="claim">Die Cashflow-Rechnung teilt die Veränderung des Finanzmittelbestands in <b>drei Bereiche</b>. Erst die drei Vorzeichen zusammen ergeben ein Bild.</p>
+
   <h2 class="sec">Die drei Bereiche des Verbands</h2>
-  <p class="sub">Laufende Tätigkeit 220 T€, Investitionstätigkeit −182 T€ und Finanzierungstätigkeit 24 T€ ergeben eine Veränderung von 62 T€, also den Weg von 418 auf 480 T€.</p>
+  <p class="sub">Der laufende Cashflow aus Lektion 01 ist der erste der drei Bereiche. Darunter stehen die Investitionen und die Finanzierung. Die Summe der drei erklärt den Weg von 418 auf 480 T€.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Die drei Bereiche der Cashflow-Rechnung des Verbands, seitlich scrollbar">
+  <table class="tbl">
+    <thead><tr><th>Bereich</th><th>T€</th><th>Was darin steckt</th></tr></thead>
+    <tbody>
+      <tr><td class="crit">Laufende Tätigkeit</td><td class="m">+220</td><td>die sieben Schritte aus Lektion 01, vom Jahresergebnis bis zur Veränderung der Verbindlichkeiten</td></tr>
+      <tr><td class="crit">Investitionstätigkeit</td><td class="m">−182</td><td>Bädersanierung und Fahrzeug −340, Investitionszuwendungen +150, Verkauf eines Altfahrzeugs +8</td></tr>
+      <tr><td class="crit">Finanzierungstätigkeit</td><td class="m">+24</td><td>Aufnahme eines Darlehens +120, Tilgung −96</td></tr>
+      <tr><td class="crit"><b>Veränderung des Finanzmittelbestands</b></td><td class="m"><b>+62</b></td><td><b>418 T€ am 01.01., 480 T€ am 31.12.</b></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="acc" style="margin-top:16px">
+    <button type="button" id="cfDrs" aria-expanded="false" aria-controls="cfDrsA"><span class="mk">?</span>Wohin gehören Zinsen und Zuwendungen?</button>
+    <div class="ans" id="cfDrsA" hidden>
+      <p style="margin:0 0 9px">Der Fall rechnet die gezahlten Zinsen im <b>laufenden Bereich</b> mit, wie es für einen eingetragenen Verein zulässig ist. Der Deutsche Rechnungslegungs Standard 21 ordnet gezahlte Zinsen der Finanzierungstätigkeit zu und erhaltene Zinsen der Investitionstätigkeit; er ist für einen Verein nicht verbindlich. Wer ihm folgt, kommt auf <b>282 T€</b> laufend und <b>−38 T€</b> Finanzierung, bei unveränderter Veränderung des Bestands von 62 T€.</p>
+      <p style="margin:0">Die Investitionszuwendung von 150 T€ steht hier in der <b>Investitionstätigkeit</b>, weil sie unmittelbar eine Anlage finanziert. Eine Zuwendung zu laufenden Kosten gehört dagegen in den laufenden Bereich. Welche Zuordnung das eigene Haus wählt, gehört in die Bilanzierungsrichtlinie und bleibt über die Jahre dieselbe, sonst lässt sich keine Reihe vergleichen.</p>
+    </div>
+  </div>
+
   <h2 class="sec">Die acht Muster der drei Vorzeichen</h2>
-  <p class="sub">Jede Kombination der drei Vorzeichen hat eine übliche Deutung; Du liest ab, welche davon auf den Verband passt.</p>
+  <p class="sub">Drei Bereiche mit je zwei möglichen Vorzeichen ergeben acht Kombinationen. Jede hat eine übliche Deutung in der Bilanzanalyse, von denen eine die des Verbands ist.</p>
+  <div class="mm3" id="mmWahl"></div>
+  <div class="mmd" id="mmAus"></div>
+  <p class="sub" style="margin-top:14px">Stell die drei Schalter auf Plus, Minus, Plus, dann steht das Muster des Verbands da. Es ist nicht das eines gesunden Betriebs im Lehrbuchsinn und auch kein Warnsignal; es ist das Muster einer Einrichtung, die aus eigener Kraft nicht genug für ihre Investitionen erwirtschaftet und die Lücke mit Zuwendungen und Krediten schließt.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Die acht Muster der drei Vorzeichen, seitlich scrollbar" style="margin-top:14px">
+  <table class="tbl">
+    <thead><tr><th>Laufend</th><th>Investition</th><th>Finanzierung</th><th>Deutung</th></tr></thead>
+    <tbody>
+      <tr><td class="m">+</td><td class="m">−</td><td class="m">−</td><td>Aus eigener Kraft investiert und Schulden bedient. Der Normalfall eines gesunden Betriebs.</td></tr>
+      <tr style="background:var(--teal-xl)"><td class="m">+</td><td class="m">−</td><td class="m">+</td><td>Investiert über den laufenden Cashflow hinaus, ergänzt durch Kredite oder Zuwendungen. <b>Der Verband.</b></td></tr>
+      <tr><td class="m">+</td><td class="m">+</td><td class="m">−</td><td>Anlagen verkauft, Schulden getilgt. Konsolidierung oder Rückzug.</td></tr>
+      <tr><td class="m">+</td><td class="m">+</td><td class="m">+</td><td>Geld fließt aus allen Richtungen zu. Selten; beim gemeinnützigen Träger stellt sich dann die Frage der zeitnahen Mittelverwendung.</td></tr>
+      <tr><td class="m">−</td><td class="m">−</td><td class="m">+</td><td>Laufendes Geschäft und Investitionen auf Kredit. Warnsignal, außer in einer Anlaufphase.</td></tr>
+      <tr><td class="m">−</td><td class="m">+</td><td class="m">+</td><td>Laufende Verluste durch Anlagenverkäufe und Kredite gedeckt. Krise.</td></tr>
+      <tr><td class="m">−</td><td class="m">+</td><td class="m">−</td><td>Anlagenverkäufe decken Defizit und Tilgung. Substanzverzehr.</td></tr>
+      <tr><td class="m">−</td><td class="m">−</td><td class="m">−</td><td>Der Bestand schmilzt in allen Bereichen. Nur mit hohem Anfangsbestand möglich, akut.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
   <h2 class="sec">Der Free Cashflow</h2>
-  <p class="sub">Laufende Tätigkeit plus Investitionstätigkeit ergeben 38 T€ nach Zuwendungen und −112 T€ davor, sodass sich die Rolle der Zuwendungen beziffern lässt.</p>
+  <p class="sub">Laufende Tätigkeit plus Investitionstätigkeit ergeben den Free Cashflow, also den Betrag, der nach den Investitionen für Tilgung, Rücklagen und Zweckerfüllung übrig bleibt. Der Schalter zeigt, wie viel davon die Zuwendungen beisteuern.</p>
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Zuwendungen" id="fcWahl">
+      <button type="button" data-fc="mit" aria-pressed="true">Zuwendungen einrechnen</button>
+      <button type="button" data-fc="ohne" aria-pressed="false">Ohne Zuwendungen</button>
+    </div>
+  </div>
+  <div class="bilkz" id="fcKz"></div>
+  <p class="sub" id="fcHin" style="margin-top:12px"></p>
+
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Aus eigener Kraft reicht der laufende Cashflow des Verbands für seine Investitionen nicht; die Zuwendungen schließen die Lücke.</p>
+    <p>Aus eigener Kraft reicht der laufende Cashflow des Verbands für seine Investitionen nicht. <b>Die Zuwendungen schließen die Lücke.</b></p>
   </div>
 </section>
 <section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
-  <p class="claim">Jede Zeile der Überleitung hat einen Treiber im Tagesgeschäft. Wer die Treiber kennt, liest den Cashflow als Folge von Entscheidungen in den Einrichtungen.</p>
-  <div class="readme">
-    <b>Diese Lektion ist noch nicht geschrieben.</b> Die Abschnitte darunter stehen mit Überschrift und Absicht da. Klapp einen auf, um zu sehen, was dort entsteht.
-  </div>
+  <p class="claim">Jede Zeile der Überleitung hat einen <b>Treiber im Tagesgeschäft</b>. Wer die Treiber kennt, liest den Cashflow als Folge von Entscheidungen in den Einrichtungen.</p>
+
   <h2 class="sec">Der Treiberbaum</h2>
-  <p class="sub">Belegung, Abrechnung, Zahlungseingang, Stellen und Tarife stehen als Baum da, dessen Äste in je eine Zeile der Überleitung münden.</p>
+  <p class="sub">Vier Ketten führen von einer Entscheidung im Alltag bis in eine Zeile der Cashflow-Rechnung. Klick eine Kette an; ihre Zeile wird dann im Wasserfall aus Lektion 01 markiert.</p>
+  <div class="deck" id="tbDeck"></div>
+  <p class="bilmsg" id="tbMsg" style="margin-top:10px"></p>
+
   <h2 class="sec">Die Hebelkarte</h2>
-  <p class="sub">Ein Prozentpunkt Auslastung entspricht 42,6 T€ Erlösen, ein Tag Forderungslaufzeit bindet 11,7 T€, ein Prozent Tarifsteigerung kostet 36,1 T€ Personalaufwand.</p>
+  <p class="sub">Drei Größen bewegen den Cashflow des Verbands am stärksten. Die Werte sind gegen das Zahlenwerk gerechnet und gelten für ein Jahr.</p>
+  <div class="figs">
+    <div class="fig"><p class="fk">Auslastung</p><p class="fv">42,6</p><p class="fn">T€ Erlöse je Prozentpunkt im Pflegeheim</p></div>
+    <div class="fig"><p class="fk">Forderungslaufzeit</p><p class="fv">11,7</p><p class="fn">T€ gebunden je zusätzlichem Tag</p></div>
+    <div class="fig"><p class="fk">Tarif</p><p class="fv">36,1</p><p class="fn">T€ Personalaufwand je Prozent Steigerung</p></div>
+    <div class="fig"><p class="fk">Ein Tag Pflege</p><p class="fv">11,2</p><p class="fn">T€ Pflegeerlöse, aus 4.088 ÷ 365</p></div>
+  </div>
+  <p class="sub" style="margin-top:12px">Die drei ersten Größen liegen in drei verschiedenen Händen. Über die Auslastung entscheidet die Einrichtung, über die Forderungslaufzeit die Abrechnung, über den Tarif niemand im Haus. Genau deshalb ist die mittlere Größe die, an der sich am schnellsten etwas bewegen lässt.</p>
+
   <h2 class="sec">Die Geldumschlagsdauer ohne Lager</h2>
-  <p class="sub">In Pflege und Beratung gibt es kaum Vorräte, weshalb die Forderungslaufzeit die Geldumschlagsdauer bestimmt; rund 42 Tage binden 486 T€.</p>
+  <p class="sub">Die Geldumschlagsdauer aus dem Modul <a href="liquiditaet-begriff.html">Liquidität: der Begriff</a> setzt sich aus Lagerdauer, Forderungslaufzeit und Kreditorenlaufzeit zusammen. In Pflege und Beratung fällt der erste Baustein praktisch weg.</p>
+  <div class="duo">
+    <div class="card" style="border-left:3px solid var(--teal)">
+      <p class="ck">Was wegfällt</p><h3>Es gibt kaum Vorräte</h3>
+      <p>Eine Pflegeleistung lässt sich nicht auf Lager legen. Die Vorräte des Verbands liegen bei 33 T€ und haben sich im Jahr um 5 T€ vermindert, was in der Überleitung die kleinste Zeile ist.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--red)">
+      <p class="ck">Was dafür schwerer wiegt</p><h3>Das Personal wird vorher bezahlt</h3>
+      <p>Die Löhne des Monats sind am Monatsende fällig, der Zahlungseingang der Kostenträger folgt Wochen später. Rund <b>42 Tage</b> Forderungslaufzeit binden beim Verband etwa <b>486 T€</b>, die vorfinanziert werden müssen.</p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:12px">Damit bleibt von den drei Hebeln der Geldumschlagsdauer im Wesentlichen einer übrig. Ein Tag weniger Forderungslaufzeit setzt rund 11,7 T€ frei, während an der Lagerdauer nichts zu holen ist.</p>
+
   <h2 class="sec">Was der Verband aus seinem Cashflow ablesen kann</h2>
-  <p class="sub">Fünf Befunde stehen hier, vom Anstieg der Forderungen um 74 T€ bis zu den 480 T€ Bestand, die für 1,16 Monate Auszahlungen reichen.</p>
+  <p class="sub">Fünf Befunde folgen unmittelbar aus den Zahlen der Lektionen 01 und 02. Keiner davon steht in der Gewinn- und Verlustrechnung.</p>
+  <div class="merk">
+    <h3>Fünf Befunde</h3>
+    <dl>
+      <dt>Die Investitionen</dt><dd>Der laufende Cashflow deckt sie nur mit den Zuwendungen. Ohne die 150 T€ läge der Free Cashflow bei −112 T€.</dd>
+      <dt>Die Forderungen</dt><dd>Ihr Anstieg um 74 T€ entspricht gut sechs Tagen Forderungslaufzeit (74 ÷ 11,7). Sechs Tage schnellere Abrechnung hätten denselben Effekt wie 74 T€ zusätzlicher Überschuss.</dd>
+      <dt>Die Rückstellungen</dt><dd>Die 48 T€ haben das Ergebnis belastet und das Konto noch nicht. Es ist Geld, das später abfließt, etwa für Urlaub und Überstunden.</dd>
+      <dt>Der Sonderposten</dt><dd>92 T€ des Ergebnisses sind Auflösung eines Sonderpostens ohne Einzahlung. Von 20 T€ Jahresergebnis bleibt damit rechnerisch nichts, was aus dem laufenden Geschäft stammt.</dd>
+      <dt>Die Reichweite</dt><dd>480 T€ Bestand reichen für <b>1,16 Monate</b> Auszahlungen, gerechnet mit 412,5 T€ im Monat. Das ist die Kennzahl, an der ein Vorstand zuerst erkennt, wie eng es ist.</dd>
+    </dl>
+  </div>
+
+  <h2 class="sec">Die Rechnung mit drei Reglern</h2>
+  <p class="sub">Verschieb die drei Regler und lies darunter ab, wie sich laufender Cashflow und Reichweite verändern. Die Rechnung ist eine lineare Näherung und steht unter den Reglern; sie ersetzt keine Planung, macht aber die Größenordnung der drei Hebel vergleichbar.</p>
+  <div class="rgrid" id="hbGrid"></div>
+  <div class="bilkz" id="hbKz"></div>
+  <div class="readme" style="margin-top:16px">
+    <b>So rechnet der Regler.</b> <span class="m">Cashflow = 220 + ΔAuslastung × 42,6 − ΔTage × 11,7 − Tarif% × 36,1</span> und <span class="m">Reichweite = (480 + Cashflow − 220) ÷ (412,5 + Tarif% × 36,1 ÷ 12)</span>. Der Bestand am Jahresende verändert sich um den Unterschied zum Ausgangswert von 220 T€, die monatlichen Auszahlungen steigen um den Personalanteil der Tarifsteigerung.
+  </div>
+
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Belegung, Abrechnungstempo und Personaleinsatz bestimmen den Cashflow; die Rechnung macht ihre Wirkung sichtbar.</p>
+    <p>Belegung, Abrechnungstempo und Personaleinsatz bestimmen den Cashflow. <b>Die Rechnung macht ihre Wirkung sichtbar.</b></p>
   </div>
 </section>
 <section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
-  <p class="claim">Gemeinnützigkeit erlaubt Überschüsse und verbietet deren Ausschüttung. Zudem müssen Mittel zeitnah verwendet werden, weshalb beim Verband auch ein zu hoher Bestand ein Befund ist.</p>
-  <div class="readme">
-    <b>Diese Lektion ist noch nicht geschrieben.</b> Die Abschnitte darunter stehen mit Überschrift und Absicht da. Klapp einen auf, um zu sehen, was dort entsteht.
-  </div>
+  <p class="claim">Gemeinnützigkeit erlaubt Überschüsse und verbietet deren Ausschüttung. Zudem müssen Mittel <b>zeitnah verwendet</b> werden, weshalb beim Verband auch ein zu hoher Bestand ein Befund ist.</p>
+
   <h2 class="sec">Die vier Sphären und ihre vier Cashflows</h2>
-  <p class="sub">Das Pflegeheim erwirtschaftet 265 T€, die Beratungsstelle verbraucht 85 T€, das Wohnhaus bringt 48 T€, der Secondhandladen verbraucht 8 T€.</p>
+  <p class="sub">Der Verband deckt mit seinen vier Einrichtungen alle vier steuerlichen Sphären ab. Klick einen Balken an, um die Überleitung dieser Sphäre zu sehen.</p>
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Spenden" id="spWahl">
+      <button type="button" data-sp="mit" aria-pressed="true">Mit Spenden</button>
+      <button type="button" data-sp="ohne" aria-pressed="false">Spenden herausrechnen</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="spStand"></span></p>
+  </div>
+  <div class="stage" tabindex="0" role="group" aria-label="Cashflow je Sphäre als vier Balken, seitlich scrollbar">
+    <svg class="cfs" id="spSvg" viewBox="0 0 760 310" role="img" aria-label="Vier Balken für den Cashflow je Sphäre, mit einem Pfeil vom Pflegeheim zur Beratungsstelle"></svg>
+  </div>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Überleitung der gewählten Sphäre, seitlich scrollbar" style="margin-top:14px">
+    <table class="tbl" id="spTab"></table>
+  </div>
+  <p class="sub" id="spHin" style="margin-top:12px"></p>
+
   <h2 class="sec">Die Quersubventionierung als Systematik</h2>
-  <p class="sub">Mittelverwendung für den satzungsmäßigen Zweck ist erwünscht; Verluste eines wirtschaftlichen Geschäftsbetriebs mit gemeinnützigen Mitteln auszugleichen, ist in der Regel unzulässig. Fristen und Grenzen bleiben dem steuerlichen Berater.</p>
+  <p class="sub">Dass eine Sphäre Geld verbraucht und eine andere es erwirtschaftet, ist beim gemeinnützigen Träger der Normalfall. In welche Richtung ausgeglichen werden darf, ist dagegen eine Frage des Gemeinnützigkeitsrechts.</p>
+  <div class="duo">
+    <div class="card" style="border-left:3px solid var(--green)">
+      <p class="ck">In der Regel erwünscht</p><h3>Mittel für den satzungsmäßigen Zweck</h3>
+      <p>Der Überschuss des Pflegeheims finanziert die Beratungsstelle. Das ist Mittelverwendung für den satzungsmäßigen Zweck und genau der Grund, aus dem der Verband beide Einrichtungen unterhält.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--red)">
+      <p class="ck">In der Regel unzulässig</p><h3>Verluste eines wirtschaftlichen Geschäftsbetriebs</h3>
+      <p>Den Verlust des Secondhandladens mit gemeinnützigen Mitteln auszugleichen, ist in der Regel unzulässig. Der wirtschaftliche Geschäftsbetrieb soll sich selbst finanzieren.</p>
+    </div>
+  </div>
+  <div class="readme warn" style="margin-top:16px">
+    <b>Fristen, Grenzbeträge und Rücklagenarten stehen hier nicht.</b> Sie ändern sich, sodass ein Modul, das eine veraltete Frist verbreitet, mehr Schaden anrichtet als eines, das die Frage offenlässt. Was im eigenen Haus gilt, sagt der steuerliche Berater oder der Wirtschaftsprüfer.
+  </div>
+
   <h2 class="sec">Die Untergrenze und die Obergrenze der Liquidität</h2>
-  <p class="sub">Die Untergrenze setzt die Zahlungsfähigkeit, die Obergrenze setzen die zeitnahe Mittelverwendung und die Rücklagenplanung.</p>
+  <p class="sub">Ein gewerblicher Betrieb kennt beim Liquiditätsbestand nur eine Untergrenze. Beim gemeinnützigen Träger kommt eine zweite Grenze dazu, die von oben wirkt.</p>
+  <div class="duo">
+    <div class="card" style="border-left:3px solid var(--red)">
+      <p class="ck">Die Untergrenze</p><h3>Die Zahlungsfähigkeit</h3>
+      <p>Sie setzt sich aus den Auszahlungen zusammen, die in den nächsten Wochen fällig werden. Beim Verband sind rund 301 T€ im Monat allein Personal, weshalb eine Monatsauszahlung für das Personal als Mindestliquidität eine naheliegende Festlegung ist.</p>
+      <p>Wie eine solche Schwelle festgelegt und überwacht wird, steht im Modul <a href="liquiditaet-fruehwarnung.html">Liquiditätsrisiken früh erkennen</a>, Lektion 02.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ochre)">
+      <p class="ck">Die Obergrenze</p><h3>Die zeitnahe Mittelverwendung</h3>
+      <p>Mittel sind zeitnah für den satzungsmäßigen Zweck einzusetzen. Ein hoher Bestand ohne zulässige Rücklage ist deshalb ein Befund, der eine Begründung braucht.</p>
+      <p>Welche Rücklagenarten in welcher Höhe zulässig sind, gehört vor den steuerlichen Berater. Für die Steuerung genügt der Satz, dass es zwei Grenzen gibt.</p>
+    </div>
+  </div>
+
   <h2 class="sec">Der Sonderposten aus Investitionszuwendungen</h2>
-  <p class="sub">Die Zuwendung kommt als Einzahlung und steht danach als Sonderposten auf der Passivseite, dessen Auflösung parallel zur Abschreibung läuft; aus eigener Kraft zu verdienen sind deshalb 176 T€.</p>
+  <p class="sub">Der Sonderposten ist die Position, an der die Rechnung eines gemeinnützigen Trägers am deutlichsten von der eines gewerblichen Betriebs abweicht. Sein Weg hat drei Schritte.</p>
+  <div class="trio">
+    <div class="card" style="border-left:3px solid var(--teal)">
+      <p class="ck">Schritt 1</p><h3>Die Zuwendung kommt an</h3>
+      <p>150 T€ gehen auf dem Konto ein, gebucht als Bank an Sonderposten. Eine Einzahlung ohne Ertrag, in der Cashflow-Rechnung im Investitionsbereich.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ochre)">
+      <p class="ck">Schritt 2</p><h3>Der Posten steht rechts</h3>
+      <p>Er steht auf der Passivseite zwischen Eigenkapital und Rückstellungen. Er ist kein Eigenkapital, weil er zweckgebunden ist, und keine Schuld, weil nichts zurückzuzahlen ist.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--navy)">
+      <p class="ck">Schritt 3</p><h3>Beide Seiten laufen parallel ab</h3>
+      <p>Die Anlage wird abgeschrieben, der Sonderposten anteilig aufgelöst. Beides berührt das Konto nicht, weshalb beides in der Überleitung erscheint.</p>
+    </div>
+  </div>
+  <div class="bilkz">
+    <div class="kz"><p class="kk">Abschreibungen</p><p class="kv">268</p><p class="kf">T€ im Jahr, über alle Einrichtungen</p></div>
+    <div class="kz" style="border-left-color:var(--ochre)"><p class="kk">Auflösung</p><p class="kv">92</p><p class="kf">T€ Ertrag, der einen Teil davon deckt</p></div>
+    <div class="kz" style="border-left-color:var(--red)"><p class="kk">Eigenfinanziert</p><p class="kv">176</p><p class="kf">T€, die aus eigener Kraft zu verdienen sind</p></div>
+  </div>
+  <p class="sub" style="margin-top:12px">Wer allein die 268 T€ sieht, hält den ganzen Betrag für eine Belastung aus eigener Kraft. Wer beide Zeilen nebeneinander sieht, liest die 176 T€ ab. Das ist die Zahl, die der Verband in einem normalen Jahr erwirtschaften muss, um seine Substanz zu erhalten.</p>
+
   <h2 class="sec">Die Fragen der Rollen</h2>
-  <p class="sub">Die neue Kraft in der Buchhaltung fragt, wie der Verband mit 20 T€ Ergebnis die Bäder bezahlen kann; die Leitung des Pflegeheims fragt, warum ihr Haus die Beratungsstelle mitfinanziert.</p>
+  <p class="sub">Zwei Fragen fallen in jeder Runde, in der diese Zahlen auf dem Tisch liegen. Klick eine Karte an, um die Antwort zu lesen.</p>
+  <div class="deck" id="rlDeck"></div>
+
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Beim gemeinnützigen Träger hat die Liquidität zwei Grenzen. Zu wenig gefährdet die Zahlungsfähigkeit, zu viel die zeitnahe Mittelverwendung.</p>
+    <p>Beim gemeinnützigen Träger hat die Liquidität zwei Grenzen. <b>Zu wenig gefährdet die Zahlungsfähigkeit, zu viel die zeitnahe Mittelverwendung.</b></p>
   </div>
 </section>
 <section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e" hidden>
-  <p class="claim">Ein Formular für die indirekte Rechnung nimmt Deine eigenen Zahlen auf. Darunter stehen das Muster, der Free Cashflow und die Reichweite.</p>
-  <div class="readme">
-    <b>Diese Lektion ist noch nicht geschrieben.</b> Die Abschnitte darunter stehen mit Überschrift und Absicht da. Klapp einen auf, um zu sehen, was dort entsteht.
-  </div>
+  <p class="claim">Hier steht die indirekte Rechnung als <b>Formular</b>. Trag Deine Zahlen in vollen Tausend Euro ein; darunter stehen das Muster, der Free Cashflow und die Reichweite.</p>
+
   <h2 class="sec">Das Formular für die indirekte Rechnung</h2>
-  <p class="sub">Du tippst die Posten der drei Bereiche ein, dazu den Anfangsbestand und den Endbestand laut Bilanz; eine Ampel zeigt, ob die Probe aufgeht.</p>
+  <p class="sub">Die drei Bereiche stehen untereinander, jede Zwischensumme rechnet mit. Ein Aufwand oder eine Auszahlung wird als <b>negative Zahl</b> eingegeben, damit die Spalte sich von oben nach unten addiert.</p>
+  <div class="bil" id="cfForm"></div>
+  <div class="bilwaage" id="cfProbe"></div>
+
   <h2 class="sec">Die Auswertung Deiner Zahlen</h2>
-  <p class="sub">Aus den eingegebenen Werten entstehen das Muster aus Lektion 02, der Free Cashflow vor und nach Zuwendungen, die Reichweite und der Innenfinanzierungsgrad.</p>
+  <p class="sub">Aus den eingegebenen Werten entstehen fünf Größen. Sie rechnen mit, sobald Du eine Zahl änderst.</p>
+  <div class="bilkz" id="cfAus"></div>
+  <p class="sub" id="cfAusHin" style="margin-top:12px"></p>
+
   <h2 class="sec">Die eigenen Zahlen mitnehmen</h2>
-  <p class="sub">Ein Beispiel lädt den Verband; den eigenen Stand speicherst Du als JSON oder kopierst ihn als Text in die Zwischenablage.</p>
+  <p class="sub">Gespeichert wird nichts auf einem Server. Das Beispiel lädt den Verband, die Datei nimmt Deine Zahlen mit, der Text lässt sich in eine Besprechung kopieren.</p>
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Zahlen">
+      <button id="cfBsp" type="button">Beispiel laden</button>
+      <button id="cfLeer" type="button">Leeren</button>
+    </div>
+    <div class="seg" role="group" aria-label="Datei">
+      <button id="cfSave" type="button">Als Datei sichern</button>
+      <button id="cfLoad" type="button">Datei laden</button>
+    </div>
+  </div>
+  <input type="file" id="cfFile" accept="application/json,.json" hidden>
+  <div class="bilout" style="margin-top:16px">
+    <div class="wsbar" style="margin-bottom:12px">
+      <div class="seg" role="group" aria-label="Text">
+        <button id="cfGo" type="button">Als Text ausgeben</button>
+        <button id="cfCopy" type="button">In die Zwischenablage</button>
+      </div>
+    </div>
+    <textarea id="cfOut" readonly aria-label="Die Cashflow-Rechnung als Text"></textarea>
+    <p class="bilmsg" id="cfOutMsg"></p>
+  </div>
+
   <h2 class="sec">Was das Formular weglässt</h2>
-  <p class="sub">Konzernabschluss, Wechselkurse und die Trennung nach Sphären bleiben außen vor, weil das Formular allein den Verband als Ganzes rechnet.</p>
+  <p class="sub">Drei Dinge fehlen hier bewusst, weil sie den Bogen sprengen würden. Wer sie braucht, braucht mehr als ein Lehrformular.</p>
+  <div class="trio">
+    <div class="card" style="border-left:3px solid var(--grey-mid)">
+      <p class="ck">Erstens</p><h3>Den Konzernabschluss</h3>
+      <p>Mehrere rechtlich selbständige Einheiten mit Verrechnungen untereinander brauchen eine Konsolidierung. Das Formular rechnet einen Abschluss.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--grey-mid)">
+      <p class="ck">Zweitens</p><h3>Die Wechselkurse</h3>
+      <p>Eine Umrechnungsdifferenz ist weder Ertrag noch Zahlung und bekommt in der Cashflow-Rechnung eine eigene Zeile. Ein Träger sozialer Dienste hat sie in der Regel nicht.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--grey-mid)">
+      <p class="ck">Drittens</p><h3>Die Trennung nach Sphären</h3>
+      <p>Das Formular rechnet den Träger als Ganzes. Die Aufteilung aus Lektion 04 setzt eine Buchhaltung voraus, die je Einrichtung abgrenzt und das Working Capital zuordnet.</p>
+    </div>
+  </div>
+
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Eine Cashflow-Rechnung geht erst auf, wenn der rechnerische Endbestand dem Bestand laut Bilanz entspricht.</p>
+    <p>Eine Cashflow-Rechnung geht erst auf, wenn der rechnerische Endbestand dem <b>Bestand laut Bilanz</b> entspricht. Bis dahin fehlt eine Zeile.</p>
   </div>
 </section>
 <section class="panel" id="p-f" role="tabpanel" aria-labelledby="tab-f" hidden>
-  <p class="claim">Fünf Fragen, zufällig aus einem größeren Vorrat gezogen, so wie in den übrigen Modulen des Pfads.</p>
-  <div class="readme">
-    <b>Der Fragenvorrat fehlt noch.</b> Er umfasst mindestens zwanzig Fragen, aus denen beim Laden fünf gezogen werden; beim Neuladen kommen andere.
+  <p class="claim">Fünf Fragen werden zufällig aus einem größeren Vorrat gezogen, ohne Zeitdruck und ohne eine Bewertung, die irgendwo landet. Nach jeder Antwort steht die Begründung da, auch nach der richtigen.</p>
+
+  <h2 class="sec">Übung</h2>
+  <p class="sub">Wer eine Frage verfehlt, hat meist ein Vorzeichen gedreht oder einen Bereich verwechselt. Genau darum steht die Begründung dabei.</p>
+  <div class="wsbar">
+    <div class="seg" role="group" aria-label="Übung">
+      <button id="qNew" type="button">Fünf neue Fragen</button>
+    </div>
+    <p class="legend" style="margin:0"><span class="key" id="qStand"></span></p>
   </div>
+  <div class="qwrap" id="quiz"></div>
+  <div id="qResult" style="margin-top:16px"></div>
+
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Die meisten Fehlantworten drehen sich um zwei Grenzen: die zwischen <b>Ergebnis und Zahlung</b> und die zwischen den <b>drei Bereichen</b>. Beide entscheiden, wo ein Betrag landet.</p>
   </div>
 </section>
 <section class="panel" id="p-g" role="tabpanel" aria-labelledby="tab-g" hidden>
-  <p class="claim">Was jemand als Erstes tut, der die Cashflow-Rechnung im eigenen Haus aufbauen will.</p>
-  <div class="readme">
-    <b>Diese Lektion ist noch nicht geschrieben.</b> Die Abschnitte darunter stehen mit Überschrift und Absicht da. Klapp einen auf, um zu sehen, was dort entsteht.
-  </div>
+  <p class="claim">Du hast die Abschlüsse Deines Hauses vor Dir und willst wissen, woher die Veränderung auf dem Konto kommt? Sieben Schritte, für die Du zwei oder drei Jahresabschlüsse brauchst und sonst nichts.</p>
+
   <h2 class="sec">Sieben Schritte mit dem eigenen Cashflow</h2>
-  <p class="sub">Von den Abschlüssen der letzten Jahre über die Muster und die Treiber bis zu drei Fragen für den Vorstand, die aus den Zahlen folgen.</p>
-  <h2 class="sec">Das Glossar</h2>
-  <p class="sub">Dreizehn Begriffe zum Nachschlagen, von der Kapitalflussrechnung über den Sonderposten aus Zuwendungen bis zum Working Capital.</p>
+  <p class="sub">Jeder Schritt mit dem Grund dahinter und dem Fehler, der an dieser Stelle am häufigsten gemacht wird. Keiner davon braucht Software.</p>
+  <div class="ck10" id="ck7"></div>
+
+  <div class="readme" style="margin-top:18px">
+    <b>Warum zwei Jahre das Minimum sind.</b> Eine einzelne Cashflow-Rechnung zeigt Beträge. Erst zwei nebeneinander zeigen, ob ein Muster hält oder ob ein Jahr eine Ausnahme war. Ein Free Cashflow von 38 T€ ist eine Zahl; ein Free Cashflow, der im dritten Jahr in Folge unter den Abschreibungen liegt, ist eine Frage an den Vorstand.
+  </div>
+
+  <h2 class="sec">Glossar</h2>
+  <p class="sub">Dreizehn Begriffe zum Nachschlagen. Sie stehen hier als Nachschlagewerk für die Anwendung und nicht als Prüfstoff.</p>
+  <div class="glos" id="glos"></div>
+
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Eine Cashflow-Rechnung wird zum Instrument, wenn aus ihr <b>drei Fragen an den Vorstand</b> folgen. Bis dahin ist sie eine Auswertung.</p>
   </div>
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.80</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.81</span>
 </footer>
 
 </div>
 <script>
 "use strict";
 const $ = id => document.getElementById(id);
+/* =====================================================================
+   1 · Das Zahlenwerk des Verbands
+
+   Alle Werte in T. Sie stehen einmal hier und werden von jedem Werkzeug
+   dieser Datei gelesen, damit keine Zahl an zwei Stellen gepflegt wird.
+   ===================================================================== */
+const V = {
+  ergebnis:20, abschr:268, sopo:92, rueck:48, ford:74, vorr:5, verb:45,
+  laufend:220, invest:-182, finanz:24, aenderung:62,
+  sach:340, zuwendung:150, abgang:8, darlehen:120, tilgung:96,
+  bestAnf:418, bestEnd:480, aufwGes:5218, spenden:210,
+  auszMonat:412.5, belegTage:29434, erloesPflege:4088
+};
+const zahl = v => v.toLocaleString("de-DE", {maximumFractionDigits:0});
+const zahl1 = v => v.toLocaleString("de-DE", {minimumFractionDigits:1, maximumFractionDigits:1});
+const zahl2 = v => v.toLocaleString("de-DE", {minimumFractionDigits:2, maximumFractionDigits:2});
+/* toLocaleString setzt einen Bindestrich. Ueberall, wo eine Zahl negativ
+   werden kann, steht deshalb diese Fassung mit dem typografischen Minus. */
+const zahl1s = v => (v < 0 ? "\u2212" : "") + zahl1(Math.abs(v));
+/* Ein Vorzeichen mit dem typografischen Minus, damit die Spalte ruhig steht. */
+const vz = v => (v < 0 ? "−" : "+") + zahl(Math.abs(v));
+const mz = v => (v < 0 ? "−" : "") + zahl(Math.abs(v));
 
 /* =====================================================================
-   6 · Lektionen
+   2 · Lektion 01 · Der Wasserfall der Ueberleitung
+
+   Waagerechte Balken, weil acht Bezeichnungen untereinander lesbar sind
+   und nebeneinander nicht. Jeder Balken laeuft vom kumulierten Stand
+   davor bis zu dem danach; die gestrichelte Linie dazwischen macht den
+   Uebertrag sichtbar. Praefix cf.
+   ===================================================================== */
+const CF_SCHRITTE = [
+  ["Jahresergebnis", V.ergebnis, "start",
+   "Der Ausgangspunkt. 20 T bei 5,2 Mio. Erträgen ist die Lage, aus der der Verband seine Bäder bezahlen soll.",
+   "Ausgangspunkt der indirekten Rechnung"],
+  ["+ Abschreibungen", V.abschr, "plus",
+   "Aufwand ohne Auszahlung. Bezahlt wurde bei der Anschaffung; die Abschreibung verteilt diesen Betrag über die Nutzungsdauer.",
+   "Bädersanierung, Fahrzeuge, Einrichtung des Pflegeheims"],
+  ["− Auflösung Sonderposten", -V.sopo, "minus",
+   "Ertrag ohne Einzahlung. Die Zuwendung kam bei der Investition; ihre Auflösung erhöht nur das Ergebnis.",
+   "Sonderposten aus Investitionszuwendungen für das Pflegeheim"],
+  ["+ Zunahme Rückstellungen", V.rueck, "plus",
+   "Aufwand, dessen Zahlung später kommt. Ein Passivposten steigt, also bleibt Geld im Haus.",
+   "Urlaub und Überstunden aus dem Pflegedienst"],
+  ["− Zunahme Forderungen", -V.ford, "minus",
+   "Erträge, deren Einzahlung noch aussteht. Ein Aktivposten steigt, also bindet er Geld.",
+   "Abrechnung mit Pflegekasse und Sozialhilfeträger, 412 auf 486 T"],
+  ["+ Abnahme Vorräte", V.vorr, "plus",
+   "Verbrauch aus dem Lager ohne neuen Einkauf. Ein Aktivposten sinkt, also wird Geld frei.",
+   "Lebensmittel und Pflegehilfsmittel, 38 auf 33 T"],
+  ["+ Zunahme Verbindlichkeiten aus L+L", V.verb, "plus",
+   "Aufwand, der noch nicht bezahlt ist. Ein Passivposten steigt, also bleibt Geld im Haus.",
+   "offene Lieferantenrechnungen zum Stichtag, 214 auf 259 T"],
+  ["= Cashflow aus laufender Tätigkeit", V.laufend, "ende",
+   "Das Ergebnis der Überleitung. Aus 20 T Jahresergebnis werden 220 T, die tatsächlich auf dem Konto angekommen sind.",
+   "der Betrag, aus dem Tilgung und Investitionen bezahlt werden"]
+];
+let cfOffen = 1;          /* wie viele Balken gezeichnet sind */
+let cfMark = -1;          /* welche Zeile aus Lektion 03 markiert ist */
+
+function cfKumuliert(){
+  const aus = []; let s = 0;
+  CF_SCHRITTE.forEach(([name, wert, art], i) => {
+    if(art === "ende"){ aus.push([0, wert]); return; }
+    const von = art === "start" ? 0 : s;
+    s = art === "start" ? wert : s + wert;
+    aus.push([von, s]);
+  });
+  return aus;
+}
+
+function cfZeichnen(){
+  const NB = 720, LX = 215, PX = 232, PB = 462, MAXV = 300;
+  const x = v => PX + v * (PB / MAXV);
+  const kum = cfKumuliert();
+  let h = `<line class="bax" x1="${PX}" y1="14" x2="${PX}" y2="312"/>`;
+  CF_SCHRITTE.forEach(([name, wert, art, warum, fall], i) => {
+    const y = 22 + i * 36, hoch = 22;
+    const [a, b] = kum[i];
+    const x1 = x(Math.min(a, b)), x2 = x(Math.max(a, b));
+    const aus = i >= cfOffen ? " aus" : "";
+    const mk = i === cfMark ? " mark" : "";
+    h += `<g class="bal${mk}" data-cf="${i}" tabindex="0" role="button"
+            aria-label="${name}, ${vz(wert)} Tausend Euro. ${warum}">
+        <rect class="br ${art}${aus}" x="${x1}" y="${y}" width="${Math.max(2, x2 - x1)}" height="${hoch}" rx="3"/>
+        <text class="bn" x="${LX}" y="${y + hoch / 2}">${name}</text>`;
+    if(i < cfOffen)
+      h += `<text class="bz" x="${x2 + 34}" y="${y + hoch / 2}">${art === "start" || art === "ende" ? zahl(wert) : vz(wert)}</text>`;
+    h += `</g>`;
+    if(i < cfOffen - 1 && art !== "ende" && CF_SCHRITTE[i + 1][2] !== "ende")
+      h += `<line class="bri" x1="${x(b)}" y1="${y + hoch}" x2="${x(b)}" y2="${y + 36}"/>`;
+  });
+  $("cfSvg").innerHTML = h;
+  $("cfMsg").textContent = cfOffen >= CF_SCHRITTE.length
+    ? "Alle acht Zeilen stehen. Klick einen Balken an, um seine Begründung zu lesen."
+    : "Schritt " + cfOffen + " von " + CF_SCHRITTE.length + ". Klick auf „Nächster Schritt“.";
+  cfTabelle();
+}
+
+function cfTabelle(){
+  let h = `<thead><tr><th>Schritt</th><th>T€</th><th>Warum</th><th>Im Verband</th></tr></thead><tbody>`;
+  CF_SCHRITTE.forEach(([name, wert, art, warum, fall], i) => {
+    const dunkel = i >= cfOffen ? ' style="opacity:.42"' : (i === cfMark ? ' style="background:var(--orange-xl)"' : "");
+    const betrag = art === "start" || art === "ende" ? zahl(wert) : vz(wert);
+    h += `<tr${dunkel}><td class="crit">${name}</td><td class="m">${
+      art === "ende" ? "<b>" + betrag + "</b>" : betrag}</td><td>${warum}</td><td>${fall}</td></tr>`;
+  });
+  $("cfTab").innerHTML = h + "</tbody>";
+}
+
+$("cfNext").addEventListener("click", () => {
+  cfOffen = Math.min(CF_SCHRITTE.length, cfOffen + 1); cfZeichnen();
+});
+$("cfAll").addEventListener("click", () => { cfOffen = CF_SCHRITTE.length; cfZeichnen(); });
+$("cfReset").addEventListener("click", () => { cfOffen = 1; cfMark = -1; cfZeichnen(); });
+/* Ein Klick auf einen Balken deckt ihn auf und markiert seine Zeile. */
+function cfWaehlen(i){
+  if(i >= cfOffen) cfOffen = i + 1;
+  cfMark = cfMark === i ? -1 : i;
+  cfZeichnen();
+  if(cfMark >= 0)
+    $("cfMsg").textContent = CF_SCHRITTE[i][0].replace(/^[+−=] /, "") + ": " + CF_SCHRITTE[i][3];
+}
+$("cfSvg").addEventListener("click", e => {
+  const g = e.target.closest("[data-cf]"); if(!g) return;
+  cfWaehlen(+g.dataset.cf);
+});
+$("cfSvg").addEventListener("keydown", e => {
+  if(e.key !== "Enter" && e.key !== " ") return;
+  const g = e.target.closest("[data-cf]"); if(!g) return;
+  e.preventDefault(); cfWaehlen(+g.dataset.cf);
+});
+cfZeichnen();
+
+/* =====================================================================
+   3 · Lektion 01 · Plus oder minus?
+   ===================================================================== */
+const ZU_POS = [
+  ["Die Abschreibungen des Jahres betragen 268 T€", "p",
+   "Plus. Aufwand ohne Auszahlung: Das Ergebnis ist gemindert, das Konto nicht berührt. Bezahlt wurde bei der Anschaffung."],
+  ["Der Sonderposten aus Investitionszuwendungen wird um 92 T€ aufgelöst", "m",
+   "Minus. Ertrag ohne Einzahlung: Das Ergebnis ist erhöht, das Konto nicht berührt. Die Zuwendung kam bei der Investition."],
+  ["Die Rückstellungen steigen um 48 T€", "p",
+   "Plus. Ein Passivposten steigt, also hält er Geld im Haus. Der Aufwand ist gebucht, die Zahlung kommt später."],
+  ["Die Forderungen aus Leistungen steigen um 74 T€", "m",
+   "Minus. Ein Aktivposten steigt, also bindet er Geld. Die Erträge sind gebucht, die Einzahlung steht noch aus."],
+  ["Die Vorräte sinken um 5 T€", "p",
+   "Plus. Ein Aktivposten sinkt, also wird Geld frei. Verbraucht wurde aus dem Lager, ohne neu einzukaufen."],
+  ["Die Verbindlichkeiten aus Lieferungen und Leistungen steigen um 45 T€", "p",
+   "Plus. Ein Passivposten steigt, also bleibt Geld im Haus. Der Aufwand ist gebucht, die Rechnung noch offen."],
+  ["Die erhaltenen Anzahlungen steigen", "p",
+   "Plus. Erhaltene Anzahlungen sind ein Passivposten. Das Geld ist da, die Leistung noch nicht erbracht, weshalb kein Ertrag entstanden ist."],
+  ["Die Vorräte steigen", "m",
+   "Minus. Ein Aktivposten steigt, also bindet er Geld. Eingekauft und bezahlt ist, verbraucht noch nicht."]
+];
+let zuStand = [];
+const ZU_NAME = {p:"Plus", m:"Minus"};
+function zuZiehen(){ zuStand = ZU_POS.map((z, i) => ({i, gewaehlt:null})); zuRender(); }
+function zuRender(){
+  $("zuListe").innerHTML = zuStand.map((z, n) => {
+    const [text, richtig, begr] = ZU_POS[z.i];
+    const kl = s => z.gewaehlt === null ? "" : (s === richtig ? " ok" : (s === z.gewaehlt ? " no" : ""));
+    return `<div class="zuz">
+      <p class="zt">${text}</p>
+      <div class="zb">${["p","m"].map(s =>
+        `<button class="zub${kl(s)}" type="button" data-z="${n}" data-s="${s}"${
+          z.gewaehlt !== null ? " disabled" : ""}>${ZU_NAME[s]}</button>`).join("")}</div>
+      ${z.gewaehlt === null ? "" : `<p class="zuw">${
+        z.gewaehlt === richtig ? "<b style='color:#1E6B47'>Richtig.</b> " : "<b style='color:#9C2F2C'>Daneben.</b> "}${begr}</p>`}
+    </div>`;
+  }).join("");
+  const fertig  = zuStand.filter(z => z.gewaehlt !== null).length;
+  const treffer = zuStand.filter(z => z.gewaehlt === ZU_POS[z.i][1]).length;
+  $("zuStand").textContent = fertig === 0
+    ? ZU_POS.length + " Veränderungen"
+    : fertig + " von " + ZU_POS.length + " eingeordnet · " + treffer + " richtig";
+}
+$("zuListe").addEventListener("click", e => {
+  const b = e.target.closest(".zub"); if(!b || b.disabled) return;
+  const z = zuStand[+b.dataset.z]; if(!z || z.gewaehlt !== null) return;
+  z.gewaehlt = b.dataset.s; zuRender();
+});
+$("zuNew").addEventListener("click", zuZiehen);
+zuZiehen();
+
+/* =====================================================================
+   4 · Lektion 02 · Der aufklappbare Kasten zu DRS 21
+   ===================================================================== */
+$("cfDrs").addEventListener("click", () => {
+  const b = $("cfDrs"), offen = b.getAttribute("aria-expanded") === "true";
+  b.setAttribute("aria-expanded", String(!offen));
+  $("cfDrsA").hidden = offen;
+});
+
+/* =====================================================================
+   5 · Lektion 02 · Die Mustermatrix
+
+   Drei Schalter, acht Kombinationen, eine Deutung. Der Schluessel ist
+   die Zeichenkette aus den drei Vorzeichen. Praefix mm.
+   ===================================================================== */
+const MM_BEREICHE = [
+  ["Laufende Tätigkeit", "aus dem eigentlichen Betrieb"],
+  ["Investitionstätigkeit", "Anlagen kaufen oder verkaufen"],
+  ["Finanzierungstätigkeit", "Kredite, Tilgung, Zuwendungen"]
+];
+const MM_DEUTUNG = {
+  "+--":["Aus eigener Kraft investiert und Schulden bedient.", "Der Normalfall eines gesunden Betriebs. Der laufende Cashflow reicht für die Investitionen und für die Tilgung."],
+  "+-+":["Investiert über den laufenden Cashflow hinaus, ergänzt durch Kredite oder Zuwendungen.", "Das Muster des Verbands. Es ist kein Warnsignal, verlangt aber die Frage, ob die Zuwendungen auch im nächsten Jahr kommen."],
+  "++-":["Anlagen verkauft, Schulden getilgt.", "Konsolidierung oder Rückzug. Wer Anlagen verkauft und damit tilgt, macht den Betrieb kleiner."],
+  "+++":["Geld fließt aus allen Richtungen zu.", "Selten. Beim gemeinnützigen Träger stellt sich dann die Frage der zeitnahen Mittelverwendung, weil der Bestand ohne zulässige Rücklage wächst."],
+  "--+":["Laufendes Geschäft und Investitionen auf Kredit.", "Warnsignal, außer in einer Anlaufphase. Der Betrieb verbraucht Geld und finanziert das mit Schulden."],
+  "-++":["Laufende Verluste durch Anlagenverkäufe und Kredite gedeckt.", "Krise. Hier wird Substanz verkauft, um den laufenden Betrieb zu bezahlen."],
+  "-+-":["Anlagenverkäufe decken Defizit und Tilgung.", "Substanzverzehr. Das Muster hält nur so lange, wie es noch etwas zu verkaufen gibt."],
+  "---":["Der Bestand schmilzt in allen Bereichen.", "Akut. Möglich ist das nur mit einem hohen Anfangsbestand, der dabei binnen weniger Monate aufgebraucht ist."]
+};
+let mmWahl = ["+", "-", "+"];
+function mmZeichnen(){
+  $("mmWahl").innerHTML = MM_BEREICHE.map(([name, hin], i) =>
+    `<div class="mmk"><p class="mn">${name}</p><p class="mw">${hin}</p>
+       <div class="seg" role="group" aria-label="${name}">
+         <button type="button" data-mmi="${i}" data-mms="+" aria-pressed="${mmWahl[i] === "+"}">Plus</button>
+         <button type="button" data-mmi="${i}" data-mms="-" aria-pressed="${mmWahl[i] === "-"}">Minus</button>
+       </div></div>`).join("");
+  const k = mmWahl.join("");
+  const [kurz, lang] = MM_DEUTUNG[k];
+  const hier = k === "+-+";
+  $("mmAus").className = "mmd" + (hier ? " hier" : "");
+  $("mmAus").innerHTML = `<p class="mmz">${mmWahl.join("  ")}</p>
+    <p class="mmt"><b>${kurz}</b> ${lang}${hier ? " <b>Dieses Muster hat der Verband.</b>" : ""}</p>`;
+}
+$("mmWahl").addEventListener("click", e => {
+  const b = e.target.closest("button[data-mmi]"); if(!b) return;
+  mmWahl[+b.dataset.mmi] = b.dataset.mms; mmZeichnen();
+});
+mmZeichnen();
+
+/* =====================================================================
+   6 · Lektion 02 · Der Free Cashflow
+   ===================================================================== */
+let fcMit = true;
+function fcZeichnen(){
+  const frei = V.laufend + V.invest;
+  const wert = fcMit ? frei : frei - V.zuwendung;
+  const anteil = V.aufwGes ? wert / 5238 * 100 : 0;
+  $("fcKz").innerHTML =
+    `<div class="kz"><p class="kk">Laufende Tätigkeit</p><p class="kv">${zahl(V.laufend)}</p><p class="kf">T€ aus Lektion 01</p></div>
+     <div class="kz" style="border-left-color:var(--ochre)"><p class="kk">Investitionstätigkeit</p><p class="kv">${mz(fcMit ? V.invest : V.invest - V.zuwendung)}</p><p class="kf">T€${fcMit ? " nach Zuwendungen" : " vor Zuwendungen"}</p></div>
+     <div class="kz" style="border-left-color:${wert < 0 ? "var(--red)" : "var(--green)"}"><p class="kk">Free Cashflow</p><p class="kv">${mz(wert)}</p><p class="kf">T€ für Tilgung, Rücklagen und Zweckerfüllung</p></div>
+     <div class="kz" style="border-left-color:var(--navy)"><p class="kk">Anteil an den Erträgen</p><p class="kv">${zahl1s(anteil)} %</p><p class="kf">gerechnet auf 5.238 T€ Erträge</p></div>`;
+  [...$("fcWahl").querySelectorAll("button")].forEach(b =>
+    b.setAttribute("aria-pressed", String((b.dataset.fc === "mit") === fcMit)));
+  $("fcHin").innerHTML = fcMit
+    ? "Auf 5,2 Mio. € Erträge bleiben <b>38 T€</b> übrig. Damit sind 96 T€ Tilgung im selben Jahr nicht zu bezahlen, weshalb der Verband ein Darlehen von 120 T€ aufgenommen hat."
+    : "Ohne die Investitionszuwendung von 150 T€ läge der Free Cashflow bei <b>−112 T€</b>. Die Zuwendungen sind damit keine Zugabe, sie sind der Teil der Investitionsfinanzierung, ohne den die Bäder nicht saniert würden.";
+}
+$("fcWahl").addEventListener("click", e => {
+  const b = e.target.closest("button[data-fc]"); if(!b) return;
+  fcMit = b.dataset.fc === "mit"; fcZeichnen();
+});
+fcZeichnen();
+
+/* =====================================================================
+   7 · Lektion 03 · Der Treiberbaum
+
+   Vier Ketten von einer Entscheidung im Alltag bis in eine Zeile der
+   Ueberleitung. Ein Klick markiert die Zeile im Wasserfall aus Lektion
+   01, damit die Verbindung zwischen Treiber und Zahl sichtbar wird.
+   Praefix tb.
+   ===================================================================== */
+const TB_KETTEN = [
+  ["Belegung × Erlös je Belegungstag", 4,
+   "Belegung und Vergütungssatz ergeben die Erlöse. Abgerechnet wird im Leistungsmonat, gezahlt wird je Kostenträger später. Was dazwischen liegt, steht als Forderung in der Bilanz.",
+   "Erlöse → Abrechnung im Leistungsmonat → Zahlungseingang je Kostenträger → Forderungen −74"],
+  ["Stellen × Tarif", 3,
+   "Stellenplan und Tarif ergeben den Personalaufwand. Die Löhne gehen am Monatsende ab; Urlaub und Überstunden werden zurückgestellt und erst später bezahlt.",
+   "Personalaufwand → Auszahlung am Monatsende, Urlaub und Überstunden → Rückstellungen +48"],
+  ["Investitionsplan → Zuwendungsabruf", -1,
+   "Der Investitionsplan bestimmt, wann eine Anlage bezahlt wird, der Zuwendungsbescheid, wann das Geld dafür kommt. Beide Ströme stehen im Investitionsbereich und nicht in der Überleitung.",
+   "Investitionsbereich: −340 für Sachanlagen, +150 Zuwendungen, +8 aus dem Abgang"],
+  ["Darlehen und Tilgungsplan", -1,
+   "Aufnahme und Tilgung folgen dem Vertrag und sind planbar. Sie stehen im Finanzierungsbereich; allein die Zinsen berühren das Ergebnis und damit die Überleitung.",
+   "Finanzierungsbereich: +120 Aufnahme, −96 Tilgung"]
+];
+function tbZeichnen(){
+  $("tbDeck").innerHTML = TB_KETTEN.map(([kopf, zeile, text, kette], i) =>
+    `<button class="task" type="button" data-tb="${i}" aria-expanded="${i === tbOffen}">
+       <span class="no">Kette ${i + 1}</span>
+       <span class="hd">${kopf}</span>
+       <span class="bd">${text}<br><br><span class="m" style="color:var(--teal-dk)">${kette}</span></span>
+     </button>`).join("");
+  $("tbMsg").textContent = tbOffen < 0 ? ""
+    : TB_KETTEN[tbOffen][1] >= 0
+      ? "Im Wasserfall in Lektion 01 ist jetzt die Zeile „" + CF_SCHRITTE[TB_KETTEN[tbOffen][1]][0].replace(/^[+−=] /, "") + "“ markiert."
+      : "Diese Kette mündet in einen anderen Bereich der Cashflow-Rechnung und nicht in die Überleitung.";
+}
+let tbOffen = -1;
+$("tbDeck").addEventListener("click", e => {
+  const b = e.target.closest("button[data-tb]"); if(!b) return;
+  const i = +b.dataset.tb;
+  tbOffen = tbOffen === i ? -1 : i;
+  const zeile = tbOffen < 0 ? -1 : TB_KETTEN[tbOffen][1];
+  cfMark = zeile;
+  if(zeile >= 0 && cfOffen <= zeile) cfOffen = zeile + 1;
+  cfZeichnen();
+  tbZeichnen();
+});
+tbZeichnen();
+
+/* =====================================================================
+   8 · Lektion 03 · Die Rechnung mit drei Reglern
+
+   Eine lineare Naeherung. Die Formel steht im Modul unter den Reglern,
+   damit niemand sie fuer eine Planung haelt. Praefix hb.
+   ===================================================================== */
+const HB_REGLER = [
+  ["hbAus", "Auslastung", -3, 3, 0, 1, "Prozentpunkte", 42.6,
+   "Ein Prozentpunkt mehr Auslastung im Pflegeheim entspricht 42,6 T€ Erlösen im Jahr."],
+  ["hbTag", "Forderungslaufzeit", -10, 10, 0, 1, "Tage", -11.7,
+   "Ein Tag mehr bindet 11,7 T€ zusätzlich, ein Tag weniger setzt denselben Betrag frei."],
+  ["hbTar", "Tarifsteigerung", 0, 5, 0, 1, "Prozent", -36.1,
+   "Ein Prozent Tarifsteigerung kostet 36,1 T€ Personalaufwand im Jahr."]
+];
+const hbWert = {hbAus:0, hbTag:0, hbTar:0};
+function hbRechne(){
+  const cash = V.laufend + hbWert.hbAus * 42.6 - hbWert.hbTag * 11.7 - hbWert.hbTar * 36.1;
+  const monat = V.auszMonat + hbWert.hbTar * 36.1 / 12;
+  const bestand = V.bestEnd + cash - V.laufend;
+  return {cash, monat, bestand, reich: monat > 0 ? bestand / monat : 0};
+}
+function hbZeichnen(){
+  $("hbGrid").innerHTML = HB_REGLER.map(([id, name, min, max, st, step, einheit, hebel, hin]) => {
+    const w = hbWert[id];
+    return `<div class="rrow">
+      <p class="rl"><span class="rn">${name}</span>
+        <span class="rv">${w > 0 ? "+" : ""}${zahl1s(w).replace(",0", "")} ${einheit}</span></p>
+      <input type="range" id="${id}" min="${min}" max="${max}" step="${step}" value="${w}"
+             aria-label="${name} in ${einheit}">
+      <p class="ra">${hin}</p>
+    </div>`;
+  }).join("");
+  const r = hbRechne();
+  const d = r.cash - V.laufend;
+  $("hbKz").innerHTML =
+    `<div class="kz" style="border-left-color:${d < 0 ? "var(--red)" : d > 0 ? "var(--green)" : "var(--teal)"}">
+       <p class="kk">Laufender Cashflow</p><p class="kv">${mz(Math.round(r.cash))}</p>
+       <p class="kf">T€ · ${d === 0 ? "wie im Ausgangsjahr" : vz(Math.round(d)) + " T€ gegenüber 220"}</p></div>
+     <div class="kz" style="border-left-color:var(--navy)">
+       <p class="kk">Bestand am Jahresende</p><p class="kv">${mz(Math.round(r.bestand))}</p>
+       <p class="kf">T€ · Ausgangswert 480</p></div>
+     <div class="kz" style="border-left-color:${r.reich < 0.75 ? "var(--red)" : r.reich < 1 ? "var(--ochre)" : "var(--green)"}">
+       <p class="kk">Reichweite</p><p class="kv">${(r.reich < 0 ? "\u2212" : "") + zahl2(Math.abs(r.reich))}</p>
+       <p class="kf">Monate · ${zahl1s(r.monat)} T€ Auszahlungen im Monat</p></div>
+     <div class="kz" style="border-left-color:var(--ochre)">
+       <p class="kk">Free Cashflow</p><p class="kv">${mz(Math.round(r.cash + V.invest))}</p>
+       <p class="kf">T€ · bei unveränderten Investitionen</p></div>`;
+}
+$("hbGrid").addEventListener("input", e => {
+  if(!(e.target.id in hbWert)) return;
+  hbWert[e.target.id] = +e.target.value;
+  hbZeichnen();
+});
+hbZeichnen();
+
+/* =====================================================================
+   9 · Lektion 04 · Der Cashflow je Sphaere
+
+   Vier Balken, ein Klick oeffnet die Ueberleitung der Sphaere. Der
+   Schalter rechnet die Spenden aus der Beratungsstelle heraus; dann
+   verschiebt sich die Nulllinie, weil der Balken viel tiefer reicht.
+   Praefix sp.
+   ===================================================================== */
+const SP = [
+  {nam:"Pflegeheim",      sph:"Zweckbetrieb",                    erg:137,  abs:230, sop:-92, wc:-10},
+  {nam:"Beratungsstelle", sph:"ideeller Bereich",                erg:-117, abs:12,  sop:0,   wc:20},
+  {nam:"Wohnhaus",        sph:"Vermögensverwaltung",             erg:25,   abs:18,  sop:0,   wc:5},
+  {nam:"Secondhandladen", sph:"wirtschaftlicher Geschäftsbetrieb", erg:-25, abs:8,  sop:0,   wc:9}
+];
+let spSpenden = true, spOffen = 0;
+/* Die Sphaerenbezeichnung ist laenger als ihr Balken breit. Sie wird
+   deshalb an Wortgrenzen umgebrochen statt abgekuerzt; abgekuerzt haette
+   sie der Leser erst zu entschluesseln. */
+function spUmbruch(s, max){
+  const zeilen = [];
+  let z = "";
+  for(const wort of s.split(" ")){
+    if(z && (z + " " + wort).length > (max || 20)){ zeilen.push(z); z = wort; }
+    else z = z ? z + " " + wort : wort;
+  }
+  if(z) zeilen.push(z);
+  return zeilen;
+}
+const spErg = i => SP[i].erg - (!spSpenden && i === 1 ? V.spenden : 0);
+const spCash = i => spErg(i) + SP[i].abs + SP[i].sop + SP[i].wc;
+
+function spZeichnen(){
+  const w = SP.map((s, i) => spCash(i));
+  const hoch = Math.max(0, ...w), tief = Math.min(0, ...w);
+  const span = (hoch - tief) || 1;
+  const Y0 = 40, YH = 210;
+  const null0 = Y0 + hoch / span * YH;
+  const y = v => null0 - v / span * YH;
+  let h = `<line class="sax" x1="30" y1="${null0}" x2="740" y2="${null0}"/>`;
+  SP.forEach((s, i) => {
+    const cx = 40 + i * 175 + 87, bw = 92, v = w[i];
+    const yo = v >= 0 ? y(v) : null0, hh = Math.max(2, Math.abs(y(v) - null0));
+    h += `<g class="sb${i === spOffen ? " on" : ""}" data-sp="${i}" tabindex="0" role="button"
+            aria-label="${s.nam}, Cashflow ${mz(v)} Tausend Euro. Überleitung anzeigen">
+        <rect class="sr ${v >= 0 ? "pos" : "neg"}" x="${cx - bw / 2}" y="${yo}" width="${bw}" height="${hh}" rx="3"/>
+        <text class="sz" x="${cx}" y="${v >= 0 ? yo - 14 : yo + hh + 15}">${mz(v)}</text>
+        <text class="sn" x="${cx}" y="270">${s.nam}</text>
+        ${spUmbruch(s.sph).map((z, k) =>
+          `<text class="ss" x="${cx}" y="${289 + k * 18}">${z}</text>`).join("")}
+      </g>`;
+  });
+  /* Der Pfeil vom Pflegeheim zur Beratungsstelle: die Mittelverwendung,
+     um die es in dieser Lektion geht. */
+  h += `<path class="spf" d="M127 ${Math.max(26, y(w[0]) - 26)} C 180 10, 250 10, 302 ${Math.max(26, y(w[0]) - 26)}"/>
+        <text class="spflab" x="214" y="${Math.max(11, y(w[0]) - 38)}">Mittelverwendung</text>`;
+  $("spSvg").innerHTML = h;
+  [...$("spWahl").querySelectorAll("button")].forEach(b =>
+    b.setAttribute("aria-pressed", String((b.dataset.sp === "mit") === spSpenden)));
+  $("spStand").textContent = "Summe " + mz(w.reduce((a, b) => a + b, 0)) + " T€"
+    + (spSpenden ? " · der laufende Cashflow des Verbands" : " · ohne die Spenden von 210 T€");
+  spTabelle();
+}
+function spTabelle(){
+  const i = spOffen, s = SP[i];
+  const zeilen = [
+    ["Einrichtungsergebnis II", spErg(i), "nach der Umlage der Geschäftsstelle"],
+    ["+ Abschreibungen", s.abs, "einschließlich des Anteils an der Geschäftsstelle"],
+    ["− Auflösung Sonderposten", s.sop, s.sop ? "Sonderposten aus Investitionszuwendungen" : "in dieser Sphäre keiner vorhanden"],
+    ["± Working Capital", s.wc, "Veränderung von Forderungen, Vorräten und Verbindlichkeiten"]
+  ];
+  let h = `<thead><tr><th>${s.nam} · ${s.sph}</th><th>T€</th><th>Erläuterung</th></tr></thead><tbody>`;
+  zeilen.forEach(([n, v, e]) => {
+    h += `<tr><td class="crit">${n}</td><td class="m">${v === 0 ? "–" : mz(v)}</td><td>${e}</td></tr>`;
+  });
+  h += `<tr><td class="crit"><b>= Cashflow aus laufender Tätigkeit</b></td><td class="m"><b>${
+    mz(spCash(i))}</b></td><td><b>der Beitrag dieser Sphäre zu den 220 T€ des Verbands</b></td></tr></tbody>`;
+  $("spTab").innerHTML = h;
+  $("spHin").innerHTML = spSpenden
+    ? (spOffen === 1
+       ? "Die Beratungsstelle verbraucht 85 T€. Das ist kein Fehler, das ist ihr Zweck: Schuldner- und Sozialberatung wird nicht von den Ratsuchenden bezahlt."
+       : "Die vier Sphären sind steuerlich getrennt zu betrachten. Das Pflegeheim erwirtschaftet 265 T€ und finanziert damit die Beratungsstelle mit.")
+    : "Ohne ihre Spenden von 210 T€ liegt die Beratungsstelle bei einem Ergebnis von <b>−327 T€</b> und einem Cashflow von <b>−295 T€</b>. Der Verband insgesamt käme auf ein Jahresergebnis von −190 T€. Das ist die Zahl, die zeigt, wie viel die Spendenwerbung wirklich leistet.";
+}
+$("spSvg").addEventListener("click", e => {
+  const g = e.target.closest("[data-sp]"); if(!g) return;
+  spOffen = +g.dataset.sp; spZeichnen();
+});
+$("spSvg").addEventListener("keydown", e => {
+  if(e.key !== "Enter" && e.key !== " ") return;
+  const g = e.target.closest("[data-sp]"); if(!g) return;
+  e.preventDefault(); spOffen = +g.dataset.sp; spZeichnen();
+});
+$("spWahl").addEventListener("click", e => {
+  const b = e.target.closest("button[data-sp]"); if(!b) return;
+  spSpenden = b.dataset.sp === "mit";
+  if(!spSpenden) spOffen = 1;
+  spZeichnen();
+});
+spZeichnen();
+
+/* =====================================================================
+   10 · Lektion 04 · Die Fragen der Rollen
+   ===================================================================== */
+const RL = [
+  ["die neue Kraft in der Buchhaltung",
+   "Wie kann der Verband mit 20 T€ Ergebnis die Bäder bezahlen?",
+   "Weil das Ergebnis nicht der Zahlungsstrom ist. Aus laufender Tätigkeit sind 220 T€ angekommen, weil 268 T€ Abschreibungen und 48 T€ Rückstellungen das Ergebnis gemindert haben, ohne das Konto zu berühren. Dazu kamen 150 T€ Investitionszuwendungen und ein Darlehen von 120 T€. Die Bäder sind also nicht aus dem Ergebnis bezahlt, sie sind aus dem Cashflow und aus Zuwendungen bezahlt."],
+  ["die Leitung des Pflegeheims",
+   "Warum finanziert das Pflegeheim die Beratungsstelle mit?",
+   "Weil beide zum satzungsmäßigen Zweck des Verbands gehören. Das Pflegeheim erwirtschaftet 265 T€, die Beratungsstelle verbraucht 85 T€, weil Beratung nicht von den Ratsuchenden bezahlt wird. Die Verwendung der Mittel für den satzungsmäßigen Zweck ist erwünscht; unzulässig wäre in der Regel der umgekehrte Fall, nämlich den Verlust des Secondhandladens mit gemeinnützigen Mitteln auszugleichen."]
+];
+let rlOffen = -1;
+function rlZeichnen(){
+  $("rlDeck").innerHTML = RL.map(([rolle, frage, antwort], i) =>
+    `<button class="task" type="button" data-rl="${i}" aria-expanded="${i === rlOffen}">
+       <span class="no">${rolle} fragt</span>
+       <span class="hd">${frage}</span>
+       <span class="bd">${antwort}</span>
+     </button>`).join("");
+}
+$("rlDeck").addEventListener("click", e => {
+  const b = e.target.closest("button[data-rl]"); if(!b) return;
+  const i = +b.dataset.rl; rlOffen = rlOffen === i ? -1 : i; rlZeichnen();
+});
+rlZeichnen();
+
+/* =====================================================================
+   11 · Lektion 05 · Das Formular fuer die indirekte Rechnung
+
+   Die drei Bereiche stehen als Felderliste. Ein Aufwand oder eine
+   Auszahlung wird negativ eingegeben, damit sich jede Spalte von oben
+   nach unten addiert und keine Vorzeichenregel im Kopf mitlaufen muss.
+   Praefix fm.
+   ===================================================================== */
+const FM_LINKS = [
+  ["gr", "Cashflow aus laufender Tätigkeit"],
+  ["f", "fmErg",   "Jahresergebnis"],
+  ["f", "fmAbs",   "+ Abschreibungen"],
+  ["f", "fmSop",   "− Auflösung Sonderposten"],
+  ["f", "fmRue",   "± Veränderung Rückstellungen"],
+  ["f", "fmFor",   "± Veränderung Forderungen"],
+  ["f", "fmVor",   "± Veränderung Vorräte"],
+  ["f", "fmVer",   "± Veränderung Verbindlichkeiten aus L+L"],
+  ["f", "fmSonL",  "± Sonstiges"],
+  ["s", "fmLauf",  "= Cashflow aus laufender Tätigkeit"]
+];
+const FM_RECHTS = [
+  ["gr", "Cashflow aus Investitionstätigkeit"],
+  ["f", "fmSach",  "− Auszahlungen für Sachanlagen"],
+  ["f", "fmAbg",   "+ Einzahlungen aus Abgängen"],
+  ["f", "fmZuw",   "+ Investitionszuwendungen"],
+  ["s", "fmInv",   "= Cashflow aus Investitionstätigkeit"],
+  ["gr", "Cashflow aus Finanzierungstätigkeit"],
+  ["f", "fmDar",   "+ Aufnahme von Darlehen"],
+  ["f", "fmTil",   "− Tilgung"],
+  ["f", "fmSonF",  "± Sonstiges"],
+  ["s", "fmFin",   "= Cashflow aus Finanzierungstätigkeit"],
+  ["gr", "Bestand und Reichweite"],
+  ["f", "fmAnf",   "Finanzmittelbestand am Jahresanfang"],
+  ["s", "fmRech",  "= rechnerischer Endbestand"],
+  ["f", "fmBil",   "Endbestand laut Bilanz"],
+  ["f", "fmAufw",  "Aufwendungen gesamt (für die Reichweite)"]
+];
+const FM_IDS = [].concat(FM_LINKS, FM_RECHTS).filter(z => z[0] === "f").map(z => z[1]);
+const FM_BEISPIEL = {
+  fmErg:20, fmAbs:268, fmSop:-92, fmRue:48, fmFor:-74, fmVor:5, fmVer:45, fmSonL:0,
+  fmSach:-340, fmAbg:8, fmZuw:150,
+  fmDar:120, fmTil:-96, fmSonF:0,
+  fmAnf:418, fmBil:480, fmAufw:5218
+};
+const FM = {}; FM_IDS.forEach(k => FM[k] = 0);
+
+/* Ein Feld nimmt deutsche Schreibweise an: Punkt als Tausender, Komma
+   als Dezimaltrenner, typografisches Minus wie Bindestrich. */
+function fmLesen(s){
+  const n = parseFloat(String(s).replace(/−/g, "-").replace(/\./g, "").replace(/,/g, ".").replace(/[^\d.-]/g, ""));
+  return isFinite(n) ? n : 0;
+}
+function fmBau(){
+  const seite = (liste, kl, titel) => {
+    let h = `<div class="bilseite ${kl}"><div class="bilkopf"><h3>${titel}</h3><span class="eh">in T€</span></div>`;
+    for(const z of liste){
+      if(z[0] === "gr"){ h += `<div class="bilzeile gruppe"><label>${z[1]}</label><span></span></div>`; continue; }
+      if(z[0] === "s"){ h += `<div class="bilende"><label>${z[2]}</label><span class="sum" id="${z[1]}">0</span></div>`; continue; }
+      h += `<div class="bilzeile"><label for="${z[1]}">${z[2]}</label>
+              <input type="text" inputmode="numeric" id="${z[1]}" value="0" aria-label="${z[2]} in Tausend Euro"></div>`;
+    }
+    return h + "</div>";
+  };
+  $("cfForm").innerHTML = seite(FM_LINKS, "aktiv", "Laufende Tätigkeit")
+                        + seite(FM_RECHTS, "passiv", "Investition, Finanzierung und Bestand");
+  FM_IDS.forEach(k => { $(k).value = zahl(FM[k]).replace("-", "−"); });
+}
+function fmRechnen(){
+  const lauf = FM.fmErg + FM.fmAbs + FM.fmSop + FM.fmRue + FM.fmFor + FM.fmVor + FM.fmVer + FM.fmSonL;
+  const inv  = FM.fmSach + FM.fmAbg + FM.fmZuw;
+  const fin  = FM.fmDar + FM.fmTil + FM.fmSonF;
+  const rech = FM.fmAnf + lauf + inv + fin;
+  const monat = (FM.fmAufw - FM.fmAbs) / 12;
+  return {lauf, inv, fin, rech, monat,
+          frei: lauf + inv, freiVor: lauf + inv - FM.fmZuw,
+          reich: monat > 0 ? FM.fmBil / monat : 0,
+          innen: FM.fmSach ? lauf / Math.abs(FM.fmSach) * 100 : 0,
+          diff: rech - FM.fmBil};
+}
+function fmZeichnen(){
+  const r = fmRechnen();
+  const setz = (id, v) => { const e = $(id); if(e) e.textContent = mz(Math.round(v)); };
+  setz("fmLauf", r.lauf); setz("fmInv", r.inv); setz("fmFin", r.fin); setz("fmRech", r.rech);
+  /* Auf einem leeren Bogen geht die Probe rechnerisch auf, weil beide
+     Seiten null sind. Das waere eine falsche Auskunft, also steht dort
+     ein neutraler Hinweis. */
+  const leer = FM_IDS.every(k => FM[k] === 0);
+  if(leer){
+    $("cfProbe").className = "bilwaage";
+    $("cfProbe").innerHTML = "<p><b>Der Bogen ist leer.</b> Trag Deine Zahlen ein oder lad das Beispiel des Verbands, "
+      + "das weiter unten unter „Beispiel laden“ steht.</p>";
+  }
+  const gleich = Math.abs(r.diff) < 0.5;
+  if(!leer) $("cfProbe").className = "bilwaage " + (gleich ? "gleich" : "schief");
+  if(!leer) $("cfProbe").innerHTML = gleich
+    ? `<p><span class="gl">${mz(Math.round(r.rech))} T€ = ${mz(FM.fmBil)} T€</span><br>
+         <b>Die Probe geht auf.</b> Der rechnerische Endbestand entspricht dem Bestand laut Bilanz, also ist keine Zahlungsbewegung vergessen.</p>`
+    : `<p><span class="gl">${mz(Math.round(r.rech))} T€ ≠ ${mz(FM.fmBil)} T€</span><br>
+         <b>Es fehlen ${mz(Math.abs(Math.round(r.diff)))} T€.</b> Eine Zahlungsbewegung ist nicht erfasst oder ein Vorzeichen ist gedreht. Am häufigsten fehlen die Tilgung, eine Entnahme oder die Vorsteuer auf eine Investition.</p>`;
+  /* Das Muster aus den drei Vorzeichen, mit derselben Deutung wie in
+     Lektion 02. Eine Null zaehlt als Plus, weil ein Bereich ohne
+     Bewegung den Bestand nicht mindert. */
+  const k = [r.lauf, r.inv, r.fin].map(v => v < 0 ? "-" : "+").join("");
+  const deut = leer ? null : MM_DEUTUNG[k];
+  $("cfAus").innerHTML =
+    `<div class="kz" style="border-left-color:var(--navy)"><p class="kk">Muster</p>
+       <p class="kv" style="letter-spacing:.14em">${leer ? "–" : k.split("").join(" ")}</p>
+       <p class="kf">${deut ? deut[0] : "sobald in einem Bereich eine Zahl steht"}</p></div>
+     <div class="kz" style="border-left-color:${r.frei < 0 ? "var(--red)" : "var(--green)"}">
+       <p class="kk">Free Cashflow</p><p class="kv">${mz(Math.round(r.frei))}</p>
+       <p class="kf">T€ nach Zuwendungen</p></div>
+     <div class="kz" style="border-left-color:var(--ochre)">
+       <p class="kk">Free Cashflow vor Zuwendungen</p><p class="kv">${mz(Math.round(r.freiVor))}</p>
+       <p class="kf">T€ ohne die ${mz(FM.fmZuw)} T€ Investitionszuwendungen</p></div>
+     <div class="kz" style="border-left-color:${r.reich < 0.75 ? "var(--red)" : r.reich < 1 ? "var(--ochre)" : "var(--green)"}">
+       <p class="kk">Reichweite</p><p class="kv">${(r.reich < 0 ? "\u2212" : "") + zahl2(Math.abs(r.reich))}</p>
+       <p class="kf">Monate · ${zahl1s(r.monat)} T€ Auszahlungen im Monat</p></div>
+     <div class="kz" style="border-left-color:var(--teal)">
+       <p class="kk">Innenfinanzierungsgrad</p><p class="kv">${zahl1s(r.innen)} %</p>
+       <p class="kf">laufender Cashflow ÷ Auszahlungen für Sachanlagen</p></div>`;
+  $("cfAusHin").innerHTML = "Beim Verband liegt der Innenfinanzierungsgrad bei <b>64,7 %</b>. "
+    + "Von 340 T€ Investitionen sind damit 220 T€ aus eigener Kraft finanziert, der Rest aus Zuwendungen und einem Darlehen. "
+    + "Ein Wert unter 100 % ist bei einem Träger sozialer Dienste der Normalfall; kritisch wird er, wenn er über Jahre sinkt, während die Abschreibungen steigen.";
+  $("cfOut").value = "";
+}
+$("cfForm").addEventListener("input", e => {
+  if(!(e.target.id in FM)) return;
+  FM[e.target.id] = fmLesen(e.target.value);
+  fmZeichnen();
+});
+/* Beim Verlassen des Feldes wird die Zahl sauber geschrieben. Waehrend
+   des Tippens bleibt sie stehen, wie sie eingegeben wurde. */
+$("cfForm").addEventListener("change", e => {
+  if(!(e.target.id in FM)) return;
+  e.target.value = zahl(FM[e.target.id]).replace("-", "−");
+});
+function fmSetzen(werte){
+  FM_IDS.forEach(k => { FM[k] = werte[k] || 0; });
+  fmBau(); fmZeichnen();
+  $("cfOutMsg").textContent = "";
+}
+$("cfBsp").addEventListener("click", () => {
+  fmSetzen(FM_BEISPIEL);
+  $("cfOutMsg").textContent = "Das Beispiel des Verbands ist geladen.";
+});
+$("cfLeer").addEventListener("click", () => {
+  fmSetzen({});
+  $("cfOutMsg").textContent = "Alle Felder stehen auf null.";
+});
+
+/* ---- Mitnehmen: Datei und Text ---------------------------------- */
+function fmText(){
+  const r = fmRechnen();
+  const breit = 46;
+  const zeile = (n, v) => "  " + n.padEnd(breit - 12) + String(mz(Math.round(v))).padStart(10);
+  let s = "CASHFLOW-RECHNUNG, INDIREKTE METHODE\nAlle Beträge in T€\n\n";
+  s += "LAUFENDE TÄTIGKEIT\n";
+  [["Jahresergebnis", FM.fmErg], ["Abschreibungen", FM.fmAbs], ["Auflösung Sonderposten", FM.fmSop],
+   ["Veränderung Rückstellungen", FM.fmRue], ["Veränderung Forderungen", FM.fmFor],
+   ["Veränderung Vorräte", FM.fmVor], ["Veränderung Verbindl. L+L", FM.fmVer],
+   ["Sonstiges", FM.fmSonL]].forEach(([n, v]) => { s += zeile(n, v) + "\n"; });
+  s += "".padEnd(breit, "-") + "\n" + zeile("= laufende Tätigkeit", r.lauf) + "\n\n";
+  s += "INVESTITIONSTÄTIGKEIT\n";
+  [["Auszahlungen Sachanlagen", FM.fmSach], ["Einzahlungen aus Abgängen", FM.fmAbg],
+   ["Investitionszuwendungen", FM.fmZuw]].forEach(([n, v]) => { s += zeile(n, v) + "\n"; });
+  s += "".padEnd(breit, "-") + "\n" + zeile("= Investitionstätigkeit", r.inv) + "\n\n";
+  s += "FINANZIERUNGSTÄTIGKEIT\n";
+  [["Aufnahme von Darlehen", FM.fmDar], ["Tilgung", FM.fmTil],
+   ["Sonstiges", FM.fmSonF]].forEach(([n, v]) => { s += zeile(n, v) + "\n"; });
+  s += "".padEnd(breit, "-") + "\n" + zeile("= Finanzierungstätigkeit", r.fin) + "\n\n";
+  s += "".padEnd(breit, "=") + "\n";
+  s += zeile("Bestand am Jahresanfang", FM.fmAnf) + "\n";
+  s += zeile("rechnerischer Endbestand", r.rech) + "\n";
+  s += zeile("Endbestand laut Bilanz", FM.fmBil) + "\n";
+  s += "  Probe: " + (Math.abs(r.diff) < 0.5 ? "geht auf" : "Abweichung " + mz(Math.round(r.diff)) + " T€") + "\n\n";
+  s += "AUSWERTUNG\n";
+  s += "  Muster:                 " + [r.lauf, r.inv, r.fin].map(v => v < 0 ? "-" : "+").join(" ") + "\n";
+  s += "  Free Cashflow:          " + mz(Math.round(r.frei)) + " T€\n";
+  s += "  davor ohne Zuwendungen: " + mz(Math.round(r.freiVor)) + " T€\n";
+  s += "  Reichweite:             " + zahl2(r.reich) + " Monate\n";
+  s += "  Innenfinanzierungsgrad: " + zahl1s(r.innen) + " %\n";
+  s += "\nErzeugt im Modul „Der Cashflow“.\n";
+  return s;
+}
+$("cfGo").addEventListener("click", () => { $("cfOut").value = fmText(); $("cfOutMsg").textContent = ""; });
+$("cfCopy").addEventListener("click", () => {
+  if(!$("cfOut").value) $("cfOut").value = fmText();
+  const feld = $("cfOut");
+  feld.removeAttribute("readonly");
+  feld.select(); feld.setSelectionRange(0, feld.value.length);
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch(err) { ok = false; }
+  feld.setAttribute("readonly", "");
+  if(ok){ $("cfOutMsg").textContent = "Kopiert."; return; }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(feld.value)
+      .then(() => { $("cfOutMsg").textContent = "Kopiert."; })
+      .catch(() => { $("cfOutMsg").textContent = "Klappt hier nicht, der Text ist markiert. Kopier ihn von Hand."; });
+  } else {
+    $("cfOutMsg").textContent = "Klappt hier nicht, der Text ist markiert. Kopier ihn von Hand.";
+  }
+});
+$("cfSave").addEventListener("click", () => {
+  const d = {kennung:"cashflow", erzeugt:new Date().toISOString().slice(0, 10), werte:FM};
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(d, null, 2)], {type:"application/json"}));
+  a.download = "cashflow.json"; a.click();
+  URL.revokeObjectURL(a.href);
+  $("cfOutMsg").textContent = "Die Datei ist heruntergeladen.";
+});
+$("cfLoad").addEventListener("click", () => $("cfFile").click());
+$("cfFile").addEventListener("change", e => {
+  const f = e.target.files && e.target.files[0]; if(!f) return;
+  const leser = new FileReader();
+  leser.onload = () => {
+    try {
+      const d = JSON.parse(String(leser.result));
+      if(d.kennung && d.kennung !== "cashflow"){
+        $("cfOutMsg").textContent = "Diese Datei gehört zu einem anderen Modul (" + d.kennung + ").";
+        return;
+      }
+      const w = d.werte || d;
+      let n = 0;
+      FM_IDS.forEach(k => { if(typeof w[k] === "number"){ FM[k] = w[k]; n++; } });
+      fmBau(); fmZeichnen();
+      $("cfOutMsg").textContent = "Geladen: " + n + " Werte" + (d.erzeugt ? " vom " + d.erzeugt : "") + ".";
+    } catch(err) {
+      $("cfOutMsg").textContent = "Die Datei ließ sich nicht lesen.";
+    }
+  };
+  leser.readAsText(f);
+  e.target.value = "";
+});
+fmBau(); fmZeichnen();
+
+/* =====================================================================
+   12 · Lektion 06 · Das Quiz
+
+   Fuenf Fragen werden aus dem Vorrat gezogen, die Antworten dazu
+   gemischt. Stuenden sie in der Reihenfolge des Vorrats, waere die
+   richtige immer die erste.
+   ===================================================================== */
+const FRAGEN = [
+  ["Was misst der Cashflow aus laufender Tätigkeit?",
+   ["Den Zahlungsmittelzufluss aus dem Betrieb","Den Periodenerfolg des Betriebs","Das Vermögen am Stichtag","Die Summe aller Einzahlungen des Jahres"], 0,
+   "Er ist eine Zahlungsgröße. Der Periodenerfolg steht in der Gewinn- und Verlustrechnung; beim Verband sind es 20 T€ Ergebnis gegen 220 T€ laufenden Cashflow."],
+  ["Warum werden die Abschreibungen bei der indirekten Methode addiert?",
+   ["Weil sie das Ergebnis gemindert haben, ohne dass Geld geflossen ist","Weil sie steuerlich abzugsfähig sind","Weil sie den Bestand an Sachanlagen erhöhen","Weil sie eine Einzahlung sind"], 0,
+   "Bezahlt wurde bei der Anschaffung. Die Abschreibung verteilt diesen Betrag über die Nutzungsdauer und berührt das Konto nicht mehr, weshalb sie zurückgenommen wird."],
+  ["Wie lautet die Vorzeichenregel der indirekten Methode?",
+   ["Steigt ein Aktivposten, bindet er Geld; steigt ein Passivposten, hält er Geld im Haus","Steigt ein Aktivposten, hält er Geld im Haus; steigt ein Passivposten, bindet er Geld","Jede Zunahme bindet Geld","Jede Abnahme bindet Geld"], 0,
+   "Ein Aktivposten kommt mit einem Minus in die Rechnung, wenn er steigt, ein Passivposten mit einem Plus. Mit dieser einen Regel lassen sich alle sechs Zeilen der Überleitung ableiten."],
+  ["Die Forderungen steigen um 74 T€. Mit welchem Vorzeichen geht das in die Überleitung ein?",
+   ["Minus, weil ein Aktivposten steigt und Geld bindet","Plus, weil Erträge entstanden sind","Minus, weil es ein Aufwand ist","Plus, weil die Bilanzsumme steigt"], 0,
+   "Die Erträge sind gebucht, die Einzahlung steht noch aus. Beim Verband entsprechen die 74 T€ gut sechs Tagen Forderungslaufzeit."],
+  ["Warum wird die Auflösung eines Sonderpostens abgezogen?",
+   ["Weil sie ein Ertrag ohne Einzahlung ist","Weil sie ein Aufwand ohne Auszahlung ist","Weil sie den Sonderposten erhöht","Weil sie zweckgebunden ist"], 0,
+   "Die Einzahlung erfolgte bei der Investition. Die Auflösung erhöht danach nur noch das Ergebnis, weshalb sie in der Überleitung mit 92 T€ abgezogen wird."],
+  ["Welche drei Bereiche hat eine Cashflow-Rechnung?",
+   ["Laufende Tätigkeit, Investitionstätigkeit, Finanzierungstätigkeit","Erträge, Aufwendungen, Ergebnis","Anlagevermögen, Umlaufvermögen, Eigenkapital","Betrieb, Verwaltung, Vertrieb"], 0,
+   "Beim Verband ergeben +220, −182 und +24 zusammen die Veränderung des Finanzmittelbestands von +62 T€, also den Weg von 418 auf 480 T€."],
+  ["Was bedeutet das Muster plus, minus, plus?",
+   ["Über den laufenden Cashflow hinaus investiert, ergänzt durch Kredite oder Zuwendungen","Aus eigener Kraft investiert und getilgt","Anlagen verkauft und getilgt","Der Bestand schmilzt in allen Bereichen"], 0,
+   "Es ist das Muster des Verbands. Kein Warnsignal, aber die Frage, ob die Zuwendungen im nächsten Jahr wieder kommen."],
+  ["Welches Muster gilt in der Bilanzanalyse als der Normalfall eines gesunden Betriebs?",
+   ["Plus, minus, minus","Plus, minus, plus","Minus, plus, plus","Plus, plus, plus"], 0,
+   "Der laufende Cashflow reicht für die Investitionen und für die Tilgung. Beim Verband reicht er für die Investitionen nicht, weshalb der Finanzierungsbereich positiv ist."],
+  ["Wie wird der Free Cashflow gerechnet?",
+   ["Laufende Tätigkeit plus Investitionstätigkeit","Laufende Tätigkeit minus Tilgung","Jahresergebnis plus Abschreibungen","Einzahlungen minus Auszahlungen des Jahres"], 0,
+   "Beim Verband sind es 220 − 182 = 38 T€. Das ist der Betrag, der nach den Investitionen für Tilgung, Rücklagen und Zweckerfüllung übrig bleibt."],
+  ["Der Free Cashflow des Verbands liegt bei 38 T€, vor Zuwendungen bei −112 T€. Was folgt daraus?",
+   ["Ohne Zuwendungen würden die Investitionen nicht gedeckt","Die Investitionen sind aus eigener Kraft finanziert","Das Ergebnis ist zu niedrig ausgewiesen","Die Tilgung ist zu hoch angesetzt"], 0,
+   "Die Zuwendung von 150 T€ ist keine Zugabe, sie ist der Teil der Investitionsfinanzierung, ohne den die Bäder nicht saniert würden."],
+  ["Was unterscheidet die direkte von der indirekten Methode?",
+   ["Die direkte stellt Einzahlungen gegen Auszahlungen, die indirekte geht vom Jahresergebnis aus","Die direkte rechnet monatlich, die indirekte jährlich","Die direkte gilt nach HGB, die indirekte nach IFRS","Die direkte ist genauer und kommt auf einen anderen Betrag"], 0,
+   "Beim Cashflow aus laufender Tätigkeit kommen beide auf denselben Betrag. Eine Liquiditätsvorschau rechnet direkt, aus einem fertigen Abschluss wird indirekt gerechnet."],
+  ["Ein Prozentpunkt Auslastung im Pflegeheim entspricht welchem Betrag?",
+   ["42,6 T€ Erlösen im Jahr","11,7 T€ Erlösen im Jahr","36,1 T€ Erlösen im Jahr","11,2 T€ Erlösen im Jahr"], 0,
+   "84 Plätze mal 365 Tage mal ein Prozentpunkt mal 138,89 € je Belegungstag. Die 11,7 T€ sind ein Tag Forderungslaufzeit, die 36,1 T€ ein Prozent Tarifsteigerung."],
+  ["Wie viel bindet ein zusätzlicher Tag Forderungslaufzeit beim Verband?",
+   ["Rund 11,7 T€","Rund 42,6 T€","Rund 36,1 T€","Rund 74 T€"], 0,
+   "4.258 T€ Leistungserlöse geteilt durch 365 Tage. Der Anstieg der Forderungen um 74 T€ entspricht damit gut sechs Tagen."],
+  ["Warum zählt bei einem Träger sozialer Dienste von der Geldumschlagsdauer fast nur ein Baustein?",
+   ["Weil sich Pflege- und Beratungsleistungen nicht auf Lager legen lassen","Weil die Lieferanten sofort bezahlt werden","Weil es keine Forderungen gibt","Weil das Personal nach dem Zahlungseingang bezahlt wird"], 0,
+   "Ohne Vorräte geht die Lagerdauer gegen null. Es bleibt die Forderungslaufzeit, die beim Verband mit rund 42 Tagen etwa 486 T€ bindet."],
+  ["Wie wird die Liquiditätsreichweite gerechnet?",
+   ["Finanzmittelbestand geteilt durch die durchschnittlichen monatlichen Auszahlungen","Finanzmittelbestand geteilt durch die Erträge","Laufender Cashflow geteilt durch zwölf","Umlaufvermögen geteilt durch die kurzfristigen Schulden"], 0,
+   "Beim Verband 480 T€ geteilt durch 412,5 T€, also 1,16 Monate. Die monatlichen Auszahlungen sind die Aufwendungen abzüglich der Abschreibungen, durch zwölf."],
+  ["Welche vier steuerlichen Sphären deckt der Verband ab?",
+   ["Zweckbetrieb, ideeller Bereich, Vermögensverwaltung, wirtschaftlicher Geschäftsbetrieb","Pflege, Beratung, Vermietung, Handel","Betrieb, Verwaltung, Vertrieb, Finanzen","Erträge, Aufwendungen, Investitionen, Finanzierung"], 0,
+   "Das Pflegeheim ist Zweckbetrieb, die Beratungsstelle ideeller Bereich, das Wohnhaus Vermögensverwaltung und der Secondhandladen wirtschaftlicher Geschäftsbetrieb."],
+  ["Das Pflegeheim erwirtschaftet 265 T€, die Beratungsstelle verbraucht 85 T€. Wie ist das einzuordnen?",
+   ["Als Mittelverwendung für den satzungsmäßigen Zweck","Als unzulässige Quersubventionierung","Als Fehler in der Kostenrechnung","Als Grund, die Beratungsstelle zu schließen"], 0,
+   "Beratung wird nicht von den Ratsuchenden bezahlt. In der Regel unzulässig wäre der umgekehrte Fall, nämlich den Verlust des wirtschaftlichen Geschäftsbetriebs mit gemeinnützigen Mitteln auszugleichen."],
+  ["Warum kann bei einem gemeinnützigen Träger auch ein zu hoher Liquiditätsbestand ein Befund sein?",
+   ["Weil die Mittel zeitnah für den satzungsmäßigen Zweck zu verwenden sind","Weil Guthaben ein Verwahrentgelt kostet","Weil dadurch das Eigenkapital sinkt","Weil die Bank die Kreditlinie kürzt"], 0,
+   "Gemeinnützigkeit erlaubt Überschüsse und verbietet deren Ausschüttung; zudem verlangt sie die zeitnahe Verwendung. Die Liquidität hat deshalb eine Unter- und eine Obergrenze. Welche Fristen und Rücklagen gelten, sagt der steuerliche Berater."],
+  ["Wo steht der Sonderposten aus Investitionszuwendungen in der Bilanz?",
+   ["Auf der Passivseite, zwischen Eigenkapital und Rückstellungen","Auf der Aktivseite beim Anlagevermögen","Auf der Passivseite bei den Verbindlichkeiten","Er erscheint in keiner Bilanz"], 0,
+   "Er ist kein Eigenkapital, weil er zweckgebunden ist, und keine Schuld, weil nichts zurückzuzahlen ist. Seine anteilige Auflösung läuft parallel zur Abschreibung der finanzierten Anlage."],
+  ["Wie hoch sind beim Verband die eigenfinanzierten Abschreibungen?",
+   ["176 T€","268 T€","92 T€","360 T€"], 0,
+   "268 T€ Abschreibungen abzüglich 92 T€ Auflösung des Sonderpostens. Das ist der Betrag, den der Verband in einem normalen Jahr erwirtschaften muss, um seine Substanz zu erhalten."],
+  ["Wie wird der Innenfinanzierungsgrad der Investitionen gerechnet?",
+   ["Laufender Cashflow geteilt durch die Auszahlungen für Sachanlagen","Free Cashflow geteilt durch die Erträge","Eigenkapital geteilt durch das Anlagevermögen","Laufender Cashflow geteilt durch die Tilgung"], 0,
+   "Beim Verband 220 geteilt durch 340, also 64,7 %. Ein Wert unter 100 % ist bei einem Träger sozialer Dienste der Normalfall; kritisch wird er, wenn er über Jahre sinkt."],
+  ["Wohin gehört die Einzahlung einer Investitionszuwendung in der Cashflow-Rechnung?",
+   ["In die Investitionstätigkeit, weil sie unmittelbar eine Anlage finanziert","In die laufende Tätigkeit, weil sie ein Ertrag ist","In die Finanzierungstätigkeit, weil sie von außen kommt","In keinen der drei Bereiche"], 0,
+   "Eine Zuwendung zu laufenden Kosten gehört dagegen in den laufenden Bereich. Welche Zuordnung ein Haus wählt, gehört in die Bilanzierungsrichtlinie und bleibt über die Jahre dieselbe."],
+  ["Was sagt DRS 21 zur Zuordnung gezahlter Zinsen?",
+   ["Er ordnet sie der Finanzierungstätigkeit zu","Er ordnet sie der laufenden Tätigkeit zu","Er lässt ein Wahlrecht","Er äußert sich dazu nicht"], 0,
+   "Für einen eingetragenen Verein ist der Standard nicht verbindlich. Der Fall rechnet die Zinsen im laufenden Bereich; nach DRS 21 wären es 282 T€ laufend und −38 T€ Finanzierung."],
+  ["Worauf prüft die Probe am Ende einer Cashflow-Rechnung?",
+   ["Ob der rechnerische Endbestand dem Bestand laut Bilanz entspricht","Ob das Jahresergebnis stimmt","Ob die Bilanzsumme aufgeht","Ob die Abschreibungen richtig gerechnet sind"], 0,
+   "Anfangsbestand plus die drei Bereiche muss den Endbestand ergeben. Geht die Probe nicht auf, fehlt eine Zahlungsbewegung oder ein Vorzeichen ist gedreht."],
+  ["Der laufende Cashflow ist positiv, der Bestand sinkt trotzdem. Woran kann das liegen?",
+   ["An Investitionen und Tilgungen, die den laufenden Cashflow übersteigen","An zu hohen Abschreibungen","An einem zu niedrigen Jahresergebnis","An gestiegenen Rückstellungen"], 0,
+   "Investition und Tilgung stehen in keiner Gewinn- und Verlustrechnung. Genau deshalb reicht der laufende Cashflow allein für eine Beurteilung nicht."],
+  ["Was zeigt die Cashflow-Rechnung, was die Gewinn- und Verlustrechnung nicht zeigt?",
+   ["Woher die Veränderung des Finanzmittelbestands kommt","Den Periodenerfolg","Die Erträge nach Leistungsarten","Das Vermögen am Stichtag"], 0,
+   "Die Gewinn- und Verlustrechnung weist den Periodenerfolg aus, die Bilanz Vermögen und Finanzierung. Woher die 62 T€ Veränderung auf dem Konto kommen, sagt allein die Cashflow-Rechnung."]
+];
+let qAktuell = [];
+const QZAHL = 5;
+const mischen = a => {
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+function qZiehen(){
+  qAktuell = mischen(FRAGEN.map((f, i) => i)).slice(0, QZAHL)
+    .map(i => ({i, ord:mischen(FRAGEN[i][1].map((o, j) => j)), gewaehlt:null}));
+  qRender();
+}
+function qRender(){
+  $("quiz").innerHTML = qAktuell.map((q, n) => {
+    const [text, opts, richtig, begr] = FRAGEN[q.i];
+    return `<div class="qcard">
+      <p class="qn">Frage ${n + 1} von ${QZAHL}</p>
+      <p class="qt">${text}</p>
+      <div class="qopts">${q.ord.map(j => {
+        let kl = "";
+        if(q.gewaehlt !== null) kl = j === richtig ? " right" : (j === q.gewaehlt ? " wrong" : "");
+        return `<button class="qopt${kl}" type="button" data-q="${n}" data-o="${j}"${q.gewaehlt !== null ? " disabled" : ""}>${opts[j]}</button>`;
+      }).join("")}</div>
+      <p class="qfb"${q.gewaehlt === null ? " hidden" : ""}>${
+        q.gewaehlt === null ? "" :
+        (q.gewaehlt === richtig ? "<b style='color:#1E6B47'>Richtig.</b> " : "<b style='color:#9C2F2C'>Daneben.</b> ") + begr}</p>
+    </div>`;
+  }).join("");
+  const fertig  = qAktuell.filter(q => q.gewaehlt !== null).length;
+  const treffer = qAktuell.filter(q => q.gewaehlt === FRAGEN[q.i][2]).length;
+  $("qStand").textContent = fertig === 0
+    ? QZAHL + " Fragen aus einem Vorrat von " + FRAGEN.length
+    : fertig + " von " + QZAHL + " beantwortet · " + treffer + " richtig";
+  $("qResult").innerHTML = fertig < QZAHL ? "" :
+    `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
+      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen, der Vorrat hat " + FRAGEN.length + "." :
+      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben; sie sind der Teil, an dem sich am meisten lernen lässt." :
+      "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind die Vorzeichenregel, die Zuordnung zu einem der drei Bereiche und der Unterschied zwischen Ergebnis und Zahlung."}</div>`;
+}
+$("quiz").addEventListener("click", e => {
+  const b = e.target.closest(".qopt"); if(!b || b.disabled) return;
+  const q = qAktuell[+b.dataset.q]; if(!q || q.gewaehlt !== null) return;
+  q.gewaehlt = +b.dataset.o;
+  qRender();
+});
+$("qNew").addEventListener("click", qZiehen);
+qZiehen();
+
+/* =====================================================================
+   13 · Lektion 07 · Sieben Schritte und das Glossar
+   ===================================================================== */
+const CHECK7 = [
+  ["Hol die Abschlüsse der letzten zwei, besser drei Jahre",
+   "Dazu eine vorhandene Cashflow-Rechnung, falls der Abschluss eine enthält. Bei einem Träger dieser Größe liegt sie oft im Anhang oder im Lagebericht. Findest Du keine, brauchst Du je Jahr Bilanz und Gewinn- und Verlustrechnung; daraus lässt sich die indirekte Rechnung in einer Stunde aufstellen.",
+   "Es wird mit dem laufenden Jahr begonnen, weil es das aktuelle ist. Eine einzelne Cashflow-Rechnung zeigt Beträge; erst zwei nebeneinander zeigen, ob ein Muster hält."],
+  ["Notier je Jahr die Vorzeichen der drei Bereiche und bestimme das Muster",
+   "Drei Zeichen je Jahr, das ist die ganze Arbeit. Danach weißt Du, ob Dein Haus aus eigener Kraft investiert oder ob die Investitionen an Zuwendungen und Krediten hängen. Die acht Deutungen aus Lektion 02 sagen Dir, wie ein Außenstehender das liest.",
+   "Es wird über die Höhe der Beträge geredet, bevor die Vorzeichen notiert sind. Das Muster ist die schnellere Auskunft und die, die eine Bank zuerst bildet."],
+  ["Such die drei größten Überleitungsposten und nenn je einen Treiber",
+   "Beim Verband sind es Abschreibungen, Auflösung des Sonderpostens und der Anstieg der Forderungen. Zu jedem gehört eine Entscheidung im Alltag: der Investitionsplan, der Zuwendungsbescheid, das Tempo der Abrechnung. Erst mit dem Treiber wird aus der Zahl eine Aufgabe.",
+   "Die Zeilen werden als Rechentechnik gelesen. Jede von ihnen hat einen Treiber, über den sich reden lässt."],
+  ["Rechne den Free Cashflow vor und nach Zuwendungen",
+   "Laufender Cashflow plus Investitionsbereich, einmal mit und einmal ohne die Investitionszuwendungen. Der Unterschied ist der Betrag, um den Dein Haus von Fördermitteln abhängt. Beim Verband sind es 150 T€ auf 5,2 Mio. € Erträge.",
+   "Es wird nur der Wert nach Zuwendungen gerechnet. Der sieht freundlicher aus und beantwortet die Frage nach der eigenen Kraft nicht."],
+  ["Rechne die Reichweite zum Stichtag und, wenn möglich, für jedes Monatsende",
+   "Finanzmittelbestand geteilt durch die durchschnittlichen monatlichen Auszahlungen. Zum Stichtag ist das eine Zahl, über zwölf Monatsenden eine Reihe, die den Monat zeigt, in dem es eng wird. Beim Verband ist der November der Monat der Sonderzahlung.",
+   "Es bleibt bei der Zahl zum 31.12. Der Stichtag ist zumeist der freundlichste Tag des Jahres, weil dort abgerechnet und eingezogen wurde."],
+  ["Rechne den Cashflow je Sphäre oder Einrichtung, soweit die Buchhaltung es hergibt",
+   "Dafür brauchst Du ein Ergebnis je Einrichtung und eine Zuordnung von Abschreibungen und Working Capital. Wo die Buchhaltung das nicht hergibt, nimm die Abschreibungen je Einrichtung aus dem Anlagenspiegel und lass das Working Capital zunächst weg; die Größenordnung stimmt dann noch.",
+   "Die Aufteilung wird verschoben, bis die Buchhaltung sie exakt liefert. Eine Näherung je Einrichtung sagt mehr als ein exakter Gesamtwert."],
+  ["Formulier drei Fragen für den Vorstand, die aus den Zahlen folgen",
+   "Zum Beispiel: Kommen die Zuwendungen im nächsten Jahr in gleicher Höhe? Wie viele Tage Forderungslaufzeit wollen wir bis zum Jahresende abbauen? Welche Mindestliquidität beschließen wir? Damit endet die Rechenarbeit und beginnt das Controlling.",
+   "Es wird eine Auswertung abgegeben. Eine Cashflow-Rechnung ohne Frage an einen Menschen ist eine Fleißarbeit, die niemand liest."]
+];
+$("ck7").innerHTML = CHECK7.map(([t, p, f]) =>
+  `<div class="ckitem"><h3>${t}</h3><p>${p}</p>
+     <p class="trap"><b>Typischer Fehler:</b> ${f}</p></div>`).join("");
+
+const GLOSSAR = [
+  ["Cashflow", "Der Zahlungsmittelüberschuss einer Periode. Er misst Zahlungen und nicht den Erfolg."],
+  ["Kapitalflussrechnung", "Das deutsche Wort für die Cashflow-Rechnung. Beide Begriffe meinen dasselbe Rechenwerk."],
+  ["Indirekte Methode", "Der Weg vom Jahresergebnis aus. Alles, was das Ergebnis berührt hat und das Konto nicht, wird zurückgenommen."],
+  ["Direkte Methode", "Der Weg über Einzahlungen minus Auszahlungen. So rechnet eine Liquiditätsvorschau."],
+  ["Laufende Tätigkeit", "Der erste Bereich. Er zeigt, was der Betrieb selbst an Geld erwirtschaftet hat."],
+  ["Investitionstätigkeit", "Der zweite Bereich. Auszahlungen für Anlagen, Einzahlungen aus Abgängen und Investitionszuwendungen."],
+  ["Finanzierungstätigkeit", "Der dritte Bereich. Aufnahme und Tilgung von Darlehen sowie Kapitalzuführungen."],
+  ["Free Cashflow", "Laufende Tätigkeit plus Investitionstätigkeit. Der Betrag, der nach den Investitionen übrig bleibt."],
+  ["Sonderposten aus Zuwendungen", "Ein Passivposten zwischen Eigenkapital und Rückstellungen. Er steht für eine Investitionszuwendung und wird parallel zur Abschreibung aufgelöst."],
+  ["Sphäre", "Eine der vier steuerlichen Bereiche eines gemeinnützigen Trägers: ideeller Bereich, Vermögensverwaltung, Zweckbetrieb und wirtschaftlicher Geschäftsbetrieb."],
+  ["Liquiditätsreichweite", "Finanzmittelbestand geteilt durch die durchschnittlichen monatlichen Auszahlungen. Sie sagt, wie viele Monate der Bestand reicht."],
+  ["Innenfinanzierungsgrad", "Laufender Cashflow geteilt durch die Auszahlungen für Sachanlagen. Er sagt, welcher Anteil der Investitionen aus eigener Kraft finanziert ist."],
+  ["Working Capital", "Umlaufvermögen abzüglich kurzfristiger Schulden. Seine Veränderung ist der Teil der Überleitung, der aus Forderungen, Vorräten und Verbindlichkeiten kommt."]
+];
+$("glos").innerHTML = GLOSSAR.map(([b, t]) => `<div><b>${b}</b>: ${t}</div>`).join("");
+
+/* =====================================================================
+   14 · Lektionen
    ===================================================================== */
 const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a","b","c","d","e","f","g"];
 function select(i){
@@ -825,7 +2079,7 @@ tabs.forEach((t, i) => {
 select(0);
 
 /* =====================================================================
-   7 · Bloecke zum Auf- und Zuklappen
+   15 · Bloecke zum Auf- und Zuklappen
    Baut die Abschnitte einer Lektion zur Laufzeit aus der vorhandenen
    Gliederung: jedes h2.sec eroeffnet einen Block, alles danach bis zum
    naechsten h2.sec ist sein Inhalt. Was vor dem ersten h2.sec steht -
