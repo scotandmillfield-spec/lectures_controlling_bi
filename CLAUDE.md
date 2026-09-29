@@ -509,6 +509,10 @@ diesem Projekt klingt, gemessen an Maiks eigenem Buchtext.
 Festlegungen des Falls. Nichts davon erfinden oder abwandeln — wenn eine Angabe fehlt,
 im Pull Request nachfragen statt sie zu ergänzen.
 
+`KANON-VERBAND.md` ist ebenso verbindlich und gilt für den zweiten Fall, den Caritasverband.
+Wer an einem Modul dieses Falls arbeitet, liest ihn statt `PROJECT-CANON.md`; beide Kanons
+werden nie gemischt.
+
 Besonders leicht zu übersehen:
 
 - Personen haben **keine Nachnamen**. Sofia, Nguyen, Alex, Anna, Jonas, Klara, Elif.
@@ -526,6 +530,25 @@ Dienste. Ein Leitbild entsteht in einer Organisation, und Sofias Kaffeehaus hat 
 noch Verband. Die Kachel sagt es im ersten Satz.
 `cv-mx/controlling-konzept.html` gehört zum selben Fall und gibt allein das Berichtskonzept
 wieder, das Maik geliefert hat.
+
+**[gesetzt] Der Caritasverband ist der zweite Fall der Lernplattform.** Er steht in
+`KANON-VERBAND.md` und liegt den Modulen `cashflow.html`, `leistung-periodengerecht.html` sowie
+`liquiditaet-fruehwarnung.html` zugrunde. Der Grund liegt in der Sache: Sonderposten aus
+Investitionszuwendungen, öffentliche Förderung, die vier steuerlichen Sphären und die Abrechnung
+über Kostenträger kommen bei Sofia nicht vor, weil ein Kaffeehaus keines davon hat. Ein
+Lernpfad zur Sozialwirtschaft braucht sie alle, sodass entweder der Kanon um Dinge wächst, die
+nicht zu einem Kaffeehaus passen, oder ein zweiter Fall daneben steht. Die Kachel jedes
+betroffenen Moduls sagt im ersten Satz, dass es mit dem Verband arbeitet.
+
+- **Der Verband hat keine Eigennamen.** Es heißt „der Verband", die Einrichtungen heißen nach
+  ihrer Funktion (das Pflegeheim, die Beratungsstelle, das Wohnhaus, der Secondhandladen) und
+  Personen nach ihrer Rolle. Der Kurs findet beim Auftraggeber statt, wo ein erfundener Name
+  die Übertragung auf die eigenen Verhältnisse eher verstellt.
+- **Die beiden Fälle werden in einem Modul nicht gemischt.** Ein Modul arbeitet mit Sofia oder
+  mit dem Verband. Ein Querverweis auf ein Modul des anderen Falls bleibt erlaubt, da beide in
+  `plattform/` liegen.
+- **Die Module dieses Falls sind durchgehend deutsch** und auf der Kachel mit `DE`
+  gekennzeichnet.
 
 `vorlesung/supply-chain-controlling.html` gehört zum Thema Supply Chain und arbeitet mit vier Vorlieferanten und eigenen
 Beispielzahlen. Der Grund: Sofias Betrieb hat keine benannten Lieferanten, und der
@@ -553,7 +576,7 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.78`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.79`.
 Keine Quellenverzeichnisse, keine Legenden, keine Beschreibung des Falls und kein Hinweis
 darauf, woher eine Abbildung stammt. Sie steht in jeder ausgelieferten Datei gleich, im Markup
 als `<footer>` und auf den zweisprachigen Seiten als Eintrag `footer` im `UI`-Wörterbuch. Dort
@@ -562,7 +585,7 @@ ist sie ein einfacher String, weil ein Name und eine Nummer in beiden Sprachen d
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.78</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.79</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
@@ -589,7 +612,8 @@ den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in dopp
 ```
 index.html                       die Weiche — nur für die Entwicklung
 CLAUDE.md                        diese Datei
-PROJECT-CANON.md                 Namen, Zahlen, Festlegungen des Falls
+PROJECT-CANON.md                 Namen, Zahlen, Festlegungen des Falls um Sofia
+KANON-VERBAND.md                 dasselbe für den zweiten Fall, den Caritasverband
 STILPROBE.md                     wie Maik schreibt, gemessen an seinem Buchtext
 
 vorlesung/                       der Stoff für die Lehrveranstaltungen
