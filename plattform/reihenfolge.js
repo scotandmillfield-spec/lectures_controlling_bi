@@ -24,9 +24,12 @@ const REIHENFOLGE = [
   "bilanz-aufbau",     // Die Bilanz nach HGB
   "bilanz-guv",        // Die Gewinn- und Verlustrechnung
   "bilanz-kennzahlen", // Jahresabschlussanalyse mit Kennzahlen
+  "cashflow",          // Der Cashflow (Verband)
   "bilanz-buchungssaetze", // Buchungssätze und ihre Wirkung
+  "leistung-periodengerecht", // Leistungen im Leistungsmonat erfassen (Verband)
   "liqui-begriff",     // Liquidität: der Begriff
   "liqui-bwa",         // Die BWA lesen
   "liqui-vorschau",    // Die Liquiditätsvorschau
-  "liqui-tagesplan"    // Tagesvorschau und Rollierung
+  "liqui-tagesplan",   // Tagesvorschau und Rollierung
+  "liqui-fruehwarnung" // Liquiditätsrisiken früh erkennen (Verband)
 ];

@@ -249,7 +249,7 @@ const UI = {
   search:{de:"Module durchsuchen\u2026", en:"Search modules\u2026"},
   empty:{de:"Dazu passt gerade nichts.", en:"Nothing matches that filter yet."},
   soon:{de:"In Arbeit", en:"In preparation"},
-  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.78</span>",
+  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.79</span>",
   pathLabel:{de:"Lernpfade", en:"Learning paths"},
   pathKicker:{de:"Lernpfad", en:"Learning path"},
   pathClear:{de:"Pfad verlassen \u00b7 alle Module zeigen", en:"Leave the path \u00b7 show all modules"},
@@ -389,6 +389,36 @@ const TOPICS = [
     langBadge:{de:"", en:"DE"},
     links:[{kind:"html",file:"liquiditaet-tagesplan.html",
             label:{de:"Hülle ansehen", en:"Look at the shell"}}]
+  },
+  {
+    id:"liqui-fruehwarnung",
+    title:{de:"Liquiditätsrisiken früh erkennen", en:"Spotting liquidity risks early"},
+    sub:{de:"Arbeitet mit einem Caritasverband und seinen vier Einrichtungen. Du ordnest die Kennzahlen vom Groben ins Detail, legst Schwellen und Ampeln fest und baust daraus ein Frühwarnsystem mit Empfängern und festgelegten Reaktionen.",
+         en:"Works with a Catholic welfare association and its four units. You order the ratios from the coarse to the detailed, set thresholds and traffic lights, and build an early-warning system with named recipients and agreed responses."},
+    track:"liqui", status:"planned", accent:"orange", glyph:"shield",
+    langBadge:{de:"", en:"DE"},
+    links:[{kind:"html",file:"liquiditaet-fruehwarnung.html",
+            label:{de:"Hülle ansehen", en:"Look at the shell"}}]
+  },
+  {
+    id:"cashflow",
+    title:{de:"Der Cashflow", en:"The cash flow statement"},
+    sub:{de:"Arbeitet mit einem Caritasverband, der ein Pflegeheim, eine Beratungsstelle, ein Wohnhaus und einen Secondhandladen unterhält. Vom Jahresergebnis zum Zahlungsstrom: die drei Bereiche der Rechnung, ihre typischen Muster und was der Cashflow über das operative Geschäft verrät. Am Ende stellst Du eine eigene Rechnung auf.",
+         en:"Works with a Catholic welfare association running a care home, a counselling centre, a rented house and a second-hand shop. From the annual result to the cash flow: the three sections of the statement, their typical patterns, and what they say about the operating business. At the end you draw up a statement of your own."},
+    track:"bilanz", status:"planned", accent:"teal", glyph:"chain",
+    langBadge:{de:"", en:"DE"},
+    links:[{kind:"html",file:"cashflow.html",
+            label:{de:"Hülle ansehen", en:"Look at the shell"}}]
+  },
+  {
+    id:"leistung-periodengerecht",
+    title:{de:"Leistungen im Leistungsmonat erfassen", en:"Recognising services in the month delivered"},
+    sub:{de:"Arbeitet mit dem Pflegeheim und der Beratungsstelle eines Caritasverbands. Du klärst, warum ein Ertrag in den Monat der Leistung gehört, vergleichst zwei Verfahren der Abgrenzung und legst fest, wer was bis wann liefert.",
+         en:"Works with the care home and the counselling centre of a Catholic welfare association. You work out why income belongs in the month the service was delivered, compare two ways of accruing it, and settle who delivers what by when."},
+    track:"bilanz", status:"planned", accent:"ochre", glyph:"cells",
+    langBadge:{de:"", en:"DE"},
+    links:[{kind:"html",file:"leistung-periodengerecht.html",
+            label:{de:"Hülle ansehen", en:"Look at the shell"}}]
   }
 ];
 
@@ -410,16 +440,23 @@ const PATHS = [
   {
     id:"bilanzanalyse",
     title:{de:"Bilanzanalyse", en:"Financial statement analysis"},
-    sub:{de:"Vom Aufbau der Bilanz über die Gewinn- und Verlustrechnung bis zu den Kennzahlen und den einzelnen Buchungssätzen. Durchgehend nach HGB; in jedem Modul tippst Du eigene Zahlen ein.",
-         en:"From the layout of the balance sheet through the income statement to the ratios and the individual journal entries. German GAAP throughout, and in every module you type in figures of your own."},
-    steps:["bilanz-aufbau","bilanz-guv","bilanz-kennzahlen","bilanz-buchungssaetze"]
+    sub:{de:"Vom Aufbau der Bilanz über die Gewinn- und Verlustrechnung bis zu den Kennzahlen, dem Cashflow, den einzelnen Buchungssätzen und der periodengerechten Erfassung. Durchgehend nach HGB; in jedem Modul tippst Du eigene Zahlen ein. Die beiden letzten Module arbeiten mit einem Caritasverband.",
+         en:"From the layout of the balance sheet through the income statement to the ratios, the cash flow statement, the individual journal entries and accrual accounting. German GAAP throughout, and in every module you type in figures of your own. The last two modules work with a Catholic welfare association."},
+    steps:["bilanz-aufbau","bilanz-guv","bilanz-kennzahlen","cashflow","bilanz-buchungssaetze","leistung-periodengerecht"]
   },
   {
     id:"liquiditaetsplanung",
     title:{de:"Liquiditätsplanung", en:"Cash planning"},
-    sub:{de:"Die Bilanzanalyse sieht zurück, diese Reihe nach vorn. Vom Unterschied zwischen Ertrag und Einzahlung über die BWA als Ausgangspunkt bis zur Vorschau, die jeder Position eine Regel für den Zeitpunkt ihrer Ein- oder Auszahlung zuordnet. Die Gewinn- und Verlustrechnung aus dem ersten Pfad ist die Brücke.",
-         en:"Financial statement analysis looks back; this series looks forward. From the gap between income and cash receipt through the monthly report to a forecast that turns every position into a rule: when does this become money. The income statement from the first path is the bridge."},
-    steps:["bilanz-guv","liqui-begriff","liqui-bwa","liqui-vorschau","liqui-tagesplan"]
+    sub:{de:"Die Bilanzanalyse sieht zurück, diese Reihe nach vorn. Vom Unterschied zwischen Ertrag und Einzahlung über die BWA als Ausgangspunkt bis zur Vorschau, die jeder Position eine Regel für den Zeitpunkt ihrer Ein- oder Auszahlung zuordnet. Die Gewinn- und Verlustrechnung aus dem ersten Pfad ist die Brücke. Am Ende steht ein Frühwarnsystem, dessen Beispiele aus einem Caritasverband kommen.",
+         en:"Financial statement analysis looks back; this series looks forward. From the gap between income and cash receipt through the monthly report to a forecast that turns every position into a rule: when does this become money. The income statement from the first path is the bridge. It ends with an early-warning system, its examples taken from a Catholic welfare association."},
+    steps:["bilanz-guv","liqui-begriff","liqui-bwa","liqui-vorschau","liqui-tagesplan","liqui-fruehwarnung"]
+  },
+  {
+    id:"sozialwirtschaft",
+    title:{de:"Liquidität steuern in der Sozialwirtschaft", en:"Managing liquidity in the social sector"},
+    sub:{de:"Vom Unterschied zwischen Ertrag und Einzahlung über die Gewinn- und Verlustrechnung als Steuerungsinstrument und die Erfassung im Leistungsmonat bis zum Cashflow, zur Liquiditätsplanung und zu einem Frühwarnsystem. Die Beispiele kommen aus einem Caritasverband mit Pflegeheim, Beratungsstelle, Wohnhaus und Secondhandladen.",
+         en:"From the gap between income and cash receipt through the income statement as a steering instrument and accrual in the month of delivery to the cash flow statement, cash planning and an early-warning system. The examples come from a Catholic welfare association with a care home, a counselling centre, a rented house and a second-hand shop."},
+    steps:["liqui-begriff","bilanz-guv","leistung-periodengerecht","cashflow","liqui-vorschau","liqui-tagesplan","liqui-fruehwarnung"]
   }
 ];
 /* ===================== end of the editable lists ===================== */
