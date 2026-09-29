@@ -80,7 +80,8 @@ p.sub{margin:0 0 18px;color:var(--grey);font-size:1.28rem;line-height:1.6}
 /* ---------- the loop ---------- */
 .stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   box-shadow:var(--shadow);padding:14px 10px 6px;overflow-x:auto}
-svg#loop{width:100%;max-width:620px;margin:0 auto;height:auto;display:block}
+.stage:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+svg#loop{width:100%;min-width:620px;max-width:620px;margin:0 auto;height:auto;display:block}
 .node{cursor:help}
 .node .hit{fill:transparent}
 .node:focus-visible{outline:none}
@@ -334,7 +335,7 @@ footer a{color:var(--teal-dk)}
   <h2 class="sec" data-t="secLoop"></h2>
   <p class="sub" data-t="subLoop"></p>
 
-  <div class="stage">
+  <div class="stage" tabindex="0" role="group" aria-label="Der Kreislauf, seitlich scrollbar">
     <svg id="loop" viewBox="0 0 620 400" role="img" data-ta="loopAria"></svg>
   </div>
 

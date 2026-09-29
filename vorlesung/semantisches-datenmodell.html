@@ -69,7 +69,8 @@ p.sub{margin:0 0 18px;color:var(--grey);font-size:1.28rem;line-height:1.6}
 /* ---------- Schema-Zeichnung ---------- */
 .stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   box-shadow:var(--shadow);padding:12px 8px 4px;overflow-x:auto}
-svg.schema{width:100%;min-width:840px;height:auto;display:block}
+.stage:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+svg.schema{width:100%;min-width:960px;height:auto;display:block}
 .node{cursor:help}
 .node .hit{fill:transparent}
 .node:focus-visible{outline:none}
@@ -257,7 +258,7 @@ footer a{color:var(--teal-dk)}
     </div>
   </div>
 
-  <div class="stage">
+  <div class="stage" tabindex="0" role="group" aria-label="Das Schema, seitlich scrollbar">
     <svg class="schema" id="starSvg" viewBox="0 0 960 620" role="img"
       aria-label="Sternschema: die Faktentabelle FAKT_VERKAUF in der Mitte, ringsherum die Dimensionen Zeit, Produkt, Filiale und Zahlweg"></svg>
   </div>
@@ -352,7 +353,7 @@ footer a{color:var(--teal-dk)}
     </div>
   </div>
 
-  <div class="stage">
+  <div class="stage" tabindex="0" role="group" aria-label="Das Schema, seitlich scrollbar">
     <svg class="schema" id="snowSvg" viewBox="0 0 960 620" role="img"
       aria-label="Dieselbe Modellzeichnung, umschaltbar zwischen Sternschema und Snowflake-Schema, bei dem die Produktdimension in drei normalisierte Tabellen zerfällt"></svg>
   </div>

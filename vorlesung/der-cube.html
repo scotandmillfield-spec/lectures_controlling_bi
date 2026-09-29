@@ -69,7 +69,8 @@ p.sub{margin:0 0 18px;color:var(--grey);font-size:1.28rem;line-height:1.6}
 /* ---------- Schema-Zeichnung ---------- */
 .stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   box-shadow:var(--shadow);padding:12px 8px 4px;overflow-x:auto}
-svg.schema{width:100%;min-width:840px;height:auto;display:block}
+.stage:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+svg.schema{width:100%;min-width:960px;height:auto;display:block}
 .node{cursor:help}
 .node .hit{fill:transparent}
 .node:focus-visible{outline:none}
@@ -88,7 +89,7 @@ svg.schema:not(.snow) .snowonly{opacity:0;pointer-events:none}
 svg.schema.snow .staronly{opacity:0;pointer-events:none}
 
 /* ---------- Wuerfel ---------- */
-svg.cube{width:100%;min-width:760px;height:auto;display:block}
+svg.cube{width:100%;min-width:900px;height:auto;display:block}
 .cube .cell{cursor:help;transition:opacity .3s var(--ease)}
 .cube .cell rect{transition:fill .25s var(--ease)}
 .cube .cell.off .t-v{fill:#9A9A98}
@@ -370,7 +371,7 @@ table.erg td.s{font-weight:600}
 
   <div class="picks" id="picks"></div>
 
-  <div class="stage">
+  <div class="stage" tabindex="0" role="group" aria-label="Der Würfel, seitlich scrollbar">
     <svg class="cube" id="cubeB" viewBox="0 0 900 560" role="img"
       aria-label="Ein Würfel aus Warengruppe, Monat und Filiale; die ausgewählten Zellen sind hervorgehoben"></svg>
   </div>
@@ -444,7 +445,7 @@ table.erg td.s{font-weight:600}
 
   <div class="asks" id="ops"></div>
 
-  <div class="stage">
+  <div class="stage" tabindex="0" role="group" aria-label="Der Würfel, seitlich scrollbar">
     <svg class="cube" id="cubeC" viewBox="0 0 900 560" role="img"
       aria-label="Derselbe Würfel, auf dem die Operationen Slice, Dice, Drill-down, Roll-up und Pivot vorgeführt werden"></svg>
   </div>

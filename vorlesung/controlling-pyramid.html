@@ -80,7 +80,8 @@ p.sub{margin:0 0 18px;color:var(--grey);font-size:1.28rem;line-height:1.6}
 /* ---------- pyramid stage ---------- */
 .stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   box-shadow:var(--shadow);padding:12px 8px 4px;overflow-x:auto}
-svg#pyr{width:100%;min-width:780px;height:auto;display:block}
+.stage:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+svg#pyr{width:100%;min-width:822px;height:auto;display:block}
 
 .node{cursor:help}
 .node .hit{fill:transparent}
@@ -325,7 +326,7 @@ footer a{color:var(--teal-dk)}
     </div>
   </div>
 
-  <div class="stage">
+  <div class="stage" tabindex="0" role="group" aria-label="Die Pyramide, seitlich scrollbar">
     <svg id="pyr" viewBox="-10 2 822 804" role="img"
       aria-label="Reichmann's controlling pyramid: five levels from technical data capture systems through administration and disposition systems, accounting systems and analysis and reporting systems up to management information systems, with the business functions running into the depth and the split between operational and strategic across the front">
     </svg>

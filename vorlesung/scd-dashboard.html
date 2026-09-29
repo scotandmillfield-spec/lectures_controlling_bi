@@ -180,7 +180,9 @@ table.dim td.chg{background:var(--orange-xl);color:var(--teal-dk);font-weight:60
 .key{display:inline-flex;align-items:center;gap:7px}
 .sw{width:13px;height:13px;border-radius:3px;display:inline-block}
 .sw.ghost{background:transparent;border:1.5px dashed var(--grey)}
-svg.chart{width:100%;height:auto;display:block;overflow:visible}
+.chartwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.chartwrap:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+svg.chart{width:100%;min-width:780px;height:auto;display:block;overflow:visible}
 .bar{cursor:pointer;transition:y .5s var(--ease),height .5s var(--ease),opacity .18s}
 .bar:hover{opacity:.82}
 .ghost{fill:none;stroke:var(--grey);stroke-width:1.5;stroke-dasharray:4 3;transition:y .5s var(--ease),height .5s var(--ease)}
@@ -553,7 +555,8 @@ function panelHTML(key){
       </div>
       ${seg}
     </div>
-    <div class="card-b"><div data-chart="${key}"></div>
+    <div class="card-b"><div class="chartwrap" data-chart="${key}" tabindex="0"
+           role="group" aria-label="Bar chart, scrolls sideways"></div>
       <p class="hint">Hover a bar for the figure, the truth and the gap</p>
     </div>
   </div>

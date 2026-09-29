@@ -166,7 +166,7 @@ table.tbl tbody tr:hover td{background:var(--sand-xl)}
 .mapstage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   box-shadow:var(--shadow);padding:12px 10px 6px;overflow-x:auto}
 .mapstage:focus-visible,.stage:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
-svg.rm{width:100%;min-width:340px;height:auto;display:block}
+svg.rm{width:100%;min-width:560px;height:auto;display:block}
 svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .rm .zone{stroke:#fff;stroke-width:1.5}
 .rm .zg{fill:#E6F1E5} .rm .zy{fill:#FBF2D9} .rm .zr{fill:#FBE4DC}
@@ -236,7 +236,7 @@ svg.rm text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 /* ---------- Prozesskreis ---------- */
 .stage{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   box-shadow:var(--shadow);padding:14px 10px 6px;overflow-x:auto}
-svg.proc{width:100%;min-width:560px;height:auto;display:block}
+svg.proc{width:100%;min-width:660px;height:auto;display:block}
 svg.proc text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .proc .pbox{fill:var(--paper);stroke:var(--grey-mid);stroke-width:1.4;transition:.2s var(--ease)}
 .proc .ph{cursor:pointer}
@@ -253,7 +253,7 @@ svg.proc text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .proc .ctrs{font-size:16px;text-anchor:middle;fill:var(--grey)}
 
 /* ---------- Balanced Chance- und Risk-Card ---------- */
-svg.bcr{width:100%;min-width:760px;height:auto;display:block}
+svg.bcr{width:100%;min-width:1040px;height:auto;display:block}
 svg.bcr text{font-family:var(--sans);fill:var(--ink);dominant-baseline:middle}
 .bcr .band{stroke:#fff;stroke-width:1.5}
 .bcr .bl{font-family:var(--mono);font-size:15.5px;font-weight:600;letter-spacing:.05em;fill:var(--teal-dk)}
@@ -566,7 +566,9 @@ footer a{color:var(--teal-dk)}
    getBoundingClientRect in einem zugeklappten Block nur Nullen gibt.  */
 .asradar{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   padding:14px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
-.asradar svg{display:block;width:100%;max-width:520px;height:auto;margin:0 auto}
+.asradar{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.asradar:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.asradar svg{display:block;width:100%;min-width:500px;max-width:540px;height:auto;margin:0 auto}
 @media (max-width:560px){.asbez,.aswert{font-size:17px}}
 .asnetz{fill:none;stroke:var(--grey-xl);stroke-width:1}
 .asachse{stroke:var(--grey-xl);stroke-width:1}
@@ -635,7 +637,8 @@ footer a{color:var(--teal-dk)}
 
   <h2 class="sec">Dein Radar</h2>
   <p class="sub">Die Fläche entsteht aus den vier Fragen je Feld. Vier Treffer heißen außen, null Treffer heißen Mittelpunkt. Ein einzelner Durchlauf ist eine Stichprobe und kein Zeugnis; wer sich unsicher ist, zieht sich neue Fragen.</p>
-  <div class="asradar" id="asRadar"></div>
+  <div class="asradar" id="asRadar" tabindex="0" role="group"
+       aria-label="Netzdiagramm der sechs Kompetenzfelder, seitlich scrollbar"></div>
 
   <h2 class="sec">Was daraus folgt</h2>
   <p class="sub">Drei Treffer oder mehr heißen grün, zwei gelb, höchstens einer rot. Jedes Kompetenzfeld steht für bestimmte Module. Genau die bekommen seine Farbe.</p>
@@ -1110,7 +1113,7 @@ const AMPELWORT = {gruen:"sitzt", gelb:"nachbessern", rot:"nötig"};
    bei getBoundingClientRect nur Nullen, eine gemessene Zeichnung
    entartete dort auf einen Punkt.
    ===================================================================== */
-const RB = 460, RH = 330, RCX = 230, RCY = 158, RR = 104;
+const RB = 500, RH = 330, RCX = 250, RCY = 158, RR = 104;
 const asEcke = (n, anteil) => {
   const w = -Math.PI / 2 + n * 2 * Math.PI / FELDER.length;
   return [RCX + RR * anteil * Math.cos(w), RCY + RR * anteil * Math.sin(w)];

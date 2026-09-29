@@ -958,6 +958,23 @@ einem schmalen Kasten. Die Gegenmittel sind `flex-wrap:wrap`, eine Spalte wenige
 **Ein Wert von `0` bleibt `0`.** In `cv-mx/controlling-konzept.html` steht ein `font-size:0` als
 Layouttrick gegen den Abstand zwischen zwei Elementen. An einer Untergrenze von 15px zerbricht er.
 
+**Eine Zeichnung behält ihre Breite, der Rahmen scrollt.** Ein SVG mit `width:100%` schrumpft mit
+seinem Kasten, und seine Beschriftung schrumpft mit. Auf dem Telefon kam eine mit 15px gesetzte
+Beschriftung dadurch mit sechs bis elf Pixeln an. Jede Zeichnung bekommt deshalb eine `min-width`
+in Höhe ihrer eigenen `viewBox`, also genau den Maßstab 1, und ihr Rahmen bekommt
+`overflow-x:auto`. Das ist dieselbe Lösung, die breite Tabellen schon haben.
+
+- **Die `min-width` ist die Breite der `viewBox`**, keine gerundete Schätzung. Steht dort `viewBox="0 0 900 560"`, lautet
+  die Regel `min-width:900px`.
+- **Der Rahmen ist mit der Tastatur erreichbar**, also `tabindex="0"`, dazu ein Fokusrand und ein
+  `role="group"` mit `aria-label`, das die Zeichnung benennt und sagt, dass sie seitlich scrollt.
+- **`margin:0 auto` und `min-width` vertragen sich**, solange keine Beschriftung über die `viewBox`
+  hinausragt. Im Netzdiagramm der Standortbestimmung begann „Zahlungsströme" bei x = −13 und wurde
+  an jeder Bildschirmbreite abgeschnitten. Wer eine Zeichnung anfasst, misst deshalb die
+  Beschriftungen mit `getBBox()` gegen die `viewBox`.
+- **Am Schreibtisch scrollt eine Zeichnung mit, deren Kasten schmaler ist als sie selbst.** Das ist
+  gewollt: Vorher wurde sie dort gestaucht, und ihre Beschriftung fiel unter 15px.
+
 Lektionen sind für Facetten derselben Frage da, nicht für verschiedene Themen — sonst sind es
 zwei Module. Wie viele es werden, entscheidet der Stoff; die Grenze zieht die 15-bis-20-Minuten-Regel
 pro Lektion, nicht eine feste Obergrenze. Werden es viele, ist das ein Hinweis, aber kein Verbot:
