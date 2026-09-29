@@ -689,7 +689,7 @@ footer a{color:var(--teal-dk)}
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.80</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.81</span>
 </footer>
 
 </div>
@@ -733,8 +733,8 @@ const FELDER = [
    was:"Was eine betriebswirtschaftliche Auswertung ausweist, wie sie aufgebaut ist und wo ihre Zahlen vorläufig bleiben.",
    module:["liquiditaet-bwa"]},
   {id:"zahlung",   kurz:"Zahlungsströme",   name:"Zahlungsströme und Liquiditätsplanung",
-   was:"Der Unterschied zwischen Ertrag und Einzahlung, die Vier-Felder-Tafel, die Geldumschlagsdauer und das Regelwerk einer Vorschau.",
-   module:["liquiditaet-begriff","liquiditaet-vorschau"]},
+   was:"Der Unterschied zwischen Ertrag und Einzahlung, die Vier-Felder-Tafel, die Geldumschlagsdauer, das Regelwerk einer Vorschau sowie die Cashflow-Rechnung mit ihren drei Bereichen.",
+   module:["liquiditaet-begriff","liquiditaet-vorschau","cashflow"]},
   {id:"risiko",    kurz:"Risiko",           name:"Risikomanagement",
    was:"Der Risikobegriff als bewertetes Ereignis, die Herkunft in der Lieferkette und der Regelkreis aus vier Phasen.",
    module:["risikomanagement-einfuehrung","risikomanagement-prozess","risikomanagement-werkstatt"]},
@@ -750,6 +750,7 @@ const MODULNAME = {
   "liquiditaet-bwa":"Die BWA lesen",
   "liquiditaet-begriff":"Liquidität: der Begriff",
   "liquiditaet-vorschau":"Die Liquiditätsvorschau",
+  "cashflow":"Der Cashflow",
   "risikomanagement-einfuehrung":"Risikomanagement: der Begriff",
   "risikomanagement-prozess":"Der Risikomanagement-Prozess",
   "risikomanagement-werkstatt":"Die Risikoanalyse-Werkstatt",
@@ -757,6 +758,22 @@ const MODULNAME = {
 
 const JE_FELD = 4;
 const FRAGEN = [
+  ["zahlung", "cashflow",
+   "Warum werden die Abschreibungen in der indirekten Cashflow-Rechnung addiert?",
+   ["Weil sie das Ergebnis gemindert haben, ohne dass Geld geflossen ist","Weil sie steuerlich abzugsfähig sind","Weil sie den Bestand an Sachanlagen erhöhen","Weil sie eine Einzahlung darstellen"], 0,
+   "Bezahlt wurde bei der Anschaffung. Die Abschreibung verteilt diesen Betrag über die Nutzungsdauer und berührt das Konto nicht mehr, weshalb die indirekte Rechnung sie zurücknimmt."],
+  ["zahlung", "cashflow",
+   "Wie lautet die Vorzeichenregel der indirekten Methode?",
+   ["Steigt ein Aktivposten, bindet er Geld; steigt ein Passivposten, hält er Geld im Haus","Steigt ein Aktivposten, hält er Geld im Haus; steigt ein Passivposten, bindet er Geld","Jede Zunahme bindet Geld","Jede Abnahme bindet Geld"], 0,
+   "Ein steigender Aktivposten kommt mit einem Minus in die Rechnung, ein steigender Passivposten mit einem Plus. Aus dieser einen Regel lassen sich alle Zeilen der Überleitung ableiten."],
+  ["zahlung", "cashflow",
+   "Welche drei Bereiche hat eine Cashflow-Rechnung?",
+   ["Laufende Tätigkeit, Investitionstätigkeit, Finanzierungstätigkeit","Erträge, Aufwendungen, Ergebnis","Anlagevermögen, Umlaufvermögen, Eigenkapital","Betrieb, Verwaltung, Vertrieb"], 0,
+   "Die Summe der drei Bereiche ergibt die Veränderung des Finanzmittelbestands. Erst die drei Vorzeichen zusammen ergeben ein Bild davon, woher das Geld kommt."],
+  ["zahlung", "cashflow",
+   "Wie wird der Free Cashflow gerechnet?",
+   ["Laufende Tätigkeit plus Investitionstätigkeit","Laufende Tätigkeit minus Tilgung","Jahresergebnis plus Abschreibungen","Einzahlungen minus Auszahlungen des Jahres"], 0,
+   "Er ist der Betrag, der nach den Investitionen für Tilgung, Rücklagen und Zweckerfüllung übrig bleibt. Bei einem gemeinnützigen Träger lohnt der Blick auf den Wert vor den Investitionszuwendungen."],
   ["abschluss", "bilanz-aufbau",
    "Was zeigt die Aktivseite einer Bilanz?",
    ["Die Mittelverwendung: worin das Geld steckt","Die Mittelherkunft: wem die Mittel zustehen","Die Erträge des Geschäftsjahres","Die Zahlungsströme des Geschäftsjahres"], 0,
