@@ -24,6 +24,7 @@ const REIHENFOLGE = [
   "bilanz-aufbau",     // Die Bilanz nach HGB
   "bilanz-guv",        // Die Gewinn- und Verlustrechnung
   "bilanz-kennzahlen", // Jahresabschlussanalyse mit Kennzahlen
+  "bilanz-fallstudie",  // Bilanzanalyse einer Fallstudie (Plum Systems AG)
   "cashflow",          // Der Cashflow (Verband)
   "bilanz-buchungssaetze", // Buchungssätze und ihre Wirkung
   "leistung-periodengerecht", // Leistungen im Leistungsmonat erfassen (Verband)

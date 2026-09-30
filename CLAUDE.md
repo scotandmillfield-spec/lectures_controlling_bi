@@ -593,6 +593,21 @@ betroffenen Moduls sagt im ersten Satz, dass es mit dem Verband arbeitet.
 - **Die Module dieses Falls sind durchgehend deutsch** und auf der Kachel mit `DE`
   gekennzeichnet.
 
+**[gesetzt] Die Plum Systems AG ist der dritte Fall der Lernplattform.** Sie liegt
+`plattform/bilanz-fallstudie.html` zugrunde. Ihr Kanon ist die Excel-Vorlage, die Maik geliefert
+hat, weshalb es dafür keine eigene Kanondatei gibt: Sämtliche 129 Positionen, ihre Herleitungen
+und die 27 Kennzahlen sind aus den Formeln dieser Datei erzeugt und gegen ihre Werte geprüft.
+Wer eine Zahl dieses Falls ändern will, ändert sie in der Vorlage und erzeugt das Datenmodell neu.
+
+- **Der Grund für einen dritten Fall liegt in der Sache.** Eine Bilanzanalyse verlangt einen
+  vollständigen Abschluss über mehrere Jahre, mit Fristigkeitsangaben aus dem Anhang und einer
+  Anhangsangabe zu den internen Entwicklungsaufwendungen. Sofias Kaffeehaus hat davon nichts,
+  und der Verband hätte statt der Entwicklungsaufwendungen Sonderposten.
+- **Die Kachel sagt es im ersten Satz.** Das Modul ist durchgehend deutsch und auf der Kachel
+  mit `DE` gekennzeichnet.
+- **Die Rechercheunterlagen zum Unternehmen bleiben getrennt lesbar.** Lektion 01 gibt sie
+  wieder, ohne eine Zahl aus dem Abschluss zu nennen, weil keine der vier Quellen eine enthält.
+
 `vorlesung/supply-chain-controlling.html` gehört zum Thema Supply Chain und arbeitet mit vier Vorlieferanten und eigenen
 Beispielzahlen. Der Grund: Sofias Betrieb hat keine benannten Lieferanten, und der
 Kanon soll nicht um welche erweitert werden, nur damit ein Portfolio vier Punkte bekommt —
@@ -624,7 +639,7 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.83`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.84`.
 Keine Quellenverzeichnisse, keine Legenden, keine Beschreibung des Falls und kein Hinweis
 darauf, woher eine Abbildung stammt. Sie steht in jeder ausgelieferten Datei gleich, im Markup
 als `<footer>` und auf den zweisprachigen Seiten als Eintrag `footer` im `UI`-Wörterbuch. Dort
@@ -633,7 +648,7 @@ ist sie ein einfacher String, weil ein Name und eine Nummer in beiden Sprachen d
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.83</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.84</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 

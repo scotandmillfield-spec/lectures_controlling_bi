@@ -249,7 +249,7 @@ const UI = {
   search:{de:"Module durchsuchen\u2026", en:"Search modules\u2026"},
   empty:{de:"Dazu passt gerade nichts.", en:"Nothing matches that filter yet."},
   soon:{de:"In Arbeit", en:"In preparation"},
-  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.83</span>",
+  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.84</span>",
   pathLabel:{de:"Lernpfade", en:"Learning paths"},
   pathKicker:{de:"Lernpfad", en:"Learning path"},
   pathClear:{de:"Pfad verlassen \u00b7 alle Module zeigen", en:"Leave the path \u00b7 show all modules"},
@@ -338,6 +338,16 @@ const TOPICS = [
     track:"bilanz", status:"ready", accent:"navy", glyph:"quadrants",
     langBadge:{de:"", en:"DE"},
     links:[{kind:"html",file:"bilanz-kennzahlen.html",
+            label:{de:"Los geht’s", en:"Let’s go"}}]
+  },
+  {
+    id:"bilanz-fallstudie",
+    title:{de:"Bilanzanalyse einer Fallstudie", en:"Analysing one company's accounts"},
+    sub:{de:"Dieses Modul arbeitet mit der Plum Systems AG, deren Erfolgsrechnung und Bilanz für drei Geschäftsjahre in voller Gliederung nach HGB darin stehen. Daraus entstehen siebenundzwanzig Kennzahlen, deren Herleitung sich bis zu der Position aufklappen lässt, aus der jeder Bestandteil stammt. Bis zu drei eigene Jahre kannst Du ergänzen und als Datei mitnehmen.",
+         en:"This module works with Plum Systems AG, whose income statement and balance sheet for three financial years are laid out in full under German GAAP. Twenty-seven ratios follow from them, each derivation openable down to the position every component comes from. You can add up to three years of your own and take them away as a file."},
+    track:"bilanz", status:"ready", accent:"orange", glyph:"cells",
+    langBadge:{de:"", en:"DE"},
+    links:[{kind:"html",file:"bilanz-fallstudie.html",
             label:{de:"Los geht’s", en:"Let’s go"}}]
   },
   {
@@ -442,7 +452,7 @@ const PATHS = [
     title:{de:"Bilanzanalyse", en:"Financial statement analysis"},
     sub:{de:"Vom Aufbau der Bilanz über die Gewinn- und Verlustrechnung bis zu den Kennzahlen, dem Cashflow, den einzelnen Buchungssätzen und der periodengerechten Erfassung. Durchgehend nach HGB; in jedem Modul tippst Du eigene Zahlen ein. Die beiden letzten Module arbeiten mit einem Caritasverband.",
          en:"From the layout of the balance sheet through the income statement to the ratios, the cash flow statement, the individual journal entries and accrual accounting. German GAAP throughout, and in every module you type in figures of your own. The last two modules work with a Catholic welfare association."},
-    steps:["bilanz-aufbau","bilanz-guv","bilanz-kennzahlen","cashflow","bilanz-buchungssaetze","leistung-periodengerecht"]
+    steps:["bilanz-aufbau","bilanz-guv","bilanz-kennzahlen","bilanz-fallstudie","cashflow","bilanz-buchungssaetze","leistung-periodengerecht"]
   },
   {
     id:"liquiditaetsplanung",
@@ -597,7 +607,7 @@ const FELDFOLGE = ["abschluss","buchung","kennzahl","erfolg","zahlung","risiko"]
 const FELDMODUL = {
   abschluss:["bilanz-aufbau","bilanz-guv"],
   buchung:  ["bilanz-buchungssaetze"],
-  kennzahl: ["bilanz-kennzahlen"],
+  kennzahl: ["bilanz-kennzahlen","bilanz-fallstudie"],
   erfolg:   ["liquiditaet-bwa"],
   zahlung:  ["liquiditaet-begriff","liquiditaet-vorschau","cashflow"],
   risiko:   ["risikomanagement-einfuehrung","risikomanagement-prozess","risikomanagement-werkstatt"],

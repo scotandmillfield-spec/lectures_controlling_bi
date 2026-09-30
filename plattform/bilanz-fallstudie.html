@@ -1,0 +1,2157 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bilanzanalyse einer Fallstudie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2; --canvas:#F4F3F0;
+  --green:#2E9E6B; --red:#D9534F;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:1.25rem;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:1rem;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.1rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:20ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:1.32rem;font-weight:300;color:#3d3d40;line-height:1.55;margin:0}
+
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:1.22rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:1.03rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+
+.claim{font-size:clamp(1.5rem,2.35vw,1.72rem);font-weight:300;line-height:1.42;margin:0 0 26px;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--teal-dk)}
+h2.sec{font-size:1.5rem;font-weight:600;letter-spacing:-.014em;margin:34px 0 4px}
+h2.sec:first-child{margin-top:0}
+p.sub{margin:0 0 18px;color:var(--grey);font-size:1.28rem;line-height:1.6}
+.hint{font-family:var(--mono);font-size:.97rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:14px 0 0}
+
+/* ---------- Schaltflaechen ---------- */
+.key{display:inline-flex;align-items:center;gap:8px}
+
+.btn{appearance:none;border:1px solid var(--teal-dk);background:transparent;color:var(--teal-dk);
+  font-family:var(--sans);font-size:1.19rem;font-weight:600;cursor:pointer;
+  padding:10px 16px;border-radius:8px;transition:.16s}
+.btn:hover{background:var(--teal-dk);color:#fff}
+.btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+/* ---------- Karten ---------- */
+.card{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px}
+.card .ck{font-family:var(--mono);font-size:.95rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 4px}
+.card h3{margin:0 0 8px;font-size:1.28rem;font-weight:700;letter-spacing:-.015em}
+.card p{margin:0 0 10px;font-size:1.2rem;color:#3d3d40;line-height:1.52}
+.card p:last-child{margin-bottom:0}
+.card ul{margin:10px 0 0;padding-left:18px;font-size:1.19rem;color:#3d3d40;line-height:1.5}
+.card li{margin-bottom:5px}
+
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
+.trio>*{min-width:0}
+
+/* ---------- Tabellen ---------- */
+.tscroll{overflow-x:auto;border:1px solid var(--grey-xl);border-radius:8px;background:var(--paper)}
+table.tbl{width:100%;min-width:560px;border-collapse:collapse;font-size:1.18rem}
+table.tbl th{background:#F7F7F5;text-align:left;padding:9px 12px;font-family:var(--mono);
+  font-size:.94rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid);white-space:nowrap}
+table.tbl td{padding:9px 12px;border-bottom:1px solid var(--grey-xl);vertical-align:top;line-height:1.45}
+table.tbl tr:last-child td{border-bottom:0}
+table.tbl td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.tbl td.m{font-family:var(--mono);font-size:1.14rem}
+table.tbl td.crit{font-weight:600}
+table.tbl tbody tr:hover td{background:var(--sand-xl)}
+
+/* ---------- Checkliste ---------- */
+.ck10{display:grid;gap:11px;counter-reset:ck}
+.ckitem{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px 18px 16px 60px;position:relative}
+.ckitem::before{counter-increment:ck;content:counter(ck,decimal-leading-zero);
+  position:absolute;left:18px;top:16px;font-family:var(--mono);font-size:1.25rem;font-weight:700;
+  color:var(--teal-dk)}
+.ckitem h3{margin:0 0 6px;font-size:1.24rem;font-weight:700;letter-spacing:-.01em}
+.ckitem p{margin:0 0 8px;font-size:1.18rem;color:#3d3d40;line-height:1.5}
+.ckitem p:last-child{margin-bottom:0}
+.ckitem .quelle{font-size:1.14rem;color:var(--grey);line-height:1.45;
+  margin-top:10px;padding-top:9px;border-top:1px solid var(--grey-xl)}
+.ckitem .quelle b{font-weight:700;color:#5a5a5c}
+
+/* ---------- Glossar ---------- */
+.glos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px 22px;font-size:1.18rem}
+.glos>*{min-width:0}
+.glos div{padding:7px 0;border-bottom:1px solid var(--grey-xl);line-height:1.45}
+.glos b{color:var(--teal-dk)}
+
+/* ---------- Quiz ---------- */
+.qwrap{display:grid;gap:14px}
+.qcard{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px 20px}
+.qcard .qn{font-family:var(--mono);font-size:1.03rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 7px}
+.qcard .qt{font-size:1.24rem;font-weight:600;line-height:1.4;margin:0 0 13px}
+.qopts{display:grid;gap:8px}
+.qopt{appearance:none;text-align:left;cursor:pointer;font-family:var(--sans);font-size:1.19rem;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--ink);
+  padding:11px 14px;border-radius:8px;transition:.16s;line-height:1.4}
+.qopt:hover:not(:disabled){border-color:var(--teal);background:var(--teal-xl)}
+.qopt:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.qopt:disabled{cursor:default}
+.qopt.right{background:#E8F5EE;border-color:var(--green);color:#1E6B47;font-weight:600}
+.qopt.wrong{background:#FBEAE9;border-color:var(--red);color:#9C2F2C;font-weight:600}
+.qfb{margin:13px 0 0;font-size:1.18rem;color:#3d3d40;line-height:1.5;
+  padding-top:11px;border-top:1px solid var(--grey-xl)}
+.qfb[hidden]{display:none}
+.qscore{background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:18px 22px;
+  font-size:1.24rem;line-height:1.5}
+.qscore b{font-weight:700}
+
+/* ---------- Auf- und zuklappbare Bloecke innerhalb einer Lektion ------
+   Die Bloecke entstehen zur Laufzeit aus der vorhandenen Gliederung:
+   jedes h2.sec eroeffnet einen Block, alles bis zum naechsten h2.sec
+   ist sein Inhalt. Am Markup ist dafuer nichts zu aendern.          */
+.blk{border-top:1px solid var(--grey-xl)}
+.blk:first-of-type{border-top:0}
+.blk h2.sec{margin:0}
+.blk-t{appearance:none;width:100%;background:transparent;border:0;cursor:pointer;
+  display:flex;align-items:center;gap:12px;text-align:left;padding:20px 0 18px;
+  font:inherit;color:inherit;letter-spacing:inherit;transition:color .16s}
+.blk-t:hover{color:var(--teal-dk)}
+.blk-t:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:4px}
+.blk-c{width:13px;height:13px;flex:none;color:var(--teal-dk);
+  transition:transform .22s var(--ease)}
+.blk[data-open="true"] .blk-c{transform:rotate(90deg)}
+.blk-b{padding:0 0 28px}
+.blk-b[hidden]{display:none}
+
+@media (max-width:760px){
+}
+
+/* ---------- Kernaussagen ---------- */
+
+.readme{margin-top:18px;background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:20px 24px;
+  font-size:1.25rem;line-height:1.55}
+.readme b{font-weight:700}
+.readme code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.2);padding:1px 5px;border-radius:4px}
+.readme a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+blockquote.q{margin:0 0 14px;background:var(--paper);border:1px solid var(--grey-xl);
+  border-left:3px solid var(--teal);border-radius:var(--r);padding:16px 20px;
+  font-size:1.28rem;font-weight:300;line-height:1.62;color:#2c2c2f}
+blockquote.q cite{display:block;margin-top:9px;font-style:normal;font-family:var(--mono);
+  font-size:1.05rem;letter-spacing:.06em;color:var(--grey)}
+
+.pointe{margin-top:34px;background:var(--orange);color:#fff;border-radius:var(--r);padding:26px 28px}
+.pointe .pk{font-family:var(--mono);font-size:.97rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin:0 0 10px}
+.pointe p{margin:0;font-size:clamp(1.4rem,2.1vw,1.62rem);font-weight:300;line-height:1.48}
+.pointe p b{font-weight:700}
+
+footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+.build{font-family:var(--mono);font-size:.92em;letter-spacing:.02em;opacity:.85}
+footer a{color:var(--teal-dk)}
+
+
+.scrollhint{display:none}
+@media (max-width:980px){
+}
+@media (max-width:900px){
+  .scrollhint{display:block;color:var(--teal-dk)}
+  .trio{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  /* Die Vergleichsliste klappt in zwei Zeilen je Risiko um, statt
+     fuenf Spalten in eine Handybreite zu pressen.                 */
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px 56px}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+
+/* ---------- Die Jahresleiste ----------
+   Ueber jedem Blatt steht, welche Jahre gezeigt werden und wie sie
+   heissen. Der Fall bringt drei mit, bis zu sechs sind moeglich.   */
+.jleiste{display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:14px 16px;margin:0 0 18px}
+.jleiste .jl{font-family:var(--mono);font-size:1rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--grey)}
+.jleiste input[type=number]{width:86px;font-family:var(--mono);font-size:1.1rem;
+  padding:6px 8px;border:1px solid var(--grey-mid);border-radius:6px;text-align:right}
+.jleiste .sep{flex:1}
+
+/* ---------- Das Abschlussblatt ----------
+   Eine Zeile je Position. Der Zelltyp aus der Vorlage entscheidet, ob
+   dort ein Eingabefeld steht oder ein gerechneter Wert. Gerechnete
+   Zellen sind nie tippbar, sonst liesse sich die Probe faelschen.   */
+.blatt{overflow-x:auto;border:1px solid var(--grey-xl);border-radius:8px;
+  background:var(--paper);box-shadow:var(--shadow)}
+table.ab{width:100%;min-width:720px;border-collapse:collapse;font-size:1.1rem}
+table.ab th{position:sticky;top:0;background:#F7F7F5;text-align:right;padding:9px 10px;
+  font-family:var(--mono);font-size:.92rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--grey);border-bottom:1px solid var(--grey-mid);white-space:nowrap;z-index:2}
+table.ab th.l{text-align:left}
+table.ab td{padding:5px 10px;border-bottom:1px solid var(--grey-xl);vertical-align:middle}
+table.ab td.pos{line-height:1.35}
+table.ab td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;
+  white-space:nowrap}
+table.ab tr.gl td{background:var(--navy-xl);font-weight:700;letter-spacing:-.01em;
+  font-size:1.16rem;padding:11px 10px}
+table.ab tr.fo td{background:var(--teal-xl)}
+table.ab tr.fo td.pos{font-weight:600}
+table.ab tr.da td{background:var(--shell)}
+table.ab tr.da td.pos{padding-left:30px;color:#54545a;font-size:1.04rem}
+table.ab tr.ko td{background:var(--sand-xl);font-weight:700;border-top:2px solid var(--grey-mid)}
+table.ab tr.ko.schief td{background:#FDEBEA;color:#A32C28}
+table.ab tr.tr td{background:var(--orange-xl)}
+table.ab .kid{font-family:var(--mono);font-size:.92rem;color:var(--grey);
+  display:block;margin-top:2px}
+table.ab input{width:100%;min-width:82px;font-family:var(--mono);font-size:1.08rem;
+  padding:5px 7px;border:1px solid var(--grey-mid);border-radius:6px;text-align:right;
+  background:#FFFDF5;color:var(--teal-dk);font-variant-numeric:tabular-nums}
+table.ab input:focus{outline:2px solid var(--teal);outline-offset:1px;background:var(--paper)}
+table.ab input:disabled{background:var(--grey-xl);color:var(--grey-mid)}
+
+/* Die Kennzahlen, die an einer Position haengen. Der Weg von unten nach
+   oben, den die Vorlage nicht zeigen kann.                          */
+.haengt{display:inline-flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.kzchip{appearance:none;border:1px solid var(--teal-lt);background:var(--teal-xl);
+  color:var(--teal-dk);font-family:var(--mono);font-size:.94rem;font-weight:600;
+  padding:1px 7px;border-radius:5px;cursor:pointer;line-height:1.5}
+.kzchip:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+/* ---------- Die Kennzahlenkarten ----------
+   Eine Karte je Kennzahl mit Wert, Rechenweg und der Herleitung zum
+   Aufklappen. Bewusst ohne Bewertungsfarbe: die Vorlage sagt, dass die
+   Ergebnisflaeche keine Bewertung ausdrueckt.                       */
+.kzgrid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.kzgrid>*{min-width:0}
+.kzk{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);overflow:hidden}
+.kzk.geaendert{border-color:var(--orange);box-shadow:0 0 0 2px var(--orange-xl),var(--shadow)}
+.kzk>header{padding:14px 16px 12px;border-bottom:1px solid var(--grey-xl)}
+.kzk .code{font-family:var(--mono);font-size:1rem;font-weight:600;color:var(--teal-dk);
+  letter-spacing:.08em}
+.kzk h3{margin:3px 0 6px;font-size:1.2rem;font-weight:700;letter-spacing:-.012em;
+  overflow-wrap:anywhere}
+.kzk .rw{margin:0;font-size:1.04rem;color:var(--grey);font-family:var(--mono);
+  line-height:1.4;overflow-wrap:anywhere}
+.kzreihe{display:flex;gap:0;border-bottom:1px solid var(--grey-xl)}
+.kzreihe>div{flex:1;min-width:0;padding:10px 12px;text-align:right;
+  border-left:1px solid var(--grey-xl)}
+.kzreihe>div:first-child{border-left:0}
+.kzreihe .jn{display:block;font-family:var(--mono);font-size:.9rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--grey)}
+.kzreihe .jw{display:block;font-family:var(--mono);font-size:1.3rem;font-weight:600;
+  font-variant-numeric:tabular-nums;margin-top:2px;overflow-wrap:anywhere}
+.kzreihe .jd{display:block;font-family:var(--mono);font-size:.95rem;color:var(--grey);
+  margin-top:1px}
+.kzk .aussage{margin:0;padding:12px 16px;font-size:1.06rem;color:#3d3d40;line-height:1.45;
+  background:var(--shell)}
+.kzk .auf{appearance:none;width:100%;border:0;border-top:1px solid var(--grey-xl);
+  background:var(--paper);font-family:var(--sans);font-size:1.06rem;font-weight:600;
+  color:var(--teal-dk);padding:10px 16px;text-align:left;cursor:pointer}
+.kzk .auf:hover{background:var(--teal-xl)}
+.kzk .auf::before{content:"▸ ";font-family:var(--mono)}
+.kzk .auf[aria-expanded=true]::before{content:"▾ "}
+
+/* Die Herleitung: jede Zeile nennt ihre Rolle, ihren Betrag und die
+   Position, aus der sie stammt.                                     */
+.herl{border-top:1px solid var(--grey-xl);background:var(--canvas)}
+.herl table{width:100%;border-collapse:collapse;font-size:1.02rem}
+.herl th{text-align:left;padding:7px 12px;font-family:var(--mono);font-size:.86rem;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--grey);
+  border-bottom:1px solid var(--grey-mid)}
+.herl th.r{text-align:right}
+.herl td{padding:6px 12px;border-bottom:1px solid var(--grey-xl);vertical-align:top;
+  line-height:1.35}
+.herl td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;
+  white-space:nowrap}
+.herl tr.den td{background:#FFFFFF}
+.herl .rolle{font-family:var(--mono);font-size:.9rem;color:var(--grey);display:block}
+.herl .rechnung{padding:10px 12px;font-family:var(--mono);font-size:1.06rem;
+  background:var(--paper);border-top:1px solid var(--grey-mid);line-height:1.5;
+  overflow-wrap:anywhere}
+.herl .rechnung b{color:var(--teal-dk)}
+
+/* ---------- Die Quellenkarten der ersten Lektion ---------- */
+.qgrid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.qgrid>*{min-width:0}
+.qk{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px 20px;display:flex;flex-direction:column;gap:9px}
+.qk .art{font-family:var(--mono);font-size:.96rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--teal-dk)}
+.qk h3{margin:0;font-size:1.2rem;font-weight:700;letter-spacing:-.012em}
+.qk p{margin:0;font-size:1.08rem;color:#3d3d40;line-height:1.5}
+.qk blockquote{margin:0;padding:10px 14px;border-left:3px solid var(--sand);
+  background:var(--sand-xl);font-size:1.08rem;line-height:1.5;font-style:italic}
+.qk .wo{font-size:1rem;color:var(--grey);margin-top:auto;padding-top:6px;
+  border-top:1px solid var(--grey-xl)}
+
+/* ---------- Der Steckbrief ---------- */
+.steck{display:grid;grid-template-columns:auto 1fr;gap:2px 18px;font-size:1.1rem;
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px 20px}
+.steck dt{font-family:var(--mono);font-size:1rem;color:var(--grey);padding:5px 0;
+  white-space:nowrap}
+.steck dd{margin:0;padding:5px 0;line-height:1.4}
+
+/* ---------- Werkzeugleiste ---------- */
+.wsbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 18px}
+.wsbar .sep{flex:1}
+.wsmsg{font-size:1.06rem;color:var(--teal-dk);font-weight:600}
+
+/* ---------- Die Ausgabe zum Mitnehmen ---------- */
+.bilout{display:grid;gap:12px}
+.bilout textarea{width:100%;min-height:200px;font-family:var(--mono);font-size:1rem;
+  line-height:1.5;padding:12px;border:1px solid var(--grey-mid);border-radius:8px;
+  background:var(--paper);resize:vertical;white-space:pre}
+@media (max-width:620px){
+  /* Eine Spalte weniger, damit die Kennzahlenkarte auf dem Telefon nicht
+     ueber den Rand laeuft. */
+  .kzgrid{grid-template-columns:1fr}
+  .qgrid{grid-template-columns:1fr}
+  .steck{grid-template-columns:1fr;gap:0}
+  .steck dt{padding-bottom:0}
+  .steck dd{padding-top:0;padding-bottom:9px;border-bottom:1px solid var(--grey-xl)}
+}
+
+@media print{
+  /* Im Druck stehen alle Bloecke offen, sonst fehlt im PDF, was gerade
+     zugeklappt war. Ebenso jede Herleitung.                          */
+  body{background:#fff}
+  .panel[hidden]{display:none!important}
+  .blk-b[hidden]{display:block!important}
+  .herl[hidden]{display:block!important}
+  .tabs,.wsbar,.jleiste .btn{display:none!important}
+  .blatt,.kzk,.qk,.steck{box-shadow:none}
+  table.ab input{border:0;background:transparent;color:var(--ink)}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Bilanzanalyse · Modul 07</p>
+  <h1>Bilanzanalyse einer <em>Fallstudie</em></h1>
+  <p class="lede">Dieses Modul arbeitet mit der Plum Systems AG, einem Lehrfall aus der Industrieelektronik, in dem weder Sofias Kaffeehaus noch der Verband vorkommen. Drei Geschäftsjahre liegen vollständig vor, nach § 275 Abs. 2 und § 266 HGB gegliedert, woraus 27 Kennzahlen entstehen, deren Herleitung sich bis zur einzelnen HGB-Position begehen lässt.</p>
+  <p class="lede" style="font-size:1.22rem;color:var(--grey);margin-top:14px">Alle Beträge stehen in vollen Tausend Euro, während die Werte, die Rechenwege und die Kennzahlendefinitionen aus der studentischen Excel-Datei zum Fall stammen, der dieses Modul nichts hinzufügt.</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Bilanzanalyse einer Fallstudie">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Das Unternehmen</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Die Erfolgsrechnung</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Die Bilanz</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Vermögen und Ertrag</button>
+  <button class="tab" role="tab" id="tab-e" aria-controls="p-e" aria-selected="false" tabindex="-1"><span class="num">05</span> Finanzierung und Liquidität</button>
+  <button class="tab" role="tab" id="tab-f" aria-controls="p-f" aria-selected="false" tabindex="-1"><span class="num">06</span> Dein eigenes Jahr</button>
+  <button class="tab" role="tab" id="tab-g" aria-controls="p-g" aria-selected="false" tabindex="-1"><span class="num">07</span> Quiz</button>
+  <button class="tab" role="tab" id="tab-h" aria-controls="p-h" aria-selected="false" tabindex="-1"><span class="num">08</span> Der erste Schritt</button>
+</div>
+
+<!-- ==================== LEKTION 01 · DAS UNTERNEHMEN ==================== -->
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <p class="claim">Bevor eine Zahl gerechnet wird, steht die Frage, mit welchem Unternehmen Du es zu tun hast. Für die Plum Systems AG liegen vier Quellen vor, wie sie am Anfang einer Prüfung typischerweise vorliegen, wobei <b>keine von ihnen eine Zahl aus dem Jahresabschluss enthält</b>.</p>
+
+  <h2 class="sec">Der Steckbrief</h2>
+  <p class="sub">Die Angaben stammen aus einem KI-gestützten Rechercheassistenten, der selbst darauf hinweist, dass sie unvollständig sein können und mit Originalquellen abzugleichen sind.</p>
+  <dl class="steck" id="steckbrief"></dl>
+
+  <h2 class="sec">Was die Quellen sagen</h2>
+  <p class="sub">Vier Dokumente von drei Absendern liegen vor, die Du in dieser Reihenfolge liest, wobei Du zu jeder Aussage festhältst, ob sie sich belegen lässt oder eine Absicht beschreibt.</p>
+  <div class="qgrid" id="quellen"></div>
+
+  <h2 class="sec">Was in keiner dieser Quellen steht</h2>
+  <div class="readme">
+    <b>Alle vier Dokumente stammen vom Unternehmen selbst oder aus einer Recherche darüber.</b>
+    Der Steckbrief nennt Beschäftigtenzahl, Eigentümerstruktur und Leistungsangebot. Die beiden
+    Beiträge aus dem Unternehmensfeed beschreiben ein Jubiläum sowie ein Entwicklungsprojekt. Das
+    Interview ordnet die Umbenennung ein und erläutert, was die Plattform PS 4.0 leisten soll.
+    Keines der vier Dokumente nennt einen Umsatz, ein Ergebnis, eine Bilanzsumme oder eine
+    Eigenkapitalquote.
+  </div>
+  <p class="sub" style="margin-top:14px">Damit ist die Aufgabenteilung dieses Moduls gesetzt, da die Quellen den Gegenstand liefern und die folgenden Lektionen die Zahlen. Beides bleibt dabei getrennt lesbar, sodass Du beim Lesen einer Kennzahl weißt, welche Angabe aus dem Abschluss stammt und welche aus einer Verlautbarung des Unternehmens.</p>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Eine Quelle, die über ein Unternehmen spricht, ohne eine seiner Zahlen zu nennen, beschreibt eine Absicht. Was daraus geworden ist, steht im Jahresabschluss.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 02 · DIE ERFOLGSRECHNUNG ==================== -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b">
+  <p class="claim">Die Gewinn- und Verlustrechnung der Plum Systems AG folgt dem <b>Gesamtkostenverfahren</b> nach § 275 Abs. 2 HGB, wobei achtzehn Positionen eingetragen werden und acht gerechnet. <b>Was gerechnet wird, lässt sich nicht eintippen</b>, da die Probe am Ende der Bilanz sonst jeden Wert bestätigen würde, auch einen falsch übernommenen.</p>
+
+  <div class="jleiste" id="jl-b"></div>
+  <div class="blatt" tabindex="0" role="group" aria-label="Gewinn- und Verlustrechnung der Plum Systems AG, seitlich scrollbar">
+    <table class="ab" id="tab-guv"></table>
+  </div>
+  <p class="hint scrollhint">Die Tabelle lässt sich seitlich scrollen.</p>
+
+  <h2 class="sec">Die drei analytischen Zwischensalden</h2>
+  <p class="sub">Drei Zeilen der Staffel stehen in keinem Gesetz, weshalb die Vorlage sie ausdrücklich als analytische Zwischensalden kennzeichnet. Der Analyst fügt sie hinzu, während der Gesetzgeber allein die Positionen 1 bis 17 vorschreibt.</p>
+  <div class="trio" id="zwischen"></div>
+  <p class="sub" style="margin-top:12px">Wer zwei Unternehmen vergleicht, muss deshalb prüfen, ob beide dieselbe Abgrenzung benutzen, da die gesetzlichen Positionen 1 bis 17 vergleichbar sind, ein selbst gebildetes Betriebsergebnis hingegen erst nach Rückfrage.</p>
+
+  <h2 class="sec">Warum die Unterpositionen einzeln dastehen</h2>
+  <p class="sub">Materialaufwand, Personalaufwand und Abschreibungen erscheinen im Gesetz als Summe mit zwei Unterpositionen, während in der Vorlage die Unterpositionen eingetragen und die Summe gerechnet wird, da mehrere Kennzahlen auf die Unterposition zugreifen und nicht auf die Summe.</p>
+  <div class="readme">
+    <b>Ein Beispiel.</b> Der Vorratsumschlag (V3) und die Bestandsdauer (V5) rechnen mit den
+    Aufwendungen für Roh-, Hilfs- und Betriebsstoffe sowie den Aufwendungen für bezogene
+    Leistungen, also mit den Unterpositionen 5a und 5b. Wer allein die Summe kennt, kann beide
+    Kennzahlen bilden. Wer die Position 5 aus einem Umsatzkostenverfahren liest, findet sie dort
+    gar nicht und muss in den Anhang ausweichen (§ 285 Nr. 8 HGB).
+  </div>
+
+  <h2 class="sec">Die davon-Angaben</h2>
+  <p class="sub">Fünf Zeilen der Staffel sind mit „davon" überschrieben, weil sie eine Position erläutern, ohne selbst in eine Summe einzugehen. Wer sie mitaddiert, zählt denselben Betrag zweimal und hebt damit die Kontrolldifferenz von null weg.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Die davon-Angaben der Erfolgsrechnung">
+    <table class="tbl" id="tab-davon-guv"></table>
+  </div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Die Staffel nach § 275 HGB ist vergleichbar, weil sie für alle gleich aussieht. Jede Zeile, die ein Analyst hinzufügt, gewinnt Aussagekraft und verliert genau diese Vergleichbarkeit.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 03 · DIE BILANZ ==================== -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c">
+  <p class="claim">Die Bilanz steht in beiden Blättern der Vorlage nach § 266 HGB, mit 48 Eingaben und 15 gerechneten Summen. Die letzte Zeile jeder Seite ist die <b>Kontrolldifferenz</b>, an der Du den Ausgleich der Bilanzgleichung abliest, da Aktiv- und Passivseite übereinstimmen, solange dort null steht.</p>
+
+  <div class="jleiste" id="jl-c"></div>
+  <div class="blatt" tabindex="0" role="group" aria-label="Aktivseite der Bilanz, seitlich scrollbar">
+    <table class="ab" id="tab-akt"></table>
+  </div>
+  <div class="blatt" style="margin-top:20px" tabindex="0" role="group" aria-label="Passivseite der Bilanz, seitlich scrollbar">
+    <table class="ab" id="tab-pas"></table>
+  </div>
+  <p class="hint scrollhint">Beide Tabellen lassen sich seitlich scrollen.</p>
+
+  <h2 class="sec">Die Fristigkeiten, die in der Bilanz selbst nicht stehen</h2>
+  <p class="sub">Eine Bilanz nach § 266 HGB ordnet die Passivseite nach Rechtsnatur und nicht nach Fälligkeit, weshalb sich ohne eine zusätzliche Angabe kein Liquiditätsgrad bilden lässt, den die Kennzahlen F6 bis F8 alle brauchen. Diese Vorlage liefert die Angabe als „davon bis ein Jahr fällig" je Verbindlichkeitsposition mit, wie sie der Verbindlichkeitenspiegel nach § 285 Nr. 1 HGB hergibt.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Die Fristigkeitsangaben der Passivseite">
+    <table class="tbl" id="tab-frist"></table>
+  </div>
+  <p class="sub" style="margin-top:12px">Aus diesen Zeilen entsteht das kurzfristige Fremdkapital, der Nenner von vier Kennzahlen, der aus neun Bestandteilen besteht und deshalb in Lektion 05 einzeln aufgeklappt wird, Zeile für Zeile.</p>
+
+  <h2 class="sec">Das Gesellschafterdarlehen und die zwei Eigenkapitalquoten</h2>
+  <p class="sub">Unter den sonstigen Verbindlichkeiten weist die Vorlage ein Gesellschafterdarlehen gesondert aus, dessen Einordnung als wirtschaftliches Eigenkapital der Hinweis daneben als Angabe der Fallstudie kennzeichnet, also als eine Entscheidung, die für ein anderes Unternehmen neu zu treffen ist.</p>
+  <div class="readme">
+    <b>Deshalb gibt es F1 und F2 nebeneinander.</b> Die Eigenkapitalquote nach HGB rechnet allein
+    mit dem bilanziellen Eigenkapital. Die zweite Fassung addiert das Gesellschafterdarlehen
+    hinzu. Beide Zahlen sind richtig, da sie verschiedene Fragen beantworten. In Lektion 05 stehen
+    sie untereinander. Wer nur eine davon nennt, sollte sagen, welche.
+  </div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Die Bilanzgleichung prüft sich selbst, deshalb steht die Kontrolldifferenz am Ende jeder Seite. Ob ein Posten richtig bewertet ist, prüft sie nicht.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 04 · VERMÖGEN UND ERTRAG ==================== -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d">
+  <p class="claim">Vierzehn Kennzahlen stehen hier, sieben zum Vermögen und sieben zum Ertrag, wobei jede Karte ihren Rechenweg nennt und sich <b>jede Herleitung bis zu der HGB-Position aufklappen lässt</b>, aus der jeder ihrer Bestandteile stammt.</p>
+
+  <div class="wsbar">
+    <button class="btn" id="kzAufD">Alle Herleitungen aufklappen</button>
+    <button class="btn ghost" id="kzZuD">Alle zuklappen</button>
+    <span class="sep"></span>
+    <span class="wsmsg" id="kzMsgD"></span>
+  </div>
+
+  <h2 class="sec">Vermögenskennzahlen</h2>
+  <p class="sub">Sie beschreiben, wie das Kapital im Unternehmen gebunden ist und wie schnell es umläuft, wobei drei von ihnen in Tagen angegeben werden, weil eine Dauer in der Regel anschaulicher ist als ein Verhältnis.</p>
+  <div class="kzgrid" id="kz-V"></div>
+
+  <h2 class="sec">Ertragskennzahlen</h2>
+  <p class="sub">Sie setzen Aufwandsarten und Ergebnisgrößen zur Gesamtleistung oder zum Kapital ins Verhältnis, wobei die letzte von ihnen eine Angabe benutzt, die weder in der Bilanz noch in der Erfolgsrechnung steht.</p>
+  <div class="kzgrid" id="kz-E"></div>
+
+  <h2 class="sec">Warum E7 eine Angabe aus dem Anhang braucht</h2>
+  <p class="sub">Die Aktivierungskennzahl setzt die aktivierten eigenen Entwicklungsleistungen zu den internen Entwicklungsaufwendungen ins Verhältnis, wobei der Zähler als Position 3 in der Erfolgsrechnung steht, der Nenner hingegen in keinem der beiden Blätter.</p>
+  <div class="readme" id="zusatzbox"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Eine Kennzahl ist so gut nachprüfbar wie ihre Herleitung. Wer den Weg von der Zahl bis zur HGB-Position gehen kann, erkennt auch, welche Bilanzierungsentscheidung sie bewegt.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 05 · FINANZIERUNG UND LIQUIDITÄT ==================== -->
+<section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e">
+  <p class="claim">Dreizehn Kennzahlen zur Finanzierung, zur Liquidität und zur Deckung des Anlagevermögens stehen hier, von denen vier dasselbe kurzfristige Fremdkapital benutzen, <b>das aus neun Bestandteilen entsteht</b> und in keiner Zeile der Bilanz steht. An dieser Stelle verliert gewöhnlich, wer die Kennzahlen der Reihe nach nachrechnet.</p>
+
+  <div class="wsbar">
+    <button class="btn" id="kzAufF">Alle Herleitungen aufklappen</button>
+    <button class="btn ghost" id="kzZuF">Alle zuklappen</button>
+    <span class="sep"></span>
+    <span class="wsmsg" id="kzMsgF"></span>
+  </div>
+
+  <h2 class="sec">Das kurzfristige Fremdkapital</h2>
+  <p class="sub">Es steht in keiner Zeile der Bilanz, weil es aus acht Fristigkeitsangaben der Verbindlichkeiten sowie der voraussichtlichen Inanspruchnahme der Rückstellungen innerhalb eines Jahres entsteht.</p>
+  <div class="blatt" tabindex="0" role="group" aria-label="Die neun Bestandteile des kurzfristigen Fremdkapitals">
+    <table class="ab" id="tab-kfk"></table>
+  </div>
+  <p class="sub" style="margin-top:12px">Dieselbe Größe erscheint als Nenner in F5, F6, F7 und F8, als Abzug in F9 sowie im Zähler von F12, sodass sich sechs Kennzahlen bewegen, sobald sich eine der neun Zeilen ändert.</p>
+
+  <h2 class="sec">Finanzkennzahlen</h2>
+  <p class="sub">Die Reihenfolge folgt der Vorlage, in der zwei Paare bewusst nebeneinander stehen, nämlich die beiden Eigenkapitalquoten (F1 und F2) sowie die beiden Anlagendeckungsgrade (F11 und F12).</p>
+  <div class="kzgrid" id="kz-F"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Ein Liquiditätsgrad steht und fällt mit der Fristigkeitsangabe in seinem Nenner. Wer diese Angabe nicht hat, setzt eine Schätzung an die Stelle der Rechnung.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 06 · DEIN EIGENES JAHR ==================== -->
+<section class="panel" id="p-f" role="tabpanel" aria-labelledby="tab-f">
+  <p class="claim">Drei Jahre sind vorbelegt, wozu Du <b>bis zu drei weitere ergänzen kannst</b>, entweder als Fortschreibung des Falls oder mit den Zahlen eines Abschlusses, der Dich interessiert. Gespeichert wird nichts auf einem Server; was Du behalten willst, nimmst Du als Datei mit.</p>
+
+  <h2 class="sec">Ein Jahr hinzunehmen oder die Eingaben leeren</h2>
+  <p class="sub">Für den Seminarraum stehen die drei Jahre des Falls sofort da, während für das Selbststudium die Übung im Eintragen liegt, weshalb sich die Eingabezellen leeren lassen. Die Kontrolldifferenz in Lektion 03 ist dabei Deine Rückmeldung.</p>
+  <div class="wsbar">
+    <button class="btn" id="jahrPlus">Ein Jahr hinzunehmen</button>
+    <button class="btn ghost" id="jahrMinus">Letztes Jahr entfernen</button>
+    <button class="btn ghost" id="leeren">Eingaben leeren</button>
+    <button class="btn ghost" id="fallZurueck">Den Fall wiederherstellen</button>
+    <span class="sep"></span>
+    <span class="wsmsg" id="jahrMsg"></span>
+  </div>
+  <div class="readme" id="standBox"></div>
+
+  <h2 class="sec">Die Farblegende der Vorlage</h2>
+  <p class="sub">Die Excel-Datei unterscheidet drei Arten von Zellen, eine Unterscheidung, die dieses Modul übernimmt, da an ihr hängt, was Du ändern kannst und was sich daraus ergibt.</p>
+  <div class="tscroll" tabindex="0" role="group" aria-label="Die drei Zellarten der Vorlage">
+    <table class="tbl" id="tab-legende"></table>
+  </div>
+
+  <h2 class="sec">Als Datei speichern und wieder laden</h2>
+  <p class="sub">Die Datei enthält allein die Eingabewerte, da sich jede Summe und jede Kennzahl daraus neu rechnen lässt, und liegt danach bei Dir auf der Platte, von wo sie sich hier jederzeit wieder einlesen lässt.</p> <!-- sprache:ok, das Komma schliesst den da-Nebensatz, danach folgt das zweite Praedikat desselben Subjekts -->
+  <div class="wsbar">
+    <button class="btn" id="spSpeichern">Als Datei speichern</button>
+    <label class="btn ghost" for="spLaden" style="cursor:pointer">Datei laden<input type="file" id="spLaden" accept="application/json,.json" hidden></label>
+    <button class="btn ghost" id="spText">Als Text anzeigen</button>
+    <span class="sep"></span>
+    <span class="wsmsg" id="spMsg"></span>
+  </div>
+  <div class="bilout" id="textout" hidden>
+    <textarea id="spAusgabe" readonly aria-label="Der Jahresabschluss als Text"></textarea>
+    <div class="wsbar" style="margin:0">
+      <button class="btn ghost" id="spKopieren">In die Zwischenablage</button>
+      <span class="wsmsg" id="spMsg2"></span>
+    </div>
+  </div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Ein einzelnes Jahr gibt Beträge her. Erst das zweite gibt eine Richtung her, während erst das dritte zeigt, ob die Richtung hält.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 07 · QUIZ ==================== -->
+<section class="panel" id="p-g" role="tabpanel" aria-labelledby="tab-g">
+  <p class="claim">Fünf Fragen werden zufällig aus einem größeren Vorrat gezogen, ohne Zeitdruck und ohne eine Bewertung, die irgendwo landet; nach jeder Antwort steht die Begründung da, auch nach der richtigen.</p>
+  <div class="wsbar">
+    <button class="btn" id="qNew">Fünf neue Fragen ziehen</button>
+    <span class="sep"></span>
+    <span class="wsmsg" id="qStand"></span>
+  </div>
+  <div class="qwrap" id="quiz"></div>
+  <div id="qResult" style="margin-top:16px"></div>
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Die Begründungen zu den verfehlten Fragen stehen oben, da sie erklären, warum die gewählte Antwort nicht zutrifft.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 08 · DER ERSTE SCHRITT ==================== -->
+<section class="panel" id="p-h" role="tabpanel" aria-labelledby="tab-h">
+  <p class="claim">Hier stehen die Schritte, die Du zuerst tust, wenn Du eine solche Analyse für ein echtes Unternehmen aufstellen willst, wobei die Reihenfolge nicht beliebig ist, da jeder Schritt die Grundlage des nächsten legt.</p>
+  <div class="ck10" id="ck"></div>
+
+  <h2 class="sec">Glossar</h2>
+  <p class="sub">Die Begriffe, die in diesem Modul vorkommen, mit ihrer Bedeutung im Zusammenhang der Bilanzanalyse.</p>
+  <div class="glos" id="glossar"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Eine Bilanzanalyse beginnt mit der Beschaffung von zwei Abschlüssen und dem Anhang. Ohne die Fristigkeiten aus dem Anhang fehlt die Hälfte der Aussagekraft.</p>
+  </div>
+</section>
+
+<footer>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.84</span>
+</footer>
+
+</div>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s)
+  .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+
+/* =====================================================================
+   1 · Der Jahresabschluss der Plum Systems AG
+
+   Die 129 Positionen der Gewinn- und Verlustrechnung nach dem
+   Gesamtkostenverfahren (§ 275 Abs. 2 HGB) sowie der Bilanz nach
+   § 266 HGB, mit den Abschlusswerten der ersten drei Geschäftsjahre.
+
+   t  Zelltyp der Zeile und damit ihre Rolle im Modul
+        e  Eingabe, ein Feld zum Eintragen
+        f  Formel, wird gerechnet und ist nie tippbar
+        d  davon-Angabe, eine Fristigkeit oder Erläuterung ohne eigene Summe
+        g  Gliederungszeile ohne Wert
+        k  Kontrolle, die Probe auf Aktiv- gegen Passivseite
+   gl Glieder einer gerechneten Zeile. Ein führendes Minus zieht ab.
+   w  die drei Jahre der Fallstudie, in vollen Tausend Euro
+   ===================================================================== */
+const POS = [
+  /* ---------- Gewinn- und Verlustrechnung ---------- */
+  {i:"GUV-GKV", bl:"guv", t:"g", b:"GuV – Gesamtkostenverfahren"},
+  {i:"GUV-01", bl:"guv", t:"e", b:"1. Umsatzerlöse", w:[82137,78946,70218], h:"HGB-Position"},
+  {i:"GUV-02", bl:"guv", t:"e", b:"2. Erhöhung oder Verminderung des Bestands an fertigen und unfertigen Erzeugnissen", w:[638,1274,1487], h:"HGB-Position"},
+  {i:"GUV-03", bl:"guv", t:"e", b:"3. andere aktivierte Eigenleistungen", w:[1218,2203,3568], h:"HGB-Position"},
+  {i:"GUV-Z01", bl:"guv", t:"f", b:"Analytischer Zwischensaldo: Gesamtleistung – nicht Bestandteil der gesetzlichen Gliederung", gl:["GUV-01","GUV-02","GUV-03"], h:"Umsatzerlöse + Bestandsveränderung + aktivierte Eigenleistungen"},
+  {i:"GUV-04", bl:"guv", t:"e", b:"4. sonstige betriebliche Erträge", w:[487,413,296], h:"HGB-Position"},
+  {i:"GUV-05", bl:"guv", t:"f", b:"5. Materialaufwand", gl:["GUV-05a","GUV-05b"], h:"Summe 5a und 5b"},
+  {i:"GUV-05a", bl:"guv", t:"e", b:"a) Aufwendungen für Roh-, Hilfs- und Betriebsstoffe und für bezogene Waren", w:[39784,38541,33387], h:"HGB-Unterposition"},
+  {i:"GUV-05b", bl:"guv", t:"e", b:"b) Aufwendungen für bezogene Leistungen", w:[4533,4421,3894], h:"HGB-Unterposition"},
+  {i:"GUV-06", bl:"guv", t:"f", b:"6. Personalaufwand", gl:["GUV-06a","GUV-06b"], h:"Summe 6a und 6b"},
+  {i:"GUV-06a", bl:"guv", t:"e", b:"a) Löhne und Gehälter", w:[19511,17496,15291], h:"HGB-Unterposition"},
+  {i:"GUV-06b", bl:"guv", t:"e", b:"b) soziale Abgaben und Aufwendungen für Altersversorgung und für Unterstützung", w:[4847,4346,3828], h:"HGB-Unterposition"},
+  {i:"GUV-06d", bl:"guv", t:"d", b:"davon für Altersversorgung", w:[512,463,406], h:"nicht zusätzlich addieren"},
+  {i:"GUV-07", bl:"guv", t:"f", b:"7. Abschreibungen", gl:["GUV-07a","GUV-07b"], h:"Summe 7a und 7b"},
+  {i:"GUV-07a", bl:"guv", t:"e", b:"a) auf immaterielle Vermögensgegenstände des Anlagevermögens und Sachanlagen", w:[4197,4534,4665], h:"HGB-Unterposition"},
+  {i:"GUV-07b", bl:"guv", t:"e", b:"b) auf Vermögensgegenstände des Umlaufvermögens, soweit diese die üblichen Abschreibungen überschreiten", w:[0,0,0], h:"HGB-Unterposition"},
+  {i:"GUV-08", bl:"guv", t:"e", b:"8. sonstige betriebliche Aufwendungen", w:[7226,10888,13228], h:"HGB-Position"},
+  {i:"GUV-Z02", bl:"guv", t:"f", b:"Analytischer Zwischensaldo: EBIT – nicht Bestandteil der gesetzlichen Gliederung", gl:["GUV-01","GUV-02","GUV-03","GUV-04","-GUV-05","-GUV-06","-GUV-07","-GUV-08"], h:"Operatives Ergebnis aus HGB-Positionen 1–8"},
+  {i:"GUV-09", bl:"guv", t:"e", b:"9. Erträge aus Beteiligungen", w:[0,0,0], h:"HGB-Position"},
+  {i:"GUV-09d", bl:"guv", t:"d", b:"davon aus verbundenen Unternehmen", w:[0,0,0], h:"nicht zusätzlich addieren"},
+  {i:"GUV-10", bl:"guv", t:"e", b:"10. Erträge aus anderen Wertpapieren und Ausleihungen des Finanzanlagevermögens", w:[0,0,0], h:"HGB-Position"},
+  {i:"GUV-10d", bl:"guv", t:"d", b:"davon aus verbundenen Unternehmen", w:[0,0,0], h:"nicht zusätzlich addieren"},
+  {i:"GUV-11", bl:"guv", t:"e", b:"11. sonstige Zinsen und ähnliche Erträge", w:[0,0,0], h:"HGB-Position"},
+  {i:"GUV-11d", bl:"guv", t:"d", b:"davon aus verbundenen Unternehmen", w:[0,0,0], h:"nicht zusätzlich addieren"},
+  {i:"GUV-12", bl:"guv", t:"e", b:"12. Abschreibungen auf Finanzanlagen und auf Wertpapiere des Umlaufvermögens", w:[0,0,0], h:"HGB-Position"},
+  {i:"GUV-13", bl:"guv", t:"e", b:"13. Zinsen und ähnliche Aufwendungen", w:[1097,1189,1136], h:"HGB-Position"},
+  {i:"GUV-13d", bl:"guv", t:"d", b:"davon an verbundene Unternehmen", w:[0,0,0], h:"nicht zusätzlich addieren"},
+  {i:"GUV-Z03", bl:"guv", t:"f", b:"Analytischer Zwischensaldo: Ergebnis vor Steuern – nicht Bestandteil der gesetzlichen Gliederung", gl:["GUV-Z02","GUV-09","GUV-10","GUV-11","-GUV-12","-GUV-13"], h:"Ergebnis aus gesetzlichen GuV-Positionen 1–13"},
+  {i:"GUV-14", bl:"guv", t:"e", b:"14. Steuern vom Einkommen und vom Ertrag", w:[986,426,42], h:"HGB-Position"},
+  {i:"GUV-15", bl:"guv", t:"f", b:"15. Ergebnis nach Steuern", gl:["GUV-Z03","-GUV-14"], h:"Ergebnis vor Steuern − Ertragsteuern"},
+  {i:"GUV-16", bl:"guv", t:"e", b:"16. sonstige Steuern", w:[0,0,0], h:"HGB-Position"},
+  {i:"GUV-17", bl:"guv", t:"f", b:"17. Jahresüberschuss/Jahresfehlbetrag", gl:["GUV-15","-GUV-16"], h:"Ergebnis nach Steuern − sonstige Steuern"},
+  /* ---------- Bilanz, Aktivseite ---------- */
+  {i:"AKT-A", bl:"akt", t:"g", b:"AKTIVA"},
+  {i:"AKT-AVH", bl:"akt", t:"g", b:"A. Anlagevermögen"},
+  {i:"AKT-AI", bl:"akt", t:"g", b:"I. Immaterielle Vermögensgegenstände"},
+  {i:"AKT-01", bl:"akt", t:"e", b:"1. Selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte", w:[3624,5127,8238], h:"HGB-Unterposition"},
+  {i:"AKT-02", bl:"akt", t:"e", b:"2. entgeltlich erworbene Konzessionen, gewerbliche Schutzrechte und ähnliche Rechte und Werte sowie Lizenzen", w:[1187,1149,963], h:"HGB-Unterposition"},
+  {i:"AKT-03", bl:"akt", t:"e", b:"3. Geschäfts- oder Firmenwert", w:[0,0,0], h:"HGB-Unterposition"},
+  {i:"AKT-04", bl:"akt", t:"e", b:"4. geleistete Anzahlungen", w:[0,0,0], h:"HGB-Unterposition"},
+  {i:"AKT-SI", bl:"akt", t:"f", b:"Summe I. Immaterielle Vermögensgegenstände", gl:["AKT-01","AKT-02","AKT-03","AKT-04"], h:"Summe AKT-01 bis AKT-04"},
+  {i:"AKT-AII", bl:"akt", t:"g", b:"II. Sachanlagen"},
+  {i:"AKT-05", bl:"akt", t:"e", b:"1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken", w:[7493,7241,6987], h:"HGB-Unterposition"},
+  {i:"AKT-06", bl:"akt", t:"e", b:"2. technische Anlagen und Maschinen", w:[8796,8338,8076], h:"HGB-Unterposition"},
+  {i:"AKT-07", bl:"akt", t:"e", b:"3. andere Anlagen, Betriebs- und Geschäftsausstattung", w:[2369,2217,2071], h:"HGB-Unterposition"},
+  {i:"AKT-08", bl:"akt", t:"e", b:"4. geleistete Anzahlungen und Anlagen im Bau", w:[315,567,1123], h:"HGB-Unterposition"},
+  {i:"AKT-SII", bl:"akt", t:"f", b:"Summe II. Sachanlagen", gl:["AKT-05","AKT-06","AKT-07","AKT-08"], h:"Summe AKT-05 bis AKT-08"},
+  {i:"AKT-AIII", bl:"akt", t:"g", b:"III. Finanzanlagen"},
+  {i:"AKT-09", bl:"akt", t:"e", b:"1. Anteile an verbundenen Unternehmen", w:[0,0,0], h:"HGB-Unterposition"},
+  {i:"AKT-10", bl:"akt", t:"e", b:"2. Ausleihungen an verbundene Unternehmen", w:[0,0,0], h:"HGB-Unterposition"},
+  {i:"AKT-11", bl:"akt", t:"e", b:"3. Beteiligungen", w:[0,0,0], h:"HGB-Unterposition"},
+  {i:"AKT-12", bl:"akt", t:"e", b:"4. Ausleihungen an Unternehmen, mit denen ein Beteiligungsverhältnis besteht", w:[0,0,0], h:"HGB-Unterposition"},
+  {i:"AKT-13", bl:"akt", t:"e", b:"5. Wertpapiere des Anlagevermögens", w:[0,0,0], h:"HGB-Unterposition"},
+  {i:"AKT-14", bl:"akt", t:"e", b:"6. sonstige Ausleihungen", w:[0,0,0], h:"HGB-Unterposition"},
+  {i:"AKT-SIII", bl:"akt", t:"f", b:"Summe III. Finanzanlagen", gl:["AKT-09","AKT-10","AKT-11","AKT-12","AKT-13","AKT-14"], h:"Summe AKT-09 bis AKT-14"},
+  {i:"AKT-AV", bl:"akt", t:"f", b:"Anlagevermögen gesamt", gl:["AKT-SI","AKT-SII","AKT-SIII"], h:"Immaterielle Vermögensgegenstände + Sachanlagen + Finanzanlagen"},
+  {i:"AKT-UVH", bl:"akt", t:"g", b:"B. Umlaufvermögen"},
+  {i:"AKT-BI", bl:"akt", t:"g", b:"I. Vorräte"},
+  {i:"AKT-15", bl:"akt", t:"e", b:"1. Roh-, Hilfs- und Betriebsstoffe", w:[4117,4819,5338], h:"HGB-Unterposition"},
+  {i:"AKT-16", bl:"akt", t:"e", b:"2. unfertige Erzeugnisse, unfertige Leistungen", w:[2386,2978,3591], h:"HGB-Unterposition"},
+  {i:"AKT-17", bl:"akt", t:"e", b:"3. fertige Erzeugnisse und Waren", w:[3164,3831,4193], h:"HGB-Unterposition"},
+  {i:"AKT-18", bl:"akt", t:"e", b:"4. geleistete Anzahlungen", w:[206,214,214], h:"HGB-Unterposition"},
+  {i:"AKT-VOR", bl:"akt", t:"f", b:"Vorräte gesamt", gl:["AKT-15","AKT-16","AKT-17","AKT-18"], h:"Summe AKT-15 bis AKT-18"},
+  {i:"AKT-BII", bl:"akt", t:"g", b:"II. Forderungen und sonstige Vermögensgegenstände"},
+  {i:"AKT-19", bl:"akt", t:"e", b:"1. Forderungen aus Lieferungen und Leistungen", w:[9471,12609,15045], h:"HGB-Unterposition"},
+  {i:"AKT-19K", bl:"akt", t:"d", b:"davon innerhalb eines Jahres realisierbar", w:[9471,12609,15045], h:"Fristigkeitsangabe; nicht zusätzlich addieren"},
+  {i:"AKT-20", bl:"akt", t:"e", b:"2. Forderungen gegen verbundene Unternehmen", w:[0,0,0], h:"HGB-Unterposition"},
+  {i:"AKT-20K", bl:"akt", t:"d", b:"davon innerhalb eines Jahres realisierbar", w:[0,0,0], h:"Fristigkeitsangabe; nicht zusätzlich addieren"},
+  {i:"AKT-21", bl:"akt", t:"e", b:"3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht", w:[0,0,0], h:"HGB-Unterposition"},
+  {i:"AKT-21K", bl:"akt", t:"d", b:"davon innerhalb eines Jahres realisierbar", w:[0,0,0], h:"Fristigkeitsangabe; nicht zusätzlich addieren"},
+  {i:"AKT-22", bl:"akt", t:"e", b:"4. sonstige Vermögensgegenstände", w:[3781,2563,2591], h:"HGB-Unterposition"},
+  {i:"AKT-22K", bl:"akt", t:"d", b:"davon innerhalb eines Jahres realisierbar", w:[3781,2563,2591], h:"Fristigkeitsangabe; nicht zusätzlich addieren"},
+  {i:"AKT-FORD", bl:"akt", t:"f", b:"Forderungen und sonstige Vermögensgegenstände gesamt", gl:["AKT-19","AKT-20","AKT-21","AKT-22"], h:"Summe der vier HGB-Hauptpositionen; davon-Angaben nicht addieren"},
+  {i:"AKT-BIII", bl:"akt", t:"g", b:"III. Wertpapiere"},
+  {i:"AKT-23", bl:"akt", t:"e", b:"1. Anteile an verbundenen Unternehmen", w:[0,0,0], h:"HGB-Unterposition"},
+  {i:"AKT-24", bl:"akt", t:"e", b:"2. sonstige Wertpapiere", w:[4619,3190,3070], h:"HGB-Unterposition"},
+  {i:"AKT-WP", bl:"akt", t:"f", b:"Wertpapiere gesamt", gl:["AKT-23","AKT-24"], h:"Wertpapiere des Umlaufvermögens"},
+  {i:"AKT-25", bl:"akt", t:"e", b:"IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks", w:[5087,3791,2319], h:"HGB-Position"},
+  {i:"AKT-UV", bl:"akt", t:"f", b:"Umlaufvermögen gesamt", gl:["AKT-VOR","AKT-FORD","AKT-WP","AKT-25"], h:"Vorräte + Forderungen + Wertpapiere + Kasse/Bank"},
+  {i:"AKT-26", bl:"akt", t:"e", b:"C. Rechnungsabgrenzungsposten", w:[0,0,0], h:"HGB-Position"},
+  {i:"AKT-27", bl:"akt", t:"e", b:"D. Aktive latente Steuern", w:[0,0,0], h:"HGB-Position"},
+  {i:"AKT-28", bl:"akt", t:"e", b:"E. Aktiver Unterschiedsbetrag aus der Vermögensverrechnung", w:[0,0,0], h:"HGB-Position"},
+  {i:"AKT-BS", bl:"akt", t:"f", b:"Bilanzsumme / Gesamtkapital", gl:["AKT-AV","AKT-UV","AKT-26","AKT-27","AKT-28"], h:"Anlagevermögen + Umlaufvermögen + weitere Aktivposten"},
+  {i:"AKT-KONT", bl:"akt", t:"k", b:"Kontrolldifferenz Aktiva – Passiva", gl:["AKT-BS","-PAS-BS"], h:"0,00 = Aktiv- und Passivseite stimmen überein"},
+  /* ---------- Bilanz, Passivseite ---------- */
+  {i:"PAS-P", bl:"pas", t:"g", b:"PASSIVA"},
+  {i:"PAS-EKH", bl:"pas", t:"g", b:"A. Eigenkapital"},
+  {i:"PAS-01", bl:"pas", t:"e", b:"I. Gezeichnetes Kapital", w:[1000,1000,1000], h:"HGB-Position"},
+  {i:"PAS-02", bl:"pas", t:"e", b:"II. Kapitalrücklage", w:[100,100,100], h:"HGB-Position"},
+  {i:"PAS-EKIII", bl:"pas", t:"g", b:"III. Gewinnrücklagen"},
+  {i:"PAS-03", bl:"pas", t:"e", b:"1. gesetzliche Rücklage", w:[0,0,0], h:"HGB-Unterposition"},
+  {i:"PAS-04", bl:"pas", t:"e", b:"2. Rücklage für Anteile an einem herrschenden oder mehrheitlich beteiligten Unternehmen", w:[0,0,0], h:"HGB-Unterposition"},
+  {i:"PAS-05", bl:"pas", t:"e", b:"3. satzungsmäßige Rücklagen", w:[0,0,0], h:"HGB-Unterposition"},
+  {i:"PAS-06", bl:"pas", t:"e", b:"4. andere Gewinnrücklagen", w:[4200,4200,4200], h:"HGB-Unterposition"},
+  {i:"PAS-GR", bl:"pas", t:"f", b:"Gewinnrücklagen gesamt", gl:["PAS-03","PAS-04","PAS-05","PAS-06"], h:"Summe PAS-03 bis PAS-06"},
+  {i:"PAS-07", bl:"pas", t:"e", b:"IV. Gewinnvortrag/Verlustvortrag", w:[3724,3086,1623], h:"HGB-Position"},
+  {i:"PAS-08", bl:"pas", t:"f", b:"V. Jahresüberschuss/Jahresfehlbetrag", gl:["GUV-17"], h:"direkt aus der GuV"},
+  {i:"PAS-EK", bl:"pas", t:"f", b:"Eigenkapital gesamt", gl:["PAS-01","PAS-02","PAS-GR","PAS-07","PAS-08"], h:"Gezeichnetes Kapital + Kapitalrücklage + Gewinnrücklagen + Gewinnvortrag + Jahresergebnis"},
+  {i:"PAS-RSH", bl:"pas", t:"g", b:"B. Rückstellungen"},
+  {i:"PAS-09", bl:"pas", t:"e", b:"1. Rückstellungen für Pensionen und ähnliche Verpflichtungen", w:[4617,4746,4812], h:"HGB-Unterposition"},
+  {i:"PAS-10", bl:"pas", t:"e", b:"2. Steuerrückstellungen", w:[487,418,213], h:"HGB-Unterposition"},
+  {i:"PAS-11", bl:"pas", t:"e", b:"3. sonstige Rückstellungen", w:[3048,3731,5067], h:"HGB-Unterposition"},
+  {i:"PAS-RS", bl:"pas", t:"f", b:"Rückstellungen gesamt", gl:["PAS-09","PAS-10","PAS-11"], h:"Summe PAS-09 bis PAS-11"},
+  {i:"PAS-RSK", bl:"pas", t:"d", b:"davon voraussichtliche Inanspruchnahme innerhalb eines Jahres", w:[2011,4184,4376], h:"Fristigkeitsangabe; nicht zusätzlich addieren"},
+  {i:"PAS-VBH", bl:"pas", t:"g", b:"C. Verbindlichkeiten"},
+  {i:"PAS-12", bl:"pas", t:"e", b:"1. Anleihen", w:[5000,4000,3000], h:"HGB-Unterposition"},
+  {i:"PAS-12C", bl:"pas", t:"d", b:"davon konvertibel", w:[0,0,0], h:"nicht zusätzlich addieren"},
+  {i:"PAS-12K", bl:"pas", t:"d", b:"davon bis ein Jahr fällig", w:[1000,1800,1000], h:"Fristigkeitsangabe; nicht zusätzlich addieren"},
+  {i:"PAS-13", bl:"pas", t:"e", b:"2. Verbindlichkeiten gegenüber Kreditinstituten", w:[15827,14063,12117], h:"HGB-Unterposition"},
+  {i:"PAS-13K", bl:"pas", t:"d", b:"davon bis ein Jahr fällig", w:[4500,4000,6000], h:"Fristigkeitsangabe; nicht zusätzlich addieren"},
+  {i:"PAS-14", bl:"pas", t:"e", b:"3. erhaltene Anzahlungen auf Bestellungen", w:[4217,4813,6319], h:"HGB-Unterposition"},
+  {i:"PAS-14K", bl:"pas", t:"d", b:"davon bis ein Jahr fällig", w:[4217,4813,6319], h:"Fristigkeitsangabe; nicht zusätzlich addieren"},
+  {i:"PAS-15", bl:"pas", t:"e", b:"4. Verbindlichkeiten aus Lieferungen und Leistungen", w:[5488,8039,10766], h:"HGB-Unterposition"},
+  {i:"PAS-15K", bl:"pas", t:"d", b:"davon bis ein Jahr fällig", w:[5488,8039,10766], h:"Fristigkeitsangabe; nicht zusätzlich addieren"},
+  {i:"PAS-16", bl:"pas", t:"e", b:"5. Verbindlichkeiten aus der Annahme gezogener Wechsel und der Ausstellung eigener Wechsel", w:[0,0,0], h:"HGB-Unterposition"},
+  {i:"PAS-16K", bl:"pas", t:"d", b:"davon bis ein Jahr fällig", w:[0,0,0], h:"Fristigkeitsangabe; nicht zusätzlich addieren"},
+  {i:"PAS-17", bl:"pas", t:"e", b:"6. Verbindlichkeiten gegenüber verbundenen Unternehmen", w:[0,0,0], h:"HGB-Unterposition"},
+  {i:"PAS-17K", bl:"pas", t:"d", b:"davon bis ein Jahr fällig", w:[0,0,0], h:"Fristigkeitsangabe; nicht zusätzlich addieren"},
+  {i:"PAS-18", bl:"pas", t:"e", b:"7. Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht", w:[0,0,0], h:"HGB-Unterposition"},
+  {i:"PAS-18K", bl:"pas", t:"d", b:"davon bis ein Jahr fällig", w:[0,0,0], h:"Fristigkeitsangabe; nicht zusätzlich addieren"},
+  {i:"PAS-19", bl:"pas", t:"e", b:"8. sonstige Verbindlichkeiten", w:[4265,6477,11125], h:"HGB-Unterposition"},
+  {i:"PAS-19T", bl:"pas", t:"d", b:"davon aus Steuern", w:[647,563,491], h:"nicht zusätzlich addieren"},
+  {i:"PAS-19S", bl:"pas", t:"d", b:"davon im Rahmen der sozialen Sicherheit", w:[361,428,507], h:"nicht zusätzlich addieren"},
+  {i:"PAS-19G", bl:"pas", t:"d", b:"davon Gesellschafterdarlehen (zusätzliche Fallstudienangabe)", w:[1100,4100,6400], h:"Einordnung als wirtschaftliches Eigenkapital anhand des separaten Anhangs beurteilen"},
+  {i:"PAS-19P", bl:"pas", t:"d", b:"davon Personalabrechnung / übrige betriebliche Verbindlichkeiten", w:[2157,1386,3727], h:"nicht zusätzlich addieren"},
+  {i:"PAS-19K", bl:"pas", t:"d", b:"davon bis ein Jahr fällig", w:[3165,2377,4725], h:"Fristigkeitsangabe; nicht zusätzlich addieren"},
+  {i:"PAS-VB", bl:"pas", t:"f", b:"Verbindlichkeiten gesamt", gl:["PAS-12","PAS-13","PAS-14","PAS-15","PAS-16","PAS-17","PAS-18","PAS-19"], h:"Summe der acht HGB-Hauptpositionen; davon-Angaben nicht addieren"},
+  {i:"PAS-20", bl:"pas", t:"e", b:"D. Rechnungsabgrenzungsposten", w:[2261,2847,3226], h:"HGB-Position"},
+  {i:"PAS-21", bl:"pas", t:"e", b:"E. Passive latente Steuern", w:[82,119,153], h:"HGB-Position"},
+  {i:"PAS-BS", bl:"pas", t:"f", b:"Bilanzsumme / Gesamtkapital", gl:["PAS-EK","PAS-RS","PAS-VB","PAS-20","PAS-21"], h:"Eigenkapital + Rückstellungen + Verbindlichkeiten + weitere Passivposten"},
+  {i:"PAS-KONT", bl:"pas", t:"k", b:"Kontrolldifferenz Aktiva – Passiva", gl:["AKT-BS","-PAS-BS"], h:"0,00 = Aktiv- und Passivseite stimmen überein"},
+];
+
+/* Die eine Angabe, die weder in der Gewinn- und Verlustrechnung noch in
+   der Bilanz steht. Sie kommt aus dem Anhang und ist die Bezugsgröße
+   der Kennzahl E7. */
+const ZUSATZ = {i:"ZUS-ENTW", b:"Interne Entwicklungsaufwendungen", w:[4037,4426,5116],
+  h:"Diese Bezugsgröße ist nicht unmittelbar aus GuV oder Bilanz ableitbar. Für andere Unternehmen ist sie dem jeweiligen Anhang zu entnehmen."};
+
+/* =====================================================================
+   2 · Die 27 Kennzahlen
+
+   Jede Kennzahl nennt ihren Rechenweg als Text sowie ihre Herleitung als
+   Liste. Jedes Glied der Herleitung verweist mit q auf die Position, aus
+   der es stammt, weshalb sich der Weg von der Kennzahl bis zur
+   HGB-Position begehen lässt und umgekehrt.
+
+   s  Seite der Rechnung, num oder den
+   v  Vorzeichen innerhalb seiner Seite
+   t365  die Kennzahl wird mit 365 multipliziert und in Tagen angegeben
+   ===================================================================== */
+const KZ = [
+  /* ---------- Vermögenskennzahlen ---------- */
+  {c:"V1", gr:"V", n:"Gesamtkapitalumschlag", rw:"Umsatzerlöse / Gesamtkapital", eh:"x",
+   a:"Zeigt, wie häufig das eingesetzte Gesamtkapital durch Umsatzerlöse umgeschlagen wird.",
+   ba:"GuV · Bilanz Aktivseite",
+   t:[
+     {r:"Zähler", n:"Umsatzerlöse", q:"GUV-01", s:"num"},
+     {r:"Nenner", n:"Bilanzsumme / Gesamtkapital", q:"AKT-BS", s:"den"},
+   ]},
+  {c:"V2", gr:"V", n:"Anlagenintensität", rw:"Anlagevermögen / Gesamtkapital", eh:"%",
+   a:"Misst den Anteil des langfristig gebundenen Anlagevermögens am Gesamtkapital.",
+   ba:"Bilanz Aktivseite",
+   t:[
+     {r:"Zähler", n:"Anlagevermögen gesamt", q:"AKT-AV", s:"num"},
+     {r:"Nenner", n:"Bilanzsumme / Gesamtkapital", q:"AKT-BS", s:"den"},
+   ]},
+  {c:"V3", gr:"V", n:"Vorratsumschlag", rw:"Materialaufwand (5a + 5b) / Vorräte", eh:"x",
+   a:"Zeigt, wie häufig der Vorratsbestand rechnerisch durch den Materialverbrauch umgeschlagen wird.",
+   ba:"GuV · Bilanz Aktivseite",
+   t:[
+     {r:"Zählerbestandteil", n:"Roh-, Hilfs- und Betriebsstoffe / Waren", q:"GUV-05a", s:"num"},
+     {r:"Zählerbestandteil", n:"Bezogene Leistungen", q:"GUV-05b", s:"num"},
+     {r:"Nenner", n:"Vorräte gesamt", q:"AKT-VOR", s:"den"},
+   ]},
+  {c:"V4", gr:"V", n:"Vorräte zu Umsatz", rw:"Vorräte / Umsatzerlöse", eh:"%",
+   a:"Verdeutlicht die umsatzbezogene Kapitalbindung im Vorratsvermögen.",
+   ba:"GuV · Bilanz Aktivseite",
+   t:[
+     {r:"Zähler", n:"Vorräte gesamt", q:"AKT-VOR", s:"num"},
+     {r:"Nenner", n:"Umsatzerlöse", q:"GUV-01", s:"den"},
+   ]},
+  {c:"V5", gr:"V", n:"Bestandsdauer Vorräte", rw:"Vorräte / Materialaufwand (5a + 5b) × 365", eh:"Tage",
+   a:"Schätzt, wie viele Tage Vorräte durchschnittlich im Unternehmen gebunden sind.",
+   ba:"GuV · Bilanz Aktivseite", t365:true,
+   t:[
+     {r:"Zähler", n:"Vorräte gesamt", q:"AKT-VOR", s:"num"},
+     {r:"Nennerbestandteil", n:"Roh-, Hilfs- und Betriebsstoffe / Waren", q:"GUV-05a", s:"den"},
+     {r:"Nennerbestandteil", n:"Bezogene Leistungen", q:"GUV-05b", s:"den"},
+   ]},
+  {c:"V6", gr:"V", n:"Debitorenziel", rw:"Forderungen aus LuL / Umsatzerlöse × 365", eh:"Tage",
+   a:"Schätzt die durchschnittliche Zeit zwischen Umsatzrealisierung und Zahlungseingang.",
+   ba:"GuV · Bilanz Aktivseite", t365:true,
+   t:[
+     {r:"Zähler", n:"Forderungen aus Lieferungen und Leistungen", q:"AKT-19", s:"num"},
+     {r:"Nenner", n:"Umsatzerlöse", q:"GUV-01", s:"den"},
+   ]},
+  {c:"V7", gr:"V", n:"Kreditorenziel", rw:"Verbindlichkeiten aus LuL / Materialaufwand (5a + 5b) × 365", eh:"Tage",
+   a:"Schätzt die durchschnittliche rechnerische Zahlungsdauer gegenüber Lieferanten.",
+   ba:"GuV · Bilanz Passivseite", t365:true,
+   t:[
+     {r:"Zähler", n:"Verbindlichkeiten aus Lieferungen und Leistungen", q:"PAS-15", s:"num"},
+     {r:"Nennerbestandteil", n:"Roh-, Hilfs- und Betriebsstoffe / Waren", q:"GUV-05a", s:"den"},
+     {r:"Nennerbestandteil", n:"Bezogene Leistungen", q:"GUV-05b", s:"den"},
+   ]},
+  /* ---------- Finanzkennzahlen ---------- */
+  {c:"F1", gr:"F", n:"Eigenkapitalquote HGB", rw:"HGB-Eigenkapital / Gesamtkapital", eh:"%",
+   a:"Zeigt den bilanziellen Eigenfinanzierungsanteil und die formale Verlusttragfähigkeit.",
+   ba:"Bilanz Passivseite",
+   t:[
+     {r:"Zähler", n:"Eigenkapital gesamt", q:"PAS-EK", s:"num"},
+     {r:"Nenner", n:"Bilanzsumme / Gesamtkapital", q:"PAS-BS", s:"den"},
+   ]},
+  {c:"F2", gr:"F", n:"Eigenkapitalquote wirtschaftliches EK", rw:"(HGB-Eigenkapital + Gesellschafterdarlehen) / Gesamtkapital", eh:"%",
+   a:"Erweitert das bilanzielle Eigenkapital um das als wirtschaftliches Eigenkapital eingeordnete Gesellschafterdarlehen.",
+   ba:"Bilanz Passivseite",
+   t:[
+     {r:"Zählerbestandteil", n:"Eigenkapital gesamt", q:"PAS-EK", s:"num"},
+     {r:"Zählerbestandteil", n:"Gesellschafterdarlehen", q:"PAS-19G", s:"num"},
+     {r:"Nenner", n:"Bilanzsumme / Gesamtkapital", q:"PAS-BS", s:"den"},
+   ]},
+  {c:"F3", gr:"F", n:"Bankverschuldungsquote", rw:"Verbindlichkeiten gegenüber Kreditinstituten / Gesamtkapital", eh:"%",
+   a:"Misst den Anteil der Bankfinanzierung am Gesamtkapital.",
+   ba:"Bilanz Passivseite",
+   t:[
+     {r:"Zähler", n:"Verbindlichkeiten gegenüber Kreditinstituten", q:"PAS-13", s:"num"},
+     {r:"Nenner", n:"Bilanzsumme / Gesamtkapital", q:"PAS-BS", s:"den"},
+   ]},
+  {c:"F4", gr:"F", n:"Verbindlichkeiten LuL / Fremdkapital", rw:"Verbindlichkeiten aus LuL / (Gesamtkapital − Eigenkapital)", eh:"%",
+   a:"Zeigt, welcher Anteil des Fremdkapitals durch Lieferanten finanziert wird.",
+   ba:"Bilanz Passivseite",
+   t:[
+     {r:"Zähler", n:"Verbindlichkeiten aus LuL", q:"PAS-15", s:"num"},
+     {r:"Nennerbestandteil", n:"Gesamtkapital", q:"PAS-BS", s:"den"},
+     {r:"Nennerbestandteil", n:"Eigenkapital – Abzug", q:"PAS-EK", s:"den", v:-1},
+   ]},
+  {c:"F5", gr:"F", n:"Kurzfristige Fremdkapitalquote", rw:"Kurzfristiges Fremdkapital / Gesamtkapital", eh:"%",
+   a:"Misst den Anteil des innerhalb eines Jahres fälligen beziehungsweise beanspruchten Fremdkapitals.",
+   ba:"Bilanz Passivseite · Fristigkeitsangaben",
+   t:[
+     {r:"Zählerbestandteil", n:"Anleihen – davon bis ein Jahr fällig", q:"PAS-12K", s:"num"},
+     {r:"Zählerbestandteil", n:"Bankverbindlichkeiten – davon bis ein Jahr fällig", q:"PAS-13K", s:"num"},
+     {r:"Zählerbestandteil", n:"Erhaltene Anzahlungen – davon bis ein Jahr fällig", q:"PAS-14K", s:"num"},
+     {r:"Zählerbestandteil", n:"Verbindlichkeiten aus LuL – davon bis ein Jahr fällig", q:"PAS-15K", s:"num"},
+     {r:"Zählerbestandteil", n:"Wechselverbindlichkeiten – davon bis ein Jahr fällig", q:"PAS-16K", s:"num"},
+     {r:"Zählerbestandteil", n:"Verbindlichkeiten ggü. verbundenen Unternehmen – kurzfristig", q:"PAS-17K", s:"num"},
+     {r:"Zählerbestandteil", n:"Verbindlichkeiten ggü. Beteiligungsunternehmen – kurzfristig", q:"PAS-18K", s:"num"},
+     {r:"Zählerbestandteil", n:"Sonstige Verbindlichkeiten – davon bis ein Jahr fällig", q:"PAS-19K", s:"num"},
+     {r:"Zählerbestandteil", n:"Rückstellungen – Inanspruchnahme innerhalb eines Jahres", q:"PAS-RSK", s:"num"},
+     {r:"Nenner", n:"Bilanzsumme / Gesamtkapital", q:"PAS-BS", s:"den"},
+   ]},
+  {c:"F6", gr:"F", n:"Liquidität I", rw:"Kasse und Bankguthaben / kurzfristiges Fremdkapital", eh:"%",
+   a:"Zeigt, welcher Anteil des kurzfristigen Fremdkapitals sofort durch Kasse und Bankguthaben gedeckt ist; Wertpapiere bleiben unberücksichtigt.",
+   ba:"Bilanz Aktiv- und Passivseite",
+   t:[
+     {r:"Zähler", n:"Kassenbestand und Guthaben bei Kreditinstituten", q:"AKT-25", s:"num"},
+     {r:"Nennerbestandteil", n:"Anleihen – davon bis ein Jahr fällig", q:"PAS-12K", s:"den"},
+     {r:"Nennerbestandteil", n:"Bankverbindlichkeiten – davon bis ein Jahr fällig", q:"PAS-13K", s:"den"},
+     {r:"Nennerbestandteil", n:"Erhaltene Anzahlungen – davon bis ein Jahr fällig", q:"PAS-14K", s:"den"},
+     {r:"Nennerbestandteil", n:"Verbindlichkeiten aus LuL – davon bis ein Jahr fällig", q:"PAS-15K", s:"den"},
+     {r:"Nennerbestandteil", n:"Wechselverbindlichkeiten – davon bis ein Jahr fällig", q:"PAS-16K", s:"den"},
+     {r:"Nennerbestandteil", n:"Verbindlichkeiten ggü. verbundenen Unternehmen – kurzfristig", q:"PAS-17K", s:"den"},
+     {r:"Nennerbestandteil", n:"Verbindlichkeiten ggü. Beteiligungsunternehmen – kurzfristig", q:"PAS-18K", s:"den"},
+     {r:"Nennerbestandteil", n:"Sonstige Verbindlichkeiten – davon bis ein Jahr fällig", q:"PAS-19K", s:"den"},
+     {r:"Nennerbestandteil", n:"Rückstellungen – Inanspruchnahme innerhalb eines Jahres", q:"PAS-RSK", s:"den"},
+   ]},
+  {c:"F7", gr:"F", n:"Liquidität II", rw:"Kasse/Bank + Wertpapiere + kurzfristige Forderungen / kurzfristiges Fremdkapital", eh:"%",
+   a:"Misst die kurzfristige Schuldendeckung durch liquide und kurzfristig realisierbare monetäre Vermögenswerte; Vorräte bleiben unberücksichtigt.",
+   ba:"Bilanz Aktiv- und Passivseite · Fristigkeitsangaben",
+   t:[
+     {r:"Zählerbestandteil", n:"Kassenbestand und Guthaben bei Kreditinstituten", q:"AKT-25", s:"num"},
+     {r:"Zählerbestandteil", n:"Wertpapiere des Umlaufvermögens", q:"AKT-WP", s:"num"},
+     {r:"Zählerbestandteil", n:"Forderungen aus LuL – kurzfristig realisierbar", q:"AKT-19K", s:"num"},
+     {r:"Zählerbestandteil", n:"Forderungen gegen verbundene Unternehmen – kurzfristig", q:"AKT-20K", s:"num"},
+     {r:"Zählerbestandteil", n:"Forderungen gegen Beteiligungsunternehmen – kurzfristig", q:"AKT-21K", s:"num"},
+     {r:"Zählerbestandteil", n:"Sonstige Vermögensgegenstände – kurzfristig realisierbar", q:"AKT-22K", s:"num"},
+     {r:"Nennerbestandteil", n:"Anleihen – davon bis ein Jahr fällig", q:"PAS-12K", s:"den"},
+     {r:"Nennerbestandteil", n:"Bankverbindlichkeiten – davon bis ein Jahr fällig", q:"PAS-13K", s:"den"},
+     {r:"Nennerbestandteil", n:"Erhaltene Anzahlungen – davon bis ein Jahr fällig", q:"PAS-14K", s:"den"},
+     {r:"Nennerbestandteil", n:"Verbindlichkeiten aus LuL – davon bis ein Jahr fällig", q:"PAS-15K", s:"den"},
+     {r:"Nennerbestandteil", n:"Wechselverbindlichkeiten – davon bis ein Jahr fällig", q:"PAS-16K", s:"den"},
+     {r:"Nennerbestandteil", n:"Verbindlichkeiten ggü. verbundenen Unternehmen – kurzfristig", q:"PAS-17K", s:"den"},
+     {r:"Nennerbestandteil", n:"Verbindlichkeiten ggü. Beteiligungsunternehmen – kurzfristig", q:"PAS-18K", s:"den"},
+     {r:"Nennerbestandteil", n:"Sonstige Verbindlichkeiten – davon bis ein Jahr fällig", q:"PAS-19K", s:"den"},
+     {r:"Nennerbestandteil", n:"Rückstellungen – Inanspruchnahme innerhalb eines Jahres", q:"PAS-RSK", s:"den"},
+   ]},
+  {c:"F8", gr:"F", n:"Liquidität III", rw:"Umlaufvermögen / kurzfristiges Fremdkapital", eh:"%",
+   a:"Stellt das gesamte Umlaufvermögen einschließlich Vorräten dem kurzfristigen Fremdkapital gegenüber.",
+   ba:"Bilanz Aktiv- und Passivseite",
+   t:[
+     {r:"Zähler", n:"Umlaufvermögen gesamt", q:"AKT-UV", s:"num"},
+     {r:"Nennerbestandteil", n:"Anleihen – davon bis ein Jahr fällig", q:"PAS-12K", s:"den"},
+     {r:"Nennerbestandteil", n:"Bankverbindlichkeiten – davon bis ein Jahr fällig", q:"PAS-13K", s:"den"},
+     {r:"Nennerbestandteil", n:"Erhaltene Anzahlungen – davon bis ein Jahr fällig", q:"PAS-14K", s:"den"},
+     {r:"Nennerbestandteil", n:"Verbindlichkeiten aus LuL – davon bis ein Jahr fällig", q:"PAS-15K", s:"den"},
+     {r:"Nennerbestandteil", n:"Wechselverbindlichkeiten – davon bis ein Jahr fällig", q:"PAS-16K", s:"den"},
+     {r:"Nennerbestandteil", n:"Verbindlichkeiten ggü. verbundenen Unternehmen – kurzfristig", q:"PAS-17K", s:"den"},
+     {r:"Nennerbestandteil", n:"Verbindlichkeiten ggü. Beteiligungsunternehmen – kurzfristig", q:"PAS-18K", s:"den"},
+     {r:"Nennerbestandteil", n:"Sonstige Verbindlichkeiten – davon bis ein Jahr fällig", q:"PAS-19K", s:"den"},
+     {r:"Nennerbestandteil", n:"Rückstellungen – Inanspruchnahme innerhalb eines Jahres", q:"PAS-RSK", s:"den"},
+   ]},
+  {c:"F9", gr:"F", n:"Vereinfachtes Net Working Capital", rw:"Umlaufvermögen − kurzfristiges Fremdkapital", eh:"T€",
+   a:"Zeigt den absoluten kurzfristigen Finanzierungspuffer aus Umlaufvermögen abzüglich kurzfristiger Verpflichtungen.",
+   ba:"Bilanz Aktiv- und Passivseite",
+   t:[
+     {r:"Ausgangsgröße", n:"Umlaufvermögen gesamt", q:"AKT-UV", s:"num"},
+     {r:"Abzugsposition", n:"Anleihen – davon bis ein Jahr fällig", q:"PAS-12K", s:"num", v:-1},
+     {r:"Abzugsposition", n:"Bankverbindlichkeiten – davon bis ein Jahr fällig", q:"PAS-13K", s:"num", v:-1},
+     {r:"Abzugsposition", n:"Erhaltene Anzahlungen – davon bis ein Jahr fällig", q:"PAS-14K", s:"num", v:-1},
+     {r:"Abzugsposition", n:"Verbindlichkeiten aus LuL – davon bis ein Jahr fällig", q:"PAS-15K", s:"num", v:-1},
+     {r:"Abzugsposition", n:"Wechselverbindlichkeiten – davon bis ein Jahr fällig", q:"PAS-16K", s:"num", v:-1},
+     {r:"Abzugsposition", n:"Verbindlichkeiten ggü. verbundenen Unternehmen – kurzfristig", q:"PAS-17K", s:"num", v:-1},
+     {r:"Abzugsposition", n:"Verbindlichkeiten ggü. Beteiligungsunternehmen – kurzfristig", q:"PAS-18K", s:"num", v:-1},
+     {r:"Abzugsposition", n:"Sonstige Verbindlichkeiten – davon bis ein Jahr fällig", q:"PAS-19K", s:"num", v:-1},
+     {r:"Abzugsposition", n:"Rückstellungen – Inanspruchnahme innerhalb eines Jahres", q:"PAS-RSK", s:"num", v:-1},
+   ]},
+  {c:"F10", gr:"F", n:"Operatives Working Capital", rw:"Vorräte + Forderungen aus LuL − Verbindlichkeiten aus LuL", eh:"T€",
+   a:"Misst die operative Kapitalbindung in Vorräten und Kundenforderungen nach Abzug der Lieferantenfinanzierung.",
+   ba:"Bilanz Aktiv- und Passivseite",
+   t:[
+     {r:"Zählerbestandteil", n:"Vorräte gesamt", q:"AKT-VOR", s:"num"},
+     {r:"Zählerbestandteil", n:"Forderungen aus LuL", q:"AKT-19", s:"num"},
+     {r:"Abzugsposition", n:"Verbindlichkeiten aus LuL", q:"PAS-15", s:"num", v:-1},
+   ]},
+  {c:"F11", gr:"F", n:"Anlagendeckungsgrad I", rw:"HGB-Eigenkapital / Anlagevermögen", eh:"%",
+   a:"Zeigt, welcher Anteil des Anlagevermögens durch bilanzielles Eigenkapital finanziert ist.",
+   ba:"Bilanz Aktiv- und Passivseite",
+   t:[
+     {r:"Zähler", n:"Eigenkapital gesamt", q:"PAS-EK", s:"num"},
+     {r:"Nenner", n:"Anlagevermögen gesamt", q:"AKT-AV", s:"den"},
+   ]},
+  {c:"F12", gr:"F", n:"Anlagendeckungsgrad II", rw:"(Gesamtkapital − kurzfristiges Fremdkapital) / Anlagevermögen", eh:"%",
+   a:"Prüft, in welchem Umfang das Anlagevermögen durch langfristig verfügbares Kapital gedeckt ist.",
+   ba:"Bilanz Aktiv- und Passivseite · Fristigkeitsangaben",
+   t:[
+     {r:"Zähler-Ausgangsgröße", n:"Gesamtkapital", q:"PAS-BS", s:"num"},
+     {r:"Zähler-Abzugsposition", n:"Anleihen – davon bis ein Jahr fällig", q:"PAS-12K", s:"num", v:-1},
+     {r:"Zähler-Abzugsposition", n:"Bankverbindlichkeiten – davon bis ein Jahr fällig", q:"PAS-13K", s:"num", v:-1},
+     {r:"Zähler-Abzugsposition", n:"Erhaltene Anzahlungen – davon bis ein Jahr fällig", q:"PAS-14K", s:"num", v:-1},
+     {r:"Zähler-Abzugsposition", n:"Verbindlichkeiten aus LuL – davon bis ein Jahr fällig", q:"PAS-15K", s:"num", v:-1},
+     {r:"Zähler-Abzugsposition", n:"Wechselverbindlichkeiten – davon bis ein Jahr fällig", q:"PAS-16K", s:"num", v:-1},
+     {r:"Zähler-Abzugsposition", n:"Verbindlichkeiten ggü. verbundenen Unternehmen – kurzfristig", q:"PAS-17K", s:"num", v:-1},
+     {r:"Zähler-Abzugsposition", n:"Verbindlichkeiten ggü. Beteiligungsunternehmen – kurzfristig", q:"PAS-18K", s:"num", v:-1},
+     {r:"Zähler-Abzugsposition", n:"Sonstige Verbindlichkeiten – davon bis ein Jahr fällig", q:"PAS-19K", s:"num", v:-1},
+     {r:"Zähler-Abzugsposition", n:"Rückstellungen – Inanspruchnahme innerhalb eines Jahres", q:"PAS-RSK", s:"num", v:-1},
+     {r:"Nenner", n:"Anlagevermögen gesamt", q:"AKT-AV", s:"den"},
+   ]},
+  {c:"F13", gr:"F", n:"Zinsdeckungsgrad", rw:"Operatives Ergebnis aus HGB-Positionen 1–8 / Zinsaufwand", eh:"x",
+   a:"Zeigt, wie oft das operative Ergebnis den Zinsaufwand deckt.",
+   ba:"GuV · gesetzliche Einzelpositionen",
+   t:[
+     {r:"Zählerbestandteil", n:"Umsatzerlöse", q:"GUV-01", s:"num"},
+     {r:"Zählerbestandteil", n:"Bestandsveränderungen", q:"GUV-02", s:"num"},
+     {r:"Zählerbestandteil", n:"andere aktivierte Eigenleistungen", q:"GUV-03", s:"num"},
+     {r:"Zählerbestandteil", n:"sonstige betriebliche Erträge", q:"GUV-04", s:"num"},
+     {r:"Zähler-Abzugsposition", n:"Materialaufwand", q:"GUV-05", s:"num", v:-1},
+     {r:"Zähler-Abzugsposition", n:"Personalaufwand", q:"GUV-06", s:"num", v:-1},
+     {r:"Zähler-Abzugsposition", n:"Abschreibungen", q:"GUV-07", s:"num", v:-1},
+     {r:"Zähler-Abzugsposition", n:"sonstige betriebliche Aufwendungen", q:"GUV-08", s:"num", v:-1},
+     {r:"Nenner", n:"Zinsen und ähnliche Aufwendungen", q:"GUV-13", s:"den"},
+   ]},
+  /* ---------- Ertragskennzahlen ---------- */
+  {c:"E1", gr:"E", n:"Personalkostenintensität", rw:"Personalaufwand (6a + 6b) / Gesamtleistung (1 + 2 + 3)", eh:"%",
+   a:"Misst den Anteil des Personalaufwands an der Gesamtleistung.",
+   ba:"GuV · gesetzliche Einzelpositionen",
+   t:[
+     {r:"Zählerbestandteil", n:"Löhne und Gehälter", q:"GUV-06a", s:"num"},
+     {r:"Zählerbestandteil", n:"soziale Abgaben und Altersversorgung", q:"GUV-06b", s:"num"},
+     {r:"Nennerbestandteil", n:"Umsatzerlöse", q:"GUV-01", s:"den"},
+     {r:"Nennerbestandteil", n:"Bestandsveränderungen", q:"GUV-02", s:"den"},
+     {r:"Nennerbestandteil", n:"andere aktivierte Eigenleistungen", q:"GUV-03", s:"den"},
+   ]},
+  {c:"E2", gr:"E", n:"Abschreibungsintensität", rw:"Abschreibungen (7a + 7b) / Gesamtleistung (1 + 2 + 3)", eh:"%",
+   a:"Zeigt die Belastung der Gesamtleistung durch den Werteverzehr langfristiger und gegebenenfalls kurzfristiger Vermögensgegenstände.",
+   ba:"GuV · gesetzliche Einzelpositionen",
+   t:[
+     {r:"Zählerbestandteil", n:"Abschreibungen auf Anlagevermögen", q:"GUV-07a", s:"num"},
+     {r:"Zählerbestandteil", n:"außerübliche Abschreibungen auf Umlaufvermögen", q:"GUV-07b", s:"num"},
+     {r:"Nennerbestandteil", n:"Umsatzerlöse", q:"GUV-01", s:"den"},
+     {r:"Nennerbestandteil", n:"Bestandsveränderungen", q:"GUV-02", s:"den"},
+     {r:"Nennerbestandteil", n:"andere aktivierte Eigenleistungen", q:"GUV-03", s:"den"},
+   ]},
+  {c:"E3", gr:"E", n:"Umsatzrentabilität", rw:"Ergebnis vor Steuern aus HGB-Positionen 1–13 / Umsatzerlöse", eh:"%",
+   a:"Zeigt, welcher Ergebnisanteil vor Steuern je Umsatzeinheit verbleibt.",
+   ba:"GuV · gesetzliche Einzelpositionen",
+   t:[
+     {r:"Zähler", n:"Ergebnis vor Steuern aus HGB-Positionen 1–13", q:"GUV-Z03", s:"num"},
+     {r:"Nenner", n:"Umsatzerlöse", q:"GUV-01", s:"den"},
+   ]},
+  {c:"E4", gr:"E", n:"Gesamtkapitalrentabilität", rw:"(Ergebnis vor Steuern aus HGB-Positionen 1–13 + Fremdkapitalzinsen) / Gesamtkapital", eh:"%",
+   a:"Misst die Verzinsung des gesamten eingesetzten Kapitals vor Steuern und vor Abzug der Fremdkapitalzinsen.",
+   ba:"GuV · Bilanz Passivseite",
+   t:[
+     {r:"Zähler", n:"Ergebnis vor Steuern aus HGB-Positionen 1–13", q:"GUV-Z03", s:"num"},
+     {r:"Zählerbestandteil", n:"Zinsen und ähnliche Aufwendungen", q:"GUV-13", s:"num"},
+     {r:"Nenner", n:"Bilanzsumme / Gesamtkapital", q:"PAS-BS", s:"den"},
+   ]},
+  {c:"E5", gr:"E", n:"Eigenkapitalrentabilität HGB", rw:"Jahresüberschuss / HGB-Eigenkapital", eh:"%",
+   a:"Zeigt die rechnerische Verzinsung des bilanziellen Eigenkapitals.",
+   ba:"GuV · Bilanz Passivseite",
+   t:[
+     {r:"Zähler", n:"Jahresüberschuss/Jahresfehlbetrag", q:"GUV-17", s:"num"},
+     {r:"Nenner", n:"Eigenkapital gesamt", q:"PAS-EK", s:"den"},
+   ]},
+  {c:"E6", gr:"E", n:"EK-Rentabilität wirtschaftliches EK", rw:"Jahresüberschuss / (HGB-Eigenkapital + Gesellschafterdarlehen)", eh:"%",
+   a:"Bezieht den Jahresüberschuss auf das um wirtschaftliches Eigenkapital erweiterte Haftungskapital.",
+   ba:"GuV · Bilanz Passivseite",
+   t:[
+     {r:"Zähler", n:"Jahresüberschuss/Jahresfehlbetrag", q:"GUV-17", s:"num"},
+     {r:"Nennerbestandteil", n:"Eigenkapital gesamt", q:"PAS-EK", s:"den"},
+     {r:"Nennerbestandteil", n:"Gesellschafterdarlehen", q:"PAS-19G", s:"den"},
+   ]},
+  {c:"E7", gr:"E", n:"Aktivierungskennzahl eigener Entwicklungsleistungen", rw:"aktivierte eigene Entwicklungsleistungen / interne Entwicklungsaufwendungen", eh:"%",
+   a:"Zeigt, welcher Anteil interner Entwicklungsaufwendungen aktiviert und damit nicht vollständig als Aufwand der Periode erfasst wird.",
+   ba:"GuV · Zusatzangabe aus dem HGB-Anhang",
+   t:[
+     {r:"Zähler", n:"andere aktivierte Eigenleistungen", q:"GUV-03", s:"num"},
+     {r:"Nenner", n:"Interne Entwicklungsaufwendungen", q:"ZUS-ENTW", s:"den"},
+   ]},
+];
+/* =====================================================================
+   3 · Der Zustand
+
+   Gerechnet wird aus zwei Wertesaetzen und nie aus dem DOM. FALL
+   haelt die Vorlage und bleibt unberuehrt, damit sich jede Aenderung
+   dagegen zeigen laesst. W haelt, was gerade in den Feldern steht.
+
+   Ein Wertesatz ordnet jeder Eingabeposition ein Feld mit einem Eintrag
+   je Jahr zu. Gerechnete Positionen stehen dort nicht, da sie sich aus
+   den Eingaben ergeben.
+   ===================================================================== */
+const MAXJAHRE = 6;                 /* wie in der Vorlage */
+const FALLJAHRE = 3;                /* so viele bringt der Fall mit */
+let JAHRE = FALLJAHRE;
+let JSTART = 1;                     /* 1 ergibt "Jahr 1", sonst Kalenderjahre */
+
+const EINGABE = POS.filter(p => p.t === "e" || p.t === "d");
+const GERECHNET = POS.filter(p => p.t === "f" || p.t === "k");
+const NACH = {};
+POS.forEach(p => { if(p.i) NACH[p.i] = p; });
+NACH[ZUSATZ.i] = {i:ZUSATZ.i, t:"e", b:ZUSATZ.b, h:ZUSATZ.h, w:ZUSATZ.w, bl:"zus"};
+
+function frischerSatz(ausVorlage){
+  const s = {};
+  EINGABE.concat([NACH[ZUSATZ.i]]).forEach(p => {
+    s[p.i] = [];
+    for(let j = 0; j < MAXJAHRE; j++)
+      s[p.i][j] = (ausVorlage && p.w && p.w[j] != null) ? p.w[j] : null;
+  });
+  return s;
+}
+const FALL = frischerSatz(true);
+let W = frischerSatz(true);
+
+/* =====================================================================
+   4 · Die Rechnung
+
+   Eine gerechnete Position addiert ihre Glieder, ein fuehrendes Minus
+   zieht ab. Fehlt jedes Glied, bleibt die Zeile leer, statt eine Null
+   zu behaupten: ein nicht ausgefuelltes Jahr ist keine Null.
+
+   Die Zwischenergebnisse werden je Wertesatz gemerkt, da eine Kennzahl
+   wie F5 neun Bestandteile hat und die Bilanzsumme mehrfach abfragt.
+   ===================================================================== */
+const SPEICHER = new WeakMap();
+function merker(q){
+  if(!SPEICHER.has(q)) SPEICHER.set(q, new Map());
+  return SPEICHER.get(q);
+}
+function vergessen(q){ SPEICHER.delete(q); }
+
+function wert(id, j, q, tiefe){
+  const p = NACH[id];
+  if(!p) return null;
+  if(p.t === "e" || p.t === "d"){
+    const s = q[id];
+    return s && s[j] != null ? s[j] : null;
+  }
+  if(p.t !== "f" && p.t !== "k") return null;
+  const m = merker(q), schl = id + "|" + j;
+  if(m.has(schl)) return m.get(schl);
+  if((tiefe || 0) > 14) return null;        /* gegen einen Ringbezug */
+  let summe = 0, leer = true;
+  for(const g of p.gl){
+    const ab = g.charAt(0) === "-";
+    const v = wert(ab ? g.slice(1) : g, j, q, (tiefe || 0) + 1);
+    if(v != null){ summe += ab ? -v : v; leer = false; }
+  }
+  const erg = leer ? null : summe;
+  m.set(schl, erg);
+  return erg;
+}
+
+/* Eine Kennzahl teilt ihre Glieder in Zaehler und Nenner. Ohne Nenner
+   ist das Ergebnis der Zaehler selbst, was auf die beiden Groessen des
+   Working Capital zutrifft (F9 und F10). */
+function kennzahl(k, j, q){
+  let zaehler = 0, nenner = 0, hatNenner = false;
+  for(const t of k.t){
+    const v = wert(t.q, j, q);
+    if(v == null) return null;
+    if(t.s === "num") zaehler += (t.v || 1) * v;
+    else { nenner += (t.v || 1) * v; hatNenner = true; }
+  }
+  if(!hatNenner) return zaehler;
+  if(nenner === 0) return null;
+  return zaehler / nenner * (k.t365 ? 365 : 1);
+}
+
+/* =====================================================================
+   5 · Der Weg von unten nach oben
+
+   Die Vorlage zeigt zu jeder Kennzahl ihre Bestandteile. Die
+   Gegenrichtung fehlt dort, weil eine Tabelle sie nicht hergibt: an
+   welcher Kennzahl haengt diese eine HGB-Position? Dafuer wird jede
+   Herleitung bis auf ihre Eingabezeilen aufgeloest und danach
+   umgedreht.
+   ===================================================================== */
+function blaetter(id, aus){
+  aus = aus || new Set();
+  const p = NACH[id];
+  if(!p) return aus;
+  if(p.t === "f" || p.t === "k"){
+    p.gl.forEach(g => blaetter(g.charAt(0) === "-" ? g.slice(1) : g, aus));
+  } else {
+    aus.add(id);
+  }
+  return aus;
+}
+const HAENGT = {};                  /* Positions-ID -> [Kennzahlencodes] */
+KZ.forEach(k => {
+  const alle = new Set();
+  k.t.forEach(t => blaetter(t.q, alle));
+  alle.forEach(id => { (HAENGT[id] = HAENGT[id] || []).push(k.c); });
+});
+
+/* =====================================================================
+   6 · Zahlen anschreiben
+
+   Die Vorlage gibt je Kennzahl eine Einheit vor. Sie entscheidet ueber
+   die Darstellung, nicht ueber die Rechnung.
+   ===================================================================== */
+const nf = (v, n) => v.toLocaleString("de-DE", {minimumFractionDigits:n, maximumFractionDigits:n});
+const teuro = v => nf(Math.round(v), 0);
+function zeige(v, einheit){
+  if(v == null) return "";
+  if(einheit === "%")    return nf(v * 100, 1) + " %";
+  if(einheit === "x")    return nf(v, 2) + " x";
+  if(einheit === "Tage") return nf(v, 1) + " Tage";
+  return teuro(v);
+}
+function lesen(s){
+  const t = String(s).replace(/[.\s ]/g, "").replace(",", ".").trim();
+  if(t === "" || t === "-" || t === "−") return null;
+  const v = Number(t);
+  return Number.isFinite(v) ? Math.round(v) : null;
+}
+const jahrName = j => JSTART === 1 ? "Jahr " + (j + 1) : String(JSTART + j);
+
+/* =====================================================================
+   7 · Die Abschlussblaetter
+
+   Eine Zeile je Position, die Art der Zeile entscheidet ueber ihre
+   Darstellung. Eingaben bekommen ein Feld, gerechnete Zeilen einen
+   Wert ohne Feld. Damit laesst sich keine Summe von Hand setzen, weshalb
+   die Kontrolldifferenz ihre Aussage behaelt.
+   ===================================================================== */
+function blattZeichnen(tabelle, blatt, titel){
+  const el = $(tabelle);
+  if(!el) return;
+  let h = "<thead><tr><th class='l'>" + esc(titel) + "</th>";
+  for(let j = 0; j < JAHRE; j++) h += "<th>" + esc(jahrName(j)) + "</th>";
+  h += "</tr></thead><tbody>";
+  POS.filter(p => p.bl === blatt).forEach(p => {
+    if(p.t === "g"){
+      h += "<tr class='gl'><td colspan='" + (JAHRE + 1) + "'>" + esc(p.b) + "</td></tr>";
+      return;
+    }
+    const art = p.t === "f" ? "fo" : p.t === "d" ? "da" : p.t === "k" ? "ko" : "";
+    const schief = p.t === "k" && [...Array(JAHRE).keys()]
+      .some(j => { const v = wert(p.i, j, W); return v != null && Math.abs(v) > 0.5; });
+    h += "<tr class='" + art + (schief ? " schief" : "") + "' data-pos='" + esc(p.i) + "'>";
+    h += "<td class='pos'>" + esc(p.b);
+    h += "<span class='kid'>" + esc(p.i) + (p.h ? " · " + esc(p.h) : "") + "</span>";
+    const kz = HAENGT[p.i];
+    if(kz && kz.length){
+      h += "<span class='haengt'>" + kz.map(c =>
+        "<button class='kzchip' data-zu='" + c + "' title='" + esc(kzName(c))
+        + "'>" + c + "</button>").join("") + "</span>";
+    }
+    h += "</td>";
+    for(let j = 0; j < JAHRE; j++){
+      if(p.t === "e" || p.t === "d"){
+        const v = W[p.i] ? W[p.i][j] : null;
+        h += "<td class='n'><input type='text' inputmode='numeric' "
+          + "data-id='" + esc(p.i) + "' data-j='" + j + "' value='"
+          + (v == null ? "" : teuro(v)) + "' aria-label='"
+          + esc(p.b + ", " + jahrName(j)) + "'></td>";
+      } else {
+        const v = wert(p.i, j, W);
+        h += "<td class='n'>" + (v == null ? "–" : teuro(v)) + "</td>";
+      }
+    }
+    h += "</tr>";
+  });
+  el.innerHTML = h + "</tbody>";
+}
+const kzName = c => { const k = KZ.find(x => x.c === c); return k ? k.c + " " + k.n : c; };
+
+/* =====================================================================
+   8 · Die Kennzahlenkarten
+
+   Eine Karte je Kennzahl mit dem Wert je Jahr, dem Rechenweg als Text
+   und der Herleitung zum Aufklappen. Die Herleitung nennt je Glied
+   seine Rolle, seinen Betrag und die Position, aus der er stammt. Der
+   Verweis auf die Position ist anklickbar, wodurch der Weg von der
+   Kennzahl bis zur HGB-Zeile begehbar wird.
+
+   Bewusst ohne Bewertungsfarbe. Die Vorlage sagt zur Ergebnisflaeche,
+   sie kennzeichne berechnete Werte und stelle keine Bewertung dar.
+   Gezeigt wird deshalb die Veraenderung gegenueber dem Vorjahr als
+   Betrag, ohne Ampel.
+   ===================================================================== */
+function kzKarte(k){
+  const geaendert = [...Array(JAHRE).keys()].some(j => {
+    const a = kennzahl(k, j, W), b = kennzahl(k, j, FALL);
+    if(a == null && b == null) return false;
+    if(a == null || b == null) return true;
+    return Math.abs(a - b) > 1e-9;
+  });
+  let h = "<article class='kzk" + (geaendert ? " geaendert" : "") + "' id='kzk-" + k.c + "'>";
+  h += "<header><span class='code'>" + k.c + "</span>"
+     + "<h3>" + esc(k.n) + "</h3>"
+     + "<p class='rw'>" + esc(k.rw) + "</p></header>";
+  h += "<div class='kzreihe'>";
+  for(let j = 0; j < JAHRE; j++){
+    const v = kennzahl(k, j, W);
+    const vor = j > 0 ? kennzahl(k, j - 1, W) : null;
+    let d = "";
+    if(v != null && vor != null){
+      const diff = v - vor;
+      const pfeil = diff > 0 ? "↑" : diff < 0 ? "↓" : "→";
+      d = pfeil + " " + zeige(Math.abs(diff), k.eh);
+    }
+    h += "<div><span class='jn'>" + esc(jahrName(j)) + "</span>"
+       + "<span class='jw'>" + (v == null ? "–" : esc(zeige(v, k.eh))) + "</span>"
+       + "<span class='jd'>" + esc(d) + "</span></div>";
+  }
+  h += "</div>";
+  if(k.a) h += "<p class='aussage'>" + esc(k.a) + "</p>";
+  h += "<button class='auf' data-kz='" + k.c + "' aria-expanded='false' "
+     + "aria-controls='herl-" + k.c + "'>Herleitung, " + k.t.length
+     + (k.t.length === 1 ? " Glied" : " Glieder") + "</button>";
+  h += "<div class='herl' id='herl-" + k.c + "' hidden>" + herleitung(k) + "</div>";
+  return h + "</article>";
+}
+
+/* Die Herleitung als Tabelle, danach die Rechnung mit eingesetzten
+   Zahlen. Eine Formel, die sich nicht nachrechnen laesst, ist eine
+   Behauptung. */
+function herleitung(k){
+  let h = "<table><thead><tr><th>Glied der Rechnung</th>";
+  for(let j = 0; j < JAHRE; j++) h += "<th class='r'>" + esc(jahrName(j)) + "</th>";
+  h += "<th>Position</th></tr></thead><tbody>";
+  k.t.forEach(t => {
+    h += "<tr" + (t.s === "den" ? " class='den'" : "") + ">";
+    h += "<td><span class='rolle'>" + esc(t.r) + (t.v === -1 ? " · abgezogen" : "")
+       + "</span>" + esc(t.n) + "</td>";
+    for(let j = 0; j < JAHRE; j++){
+      const v = wert(t.q, j, W);
+      h += "<td class='n'>" + (v == null ? "–" : (t.v === -1 ? "−" : "") + teuro(v)) + "</td>";
+    }
+    h += "<td><button class='kzchip' data-pos='" + esc(t.q) + "'>" + esc(t.q) + "</button></td>";
+    h += "</tr>";
+  });
+  h += "</tbody></table>";
+  h += "<div class='rechnung'>" + rechnung(k) + "</div>";
+  return h;
+}
+
+/* Die Rechnung je Jahr mit eingesetzten Betraegen. */
+function rechnung(k){
+  const zeilen = [];
+  for(let j = 0; j < JAHRE; j++){
+    const num = [], den = [];
+    let ok = true;
+    k.t.forEach(t => {
+      const v = wert(t.q, j, W);
+      if(v == null){ ok = false; return; }
+      const s = (t.v === -1 ? "− " : num.length + den.length ? "+ " : "") + teuro(v);
+      (t.s === "num" ? num : den).push({s:s, erst:!(t.s === "num" ? num : den).length});
+    });
+    if(!ok){ zeilen.push(esc(jahrName(j)) + ": noch nicht vollständig"); continue; }
+    const glied = a => a.map((x, i) => i === 0 ? x.s.replace(/^\+ /, "") : x.s).join(" ");
+    const zt = num.length > 1 ? "(" + glied(num) + ")" : glied(num);
+    const nt = den.length > 1 ? "(" + glied(den) + ")" : glied(den);
+    const erg = kennzahl(k, j, W);
+    let r = zt;
+    if(den.length) r += " ÷ " + nt;
+    if(k.t365) r += " × 365";
+    zeilen.push(esc(jahrName(j)) + ": " + r + " = <b>" + esc(zeige(erg, k.eh)) + "</b>");
+  }
+  return zeilen.join("<br>");
+}
+
+function kzZeichnen(){
+  ["V", "F", "E"].forEach(g => {
+    const el = $("kz-" + g);
+    if(el) el.innerHTML = KZ.filter(k => k.gr === g).map(kzKarte).join("");
+  });
+  const z = $("zusatzbox");
+  if(z){
+    z.innerHTML = "<b>" + esc(ZUSATZ.b) + ".</b> "
+      + [...Array(JAHRE).keys()].map(j => esc(jahrName(j)) + ": "
+          + (W[ZUSATZ.i][j] == null ? "–" : teuro(W[ZUSATZ.i][j]) + " T€")).join(" · ")
+      + "<br>" + esc(ZUSATZ.h)
+      + "<br><label style='display:inline-flex;gap:8px;align-items:center;margin-top:10px'>"
+      + "<span style='font-size:1.06rem'>Eigener Wert für " + esc(jahrName(JAHRE - 1)) + ":</span>"
+      + "<input type='text' inputmode='numeric' data-id='" + ZUSATZ.i + "' data-j='" + (JAHRE - 1)
+      + "' value='" + (W[ZUSATZ.i][JAHRE-1] == null ? "" : teuro(W[ZUSATZ.i][JAHRE-1]))
+      + "' style='width:110px;font-family:var(--mono);font-size:1.08rem;padding:5px 7px;"
+      + "border:1px solid var(--grey-mid);border-radius:6px;text-align:right'></label>";
+  }
+}
+
+/* Aufklappen einer einzelnen Herleitung sowie aller auf einmal. */
+document.addEventListener("click", e => {
+  const b = e.target.closest(".auf");
+  if(!b) return;
+  const ziel = $(b.getAttribute("aria-controls"));
+  const offen = b.getAttribute("aria-expanded") === "true";
+  b.setAttribute("aria-expanded", String(!offen));
+  if(ziel) ziel.hidden = offen;
+});
+function alleHerleitungen(gruppe, offen){
+  KZ.filter(k => k.gr === gruppe).forEach(k => {
+    const b = document.querySelector('.auf[data-kz="' + k.c + '"]');
+    const z = $("herl-" + k.c);
+    if(b && z){ b.setAttribute("aria-expanded", String(offen)); z.hidden = !offen; }
+  });
+}
+[["D", "V"], ["F", "F"]].forEach(([s, g]) => {
+  const auf = $("kzAuf" + s), zu = $("kzZu" + s);
+  if(auf) auf.addEventListener("click", () => {
+    alleHerleitungen(g, true);
+    if(g === "V") alleHerleitungen("E", true);
+    melde("kzMsg" + s, "Alle Herleitungen stehen offen.");
+  });
+  if(zu) zu.addEventListener("click", () => {
+    alleHerleitungen(g, false);
+    if(g === "V") alleHerleitungen("E", false);
+    melde("kzMsg" + s, "");
+  });
+});
+function melde(id, text){ const el = $(id); if(el) el.textContent = text; }
+
+/* =====================================================================
+   9 · Die Verweise zwischen den Lektionen
+
+   Ein Verweis auf eine Kennzahl springt in ihre Lektion und klappt ihre
+   Herleitung auf. Ein Verweis auf eine Position springt in das Blatt
+   ihrer Zeile und hebt sie hervor. Damit ist der Weg in beide
+   Richtungen begehbar.
+   ===================================================================== */
+const LEKTION_DER_GRUPPE = {V:"d", E:"d", F:"e"};
+const LEKTION_DES_BLATTS = {guv:"b", akt:"c", pas:"c", zus:"d"};
+
+function zeigeKennzahl(code){
+  const k = KZ.find(x => x.c === code);
+  if(!k) return;
+  waehle(LEKTION_DER_GRUPPE[k.gr]);
+  const b = document.querySelector('.auf[data-kz="' + code + '"]');
+  const z = $("herl-" + code), karte = $("kzk-" + code);
+  if(b && z){ b.setAttribute("aria-expanded", "true"); z.hidden = false; }
+  if(karte){
+    oeffneBlockVon(karte);
+    karte.scrollIntoView({block:"center", behavior:"smooth"});
+    karte.animate([{outline:"3px solid var(--orange)"}, {outline:"3px solid transparent"}],
+                  {duration:1600});
+  }
+}
+function zeigePosition(id){
+  const p = NACH[id];
+  if(!p) return;
+  waehle(LEKTION_DES_BLATTS[p.bl] || "b");
+  const zeile = document.querySelector('tr[data-pos="' + id + '"]');
+  if(zeile){
+    oeffneBlockVon(zeile);
+    document.querySelectorAll("tr.tr").forEach(t => t.classList.remove("tr"));
+    zeile.classList.add("tr");
+    zeile.scrollIntoView({block:"center", behavior:"smooth"});
+  }
+}
+document.addEventListener("click", e => {
+  const c = e.target.closest(".kzchip");
+  if(!c) return;
+  if(c.dataset.zu) zeigeKennzahl(c.dataset.zu);
+  else if(c.dataset.pos) zeigePosition(c.dataset.pos);
+});
+
+/* =====================================================================
+   10 · Lektion 01: das Unternehmen
+
+   Die Angaben stammen aus den vier Rechercheunterlagen zum Fall. Sie
+   sind hier zusammengestellt, ohne Bewertung und ohne Ergaenzung.
+   ===================================================================== */
+const STECK = [
+  ["Unternehmen", "Plum Systems AG"],
+  ["Frühere Firmierung", "Plum Industrieelektronik AG"],
+  ["Sitz", "Iserlohn, Nordrhein-Westfalen"],
+  ["Rechtsform", "Aktiengesellschaft, nicht börsennotiert"],
+  ["Gründung", "vor rund 100 Jahren"],
+  ["Branche", "Industrieelektronik und industrielle Systemlösungen"],
+  ["Beschäftigte", "rund 390"],
+  ["Vorstandsvorsitzender", "Heinz Bellheim"],
+  ["Unternehmensführung", "familienfremder Vorstand, dazu ein Aufsichtsrat"],
+  ["Eigentümerstruktur", "Familienstamm Plum 70 %, Familienstamm Horn 30 %"],
+  ["Familienvertreter", "Andreas Plum, Elisabeth „Lisa“ Horn"],
+  ["Hauptkundengruppen", "Unternehmen des Maschinen- und Anlagenbaus"],
+  ["Leistungsangebot", "Sensorboxen, elektronische Steuerungsmodule sowie softwaregestützte Informations- und Systemlösungen"],
+  ["Digitale Plattform", "PS 4.0"],
+  ["Unternehmensclaim", "„Elektronik. Informationen. Systeme.“"]
+];
+const sb = $("steckbrief");
+if(sb) sb.innerHTML = STECK.map(([a, b]) =>
+  "<dt>" + esc(a) + "</dt><dd>" + esc(b) + "</dd>").join("");
+
+const QUELLEN = [
+  {art:"Rechercheassistent", t:"Unternehmenssteckbrief und Kurzprofil",
+   p:"Ein KI-gestützter Assistent fasst zusammen, was über das Unternehmen zu finden ist. Genannt werden Sitz, Rechtsform, Beschäftigtenzahl, Eigentümerstruktur sowie das Leistungsangebot. Das Kurzprofil ordnet die Umbenennung vor etwa zehn Jahren als Ausdruck der strategischen Weiterentwicklung ein.",
+   z:"Angaben können unvollständig sein und sollten mit Originalquellen abgeglichen werden.",
+   wo:"Hinweis des Assistenten am Ende der Ausgabe"},
+  {art:"Unternehmensfeed", t:"100 Jahre Plum, aus Iserlohn in die Welt der Industrie",
+   p:"Ein Beitrag zum Jubiläum, veröffentlicht vor drei Jahren. Er beschreibt den Weg von elektrotechnischen Bauteilen über die Industrieelektronik bis zu heutigen Systemlösungen und dankt Mitarbeitenden, Kunden sowie den Eigentümerfamilien.",
+   z:"Unsere Geschichte verpflichtet uns nicht, an Bewährtem festzuhalten. Sie gibt uns vielmehr die Erfahrung, Neues zu wagen.",
+   wo:"Heinz Bellheim, Vorstandsvorsitzender"},
+  {art:"Regionalzeitung", t:"„Tradition allein ist kein Geschäftsmodell“",
+   p:"Ein Interview in der Jubiläumsausgabe, geführt mit dem Vorstandsvorsitzenden sowie den Vertretern beider Eigentümerfamilien. Es erläutert die Umbenennung, den Wandel vom einzelnen Bauteil zur Lösung und die Bedeutung der Plattform PS 4.0.",
+   z:"Eine solche Entwicklung ist allerdings kein gewöhnliches Produktupdate. Sie verlangt technologische Vorarbeit, intensive Abstimmung zwischen verschiedenen Fachbereichen und eine enge Zusammenarbeit mit ausgewählten Kunden. Dafür braucht man auch Geduld.",
+   wo:"Heinz Bellheim zur Entwicklung von PS 4.0"},
+  {art:"Unternehmensfeed", t:"PS 4.0 erreicht einen Meilenstein",
+   p:"Ein Beitrag von vor zwei Jahren. Nach mehrjähriger Entwicklungsarbeit verbindet die Plattform Sensorboxen und Steuerungsmodule mit einer Umgebung zur Auswertung von Zustandsdaten. Mit ausgewählten Pilotkunden werden erste Anwendungen unter realen Bedingungen erprobt.",
+   z:"Mit PS 4.0 verbinden wir unsere langjährige Erfahrung in der Industrieelektronik mit den Möglichkeiten datenbasierter Systemlösungen.",
+   wo:"Heinz Bellheim, Vorstandsvorsitzender"}
+];
+const qg = $("quellen");
+if(qg) qg.innerHTML = QUELLEN.map(q =>
+  "<article class='qk'><span class='art'>" + esc(q.art) + "</span>"
+  + "<h3>" + esc(q.t) + "</h3><p>" + esc(q.p) + "</p>"
+  + "<blockquote>" + esc(q.z) + "</blockquote>"
+  + "<p class='wo'>" + esc(q.wo) + "</p></article>").join("");
+
+/* =====================================================================
+   11 · Die Nebentabellen
+
+   Drei Auszuege aus den Blaettern, jeder mit einem eigenen Zweck: die
+   Zwischensalden, die davon-Angaben der Erfolgsrechnung sowie die
+   Fristigkeiten der Passivseite. Sie stehen hier, damit sich ueber sie
+   sprechen laesst, ohne im ganzen Blatt zu suchen.
+   ===================================================================== */
+function nebenTabelle(ziel, ids, kopf){
+  const el = $(ziel);
+  if(!el) return;
+  let h = "<thead><tr><th>" + esc(kopf) + "</th>";
+  for(let j = 0; j < JAHRE; j++) h += "<th style='text-align:right'>" + esc(jahrName(j)) + "</th>";
+  h += "<th>Position</th></tr></thead><tbody>";
+  ids.forEach(id => {
+    const p = NACH[id];
+    if(!p) return;
+    h += "<tr><td>" + esc(p.b) + (p.h ? "<span class='kid'>" + esc(p.h) + "</span>" : "") + "</td>";
+    for(let j = 0; j < JAHRE; j++){
+      const v = wert(id, j, W);
+      h += "<td class='n'>" + (v == null ? "–" : teuro(v)) + "</td>";
+    }
+    h += "<td><button class='kzchip' data-pos='" + esc(id) + "'>" + esc(id) + "</button></td></tr>";
+  });
+  el.innerHTML = h + "</tbody>";
+}
+
+/* Die neun Bestandteile des kurzfristigen Fremdkapitals stehen in der
+   Vorlage als Nenner von F5. Von dort werden sie gelesen, damit beide
+   Stellen nicht auseinanderlaufen. */
+const KFK = (KZ.find(k => k.c === "F5") || {t:[]}).t
+  .filter(t => t.s === "num").map(t => t.q);
+
+function zwischenKarten(){
+  const el = $("zwischen");
+  if(!el) return;
+  el.innerHTML = POS.filter(p => p.i && /^GUV-Z/.test(p.i)).map(p => {
+    const kurz = String(p.b).split(":")[1] || p.b;
+    return "<div class='card' style='border-left:3px solid var(--ochre)'>"
+      + "<p class='ck'>" + esc(p.i) + "</p><h3>" + esc(kurz.trim()) + "</h3>"
+      + "<p style='font-family:var(--mono);font-size:1.06rem;color:var(--grey)'>"
+      + esc(p.h || "") + "</p><p>"
+      + [...Array(JAHRE).keys()].map(j => {
+          const v = wert(p.i, j, W);
+          return esc(jahrName(j)) + ": <b>" + (v == null ? "–" : teuro(v)) + "</b>";
+        }).join(" · ")
+      + "</p></div>";
+  }).join("");
+}
+
+/* =====================================================================
+   12 · Die Jahre, das Leeren und die Datei
+   ===================================================================== */
+const LEGENDE = [
+  ["Eingabe", "Hellgelb mit blauer Schrift", "Ein Feld zum Eintragen. Die Jahre 1 bis 3 sind vorbelegt, weitere Jahre lassen sich ergänzen."],
+  ["Formel", "Hellblau", "Wird aus den Positionen darunter gerechnet und ist nicht tippbar. Überschreiben ließe die Probe jeden Wert bestätigen."],
+  ["Kennzahlenergebnis", "Hellgraublau", "Eine reine Ergebnismarkierung. Sie drückt keine positive oder negative Bewertung aus."]
+];
+const lg = $("tab-legende");
+if(lg) lg.innerHTML = "<thead><tr><th>Art</th><th>In der Vorlage</th><th>Bedeutung</th></tr></thead><tbody>"
+  + LEGENDE.map(([a, b, c]) => "<tr><td class='crit'>" + esc(a) + "</td><td class='m'>"
+      + esc(b) + "</td><td>" + esc(c) + "</td></tr>").join("") + "</tbody>";
+
+function standText(){
+  const el = $("standBox");
+  if(!el) return;
+  const gefuellt = EINGABE.filter(p => W[p.i] && W[p.i][JAHRE-1] != null).length;
+  const abw = EINGABE.filter(p => {
+    for(let j = 0; j < JAHRE; j++) if((W[p.i]||[])[j] !== (FALL[p.i]||[])[j]) return true;
+    return false;
+  }).length;
+  el.innerHTML = "<b>Stand.</b> " + JAHRE + " Jahre sichtbar, benannt als "
+    + esc(jahrName(0)) + " bis " + esc(jahrName(JAHRE - 1)) + ". "
+    + "Im letzten Jahr sind " + gefuellt + " von " + EINGABE.length
+    + " Eingabepositionen gefüllt."
+    + (abw ? " Gegenüber der Vorlage weichen <b>" + abw + "</b> Positionen ab, weshalb die "
+             + "betroffenen Kennzahlenkarten einen Rand bekommen." 
+           : " Alle Werte entsprechen der Vorlage.");
+}
+
+function allesZeichnen(){
+  vergessen(W); vergessen(FALL);
+  blattZeichnen("tab-guv", "guv", "Gewinn- und Verlustrechnung");
+  blattZeichnen("tab-akt", "akt", "Bilanz, Aktivseite");
+  blattZeichnen("tab-pas", "pas", "Bilanz, Passivseite");
+  nebenTabelle("tab-davon-guv", POS.filter(p => p.bl === "guv" && p.t === "d").map(p => p.i),
+               "davon-Angabe der Erfolgsrechnung");
+  nebenTabelle("tab-frist", POS.filter(p => p.bl === "pas" && p.t === "d" && /K$/.test(p.i))
+               .map(p => p.i), "Fristigkeitsangabe der Passivseite");
+  nebenTabelle("tab-kfk", KFK, "Bestandteil des kurzfristigen Fremdkapitals");
+  zwischenKarten();
+  kzZeichnen();
+  jahrLeisten();
+  standText();
+}
+
+/* Die Jahresleiste steht ueber beiden Blaettern und steuert, wie die
+   Jahre heissen. Die Vorlage kann das ebenso: eine 1 ergibt Jahr 1 bis
+   Jahr 6, ein Jahreszahl ergibt Kalenderjahre. */
+function jahrLeisten(){
+  ["jl-b", "jl-c"].forEach(id => {
+    const el = $(id);
+    if(!el) return;
+    el.innerHTML = "<span class='jl'>Jahre</span>"
+      + "<b style='font-family:var(--mono)'>" + esc(jahrName(0)) + " bis "
+      + esc(jahrName(JAHRE - 1)) + "</b>"
+      + "<span class='sep'></span>"
+      + "<label class='jl' for='js-" + id + "'>Erstes Geschäftsjahr</label>"
+      + "<input type='number' id='js-" + id + "' value='" + JSTART
+      + "' min='1' step='1' data-jstart='1' "
+      + "aria-label='Erstes Geschäftsjahr, 1 ergibt Jahr 1 bis Jahr 6'>"
+      + "<span class='jl'>1 ergibt Jahr 1</span>";
+  });
+}
+
+document.addEventListener("input", e => {
+  const el = e.target;
+  if(el.dataset && el.dataset.jstart){
+    const v = parseInt(el.value, 10);
+    JSTART = Number.isFinite(v) && v > 0 ? v : 1;
+    allesZeichnen();
+    return;
+  }
+  if(!el.dataset || !el.dataset.id) return;
+  const id = el.dataset.id, j = parseInt(el.dataset.j, 10);
+  if(!W[id]) W[id] = [];
+  W[id][j] = lesen(el.value);
+  vergessen(W);
+  /* Beim Tippen werden allein die abhaengigen Anzeigen erneuert, damit
+     der Schreibfleck im Feld bleibt. */
+  blattZeichnenWerte();
+  kzZeichnen();
+  zwischenKarten();
+  standText();
+});
+
+/* Erneuert allein die gerechneten Zellen und die Kontrollzeilen, ohne
+   die Eingabefelder neu zu bauen. */
+function blattZeichnenWerte(){
+  POS.filter(p => p.t === "f" || p.t === "k").forEach(p => {
+    const zeile = document.querySelector('tr[data-pos="' + p.i + '"]');
+    if(!zeile) return;
+    const zellen = zeile.querySelectorAll("td.n");
+    for(let j = 0; j < JAHRE && j < zellen.length; j++){
+      const v = wert(p.i, j, W);
+      zellen[j].textContent = v == null ? "–" : teuro(v);
+    }
+    if(p.t === "k"){
+      const schief = [...Array(JAHRE).keys()]
+        .some(j => { const v = wert(p.i, j, W); return v != null && Math.abs(v) > 0.5; });
+      zeile.classList.toggle("schief", schief);
+    }
+  });
+  ["tab-davon-guv", "tab-frist", "tab-kfk"].forEach(id => {
+    const el = $(id);
+    if(el) el.querySelectorAll("tbody tr").forEach(tr => {
+      const chip = tr.querySelector(".kzchip");
+      if(!chip) return;
+      const zellen = tr.querySelectorAll("td.n");
+      for(let j = 0; j < JAHRE && j < zellen.length; j++){
+        const v = wert(chip.dataset.pos, j, W);
+        zellen[j].textContent = v == null ? "–" : teuro(v);
+      }
+    });
+  });
+}
+
+$("jahrPlus").addEventListener("click", () => {
+  if(JAHRE >= MAXJAHRE){ melde("jahrMsg", "Mehr als " + MAXJAHRE + " Jahre sieht die Vorlage nicht vor."); return; }
+  JAHRE++; allesZeichnen();
+  melde("jahrMsg", esc(jahrName(JAHRE - 1)) + " steht jetzt als leere Spalte da.");
+});
+$("jahrMinus").addEventListener("click", () => {
+  if(JAHRE <= FALLJAHRE){ melde("jahrMsg", "Die drei Jahre des Falls bleiben stehen."); return; }
+  JAHRE--; allesZeichnen();
+  melde("jahrMsg", "Die letzte Spalte ist entfernt. Die Werte darin bleiben erhalten.");
+});
+$("leeren").addEventListener("click", () => {
+  W = frischerSatz(false); allesZeichnen();
+  melde("jahrMsg", "Alle Eingabefelder sind leer. Die Kontrolldifferenz in Lektion 03 ist Deine Rückmeldung.");
+});
+$("fallZurueck").addEventListener("click", () => {
+  W = frischerSatz(true); JAHRE = FALLJAHRE; allesZeichnen();
+  melde("jahrMsg", "Die Werte der Vorlage stehen wieder da.");
+});
+
+/* ---------- Als Datei mitnehmen ----------
+   Ueber file:// gibt es keinen Server, an den sich etwas schicken
+   liesse; localStorage ist im ganzen Projekt ausgeschlossen. Ein Blob
+   als Download und ein FileReader beim Laden kommen ohne beides aus.  */
+const FORMAT = "plum-jahresabschluss", FASSUNG = 1;
+function alsDatei(){
+  const werte = {};
+  Object.keys(W).forEach(id => {
+    const s = W[id].slice(0, JAHRE);
+    if(s.some(v => v != null)) werte[id] = s;
+  });
+  return {format:FORMAT, fassung:FASSUNG, jahre:JAHRE, erstesJahr:JSTART, werte:werte};
+}
+$("spSpeichern").addEventListener("click", () => {
+  const d = alsDatei();
+  if(!Object.keys(d.werte).length){ melde("spMsg", "Noch keine Zahl eingetragen, es gäbe nichts zu speichern."); return; }
+  const blob = new Blob([JSON.stringify(d, null, 1)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "jahresabschluss.json";
+  a.click(); URL.revokeObjectURL(a.href);
+  melde("spMsg", "Gespeichert. Die Datei enthält " + Object.keys(d.werte).length + " Positionen.");
+});
+$("spLaden").addEventListener("change", e => {
+  const f = e.target.files && e.target.files[0];
+  if(!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    let d;
+    try { d = JSON.parse(r.result); }
+    catch(x){ melde("spMsg", "Die Datei ließ sich nicht lesen."); return; }
+    if(!d || d.format !== FORMAT){
+      melde("spMsg", "Diese Datei stammt aus einem anderen Blatt. Erwartet wird das Format „" + FORMAT + "“.");
+      return;
+    }
+    if(!d.werte || typeof d.werte !== "object"){
+      melde("spMsg", "In der Datei steht kein Feld „werte“, sie stammt wohl aus etwas anderem.");
+      return;
+    }
+    W = frischerSatz(false);
+    let n = 0;
+    Object.keys(d.werte).forEach(id => {
+      if(!W[id]) return;
+      const s = d.werte[id];
+      if(!Array.isArray(s)) return;
+      for(let j = 0; j < MAXJAHRE && j < s.length; j++)
+        W[id][j] = typeof s[j] === "number" ? s[j] : null;
+      n++;
+    });
+    JAHRE = Math.min(MAXJAHRE, Math.max(FALLJAHRE, parseInt(d.jahre, 10) || FALLJAHRE));
+    JSTART = parseInt(d.erstesJahr, 10) || 1;
+    allesZeichnen();
+    melde("spMsg", n + " Positionen eingelesen.");
+  };
+  r.readAsText(f);
+  e.target.value = "";
+});
+$("spText").addEventListener("click", () => {
+  const kasten = $("textout");
+  kasten.hidden = !kasten.hidden;
+  if(kasten.hidden) return;
+  const br = 92;
+  const zeile = (a, b) => a + " ".repeat(Math.max(1, br - a.length - b.length)) + b;
+  let s = "JAHRESABSCHLUSS UND KENNZAHLEN · PLUM SYSTEMS AG\n"
+        + "Alle Beträge in vollen Tausend Euro\n" + "=".repeat(br) + "\n\n";
+  ["guv", "akt", "pas"].forEach(bl => {
+    const titel = {guv:"GEWINN- UND VERLUSTRECHNUNG", akt:"BILANZ · AKTIVSEITE",
+                   pas:"BILANZ · PASSIVSEITE"}[bl];
+    s += titel + "\n" + "-".repeat(br) + "\n";
+    POS.filter(p => p.bl === bl).forEach(p => {
+      if(p.t === "g"){ s += "\n" + p.b + "\n"; return; }
+      const w = [...Array(JAHRE).keys()].map(j => {
+        const v = p.t === "e" || p.t === "d" ? (W[p.i]||[])[j] : wert(p.i, j, W);
+        return (v == null ? "–" : teuro(v)).padStart(12);
+      }).join("");
+      s += zeile("  " + p.b.slice(0, br - JAHRE * 12 - 4), w) + "\n";
+    });
+    s += "\n";
+  });
+  s += "KENNZAHLEN\n" + "-".repeat(br) + "\n";
+  ["V", "F", "E"].forEach(g => {
+    s += "\n" + {V:"Vermögenskennzahlen", F:"Finanzkennzahlen",
+                 E:"Ertragskennzahlen"}[g] + "\n";
+    KZ.filter(k => k.gr === g).forEach(k => {
+      const w = [...Array(JAHRE).keys()].map(j =>
+        zeige(kennzahl(k, j, W), k.eh).padStart(14)).join("");
+      s += zeile("  " + k.c + " " + k.n.slice(0, br - JAHRE * 14 - 10), w) + "\n";
+      s += "      = " + k.rw + "\n";
+    });
+  });
+  s += "\nErzeugt im Modul „Bilanzanalyse einer Fallstudie“.\n";
+  $("spAusgabe").value = s;
+});
+$("spKopieren").addEventListener("click", () => {
+  const t = $("spAusgabe");
+  t.select();
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t.value)
+      .then(() => { melde("spMsg2", "Kopiert."); })
+      .catch(() => { melde("spMsg2", "Klappt hier nicht. Der Text ist markiert, kopier ihn von Hand."); });
+  } else {
+    melde("spMsg2", "Klappt hier nicht. Der Text ist markiert, kopier ihn von Hand.");
+  }
+});
+
+/* =====================================================================
+   7 · Der erste Schritt mit einem eigenen Abschluss
+   Jeder Schritt nennt seine Stelle in der Vorlage, damit niemand raten
+   muss, woher die Forderung kommt.
+   ===================================================================== */
+const SCHRITTE = [
+  ["Stell die Gliederung Deines Abschlusses neben die der Vorlage",
+   "Die drei Blätter dieses Moduls folgen § 275 Abs. 2 HGB für die Erfolgsrechnung sowie § 266 HGB für die Bilanz, weshalb Du Zeile für Zeile durchgehst und festhältst, welche Position Deines Abschlusses auf welche Zeile fällt. Wo Deine Gliederung feiner ist, addierst Du; wo sie grober ist, fehlt Dir eine Angabe, die Du im Anhang suchst.",
+   "Die Zeilen der Lektionen 02 und 03, die in der Spalte „Herleitung“ ihre Quelle nennen."],
+  ["Rechne alle Beträge auf Tausend Euro um, bevor Du das erste Feld füllst",
+   "Die Vorlage führt sämtliche monetären Beträge in Tausend Euro, wobei eine Zahl in Euro keine Kennzahl falsch macht, solange alle Zahlen in Euro stehen; die Mischung aus beiden Einheiten führt dagegen zu Verhältnissen, die um den Faktor tausend daneben liegen.",
+   "Punkt 2 der Kurzanleitung der Vorlage."],
+  ["Unterscheide die Eingabefelder von den gerechneten Zeilen",
+   "In diesem Modul lassen sich allein die Eingabezeilen anfassen, während die Vorlage dieselben drei Arten über Farben unterscheidet, wobei hellblaue Summen und hellgraublaue Ergebnisse dort überschreibbar wären. Wer eine Summe von Hand einträgt, verliert die Probe, da die Kontrolldifferenz danach jeden Wert bestätigt.",
+   "Punkt 7 der Kurzanleitung sowie die Farblegende in Lektion 06."],
+  ["Hol die Fristigkeiten aus dem Verbindlichkeitenspiegel",
+   "Eine Bilanz nach § 266 HGB ordnet die Passivseite nach Rechtsnatur, weshalb die Angabe, welcher Teil einer Verbindlichkeit innerhalb eines Jahres fällig wird, allein im Anhang steht (§ 285 Nr. 1 HGB). Ohne sie bleiben die acht Fristigkeitszeilen dieses Moduls leer, weshalb sechs der dreizehn Finanzkennzahlen keinen Wert bekommen.",
+   "Die Fristigkeitstabelle in Lektion 03 und die neun Bestandteile in Lektion 05."],
+  ["Entscheide beim Gesellschafterdarlehen, wie Du es einordnest",
+   "Die Vorlage weist es unter den sonstigen Verbindlichkeiten gesondert aus und behandelt es in F2 und E6 als wirtschaftliches Eigenkapital. Diese Einordnung ist in der Vorlage als Angabe der Fallstudie gekennzeichnet. Für Deinen Abschluss entscheidest Du selbst, wobei Du die Entscheidung aufschreibst, da sonst im nächsten Jahr niemand weiß, was in der Quote steckt.",
+   "Der Hinweis zur Passivseite in Lektion 03 sowie die Kennzahlen F2 und E6."],
+  ["Besorg Dir die Angaben, die in keinem der beiden Blätter stehen",
+   "Die Aktivierungskennzahl E7 braucht die internen Entwicklungsaufwendungen der Periode, die in dieser Vorlage als Anhangsangabe unmittelbar auf dem Blatt der Ertragskennzahlen stehen. Für ein anderes Unternehmen ist die Größe dem jeweiligen Anhang zu entnehmen, wobei E7 ohne Wert bleibt, wo sie fehlt.",
+   "Punkt 6 der Kurzanleitung sowie der Kasten zu E7 in Lektion 04."],
+  ["Lies die Kontrolldifferenz, bevor Du die erste Kennzahl liest",
+   "Solange am Ende einer Bilanzseite nicht null steht, ist die Eingabe unvollständig oder falsch übernommen. Jede Kennzahl, die Du vorher liest, rechnet mit einem Gesamtkapital, das es nicht gibt. Die Probe kostet einen Blick und ersetzt eine halbe Stunde Fehlersuche in den Kennzahlen.",
+   "Die Zeile „Kontrolldifferenz“ am Ende beider Bilanzseiten in Lektion 03."],
+  ["Nimm Deine Jahre als vierte bis sechste Spalte hinzu und speichere die Datei",
+   "Die Vorlage hält drei weitere Jahre bereit, weshalb Du Dein erstes eigenes Jahr als viertes einträgst, sodass die drei Jahre des Falls als Maßstab daneben stehen bleiben. Speicher die Datei danach über die Schaltfläche in Lektion 06, denn dieses Modul behält nichts, sobald Du die Seite schließt.",
+   "Punkt 3 der Kurzanleitung sowie die Jahressteuerung in Lektion 06."]
+];
+$("ck").innerHTML = SCHRITTE.map(([t, p, q]) =>
+  `<div class="ckitem"><h3>${esc(t)}</h3><p>${p}</p>
+     <p class="quelle"><b>In der Vorlage:</b> ${q}</p></div>`).join("");
+
+/* =====================================================================
+   8 · Glossar
+   Nachschlagewerk für die Anwendung. Die Begriffe stehen in der
+   Reihenfolge, in der sie im Modul zum ersten Mal vorkommen.
+   ===================================================================== */
+const GLOSSAR = [
+  ["Eingabezeile", "Eine Zeile, deren Wert von außen kommt, in der Vorlage hellgelb mit blauer Schrift und in diesem Modul ein Feld, das Du anfassen kannst, da sich jede Summe und jede Kennzahl daraus rechnet."],
+  ["Formelzeile", "Eine Summe oder ein Saldo aus sichtbaren Positionen, in der Vorlage hellblau und in diesem Modul grau unterlegt, die ihre Herleitung in der letzten Spalte zeigt."],
+  ["Ergebniszeile", "Das Ergebnis einer Kennzahl, das die Vorlage hellgraublau markiert, als reine Ergebnismarkierung ohne positive oder negative Bewertung."],
+  ["davon-Angabe", "Eine Zeile, die eine Position erläutert, ohne selbst in eine Summe einzugehen. Sie ist schon in ihrer Oberposition enthalten, weshalb ein Mitaddieren denselben Betrag zweimal zählt."],
+  ["Gliederungszeile", "Eine Überschrift innerhalb der Staffel, etwa „A. Anlagevermögen“, die keinen Wert hat und allein die Zeilen darunter ordnet."],
+  ["Kontrolldifferenz", "Die Probe am Ende einer Bilanzseite, die die Bilanzgleichung prüft und nicht die Bewertung eines Postens."],
+  ["Herleitung", "Die Angabe, aus welchen Positionen eine gerechnete Zeile entsteht. In der Vorlage eine eigene Spalte, in diesem Modul die aufklappbare Zeile unter jeder Kennzahl."],
+  ["Detailzeile", "Die Zeile unter einem Kennzahlenergebnis, die Zähler oder Nenner benennt und auf die sichtbare Jahresabschlussposition verweist, wodurch die Rechnung nachprüfbar wird."],
+  ["Analytischer Zwischensaldo", "Ein Saldo, den der Analyst in die Staffel einfügt, etwa das Betriebsergebnis. Er gewinnt Aussagekraft und verliert die Vergleichbarkeit der gesetzlichen Positionen."],
+  ["Gesamtkostenverfahren", "Die Form der Erfolgsrechnung nach § 275 Abs. 2 HGB, die nach Aufwandsarten gliedert und Material, Personal sowie Abschreibungen getrennt ausweist, während das Umsatzkostenverfahren sie in den Herstellungskosten bündelt."],
+  ["Gesamtleistung", "Umsatzerlöse zuzüglich Bestandsveränderung und aktivierter Eigenleistungen, also die Positionen 1 bis 3. Sie ist der Nenner von E1 und E2, weil eine Aufwandsquote am Umsatz allein schwankt, sobald sich der Bestand ändert."],
+  ["Verbindlichkeitenspiegel", "Die Aufgliederung der Verbindlichkeiten nach Restlaufzeit im Anhang (§ 285 Nr. 1 HGB). Aus ihr stammen die Fristigkeitsangaben, ohne die kein Liquiditätsgrad entsteht."],
+  ["Kurzfristiges Fremdkapital", "Der innerhalb eines Jahres fällige oder beanspruchte Teil des Fremdkapitals. In dieser Vorlage entsteht er aus acht Fristigkeitsangaben der Verbindlichkeiten sowie der voraussichtlichen Inanspruchnahme der Rückstellungen."],
+  ["Wirtschaftliches Eigenkapital", "Das bilanzielle Eigenkapital zuzüglich einer Position, die rechtlich Fremdkapital ist und wirtschaftlich wie Eigenkapital wirkt. Hier ist es das Gesellschafterdarlehen, was F2 von F1 unterscheidet."],
+  ["Aktivierte eigene Entwicklungsleistungen", "Der Teil der Entwicklungsaufwendungen einer Periode, der als selbst geschaffener immaterieller Vermögensgegenstand in die Bilanz kommt (§ 248 Abs. 2 HGB) und in der Staffel als Position 3 steht."],
+  ["Interne Entwicklungsaufwendungen", "Der gesamte Entwicklungsaufwand der Periode, der weder in der Bilanz noch in der Erfolgsrechnung steht, weshalb E7 ihn als Anhangsangabe braucht."],
+  ["Bestandsdauer", "Vorräte geteilt durch den Materialaufwand, mit 365 multipliziert, was schätzt, wie viele Tage die Vorräte durchschnittlich im Unternehmen gebunden sind."],
+  ["Debitorenziel", "Forderungen aus Lieferungen und Leistungen geteilt durch die Umsatzerlöse, mit 365 multipliziert, was die Zeit zwischen Umsatzrealisierung und Zahlungseingang schätzt."],
+  ["Kreditorenziel", "Verbindlichkeiten aus Lieferungen und Leistungen geteilt durch den Materialaufwand, mit 365 multipliziert, also die Gegenrichtung zum Debitorenziel."],
+  ["Anlagendeckungsgrad I und II", "Der erste Grad deckt das Anlagevermögen allein mit bilanziellem Eigenkapital, der zweite zusätzlich mit dem langfristig verfügbaren Kapital. Er prüft, in welchem Umfang langfristig Gebundenes langfristig finanziert ist."],
+  ["Zinsdeckungsgrad", "Das operative Ergebnis aus den HGB-Positionen 1 bis 8 geteilt durch den Zinsaufwand. Er zeigt, wie oft das operative Ergebnis den Zinsaufwand deckt."],
+  ["Net Working Capital", "Umlaufvermögen abzüglich kurzfristigem Fremdkapital, in Tausend Euro, also derselbe Sachverhalt wie die Liquidität dritten Grades, als Betrag statt als Quote."],
+  ["Operatives Working Capital", "Vorräte zuzüglich Forderungen aus Lieferungen und Leistungen, abzüglich Verbindlichkeiten aus Lieferungen und Leistungen. Es misst die Kapitalbindung im laufenden Geschäft nach Abzug der Lieferantenfinanzierung."],
+  ["Fortschreibung", "Das Hinzunehmen weiterer Geschäftsjahre in denselben Rahmen, wofür die Vorlage drei zusätzliche Jahre bereithält, sodass Deine eigenen Zahlen neben denen des Falls stehen."]
+];
+$("glossar").innerHTML = GLOSSAR.map(([b, t]) =>
+  `<div><b>${esc(b)}</b>: ${t}</div>`).join("");
+
+/* =====================================================================
+   9 · Quiz: fünf Fragen, zufällig aus dem Vorrat
+   ===================================================================== */
+const FRAGEN = [
+  ["Warum werden in der Vorlage die Unterpositionen 5a und 5b eingetragen, während die Position 5 gerechnet wird?",
+   ["Weil mehrere Kennzahlen auf die Unterpositionen zugreifen und nicht auf die Summe",
+    "Weil das HGB die Summe verbietet",
+    "Weil die Summe im Anhang steht",
+    "Weil das Umsatzkostenverfahren keine Summe kennt"], 0,
+   "Der Vorratsumschlag (V3), die Bestandsdauer (V5) und das Kreditorenziel (V7) rechnen mit den Aufwendungen für Roh-, Hilfs- und Betriebsstoffe sowie den Aufwendungen für bezogene Leistungen. Wer allein die Summe der Position 5 kennt, kann alle drei bilden; wer die Unterpositionen kennt, kann zusätzlich die Summe rechnen."],
+  ["Welche der folgenden Zeilen der Erfolgsrechnung schreibt das HGB nicht vor?",
+   ["Das Betriebsergebnis",
+    "Die Umsatzerlöse",
+    "Der Materialaufwand",
+    "Das Ergebnis nach Steuern"], 0,
+   "Das Betriebsergebnis ist in der Vorlage ausdrücklich als analytischer Zwischensaldo gekennzeichnet. Es gewinnt Aussagekraft und verliert die Vergleichbarkeit, weshalb zwei Unternehmen erst nach Rückfrage an dieser Zeile vergleichbar sind."],
+  ["Was geschieht, wenn Du eine „davon“-Angabe in eine Summe einrechnest?",
+   ["Derselbe Betrag wird zweimal gezählt",
+    "Die Summe bleibt gleich, da die Angabe null ist",
+    "Die Kontrolldifferenz gleicht es aus",
+    "Der Betrag fehlt anschließend in der Oberposition"], 0,
+   "Eine „davon“-Angabe erläutert eine Position, ohne selbst in eine Summe einzugehen, da sie in ihrer Oberposition schon enthalten ist. Die fünf Zeilen der Erfolgsrechnung und die acht Fristigkeitszeilen der Passivseite sind in diesem Modul deshalb gesondert gekennzeichnet, jede mit ihrer Oberposition daneben."],
+  ["Woher stammt das kurzfristige Fremdkapital, das vier Kennzahlen als Nenner benutzen?",
+   ["Aus den Fristigkeitsangaben der Verbindlichkeiten und der Rückstellungen",
+    "Aus einer eigenen Zeile der Passivseite",
+    "Aus der Differenz von Bilanzsumme und Eigenkapital",
+    "Aus den sonstigen Verbindlichkeiten"], 0,
+   "Es steht in keiner Zeile der Bilanz, da § 266 HGB die Passivseite nach Rechtsnatur ordnet. In dieser Vorlage entsteht es aus acht „davon bis ein Jahr fällig“-Angaben sowie der voraussichtlichen Inanspruchnahme der Rückstellungen innerhalb eines Jahres."],
+  ["Aus wie vielen Bestandteilen entsteht das kurzfristige Fremdkapital in dieser Vorlage?",
+   ["Neun", "Vier", "Zwei", "Achtzehn"], 0,
+   "Acht Fristigkeitsangaben der Verbindlichkeiten sowie die kurzfristige Inanspruchnahme der Rückstellungen. Lektion 05 klappt die neun Zeilen einzeln auf, da sich eine Änderung in jeder von ihnen auf sechs Kennzahlen auswirkt."],
+  ["Was prüft die Kontrolldifferenz am Ende einer Bilanzseite?",
+   ["Ob Aktiv- und Passivseite übereinstimmen",
+    "Ob jeder Posten richtig bewertet ist",
+    "Ob die Fristigkeiten vollständig sind",
+    "Ob die Kennzahlen plausibel sind"], 0,
+   "Sie prüft die Bilanzgleichung, während sie über die Bewertung eines einzelnen Postens nichts aussagt. Solange dort nicht null steht, rechnet jede Kennzahl allerdings mit einem Gesamtkapital, das es nicht gibt."],
+  ["Worin unterscheiden sich die beiden Eigenkapitalquoten F1 und F2?",
+   ["F2 addiert das Gesellschafterdarlehen zum Eigenkapital",
+    "F2 rechnet mit dem Umlaufvermögen statt dem Gesamtkapital",
+    "F2 zieht die Rückstellungen ab",
+    "F2 rechnet mit dem Vorjahreswert"], 0,
+   "F1 rechnet mit dem bilanziellen Eigenkapital, F2 erweitert es um das Gesellschafterdarlehen. Beide Zahlen sind richtig, da sie verschiedene Fragen beantworten, weshalb jeder, der nur eine davon nennt, dazusagen sollte, welche es ist."],
+  ["Welche Angabe braucht die Aktivierungskennzahl E7, die in keinem der beiden Blätter steht?",
+   ["Die internen Entwicklungsaufwendungen der Periode",
+    "Die aktivierten eigenen Entwicklungsleistungen",
+    "Die Restlaufzeit der Verbindlichkeiten",
+    "Den Zinsaufwand"], 0,
+   "Der Zähler steht als Position 3 in der Erfolgsrechnung. Der Nenner steht in der Vorlage als Anhangsangabe unmittelbar auf dem Blatt der Ertragskennzahlen, weil er sich weder aus der Bilanz noch aus der Erfolgsrechnung ableiten lässt."],
+  ["In welcher Einheit stehen sämtliche Beträge dieser Vorlage?",
+   ["Tausend Euro", "Euro", "Millionen Euro", "Je Position verschieden"], 0,
+   "Punkt 2 der Kurzanleitung legt Tausend Euro fest, da eine Mischung aus Euro und Tausend Euro innerhalb eines Blattes zu Verhältniszahlen führt, die um den Faktor tausend daneben liegen."],
+  ["Wie entsteht aus einem Verhältnis zweier Bilanzgrößen eine Angabe in Tagen?",
+   ["Das Verhältnis wird mit 365 multipliziert",
+    "Der Nenner wird durch zwölf geteilt",
+    "Es wird der Durchschnitt zweier Jahre gebildet",
+    "Die Angabe wird aus dem Anhang übernommen"], 0,
+   "Bei der Bestandsdauer (V5), dem Debitorenziel (V6) und dem Kreditorenziel (V7) steht ein Bestand im Zähler und eine Jahresgröße im Nenner. Die Multiplikation mit 365 rechnet das Verhältnis in Tage um."],
+  ["Welche Größe steht bei der Bestandsdauer der Vorräte (V5) im Nenner?",
+   ["Der Materialaufwand aus 5a und 5b",
+    "Die Umsatzerlöse",
+    "Die Gesamtleistung",
+    "Die Bilanzsumme"], 0,
+   "V5 schätzt, wie viele Tage die Vorräte gebunden sind, weshalb der Verbrauch im Nenner steht. Beim Debitorenziel stehen dagegen die Umsatzerlöse im Nenner, da eine Forderung aus einem Umsatz entsteht."],
+  ["Welche Größe steht beim Zinsdeckungsgrad (F13) im Zähler?",
+   ["Das operative Ergebnis aus den HGB-Positionen 1 bis 8",
+    "Der Jahresüberschuss",
+    "Das Ergebnis vor Steuern",
+    "Die Gesamtleistung"], 0,
+   "F13 zeigt, wie oft das operative Ergebnis den Zinsaufwand deckt. Ein Zähler nach Zinsen würde die Frage im Kreis führen, da der Zinsaufwand dann auf beiden Seiten des Bruchs stünde."],
+  ["Worin unterscheiden sich das vereinfachte Net Working Capital (F9) und das operative Working Capital (F10)?",
+   ["F9 rechnet mit dem gesamten Umlaufvermögen und dem kurzfristigen Fremdkapital, F10 allein mit Vorräten, Forderungen aus Lieferungen und Leistungen sowie Verbindlichkeiten aus Lieferungen und Leistungen",
+    "F9 steht in Prozent, F10 in Tausend Euro",
+    "F9 rechnet mit dem Vorjahr, F10 mit dem laufenden Jahr",
+    "F10 zieht zusätzlich die Rückstellungen ab"], 0,
+   "Beide stehen in Tausend Euro, wobei F9 den kurzfristigen Finanzierungspuffer insgesamt misst und F10 die Kapitalbindung im laufenden Geschäft nach Abzug der Lieferantenfinanzierung. In diesem Fall laufen die beiden Reihen gegenläufig, da F9 fällt, während F10 steigt."],
+  ["Welche Zellen der Vorlage sollst Du nach Punkt 7 der Kurzanleitung nicht überschreiben?",
+   ["Die hellblauen Summen und die hellgraublauen Ergebnisse",
+    "Die hellgelben Eingabefelder",
+    "Die Zeilen der Jahre 4 bis 6",
+    "Die Überschriften der Gliederung"], 0,
+   "Hellgelb mit blauer Schrift kennzeichnet die Eingabe, hellblau die Formel oder Summe und hellgraublau das Kennzahlenergebnis. Wer eine Summe von Hand einträgt, verliert die Probe, da die Kontrolldifferenz danach jeden Wert bestätigt."],
+  ["Was bedeutet die hellgraublaue Markierung eines Kennzahlenergebnisses in der Vorlage?",
+   ["Eine reine Ergebnismarkierung ohne positive oder negative Bewertung",
+    "Einen Wert außerhalb des Branchenüblichen",
+    "Eine Kennzahl, deren Bestandteile unvollständig sind",
+    "Eine Kennzahl aus dem Anhang"], 0,
+   "Die Farblegende der Vorlage hält das ausdrücklich fest, weshalb dieses Modul die Haltung übernimmt und keine Kennzahlenkarte eine Ampelfarbe zeigt. Die Beurteilung ist Deine Arbeit und nicht die der Tabelle."],
+  ["Nach welchem Verfahren ist die Erfolgsrechnung dieser Vorlage aufgestellt?",
+   ["Nach dem Gesamtkostenverfahren (§ 275 Abs. 2 HGB)",
+    "Nach dem Umsatzkostenverfahren (§ 275 Abs. 3 HGB)",
+    "Nach IFRS",
+    "Nach der Einnahmenüberschussrechnung"], 0,
+   "Das Gesamtkostenverfahren gliedert nach Aufwandsarten und weist Material, Personal sowie Abschreibungen getrennt aus. Das Umsatzkostenverfahren bündelt sie in den Herstellungskosten, weshalb dort mehrere dieser Kennzahlen nur über den Anhang zu bilden sind (§ 285 Nr. 8 HGB)."],
+  ["Was lässt sich aus einem einzigen Geschäftsjahr nicht ableiten?",
+   ["Eine Richtung", "Eine Eigenkapitalquote", "Ein Debitorenziel", "Eine Bilanzsumme"], 0,
+   "Ein einzelnes Jahr gibt Beträge her, während erst das zweite eine Richtung hergibt und erst das dritte zeigt, ob die Richtung hält. Deshalb sind in dieser Vorlage drei Jahre vorbelegt."],
+  ["Was enthält keine der vier Quellen zum Unternehmen aus Lektion 01?",
+   ["Eine Zahl aus dem Jahresabschluss",
+    "Eine Angabe zur Eigentümerstruktur",
+    "Eine Angabe zum Leistungsangebot",
+    "Eine Aussage über ein Entwicklungsprojekt"], 0,
+   "Der Steckbrief, die beiden Beiträge aus dem Unternehmensfeed und das Interview nennen weder einen Umsatz noch ein Ergebnis, eine Bilanzsumme oder eine Quote. Sie liefern den Gegenstand, während die Zahlen aus den folgenden Lektionen kommen."],
+  ["Warum addiert die Gesamtkapitalrentabilität (E4) den Fremdkapitalzins zum Ergebnis vor Steuern?",
+   ["Weil sie die Verzinsung des gesamten Kapitals vor Abzug der Fremdkapitalzinsen messen soll",
+    "Weil das HGB es vorschreibt",
+    "Weil der Zinsaufwand sonst doppelt erscheint",
+    "Weil der Zinsaufwand im Nenner fehlt"], 0,
+   "Im Nenner steht das gesamte Kapital, also auch das fremde. Bliebe der Zins im Zähler abgezogen, würde die Kennzahl mit der Finanzierung schwanken und nicht mit dem Erfolg des eingesetzten Kapitals."],
+  ["Welche Größe steht beim Anlagendeckungsgrad II (F12) im Zähler?",
+   ["Das Gesamtkapital abzüglich des kurzfristigen Fremdkapitals",
+    "Das bilanzielle Eigenkapital",
+    "Das Anlagevermögen",
+    "Das Eigenkapital zuzüglich des Gesellschafterdarlehens"], 0,
+   "F12 prüft, in welchem Umfang das Anlagevermögen durch langfristig verfügbares Kapital gedeckt ist. F11 nimmt dafür allein das bilanzielle Eigenkapital, weshalb er in diesem Fall deutlich unter eins liegt, während F12 darüber bleibt."],
+  ["Warum lässt sich aus einer Bilanz nach § 266 HGB ohne Zusatzangabe kein Liquiditätsgrad bilden?",
+   ["Weil die Passivseite nach Rechtsnatur geordnet ist und nicht nach Fälligkeit",
+    "Weil das Umlaufvermögen fehlt",
+    "Weil die Bilanz Bestände zum Stichtag zeigt",
+    "Weil die Rückstellungen geschätzt sind"], 0,
+   "Ein Liquiditätsgrad braucht im Nenner das innerhalb eines Jahres fällige Fremdkapital. Die Bilanz gliedert nach Verbindlichkeitsart, weshalb die Restlaufzeit aus dem Verbindlichkeitenspiegel des Anhangs kommt (§ 285 Nr. 1 HGB)."],
+  ["Wie viele Geschäftsjahre nimmt die Vorlage insgesamt auf?",
+   ["Sechs, von denen drei vorbelegt sind",
+    "Drei",
+    "Zwei",
+    "Beliebig viele"], 0,
+   "Punkt 3 der Kurzanleitung nennt die Jahre 4 bis 6 als vorbereitet. In diesem Modul nimmst Du sie über die Schaltfläche in Lektion 06 hinzu, wobei die drei Jahre des Falls als Maßstab daneben stehen bleiben."],
+  ["Welche Größe ist der Nenner der Personalkostenintensität (E1)?",
+   ["Die Gesamtleistung aus den Positionen 1 bis 3",
+    "Die Umsatzerlöse",
+    "Das Gesamtkapital",
+    "Das Betriebsergebnis"], 0,
+   "Die Gesamtleistung umfasst Umsatzerlöse, Bestandsveränderung und aktivierte Eigenleistungen, weil eine Aufwandsquote am Umsatz allein schwankt, sobald sich der Bestand ändert, weshalb E1 und E2 die weitere Größe nehmen."],
+  ["Was behält dieses Modul, wenn Du die Seite schließt?",
+   ["Nichts", "Die eingetragenen Werte", "Die Anzahl der Jahre", "Die Antworten des Quiz"], 0,
+   "Es gibt weder einen Server noch einen Browserspeicher, weshalb Du das, was Du behalten willst, in Lektion 06 als Datei speicherst und beim nächsten Mal wieder lädst."]
+];
+
+let qAktuell = [];
+const QZAHL = 5;
+/* Fisher-Yates. Auch die Antworten werden gemischt, da die richtige im
+   Vorrat immer an erster Stelle steht. */
+const mischen = a => {
+  a = a.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+function qZiehen(){
+  qAktuell = mischen(FRAGEN.map((f, i) => i)).slice(0, QZAHL)
+    .map(i => ({i, ord:mischen(FRAGEN[i][1].map((o, j) => j)), gewaehlt:null}));
+  qRender();
+}
+function qRender(){
+  $("quiz").innerHTML = qAktuell.map((q, n) => {
+    const [text, opts, richtig, begr] = FRAGEN[q.i];
+    return `<div class="qcard">
+      <p class="qn">Frage ${n + 1} von ${QZAHL}</p>
+      <p class="qt">${text}</p>
+      <div class="qopts">${q.ord.map(j => {
+        let kl = "";
+        if(q.gewaehlt !== null) kl = j === richtig ? " right" : (j === q.gewaehlt ? " wrong" : "");
+        return `<button class="qopt${kl}" type="button" data-q="${n}" data-o="${j}"${q.gewaehlt !== null ? " disabled" : ""}>${opts[j]}</button>`;
+      }).join("")}</div>
+      <p class="qfb"${q.gewaehlt === null ? " hidden" : ""}>${
+        q.gewaehlt === null ? "" :
+        (q.gewaehlt === richtig ? "<b style='color:#1E6B47'>Richtig.</b> " : "<b style='color:#9C2F2C'>Daneben.</b> ") + begr}</p>
+    </div>`;
+  }).join("");
+  const fertig  = qAktuell.filter(q => q.gewaehlt !== null).length;
+  const treffer = qAktuell.filter(q => q.gewaehlt === FRAGEN[q.i][2]).length;
+  $("qStand").textContent = fertig === 0
+    ? QZAHL + " Fragen aus einem Vorrat von " + FRAGEN.length
+    : fertig + " von " + QZAHL + " beantwortet · " + treffer + " richtig";
+  $("qResult").innerHTML = fertig < QZAHL ? "" :
+    `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> ${
+      treffer === QZAHL ? "Vollständig. Zieh Dir fünf neue Fragen, da der Vorrat " + FRAGEN.length + " hat." :
+      treffer >= 3 ? "Solide. Die Begründungen zu den verfehlten Fragen stehen oben, da sie erklären, warum die gewählte Antwort nicht zutrifft." :
+      "Geh die Begründungen oben in Ruhe durch. Die häufigsten Stolperstellen sind die Herkunft des kurzfristigen Fremdkapitals, die Rolle der „davon“-Angaben und die Frage, welche Zeilen der Staffel das HGB vorschreibt."}</div>`;
+}
+$("quiz").addEventListener("click", e => {
+  const b = e.target.closest(".qopt"); if(!b || b.disabled) return;
+  const q = qAktuell[+b.dataset.q]; if(!q || q.gewaehlt !== null) return;
+  q.gewaehlt = +b.dataset.o;
+  qRender();
+});
+$("qNew").addEventListener("click", qZiehen);
+qZiehen();
+
+/* =====================================================================
+   10 · Lektionen
+   ===================================================================== */
+const tabs = [...document.querySelectorAll('[role="tab"]')],
+      keys = ["a","b","c","d","e","f","g","h"];
+function select(i){
+  tabs.forEach((t, j) => {
+    const on = i === j;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    $("p-" + keys[j]).hidden = !on;
+  });
+  /* Eine Zeichnung, die in einer zugeklappten Lektion entsteht, misst
+     Nullen. Das Umschalten meldet deshalb eine Groessenaenderung. */
+  dispatchEvent(new Event("resize"));
+}
+/* Die Verweise zwischen den Lektionen sprechen die Lektion ueber ihren
+   Buchstaben an, weil eine Nummer sich beim Umsortieren verschiebt. */
+function waehle(key){
+  const i = keys.indexOf(key);
+  if(i >= 0) select(i);
+}
+tabs.forEach((t, i) => {
+  t.addEventListener("click", () => select(i));
+  t.addEventListener("keydown", e => {
+    const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if(!d) return; e.preventDefault();
+    const n = (i + d + tabs.length) % tabs.length; tabs[n].focus(); select(n);
+  });
+});
+select(0);
+
+/* =====================================================================
+   11 · Blöcke zum Auf- und Zuklappen
+   Baut die Abschnitte einer Lektion zur Laufzeit aus der vorhandenen
+   Gliederung: jedes h2.sec eröffnet einen Block, alles danach bis zum
+   nächsten h2.sec ist sein Inhalt. Was vor dem ersten h2.sec steht (die
+   Kernaussage der Lektion) bleibt immer sichtbar, ebenso ein
+   Pointe-Kasten am Ende. Jeder Block steht beim Laden zu.
+   ===================================================================== */
+function makeBlocks(panel){
+  if(!panel) return 0;
+  const kinder = [...panel.children];
+  const istKopf = n => n.tagName === "H2" && n.classList.contains("sec");
+  const istEnde = n => n.classList.contains("pointe");
+  let i = 0, nr = 0;
+
+  while(i < kinder.length){
+    if(!istKopf(kinder[i])){ i++; continue; }
+    const h2 = kinder[i], inhalt = [];
+    let j = i + 1;
+    while(j < kinder.length && !istKopf(kinder[j]) && !istEnde(kinder[j])){
+      inhalt.push(kinder[j]); j++;
+    }
+    nr++;
+    const offen = false, bid = "blk-" + (panel.id || "p") + "-" + nr;
+    const wrap = document.createElement("section");
+    wrap.className = "blk";
+    wrap.dataset.open = String(offen);
+    panel.insertBefore(wrap, h2);
+
+    h2.innerHTML =
+      `<button class="blk-t" type="button" aria-expanded="${offen}" aria-controls="${bid}">
+         <svg class="blk-c" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2 L8.5 6 L4.5 10"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+         <span>${h2.innerHTML}</span>
+       </button>`;
+    wrap.appendChild(h2);
+
+    const body = document.createElement("div");
+    body.className = "blk-b"; body.id = bid;
+    body.hidden = !offen;
+    inhalt.forEach(n => body.appendChild(n));
+    wrap.appendChild(body);
+    i = j;
+  }
+
+  if(nr) panel.addEventListener("click", e => {
+    const b = e.target.closest(".blk-t"); if(!b) return;
+    const wrap = b.closest(".blk"), body = document.getElementById(b.getAttribute("aria-controls"));
+    const offen = wrap.dataset.open === "true";
+    wrap.dataset.open = String(!offen);
+    b.setAttribute("aria-expanded", String(!offen));
+    body.hidden = offen;
+    if(!offen) dispatchEvent(new Event("resize"));
+  });
+  return nr;
+}
+
+/* Ein Verweis, der in einen zugeklappten Block zeigt, klappt ihn auf.
+   Ohne diesen Schritt springt die Seite an eine Stelle, an der nichts
+   zu sehen ist. */
+function oeffneBlockVon(el){
+  const wrap = el && el.closest(".blk");
+  if(!wrap || wrap.dataset.open === "true") return;
+  const b = wrap.querySelector(".blk-t"), body = wrap.querySelector(".blk-b");
+  wrap.dataset.open = "true";
+  if(b) b.setAttribute("aria-expanded", "true");
+  if(body) body.hidden = false;
+  dispatchEvent(new Event("resize"));
+}
+
+document.querySelectorAll(".panel").forEach(makeBlocks);
+
+/* Zum Schluss, damit alle Tabellen und Karten in ihren Bloecken stehen. */
+allesZeichnen();
+</script>
+</body>
+</html>
