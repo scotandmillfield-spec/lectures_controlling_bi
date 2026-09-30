@@ -214,35 +214,99 @@ footer a{color:var(--teal-dk)}
    Zellen sind nie tippbar, sonst liesse sich die Probe faelschen.   */
 .blatt{overflow-x:auto;border:1px solid var(--grey-xl);border-radius:8px;
   background:var(--paper);box-shadow:var(--shadow)}
-table.ab{width:100%;min-width:720px;border-collapse:collapse;font-size:1.1rem}
+/* Die Staffel folgt dem Formular aus dem Modul zur Gewinn- und
+   Verlustrechnung: eine schmale Spalte fuer die Nummer, die Bezeichnung
+   mit ihrem Vorzeichen davor, danach je Jahr eine Spalte. Die Kennung
+   und die Kennzahlen, die an einer Zeile haengen, stehen erst da, wenn
+   der Schalter ueber dem Blatt sie einblendet - sonst ueberwuchern sie
+   die Gliederung, die zu lesen die Aufgabe ist.                     */
+table.ab{width:100%;min-width:640px;border-collapse:collapse;font-size:1.1rem}
 table.ab th{position:sticky;top:0;background:#F7F7F5;text-align:right;padding:9px 10px;
-  font-family:var(--mono);font-size:.92rem;letter-spacing:.08em;text-transform:uppercase;
+  font-family:var(--mono);font-size:.95rem;letter-spacing:.08em;text-transform:uppercase;
   color:var(--grey);border-bottom:1px solid var(--grey-mid);white-space:nowrap;z-index:2}
 table.ab th.l{text-align:left}
-table.ab td{padding:5px 10px;border-bottom:1px solid var(--grey-xl);vertical-align:middle}
-table.ab td.pos{line-height:1.35}
+table.ab th.nr{width:44px}
+table.ab td{padding:6px 10px;vertical-align:middle}
+table.ab tbody tr{border-bottom:1px solid #EFEFEC}
+
+table.ab td.nr{font-family:var(--mono);font-size:1.03rem;color:var(--grey);
+  text-align:right;white-space:nowrap;padding-right:4px;vertical-align:top;padding-top:9px}
+table.ab td.pos{line-height:1.35;font-size:1.2rem;color:#3d3d40}
 table.ab td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;
-  white-space:nowrap}
+  white-space:nowrap;font-size:1.19rem;color:var(--ink)}
+
+/* Das Vorzeichen sagt, ob eine Position den Saldo hebt oder senkt. Es
+   steht allein in der Erfolgsrechnung, da in der Bilanz jede Position
+   addiert wird und ein Plus vor jeder Zeile nichts unterscheidet. */
+table.ab .vz{font-family:var(--mono);font-weight:700;color:var(--grey-mid);margin-right:6px}
+table.ab .vz.ab{color:var(--red)}
+
+/* Eine Unterposition rueckt ein, eine davon-Angabe weiter. */
+table.ab tr.u td.pos{padding-left:14px}
+table.ab tr.da td.pos{padding-left:28px;color:#5a5a5c;font-size:1.09rem}
+table.ab tr.da td.n{color:#5a5a5c;font-size:1.1rem}
+
+/* Die Gliederungszeile ordnet, ohne einen Wert zu haben. */
 table.ab tr.gl td{background:var(--navy-xl);font-weight:700;letter-spacing:-.01em;
-  font-size:1.16rem;padding:11px 10px}
-table.ab tr.fo td{background:var(--teal-xl)}
-table.ab tr.fo td.pos{font-weight:600}
-table.ab tr.da td{background:var(--shell)}
-table.ab tr.da td.pos{padding-left:30px;color:#54545a;font-size:1.04rem}
+  font-size:1.18rem;padding:11px 10px;color:var(--ink)}
+
+/* Eine gerechnete Zeile liegt auf grauem Grund, ein analytischer
+   Zwischensaldo auf blauem. Die Unterscheidung ist die Aussage von
+   Lektion 02: die eine Zeile schreibt das Gesetz vor, die andere
+   fuegt der Analyst hinzu.                                          */
+table.ab tr.fo td{background:var(--grey-xl)}
+table.ab tr.fo td.pos{font-weight:700;color:var(--ink);font-size:1.21rem}
+table.ab tr.fo td.n{font-weight:600}
+table.ab tr.za td{background:var(--teal-xl);border-top:1px solid #BFE2EC;
+  border-bottom:1px solid #BFE2EC}
+table.ab tr.za td.pos{font-weight:700;color:var(--teal-dk);font-size:1.21rem}
+table.ab tr.za td.n{font-weight:600;color:var(--teal-dk)}
+table.ab tr.erg td{background:var(--paper);border-top:2px solid var(--ink);
+  border-bottom:2px solid var(--ink)}
+table.ab tr.erg td.pos{font-weight:700;color:var(--ink);font-size:1.25rem}
+table.ab tr.erg td.n{font-weight:700;font-size:1.27rem}
 table.ab tr.ko td{background:var(--sand-xl);font-weight:700;border-top:2px solid var(--grey-mid)}
 table.ab tr.ko.schief td{background:#FDEBEA;color:#A32C28}
 table.ab tr.tr td{background:var(--orange-xl)}
-table.ab .kid{font-family:var(--mono);font-size:.92rem;color:var(--grey);
-  display:block;margin-top:2px}
-table.ab input{width:100%;min-width:82px;font-family:var(--mono);font-size:1.08rem;
-  padding:5px 7px;border:1px solid var(--grey-mid);border-radius:6px;text-align:right;
+
+/* Der Zusatz an einer Zeile: die Herleitung einer gerechneten Zeile
+   steht immer da, die Kennung und die Kennzahlen erst nach dem
+   Schalter.                                                        */
+table.ab .herk{display:block;margin-top:3px;font-size:1.08rem;color:var(--grey);
+  line-height:1.4;font-weight:400}
+table.ab .mark{display:inline-block;font-family:var(--mono);font-size:.95rem;
+  letter-spacing:.06em;text-transform:uppercase;background:#CCE8F0;color:var(--teal-dk);
+  padding:1px 7px;border-radius:5px;margin-right:8px;vertical-align:1px;font-weight:600}
+table.ab .kid{font-family:var(--mono);font-size:.95rem;color:var(--grey);
+  display:block;margin-top:3px}
+table.ab td.pos .kid{display:none}
+table.ab input{width:100%;min-width:88px;font-family:var(--mono);font-size:1.19rem;
+  padding:6px 9px;border:1px solid var(--grey-mid);border-radius:7px;text-align:right;
   background:#FFFDF5;color:var(--teal-dk);font-variant-numeric:tabular-nums}
-table.ab input:focus{outline:2px solid var(--teal);outline-offset:1px;background:var(--paper)}
+table.ab input:focus-visible{outline:2px solid var(--orange);outline-offset:1px;
+  border-color:var(--teal);background:var(--paper)}
 table.ab input:disabled{background:var(--grey-xl);color:var(--grey-mid)}
+
+/* Auf schmalem Schirm wird die Staffel enger gesetzt, damit wenigstens
+   eine Jahresspalte neben der Bezeichnung steht. Die Schriftgroessen
+   bleiben, da die Untergrenze von 15px auch hier gilt. */
+@media (max-width:620px){
+  table.ab{min-width:560px}
+  table.ab td{padding:6px 6px}
+  table.ab th{padding:9px 6px}
+  table.ab td.nr{width:34px}
+  table.ab input{min-width:72px;padding:6px 6px}
+  table.ab tr.da td.pos{padding-left:16px}
+  table.ab tr.u td.pos{padding-left:8px}
+}
+
+/* Der Schalter blendet Kennung und Kennzahlen an allen Zeilen ein. */
+.blatt.spuren table.ab td.pos .kid{display:block}
+.blatt.spuren table.ab .haengt{display:inline-flex}
 
 /* Die Kennzahlen, die an einer Position haengen. Der Weg von unten nach
    oben, den die Vorlage nicht zeigen kann.                          */
-.haengt{display:inline-flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.haengt{display:none;flex-wrap:wrap;gap:4px;margin-top:5px}
 .kzchip{appearance:none;border:1px solid var(--teal-lt);background:var(--teal-xl);
   color:var(--teal-dk);font-family:var(--mono);font-size:.94rem;font-weight:600;
   padding:1px 7px;border-radius:5px;cursor:pointer;line-height:1.5}
@@ -415,6 +479,7 @@ table.ab input:disabled{background:var(--grey-xl);color:var(--grey-mid)}
   <div class="blatt" tabindex="0" role="group" aria-label="Gewinn- und Verlustrechnung der Plum Systems AG, seitlich scrollbar">
     <table class="ab" id="tab-guv"></table>
   </div>
+  <p class="hint">Die Schaltfläche über der Staffel blendet an jeder Zeile ihre Kennung ein sowie die Kennzahlen, die auf ihr aufsetzen. Ein Klick auf eine solche Kennzahl springt in ihre Lektion und klappt ihre Herleitung auf.</p>
   <p class="hint scrollhint">Die Tabelle lässt sich seitlich scrollen.</p>
 
   <h2 class="sec">Die drei analytischen Zwischensalden</h2>
@@ -455,6 +520,7 @@ table.ab input:disabled{background:var(--grey-xl);color:var(--grey-mid)}
   <div class="blatt" style="margin-top:20px" tabindex="0" role="group" aria-label="Passivseite der Bilanz, seitlich scrollbar">
     <table class="ab" id="tab-pas"></table>
   </div>
+  <p class="hint">Auch hier blendet die Schaltfläche über den Blättern Kennung und Kennzahlen an jeder Zeile ein.</p>
   <p class="hint scrollhint">Beide Tabellen lassen sich seitlich scrollen.</p>
 
   <h2 class="sec">Die Fristigkeiten, die in der Bilanz selbst nicht stehen</h2>
@@ -1078,6 +1144,9 @@ const MAXJAHRE = 6;                 /* wie in der Vorlage */
 const FALLJAHRE = 3;                /* so viele bringt der Fall mit */
 let JAHRE = FALLJAHRE;
 let JSTART = 1;                     /* 1 ergibt "Jahr 1", sonst Kalenderjahre */
+/* Kennung und Kennzahlenchips stehen im Grundzustand nicht an den
+   Zeilen, damit die Gliederung lesbar bleibt. */
+let SPUREN = false;
 
 const EINGABE = POS.filter(p => p.t === "e" || p.t === "d");
 const GERECHNET = POS.filter(p => p.t === "f" || p.t === "k");
@@ -1210,23 +1279,83 @@ const jahrName = j => JSTART === 1 ? "Jahr " + (j + 1) : String(JSTART + j);
    Wert ohne Feld. Damit laesst sich keine Summe von Hand setzen, weshalb
    die Kontrolldifferenz ihre Aussage behaelt.
    ===================================================================== */
+/* Die Nummer steht am Anfang der Bezeichnung, so wie die Vorlage sie
+   fuehrt. Sie kommt in ihre eigene Spalte, damit die Bezeichnungen
+   untereinander an derselben Kante beginnen. */
+const NRMUSTER = /^((?:[0-9]{1,2}\.|[a-z]\)|[A-Z]\.|[IVX]{1,4}\.)\s*)+/;
+function nummerAb(bez){
+  const m = NRMUSTER.exec(bez);
+  return m ? [m[0].trim(), bez.slice(m[0].length)] : ["", bez];
+}
+
+/* Der analytische Zwischensaldo heisst in der Vorlage mit vollem
+   Zusatz. In der Staffel steht der Name allein, den Zusatz sagt die
+   Marke davor. */
+function saldoName(bez){
+  const m = /^Analytischer Zwischensaldo:\s*(.+?)\s*–\s*nicht Bestandteil der gesetzlichen Gliederung$/.exec(bez);
+  return m ? m[1] : null;
+}
+
+/* Abgezogen wird, was in der Herleitung einer gerechneten Zeile mit
+   einem Minus steht. Eine Unterposition erbt das Vorzeichen ihrer
+   Oberposition, da 5a und 5b selbst in keiner Herleitung vorkommen. */
+const ABZUG = (() => {
+  const ab = new Set();
+  POS.forEach(p => (p.gl || []).forEach(g => { if(g.charAt(0) === "-") ab.add(g.slice(1)); }));
+  POS.forEach(p => {
+    if(ab.has(p.i)) (p.gl || []).forEach(g => ab.add(g.charAt(0) === "-" ? g.slice(1) : g));
+  });
+  return ab;
+})();
+
+/* Die Zeile, die das Blatt abschliesst. Sie bekommt den doppelten
+   Strich, den ein Abschluss auf dem Papier auch hat. */
+const ABSCHLUSS = {guv:"GUV-17", akt:"AKT-BS", pas:"PAS-BS"};
+
+/* Ein Hinweis, der allein die Art der Zeile wiederholt, steht nicht da.
+   Was eine Zeile herleitet oder wovon sie ein Teil ist, steht sehr
+   wohl da, weil die Staffel sonst nicht nachvollziehbar ist. */
+const STUMM = new Set(["HGB-Position", "HGB-Unterposition"]);
+
 function blattZeichnen(tabelle, blatt, titel){
   const el = $(tabelle);
   if(!el) return;
-  let h = "<thead><tr><th class='l'>" + esc(titel) + "</th>";
+  const mitVz = blatt === "guv";
+  let h = "<thead><tr><th class='l nr'></th><th class='l'>" + esc(titel) + "</th>";
   for(let j = 0; j < JAHRE; j++) h += "<th>" + esc(jahrName(j)) + "</th>";
   h += "</tr></thead><tbody>";
+
   POS.filter(p => p.bl === blatt).forEach(p => {
     if(p.t === "g"){
-      h += "<tr class='gl'><td colspan='" + (JAHRE + 1) + "'>" + esc(p.b) + "</td></tr>";
+      h += "<tr class='gl'><td class='nr'></td><td colspan='" + (JAHRE + 1) + "'>"
+        + esc(p.b) + "</td></tr>";
       return;
     }
-    const art = p.t === "f" ? "fo" : p.t === "d" ? "da" : p.t === "k" ? "ko" : "";
+    const saldo = saldoName(p.b);
+    const [nr, rest] = saldo ? ["", saldo] : nummerAb(p.b);
+    let art = p.t === "d" ? "da"
+            : p.t === "k" ? "ko"
+            : p.t === "f" ? (saldo ? "za" : "fo") : "";
+    if(p.i === ABSCHLUSS[blatt]) art = "erg";
+    if(p.t === "e" && /^[a-z]\)/.test(nr)) art = "u";
+
     const schief = p.t === "k" && [...Array(JAHRE).keys()]
       .some(j => { const v = wert(p.i, j, W); return v != null && Math.abs(v) > 0.5; });
+
     h += "<tr class='" + art + (schief ? " schief" : "") + "' data-pos='" + esc(p.i) + "'>";
-    h += "<td class='pos'>" + esc(p.b);
-    h += "<span class='kid'>" + esc(p.i) + (p.h ? " · " + esc(p.h) : "") + "</span>";
+    h += "<td class='nr'>" + esc(nr) + "</td>";
+    h += "<td class='pos'>";
+    if(saldo) h += "<span class='mark'>analytisch</span>";
+    /* Ein Vorzeichen steht vor einer Position, die in den Saldo
+       eingeht. Eine gerechnete Zeile, die den Saldo selbst ausweist
+       (15 und 17), bekommt keines, da sie nichts hinzufuegt. */
+    const abzug = ABZUG.has(p.i);
+    if(mitVz && !saldo && (p.t === "e" || abzug))
+      h += "<span class='vz" + (abzug ? " ab" : "") + "'>"
+        + (abzug ? "−" : "+") + "</span>";
+    h += esc(rest);
+    if(p.h && !STUMM.has(p.h)) h += "<span class='herk'>" + esc(p.h) + "</span>";
+    h += "<span class='kid'>" + esc(p.i) + "</span>";
     const kz = HAENGT[p.i];
     if(kz && kz.length){
       h += "<span class='haengt'>" + kz.map(c =>
@@ -1588,6 +1717,7 @@ function allesZeichnen(){
   zwischenKarten();
   kzZeichnen();
   jahrLeisten();
+  spurenSetzen();
   standText();
 }
 
@@ -1606,9 +1736,26 @@ function jahrLeisten(){
       + "<input type='number' id='js-" + id + "' value='" + JSTART
       + "' min='1' step='1' data-jstart='1' "
       + "aria-label='Erstes Geschäftsjahr, 1 ergibt Jahr 1 bis Jahr 6'>"
-      + "<span class='jl'>1 ergibt Jahr 1</span>";
+      + "<span class='jl'>1 ergibt Jahr 1</span>"
+      + "<button class='btn ghost' type='button' data-spuren='1' aria-pressed='"
+      + (SPUREN ? "true" : "false") + "'>"
+      + (SPUREN ? "Kennungen ausblenden" : "Kennungen und Kennzahlen zeigen") + "</button>";
   });
 }
+
+/* Der Schalter legt die Klasse an jedes Blatt. Die Zeilen selbst
+   bleiben unberuehrt, weshalb ein Umschalten weder eine Neuzeichnung
+   noch den Schreibfleck in einem Feld kostet. */
+function spurenSetzen(){
+  document.querySelectorAll(".blatt").forEach(b => b.classList.toggle("spuren", SPUREN));
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-spuren]");
+  if(!b) return;
+  SPUREN = !SPUREN;
+  spurenSetzen();
+  jahrLeisten();
+});
 
 document.addEventListener("input", e => {
   const el = e.target;
