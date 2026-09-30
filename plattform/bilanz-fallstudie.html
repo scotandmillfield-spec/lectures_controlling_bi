@@ -316,7 +316,11 @@ table.ab input:disabled{background:var(--grey-xl);color:var(--grey-mid)}
    Eine Karte je Kennzahl mit Wert, Rechenweg und der Herleitung zum
    Aufklappen. Bewusst ohne Bewertungsfarbe: die Vorlage sagt, dass die
    Ergebnisflaeche keine Bewertung ausdrueckt.                       */
-.kzgrid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+/* Eine Karte ist mindestens so breit, dass ihre Herleitung mit allen
+   Jahresspalten hineinpasst. Die Untergrenze setzt das Skript, da sie
+   mit der Zahl der Jahre waechst (siehe kzZeichnen). */
+.kzgrid{display:grid;gap:14px;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,var(--kzmin,420px)),1fr))}
 .kzgrid>*{min-width:0}
 .kzk{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
   box-shadow:var(--shadow);overflow:hidden}
@@ -326,41 +330,61 @@ table.ab input:disabled{background:var(--grey-xl);color:var(--grey-mid)}
   letter-spacing:.08em}
 .kzk h3{margin:3px 0 6px;font-size:1.2rem;font-weight:700;letter-spacing:-.012em;
   overflow-wrap:anywhere}
-.kzk .rw{margin:0;font-size:1.04rem;color:var(--grey);font-family:var(--mono);
+.kzk .rw{margin:0;font-size:1.06rem;color:var(--grey);font-family:var(--mono);
   line-height:1.4;overflow-wrap:anywhere}
-.kzreihe{display:flex;gap:0;border-bottom:1px solid var(--grey-xl)}
-.kzreihe>div{flex:1;min-width:0;padding:10px 12px;text-align:right;
-  border-left:1px solid var(--grey-xl)}
+/* Die Jahresspalten stehen mittig unter ihrer Beschriftung, da Zahl,
+   Einheit und Veraenderung verschieden lang sind und rechtsbuendig
+   gesetzt ausfransen. Jede Spalte bekommt denselben Anteil, sodass die
+   Werte dreier Jahre auf einer senkrechten Achse liegen.           */
+.kzreihe{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;
+  border-bottom:1px solid var(--grey-xl)}
+.kzreihe>div{min-width:0;padding:12px 8px;text-align:center;
+  border-left:1px solid var(--grey-xl);display:flex;flex-direction:column;
+  align-items:center;gap:3px}
 .kzreihe>div:first-child{border-left:0}
-.kzreihe .jn{display:block;font-family:var(--mono);font-size:.9rem;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--grey)}
-.kzreihe .jw{display:block;font-family:var(--mono);font-size:1.3rem;font-weight:600;
-  font-variant-numeric:tabular-nums;margin-top:2px;overflow-wrap:anywhere}
-.kzreihe .jd{display:block;font-family:var(--mono);font-size:.95rem;color:var(--grey);
-  margin-top:1px}
-.kzk .aussage{margin:0;padding:12px 16px;font-size:1.06rem;color:#3d3d40;line-height:1.45;
-  background:var(--shell)}
+.kzreihe .jn{font-family:var(--mono);font-size:1rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--grey);white-space:nowrap}
+.kzreihe .jw{font-family:var(--mono);font-size:1.34rem;font-weight:600;
+  font-variant-numeric:tabular-nums;overflow-wrap:anywhere;line-height:1.2}
+/* Die Zeile der Veraenderung bleibt stehen, auch wenn sie leer ist,
+   damit die Werte der drei Jahre auf einer Hoehe sitzen. */
+.kzreihe .jd{font-family:var(--mono);font-size:1rem;color:var(--grey);
+  white-space:nowrap;min-height:1.35em}
+
+.kzk .aussage{margin:0;padding:12px 16px;font-size:1.08rem;color:#3d3d40;line-height:1.45;
+  background:var(--shell);border-top:1px solid var(--grey-xl)}
+.kzk .aussage[hidden]{display:none}
 .kzk .auf{appearance:none;width:100%;border:0;border-top:1px solid var(--grey-xl);
-  background:var(--paper);font-family:var(--sans);font-size:1.06rem;font-weight:600;
+  background:var(--paper);font-family:var(--sans);font-size:1.08rem;font-weight:600;
   color:var(--teal-dk);padding:10px 16px;text-align:left;cursor:pointer}
 .kzk .auf:hover{background:var(--teal-xl)}
+.kzk .auf:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
 .kzk .auf::before{content:"▸ ";font-family:var(--mono)}
 .kzk .auf[aria-expanded=true]::before{content:"▾ "}
 
 /* Die Herleitung: jede Zeile nennt ihre Rolle, ihren Betrag und die
    Position, aus der sie stammt.                                     */
 .herl{border-top:1px solid var(--grey-xl);background:var(--canvas)}
-.herl table{width:100%;border-collapse:collapse;font-size:1.02rem}
-.herl th{text-align:left;padding:7px 12px;font-family:var(--mono);font-size:.86rem;
+.htab{overflow-x:auto}
+.htab:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.herl table{width:100%;min-width:260px;border-collapse:collapse;font-size:1.06rem}
+.herl th{text-align:left;padding:7px 7px;font-family:var(--mono);font-size:.96rem;
   letter-spacing:.06em;text-transform:uppercase;color:var(--grey);
   border-bottom:1px solid var(--grey-mid)}
-.herl th.r{text-align:right}
-.herl td{padding:6px 12px;border-bottom:1px solid var(--grey-xl);vertical-align:top;
+.herl th.r{text-align:right;white-space:nowrap}
+.herl td{padding:7px 7px;border-bottom:1px solid var(--grey-xl);vertical-align:top;
   line-height:1.35}
+.herl th:first-child,.herl td:first-child{padding-left:12px}
+.herl th:last-child,.herl td:last-child{padding-right:12px}
 .herl td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;
   white-space:nowrap}
 .herl tr.den td{background:#FFFFFF}
-.herl .rolle{font-family:var(--mono);font-size:.9rem;color:var(--grey);display:block}
+.herl .rolle{font-family:var(--mono);font-size:.98rem;color:var(--grey);display:block}
+/* Die Kennung steht immer in einer eigenen Zeile unter der
+   Bezeichnung, damit sie nicht je nach Laenge des Namens einmal
+   darunter und einmal daneben sitzt. */
+.herl td .kzchip{display:block;width:fit-content;margin-top:5px}
+.herl td.n{width:1%}
 .herl .rechnung{padding:10px 12px;font-family:var(--mono);font-size:1.06rem;
   background:var(--paper);border-top:1px solid var(--grey-mid);line-height:1.5;
   overflow-wrap:anywhere}
@@ -550,7 +574,7 @@ table.ab input:disabled{background:var(--grey-xl);color:var(--grey-mid)}
   <p class="claim">Vierzehn Kennzahlen stehen hier, sieben zum Vermögen und sieben zum Ertrag, wobei jede Karte ihren Rechenweg nennt und sich <b>jede Herleitung bis zu der HGB-Position aufklappen lässt</b>, aus der jeder ihrer Bestandteile stammt.</p>
 
   <div class="wsbar">
-    <button class="btn" id="kzAufD">Alle Herleitungen aufklappen</button>
+    <button class="btn" id="kzAufD">Alle Karten aufklappen</button>
     <button class="btn ghost" id="kzZuD">Alle zuklappen</button>
     <span class="sep"></span>
     <span class="wsmsg" id="kzMsgD"></span>
@@ -579,7 +603,7 @@ table.ab input:disabled{background:var(--grey-xl);color:var(--grey-mid)}
   <p class="claim">Dreizehn Kennzahlen zur Finanzierung, zur Liquidität und zur Deckung des Anlagevermögens stehen hier, von denen vier dasselbe kurzfristige Fremdkapital benutzen, <b>das aus neun Bestandteilen entsteht</b> und in keiner Zeile der Bilanz steht. An dieser Stelle verliert gewöhnlich, wer die Kennzahlen der Reihe nach nachrechnet.</p>
 
   <div class="wsbar">
-    <button class="btn" id="kzAufF">Alle Herleitungen aufklappen</button>
+    <button class="btn" id="kzAufF">Alle Karten aufklappen</button>
     <button class="btn ghost" id="kzZuF">Alle zuklappen</button>
     <span class="sep"></span>
     <span class="wsmsg" id="kzMsgF"></span>
@@ -679,7 +703,7 @@ table.ab input:disabled{background:var(--grey-xl);color:var(--grey-mid)}
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.85</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.86</span>
 </footer>
 
 </div>
@@ -1421,7 +1445,13 @@ function kzKarte(k){
        + "<span class='jd'>" + esc(d) + "</span></div>";
   }
   h += "</div>";
-  if(k.a) h += "<p class='aussage'>" + esc(k.a) + "</p>";
+  /* Erlaeuterung und Herleitung klappen beide auf, damit die Karte in
+     der Uebersicht auf Name, Rechenweg und Werte zusammenschrumpft. */
+  if(k.a){
+    h += "<button class='auf' data-auf='erl-" + k.c + "' aria-expanded='false' "
+       + "aria-controls='erl-" + k.c + "'>Was die Kennzahl aussagt</button>";
+    h += "<p class='aussage' id='erl-" + k.c + "' hidden>" + esc(k.a) + "</p>";
+  }
   h += "<button class='auf' data-kz='" + k.c + "' aria-expanded='false' "
      + "aria-controls='herl-" + k.c + "'>Herleitung, " + k.t.length
      + (k.t.length === 1 ? " Glied" : " Glieder") + "</button>";
@@ -1433,21 +1463,25 @@ function kzKarte(k){
    Zahlen. Eine Formel, die sich nicht nachrechnen laesst, ist eine
    Behauptung. */
 function herleitung(k){
-  let h = "<table><thead><tr><th>Glied der Rechnung</th>";
+  /* Die Kennung der Position steht unter der Bezeichnung und nicht in
+     einer eigenen Spalte. Bei drei Jahresspalten ist eine vierte
+     Spalte auf der Breite einer Karte nicht unterzubringen. */
+  let h = "<div class='htab' tabindex='0' role='group' aria-label='Herleitung von "
+        + esc(k.c) + ", seitlich scrollbar'><table><thead><tr><th>Glied der Rechnung</th>";
   for(let j = 0; j < JAHRE; j++) h += "<th class='r'>" + esc(jahrName(j)) + "</th>";
-  h += "<th>Position</th></tr></thead><tbody>";
+  h += "</tr></thead><tbody>";
   k.t.forEach(t => {
     h += "<tr" + (t.s === "den" ? " class='den'" : "") + ">";
     h += "<td><span class='rolle'>" + esc(t.r) + (t.v === -1 ? " · abgezogen" : "")
-       + "</span>" + esc(t.n) + "</td>";
+       + "</span>" + esc(t.n)
+       + "<button class='kzchip' data-pos='" + esc(t.q) + "'>" + esc(t.q) + "</button></td>";
     for(let j = 0; j < JAHRE; j++){
       const v = wert(t.q, j, W);
       h += "<td class='n'>" + (v == null ? "–" : (t.v === -1 ? "−" : "") + teuro(v)) + "</td>";
     }
-    h += "<td><button class='kzchip' data-pos='" + esc(t.q) + "'>" + esc(t.q) + "</button></td>";
     h += "</tr>";
   });
-  h += "</tbody></table>";
+  h += "</tbody></table></div>";
   h += "<div class='rechnung'>" + rechnung(k) + "</div>";
   return h;
 }
@@ -1478,9 +1512,17 @@ function rechnung(k){
 }
 
 function kzZeichnen(){
+  /* Die laengste Bezeichnung eines Gliedes braucht rund 240 Pixel (die
+     Eigenkapitalrentabilitaet E5), jede Jahresspalte rund 78, dazu der
+     Innenabstand der Karte. Damit passt die Herleitung ohne Ueberhang
+     hinein, auch bei sechs Jahren. Ist der Schirm schmaler als eine
+     Karte, scrollt der Rahmen der Tabelle. */
+  const kzmin = (240 + 78 * JAHRE + 28) + "px";
   ["V", "F", "E"].forEach(g => {
     const el = $("kz-" + g);
-    if(el) el.innerHTML = KZ.filter(k => k.gr === g).map(kzKarte).join("");
+    if(!el) return;
+    el.style.setProperty("--kzmin", kzmin);
+    el.innerHTML = KZ.filter(k => k.gr === g).map(kzKarte).join("");
   });
   const z = $("zusatzbox");
   if(z){
@@ -1501,16 +1543,22 @@ function kzZeichnen(){
 document.addEventListener("click", e => {
   const b = e.target.closest(".auf");
   if(!b) return;
+  e.preventDefault();
   const ziel = $(b.getAttribute("aria-controls"));
   const offen = b.getAttribute("aria-expanded") === "true";
   b.setAttribute("aria-expanded", String(!offen));
   if(ziel) ziel.hidden = offen;
 });
+/* Beide Klappen einer Karte auf einmal, also Erlaeuterung und
+   Herleitung. Wer eine Gruppe durchliest, will nicht siebenmal
+   klicken. */
 function alleHerleitungen(gruppe, offen){
   KZ.filter(k => k.gr === gruppe).forEach(k => {
-    const b = document.querySelector('.auf[data-kz="' + k.c + '"]');
-    const z = $("herl-" + k.c);
-    if(b && z){ b.setAttribute("aria-expanded", String(offen)); z.hidden = !offen; }
+    [["herl-", '.auf[data-kz="' + k.c + '"]'],
+     ["erl-",  '.auf[data-auf="erl-' + k.c + '"]']].forEach(([vor, wahl]) => {
+      const b = document.querySelector(wahl), z = $(vor + k.c);
+      if(b && z){ b.setAttribute("aria-expanded", String(offen)); z.hidden = !offen; }
+    });
   });
 }
 [["D", "V"], ["F", "F"]].forEach(([s, g]) => {
@@ -1518,7 +1566,7 @@ function alleHerleitungen(gruppe, offen){
   if(auf) auf.addEventListener("click", () => {
     alleHerleitungen(g, true);
     if(g === "V") alleHerleitungen("E", true);
-    melde("kzMsg" + s, "Alle Herleitungen stehen offen.");
+    melde("kzMsg" + s, "Alle Erläuterungen und Herleitungen stehen offen.");
   });
   if(zu) zu.addEventListener("click", () => {
     alleHerleitungen(g, false);
