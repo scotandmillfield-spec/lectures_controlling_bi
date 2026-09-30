@@ -689,7 +689,7 @@ footer a{color:var(--teal-dk)}
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.83</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.84</span>
 </footer>
 
 </div>
@@ -728,7 +728,7 @@ const FELDER = [
    module:["bilanz-buchungssaetze"]},
   {id:"kennzahl",  kurz:"Kennzahlen",       name:"Kennzahlen und Analyse",
    was:"Vermögens- und Kapitalstruktur, die drei Liquiditätsgrade, Rentabilität und die Grenzen einer verdichteten Zahl.",
-   module:["bilanz-kennzahlen"]},
+   module:["bilanz-kennzahlen","bilanz-fallstudie"]},
   {id:"erfolg",    kurz:"Periodenerfolg",   name:"Periodenerfolg und BWA",
    was:"Was eine betriebswirtschaftliche Auswertung ausweist, wie sie aufgebaut ist und wo ihre Zahlen vorläufig bleiben.",
    module:["liquiditaet-bwa"]},
@@ -747,6 +747,7 @@ const MODULNAME = {
   "bilanz-guv":"Die Gewinn- und Verlustrechnung",
   "bilanz-buchungssaetze":"Buchungssätze und ihre Wirkung",
   "bilanz-kennzahlen":"Jahresabschlussanalyse mit Kennzahlen",
+  "bilanz-fallstudie":"Bilanzanalyse einer Fallstudie",
   "liquiditaet-bwa":"Die BWA lesen",
   "liquiditaet-begriff":"Liquidität: der Begriff",
   "liquiditaet-vorschau":"Die Liquiditätsvorschau",
@@ -854,6 +855,22 @@ const FRAGEN = [
    "Roh-, Hilfs- und Betriebsstoffe werden bar gekauft und eingelagert. Wirkt das auf den Erfolg?",
    ["Nein, aus Geld wird Vorrat, also ein Aktivtausch","Ja, Materialaufwand entsteht","Ja, aber nur in Höhe der Umsatzsteuer","Nur wenn bar gezahlt wird"], 0,
    "Zum Aufwand wird der Vorrat erst beim Verbrauch. Bis dahin ist er Vermögen."],
+  ["kennzahl", "bilanz-fallstudie",
+   "Woher stammt das kurzfristige Fremdkapital, das als Nenner der Liquiditätsgrade dient?",
+   ["Aus den Restlaufzeitangaben des Anhangs","Aus einer eigenen Zeile der Passivseite","Aus der Differenz von Bilanzsumme und Eigenkapital","Aus den sonstigen Verbindlichkeiten"], 0,
+   "Eine Bilanz nach § 266 HGB ordnet die Passivseite nach Rechtsnatur und nicht nach Fälligkeit. Welcher Teil einer Verbindlichkeit innerhalb eines Jahres fällig wird, steht im Verbindlichkeitenspiegel des Anhangs (§ 285 Nr. 1 HGB)."],
+  ["kennzahl", "bilanz-fallstudie",
+   "Was geschieht, wenn Du eine „davon“-Angabe in die Summe ihrer Oberposition einrechnest?",
+   ["Derselbe Betrag wird zweimal gezählt","Die Summe bleibt gleich","Die Bilanzsumme sinkt","Die Oberposition verliert den Betrag"], 0,
+   "Eine „davon“-Angabe erläutert eine Position, ohne selbst in eine Summe einzugehen. Sie ist in ihrer Oberposition schon enthalten, weshalb ein Mitaddieren die Bilanzgleichung zerreißt."],
+  ["kennzahl", "bilanz-fallstudie",
+   "Wie entsteht aus dem Verhältnis eines Bestandes zu einer Jahresgröße eine Angabe in Tagen?",
+   ["Das Verhältnis wird mit 365 multipliziert","Der Nenner wird durch zwölf geteilt","Es wird der Durchschnitt zweier Jahre gebildet","Die Angabe kommt aus dem Anhang"], 0,
+   "Bei der Bestandsdauer der Vorräte, dem Debitorenziel und dem Kreditorenziel steht ein Stichtagsbestand im Zähler und eine Jahresgröße im Nenner. Die Multiplikation mit 365 rechnet das Verhältnis in Tage um."],
+  ["kennzahl", "bilanz-fallstudie",
+   "Was prüft die Kontrollzeile am Ende einer Bilanzseite?",
+   ["Ob Aktiv- und Passivseite übereinstimmen","Ob jeder Posten richtig bewertet ist","Ob die Kennzahlen plausibel sind","Ob die Fristigkeiten vollständig sind"], 0,
+   "Sie prüft die Bilanzgleichung. Über die Bewertung eines einzelnen Postens sagt sie nichts. Solange dort nicht null steht, rechnet allerdings jede Kennzahl mit einem Gesamtkapital, das es nicht gibt."],
   ["kennzahl", "bilanz-kennzahlen",
    "Was leistet eine Kennzahl, was ein einzelner Betrag nicht leistet?",
    ["Sie macht zwei verschieden große Unternehmen vergleichbar","Sie ist genauer als der Betrag","Sie ist gesetzlich vorgeschrieben","Sie ist unabhängig von Bilanzierungswahlrechten"], 0,
