@@ -713,6 +713,31 @@ footer a{color:var(--teal-dk)}
 .ccerg .k.warn .kv{color:var(--ochre)}
 .ccerg .kf{margin:0;font-size:1.11rem;color:var(--grey);line-height:1.45}
 
+/* ---------- Das Wachstumsparadox ----------
+   Dieselben Regler wie beim Rechner daneben, dazu eine Zeichnung ueber
+   fuenf Jahre. Die Saeulen stehen je Jahr fuer den Gewinn und fuer das
+   zusaetzlich gebundene Kapital, die Linie fuer den Kontostand, der
+   allein aus dem eigenen Ergebnis entsteht.                       */
+.wprahmen{margin:18px 0 0;overflow-x:auto}
+.wprahmen:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+#wpBild{display:block;width:100%;min-width:760px;height:auto}
+#wpBild .ach{stroke:var(--grey-mid);stroke-width:1}
+#wpBild .null{stroke:var(--ink);stroke-width:1.5}
+#wpBild .gitter{stroke:var(--grey-xl);stroke-width:1}
+#wpBild .jue{fill:var(--green)}
+#wpBild .bed{fill:var(--red)}
+#wpBild .lin{fill:none;stroke:var(--navy);stroke-width:2.5;stroke-linejoin:round}
+#wpBild .pkt{fill:var(--navy)}
+#wpBild text{font-family:var(--mono);font-size:15px;fill:var(--grey)}
+#wpBild text.j{fill:var(--ink);font-size:16px}
+/* Die Beschriftung des Kontostands bekommt einen hellen Saum, da die
+   Linie an ihrem Wendepunkt durch sie hindurchlaeuft. */
+#wpBild text.s{fill:var(--navy);font-weight:600;paint-order:stroke;
+  stroke:var(--paper);stroke-width:5px;stroke-linejoin:round}
+.wptab{margin:12px 0 0;font-family:var(--mono);font-size:1.08rem;color:#3d3d40;
+  line-height:1.6;overflow-wrap:anywhere}
+.wptab b{color:var(--navy)}
+
 @media (max-width:620px){
   .cczeile{grid-template-columns:minmax(0,1fr) 78px;gap:8px}
   .cczeile input[type="range"]{grid-column:1/-1}
@@ -799,6 +824,40 @@ footer a{color:var(--teal-dk)}
   <div class="readme" style="margin-top:16px">
     <b>Die Kapitalbindung im Beispiel.</b> Bei 98.000 T€ Umsatz stecken 9.600 T€ in Forderungen und 14.800 T€ in Vorräten. Dem stehen 7.900 T€ Lieferantenverbindlichkeiten gegenüber, sodass insgesamt rund 16.500 T€ im Umlaufvermögen gebunden sind. Bei dreißig Prozent Wachstum wären es etwa 5.000 T€ mehr, die aus dem Ergebnis, aus dem Kontokorrent oder von der Bank kommen müssen. Der Jahresüberschuss des Jahres liegt bei 2.300 T€.
   </div>
+
+  <h2 class="sec">Fünf Jahre Wachstum durchspielen</h2>
+  <p class="sub">Der Satz, dass sich die Lücke erst schließt, wenn das Wachstum aufhört, lässt sich hier nachstellen. Stell die drei Regler ein und lies an der Linie ab, wie weit der Kontostand aus eigener Kraft abrutscht und in welchem Jahr er wieder nach oben dreht. Gerechnet wird mit den Zahlen des Falls, also 98.000 T€ Umsatz, 16.500 T€ gebundenem Umlaufvermögen und 2.300 T€ Jahresüberschuss.</p>
+
+  <div class="ccc" id="wpForm">
+    <div class="cczeile">
+      <label for="wpG">Wachstum je Jahr<em>Umsatz, Forderungen und Vorräte wachsen im gleichen Maß</em></label>
+      <input type="range" id="wpG" min="0" max="40" step="1" value="30" aria-label="Wachstum je Jahr in Prozent">
+      <span class="wert" id="wpGw">30 %</span>
+    </div>
+    <div class="cczeile">
+      <label for="wpR">Umsatzrendite<em>Jahresüberschuss je Euro Umsatz, im Fall 2,3 Prozent</em></label>
+      <input type="range" id="wpR" min="0" max="20" step="0.1" value="2.3" aria-label="Umsatzrendite in Prozent">
+      <span class="wert" id="wpRw">2,3 %</span>
+    </div>
+    <div class="cczeile">
+      <label for="wpE">Wachstum endet nach Jahr<em>Danach bleibt der Umsatz, wo er ist</em></label>
+      <input type="range" id="wpE" min="1" max="5" step="1" value="5" aria-label="Wachstum endet nach diesem Jahr">
+      <span class="wert" id="wpEw">läuft weiter</span>
+    </div>
+
+    <div class="wprahmen" tabindex="0" role="group" aria-label="Fünf Jahre Wachstum: Gewinn, zusätzlich gebundenes Kapital und der Kontostand aus eigener Kraft, seitlich scrollbar">
+      <svg id="wpBild" viewBox="0 0 760 330" aria-hidden="true"></svg>
+    </div>
+    <p class="cclegend">
+      <span><b style="background:var(--green)"></b>Jahresüberschuss des Jahres</span>
+      <span><b style="background:var(--red)"></b>Zusätzlich gebundenes Kapital</span>
+      <span><b style="background:var(--navy)"></b>Kontostand aus eigener Kraft</span>
+    </p>
+    <p class="wptab" id="wpTab"></p>
+
+    <div class="ccerg" id="wpErg"></div>
+  </div>
+  <p class="hint">Was die Zeichnung zeigt, steht darunter noch einmal als Zahlenreihe, da sie sich auf schmalem Schirm seitlich scrollen lässt.</p>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
@@ -1040,7 +1099,7 @@ footer a{color:var(--teal-dk)}
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.86</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.87</span>
 </footer>
 
 </div>
@@ -1119,6 +1178,146 @@ function ccRechne(){
 }
 $("ccForm").addEventListener("input", e => { if(e.target.type === "range") ccRechne(); });
 ccRechne();
+
+/* =====================================================================
+   1b · Das Wachstumsparadox ueber fuenf Jahre
+
+   Das Modell steht auf drei Zahlen des Falls: 98.000 T€ Umsatz,
+   16.500 T€ gebundenes Umlaufvermoegen (9.600 Forderungen plus 14.800
+   Vorraete abzueglich 7.900 Lieferantenverbindlichkeiten) sowie 2.300
+   T€ Jahresueberschuss. Daraus folgen zwei Verhaeltnisse, die das
+   ganze Werkzeug antreiben: Je Euro Umsatz sind 16,8 Cent gebunden,
+   und je Euro Umsatz bleiben 2,3 Cent Gewinn.
+
+   Forderungen und Vorraete wachsen mit dem Umsatz, da sie sich aus ihm
+   ergeben. Deshalb ist der Kapitalbedarf eines Jahres der Zuwachs des
+   gebundenen Umlaufvermoegens, waehrend der Gewinn des Jahres das
+   einzige Geld ist, das ohne Bank hinzukommt.                       */
+const WP_WC = 16500;                /* gebundenes Umlaufvermoegen */
+const WP_JUE = 2300;                /* Jahresueberschuss des Falls */
+const WP_JAHRE = 5;
+const WP_QUOTE = WP_WC / UMSATZ;    /* 16,8 Cent je Euro Umsatz */
+
+/* Liefert je Jahr Umsatz, Kapitalbedarf, Gewinn und den Kontostand,
+   der allein aus dem eigenen Ergebnis entsteht. */
+function wpReihe(g, r, ende){
+  const z = [];
+  let u = UMSATZ, wc = WP_WC, saldo = 0;
+  for(let j = 1; j <= WP_JAHRE; j++){
+    const w = j <= ende ? g : 0;
+    const uNeu = u * (1 + w), wcNeu = WP_WC * uNeu / UMSATZ;
+    const bedarf = wcNeu - wc, jue = uNeu * r;
+    saldo += jue - bedarf;
+    z.push({j, u:uNeu, bedarf, jue, saldo});
+    u = uNeu; wc = wcNeu;
+  }
+  return z;
+}
+
+/* Die Zeichnung rechnet ihre Koordinaten und misst sie nicht, da ein
+   zugeklappter Block nur Nullen liefert.
+
+   Saeulen und Linie teilen sich eine einzige Achse. Zwei Massstaebe
+   nebeneinander wuerden die Hoehe eines Balkens mit der Tiefe der
+   Linie vergleichbar erscheinen lassen, ohne dass sie es waere. */
+function wpZeichnen(z){
+  const B = 760, H = 330, L = 96, R = 30, O = 26, U = 50;
+  const bx = (B - L - R) / WP_JAHRE, hoehe = H - O - U;
+  const hoch = Math.max(...z.map(x => Math.max(x.jue, x.bedarf, x.saldo)), 1);
+  const tief = Math.min(...z.map(x => x.saldo), 0);
+  const spanne = hoch - tief;
+  const y0 = O + hoehe * (hoch / spanne);
+  const yv = v => O + hoehe * ((hoch - v) / spanne);
+
+  let s = "";
+  s += `<line class="null" x1="${L - 10}" y1="${y0.toFixed(1)}" x2="${B - R}" y2="${y0.toFixed(1)}"/>`;
+  s += `<text x="${L - 16}" y="${(y0 + 5).toFixed(1)}" text-anchor="end">0</text>`;
+  s += `<text x="${L - 16}" y="${O + 5}" text-anchor="end">${zahl(Math.round(hoch))}</text>`;
+  if(tief < 0)
+    s += `<text x="${L - 16}" y="${H - U + 5}" text-anchor="end">−${zahl(Math.round(-tief))}</text>`;
+
+  z.forEach((x, i) => {
+    const m = L + i * bx, br = bx * .26;
+    const xj = m + bx * .16, xb = m + bx * .52;
+    /* Gewinn und Kapitalbedarf stehen nebeneinander, da sie im selben
+       Jahr gegeneinander laufen. */
+    [[xj, x.jue, "jue"], [xb, x.bedarf, "bed"]].forEach(([xx, v, kl]) => {
+      const h = (v / spanne) * hoehe;
+      s += `<rect class="${kl}" x="${xx.toFixed(1)}" y="${(y0 - h).toFixed(1)}"`
+         + ` width="${br.toFixed(1)}" height="${Math.max(h, 0).toFixed(1)}" rx="2"/>`;
+    });
+    s += `<text class="j" x="${(m + bx / 2).toFixed(1)}" y="${H - 14}" text-anchor="middle">Jahr ${x.j}</text>`;
+  });
+
+  /* Die Linie des Kontostands, beginnend bei null vor dem ersten Jahr. */
+  const px = i => L + (i + .5) * bx + bx * .22;
+  const pkt = [[L, y0]].concat(z.map((x, i) => [px(i), yv(x.saldo)]));
+  s += `<polyline class="lin" points="${pkt.map(([a, b]) => a.toFixed(1) + "," + b.toFixed(1)).join(" ")}"/>`;
+  z.forEach((x, i) => {
+    const a = px(i), b = yv(x.saldo);
+    s += `<circle class="pkt" cx="${a.toFixed(1)}" cy="${b.toFixed(1)}" r="4"/>`;
+    /* Die Beschriftung weicht dem Balken aus und bleibt im Bild. Nahe
+       am unteren Rand steht sie ueber dem Punkt, da sie sonst in die
+       Jahreszahl liefe. */
+    const tiefUnten = b > O + hoehe * .82;
+    const y = (x.saldo >= 0 || tiefUnten) ? b - 12 : b + 20;
+    const anker = i === WP_JAHRE - 1 ? "end" : "middle";
+    const ax = i === WP_JAHRE - 1 ? Math.min(a + 14, B - 4) : a;
+    s += `<text class="s" x="${ax.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anker}">`
+       + `${x.saldo >= 0 ? "+" : "−"}${zahl(Math.round(Math.abs(x.saldo)))}</text>`;
+  });
+  return s;
+}
+
+function wpRechnen(){
+  const g = +$("wpG").value / 100, r = +$("wpR").value / 100, ende = +$("wpE").value;
+  $("wpGw").textContent = $("wpG").value + " %";
+  $("wpRw").textContent = (+$("wpR").value).toLocaleString("de-DE", {minimumFractionDigits:1, maximumFractionDigits:1}) + " %";
+  $("wpEw").textContent = ende >= WP_JAHRE ? "läuft weiter" : "Jahr " + ende;
+
+  const z = wpReihe(g, r, ende);
+  $("wpBild").innerHTML = wpZeichnen(z);
+  $("wpTab").innerHTML = z.map(x =>
+    `Jahr ${x.j}: Umsatz ${zahl(Math.round(x.u))} · Bedarf ${zahl(Math.round(x.bedarf))}`
+    + ` · Gewinn ${zahl(Math.round(x.jue))} · Kontostand <b>${x.saldo >= 0 ? "+" : "−"}`
+    + `${zahl(Math.round(Math.abs(x.saldo)))}</b>`).join("<br>");
+
+  const letzte = z[z.length - 1];
+  const tiefster = z.reduce((a, b) => b.saldo < a.saldo ? b : a);
+  /* Das erste Jahr nach dem tiefsten Punkt, in dem der Kontostand
+     wieder im Plus steht. Es gibt es nur, wenn das Wachstum endet. */
+  const erholt = z.find(x => x.j > tiefster.j && x.saldo >= 0);
+  const centBedarf = (WP_QUOTE * 100).toLocaleString("de-DE", {maximumFractionDigits:1});
+  const centGewinn = (r * 100).toLocaleString("de-DE", {maximumFractionDigits:1});
+
+  const karten = [
+    ["Umsatz nach fünf Jahren", zahl(Math.round(letzte.u)) + " T€",
+     "Der Umsatz hat sich gegenüber den 98.000 T€ des Falls auf das "
+     + (letzte.u / UMSATZ).toLocaleString("de-DE", {maximumFractionDigits:2}) + "-Fache erhöht.", false],
+    ["Gewinn in fünf Jahren", zahl(Math.round(z.reduce((s, x) => s + x.jue, 0))) + " T€",
+     "Jedes einzelne Jahr schließt mit einem Überschuss ab, weshalb an der Wirtschaftlichkeit nichts auszusetzen ist.", false],
+    ["Zusätzlich gebundenes Kapital", zahl(Math.round(z.reduce((s, x) => s + x.bedarf, 0))) + " T€",
+     "So viel mehr liegt am Ende in Forderungen und Vorräten fest, ohne dass ein einziger Euro davon auf dem Konto wäre.", false],
+    [tiefster.saldo < 0 ? "Die tiefste Lücke" : "Es entsteht keine Lücke",
+     (tiefster.saldo < 0 ? "−" : "+") + zahl(Math.round(Math.abs(tiefster.saldo))) + " T€",
+     tiefster.saldo < 0
+       ? "Im Jahr " + tiefster.j + " fehlt dieser Betrag, der aus dem Kontokorrent oder von der Bank kommen muss."
+         + (erholt ? " Im Jahr " + erholt.j + " steht der Kontostand wieder im Plus, weil das Wachstum vorher aufgehört hat."
+                   : " Solange das Wachstum weiterläuft, wird die Lücke in jedem Jahr größer.")
+       : "Bei dieser Umsatzrendite bringt jeder zusätzliche Umsatzeuro mehr Gewinn, als er an Kapital bindet.",
+     tiefster.saldo < 0]
+  ];
+  $("wpErg").innerHTML = karten.map(([k, v, f, warn]) =>
+    `<div class="k${warn ? " warn" : ""}"><p class="kk">${esc(k)}</p>`
+    + `<p class="kv">${esc(v)}</p><p class="kf">${f}</p></div>`).join("")
+    + `<div class="k"><p class="kk">Je Euro Umsatz</p>`
+    + `<p class="kv">${centBedarf} ct</p>`
+    + `<p class="kf">So viel Kapital bindet jeder zusätzliche Euro Umsatz, während er `
+    + `${centGewinn} ct Gewinn bringt. Unterhalb von ${centBedarf} ct Umsatzrendite `
+    + `kostet Wachstum deshalb Geld, obwohl es Gewinn bringt.</p></div>`;
+}
+$("wpForm").addEventListener("input", e => { if(e.target.type === "range") wpRechnen(); });
+wpRechnen();
 
 /* =====================================================================
    2 · Zuordnungsuebung: die vier Felder
@@ -1321,6 +1520,12 @@ const FRAGEN = [
   ["Ein Unternehmen weist einen Jahresüberschuss von 2.300 T€ aus und braucht 5.000 T€ für Wachstum. Was folgt daraus?",
    ["Das Wachstum muss zusätzlich finanziert werden","Der Gewinn reicht aus","Das Wachstum ist unrentabel","Die Bilanz geht nicht auf"], 0,
    "Der Gewinn deckt weniger als die Hälfte der zusätzlichen Kapitalbindung, sodass der Rest aus dem Kontokorrent, von der Bank oder aus einer kürzeren Geldumschlagsdauer kommen muss."],
+  ["Bei 98.000 T€ Umsatz sind 16.500 T€ im Umlaufvermögen gebunden. Wie viel Kapital bindet jeder zusätzliche Euro Umsatz?",
+   ["Rund 17 Cent","Rund 2 Cent","Rund 34 Cent","Das lässt sich daraus nicht ableiten"], 0,
+   "16.500 geteilt durch 98.000 ergibt 16,8 Prozent, da Forderungen und Vorräte mit dem Umsatz wachsen. Solange die Umsatzrendite darunter liegt, bindet jeder zusätzliche Auftrag mehr Geld, als er an Gewinn hergibt."],
+  ["Ein Unternehmen wächst fünf Jahre lang mit dreißig Prozent und schreibt in jedem Jahr Gewinn. Wann schließt sich die Finanzierungslücke?",
+   ["Erst, wenn das Wachstum aufhört","Im dritten Jahr, da der Gewinn mitwächst","Gar nicht","Sobald die Umsatzrendite steigt"], 0,
+   "Der Kapitalbedarf eines Jahres ist der Zuwachs des gebundenen Umlaufvermögens. Er entfällt in dem Jahr, in dem der Umsatz stehen bleibt, während der Gewinn weiter anfällt und den Kontostand wieder auffüllt."],
   ["Wie lässt sich die Geldumschlagsdauer ohne zusätzliche Finanzierung senken?",
    ["Lager verkleinern, Forderungen schneller einziehen, Zahlungsziele bei Lieferanten nutzen","Den Umsatz steigern","Die Abschreibungen erhöhen","Eine Rückstellung bilden"], 0,
    "Die drei Regler betreffen drei Abteilungen, mit denen jeweils ein eigenes Gespräch zu führen ist. Jeder Tag weniger setzt Geld frei, das vorher im eigenen Geschäft gebunden war."],
