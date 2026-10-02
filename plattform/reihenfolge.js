@@ -32,5 +32,7 @@ const REIHENFOLGE = [
   "liqui-bwa",         // Die BWA lesen
   "liqui-vorschau",    // Die Liquiditätsvorschau
   "liqui-tagesplan",   // Tagesvorschau und Rollierung
-  "liqui-fruehwarnung" // Liquiditätsrisiken früh erkennen (Verband)
+  "liqui-fruehwarnung", // Liquiditätsrisiken früh erkennen (Verband)
+  "kostenartenrechnung",   // Kostenartenrechnung (Hülle)
+  "kostenstellenrechnung"  // Kostenstellenrechnung (Hülle)
 ];
