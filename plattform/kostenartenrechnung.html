@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kostenartenrechnung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2; --canvas:#F4F3F0;
+  --green:#2E9E6B; --red:#D9534F;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:1.25rem;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:1rem;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.1rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:20ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:1.32rem;font-weight:300;color:#3d3d40;line-height:1.55;margin:0}
+
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:1.22rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:1.03rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+
+.claim{font-size:clamp(1.5rem,2.35vw,1.72rem);font-weight:300;line-height:1.42;margin:0 0 26px;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--teal-dk)}
+h2.sec{font-size:1.5rem;font-weight:600;letter-spacing:-.014em;margin:34px 0 4px}
+h2.sec:first-child{margin-top:0}
+
+/* ---------- Schaltflaechen ---------- */
+.key{display:inline-flex;align-items:center;gap:8px}
+
+.btn{appearance:none;border:1px solid var(--teal-dk);background:transparent;color:var(--teal-dk);
+  font-family:var(--sans);font-size:1.19rem;font-weight:600;cursor:pointer;
+  padding:10px 16px;border-radius:8px;transition:.16s}
+.btn:hover{background:var(--teal-dk);color:#fff}
+.btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+/* ---------- Karten ---------- */
+
+/* ---------- Aufdeckkarten: Wortherkunft, Aufgaben, Denkfehler ---------- */
+
+/* ---------- Tabellen ---------- */
+/* ---------- Risk-Map ----------
+   Die drei Zonenfarben sind die einzige Stelle, an der Signalfarben
+   auftreten. Dekorativ erscheinen sie nirgends, wobei die Bedeutung
+   nie an ihnen allein hängt: jede Zone hat ihren Namen, jeder Punkt seine
+   Kennung, jede rote Position zusaetzlich das Warndreieck.          */
+
+/* ---------- Zonenlegende und Kennzahlleiste ---------- */
+
+/* ---------- Regler ---------- */
+
+/* ---------- Prozesskreis ---------- */
+
+/* ---------- Balanced Chance- und Risk-Card ---------- */
+
+/* ---------- Vergleichsliste Modus A ---------- */
+
+/* ---------- Massnahmen und Strategien ---------- */
+
+/* ---------- BAUM ---------- */
+
+/* ---------- Merkblatt und Druck ---------- */
+
+/* ---------- Werkstatt: Risiken erfassen ---------- */
+.wsbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:0 0 16px}
+.wsbar>*{min-width:0}
+
+/* ---------- Werkstatt: Strategie und Massnahme ---------- */
+
+/* ---------- Werkstatt: Massnahmenplan ---------- */
+
+/* ---------- Checkliste ---------- */
+.ck10{display:grid;gap:11px;counter-reset:ck}
+.ckitem{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px 18px 16px 60px;position:relative}
+.ckitem::before{counter-increment:ck;content:counter(ck,decimal-leading-zero);
+  position:absolute;left:18px;top:16px;font-family:var(--mono);font-size:1.25rem;font-weight:700;
+  color:var(--teal-dk)}
+.ckitem h3{margin:0 0 6px;font-size:1.24rem;font-weight:700;letter-spacing:-.01em}
+.ckitem p{margin:0 0 8px;font-size:1.18rem;color:#3d3d40;line-height:1.5}
+.ckitem p:last-child{margin-bottom:0}
+.ckitem .trap{font-size:1.16rem;color:#B25E00;line-height:1.45}
+.ckitem .trap b{font-weight:700}
+
+/* ---------- Quiz ---------- */
+.qwrap{display:grid;gap:14px}
+.qcard{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px 20px}
+.qcard .qn{font-family:var(--mono);font-size:1.03rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 7px}
+.qcard .qt{font-size:1.24rem;font-weight:600;line-height:1.4;margin:0 0 13px}
+.qopts{display:grid;gap:8px}
+.qopt{appearance:none;text-align:left;cursor:pointer;font-family:var(--sans);font-size:1.19rem;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--ink);
+  padding:11px 14px;border-radius:8px;transition:.16s;line-height:1.4}
+.qopt:hover:not(:disabled){border-color:var(--teal);background:var(--teal-xl)}
+.qopt:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.qopt:disabled{cursor:default}
+.qopt.right{background:#E8F5EE;border-color:var(--green);color:#1E6B47;font-weight:600}
+.qopt.wrong{background:#FBEAE9;border-color:var(--red);color:#9C2F2C;font-weight:600}
+.qfb{margin:13px 0 0;font-size:1.18rem;color:#3d3d40;line-height:1.5;
+  padding-top:11px;border-top:1px solid var(--grey-xl)}
+.qfb[hidden]{display:none}
+.qscore{background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:18px 22px;
+  font-size:1.24rem;line-height:1.5}
+.qscore b{font-weight:700}
+
+/* ---------- Auf- und zuklappbare Bloecke innerhalb einer Lektion ------
+   Die Bloecke entstehen zur Laufzeit aus der vorhandenen Gliederung:
+   jedes h2.sec eroeffnet einen Block, alles bis zum naechsten h2.sec
+   ist sein Inhalt. Am Markup ist dafuer nichts zu aendern.          */
+.blk{border-top:1px solid var(--grey-xl)}
+.blk:first-of-type{border-top:0}
+.blk h2.sec{margin:0}
+.blk-t{appearance:none;width:100%;background:transparent;border:0;cursor:pointer;
+  display:flex;align-items:center;gap:12px;text-align:left;padding:20px 0 18px;
+  font:inherit;color:inherit;letter-spacing:inherit;transition:color .16s}
+.blk-t:hover{color:var(--teal-dk)}
+.blk-t:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:4px}
+.blk-c{width:13px;height:13px;flex:none;color:var(--teal-dk);
+  transition:transform .22s var(--ease)}
+.blk[data-open="true"] .blk-c{transform:rotate(90deg)}
+.blk-b{padding:0 0 28px}
+.blk-b[hidden]{display:none}
+
+@media (max-width:760px){
+}
+
+@media print{
+  /* Gedruckt wird nur der Bereich, den der Knopf gewaehlt hat. Alles
+     andere wird unsichtbar geschaltet, behaelt aber seinen Platz nicht -
+     der Zielbereich wird nach oben genommen.                          */
+  body{background:#fff}
+  body[data-print] *{visibility:hidden!important}
+  body[data-print="werk"] #wsPrint, body[data-print="werk"] #wsPrint *,
+  body[data-print="merk"] #merkblatt, body[data-print="merk"] #merkblatt *{visibility:visible!important}
+  body[data-print="werk"] #wsPrint,
+  body[data-print="merk"] #merkblatt{position:absolute;left:0;top:0;width:100%}
+  .panel[hidden]{display:none!important}
+  .blk-b[hidden]{display:block!important}
+}
+/* ---------- Kernaussagen ---------- */
+
+.readme{margin-top:18px;background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:20px 24px;
+  font-size:1.25rem;line-height:1.55}
+.readme b{font-weight:700}
+.readme code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.2);padding:1px 5px;border-radius:4px}
+.readme a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+blockquote.q{margin:0 0 14px;background:var(--paper);border:1px solid var(--grey-xl);
+  border-left:3px solid var(--teal);border-radius:var(--r);padding:16px 20px;
+  font-size:1.28rem;font-weight:300;line-height:1.62;color:#2c2c2f}
+blockquote.q cite{display:block;margin-top:9px;font-style:normal;font-family:var(--mono);
+  font-size:1.05rem;letter-spacing:.06em;color:var(--grey)}
+
+.pointe{margin-top:34px;background:var(--orange);color:#fff;border-radius:var(--r);padding:26px 28px}
+.pointe .pk{font-family:var(--mono);font-size:.97rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin:0 0 10px}
+.pointe p{margin:0;font-size:clamp(1.4rem,2.1vw,1.62rem);font-weight:300;line-height:1.48}
+.pointe p b{font-weight:700}
+
+footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+.build{font-family:var(--mono);font-size:.92em;letter-spacing:.02em;opacity:.85}
+footer a{color:var(--teal-dk)}
+
+@media (max-width:980px){
+}
+@media (max-width:900px){
+}
+@media (max-width:760px){
+  /* Die Vergleichsliste klappt in zwei Zeilen je Risiko um, statt
+     fuenf Spalten in eine Handybreite zu pressen.                 */
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px 56px}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+/* ---------- Die Bilanz zum Ausfuellen ----------
+   Zwei Seiten nebeneinander, wie das Konto es vorgibt. Auf schmalen
+   Fenstern stehen sie untereinander; die Summenzeile bleibt in beiden
+   Faellen unten stehen.                                            */
+
+/* Die Waage: stimmt die Gleichung, oder wie weit ist sie daneben. */
+
+/* Zuordnungsuebung: Aktiv oder Passiv. */
+.zu{display:grid;gap:9px;margin:14px 0 0}
+
+@media (max-width:820px){
+}
+@media (max-width:560px){
+}
+
+/* Erst wenn der Platz wirklich fehlt, behaelt die Zeichnung ihre
+   natuerliche Breite und der Rahmen scrollt. Auf einem breiten Schirm
+   passt sie sich wie zuvor ein. */
+@media (max-width:900px){
+}
+
+/* ---------- Der Platzhalter einer Huelle ----------
+   Ein gestrichelter Kasten steht fuer das, was noch zu schreiben ist.
+   Er sieht bewusst unfertig aus, damit niemand ihn fuer Inhalt haelt. */
+.offen{border:2px dashed var(--grey-mid);border-radius:var(--r);padding:16px 18px;
+  margin:14px 0;color:var(--grey);font-size:1.14rem;line-height:1.5;background:transparent}
+.offen b{color:#5a5a5c;font-weight:700}
+.offen .was{display:block;margin-top:7px;font-family:var(--mono);font-size:1.02rem}
+.wsmsg{font-size:1.1rem;color:var(--grey)}
+.wsbar .sep{flex:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Kostenrechnung für Einsteiger · Modul 01 · in Planung</p>
+  <h1>Kosten<em>artenrechnung</em></h1>
+  <p class="lede">Die erste Stufe der Kostenrechnung fragt, welche Kosten angefallen sind. Dieses Modul ist bisher eine Hülle, deren Lektionen mit Namen dastehen, während der Inhalt noch geschrieben wird.</p>
+  <div class="readme" style="margin-top:20px">
+    <b>Dieses Modul ist eine Hülle.</b> Die Lektionen stehen mit ihren Namen da, die Abschnitte
+    mit ihren Überschriften. Was noch fehlt, steht als gestrichelter Kasten darin und nennt,
+    welcher Text dort hingehört. Quiz und Praxiseinstieg laufen bereits, allerdings mit
+    Mustereinträgen, an denen allein das Format abzulesen ist.
+  </div>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Kostenartenrechnung">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Primärkosten</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Fix / Variable</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Sekundärkosten</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Quiz</button>
+  <button class="tab" role="tab" id="tab-e" aria-controls="p-e" aria-selected="false" tabindex="-1"><span class="num">05</span> Der erste Schritt</button>
+</div>
+
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <p class="claim">Die Kernaussage dieser Lektion steht noch aus. Sie sagt in einem Satz, was jemand nach der Lektion über Primärkosten sagen können soll.</p>
+  <h2 class="sec">Definition Kosten</h2>
+  <div class="offen">
+    <b>Hier fehlt noch Text.</b> Der erste Absatz dieses Abschnitts ist im Auftrag offen geblieben. Er führt in die Sache ein, bevor eine Übung oder eine Tabelle folgt.
+    <span class="was">Abschnitt · Definition Kosten</span>
+  </div>
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+  </div>
+</section>
+
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
+  <p class="claim">Die Kernaussage dieser Lektion steht noch aus. Sie sagt in einem Satz, was jemand nach der Lektion über Fix / Variable sagen können soll.</p>
+  <div class="offen">
+    <b>Hier fehlt noch Text.</b> Diese Lektion hat noch keinen Abschnitt. Ein Abschnitt entsteht aus einer Überschrift, die seine Sache ganz benennt, wodurch er sich zur Laufzeit auf- und zuklappen lässt.
+    <span class="was">Lektion 02 · Fix / Variable</span>
+  </div>
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+  </div>
+</section>
+
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
+  <p class="claim">Die Kernaussage dieser Lektion steht noch aus. Sie sagt in einem Satz, was jemand nach der Lektion über Sekundärkosten sagen können soll.</p>
+  <div class="offen">
+    <b>Hier fehlt noch Text.</b> Diese Lektion hat noch keinen Abschnitt. Ein Abschnitt entsteht aus einer Überschrift, die seine Sache ganz benennt, wodurch er sich zur Laufzeit auf- und zuklappen lässt.
+    <span class="was">Lektion 03 · Sekundärkosten</span>
+  </div>
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+  </div>
+</section>
+
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
+  <p class="claim">Fünf Fragen werden zufällig aus einem größeren Vorrat gezogen, ohne Zeitdruck und ohne eine Bewertung, die irgendwo landet; nach jeder Antwort steht die Begründung da, auch nach der richtigen.</p>
+  <div class="offen">
+    <b>Der Fragenvorrat ist noch nicht geschrieben.</b> Die drei Fragen unten prüfen den Modulvertrag
+    dieser Sammlung und stehen als Muster für das Format. An ihre Stelle kommen mindestens zwanzig
+    Fragen zum Stoff, sobald die Inhaltslektionen stehen.
+    <span class="was">const FRAGEN im Skript dieser Datei</span>
+  </div>
+  <div class="wsbar">
+    <button class="btn" id="qNew">Fünf neue Fragen ziehen</button>
+    <span class="sep"></span>
+    <span class="wsmsg" id="qStand"></span>
+  </div>
+  <div class="qwrap" id="quiz"></div>
+  <div id="qResult" style="margin-top:16px"></div>
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+  </div>
+</section>
+
+<section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e" hidden>
+  <p class="claim">Was Du als Erstes tust, wenn Du das Gelernte im eigenen Unternehmen anwenden willst. Die Reihenfolge ist nicht beliebig, da jeder Schritt die Grundlage des nächsten legt.</p>
+  <div class="offen">
+    <b>Die Schritte sind noch nicht geschrieben.</b> Die beiden unten beschreiben, was an dieser
+    Stelle steht, und sind damit ein Muster für das Format. <!-- sprache:ok, das Komma schliesst den eingeschobenen Nebensatz, danach folgt das zweite Praedikat desselben Subjekts --> An ihre Stelle kommen konkrete erste
+    Schritte zum Stoff dieses Moduls.
+    <span class="was">const SCHRITTE im Skript dieser Datei</span>
+  </div>
+  <div class="ck10" id="ck"></div>
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+  </div>
+</section>
+
+<footer>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.88</span>
+</footer>
+
+</div>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s)
+  .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+
+/* =====================================================================
+   1 . Der Praxiseinstieg
+
+   Zwei Mustereintraege, an denen das Format abzulesen ist. Sie nennen
+   allein, was an dieser Stelle steht, weshalb sie beim Schreiben der
+   Lektion durch die Schritte zum Stoff ersetzt werden.
+   ===================================================================== */
+const SCHRITTE = [
+  ["So sieht ein Schritt aus",
+   "Ein Schritt beginnt mit einer Handlung, die jemand am Montag anfassen kann, und nennt danach, " /* sprache:ok, das Komma schliesst den Relativsatz, danach folgt das zweite Praedikat desselben Subjekts */
+   + "woran er merkt, dass er sie richtig getan hat. Eine Handlung ohne Ergebnis ist eine Absichtserklärung.",
+   "Die Überschrift ist der Imperativ, der Absatz die Begründung."],
+  ["So viele Schritte stehen hier",
+   "Sechs bis acht Schritte reichen in der Regel aus, da der Praxiseinstieg eine Reihenfolge zeigt "
+   + "und keine vollständige Anleitung. Wo ein Glossar dazugehört, steht es unter den Schritten.",
+   "Die Reihenfolge ist Teil der Aussage und deshalb nicht beliebig."],
+];
+$("ck").innerHTML = SCHRITTE.map(([t, p, q]) =>
+  `<div class="ckitem"><h3>${esc(t)}</h3><p>${p}</p>
+     <p class="trap"><b>Zum Format:</b> ${q}</p></div>`).join("");
+
+/* =====================================================================
+   2 . Quiz: fuenf Fragen, zufaellig aus dem Vorrat
+
+   Die drei Fragen pruefen den Modulvertrag dieser Sammlung. Sie sind
+   richtig beantwortbar und stehen hier, damit die Mechanik laeuft und
+   das Format ablesbar ist.
+   ===================================================================== */
+const FRAGEN = [
+  ["Wie viele Fragen zieht ein Modul dieser Sammlung beim Laden aus seinem Vorrat?",
+   ["Fünf", "Alle", "Zehn", "Drei"], 0,
+   "Beim Neuladen kommen andere fünf, weshalb sich ein Modul mehrfach durcharbeiten lässt, ohne dass dieselbe Abfrage zweimal erscheint."],
+  ["Wie groß muss der Fragenvorrat eines Moduls mindestens sein?",
+   ["Zwanzig Fragen", "Fünf Fragen", "Zehn Fragen", "Eine feste Zahl gibt es nicht"], 0,
+   "Aus einem Vorrat von zwanzig Fragen ziehen zwei Durchgänge selten dieselbe Frage. Bei einem kleineren Vorrat verliert das Mischen seinen Zweck."],
+  ["In welcher Reihenfolge stehen die Lektionen eines Moduls?",
+   ["Inhalt, Quiz, Praxiseinstieg", "Quiz, Inhalt, Praxiseinstieg",
+    "Praxiseinstieg, Inhalt, Quiz", "Die Reihenfolge ist frei"], 0,
+   "Das Quiz prüft, was gerade gelesen wurde, während der Praxiseinstieg nach vorn schaut. Umgedreht ergäbe die Folge keinen Sinn."],
+];
+
+let qAktuell = [];
+const QZAHL = 5;
+/* Fisher-Yates. Auch die Antworten werden gemischt, da die richtige im
+   Vorrat immer an erster Stelle steht. */
+const mischen = a => {
+  a = a.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+/* Solange der Vorrat kleiner als fuenf ist, werden alle Fragen gezogen.
+   Diese Zeile faellt weg, sobald zwanzig Fragen dastehen. */
+const qZahl = () => Math.min(QZAHL, FRAGEN.length);
+function qZiehen(){
+  qAktuell = mischen(FRAGEN.map((f, i) => i)).slice(0, qZahl())
+    .map(i => ({i, ord:mischen(FRAGEN[i][1].map((o, j) => j)), gewaehlt:null}));
+  qRender();
+}
+function qRender(){
+  const z = qZahl();
+  $("quiz").innerHTML = qAktuell.map((q, n) => {
+    const [text, opts, richtig, begr] = FRAGEN[q.i];
+    return `<div class="qcard">
+      <p class="qn">Frage ${n + 1} von ${z}</p>
+      <p class="qt">${text}</p>
+      <div class="qopts">${q.ord.map(j => {
+        let kl = "";
+        if(q.gewaehlt !== null) kl = j === richtig ? " right" : (j === q.gewaehlt ? " wrong" : "");
+        return `<button class="qopt${kl}" type="button" data-q="${n}" data-o="${j}"${q.gewaehlt !== null ? " disabled" : ""}>${opts[j]}</button>`;
+      }).join("")}</div>
+      <p class="qfb"${q.gewaehlt === null ? " hidden" : ""}>${
+        q.gewaehlt === null ? "" :
+        (q.gewaehlt === richtig ? "<b style='color:#1E6B47'>Richtig.</b> " : "<b style='color:#9C2F2C'>Daneben.</b> ") + begr}</p>
+    </div>`;
+  }).join("");
+  const fertig  = qAktuell.filter(q => q.gewaehlt !== null).length;
+  const treffer = qAktuell.filter(q => q.gewaehlt === FRAGEN[q.i][2]).length;
+  $("qStand").textContent = fertig === 0
+    ? z + " Fragen aus einem Vorrat von " + FRAGEN.length
+    : fertig + " von " + z + " beantwortet · " + treffer + " richtig";
+  $("qResult").innerHTML = fertig < z ? "" :
+    `<div class="qscore"><b>${treffer} von ${z} richtig.</b> Der Vorrat dieses Moduls ist noch
+      ein Muster, weshalb die Fragen den Modulvertrag prüfen und nicht den Stoff.</div>`;
+}
+$("quiz").addEventListener("click", e => {
+  const b = e.target.closest(".qopt"); if(!b || b.disabled) return;
+  const q = qAktuell[+b.dataset.q]; if(!q || q.gewaehlt !== null) return;
+  q.gewaehlt = +b.dataset.o;
+  qRender();
+});
+$("qNew").addEventListener("click", qZiehen);
+qZiehen();
+
+/* =====================================================================
+   3 . Lektionen
+   ===================================================================== */
+const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a", "b", "c", "d", "e"];
+function select(i){
+  tabs.forEach((t, j) => {
+    const on = i === j;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    $("p-" + keys[j]).hidden = !on;
+  });
+  dispatchEvent(new Event("resize"));
+}
+tabs.forEach((t, i) => {
+  t.addEventListener("click", () => select(i));
+  t.addEventListener("keydown", e => {
+    const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if(!d) return; e.preventDefault();
+    const n = (i + d + tabs.length) % tabs.length; tabs[n].focus(); select(n);
+  });
+});
+select(0);
+
+/* =====================================================================
+   4 . Bloecke zum Auf- und Zuklappen
+   Baut die Abschnitte einer Lektion zur Laufzeit aus der vorhandenen
+   Gliederung: jedes h2.sec eroeffnet einen Block, alles danach bis zum
+   naechsten h2.sec ist sein Inhalt. Jeder Block steht beim Laden zu.
+   ===================================================================== */
+function makeBlocks(panel){
+  if(!panel) return 0;
+  const kinder = [...panel.children];
+  const istKopf = n => n.tagName === "H2" && n.classList.contains("sec");
+  const istEnde = n => n.classList.contains("pointe");
+  let i = 0, nr = 0;
+
+  while(i < kinder.length){
+    if(!istKopf(kinder[i])){ i++; continue; }
+    const h2 = kinder[i], inhalt = [];
+    let j = i + 1;
+    while(j < kinder.length && !istKopf(kinder[j]) && !istEnde(kinder[j])){
+      inhalt.push(kinder[j]); j++;
+    }
+    nr++;
+    const offen = false, bid = "blk-" + (panel.id || "p") + "-" + nr;
+    const wrap = document.createElement("section");
+    wrap.className = "blk";
+    wrap.dataset.open = String(offen);
+    panel.insertBefore(wrap, h2);
+
+    h2.innerHTML =
+      `<button class="blk-t" type="button" aria-expanded="${offen}" aria-controls="${bid}">
+         <svg class="blk-c" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2 L8.5 6 L4.5 10"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+         <span>${h2.innerHTML}</span>
+       </button>`;
+    wrap.appendChild(h2);
+
+    const body = document.createElement("div");
+    body.className = "blk-b"; body.id = bid;
+    body.hidden = !offen;
+    inhalt.forEach(n => body.appendChild(n));
+    wrap.appendChild(body);
+    i = j;
+  }
+
+  if(nr) panel.addEventListener("click", e => {
+    const b = e.target.closest(".blk-t"); if(!b) return;
+    const wrap = b.closest(".blk"), body = document.getElementById(b.getAttribute("aria-controls"));
+    const offen = wrap.dataset.open === "true";
+    wrap.dataset.open = String(!offen);
+    b.setAttribute("aria-expanded", String(!offen));
+    body.hidden = offen;
+    if(!offen) dispatchEvent(new Event("resize"));
+  });
+  return nr;
+}
+
+document.querySelectorAll(".panel").forEach(makeBlocks);
+</script>
+</body>
+</html>

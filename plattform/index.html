@@ -249,7 +249,7 @@ const UI = {
   search:{de:"Module durchsuchen\u2026", en:"Search modules\u2026"},
   empty:{de:"Dazu passt gerade nichts.", en:"Nothing matches that filter yet."},
   soon:{de:"In Arbeit", en:"In preparation"},
-  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.87</span>",
+  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.88</span>",
   pathLabel:{de:"Lernpfade", en:"Learning paths"},
   pathKicker:{de:"Lernpfad", en:"Learning path"},
   pathClear:{de:"Pfad verlassen \u00b7 alle Module zeigen", en:"Leave the path \u00b7 show all modules"},
@@ -349,6 +349,26 @@ const TOPICS = [
     langBadge:{de:"", en:"DE"},
     links:[{kind:"html",file:"bilanz-fallstudie.html",
             label:{de:"Los geht’s", en:"Let’s go"}}]
+  },
+  {
+    id:"kostenartenrechnung",
+    title:{de:"Kostenartenrechnung", en:"Cost type accounting"},
+    sub:{de:"Die erste Stufe der Kostenrechnung fragt, welche Kosten angefallen sind. Dieses Modul ist bisher eine Hülle: Die drei Lektionen stehen mit ihren Namen da, der Inhalt wird noch geschrieben. Quiz und Praxiseinstieg laufen bereits mit Mustereinträgen.",
+         en:"The first stage of cost accounting asks which costs were incurred. This module is still a shell: its three lessons are named, the content is yet to be written. The quiz and the practical start already run on sample entries."},
+    track:"bi", status:"planned", accent:"ochre", glyph:"layers",
+    langBadge:{de:"", en:"DE"},
+    links:[{kind:"html",file:"kostenartenrechnung.html",
+            label:{de:"Hülle ansehen", en:"Look at the shell"}}]
+  },
+  {
+    id:"kostenstellenrechnung",
+    title:{de:"Kostenstellenrechnung", en:"Cost centre accounting"},
+    sub:{de:"Die zweite Stufe der Kostenrechnung fragt, wo die Kosten angefallen sind. Auch dieses Modul ist bisher eine Hülle, deren Lektion mit ihrem Namen dasteht, während der Inhalt noch folgt.",
+         en:"The second stage of cost accounting asks where the costs were incurred. This module too is still a shell: its lesson is named, the content is yet to come."},
+    track:"bi", status:"planned", accent:"teal", glyph:"cells",
+    langBadge:{de:"", en:"DE"},
+    links:[{kind:"html",file:"kostenstellenrechnung.html",
+            label:{de:"Hülle ansehen", en:"Look at the shell"}}]
   },
   {
     id:"bilanz-buchungssaetze",
@@ -467,6 +487,13 @@ const PATHS = [
     sub:{de:"Vom Unterschied zwischen Ertrag und Einzahlung über die Gewinn- und Verlustrechnung als Steuerungsinstrument und die Erfassung im Leistungsmonat bis zum Cashflow, zur Liquiditätsplanung und zu einem Frühwarnsystem. Die Beispiele kommen aus einem Caritasverband mit Pflegeheim, Beratungsstelle, Wohnhaus und Secondhandladen.",
          en:"From the gap between income and cash receipt through the income statement as a steering instrument and accrual in the month of delivery to the cash flow statement, cash planning and an early-warning system. The examples come from a Catholic welfare association with a care home, a counselling centre, a rented house and a second-hand shop."},
     steps:["liqui-begriff","bilanz-guv","leistung-periodengerecht","cashflow","liqui-vorschau","liqui-tagesplan","liqui-fruehwarnung"]
+  },
+  {
+    id:"kostenrechnung-fuer-einsteiger",
+    title:{de:"Kostenrechnung für Einsteiger", en:"Cost accounting for beginners"},
+    sub:{de:"Die Beschreibung dieses Lernpfads steht noch aus. Beide Module sind Hüllen, deren Gliederung steht und deren Inhalt folgt, weshalb der Pfad bisher allein die Reihenfolge zeigt.",
+         en:"The description of this path is still to come. Both modules are shells whose outline stands and whose content follows, so for now the path shows the order and nothing else."},
+    steps:["kostenartenrechnung","kostenstellenrechnung"]
   }
 ];
 /* ===================== end of the editable lists ===================== */
