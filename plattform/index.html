@@ -249,7 +249,7 @@ const UI = {
   search:{de:"Module durchsuchen\u2026", en:"Search modules\u2026"},
   empty:{de:"Dazu passt gerade nichts.", en:"Nothing matches that filter yet."},
   soon:{de:"In Arbeit", en:"In preparation"},
-  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.88</span>",
+  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.89</span>",
   pathLabel:{de:"Lernpfade", en:"Learning paths"},
   pathKicker:{de:"Lernpfad", en:"Learning path"},
   pathClear:{de:"Pfad verlassen \u00b7 alle Module zeigen", en:"Leave the path \u00b7 show all modules"},
@@ -273,7 +273,7 @@ const TOPICS = [
     id:"assessment",
     title:{de:"Standortbestimmung: was Du schon kannst",
            en:"Self-assessment: what you already know"},
-    sub:{de:"Vierundzwanzig Fragen über sechs Kompetenzfelder. Am Ende steht ein Radar, das zeigt, wo Du fest bist. Danach färben sich die Kacheln hier ein, grün für ein Feld, das sitzt, gelb für eines zum Nachbessern, rot für ein nötiges. Du kannst es beliebig oft wiederholen, jedes Mal mit anderen Fragen.",
+    sub:{de:"Achtundzwanzig Fragen über sieben Kompetenzfelder. Am Ende steht ein Radar, das zeigt, wo Du fest bist. Danach färben sich die Kacheln hier ein, grün für ein Feld, das sitzt, gelb für eines zum Nachbessern, rot für ein nötiges. Du kannst es beliebig oft wiederholen, jedes Mal mit anderen Fragen.",
          en:"Twenty-four questions across six fields of competence. It ends in a radar chart that shows where you stand. The tiles here then take their colour from it, green for a field that is solid, amber for one to brush up, red for one you need. Repeatable as often as you like, with different questions each time."},
     track:"check", status:"ready", accent:"orange", glyph:"riskmap",
     langBadge:{de:"", en:"DE"},
@@ -353,12 +353,12 @@ const TOPICS = [
   {
     id:"kostenartenrechnung",
     title:{de:"Kostenartenrechnung", en:"Cost type accounting"},
-    sub:{de:"Die erste Stufe der Kostenrechnung fragt, welche Kosten angefallen sind. Dieses Modul ist bisher eine Hülle: Die drei Lektionen stehen mit ihren Namen da, der Inhalt wird noch geschrieben. Quiz und Praxiseinstieg laufen bereits mit Mustereinträgen.",
-         en:"The first stage of cost accounting asks which costs were incurred. This module is still a shell: its three lessons are named, the content is yet to be written. The quiz and the practical start already run on sample entries."},
+    sub:{de:"Die erste Stufe der Kostenrechnung fragt, welche Kosten angefallen sind. Lektion 01 beantwortet das für Sofias Betrieb mit sechzehn Kostenarten, der Abgrenzung von Aufwand und Kosten sowie dem kalkulatorischen Unternehmerlohn. Die Lektionen 02 und 03 sind noch Hüllen. Das Modul ist durchgehend deutsch.",
+         en:"The first stage of cost accounting asks which costs were incurred. Lesson 01 answers that for Sofia’s business with sixteen cost types, the reconciliation of expense and cost, and the imputed owner’s salary. Lessons 02 and 03 are still shells. The module is in German throughout."},
     track:"bi", status:"planned", accent:"ochre", glyph:"layers",
     langBadge:{de:"", en:"DE"},
     links:[{kind:"html",file:"kostenartenrechnung.html",
-            label:{de:"Hülle ansehen", en:"Look at the shell"}}]
+            label:{de:"Los geht’s", en:"Let’s go"}}]
   },
   {
     id:"kostenstellenrechnung",
@@ -630,7 +630,7 @@ const SORTIERT = (() => {
    aendert beide. Ein Modul, das in keinem Feld steht, bekommt keine
    Ampel und bleibt neutral.
    ===================================================================== */
-const FELDFOLGE = ["abschluss","buchung","kennzahl","erfolg","zahlung","risiko"];
+const FELDFOLGE = ["abschluss","buchung","kennzahl","erfolg","zahlung","risiko","kosten"];
 const FELDMODUL = {
   abschluss:["bilanz-aufbau","bilanz-guv"],
   buchung:  ["bilanz-buchungssaetze"],
@@ -638,6 +638,7 @@ const FELDMODUL = {
   erfolg:   ["liquiditaet-bwa"],
   zahlung:  ["liquiditaet-begriff","liquiditaet-vorschau","cashflow"],
   risiko:   ["risikomanagement-einfuehrung","risikomanagement-prozess","risikomanagement-werkstatt"],
+  kosten:   ["kostenartenrechnung"],
 };
 const FITNAME = {gruen:{de:"sitzt",en:"solid"}, gelb:{de:"nachbessern",en:"brush up"},
                  rot:{de:"nötig",en:"needed"}};
@@ -646,7 +647,7 @@ const FITNAME = {gruen:{de:"sitzt",en:"solid"}, gelb:{de:"nachbessern",en:"brush
    kein brauchbarer Parameter anliegt. */
 function fitLesen(){
   const roh = new URLSearchParams(location.search).get("fit") || "";
-  if(!/^[0-4]{6}$/.test(roh)) return {};
+  if(!new RegExp("^[0-4]{" + FELDFOLGE.length + "}$").test(roh)) return {};
   const aus = {};
   FELDFOLGE.forEach((feld, i) => {
     const n = +roh[i], farbe = n >= 3 ? "gruen" : n === 2 ? "gelb" : "rot";

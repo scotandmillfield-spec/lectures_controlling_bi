@@ -179,6 +179,56 @@ Die Summe stimmt in beiden Fassungen. Das ist die Pointe.
   16 % → 14 %** oder **Abschrift auf zugekauftes Gebäck**. Die Rösterei ist der stärkere Fall,
   weil sie Sofias eigene Wertschöpfung betrifft.
 
+### Kostenstruktur Q1 2026 **[gesetzt]**
+
+Der Kostenartenplan des Gesamtbetriebs für das erste Quartal 2026. Er liegt
+`plattform/kostenartenrechnung.html` zugrunde und ist von Maik freigegeben. **Der variable Block
+ist aus dem Kanon gerechnet**, da die Balanced Scorecard einen Deckungsbeitrag von 62 % ausweist
+und damit 38 % des Quartalsumsatzes von 145.500 € als variable Kosten festlegt. Die Beträge des
+fixen Blocks sind gesetzt, nicht abgeleitet.
+
+| Gruppe | Kostenart | Betrag |
+|---|---|---|
+| Material | Rohkaffee grün, Import aus Peru | 21.400 € |
+| Material | Milch und Molkereiprodukte | 9.600 € |
+| Material | Gebäck und Speisen im Einkauf | 8.900 € |
+| Material | Säfte, Limonaden und Sirup im Einkauf | 6.200 € |
+| Material | Becher, Verpackung und Filter | 4.700 € |
+| Personal | Bruttolöhne der zehn Angestellten | 38.600 € |
+| Personal | Arbeitgeberanteil zur Sozialversicherung | 8.100 € |
+| Fremdleistung | Miete der beiden Häuser und der Rösterei | 21.000 € |
+| Fremdleistung | Strom und Wasser als Grundlast | 4.300 € |
+| Fremdleistung | Röstgas, nach Röstmenge abgerechnet | 2.400 € |
+| Fremdleistung | Instandhaltung und Fremdreinigung | 3.400 € |
+| Abgaben | Versicherungen, Beiträge und Gebühren | 2.800 € |
+| Abgaben | Entgelt für die Kartenzahlung | 2.090 € |
+| kalkulatorisch | Kalkulatorische Abschreibung auf Maschinen und Coffeebike | 6.900 € |
+| kalkulatorisch | Kalkulatorischer Unternehmerlohn für Sofia | 9.000 € |
+| kalkulatorisch | Kalkulatorische Zinsen auf das eingesetzte Kapital | 1.800 € |
+
+Gruppensummen: Material 50.800 € · Personal 46.700 € · Fremdleistung 31.100 € · Abgaben 4.890 € ·
+kalkulatorisch 17.700 €. **Kosten des Quartals 151.190 €.**
+
+**Die vier Zahlen, die daran hängen** und in jedem Modul der Kostenrechnung gleich bleiben müssen:
+
+- **Variable Kosten 55.290 €**, also Material 50.800 € plus Röstgas 2.400 € plus Kartenentgelt
+  2.090 €. Daraus folgt ein Deckungsbeitrag von 90.210 €, nämlich genau die 62 % der Scorecard.
+- **Neutraler Aufwand 2.000 €**, nämlich eine Spende von 800 € an einen Studentenverein und ein
+  Verlust von 1.200 € aus dem Verkauf einer alten Mühle.
+- **Zusatzkosten 10.800 €**, nämlich der Unternehmerlohn von 9.000 € und die kalkulatorischen
+  Zinsen von 1.800 €. Die Abschreibung von 6.900 € ist eine Anderskostenart, die handelsrechtlich
+  in gleicher Höhe angesetzt ist.
+- **Aufwand laut Gewinn- und Verlustrechnung 142.390 €**, woraus ein handelsrechtlicher Gewinn von
+  3.110 € und ein Betriebsergebnis von −5.690 € folgen.
+
+**Energie zählt in diesem Plan zu den Fremdleistungen**, da Sofia sie nicht lagert. Das ist eine
+Festlegung des Plans und keine zwingende Zuordnung; ein Betrieb mit eigenem Tanklager führt sie
+unter Material.
+
+**Die 10.000-Euro-Kampagne steht nicht in diesem Plan.** Ihr Zeitpunkt im Quartal ist nicht
+festgelegt, weshalb eine Werbekostenart hier eine Periode behaupten würde. Kommt sie dazu, wächst
+der fixe Block um 10.000 € und sämtliche abgeleiteten Zahlen oben ändern sich mit.
+
 ---
 
 ## 6. Quellsysteme und Datenmodell

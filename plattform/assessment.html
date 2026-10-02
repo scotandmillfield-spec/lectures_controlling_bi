@@ -608,7 +608,7 @@ footer a{color:var(--teal-dk)}
 <header class="masthead">
   <p class="eyebrow">Lernplattform · Standortbestimmung</p>
   <h1>Was Du <em>schon</em> kannst</h1>
-  <p class="lede">Dieses Modul stellt Dir vierundzwanzig Fragen über sechs Kompetenzfelder, vier je Feld, gezogen aus einem Vorrat von dreiundsechzig. Am Ende steht ein Radar, das zeigt, wo Du fest bist und wo nicht. Die Startseite färbt danach ihre Kacheln ein, sodass Du allein die Module vor Dir hast, die Dir etwas bringen. Du kannst es so oft wiederholen, wie Du willst; beim nächsten Durchlauf kommen andere Fragen.</p>
+  <p class="lede">Dieses Modul stellt Dir achtundzwanzig Fragen über sieben Kompetenzfelder, vier je Feld, gezogen aus einem Vorrat von fünfundsiebzig. Am Ende steht ein Radar, das zeigt, wo Du fest bist und wo nicht. Die Startseite färbt danach ihre Kacheln ein, sodass Du allein die Module vor Dir hast, die Dir etwas bringen. Du kannst es so oft wiederholen, wie Du willst; beim nächsten Durchlauf kommen andere Fragen.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Die Standortbestimmung">
@@ -643,12 +643,12 @@ footer a{color:var(--teal-dk)}
 
 <!-- ==================== LEKTION 02 · DEIN ERGEBNIS ==================== -->
 <section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
-  <p class="claim">Das Radar hat sechs Achsen, je eine für ein Kompetenzfeld. Je weiter außen der Punkt liegt, desto sicherer sitzt das Feld. Was innen bleibt, ist Deine Leseliste.</p>
+  <p class="claim">Das Radar hat sieben Achsen, je eine für ein Kompetenzfeld. Je weiter außen der Punkt liegt, desto sicherer sitzt das Feld. Was innen bleibt, ist Deine Leseliste.</p>
 
   <h2 class="sec">Dein Radar</h2>
   <p class="sub">Die Fläche entsteht aus den vier Fragen je Feld. Vier Treffer heißen außen, null Treffer heißen Mittelpunkt. Ein einzelner Durchlauf ist eine Stichprobe und kein Zeugnis; wer sich unsicher ist, zieht sich neue Fragen.</p>
   <div class="asradar" id="asRadar" tabindex="0" role="group"
-       aria-label="Netzdiagramm der sechs Kompetenzfelder, seitlich scrollbar"></div>
+       aria-label="Netzdiagramm der sieben Kompetenzfelder, seitlich scrollbar"></div>
 
   <h2 class="sec">Was daraus folgt</h2>
   <p class="sub">Drei Treffer oder mehr heißen grün, zwei gelb, höchstens einer rot. Jedes Kompetenzfeld steht für bestimmte Module. Genau die bekommen seine Farbe.</p>
@@ -689,7 +689,7 @@ footer a{color:var(--teal-dk)}
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.88</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.89</span>
 </footer>
 
 </div>
@@ -697,7 +697,7 @@ Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.88</
 /* =====================================================================
    Die Standortbestimmung
 
-   Sechs Kompetenzfelder, je vier gezogene Fragen. Der Fragenvorrat ist
+   Sieben Kompetenzfelder, je vier gezogene Fragen. Der Fragenvorrat ist
    nicht neu erfunden: Jede Frage steht so schon im Quiz ihres Moduls
    und hat damit dieselbe fachliche Pruefung hinter sich. Neu sind
    allein die beiden Etiketten am Anfang jeder Zeile, naemlich das Feld
@@ -738,6 +738,9 @@ const FELDER = [
   {id:"risiko",    kurz:"Risiko",           name:"Risikomanagement",
    was:"Der Risikobegriff als bewertetes Ereignis, die Herkunft in der Lieferkette und der Regelkreis aus vier Phasen.",
    module:["risikomanagement-einfuehrung","risikomanagement-prozess","risikomanagement-werkstatt"]},
+  {id:"kosten",    kurz:"Kostenrechnung",  name:"Kostenrechnung",
+   was:"Die Abgrenzung von Auszahlung, Ausgabe, Aufwand und Kosten, der neutrale Aufwand, die kalkulatorischen Kostenarten sowie der Aufbau eines Kostenartenplans.",
+   module:["kostenartenrechnung"]},
 ];
 
 /* Nur zum Anzeigen. Die Kacheln auf der Startseite fuehren ihre eigenen
@@ -755,10 +758,29 @@ const MODULNAME = {
   "risikomanagement-einfuehrung":"Risikomanagement: der Begriff",
   "risikomanagement-prozess":"Der Risikomanagement-Prozess",
   "risikomanagement-werkstatt":"Die Risikoanalyse-Werkstatt",
+  "kostenartenrechnung":"Die Kostenartenrechnung",
 };
 
 const JE_FELD = 4;
 const FRAGEN = [
+  ["kosten", "kostenartenrechnung",
+   "Ein Betrieb bekommt Rohstoffe geliefert und bezahlt die Rechnung erst vier Wochen später. Welche Größe fällt am Tag der Lieferung an?",
+   ["Eine Ausgabe", "Eine Auszahlung", "Kosten in voller Höhe", "Keine der vier Größen"], 0,
+   "Die Beschaffung mindert das Geldvermögen, da eine Verbindlichkeit entsteht. Gezahlt und verbraucht ist dabei nichts, weshalb Auszahlung, Aufwand und Kosten erst später anfallen."],
+  ["kosten", "kostenartenrechnung",
+   "Wie heißen Kosten, denen überhaupt kein Aufwand gegenübersteht, etwa der kalkulatorische Unternehmerlohn?",
+   ["Zusatzkosten", "Grundkosten", "Anderskosten", "Neutrale Kosten"], 0,
+   "Zusatzkosten kennt die Buchführung nicht, weil ihnen keine Zahlung und kein Rechtsgeschäft zugrunde liegt. Die Abgrenzungsrechnung addiert sie zum Zweckaufwand hinzu."],
+  ["kosten", "kostenartenrechnung",
+   "Was bedeutet das Wort primär in der Bezeichnung Primärkosten?",
+   ["Die Güter sind von außen bezogen", "Die Kostenart ist besonders wichtig",
+    "Die Kosten fallen früh im Jahr an", "Die Kosten schwanken mit der Menge"], 0,
+   "Primär ist eine Herkunftsangabe und keine Rangordnung. Gemeint sind Güter und Dienste, die die Grenze des Betriebs von außen überschritten haben."],
+  ["kosten", "kostenartenrechnung",
+   "In welche Gruppe eines Kostenartenplans gehört der Arbeitgeberanteil zur Sozialversicherung?",
+   ["Personalkosten", "Abgaben und Beiträge", "Kosten für Fremdleistungen",
+    "Kalkulatorische Kosten"], 0,
+   "Der Anteil ist eine gesetzliche Sozialleistung des Arbeitgebers und zählt deshalb zu den Personalkosten, obwohl der Betrag an einen Sozialversicherungsträger geht."],
   ["zahlung", "cashflow",
    "Warum werden die Abschreibungen in der indirekten Cashflow-Rechnung addiert?",
    ["Weil sie das Ergebnis gemindert haben, ohne dass Geld geflossen ist","Weil sie steuerlich abzugsfähig sind","Weil sie den Bestand an Sachanlagen erhöhen","Weil sie eine Einzahlung darstellen"], 0,
@@ -1166,7 +1188,7 @@ const asRing = anteil => FELDER.map((f, n) => asEcke(n, anteil).map(v => v.toFix
 
 function asRadarZeichnen(st){
   let s = `<svg viewBox="0 0 ${RB} ${RH}" role="img"
-    aria-label="Radar über sechs Kompetenzfelder, je null bis vier Treffer">`;
+    aria-label="Radar über sieben Kompetenzfelder, je null bis vier Treffer">`;
   for(let k = 1; k <= JE_FELD; k++)
     s += `<polygon class="asnetz" points="${asRing(k / JE_FELD)}"/>`;
   FELDER.forEach((f, n) => {
