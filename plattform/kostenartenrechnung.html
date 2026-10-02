@@ -225,6 +225,111 @@ footer a{color:var(--teal-dk)}
 @media (max-width:900px){
 }
 
+/* ---------- Tabellen ----------
+   Eine breite Tabelle bekommt einen Rahmen mit eigenem Bildlauf, damit
+   sie das Raster nicht sprengt.                                      */
+.tblw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--grey-xl);border-radius:var(--r);
+  background:var(--paper);box-shadow:var(--shadow)}
+.tblw:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+table.tbl{border-collapse:collapse;width:100%;min-width:520px;font-size:1.18rem}
+table.tbl th,table.tbl td{padding:11px 16px;text-align:left;line-height:1.45;
+  border-bottom:1px solid var(--grey-xl);vertical-align:top}
+table.tbl th{font-family:var(--mono);font-size:1.01rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--grey);font-weight:500;white-space:nowrap}
+table.tbl td.b{font-weight:700;white-space:nowrap}
+table.tbl td.z{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.tbl tr:last-child td{border-bottom:0}
+table.tbl tr.sum td{font-weight:700;background:var(--teal-xl);border-top:2px solid var(--teal-dk)}
+
+/* ---------- Die vier Begriffe: Auszahlung, Ausgabe, Aufwand, Kosten ----
+   Ein Geschaeftsvorfall steht oben, darunter vier Schalter. Erst das
+   Pruefen faerbt die Schalter und zeigt darunter die Begruendung. Die
+   Bedeutung haengt nie an der Farbe allein: jeder Schalter
+   schreibt seinen Zustand als Wort unter den Begriff.                */
+.ksk{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:20px 22px;margin:16px 0 14px}
+.ksn{font-family:var(--mono);font-size:1.03rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 8px}
+.kst{font-size:1.3rem;font-weight:600;line-height:1.4;margin:0 0 16px}
+.ksg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.ksg>*{min-width:0}
+.ksf{appearance:none;cursor:pointer;font:inherit;text-align:center;line-height:1.3;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--grey);
+  border-radius:8px;padding:13px 8px;transition:.16s;overflow-wrap:anywhere}
+.ksf .ksl{display:block;font-size:1.17rem;font-weight:700;color:inherit}
+.ksf .ksv{display:block;margin-top:5px;font-family:var(--mono);font-size:1.02rem;letter-spacing:.06em}
+.ksf[aria-pressed="true"]{border-color:var(--teal-dk);background:var(--teal-xl);color:var(--teal-dk)}
+.ksf:hover:not(:disabled){border-color:var(--teal)}
+.ksf:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.ksf:disabled{cursor:default}
+.ksf.ok{background:#E8F4EC;border-color:var(--green);color:#1E6B47}
+.ksf.no{background:#FBECEB;border-color:var(--red);color:#9C2F2C}
+.ksw{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--grey-xl);
+  font-size:1.18rem;color:#3d3d40;line-height:1.55}
+.ksw b{color:var(--ink)}
+
+/* ---------- Woher die Primaerkosten kommen ----------
+   Die Zeichnung behaelt unterhalb von 900px ihre natuerliche Breite,
+   damit die Beschriftung nicht unter 15px faellt; der Rahmen scrollt. */
+.drw{overflow-x:auto;margin:18px 0 0;border:1px solid var(--grey-xl);border-radius:var(--r);
+  background:var(--paper);box-shadow:var(--shadow);padding:14px}
+.drw:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.drw svg{display:block;width:100%;height:auto;margin:0 auto}
+.drw text{font-family:var(--sans);fill:var(--ink)}
+.drw .dk{font-family:var(--mono);font-size:16px;letter-spacing:.08em;fill:var(--grey)}
+.drw .dt{font-size:17px}
+.drw .dh{font-size:17px;font-weight:700}
+.drw .dn{font-size:16px;fill:#3d3d40}
+
+/* ---------- Der Kostenartenplan: zuordnen und die Gruppensumme ablesen -- */
+.zuz{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;
+  background:var(--paper);border:1px solid var(--grey-xl);border-radius:10px;
+  padding:11px 14px;box-shadow:var(--shadow)}
+.zuz>*{min-width:0}
+.zuz .zt{font-size:1.21rem;color:var(--ink);line-height:1.4}
+.zuz .zt .zbe{display:block;margin-top:3px;font-family:var(--mono);font-size:1.04rem;
+  color:var(--grey);font-variant-numeric:tabular-nums}
+.zuz .zb{display:flex;gap:6px;flex:none;flex-wrap:wrap}
+.zub{appearance:none;font:inherit;font-size:1.16rem;font-weight:600;cursor:pointer;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--grey);
+  border-radius:7px;padding:6px 12px;transition:.14s}
+.zub:hover:not(:disabled){border-color:var(--teal);color:var(--teal-dk)}
+.zub:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.zub:disabled{cursor:default}
+.zub.ok{background:#E8F4EC;border-color:var(--green);color:#1E6B47}
+.zub.no{background:#FBECEB;border-color:var(--red);color:#9C2F2C}
+.zuw{grid-column:1/-1;margin:2px 0 0;font-size:1.18rem;color:#3d3d40;line-height:1.55}
+.zuw b{color:var(--ink)}
+/* Die Begruendung nimmt den Fokus auf, nachdem das Neuzeichnen den
+   angeklickten Knopf ersetzt hat. Sichtbar wird der Rahmen allein bei
+   Bedienung mit der Tastatur.                                       */
+.zuw:focus-visible,.ksw:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:6px}
+
+.kpg{display:grid;gap:11px;margin:20px 0 0}
+.kpz{display:grid;grid-template-columns:230px 1fr 118px;gap:12px;align-items:center}
+.kpz>*{min-width:0}
+.kpz .kpn{font-size:1.17rem;font-weight:600;line-height:1.3;overflow-wrap:anywhere}
+.kpr{height:16px;background:var(--grey-xl);border-radius:8px;overflow:hidden}
+.kpf{display:block;height:100%;width:0;background:var(--teal-dk);border-radius:8px;
+  transition:width .5s var(--ease)}
+.kpz .kpw{text-align:right;font-family:var(--mono);font-size:1.1rem;color:var(--teal-dk);
+  font-variant-numeric:tabular-nums}
+.kpsum{margin:16px 0 0;font-size:1.2rem;line-height:1.5;color:#3d3d40}
+.kpsum b{font-weight:700;color:var(--teal-dk)}
+
+@media (max-width:760px){
+  .ksg{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:620px){
+  .zuz{grid-template-columns:1fr}
+  .zuz .zb{justify-content:flex-start}
+  .kpz{grid-template-columns:1fr 96px}
+  .kpz .kpn{grid-column:1/-1}
+}
+@media (max-width:900px){
+  .drw svg{min-width:880px}
+}
+
 /* ---------- Der Platzhalter einer Huelle ----------
    Ein gestrichelter Kasten steht fuer das, was noch zu schreiben ist.
    Er sieht bewusst unfertig aus, damit niemand ihn fuer Inhalt haelt. */
@@ -240,14 +345,14 @@ footer a{color:var(--teal-dk)}
 <div class="wrap">
 
 <header class="masthead">
-  <p class="eyebrow">Kostenrechnung für Einsteiger · Modul 01 · in Planung</p>
+  <p class="eyebrow">Kostenrechnung für Einsteiger · Modul 01 · DE</p>
   <h1>Kosten<em>artenrechnung</em></h1>
-  <p class="lede">Die erste Stufe der Kostenrechnung fragt, welche Kosten angefallen sind. Dieses Modul ist bisher eine Hülle, deren Lektionen mit Namen dastehen, während der Inhalt noch geschrieben wird.</p>
+  <p class="lede">Die erste Stufe der Kostenrechnung fragt, welche Kosten angefallen sind. Lektion 01 beantwortet das für Sofias Kaffeehausbetrieb mit sechzehn Kostenarten, die im ersten Quartal 2026 zusammen 151.190 € ausmachen.</p>
   <div class="readme" style="margin-top:20px">
-    <b>Dieses Modul ist eine Hülle.</b> Die Lektionen stehen mit ihren Namen da, die Abschnitte
-    mit ihren Überschriften. Was noch fehlt, steht als gestrichelter Kasten darin und nennt,
-    welcher Text dort hingehört. Quiz und Praxiseinstieg laufen bereits, allerdings mit
-    Mustereinträgen, an denen allein das Format abzulesen ist.
+    <b>Lektion 01 steht, die Lektionen 02 und 03 sind noch Hüllen.</b> Fix und variabel sowie die
+    Verrechnung der Sekundärkosten kommen in einem der nächsten Durchgänge dazu, wobei sie mit
+    denselben sechzehn Kostenarten rechnen. Quiz und Praxiseinstieg gehören bereits zum Stoff von
+    Lektion 01.
   </div>
 </header>
 
@@ -260,15 +365,190 @@ footer a{color:var(--teal-dk)}
 </div>
 
 <section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
-  <p class="claim">Die Kernaussage dieser Lektion steht noch aus. Sie sagt in einem Satz, was jemand nach der Lektion über Primärkosten sagen können soll.</p>
-  <h2 class="sec">Definition Kosten</h2>
-  <div class="offen">
-    <b>Hier fehlt noch Text.</b> Der erste Absatz dieses Abschnitts ist im Auftrag offen geblieben. Er führt in die Sache ein, bevor eine Übung oder eine Tabelle folgt.
-    <span class="was">Abschnitt · Definition Kosten</span>
+  <p class="claim"><b>Kosten entstehen beim Verbrauch für die betriebliche Leistung</b> und nicht bei
+    der Zahlung, weshalb Sofias Quartal 151.190 € Kosten ausweist, während in der Gewinn- und
+    Verlustrechnung desselben Quartals 142.390 € Aufwand stehen.</p>
+
+  <h2 class="sec">Vier Begriffe, die nicht dasselbe meinen</h2>
+  <p>Wer in die Kostenrechnung einsteigt, bringt zumeist eine einfache Vorstellung mit, nach der
+    Kosten alles sind, was Geld kostet. Diese Vorstellung ist bequem und führt in der ersten Übung
+    zu falschen Zahlen, da das Rechnungswesen vier Größen unterscheidet, die sich nur teilweise
+    überlappen. Die Tabelle nennt sie in der Reihenfolge, in der sie auseinanderlaufen.</p>
+  <div class="tblw" tabindex="0" role="group" aria-label="Die vier Größen Auszahlung, Ausgabe, Aufwand und Kosten. Die Tabelle scrollt seitlich.">
+    <table class="tbl">
+      <thead><tr><th>Größe</th><th>Was sie misst</th></tr></thead>
+      <tbody>
+        <tr><td class="b">Auszahlung</td><td>Abfluss von Zahlungsmitteln aus Kasse oder Bankkonto,
+          gemessen am Tag der Zahlung.</td></tr>
+        <tr><td class="b">Ausgabe</td><td>Minderung des Geldvermögens, also eine Auszahlung oder
+          eine neue Verbindlichkeit aus der Beschaffung von Gütern.</td></tr>
+        <tr><td class="b">Aufwand</td><td>Bewerteter Güterverbrauch einer Periode, wie die Gewinn-
+          und Verlustrechnung ihn nach Handelsrecht ausweist.</td></tr>
+        <tr><td class="b">Kosten</td><td>Bewerteter Verbrauch von Gütern und Diensten für die
+          betriebliche Leistung, unabhängig davon, ob er im Jahresabschluss erscheint.</td></tr>
+      </tbody>
+    </table>
   </div>
+  <p>Bei einem Barkauf, dessen Ware sofort verbraucht wird, fallen die vier Größen im selben
+    Augenblick zusammen. In jedem anderen Fall kommen sie zu verschiedenen Zeitpunkten oder gar
+    nicht vor, weshalb Du jeden Geschäftsvorfall einzeln prüfen musst.</p>
+  <p>Unten steht ein Vorfall aus Sofias Betrieb, darunter vier Schalter. Schalte die Größen ein,
+    die auf den Vorfall zutreffen, und lies nach dem Prüfen in der Begründung ab, welche Größe <!-- sprache:ok, das Komma schliesst den Relativsatz, danach folgt das zweite Praedikat desselben Subjekts -->
+    warum greift. Zehn Vorfälle liegen vor, von denen jeder eine andere Kombination der vier
+    Größen zeigt.</p>
+  <div id="ksBox"></div>
+  <p>Nach zehn Vorfällen steht die Unterscheidung, nach der Kosten beim Verbrauch für die
+    betriebliche Leistung entstehen und nicht bei der Zahlung. Wer eine Kostenrechnung aus den
+    Kontoauszügen heraus aufbaut, bekommt deshalb für jede Periode eine falsche Zahl, nämlich
+    um den Betrag, den Lager, Anlagevermögen und Zahlungsziele dazwischenschieben.</p>
+
+  <h2 class="sec">Wo Aufwand und Kosten auseinanderlaufen</h2>
+  <p>Die beiden Größen Aufwand und Kosten überlappen sich weitgehend, laufen an zwei Stellen
+    allerdings auseinander. Für diese Stellen hat die Kostenrechnung eigene Begriffe, die Du beim
+    Aufstellen jeder Abgrenzungsrechnung brauchst.</p>
+  <div class="tblw" tabindex="0" role="group" aria-label="Neutraler Aufwand, Grundkosten, Anderskosten und Zusatzkosten. Die Tabelle scrollt seitlich.">
+    <table class="tbl">
+      <thead><tr><th>Begriff</th><th>Was darunter fällt</th></tr></thead>
+      <tbody>
+        <tr><td class="b">Neutraler Aufwand</td><td>Aufwand, dem keine Kosten gegenüberstehen, da
+          er dem Betriebszweck nicht dient, nicht zur Periode gehört oder außergewöhnlich ist. Bei
+          Sofia die Spende von 800 € und der Verlust von 1.200 € aus dem Verkauf der alten
+          Mühle.</td></tr>
+        <tr><td class="b">Grundkosten</td><td>Zweckaufwand, der in gleicher Höhe Kosten ist. Er
+          stellt in fast jedem Betrieb den größten Teil, bei Sofia 140.390 € im Quartal.</td></tr>
+        <tr><td class="b">Anderskosten</td><td>Kosten, die auch als Aufwand erscheinen, in der
+          Kostenrechnung allerdings anders bewertet werden. Die Abschreibung von 6.900 € ist der
+          Fall, bei dem beide Größen in Sofias Rechnung gleich hoch angesetzt sind, sodass sich an
+          der Summe nichts ändert.</td></tr>
+        <tr><td class="b">Zusatzkosten</td><td>Kosten, denen überhaupt kein Aufwand gegenübersteht,
+          weil die Buchführung sie nicht kennt. Bei Sofia der kalkulatorische Unternehmerlohn von
+          9.000 € und die kalkulatorischen Zinsen von 1.800 €.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Aus diesen Begriffen wird die Abgrenzungsrechnung, die den Aufwand einer Periode in die
+    Kosten derselben Periode überführt. Sie beginnt oben mit der Zahl, die in der Buchführung
+    steht, und endet unten mit der Zahl, mit der Du kalkulierst.</p> <!-- sprache:ok, das Komma schliesst den Relativsatz, danach folgt das zweite Praedikat desselben Subjekts -->
+  <div class="tblw" tabindex="0" role="group" aria-label="Die Abgrenzungsrechnung für das erste Quartal 2026. Die Tabelle scrollt seitlich.">
+    <table class="tbl">
+      <thead><tr><th>Erstes Quartal 2026</th><th>Betrag</th></tr></thead>
+      <tbody>
+        <tr><td>Aufwand laut Gewinn- und Verlustrechnung</td><td class="z">142.390 €</td></tr>
+        <tr><td>abzüglich neutraler Aufwand (Spende, Verlust aus dem Anlagenabgang)</td>
+            <td class="z">&minus;2.000 €</td></tr>
+        <tr><td>Zweckaufwand, in der Kostenrechnung die Grundkosten</td><td class="z">140.390 €</td></tr>
+        <tr><td>zuzüglich Zusatzkosten (Unternehmerlohn, kalkulatorische Zinsen)</td>
+            <td class="z">+10.800 €</td></tr>
+        <tr class="sum"><td>Kosten des Quartals</td><td class="z">151.190 €</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Unter dem Strich stehen damit zwei Ergebnisse für dasselbe Quartal. Der Umsatz von 145.500 €
+    lässt nach Handelsrecht einen Gewinn von 3.110 € übrig, während das Betriebsergebnis der
+    Kostenrechnung mit minus 5.690 € deutlich darunter liegt. Die Differenz von 8.800 € ist genau
+    der Betrag, den die Buchführung nicht kennt, vermindert um den neutralen Aufwand.</p>
+  <p>Für Sofia ist das keine Spitzfindigkeit, da sie an ihren Preisen ablesen muss, ob die eigene
+    Arbeit bezahlt ist. Ein Betrieb, der nach Handelsrecht einen Gewinn ausweist, in der
+    Kostenrechnung hingegen einen Verlust erwirtschaftet, deckt seine Vollkosten nicht.</p>
+
+  <h2 class="sec">Warum diese Kosten primär heißen</h2>
+  <p>Primärkosten entstehen beim Verbrauch von Gütern und Diensten, die der Betrieb von außen
+    bezieht. Das Wort ist eine Herkunftsangabe und keine Rangordnung, weshalb eine Primärkostenart
+    nicht wichtiger ist als eine sekundäre.</p>
+  <div class="drw" tabindex="0" role="group" aria-label="Zeichnung: links die von außen bezogenen Güter, rechts Sofias Betrieb mit der Rösterei und den drei Verkaufsorten. Die Zeichnung scrollt seitlich.">
+    <svg viewBox="0 0 880 290" role="img" aria-label="Von außen bezogene Güter lösen beim Verbrauch Primärkosten aus. Die Lieferung der Rösterei an die Kaffeehäuser bleibt im Haus und heißt Sekundärkosten.">
+      <defs>
+        <marker id="kaPfeil" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--teal-dk)"/>
+        </marker>
+      </defs>
+      <text class="dk" x="14" y="40">AUSSERHALB DES BETRIEBS</text>
+      <rect x="14" y="50" width="200" height="218" rx="10" fill="var(--sand-xl)" stroke="var(--grey-mid)"/>
+      <text class="dt" x="32" y="86">Rohkaffee aus Peru</text>
+      <text class="dt" x="32" y="118">Milch und Gebäck</text>
+      <text class="dt" x="32" y="150">Miete der Räume</text>
+      <text class="dt" x="32" y="182">Strom, Wasser, Gas</text>
+      <text class="dt" x="32" y="214">Arbeitszeit</text>
+      <text class="dt" x="32" y="246">Versicherungen</text>
+      <line x1="220" y1="159" x2="324" y2="159" stroke="var(--teal-dk)" stroke-width="2" marker-end="url(#kaPfeil)"/>
+      <text class="dh" x="272" y="146" text-anchor="middle" fill="var(--teal-dk)">Primärkosten</text>
+      <text class="dk" x="330" y="40">SOFIAS BETRIEB</text>
+      <rect x="330" y="50" width="536" height="218" rx="10" fill="var(--teal-xl)" stroke="var(--teal-lt)"/>
+      <rect x="352" y="76" width="152" height="60" rx="8" fill="var(--paper)" stroke="var(--grey-mid)"/>
+      <text class="dh" x="428" y="112" text-anchor="middle">Rösterei</text>
+      <rect x="648" y="70" width="196" height="40" rx="8" fill="var(--paper)" stroke="var(--grey-mid)"/>
+      <text class="dt" x="746" y="96" text-anchor="middle">Ringstraße</text>
+      <rect x="648" y="120" width="196" height="40" rx="8" fill="var(--paper)" stroke="var(--grey-mid)"/>
+      <text class="dt" x="746" y="146" text-anchor="middle">Alsergrund</text>
+      <rect x="648" y="170" width="196" height="40" rx="8" fill="var(--paper)" stroke="var(--grey-mid)"/>
+      <text class="dt" x="746" y="196" text-anchor="middle">Coffeebike</text>
+      <line x1="510" y1="140" x2="642" y2="140" stroke="var(--teal-dk)" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#kaPfeil)"/>
+      <text class="dn" x="576" y="128" text-anchor="middle">geröstete Bohnen</text>
+      <text class="dn" x="576" y="162" text-anchor="middle">Sekundärkosten</text>
+      <text class="dn" x="352" y="232">Im Kostenartenplan steht der Rohkaffee aus Peru.</text>
+      <text class="dn" x="352" y="256">Die gerösteten Bohnen folgen in Lektion 03.</text>
+    </svg>
+  </div>
+  <p>Sofias Betrieb zeigt beide Seiten unter einem Dach, da der Rohkaffee aus Peru kommt, die
+    Milch von einer Molkerei und die Räume von einem Vermieter, sodass all das Primärkosten
+    auslöst, sobald es im Betrieb verbraucht wird. Die Rösterei liefert gerösteten Kaffee an die
+    beiden Kaffeehäuser, ohne dass dabei ein Gut die Grenze des Betriebs überschreitet, weshalb
+    diese Lieferung in keiner Kostenart des Plans auftaucht.</p>
+  <p>Deshalb steht im Kostenartenplan des Betriebs der Rohkaffee und nicht das Kilo geröstete
+    Bohnen. Würden beide darin stehen, zählte derselbe Kaffee zweimal, zum ersten Mal als Rohstoff
+    des Imports und zum zweiten Mal als Erzeugnis der Rösterei. Was die Rösterei an die
+    Kaffeehäuser weitergibt, heißt Sekundärkosten und wird in Lektion 03 verrechnet.</p>
+  <p>Die Zuordnung hängt daran, von welcher Stelle aus Du rechnest. Für die Rösterei allein ist der
+    Rohkaffee eine Primärkostenart, während die geröstete Bohne für das Haus Ringstraße eine
+    innerbetriebliche Leistung ist. Wer den Betrieb als Ganzes rechnet, nimmt allein die Güter auf,
+    die seine Grenze überschritten haben.</p>
+
+  <h2 class="sec">Der Kostenartenplan für Sofias Betrieb</h2>
+  <p>Ein Kostenartenplan ist das geordnete Verzeichnis aller Kostenarten eines Betriebs. Er
+    entsteht einmal und wird danach selten geändert, da jede Umstellung den Vergleich mit den
+    Vorperioden erschwert. Üblich sind fünf Gruppen, die sich an den Produktionsfaktoren
+    orientieren.</p>
+  <div class="tblw" tabindex="0" role="group" aria-label="Die fünf Gruppen eines Kostenartenplans. Die Tabelle scrollt seitlich.">
+    <table class="tbl">
+      <thead><tr><th>Gruppe</th><th>Was hineingehört</th></tr></thead>
+      <tbody>
+        <tr><td class="b">Materialkosten</td><td>Verbrauch an Roh-, Hilfs- und Betriebsstoffen
+          sowie an Waren, die der Betrieb weiterverkauft.</td></tr>
+        <tr><td class="b">Personalkosten</td><td>Löhne und Gehälter, dazu die gesetzlichen und die
+          freiwilligen Sozialleistungen des Arbeitgebers.</td></tr>
+        <tr><td class="b">Kosten für Fremdleistungen</td><td>Dienste Dritter, etwa Miete,
+          Instandhaltung und Reinigung. Energie zählt in diesem Plan hierher, da Sofia sie nicht
+          lagert und deshalb nicht als Betriebsstoff erfasst.</td></tr>
+        <tr><td class="b">Abgaben und Beiträge</td><td>Steuern, die Kosten sind, dazu Gebühren,
+          Beiträge und Versicherungsprämien.</td></tr>
+        <tr><td class="b">Kalkulatorische Kosten</td><td>Abschreibungen, Zinsen, Unternehmerlohn
+          und Wagnisse in der Höhe, die der Betrieb für richtig hält.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Unten liegen die sechzehn Kostenarten von Sofias Betrieb für das erste Quartal 2026, jede mit
+    ihrem Betrag. Ordne jede einer Gruppe zu und lies an den Balken darunter ab, wie sich die
+    151.190 € auf die fünf Gruppen verteilen. Bei einer falschen Zuordnung wächst kein Balken,
+    sodass die Summe am Ende allein bei durchgehend richtiger Zuordnung aufgeht.</p>
+  <div class="wsbar">
+    <button class="btn" id="kpNew">Zuordnung zurücksetzen</button>
+    <span class="sep"></span>
+    <span class="wsmsg" id="kpStand"></span>
+  </div>
+  <div class="zu" id="kpListe"></div>
+  <div class="kpg" id="kpBars"></div>
+  <p class="kpsum" id="kpSumme"></p>
+  <p>Die fünf Gruppen sagen, welche Kosten angefallen sind. Sie sagen nicht, wo im Betrieb sie
+    angefallen sind und wofür, weshalb nach der Kostenartenrechnung die Kostenstellenrechnung
+    folgt. Zwei Fragen bleiben an diesem Plan ebenfalls offen, nämlich welche Beträge mit der
+    verkauften Menge schwanken und welche gleich bleiben. Lektion 02 sortiert dieselben sechzehn
+    Kostenarten unter dieser zweiten Frage.</p>
+
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Sofias eigene Arbeitszeit erscheint in keiner Gewinn- und Verlustrechnung, in der
+      Kostenrechnung des Quartals hingegen mit <b>9.000 €</b>, wodurch aus einem handelsrechtlichen
+      Gewinn von 3.110 € ein Betriebsergebnis von minus 5.690 € wird.</p>
   </div>
 </section>
 
@@ -298,12 +578,6 @@ footer a{color:var(--teal-dk)}
 
 <section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
   <p class="claim">Fünf Fragen werden zufällig aus einem größeren Vorrat gezogen, ohne Zeitdruck und ohne eine Bewertung, die irgendwo landet; nach jeder Antwort steht die Begründung da, auch nach der richtigen.</p>
-  <div class="offen">
-    <b>Der Fragenvorrat ist noch nicht geschrieben.</b> Die drei Fragen unten prüfen den Modulvertrag
-    dieser Sammlung und stehen als Muster für das Format. An ihre Stelle kommen mindestens zwanzig
-    Fragen zum Stoff, sobald die Inhaltslektionen stehen.
-    <span class="was">const FRAGEN im Skript dieser Datei</span>
-  </div>
   <div class="wsbar">
     <button class="btn" id="qNew">Fünf neue Fragen ziehen</button>
     <span class="sep"></span>
@@ -313,27 +587,62 @@ footer a{color:var(--teal-dk)}
   <div id="qResult" style="margin-top:16px"></div>
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Wer bei einer Frage zögert, liest den zugehörigen Abschnitt in Lektion 01 noch einmal, da
+      die Begründung unter der Antwort absichtlich kürzer ist als der Text, aus dem sie stammt.</p>
   </div>
 </section>
 
 <section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e" hidden>
   <p class="claim">Was Du als Erstes tust, wenn Du das Gelernte im eigenen Unternehmen anwenden willst. Die Reihenfolge ist nicht beliebig, da jeder Schritt die Grundlage des nächsten legt.</p>
-  <div class="offen">
-    <b>Die Schritte sind noch nicht geschrieben.</b> Die beiden unten beschreiben, was an dieser
-    Stelle steht, und sind damit ein Muster für das Format. <!-- sprache:ok, das Komma schliesst den eingeschobenen Nebensatz, danach folgt das zweite Praedikat desselben Subjekts --> An ihre Stelle kommen konkrete erste
-    Schritte zum Stoff dieses Moduls.
-    <span class="was">const SCHRITTE im Skript dieser Datei</span>
-  </div>
   <div class="ck10" id="ck"></div>
+
+  <h2 class="sec">Das Glossar zum Nachschlagen</h2>
+  <p>Die Begriffe stehen hier in der Fassung, in der Lektion 01 sie benutzt. Beim Aufstellen des
+    eigenen Plans wird vor allem die Unterscheidung von Grund-, Anders- und Zusatzkosten
+    gebraucht, da sie entscheidet, welche Zeile der Buchführung in welcher Höhe übernommen
+    wird.</p>
+  <div class="tblw" tabindex="0" role="group" aria-label="Glossar der Begriffe aus Lektion 01. Die Tabelle scrollt seitlich.">
+    <table class="tbl">
+      <thead><tr><th>Begriff</th><th>Bedeutung</th></tr></thead>
+      <tbody>
+        <tr><td class="b">Auszahlung</td><td>Abfluss von Zahlungsmitteln aus Kasse oder
+          Bankkonto.</td></tr>
+        <tr><td class="b">Ausgabe</td><td>Minderung des Geldvermögens, also eine Auszahlung oder
+          eine neue Verbindlichkeit aus der Beschaffung von Gütern.</td></tr>
+        <tr><td class="b">Aufwand</td><td>Bewerteter Güterverbrauch einer Periode, wie die
+          Gewinn- und Verlustrechnung ihn nach Handelsrecht ausweist.</td></tr>
+        <tr><td class="b">Kosten</td><td>Bewerteter Verbrauch von Gütern und Diensten für die
+          betriebliche Leistung.</td></tr>
+        <tr><td class="b">Neutraler Aufwand</td><td>Aufwand ohne Kosten, weil er dem Betriebszweck
+          nicht dient, nicht zur Periode gehört oder außergewöhnlich ist.</td></tr>
+        <tr><td class="b">Grundkosten</td><td>Zweckaufwand, der in gleicher Höhe Kosten
+          ist.</td></tr>
+        <tr><td class="b">Anderskosten</td><td>Kosten, die als Aufwand erscheinen, in der
+          Kostenrechnung allerdings eigenständig bewertet werden.</td></tr>
+        <tr><td class="b">Zusatzkosten</td><td>Kosten ohne jeden Aufwand, etwa der kalkulatorische
+          Unternehmerlohn und die kalkulatorischen Zinsen.</td></tr>
+        <tr><td class="b">Abgrenzungsrechnung</td><td>Die Rechnung, die den Aufwand einer Periode
+          in die Kosten derselben Periode überführt.</td></tr>
+        <tr><td class="b">Primärkosten</td><td>Kosten für Güter und Dienste, die die Grenze des
+          Betriebs von außen überschritten haben.</td></tr>
+        <tr><td class="b">Sekundärkosten</td><td>Kosten für Leistungen, die eine Stelle des
+          Betriebs für eine andere erbringt.</td></tr>
+        <tr><td class="b">Kostenartenplan</td><td>Das geordnete Verzeichnis aller Kostenarten eines
+          Betriebs, in der Regel in fünf Gruppen.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Die drei kalkulatorischen Kostenarten sind der Schritt, an dem die meisten Einsteiger
+      abbrechen, obwohl erst sie aus einer Aufwandsliste eine Kostenrechnung machen, mit der sich
+      ein Preis begründen lässt.</p>
   </div>
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.88</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.89</span>
 </footer>
 
 </div>
@@ -346,46 +655,338 @@ const esc = s => String(s == null ? "" : s)
   .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 
 /* =====================================================================
-   1 . Der Praxiseinstieg
+   1 . Die vier Groessen: Auszahlung, Ausgabe, Aufwand, Kosten
 
-   Zwei Mustereintraege, an denen das Format abzulesen ist. Sie nennen
-   allein, was an dieser Stelle steht, weshalb sie beim Schreiben der
-   Lektion durch die Schritte zum Stoff ersetzt werden.
+   Ein Vorfall steht zur Zeit vor dem Lernenden, dazu vier Schalter.
+   Erst das Pruefen faerbt die Schalter und zeigt die Begruendung, damit
+   die Entscheidung vor der Aufloesung fallen muss.
+   ===================================================================== */
+const KS_NAME = ["Auszahlung", "Ausgabe", "Aufwand", "Kosten"];
+const KS_FALL = [
+  ["Sofia bestellt Rohkaffee für 6.400 €. Der Sack kommt mit einer Rechnung, zahlbar in vier Wochen, und geht ins Lager.", /* sprache:ok, das Komma schliesst den Einschub, danach folgt das zweite Praedikat desselben Subjekts */
+   [0,1,0,0],
+   "Eine <b>Ausgabe</b> liegt vor, da Sofia Güter beschafft und dafür eine Verbindlichkeit eingeht, wodurch ihr Geldvermögen sinkt. Gezahlt hat sie nichts, verbraucht ist ebenfalls nichts, weshalb der Vorfall weder Aufwand noch Kosten auslöst."],
+  ["Vier Wochen später überweist Sofia die 6.400 € an den Importeur.",
+   [1,0,0,0],
+   "Allein eine <b>Auszahlung</b> fällt an, da die Zahlung die Verbindlichkeit tilgt und das Geldvermögen dabei unverändert lässt. Die Ausgabe ist vier Wochen früher gebucht worden, weshalb sie hier nicht zum zweiten Mal zählt."],
+  ["Die Rösterei nimmt den Sack aus dem Lager und röstet ihn zu Bohnen für die beiden Kaffeehäuser.",
+   [0,0,1,1],
+   "Jetzt wird der Kaffee verbraucht, sodass <b>Aufwand</b> und <b>Kosten</b> in gleicher Höhe anfallen. Geld bewegt sich an diesem Tag nicht, da es bei der Zahlung an den Importeur bereits geflossen ist."],
+  ["Sofia zahlt die Miete für März von 7.000 € per Dauerauftrag.",
+   [1,1,1,1],
+   "Alle vier Größen fallen zusammen, weil Sofia die Raumnutzung im selben Monat bezahlt, beschafft und verbraucht. Dieser Fall ist der anschaulichste und in einem Betrieb mit Lager und Anlagevermögen zugleich der seltenere."],
+  ["Sofia kauft eine zweite Siebträgermaschine für 12.000 € und bezahlt sie sofort.",
+   [1,1,0,0],
+   "<b>Auszahlung</b> und <b>Ausgabe</b> fallen in voller Höhe an, während Aufwand und Kosten bei null bleiben. Die Maschine ist nicht verbraucht, lediglich die Form des Vermögens hat sich geändert, sodass der Verbrauch erst über die Abschreibung der kommenden Jahre folgt."],
+  ["Die Abschreibung auf diese Maschine wird für das Quartal mit 600 € gebucht, bei fünf Jahren Nutzungsdauer und linearem Verlauf.",
+   [0,0,1,1],
+   "Hier entstehen <b>Aufwand</b> und <b>Kosten</b> ohne jede Zahlung, da die 12.000 € schon beim Kauf abgeflossen sind. Über zwanzig Quartale ergeben 600 € je Quartal genau den Kaufpreis, womit die Abschreibung den Verbrauch der Maschine auf ihre Nutzungsdauer verteilt."],
+  ["Sofia spendet 800 € an den Studentenverein des Viertels und überweist den Betrag.",
+   [1,1,1,0],
+   "Die Spende ist <b>Auszahlung</b>, <b>Ausgabe</b> und <b>Aufwand</b>, weil die Gewinn- und Verlustrechnung sie ausweist. Kosten sind es nicht, da die Spende dem Betriebszweck nicht dient und die Kostenrechnung solchen neutralen Aufwand deshalb draußen lässt."],
+  ["Sofia steht im Quartal selbst an der Theke und im Büro, ohne sich ein Gehalt auszuzahlen.",
+   [0,0,0,1],
+   "Allein <b>Kosten</b> fallen an, da Sofias Arbeitszeit für die betriebliche Leistung verbraucht wird. Ohne Gehaltszahlung entsteht kein Aufwand, weshalb die Kostenrechnung an dieser Stelle einen kalkulatorischen Unternehmerlohn ansetzt (im Quartal 9.000 €)."],
+  ["Eine alte Mühle wird unter ihrem Buchwert verkauft, wodurch ein Verlust von 1.200 € entsteht.",
+   [0,0,1,0],
+   "Der Verlust ist <b>Aufwand</b> und sonst nichts. Geld fließt sogar herein, während für die betriebliche Leistung bei diesem Verkauf nichts verbraucht worden ist, weshalb der Betrag als neutraler Aufwand außerhalb der Kostenrechnung bleibt."],
+  ["Sofia holt 500 € von der Bank und legt sie in die Kasse des Hauses Ringstraße.",
+   [0,0,0,0],
+   "Keine der vier Größen ist berührt, da es sich um einen Tausch zwischen zwei Zahlungsmittelkonten handelt. Der Zahlungsmittelbestand des Betriebs bleibt gleich hoch, obwohl sich zwei Kontostände ändern."],
+];
+let ksNr = 0, ksAn = [false, false, false, false], ksAuf = false, ksTreffer = 0, ksFertig = 0;
+function ksReset(){ ksAn = [false, false, false, false]; ksAuf = false; ksRender(); }
+function ksRender(){
+  const [text, soll, begr] = KS_FALL[ksNr];
+  const feld = (n) => {
+    let kl = "", wort = ksAn[n] ? "ja" : "nein";
+    if(ksAuf){
+      kl = ksAn[n] === !!soll[n] ? " ok" : " no";
+      wort = soll[n] ? "ja" : "nein";
+    }
+    return `<button class="ksf${kl}" type="button" data-f="${n}" aria-pressed="${ksAn[n]}"${
+      ksAuf ? " disabled" : ""}><span class="ksl">${KS_NAME[n]}</span><span class="ksv">${wort}</span></button>`;
+  };
+  $("ksBox").innerHTML = `<div class="ksk">
+      <p class="ksn">Vorfall ${ksNr + 1} von ${KS_FALL.length}</p>
+      <p class="kst">${esc(text)}</p>
+      <div class="ksg">${[0,1,2,3].map(feld).join("")}</div>
+      ${ksAuf ? `<p class="ksw" id="kswT" tabindex="-1">${
+        ksAn.every((a, n) => a === !!soll[n])
+          ? "<b style='color:#1E6B47'>Alle vier richtig.</b> "
+          : "<b style='color:#9C2F2C'>Nicht alle vier.</b> Unter jedem Schalter steht jetzt die Antwort, die auf diesen Vorfall zutrifft. "}${begr}</p>` : ""}
+    </div>
+    <div class="wsbar">
+      <button class="btn" id="${ksAuf ? "ksWeiter" : "ksPruef"}">${
+        ksAuf ? "Nächster Vorfall" : "Prüfen"}</button>
+      <span class="sep"></span>
+      <span class="wsmsg">${ksFertig === 0
+        ? "Schalte ein, was zutrifft, danach prüfen"
+        : ksFertig + " von " + KS_FALL.length + " geprüft · " + ksTreffer + " vollständig richtig"}</span>
+    </div>`;
+}
+$("ksBox").addEventListener("click", e => {
+  const f = e.target.closest(".ksf");
+  if(f && !f.disabled){ const n = +f.dataset.f; ksAn[n] = !ksAn[n]; ksRender(); return; }
+  if(e.target.closest("#ksPruef")){
+    const soll = KS_FALL[ksNr][1];
+    ksAuf = true; ksFertig++;
+    if(ksAn.every((a, n) => a === !!soll[n])) ksTreffer++;
+    ksRender(); $("kswT")?.focus(); return;
+  }
+  if(e.target.closest("#ksWeiter")){
+    ksNr = (ksNr + 1) % KS_FALL.length;
+    ksReset();
+    $("ksBox").querySelector(".ksf")?.focus();
+  }
+});
+ksRender();
+
+/* =====================================================================
+   2 . Der Kostenartenplan: sechzehn Kostenarten, fuenf Gruppen
+
+   Die Balken wachsen allein um richtig eingeordnete Betraege, weshalb
+   die Summe am Ende nur bei durchgehend richtiger Zuordnung aufgeht.
+   ===================================================================== */
+const KP_KURZ = {ma:"Material", pe:"Personal", fr:"Fremdleistung", ab:"Abgaben", kl:"kalkulatorisch"};
+const KP_LANG = {ma:"Materialkosten", pe:"Personalkosten", fr:"Kosten für Fremdleistungen",
+                 ab:"Abgaben und Beiträge", kl:"Kalkulatorische Kosten"};
+const KP_FOLGE = ["ma", "pe", "fr", "ab", "kl"];
+const KP_POS = [
+  ["Rohkaffee grün, Import aus Peru", 21400, "ma",
+   "Der Rohkaffee ist der Rohstoff des Betriebs, da er als Hauptbestandteil in jedes verkaufte Getränk eingeht, und bildet mit 21.400 € die größte Materialkostenart des Quartals."], /* sprache:ok, das Komma schliesst den Nebensatz, danach folgt das zweite Praedikat desselben Subjekts */
+  ["Milch und Molkereiprodukte", 9600, "ma",
+   "Die Milch geht unmittelbar in die Getränke ein und zählt deshalb zu den Rohstoffen, die der Plan gemeinsam mit dem Rohkaffee und den zugekauften Waren in einer Gruppe führt."],
+  ["Gebäck und Speisen im Einkauf", 8900, "ma",
+   "Sofia hat keine eigene Bäckerei, sodass das Gebäck eine zugekaufte Ware ist und damit in dieselbe Gruppe gehört wie der Rohkaffee und die Milch."],
+  ["Säfte, Limonaden und Sirup im Einkauf", 6200, "ma",
+   "Auch Säfte, Limonaden und Sirup kauft Sofia fertig ein, weshalb sie als Handelswaren zu den Materialkosten zählen, obwohl sie den Betrieb unverändert wieder verlassen."],
+  ["Becher, Verpackung und Filter", 4700, "ma",
+   "Becher, Verpackung und Filter sind Hilfs- und Betriebsstoffe, die nicht als Hauptbestandteil in das Produkt eingehen, beim Verkauf eines Getränks allerdings in jedem Fall verbraucht werden."],
+  ["Bruttolöhne der zehn Angestellten", 38600, "pe",
+   "Löhne und Gehälter stellen den Kern der Personalkosten, während die Tatsache, dass Sofias zehn Angestellte Studierende sind, an der Zuordnung dieser Kostenart nichts ändert."],
+  ["Arbeitgeberanteil zur Sozialversicherung", 8100, "pe",
+   "Der Arbeitgeberanteil ist eine gesetzliche Sozialleistung und zählt deshalb zu den Personalkosten, obwohl der Betrag an einen Sozialversicherungsträger und nicht an die Angestellten geht."],
+  ["Miete der beiden Häuser und der Rösterei", 21000, "fr",
+   "Die Miete ist mit 7.000 € je Monat der Dienst eines Dritten, nämlich die Überlassung der Räume für die beiden Kaffeehäuser und die Rösterei."],
+  ["Strom und Wasser als Grundlast", 4300, "fr",
+   "Energie zählt in diesem Plan zu den Fremdleistungen, da Sofia sie nicht lagert; ein Betrieb mit eigenem Tanklager erfasst sie hingegen als Betriebsstoff und führt sie unter Material."],
+  ["Röstgas, nach Röstmenge abgerechnet", 2400, "fr",
+   "Für das Gas gilt dieselbe Regel wie für Strom und Wasser, während die Frage, ob ein Betrag mit der Röstmenge schwankt, erst in Lektion 02 beantwortet wird und die Kostenart selbst nicht berührt."],
+  ["Instandhaltung und Fremdreinigung", 3400, "fr",
+   "Instandhaltung und Fremdreinigung sind Dienste Dritter, die der Betrieb im Quartal vollständig verbraucht, weshalb sie ohne Umweg über ein Lager in die Kostenrechnung eingehen."],
+  ["Versicherungen, Beiträge und Gebühren", 2800, "ab",
+   "Versicherungsprämien, Kammerbeiträge und behördliche Gebühren fasst der Plan zu einer Gruppe zusammen, da sie in ihrer Höhe kaum beeinflussbar sind und deshalb anders gesteuert werden als Material oder Personal."],
+  ["Entgelt für die Kartenzahlung", 2090, "ab",
+   "Das Entgelt des Zahlungsdienstleisters ist eine Gebühr und steht deshalb bei den Abgaben und Beiträgen, obwohl es anders als die übrigen Posten dieser Gruppe mit dem Umsatz schwankt."],
+  ["Kalkulatorische Abschreibung auf Maschinen und Coffeebike", 6900, "kl",
+   "Die Abschreibung ist eine Anderskostenart, da die Kostenrechnung sie eigenständig bewertet, während handelsrechtlicher und kalkulatorischer Ansatz in Sofias Rechnung mit 6.900 € gleich hoch stehen."],
+  ["Kalkulatorischer Unternehmerlohn für Sofia", 9000, "kl",
+   "Weil Sofias eigener Arbeit kein Aufwand gegenübersteht, ist sie eine Zusatzkostenart, ohne deren Ansatz der Betrieb im Quartal um 9.000 € rentabler erscheint, als er tatsächlich ist."],
+  ["Kalkulatorische Zinsen auf das eingesetzte Kapital", 1800, "kl",
+   "Auch die Zinsen auf das eigene Kapital sind eine Zusatzkostenart, die messen soll, was das im Betrieb gebundene Kapital an anderer Stelle verdient hätte."],
+];
+const eur = n => n.toLocaleString("de-DE") + " €";
+const KP_SOLL = {}, KP_GESAMT = KP_POS.reduce((s, p) => s + p[1], 0);
+KP_FOLGE.forEach(g => KP_SOLL[g] = KP_POS.filter(p => p[2] === g).reduce((s, p) => s + p[1], 0));
+const KP_MAX = Math.max(...KP_FOLGE.map(g => KP_SOLL[g]));
+let kpStand = [];
+function kpZiehen(){ kpStand = KP_POS.map((p, i) => ({i, gewaehlt:null})); kpRender(); }
+function kpRender(){
+  $("kpListe").innerHTML = kpStand.map((z, n) => {
+    const [text, betrag, richtig, begr] = KP_POS[z.i];
+    const kl = g => z.gewaehlt === null ? "" : (g === richtig ? " ok" : (g === z.gewaehlt ? " no" : ""));
+    return `<div class="zuz">
+      <p class="zt">${esc(text)}<span class="zbe">${eur(betrag)}</span></p>
+      <div class="zb">${KP_FOLGE.map(g =>
+        `<button class="zub${kl(g)}" type="button" data-z="${n}" data-g="${g}"${
+          z.gewaehlt !== null ? " disabled" : ""}>${KP_KURZ[g]}</button>`).join("")}</div>
+      ${z.gewaehlt === null ? "" : `<p class="zuw" id="zuw-${n}" tabindex="-1">${
+        z.gewaehlt === richtig
+          ? "<b style='color:#1E6B47'>Richtig.</b> "
+          : "<b style='color:#9C2F2C'>Daneben.</b> Die Kostenart gehört zu " + KP_LANG[richtig] + ". "}${begr}</p>`}
+    </div>`;
+  }).join("");
+
+  const ist = {};
+  KP_FOLGE.forEach(g => ist[g] = 0);
+  kpStand.forEach(z => {
+    const [, betrag, richtig] = KP_POS[z.i];
+    if(z.gewaehlt === richtig) ist[richtig] += betrag;
+  });
+  $("kpBars").innerHTML = KP_FOLGE.map(g =>
+    `<div class="kpz">
+       <span class="kpn">${KP_LANG[g]}</span>
+       <span class="kpr"><span class="kpf" style="width:${(ist[g] / KP_MAX * 100).toFixed(1)}%"></span></span>
+       <span class="kpw">${eur(ist[g])}</span>
+     </div>`).join("");
+
+  const fertig  = kpStand.filter(z => z.gewaehlt !== null).length;
+  const treffer = kpStand.filter(z => z.gewaehlt === KP_POS[z.i][2]).length;
+  const summe   = KP_FOLGE.reduce((s, g) => s + ist[g], 0);
+  $("kpStand").textContent = fertig === 0
+    ? KP_POS.length + " Kostenarten, zusammen " + eur(KP_GESAMT)
+    : fertig + " von " + KP_POS.length + " eingeordnet · " + treffer + " richtig";
+  $("kpSumme").innerHTML = treffer === KP_POS.length
+    ? `<b>${eur(summe)}</b> stehen in den fünf Gruppen, also der vollständige Kostenartenplan des
+       Quartals. Materialkosten und Personalkosten stellen zusammen ${eur(KP_SOLL.ma + KP_SOLL.pe)}
+       und damit knapp zwei Drittel der Summe.`
+    : `<b>${eur(summe)}</b> von ${eur(KP_GESAMT)} sind richtig eingeordnet.`;
+}
+$("kpListe").addEventListener("click", e => {
+  const b = e.target.closest(".zub"); if(!b || b.disabled) return;
+  const n = +b.dataset.z, z = kpStand[n]; if(!z || z.gewaehlt !== null) return;
+  z.gewaehlt = b.dataset.g; kpRender(); $("zuw-" + n)?.focus();
+});
+$("kpNew").addEventListener("click", kpZiehen);
+kpZiehen();
+
+/* =====================================================================
+   3 . Der Praxiseinstieg
+
+   Sieben Schritte zum eigenen Kostenartenplan, je mit der Falle, in die
+   an dieser Stelle am haeufigsten getreten wird.
    ===================================================================== */
 const SCHRITTE = [
-  ["So sieht ein Schritt aus",
-   "Ein Schritt beginnt mit einer Handlung, die jemand am Montag anfassen kann, und nennt danach, " /* sprache:ok, das Komma schliesst den Relativsatz, danach folgt das zweite Praedikat desselben Subjekts */
-   + "woran er merkt, dass er sie richtig getan hat. Eine Handlung ohne Ergebnis ist eine Absichtserklärung.",
-   "Die Überschrift ist der Imperativ, der Absatz die Begründung."],
-  ["So viele Schritte stehen hier",
-   "Sechs bis acht Schritte reichen in der Regel aus, da der Praxiseinstieg eine Reihenfolge zeigt "
-   + "und keine vollständige Anleitung. Wo ein Glossar dazugehört, steht es unter den Schritten.",
-   "Die Reihenfolge ist Teil der Aussage und deshalb nicht beliebig."],
+  ["Hol die Summen- und Saldenliste des letzten abgeschlossenen Jahres",
+   "Beginne bei den Aufwandskonten, die Deine Buchführung ohnehin führt, da dort jede Kostenart "
+   + "schon einmal benannt worden ist. Der Schritt sitzt, sobald Du für jedes Konto mit Saldo "
+   + "entscheiden kannst, ob es in die Kostenrechnung gehört.",
+   "Ein Sammelkonto wie „sonstiger betrieblicher Aufwand“ vereint häufig fünf Kostenarten in sich "
+   + "und wird trotzdem als eine Zeile übernommen."],
+  ["Streich den neutralen Aufwand heraus und schreib den Grund daneben",
+   "Prüf jede Zeile darauf, ob sie dem Betriebszweck dient, zur Periode gehört und gewöhnlich ist. "
+   + "Was eine dieser drei Proben nicht besteht, bleibt draußen, erhält allerdings eine Notiz, "
+   + "damit die Entscheidung im nächsten Jahr nachvollziehbar ist.",
+   "Spenden, Verluste aus Anlagenabgängen und Steuernachzahlungen für Vorjahre werden oft "
+   + "mitgeschleppt, weil sie in der Gewinn- und Verlustrechnung unauffällig dastehen."],
+  ["Entscheide über die drei kalkulatorischen Kostenarten",
+   "Setz einen Unternehmerlohn in Höhe des Gehalts an, das Du einer angestellten Geschäftsführung "
+   + "zahlen müsstest, dazu Zinsen auf das eingesetzte Kapital und eine Abschreibung auf "
+   + "Wiederbeschaffungswerte. Jede der drei Zahlen braucht eine Begründung in einem Satz.",
+   "Wer den Unternehmerlohn ausspart, rechnet seine eigene Arbeit mit null und hält jeden Preis "
+   + "für auskömmlich, der die ausgezahlten Kosten deckt."],
+  ["Fasse die Konten zu höchstens fünfzehn Kostenarten zusammen",
+   "Eine Kostenart ist nur dann eine eigene Zeile wert, wenn sie sich anders verhält als ihre "
+   + "Nachbarn oder wenn jemand sie gesondert steuern soll. Alles andere wird zusammengefasst, da "
+   + "ein Plan mit achtzig Zeilen in der Praxis niemand mehr liest.",
+   "Eine zu feine Gliederung bricht beim ersten Kontenwechsel, weil dann die Vergleichbarkeit mit "
+   + "dem Vorjahr an mehreren Zeilen gleichzeitig verlorengeht."],
+  ["Ordne jede Kostenart einer der fünf Gruppen zu und halt die Regel fest",
+   "Material, Personal, Fremdleistungen, Abgaben und kalkulatorische Kosten reichen für den Anfang "
+   + "aus. Schreib bei den Grenzfällen die Regel dazu, etwa ob Energie bei Dir als Betriebsstoff "
+   + "oder als Fremdleistung zählt.",
+   "Energie, Leasing und Fremdpersonal sind die drei Posten, die in zwei Gruppen passen. Ohne "
+   + "festgehaltene Regel wandern sie von Jahr zu Jahr."],
+  ["Prüf jede Kostenart auf ihre Herkunft",
+   "Primär ist, was Deine Betriebsgrenze von außen überschritten hat. Was eine eigene Abteilung "
+   + "für eine andere erbringt, gehört nicht in den Kostenartenplan, da es sonst zweimal zählt.",
+   "Eine innerbetriebliche Leistung schleicht sich gern über eine interne Verrechnung in die "
+   + "Kostenarten ein, wodurch die Summe über dem tatsächlichen Verbrauch liegt."],
+  ["Stell den Plan auf ein Quartal und rechne die Abgrenzung einmal durch",
+   "Nimm den Aufwand eines abgelaufenen Quartals, zieh den neutralen Aufwand ab und addiere die "
+   + "Zusatzkosten. Erst wenn das Ergebnis dieser Rechnung neben dem handelsrechtlichen steht, "
+   + "siehst Du, wie weit die beiden Zahlen bei Dir auseinanderliegen.",
+   "Ein Plan, der nie an einer abgelaufenen Periode gerechnet wurde, enthält zumeist zwei bis drei "
+   + "Kostenarten, für die es gar keine Datenquelle gibt."],
 ];
 $("ck").innerHTML = SCHRITTE.map(([t, p, q]) =>
   `<div class="ckitem"><h3>${esc(t)}</h3><p>${p}</p>
-     <p class="trap"><b>Zum Format:</b> ${q}</p></div>`).join("");
+     <p class="trap"><b>Die Falle:</b> ${q}</p></div>`).join("");
 
 /* =====================================================================
-   2 . Quiz: fuenf Fragen, zufaellig aus dem Vorrat
+   4 . Quiz: fuenf Fragen, zufaellig aus dem Vorrat
 
-   Die drei Fragen pruefen den Modulvertrag dieser Sammlung. Sie sind
-   richtig beantwortbar und stehen hier, damit die Mechanik laeuft und
-   das Format ablesbar ist.
+   Der Vorrat fragt den Stoff von Lektion 01 ab. Lektion 02 und 03
+   bringen ihre eigenen Fragen mit, sobald sie geschrieben sind.
    ===================================================================== */
 const FRAGEN = [
-  ["Wie viele Fragen zieht ein Modul dieser Sammlung beim Laden aus seinem Vorrat?",
-   ["Fünf", "Alle", "Zehn", "Drei"], 0,
-   "Beim Neuladen kommen andere fünf, weshalb sich ein Modul mehrfach durcharbeiten lässt, ohne dass dieselbe Abfrage zweimal erscheint."],
-  ["Wie groß muss der Fragenvorrat eines Moduls mindestens sein?",
-   ["Zwanzig Fragen", "Fünf Fragen", "Zehn Fragen", "Eine feste Zahl gibt es nicht"], 0,
-   "Aus einem Vorrat von zwanzig Fragen ziehen zwei Durchgänge selten dieselbe Frage. Bei einem kleineren Vorrat verliert das Mischen seinen Zweck."],
-  ["In welcher Reihenfolge stehen die Lektionen eines Moduls?",
-   ["Inhalt, Quiz, Praxiseinstieg", "Quiz, Inhalt, Praxiseinstieg",
-    "Praxiseinstieg, Inhalt, Quiz", "Die Reihenfolge ist frei"], 0,
-   "Das Quiz prüft, was gerade gelesen wurde, während der Praxiseinstieg nach vorn schaut. Umgedreht ergäbe die Folge keinen Sinn."],
+  ["Sofia bekommt Rohkaffee geliefert und erhält eine Rechnung mit vier Wochen Zahlungsziel. Welche Größe fällt am Tag der Lieferung an?",
+   ["Eine Ausgabe", "Eine Auszahlung", "Aufwand", "Kosten"], 0,
+   "Die Beschaffung mindert das Geldvermögen, da eine Verbindlichkeit entsteht. Gezahlt und verbraucht ist nichts, weshalb Auszahlung, Aufwand und Kosten bei null bleiben."],
+  ["Vier Wochen später überweist Sofia die Rechnung. Was löst diese Überweisung aus?",
+   ["Allein eine Auszahlung", "Eine Ausgabe", "Aufwand und Kosten", "Nichts von allem"], 0,
+   "Die Zahlung tilgt die Verbindlichkeit und lässt das Geldvermögen unverändert. Die Ausgabe ist bereits bei der Lieferung gebucht worden und zählt nicht zum zweiten Mal."],
+  ["Wann entstehen Kosten für den Rohkaffee?",
+   ["Wenn die Rösterei ihn verarbeitet", "Wenn er bestellt wird", "Wenn er geliefert wird",
+    "Wenn die Rechnung bezahlt wird"], 0,
+   "Kosten sind bewerteter Verbrauch für die betriebliche Leistung. Bestellung, Lieferung und Zahlung sind Beschaffungs- und Zahlungsvorgänge, die den Verbrauch noch nicht auslösen."],
+  ["Sofia kauft eine Siebträgermaschine für 12.000 € und bezahlt sofort. Wie hoch sind die Kosten dieses Vorgangs?",
+   ["Null, der Verbrauch folgt über die Abschreibung", "12.000 €",
+    "12.000 € verteilt auf das laufende Jahr", "600 €"], 0,
+   "Der Kauf ist ein Tausch von Geld gegen Anlagevermögen. Erst die Abschreibung verteilt den Verbrauch über die Nutzungsdauer, bei fünf Jahren mit 600 € je Quartal."],
+  ["Was gilt für die Abschreibung auf diese Maschine?",
+   ["Sie ist Aufwand und Kosten ohne jede Zahlung", "Sie ist eine Auszahlung",
+    "Sie ist eine Ausgabe", "Sie ist weder Aufwand noch Kosten"], 0,
+   "Die Zahlung ist beim Kauf erfolgt. Die Abschreibung bewertet allein den Verbrauch der Periode und berührt das Bankkonto nie."],
+  ["Sofia spendet 800 € an einen Studentenverein. Welche Größen fallen an?",
+   ["Auszahlung, Ausgabe und Aufwand", "Alle vier Größen", "Allein eine Auszahlung",
+    "Auszahlung und Kosten"], 0,
+   "Die Gewinn- und Verlustrechnung weist die Spende als Aufwand aus. Kosten sind es nicht, da sie dem Betriebszweck nicht dient und damit zum neutralen Aufwand gehört."],
+  ["Sofia arbeitet im Quartal selbst mit, ohne sich ein Gehalt auszuzahlen. Wie behandelt die Kostenrechnung das?",
+   ["Als kalkulatorischen Unternehmerlohn, also Kosten ohne Aufwand",
+    "Als Aufwand ohne Kosten", "Als Auszahlung und Aufwand", "Gar nicht, da niemand etwas zahlt"], 0,
+   "Sofias Arbeitszeit wird für die betriebliche Leistung verbraucht und ist deshalb Kosten. Weil keine Zahlung erfolgt, kennt die Buchführung keinen Aufwand dazu."],
+  ["Wie heißt Aufwand, dem keine Kosten gegenüberstehen?",
+   ["Neutraler Aufwand", "Zusatzkosten", "Grundkosten", "Anderskosten"], 0,
+   "Neutral ist Aufwand, der dem Betriebszweck nicht dient, nicht zur Periode gehört oder außergewöhnlich ist. Die Abgrenzungsrechnung zieht ihn vom Aufwand ab."],
+  ["Wie heißen Kosten, denen überhaupt kein Aufwand gegenübersteht?",
+   ["Zusatzkosten", "Grundkosten", "Anderskosten", "Neutrale Kosten"], 0,
+   "Zusatzkosten kennt die Buchführung nicht. Der kalkulatorische Unternehmerlohn von 9.000 € und die kalkulatorischen Zinsen von 1.800 € sind die beiden Fälle in Sofias Quartal."],
+  ["Sofias Aufwand im Quartal beträgt 142.390 €, der neutrale Aufwand 2.000 € und die Zusatzkosten 10.800 €. Wie hoch sind die Kosten?",
+   ["151.190 €", "155.190 €", "131.590 €", "142.390 €"], 0,
+   "Die Abgrenzungsrechnung zieht den neutralen Aufwand ab und addiert die Zusatzkosten. Aus 142.390 € minus 2.000 € plus 10.800 € werden 151.190 €."],
+  ["Der Umsatz des Quartals beträgt 145.500 €. Welches Ergebnis weist die Kostenrechnung aus?",
+   ["Ein Betriebsergebnis von minus 5.690 €", "Einen Gewinn von 3.110 €",
+    "Einen Gewinn von 5.110 €", "Ein Betriebsergebnis von null"], 0,
+   "145.500 € Umsatz abzüglich 151.190 € Kosten ergeben minus 5.690 €. Die 3.110 € Gewinn sind das handelsrechtliche Ergebnis, das den Unternehmerlohn nicht kennt."],
+  ["Was bedeutet das Wort primär bei den Primärkosten?",
+   ["Die Güter sind von außen bezogen", "Die Kostenart ist besonders wichtig",
+    "Die Kosten fallen zuerst im Jahr an", "Die Kosten sind variabel"], 0,
+   "Primär ist eine Herkunftsangabe und keine Rangordnung. Gemeint sind Güter und Dienste, die die Grenze des Betriebs von außen überschritten haben."],
+  ["Die Rösterei liefert geröstete Bohnen an das Haus Ringstraße. Was ist das für den Betrieb als Ganzes?",
+   ["Eine innerbetriebliche Leistung, also Sekundärkosten", "Eine Primärkostenart",
+    "Materialkosten", "Neutraler Aufwand"], 0,
+   "Das Gut verlässt die Betriebsgrenze nicht. Im Kostenartenplan des Betriebs steht deshalb der Rohkaffee aus Peru, während die Verrechnung der Bohnen zur Kostenstellenrechnung gehört."],
+  ["Warum darf der geröstete Kaffee nicht neben dem Rohkaffee im Kostenartenplan stehen?",
+   ["Weil derselbe Kaffee dann zweimal zählt", "Weil die Rösterei keine Kostenstelle ist",
+    "Weil Röstkaffee kein Rohstoff ist", "Weil die Mengen in Kilogramm nicht vergleichbar sind"], 0,
+   "Der Rohkaffee ist bereits mit seinem Einkaufswert erfasst. Das Erzeugnis der Rösterei enthält genau diesen Wert und würde die Summe des Plans aufblähen."],
+  ["Für die Rösterei allein betrachtet: was ist der Rohkaffee?",
+   ["Eine Primärkostenart", "Eine Sekundärkostenart", "Neutraler Aufwand", "Eine Zusatzkostenart"], 0,
+   "Die Zuordnung hängt daran, von welcher Stelle aus gerechnet wird. Der Rohkaffee überschreitet die Grenze der Rösterei von außen und bleibt deshalb primär."],
+  ["In welche Gruppe des Kostenartenplans gehört der Arbeitgeberanteil zur Sozialversicherung?",
+   ["Personalkosten", "Abgaben und Beiträge", "Kosten für Fremdleistungen",
+    "Kalkulatorische Kosten"], 0,
+   "Der Anteil ist eine gesetzliche Sozialleistung des Arbeitgebers. Dass er an einen Sozialversicherungsträger geht, ändert daran nichts."],
+  ["Wohin gehört das zugekaufte Gebäck in Sofias Kostenartenplan?",
+   ["Materialkosten", "Kosten für Fremdleistungen", "Abgaben und Beiträge",
+    "Es gehört nicht in den Plan"], 0,
+   "Sofia hat keine eigene Bäckerei, weshalb das Gebäck eine zugekaufte Ware ist. Zugekaufte Waren stehen bei den Materialkosten."],
+  ["Wohin gehören Strom, Wasser und Röstgas in Sofias Kostenartenplan?",
+   ["Zu den Fremdleistungen, da Sofia sie nicht lagert",
+    "Zu den Materialkosten, da es Betriebsstoffe sind",
+    "Zu den Abgaben, da es öffentliche Versorger sind",
+    "Zu den kalkulatorischen Kosten"], 0,
+   "Energie ließe sich auch als Betriebsstoff erfassen. Der Plan entscheidet sich für die Fremdleistungen und hält die Regel fest, da ein Grenzfall ohne festgehaltene Regel von Jahr zu Jahr wandert."],
+  ["Wie viele Kostenarten umfasst Sofias Kostenartenplan für das erste Quartal 2026?",
+   ["Sechzehn", "Fünf", "Zehn", "Sechsundzwanzig"], 0,
+   "Sechzehn Kostenarten verteilen sich auf die fünf Gruppen und ergeben zusammen 151.190 €. Die fünf ist die Zahl der Gruppen und nicht die der Kostenarten."],
+  ["Welche beiden Gruppen stellen in Sofias Plan zusammen knapp zwei Drittel der Kosten?",
+   ["Material und Personal", "Personal und Fremdleistungen",
+    "Material und kalkulatorische Kosten", "Fremdleistungen und Abgaben"], 0,
+   "Materialkosten von 50.800 € und Personalkosten von 46.700 € ergeben 97.500 € von 151.190 €. Für einen Gastronomiebetrieb mit eigener Rösterei ist dieses Verhältnis nicht ungewöhnlich."],
+  ["Was sagt ein Kostenartenplan ausdrücklich nicht?",
+   ["Wo im Betrieb die Kosten angefallen sind", "Welche Kosten angefallen sind",
+    "Wie hoch die einzelnen Kostenarten sind", "Welche Kosten kalkulatorisch angesetzt sind"], 0,
+   "Die Kostenartenrechnung beantwortet allein die Frage nach dem Was. Das Wo beantwortet die Kostenstellenrechnung, das Wofür die Kostenträgerrechnung."],
+  ["Warum wird ein Kostenartenplan selten geändert?",
+   ["Weil jede Umstellung den Vergleich mit den Vorperioden erschwert",
+    "Weil die Buchführung ihn gesetzlich vorgibt",
+    "Weil die Gruppen handelsrechtlich festgelegt sind",
+    "Weil die Software keine Änderung zulässt"], 0,
+   "Ein Zeitvergleich setzt gleiche Abgrenzungen voraus. Wer mitten im Jahr umgliedert, verliert die Vergleichbarkeit an jeder betroffenen Zeile."],
 ];
-
 let qAktuell = [];
 const QZAHL = 5;
 /* Fisher-Yates. Auch die Antworten werden gemischt, da die richtige im
@@ -398,8 +999,6 @@ const mischen = a => {
   }
   return a;
 };
-/* Solange der Vorrat kleiner als fuenf ist, werden alle Fragen gezogen.
-   Diese Zeile faellt weg, sobald zwanzig Fragen dastehen. */
 const qZahl = () => Math.min(QZAHL, FRAGEN.length);
 function qZiehen(){
   qAktuell = mischen(FRAGEN.map((f, i) => i)).slice(0, qZahl())
@@ -429,8 +1028,8 @@ function qRender(){
     ? z + " Fragen aus einem Vorrat von " + FRAGEN.length
     : fertig + " von " + z + " beantwortet · " + treffer + " richtig";
   $("qResult").innerHTML = fertig < z ? "" :
-    `<div class="qscore"><b>${treffer} von ${z} richtig.</b> Der Vorrat dieses Moduls ist noch
-      ein Muster, weshalb die Fragen den Modulvertrag prüfen und nicht den Stoff.</div>`;
+    `<div class="qscore"><b>${treffer} von ${z} richtig.</b> Der Vorrat umfasst
+      ${FRAGEN.length} Fragen zu Lektion 01, sodass ein zweiter Durchgang andere fünf zieht.</div>`;
 }
 $("quiz").addEventListener("click", e => {
   const b = e.target.closest(".qopt"); if(!b || b.disabled) return;
@@ -442,7 +1041,7 @@ $("qNew").addEventListener("click", qZiehen);
 qZiehen();
 
 /* =====================================================================
-   3 . Lektionen
+   5 . Lektionen
    ===================================================================== */
 const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a", "b", "c", "d", "e"];
 function select(i){
@@ -465,7 +1064,7 @@ tabs.forEach((t, i) => {
 select(0);
 
 /* =====================================================================
-   4 . Bloecke zum Auf- und Zuklappen
+   6 . Bloecke zum Auf- und Zuklappen
    Baut die Abschnitte einer Lektion zur Laufzeit aus der vorhandenen
    Gliederung: jedes h2.sec eroeffnet einen Block, alles danach bis zum
    naechsten h2.sec ist sein Inhalt. Jeder Block steht beim Laden zu.

@@ -639,7 +639,7 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.88`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.89`.
 Keine Quellenverzeichnisse, keine Legenden, keine Beschreibung des Falls und kein Hinweis
 darauf, woher eine Abbildung stammt. Sie steht in jeder ausgelieferten Datei gleich, im Markup
 als `<footer>` und auf den zweisprachigen Seiten als Eintrag `footer` im `UI`-Wörterbuch. Dort
@@ -648,7 +648,7 @@ ist sie ein einfacher String, weil ein Name und eine Nummer in beiden Sprachen d
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.88</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.89</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
@@ -894,19 +894,22 @@ grep -c "\bpfp" sonstiges/content-werkstatt.html   # Präfix schon vergeben?
 ## Die Standortbestimmung
 
 `plattform/assessment.html` fragt quer über die Module der Lernplattform ab und zeigt das Ergebnis
-als Netzdiagramm über sechs Kompetenzfelder. Danach steht an jeder Kachel der Startseite ein
+als Netzdiagramm über sieben Kompetenzfelder. Danach steht an jeder Kachel der Startseite ein
 farbiger Rand; der Filter „Nur empfohlene“ blendet aus, was schon sitzt. Wer das Modul nicht
 durchlaufen hat, sieht die Startseite wie bisher.
 
-- **Sechs Kompetenzfelder, keine zehn Modulnoten.** `FELDER` im Modul nennt je Feld die Module, die
-  dazu gehören. Aus vier Fragen je Feld lässt sich eine Aussage über das Feld ableiten, aus zwei
+- **Sieben Kompetenzfelder, keine Modulnote je Modul.** `FELDER` im Modul nennt je Feld die Module,
+  die dazu gehören. Aus vier Fragen je Feld lässt sich eine Aussage über das Feld ableiten, aus zwei
   Fragen keine über ein einzelnes Modul. Deshalb erbt eine Kachel die Farbe ihres Feldes.
-- **Ein Modul gehört zu einem Feld, sobald es Fragen mitbringt.** `liquiditaet-tagesplan` ist
-  bisher eine Hülle, hat also keine Frage und steht in keinem Feld. Seine Kachel bleibt ohne Rand,
-  weil die Standortbestimmung über ein Modul ohne Inhalt nichts sagen kann.
-- **Das Ergebnis reist als Parameter.** `?fit=NNNNNN` hängt am Verweis auf die Startseite, je eine
+- **Ein Modul gehört zu einem Feld, sobald es Fragen mitbringt.** `liquiditaet-tagesplan` und
+  `kostenstellenrechnung` sind bisher Hüllen, haben also keine Frage und stehen in keinem Feld. Ihre
+  Kacheln bleiben ohne Rand, weil die Standortbestimmung über ein Modul ohne Inhalt nichts sagen
+  kann. `kostenartenrechnung` steht seit Lektion 01 im Feld `kosten`, dem siebten; es ist bisher das
+  einzige Modul darin, weshalb die Zuordnung dort mit dem Modul zusammenfällt.
+- **Das Ergebnis reist als Parameter.** `?fit=NNNNNNN` hängt am Verweis auf die Startseite, je eine
   Ziffer für ein Feld in der Reihenfolge von `FELDFOLGE`, also die Zahl der Treffer von null bis
-  vier. Drei Treffer und mehr sind grün, zwei gelb, höchstens einer rot. `localStorage` ist
+  vier. Die Länge folgt `FELDFOLGE.length`; ein fest geschriebenes `{6}` im Muster hat beim siebten
+  Feld jedes alte Ergebnis verworfen, weshalb dort jetzt ein gerechneter Ausdruck steht. Drei Treffer und mehr sind grün, zwei gelb, höchstens einer rot. `localStorage` ist
   ausgeschlossen, weshalb es diesen Weg gibt; er lässt sich mit `?lang=` und `?path=` verbinden.
 - **Die Zuordnung steht zweimal.** In `assessment.html` als `FELDER`, in `plattform/index.html` als
   `FELDFOLGE` und `FELDMODUL`. Geteilte Dateien sind ausgeschlossen, also gibt es sie doppelt. Wer
