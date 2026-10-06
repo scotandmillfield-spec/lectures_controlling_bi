@@ -739,7 +739,7 @@ const FELDER = [
    was:"Der Risikobegriff als bewertetes Ereignis, die Herkunft in der Lieferkette und der Regelkreis aus vier Phasen.",
    module:["risikomanagement-einfuehrung","risikomanagement-prozess","risikomanagement-werkstatt"]},
   {id:"kosten",    kurz:"Kostenrechnung",  name:"Kostenrechnung",
-   was:"Die Abgrenzung von Auszahlung, Ausgabe, Aufwand und Kosten, der neutrale Aufwand, die kalkulatorischen Kostenarten sowie der Aufbau eines Kostenartenplans.",
+   was:"Die Abgrenzung von Auszahlung, Ausgabe, Aufwand und Kosten, der neutrale Aufwand, die kalkulatorischen Kostenarten, der Aufbau eines Kostenartenplans sowie die Trennung fixer und variabler Kosten mit Deckungsbeitrag und Gewinnschwelle.",
    module:["kostenartenrechnung"]},
 ];
 
@@ -763,6 +763,20 @@ const MODULNAME = {
 
 const JE_FELD = 4;
 const FRAGEN = [
+  ["kosten", "kostenartenrechnung",
+   "Woran erkennst Du, ob eine Kostenart fix oder variabel ist?",
+   ["Ob sie in einer Periode ohne jeden Verkauf auf null fiele", "Ob sie bar bezahlt wird",
+    "Ob sie zu den Materialkosten gehört", "Ob sie einen hohen Betrag hat"], 0,
+   "Variable Kosten hängen an der verkauften Menge und fallen ohne Verkauf weg, während fixe Kosten in der Periode in voller Höhe stehen bleiben."],
+  ["kosten", "kostenartenrechnung",
+   "Ein Betrieb verkauft bei gleichen Preisen mehr. Was geschieht mit den fixen Kosten je 100 € Umsatz?",
+   ["Sie sinken, da sich dieselbe Summe auf mehr Umsatz verteilt", "Sie steigen",
+    "Sie bleiben gleich", "Sie steigen im selben Verhältnis wie die Menge"], 0,
+   "Das ist die Fixkostendegression. Konstant je 100 € Umsatz bleiben bei gleichen Preisen allein die variablen Kosten."],
+  ["kosten", "kostenartenrechnung",
+   "Wie heißt der Umsatz, bei dem der Deckungsbeitrag die fixen Kosten genau deckt?",
+   ["Gewinnschwelle", "Deckungsbeitrag", "Grenzkosten", "Betriebsergebnis"], 0,
+   "An der Gewinnschwelle (Break-even) beträgt das Ergebnis null. Du erhältst sie, indem Du die fixen Kosten durch den Deckungsbeitrag je Euro Umsatz teilst."],
   ["kosten", "kostenartenrechnung",
    "Ein Betrieb bekommt Rohstoffe geliefert und bezahlt die Rechnung erst vier Wochen später. Welche Größe fällt am Tag der Lieferung an?",
    ["Eine Ausgabe", "Eine Auszahlung", "Kosten in voller Höhe", "Keine der vier Größen"], 0,
