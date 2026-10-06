@@ -330,6 +330,60 @@ table.tbl tr.sum td{font-weight:700;background:var(--teal-xl);border-top:2px sol
   .drw svg{min-width:880px}
 }
 
+/* ---------- Fix und variabel: der Mengenregler ----------
+   Ein Regler veraendert die verkaufte Menge. Darunter stehen die Summen
+   als Balken, die Werte je 100 EUR Umsatz und das Kosten-Umsatz-Diagramm.
+   Das Ergebnis nennt Gewinn oder Verlust immer als Wort, nie allein
+   ueber die Farbe.                                                    */
+.fvk{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:20px 22px;margin:16px 0 0}
+.fvk>*{min-width:0}
+.fvr{display:grid;grid-template-columns:1fr auto;gap:8px 16px;align-items:center}
+.fvr>*{min-width:0}
+.fvr label{font-size:1.2rem;font-weight:600;line-height:1.35}
+.fvr output{font-family:var(--mono);font-size:1.5rem;font-weight:600;color:var(--teal-dk);
+  font-variant-numeric:tabular-nums}
+.fvr input{grid-column:1/-1;width:100%;accent-color:var(--teal-dk);margin:4px 0 0;cursor:pointer}
+.fvr input:focus-visible{outline:2px solid var(--orange);outline-offset:4px}
+.fvs{grid-column:1/-1;display:flex;justify-content:space-between;font-family:var(--mono);
+  font-size:.98rem;color:var(--grey);font-variant-numeric:tabular-nums}
+.fvg{display:grid;gap:10px;margin:20px 0 0}
+.fvz{display:grid;grid-template-columns:190px 1fr 132px;gap:12px;align-items:center}
+.fvz>*{min-width:0}
+.fvz .fvn{font-size:1.17rem;font-weight:600;line-height:1.3}
+.fvz .fvw{text-align:right;font-family:var(--mono);font-size:1.1rem;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.fvb{height:16px;background:var(--grey-xl);border-radius:8px;overflow:hidden}
+.fvf{display:block;height:100%;border-radius:8px;transition:width .35s var(--ease)}
+.fvf.u{background:var(--teal-dk)}
+.fvf.v{background:var(--teal-lt)}
+.fvf.f{background:var(--navy)}
+.fvf.g{background:var(--orange)}
+.fve{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--grey-xl);
+  font-size:1.2rem;line-height:1.5;color:#3d3d40}
+.fve b.plus{color:#1E6B47}
+.fve b.minus{color:#9C2F2C}
+.fvc{overflow-x:auto;margin:18px 0 0}
+.fvc:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.fvc svg{display:block;width:100%;max-width:820px;height:auto;margin:0 auto;touch-action:pan-y}
+.fvc text{font-family:var(--sans);fill:var(--ink)}
+.fvc .ax{font-family:var(--mono);font-size:13px;fill:var(--grey)}
+.fvc .lb{font-size:15px;font-weight:600;paint-order:stroke;stroke:var(--paper);stroke-width:5px;stroke-linejoin:round}
+table.tbl.fvt{min-width:0}
+table.tbl.fvt th{white-space:normal}
+.fvl{display:flex;flex-wrap:wrap;gap:6px 18px;margin:10px 0 0;font-size:1.08rem;color:#3d3d40}
+.fvl span{display:inline-flex;align-items:center;gap:7px}
+.fvl i{display:inline-block;width:22px;height:0;border-top:3px solid}
+.ksf.fvx{padding:13px 8px}
+@media (max-width:620px){
+  .fvz{grid-template-columns:1fr 120px}
+  .fvz .fvn{grid-column:1/-1}
+  .fvk{padding:16px}
+  .fvc svg{min-width:560px}
+  table.tbl.fvt th,table.tbl.fvt td{padding:9px 8px}
+  table.tbl.fvt th{letter-spacing:.02em;font-size:.9rem}
+}
+
 /* ---------- Der Platzhalter einer Huelle ----------
    Ein gestrichelter Kasten steht fuer das, was noch zu schreiben ist.
    Er sieht bewusst unfertig aus, damit niemand ihn fuer Inhalt haelt. */
@@ -349,10 +403,9 @@ table.tbl tr.sum td{font-weight:700;background:var(--teal-xl);border-top:2px sol
   <h1>Kosten<em>artenrechnung</em></h1>
   <p class="lede">Die erste Stufe der Kostenrechnung fragt, welche Kosten angefallen sind. Lektion 01 beantwortet das für Sofias Kaffeehausbetrieb mit sechzehn Kostenarten, die im ersten Quartal 2026 zusammen 151.190 € ausmachen.</p>
   <div class="readme" style="margin-top:20px">
-    <b>Lektion 01 steht, die Lektionen 02 und 03 sind noch Hüllen.</b> Fix und variabel sowie die
-    Verrechnung der Sekundärkosten kommen in einem der nächsten Durchgänge dazu, wobei sie mit
-    denselben sechzehn Kostenarten rechnen. Quiz und Praxiseinstieg gehören bereits zum Stoff von
-    Lektion 01.
+    <b>Die Lektionen 01 und 02 stehen, Lektion 03 ist noch eine Hülle.</b> Die Verrechnung der
+    Sekundärkosten kommt in einem der nächsten Durchgänge dazu, wobei sie mit denselben sechzehn
+    Kostenarten rechnet. Quiz und Praxiseinstieg gehören zum Stoff der Lektionen 01 und 02.
   </div>
 </header>
 
@@ -553,14 +606,129 @@ table.tbl tr.sum td{font-weight:700;background:var(--teal-xl);border-top:2px sol
 </section>
 
 <section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
-  <p class="claim">Die Kernaussage dieser Lektion steht noch aus. Sie sagt in einem Satz, was jemand nach der Lektion über Fix / Variable sagen können soll.</p>
-  <div class="offen">
-    <b>Hier fehlt noch Text.</b> Diese Lektion hat noch keinen Abschnitt. Ein Abschnitt entsteht aus einer Überschrift, die seine Sache ganz benennt, wodurch er sich zur Laufzeit auf- und zuklappen lässt.
-    <span class="was">Lektion 02 · Fix / Variable</span>
+  <p class="claim"><b>Variable Kosten steigen und fallen mit der verkauften Menge, während fixe
+    Kosten im Quartal in gleicher Höhe anfallen</b>, weshalb von Sofias 151.190 € allein 55.290 €
+    davon abhängen, wie viel sie verkauft.</p>
+
+  <h2 class="sec">Die Frage, die fixe und variable Kosten unterscheidet</h2>
+  <p>In Lektion 01 hast Du die Kosten danach geordnet, welche Güter der Betrieb verbraucht hat.
+    Lektion 02 ordnet dieselben sechzehn Kostenarten nach einer zweiten Frage, nämlich wie sich ein
+    Betrag verhält, wenn Sofia im Quartal mehr oder weniger verkauft. Die Kostenrechnung nennt diese
+    Menge die Beschäftigung, im Kaffeehaus also die Zahl der verkauften Getränke, Gebäckstücke und
+    Bohnenpakete.</p>
+  <div class="tblw" tabindex="0" role="group" aria-label="Fixe und variable Kosten im Vergleich. Die Tabelle scrollt seitlich.">
+    <table class="tbl">
+      <thead><tr><th>Kosten</th><th>Wie sie sich verhalten</th><th>Beispiele bei Sofia</th></tr></thead>
+      <tbody>
+        <tr><td class="b">Variabel</td><td>Sie steigen mit jeder verkauften Einheit und fallen weg,
+          wenn nichts verkauft wird.</td><td>Rohkaffee, Milch, Becher, Kartenentgelt</td></tr>
+        <tr><td class="b">Fix</td><td>Sie fallen im Quartal in gleicher Höhe an, gleichgültig wie
+          viel verkauft wird.</td><td>Miete, Löhne, Versicherungen, Unternehmerlohn</td></tr>
+      </tbody>
+    </table>
   </div>
+  <p>Für die Zuordnung reicht in der Regel eine einfache Probe. Stell Dir dazu ein Quartal vor, in
+    dem Sofia überhaupt nichts verkauft. Fällt ein Betrag dann auf null, ist er variabel, während er
+    fix ist, wenn er in voller Höhe stehen bleibt. Die Miete von 7.000 € je Monat ist auch für ein
+    leeres Kaffeehaus fällig, wohingegen ohne eine verkaufte Melange kein Liter Milch verbraucht
+    wird.</p>
+  <p>Fix bedeutet dabei immer fix für eine Periode. Über ein Jahr hinweg kann Sofia einen
+    Mietvertrag kündigen oder den Dienstplan umstellen, innerhalb des Quartals hingegen sind diese
+    Beträge vereinbart und sinken nicht dadurch, dass weniger Gäste kommen.</p>
+
+  <h2 class="sec">Sofias sechzehn Kostenarten nach fix und variabel sortieren</h2>
+  <p>Unten stehen dieselben sechzehn Kostenarten wie in Lektion 01, jede mit ihrem Betrag aus dem
+    ersten Quartal 2026. Entscheide bei jeder mit der Probe des leeren Quartals, ob sie mit der
+    verkauften Menge schwankt. Die zwei Balken darunter zeigen dann, wie sich die 151.190 € auf
+    variable und fixe Kosten verteilen, wobei ein Balken allein um richtig eingeordnete Beträge
+    wächst.</p>
+  <div class="wsbar">
+    <button class="btn" id="fvNew">Zuordnung zurücksetzen</button>
+    <span class="sep"></span>
+    <span class="wsmsg" id="fvStand"></span>
+  </div>
+  <div class="zu" id="fvListe"></div>
+  <div class="kpg" id="fvBars"></div>
+  <p class="kpsum" id="fvSumme"></p>
+  <p>Sieben Kostenarten mit zusammen 55.290 € schwanken mit der Menge, die übrigen neun mit
+    95.900 € stehen fest. Fast zwei Drittel von Sofias Kosten fallen damit an, gleichgültig wie gut
+    das Quartal läuft.</p>
+
+  <h2 class="sec">Was mit den Kosten geschieht, wenn Sofia mehr oder weniger verkauft</h2>
+  <p>Mit dem Regler veränderst Du die verkaufte Menge gegenüber dem ersten Quartal, von der Hälfte
+    bis zum Anderthalbfachen. Das Modul rechnet dabei mit unveränderten Preisen und einem
+    unveränderten Sortiment, sodass jeder Euro Umsatz wie im ersten Quartal 38 Cent variable Kosten
+    mit sich bringt (55.290 € von 145.500 €).</p>
+  <div class="fvk">
+    <div class="fvr">
+      <label for="fvMenge">Verkaufte Menge im Vergleich zum ersten Quartal</label>
+      <output id="fvAnteil" for="fvMenge">100 %</output>
+      <input type="range" id="fvMenge" min="50" max="150" step="10" value="100">
+      <span class="fvs" aria-hidden="true"><span>50 %</span><span>100 %</span><span>150 %</span></span>
+    </div>
+    <div class="fvg" id="fvZeilen"></div>
+    <p class="fve" id="fvErgebnis" aria-live="polite"></p>
+    <div class="tblw" tabindex="0" role="group" aria-label="Kosten je 100 Euro Umsatz bei der gewählten Menge. Die Tabelle scrollt seitlich.">
+      <table class="tbl fvt">
+        <thead><tr><th>Je 100 € Umsatz</th><th>Erstes Quartal</th><th>Gewählte Menge</th></tr></thead>
+        <tbody id="fvJe"></tbody>
+      </table>
+    </div>
+    <div class="fvc" tabindex="0" role="group" aria-label="Diagramm der Umsätze und Kosten über der verkauften Menge. Ein Klick in das Diagramm setzt den Regler. Das Diagramm scrollt seitlich.">
+      <svg id="fvSvg" viewBox="0 0 640 330" role="img" aria-label="Die fixen Kosten verlaufen waagerecht bei 95.900 Euro. Die Gesamtkosten beginnen dort und steigen mit der Menge, der Umsatz beginnt bei null und steigt steiler. Beide Linien schneiden sich bei rund 106 Prozent der Menge des ersten Quartals."></svg>
+    </div>
+    <p class="fvl" aria-hidden="true">
+      <span><i style="border-color:var(--teal-dk)"></i>Umsatz</span>
+      <span><i style="border-color:var(--orange)"></i>Gesamtkosten</span>
+      <span><i style="border-color:var(--navy);border-top-style:dashed"></i>Fixe Kosten</span>
+    </p>
+  </div>
+  <p>Beim Schieben lohnen sich zwei Beobachtungen. Die variablen Kosten wachsen in der Summe im
+    selben Verhältnis wie die Menge, während sie je 100 € Umsatz immer bei 38 € bleiben. Bei den
+    fixen Kosten ist es umgekehrt, da die Summe von 95.900 € stehen bleibt, während ihr Anteil je
+    100 € Umsatz mit steigender Menge sinkt (bei halber Menge sind es 131,82 €, bei anderthalbfacher
+    43,94 €).</p>
+  <p>Diese Verteilung der fixen Kosten auf eine größere Menge heißt Fixkostendegression. Sie ist der
+    Grund, weshalb Sofias Ergebnis beim Schieben schneller steigt als ihr Umsatz, da von jedem
+    zusätzlichen Euro allein die 38 Cent variablen Kosten abgehen. Umgekehrt fällt das Ergebnis bei
+    sinkender Menge schneller als der Umsatz, weil die fixen Kosten in voller Höhe bleiben.</p>
+
+  <h2 class="sec">Der Deckungsbeitrag und die Gewinnschwelle</h2>
+  <p>Was vom Umsatz nach Abzug der variablen Kosten übrig bleibt, heißt Deckungsbeitrag. Der Name
+    sagt, wozu der Betrag dient, da er zuerst die fixen Kosten decken muss, bevor ein Gewinn
+    entstehen kann. Im ersten Quartal sind das 90.210 € oder 62 % des Umsatzes, also genau der Wert,
+    den die Balanced Scorecard des Betriebs ausweist.</p>
+  <div class="tblw" tabindex="0" role="group" aria-label="Die Deckungsbeitragsrechnung für das erste Quartal 2026. Die Tabelle scrollt seitlich.">
+    <table class="tbl">
+      <thead><tr><th>Erstes Quartal 2026</th><th>Betrag</th></tr></thead>
+      <tbody>
+        <tr><td>Umsatz</td><td class="z">145.500 €</td></tr>
+        <tr><td>abzüglich variable Kosten</td><td class="z">&minus;55.290 €</td></tr>
+        <tr><td>Deckungsbeitrag (62 % des Umsatzes)</td><td class="z">90.210 €</td></tr>
+        <tr><td>abzüglich fixe Kosten</td><td class="z">&minus;95.900 €</td></tr>
+        <tr class="sum"><td>Betriebsergebnis</td><td class="z">&minus;5.690 €</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Das Betriebsergebnis von minus 5.690 € aus Lektion 01 entsteht hier ein zweites Mal, diesmal
+    aus der Frage heraus, ob der Deckungsbeitrag die fixen Kosten deckt. Dem Deckungsbeitrag von
+    90.210 € fehlen dazu genau diese 5.690 €.</p>
+  <p>Die Gewinnschwelle (englisch Break-even) ist der Umsatz, bei dem der Deckungsbeitrag die fixen
+    Kosten genau deckt. Teilst Du Sofias fixe Kosten von 95.900 € durch die 62 Cent
+    Deckungsbeitrag, die jeder Euro Umsatz beisteuert, erhältst Du rund 154.677 €. Das sind rund
+    9.177 € oder 6,3 % mehr als im ersten Quartal, solange Preise und Sortiment unverändert bleiben.
+    Im Diagramm liegt die Schwelle dort, wo die Linie des Umsatzes die der Gesamtkosten
+    schneidet.</p>
+  <p>Die Rechnung zeigt Sofia damit zwei Wege aus dem Verlust, nämlich mehr zu verkaufen oder von
+    jedem Euro Umsatz mehr als 62 Cent übrig zu behalten. Das Ziel der Scorecard von 68 % steht für
+    den zweiten Weg, da derselbe Umsatz von 145.500 € dann einen Deckungsbeitrag von 98.940 € und
+    ein Betriebsergebnis von plus 3.040 € ergäbe.</p>
+
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Der eine Satz, der hängen bleiben soll, steht hier, sobald die Lektion geschrieben ist.</p>
+    <p>Von jedem Euro, den Sofia einnimmt, bleiben nach den variablen Kosten <b>62 Cent</b>, mit
+      denen sie 95.900 € fixe Kosten decken muss, weshalb ihr bei unveränderten Preisen 9.177 €
+      Umsatz bis zur Gewinnschwelle fehlen.</p>
   </div>
 </section>
 
@@ -587,7 +755,7 @@ table.tbl tr.sum td{font-weight:700;background:var(--teal-xl);border-top:2px sol
   <div id="qResult" style="margin-top:16px"></div>
   <div class="pointe">
     <p class="pk">Die Pointe</p>
-    <p>Wer bei einer Frage zögert, liest den zugehörigen Abschnitt in Lektion 01 noch einmal, da
+    <p>Wer bei einer Frage zögert, liest den zugehörigen Abschnitt in Lektion 01 oder 02 noch einmal, da
       die Begründung unter der Antwort absichtlich kürzer ist als der Text, aus dem sie stammt.</p>
   </div>
 </section>
@@ -597,11 +765,11 @@ table.tbl tr.sum td{font-weight:700;background:var(--teal-xl);border-top:2px sol
   <div class="ck10" id="ck"></div>
 
   <h2 class="sec">Das Glossar zum Nachschlagen</h2>
-  <p>Die Begriffe stehen hier in der Fassung, in der Lektion 01 sie benutzt. Beim Aufstellen des
+  <p>Die Begriffe stehen hier in der Fassung, in der die Lektionen 01 und 02 sie benutzen. Beim Aufstellen des
     eigenen Plans wird vor allem die Unterscheidung von Grund-, Anders- und Zusatzkosten
     gebraucht, da sie entscheidet, welche Zeile der Buchführung in welcher Höhe übernommen
     wird.</p>
-  <div class="tblw" tabindex="0" role="group" aria-label="Glossar der Begriffe aus Lektion 01. Die Tabelle scrollt seitlich.">
+  <div class="tblw" tabindex="0" role="group" aria-label="Glossar der Begriffe aus den Lektionen 01 und 02. Die Tabelle scrollt seitlich.">
     <table class="tbl">
       <thead><tr><th>Begriff</th><th>Bedeutung</th></tr></thead>
       <tbody>
@@ -629,6 +797,16 @@ table.tbl tr.sum td{font-weight:700;background:var(--teal-xl);border-top:2px sol
           Betriebs für eine andere erbringt.</td></tr>
         <tr><td class="b">Kostenartenplan</td><td>Das geordnete Verzeichnis aller Kostenarten eines
           Betriebs, in der Regel in fünf Gruppen.</td></tr>
+        <tr><td class="b">Variable Kosten</td><td>Kosten, die mit der verkauften Menge steigen und
+          fallen.</td></tr>
+        <tr><td class="b">Fixe Kosten</td><td>Kosten, die in einer Periode in gleicher Höhe anfallen,
+          gleichgültig wie viel verkauft wird.</td></tr>
+        <tr><td class="b">Fixkostendegression</td><td>Das Sinken der fixen Kosten je Einheit, wenn
+          sich dieselbe Summe auf eine größere Menge verteilt.</td></tr>
+        <tr><td class="b">Deckungsbeitrag</td><td>Umsatz abzüglich der variablen Kosten, also der
+          Betrag, der zur Deckung der fixen Kosten bereitsteht.</td></tr>
+        <tr><td class="b">Gewinnschwelle</td><td>Der Umsatz, bei dem der Deckungsbeitrag die fixen
+          Kosten genau deckt, sodass das Ergebnis null beträgt.</td></tr>
       </tbody>
     </table>
   </div>
@@ -642,7 +820,7 @@ table.tbl tr.sum td{font-weight:700;background:var(--teal-xl);border-top:2px sol
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.89</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.90</span>
 </footer>
 
 </div>
@@ -842,6 +1020,154 @@ $("kpNew").addEventListener("click", kpZiehen);
 kpZiehen();
 
 /* =====================================================================
+   2b . Fix oder variabel: dieselben sechzehn Kostenarten
+
+   Die Einteilung folgt dem Kanon. Variabel sind das Material, das
+   Roestgas und das Kartenentgelt, zusammen 55.290 EUR; alles Uebrige
+   ist fix und ergibt 95.900 EUR.
+   ===================================================================== */
+const FV_NAME = {v:"variabel", f:"fix"};
+const FV_FOLGE = ["v", "f"];
+const FV_BEGR = [
+  ["v", "Jede verkaufte Tasse und jedes Bohnenpaket verbraucht Rohkaffee. Verkauft Sofia nichts, röstet sie nichts und verbraucht keinen Rohkaffee."],
+  ["v", "Die Milch geht in jede Melange und jeden Cappuccino ein, weshalb der Verbrauch mit der Zahl der verkauften Getränke steigt und fällt."],
+  ["v", "Sofia kauft das Gebäck für den Verkauf ein, sodass mehr verkaufte Croissants und Strudel auch mehr Einkauf bedeuten."],
+  ["v", "Säfte, Limonaden und Sirup sind Handelswaren, deren Einkauf der verkauften Menge folgt."],
+  ["v", "Becher, Verpackung und Filter werden beim Verkauf eines Getränks in jedem Fall verbraucht, weshalb ihr Betrag mit der Menge wächst."],
+  ["f", "Die zehn Angestellten arbeiten nach einem Dienstplan, der für das Quartal feststeht. Der Lohn ist deshalb auch an einem ruhigen Tag fällig."],
+  ["f", "Der Arbeitgeberanteil folgt den Bruttolöhnen und ist damit ebenso fix wie diese."],
+  ["f", "Die Miete von 7.000 € je Monat ist vertraglich vereinbart und auch für ein leeres Kaffeehaus fällig."],
+  ["f", "Die Bezeichnung sagt es bereits, da die Grundlast für Licht, Kühlung und Maschinen anfällt, bevor der erste Gast bestellt."],
+  ["v", "Das Röstgas wird nach Röstmenge abgerechnet. Röstet die Rösterei mehr Bohnen für den Verkauf, steigt der Betrag mit."],
+  ["f", "Instandhaltung und Fremdreinigung sind für das Quartal vereinbart und hängen nicht davon ab, wie viele Gäste kommen."],
+  ["f", "Versicherungsprämien, Beiträge und Gebühren stehen für das Jahr fest und ändern sich nicht mit der verkauften Menge."],
+  ["v", "Der Zahlungsdienstleister berechnet sein Entgelt je Kartenzahlung, weshalb es mit dem Umsatz schwankt, obwohl es in Lektion 01 bei den Abgaben steht."],
+  ["f", "Die kalkulatorische Abschreibung verteilt den Wert der Maschinen und des Coffeebikes über die Zeit und fällt damit je Quartal in gleicher Höhe an."],
+  ["f", "Sofias eigene Arbeitszeit setzt die Kostenrechnung mit 9.000 € je Quartal an, gleichgültig wie viel sie verkauft."],
+  ["f", "Das eingesetzte Kapital ist im Betrieb gebunden, ob er viel oder wenig verkauft, sodass auch die Zinsen darauf fix sind."],
+];
+const FV_SOLL = {v:0, f:0};
+KP_POS.forEach((p, i) => FV_SOLL[FV_BEGR[i][0]] += p[1]);
+const FV_MAX = Math.max(FV_SOLL.v, FV_SOLL.f);
+let fvStand = [];
+function fvZiehen(){ fvStand = KP_POS.map((p, i) => ({i, gewaehlt:null})); fvRender(); }
+function fvRender(){
+  $("fvListe").innerHTML = fvStand.map((z, n) => {
+    const [text, betrag] = KP_POS[z.i], [richtig, begr] = FV_BEGR[z.i];
+    const kl = g => z.gewaehlt === null ? "" : (g === richtig ? " ok" : (g === z.gewaehlt ? " no" : ""));
+    return `<div class="zuz">
+      <p class="zt">${esc(text)}<span class="zbe">${eur(betrag)}</span></p>
+      <div class="zb">${FV_FOLGE.map(g =>
+        `<button class="zub${kl(g)}" type="button" data-z="${n}" data-g="${g}"${
+          z.gewaehlt !== null ? " disabled" : ""}>${FV_NAME[g]}</button>`).join("")}</div>
+      ${z.gewaehlt === null ? "" : `<p class="zuw" id="fvw-${n}" tabindex="-1">${
+        z.gewaehlt === richtig
+          ? "<b style='color:#1E6B47'>Richtig.</b> "
+          : "<b style='color:#9C2F2C'>Daneben.</b> Die Kostenart ist " + FV_NAME[richtig] + ". "}${begr}</p>`}
+    </div>`;
+  }).join("");
+
+  const ist = {v:0, f:0};
+  fvStand.forEach(z => { const r = FV_BEGR[z.i][0]; if(z.gewaehlt === r) ist[r] += KP_POS[z.i][1]; });
+  $("fvBars").innerHTML = FV_FOLGE.map(g =>
+    `<div class="kpz">
+       <span class="kpn">${g === "v" ? "Variable Kosten" : "Fixe Kosten"}</span>
+       <span class="kpr"><span class="kpf" style="width:${(ist[g] / FV_MAX * 100).toFixed(1)}%"></span></span>
+       <span class="kpw">${eur(ist[g])}</span>
+     </div>`).join("");
+
+  const fertig  = fvStand.filter(z => z.gewaehlt !== null).length;
+  const treffer = fvStand.filter(z => z.gewaehlt === FV_BEGR[z.i][0]).length;
+  const summe   = ist.v + ist.f;
+  $("fvStand").textContent = fertig === 0
+    ? KP_POS.length + " Kostenarten, zusammen " + eur(KP_GESAMT)
+    : fertig + " von " + KP_POS.length + " eingeordnet · " + treffer + " richtig";
+  $("fvSumme").innerHTML = treffer === KP_POS.length
+    ? `<b>${eur(FV_SOLL.v)}</b> variable und <b>${eur(FV_SOLL.f)}</b> fixe Kosten ergeben zusammen
+       wieder die ${eur(KP_GESAMT)} des Quartals.`
+    : `<b>${eur(summe)}</b> von ${eur(KP_GESAMT)} sind richtig eingeordnet.`;
+}
+$("fvListe").addEventListener("click", e => {
+  const b = e.target.closest(".zub"); if(!b || b.disabled) return;
+  const n = +b.dataset.z, z = fvStand[n]; if(!z || z.gewaehlt !== null) return;
+  z.gewaehlt = b.dataset.g; fvRender(); $("fvw-" + n)?.focus();
+});
+$("fvNew").addEventListener("click", fvZiehen);
+fvZiehen();
+
+/* ---------- Der Mengenregler ----------
+   Alle Werte entstehen aus den Zahlen des Quartals: Umsatz 145.500 EUR,
+   variable Kosten 55.290 EUR (38 Prozent des Umsatzes), fixe Kosten
+   95.900 EUR. Der Regler springt in Schritten von 10 Prozent, damit
+   jeder Betrag ein ganzer Euro bleibt.                               */
+const FV_U = 145500, FV_V = FV_SOLL.v, FV_F = FV_SOLL.f;
+const FV_SCHWELLE = FV_F / (1 - FV_V / FV_U) / FV_U * 100;   /* rund 106,3 % */
+const eur2 = n => n.toLocaleString("de-DE", {minimumFractionDigits:2, maximumFractionDigits:2}) + " €";
+const fvWerte = m => {
+  const u = Math.round(FV_U * m / 100), v = Math.round(FV_V * m / 100);
+  return {u, v, f:FV_F, k:v + FV_F, e:u - v - FV_F};
+};
+const SVGNS = "http://www.w3.org/2000/svg";
+const FX = {l:88, r:612, o:22, u:282}, XMAX = 150, YMAX = 240000;
+const fx = m => FX.l + (FX.r - FX.l) * m / XMAX;
+const fy = y => FX.u - (FX.u - FX.o) * y / YMAX;
+function fvDiagramm(m){
+  const w = fvWerte(m), b = FV_SCHWELLE, bu = FV_U * b / 100;
+  const tk = [0, 60000, 120000, 180000, 240000];
+  const kurz = n => n === 0 ? "0 €" : (n / 1000) + " Tsd.";
+  const linie = (y0, y1, farbe, extra) =>
+    `<line x1="${fx(0)}" y1="${fy(y0)}" x2="${fx(XMAX)}" y2="${fy(y1)}" stroke="${farbe}" stroke-width="2.5" stroke-linecap="round"${extra || ""}/>`;
+  $("fvSvg").innerHTML =
+    tk.map(y => `<line x1="${FX.l}" x2="${FX.r}" y1="${fy(y)}" y2="${fy(y)}" stroke="var(--grey-xl)"/>
+      <text class="ax" x="${FX.l - 8}" y="${fy(y) + 4}" text-anchor="end">${kurz(y)}</text>`).join("") +
+    [0, 50, 100, 150].map(x => `<text class="ax" x="${fx(x)}" y="${FX.u + 22}" text-anchor="middle">${x} %</text>`).join("") +
+    `<text class="ax" x="${FX.r}" y="${FX.u + 42}" text-anchor="end">Verkaufte Menge, erstes Quartal = 100 %</text>` +
+    `<polygon points="${fx(0)},${fy(FV_F)} ${fx(XMAX)},${fy(FV_F)} ${fx(XMAX)},${fy(FV_F + FV_V * XMAX / 100)}" fill="var(--orange-xl)"/>` +
+    linie(FV_F, FV_F, "var(--navy)", ` stroke-dasharray="7 5"`) +
+    linie(FV_F, FV_F + FV_V * XMAX / 100, "var(--orange)") +
+    linie(0, FV_U * XMAX / 100, "var(--teal-dk)") +
+    `<text class="lb" x="${fx(4)}" y="${fy(FV_F) + 22}" fill="var(--navy)">Fixe Kosten 95.900 €</text>` +
+    `<text class="lb" x="${fx(148)}" y="${fy(FV_F + FV_V * 0.74)}" text-anchor="end">variable Kosten</text>` +
+    `<line x1="${fx(b)}" x2="${fx(b)}" y1="${fy(bu)}" y2="${FX.u}" stroke="var(--grey-mid)" stroke-dasharray="3 4"/>` +
+    `<circle cx="${fx(b)}" cy="${fy(bu)}" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>` +
+    `<text class="lb" x="${fx(b) - 10}" y="${fy(bu) - 14}" text-anchor="end">Gewinnschwelle</text>` +
+    `<line x1="${fx(m)}" x2="${fx(m)}" y1="${FX.o}" y2="${FX.u}" stroke="var(--ink)" stroke-width="1.5"/>` +
+    `<circle cx="${fx(m)}" cy="${fy(w.u)}" r="6" fill="var(--teal-dk)" stroke="var(--paper)" stroke-width="2"/>` +
+    `<circle cx="${fx(m)}" cy="${fy(w.k)}" r="6" fill="var(--orange)" stroke="var(--paper)" stroke-width="2"/>` +
+    `<rect x="${FX.l}" y="${FX.o}" width="${FX.r - FX.l}" height="${FX.u - FX.o}" fill="transparent" id="fvFlaeche" style="cursor:pointer"/>`;
+}
+function fvRegler(){
+  const m = +$("fvMenge").value, w = fvWerte(m), q = fvWerte(100);
+  $("fvAnteil").textContent = m + " %";
+  const max = fvWerte(150).u;
+  const zeile = (name, wert, kl) =>
+    `<div class="fvz"><span class="fvn">${name}</span>
+       <span class="fvb"><span class="fvf ${kl}" style="width:${(wert / max * 100).toFixed(1)}%"></span></span>
+       <span class="fvw">${eur(wert)}</span></div>`;
+  $("fvZeilen").innerHTML =
+    zeile("Umsatz", w.u, "u") + zeile("Variable Kosten", w.v, "v") +
+    zeile("Fixe Kosten", w.f, "f") + zeile("Gesamtkosten", w.k, "g");
+  $("fvErgebnis").innerHTML = (w.e >= 0
+    ? `Betriebsergebnis <b class="plus">plus ${eur(w.e)}</b>, also ein Gewinn.`
+    : `Betriebsergebnis <b class="minus">minus ${eur(-w.e)}</b>, also ein Verlust.`) +
+    ` Die Gewinnschwelle liegt bei rund ${FV_SCHWELLE.toLocaleString("de-DE", {maximumFractionDigits:1})} % der Menge des ersten Quartals.`;
+  const je = (a, u) => eur2(a / u * 100);
+  $("fvJe").innerHTML =
+    `<tr><td>Variable Kosten</td><td class="z">${je(q.v, q.u)}</td><td class="z">${je(w.v, w.u)}</td></tr>
+     <tr><td>Fixe Kosten</td><td class="z">${je(q.f, q.u)}</td><td class="z">${je(w.f, w.u)}</td></tr>
+     <tr class="sum"><td>Gesamtkosten</td><td class="z">${je(q.k, q.u)}</td><td class="z">${je(w.k, w.u)}</td></tr>`;
+  fvDiagramm(m);
+}
+$("fvMenge").addEventListener("input", fvRegler);
+$("fvSvg").addEventListener("pointerdown", e => {
+  const r = $("fvSvg").getBoundingClientRect(); if(!r.width) return;
+  const x = (e.clientX - r.left) / r.width * 640;
+  const m = Math.round((x - FX.l) / (FX.r - FX.l) * XMAX / 10) * 10;
+  $("fvMenge").value = Math.min(150, Math.max(50, m)); fvRegler();
+});
+fvRegler();
+
+/* =====================================================================
    3 . Der Praxiseinstieg
 
    Sieben Schritte zum eigenen Kostenartenplan, je mit der Falle, in die
@@ -883,6 +1209,12 @@ const SCHRITTE = [
    + "für eine andere erbringt, gehört nicht in den Kostenartenplan, da es sonst zweimal zählt.",
    "Eine innerbetriebliche Leistung schleicht sich gern über eine interne Verrechnung in die "
    + "Kostenarten ein, wodurch die Summe über dem tatsächlichen Verbrauch liegt."],
+  ["Markiere jede Kostenart als fix oder variabel",
+   "Frag bei jeder Zeile, ob der Betrag in einem Quartal ohne jeden Verkauf auf null fiele. "
+   + "Erst mit dieser Einteilung kannst Du Deinen Deckungsbeitrag und Deine Gewinnschwelle "
+   + "ausrechnen, da beide allein die variablen Kosten vom Umsatz abziehen.",
+   "Eine Kostenart, die wie das Kartenentgelt in einer festen Gruppe steht, wird gern mit der "
+   + "Gruppe für fix gehalten, obwohl sie mit dem Umsatz schwankt."],
   ["Stell den Plan auf ein Quartal und rechne die Abgrenzung einmal durch",
    "Nimm den Aufwand eines abgelaufenen Quartals, zieh den neutralen Aufwand ab und addiere die "
    + "Zusatzkosten. Erst wenn das Ergebnis dieser Rechnung neben dem handelsrechtlichen steht, "
@@ -897,8 +1229,8 @@ $("ck").innerHTML = SCHRITTE.map(([t, p, q]) =>
 /* =====================================================================
    4 . Quiz: fuenf Fragen, zufaellig aus dem Vorrat
 
-   Der Vorrat fragt den Stoff von Lektion 01 ab. Lektion 02 und 03
-   bringen ihre eigenen Fragen mit, sobald sie geschrieben sind.
+   Der Vorrat fragt den Stoff der Lektionen 01 und 02 ab. Lektion 03
+   bringt ihre eigenen Fragen mit, sobald sie geschrieben ist.
    ===================================================================== */
 const FRAGEN = [
   ["Sofia bekommt Rohkaffee geliefert und erhält eine Rechnung mit vier Wochen Zahlungsziel. Welche Größe fällt am Tag der Lieferung an?",
@@ -986,6 +1318,37 @@ const FRAGEN = [
     "Weil die Gruppen handelsrechtlich festgelegt sind",
     "Weil die Software keine Änderung zulässt"], 0,
    "Ein Zeitvergleich setzt gleiche Abgrenzungen voraus. Wer mitten im Jahr umgliedert, verliert die Vergleichbarkeit an jeder betroffenen Zeile."],
+  ["Woran erkennst Du, ob eine Kostenart fix oder variabel ist?",
+   ["Ob sie in einem Quartal ohne Verkauf auf null fiele", "Ob sie bar bezahlt wird",
+    "Ob sie zu den Materialkosten gehört", "Ob sie größer als 5.000 € ist"], 0,
+   "Variable Kosten hängen an der verkauften Menge und fallen ohne Verkauf weg. Fixe Kosten bleiben in voller Höhe stehen, wie die Miete eines leeren Kaffeehauses."],
+  ["Ist das Entgelt für die Kartenzahlung fix oder variabel?",
+   ["Variabel, da es je Kartenzahlung anfällt", "Fix, da es bei den Abgaben steht",
+    "Fix, da der Vertrag für das Jahr gilt", "Weder noch, da es neutraler Aufwand ist"], 0,
+   "Das Entgelt schwankt mit dem Umsatz. Die Gruppe im Kostenartenplan sagt nichts darüber, wie sich ein Betrag bei wechselnder Menge verhält."],
+  ["Wie hoch sind Sofias variable Kosten im ersten Quartal 2026?",
+   ["55.290 €", "95.900 €", "50.800 €", "151.190 €"], 0,
+   "Variabel sind das Material mit 50.800 €, das Röstgas mit 2.400 € und das Kartenentgelt mit 2.090 €. Die 95.900 € sind die fixen Kosten."],
+  ["Sofia verkauft im Quartal 10 % mehr bei gleichen Preisen. Was geschieht mit den fixen Kosten?",
+   ["Sie bleiben bei 95.900 €", "Sie steigen um 10 %", "Sie sinken um 10 %",
+    "Sie steigen um 5.529 €"], 0,
+   "Fixe Kosten hängen nicht an der Menge. Um 5.529 € steigen die variablen Kosten, nämlich um 10 % von 55.290 €."],
+  ["Was geschieht mit den fixen Kosten je 100 € Umsatz, wenn Sofia mehr verkauft?",
+   ["Sie sinken, da sich dieselbe Summe auf mehr Umsatz verteilt", "Sie steigen",
+    "Sie bleiben bei 65,91 €", "Sie bleiben bei 38 €"], 0,
+   "Das ist die Fixkostendegression. Konstant je 100 € Umsatz sind allein die variablen Kosten mit 38 €."],
+  ["Wie hoch ist Sofias Deckungsbeitrag im ersten Quartal?",
+   ["90.210 € oder 62 % des Umsatzes", "55.290 € oder 38 % des Umsatzes",
+    "145.500 €", "Minus 5.690 €"], 0,
+   "Der Deckungsbeitrag ist der Umsatz von 145.500 € abzüglich der variablen Kosten von 55.290 €. Minus 5.690 € ist das Betriebsergebnis nach Abzug auch der fixen Kosten."],
+  ["Wo liegt Sofias Gewinnschwelle bei unveränderten Preisen?",
+   ["Bei rund 154.677 € Umsatz", "Bei 145.500 € Umsatz", "Bei 95.900 € Umsatz",
+    "Bei 151.190 € Umsatz"], 0,
+   "Die fixen Kosten von 95.900 € geteilt durch 62 Cent Deckungsbeitrag je Euro Umsatz ergeben rund 154.677 €. Die 151.190 € sind die Kosten bei der Menge des ersten Quartals."],
+  ["Warum ist der Lohn der zehn Angestellten im Quartal fix?",
+   ["Weil der Dienstplan für das Quartal feststeht", "Weil Löhne nie variabel sein können",
+    "Weil die Angestellten Studierende sind", "Weil er bei den Personalkosten steht"], 0,
+   "Fix gilt für eine Periode. Über ein Jahr hinweg ließe sich der Dienstplan umstellen, innerhalb des Quartals ist der Lohn auch an einem ruhigen Tag fällig."],
 ];
 let qAktuell = [];
 const QZAHL = 5;
@@ -1029,7 +1392,7 @@ function qRender(){
     : fertig + " von " + z + " beantwortet · " + treffer + " richtig";
   $("qResult").innerHTML = fertig < z ? "" :
     `<div class="qscore"><b>${treffer} von ${z} richtig.</b> Der Vorrat umfasst
-      ${FRAGEN.length} Fragen zu Lektion 01, sodass ein zweiter Durchgang andere fünf zieht.</div>`;
+      ${FRAGEN.length} Fragen zu den Lektionen 01 und 02, sodass ein zweiter Durchgang andere fünf zieht.</div>`;
 }
 $("quiz").addEventListener("click", e => {
   const b = e.target.closest(".qopt"); if(!b || b.disabled) return;
