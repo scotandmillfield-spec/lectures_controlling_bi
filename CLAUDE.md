@@ -639,7 +639,7 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.89`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.91`.
 Keine Quellenverzeichnisse, keine Legenden, keine Beschreibung des Falls und kein Hinweis
 darauf, woher eine Abbildung stammt. Sie steht in jeder ausgelieferten Datei gleich, im Markup
 als `<footer>` und auf den zweisprachigen Seiten als Eintrag `footer` im `UI`-Wörterbuch. Dort
@@ -648,7 +648,7 @@ ist sie ein einfacher String, weil ein Name und eine Nummer in beiden Sprachen d
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.89</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.91</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
@@ -699,6 +699,11 @@ sonstiges/                       Module, deren Platz noch offen ist
   index.html
   reihenfolge.js
   <thema>.html
+
+drk-blutspende/                  der Bereich für den DRK-Blutspendedienst
+  index.html
+  reihenfolge.js
+  <thema>.html
 ```
 
 ### Der Bearbeitungsmodus (Prototyp)
@@ -727,8 +732,8 @@ Begründungen). Ohne diesen Zusatz verhält sich die Seite wie bisher.
 ### Die Einstiege
 
 **Ein Einstieg ist ein Verzeichnis, das für sich vollständig ist und für sich hochgeladen
-wird.** Wie viele es sind, ist offen. Zwei waren es am Anfang, `cv-mx/` ist der dritte und
-`sonstiges/` der vierte. Jeder weitere kostet genau eine Zeile in der Weiche. Deshalb steht nirgends mehr eine feste
+wird.** Wie viele es sind, ist offen. Zwei waren es am Anfang, `cv-mx/` ist der dritte,
+`sonstiges/` der vierte und `drk-blutspende/` der fünfte. Jeder weitere kostet genau eine Zeile in der Weiche. Deshalb steht nirgends mehr eine feste
 Zahl, wo ein Einstieg gemeint ist.
 
 - **Kein Verweis über die Grenze.** Ein Modul in `vorlesung/` verlinkt nichts in `plattform/`
@@ -763,6 +768,26 @@ den es nur halb passt.
 - **`content-werkstatt.html` ist der erste Fall.** Die Werkstatt erklärt, wie die Module dieser
   Sammlung gebaut werden, gehört damit jedoch zu keinem Stoffgebiet. In der Lernplattform stand
   sie zwischen den Fachmodulen und sah dort wie eines aus.
+
+**[gesetzt] `drk-blutspende/` ist der Bereich für den DRK-Blutspendedienst.** Er steht seit
+PR #88 bereit, bevor sein erstes Modul geschrieben ist, da die Startseite ohne Modul laufen
+können muss und der Weg über die vier Schritte oben sonst mitten in der inhaltlichen Arbeit
+liegt.
+
+- **`TOPICS` und `PATHS` sind leer.** Die Startseite zeigt deshalb weder Werkzeugleiste noch
+  Lernpfadzeile, sondern allein einen Satz, der sagt, dass das erste Modul entsteht. Beide
+  Leisten erscheinen von selbst wieder, sobald ein Eintrag in `TOPICS` steht.
+- **Zwei Stellen mussten dafür nachgezogen werden**, beide in `drk-blutspende/index.html`. Die
+  Zählzeile bleibt leer, solange `TOPICS` leer ist („0 Module“ ist keine Auskunft), und der
+  Kasten darunter unterscheidet jetzt zwei Fälle: ein Filter ohne Treffer (`UI.empty`) und ein
+  Bereich ohne jedes Modul (`UI.leer`). Wer die anderen Startseiten einmal auf denselben Stand
+  bringt, kopiert diese beiden Stellen; dringend ist das nicht, da dort überall Module stehen.
+- **`.toolbar[hidden]{display:none}` ist nötig**, weil `display:flex` ein bloßes `hidden`
+  schlägt. `.pathrow` hat dieselbe Regel aus demselben Grund.
+- **Der Fall ist noch nicht festgelegt.** Es gibt keine Kanondatei für den
+  DRK-Blutspendedienst, weil noch keine Vorlage vorliegt. Sie entsteht mit dem ersten Modul,
+  aus dem, was Maik liefert, und nicht vorher. Bis dahin steht in diesem Bereich keine Zahl und
+  kein Sachverhalt über die Organisation.
 
 **[gesetzt] Eine Startseite führt keine Anleitung.** Der Abschnitt „Ein neues Modul
 aufnehmen" ist aus allen Startseiten heraus, samt Dateibaum, Codeblöcken und den Einträgen
