@@ -229,7 +229,7 @@ const UI = {
   leer:{de:"Dieser Bereich steht bereit, das erste Modul entsteht gerade. Sobald es in TOPICS eingetragen ist, erscheint seine Kachel hier.",
         en:"This area is ready and its first module is being written. Its tile appears here as soon as the module is registered in TOPICS."},
   soon:{de:"In Arbeit", en:"In preparation"},
-  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.91</span>",
+  footer:"Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.92</span>",
   pathLabel:{de:"Lernpfade", en:"Learning paths"},
   pathKicker:{de:"Lernpfad", en:"Learning path"},
   pathClear:{de:"Pfad verlassen \u00b7 alle Module zeigen", en:"Leave the path \u00b7 show all modules"},
@@ -249,9 +249,16 @@ const UI = {
    aufgenommen wird, steht in CLAUDE.md.
    ===================================================================== */
 const TOPICS = [
-  /* Noch kein Modul. Das erste kommt hierhin, sobald es geschrieben ist;
-     die Kachel entsteht allein aus diesem Eintrag. Ein Muster steht in
-     jeder anderen Startseite, der Bauplan in CLAUDE.md.               */
+  {
+    id:"tagesdashboard",
+    title:{de:"Das Tagesdashboard", en:"The daily dashboard"},
+    sub:{de:"Der Bericht, der täglich gegen 12 Uhr als PDF herausgeht, als Nachbau zum Anfassen. Sechs Visualisierungen mit einer Erläuterung an jedem Element, ein Rundgang durch den Bericht, die Filterungen je Visualisierung, ein Glossar und ein Quiz zum Ablesen. Durchgehend auf Deutsch.",
+         en:"The report that goes out as a PDF every day around noon, rebuilt to click through. Six visuals with an explanation on every element, a guided tour, the filters behind each visual, a glossary and a quiz on reading it. In German throughout."},
+    track:"bi", status:"ready", accent:"teal", glyph:"rows",
+    langBadge:{de:"", en:"DE"},
+    links:[{kind:"html",file:"tagesdashboard.html",
+            label:{de:"Los geht’s", en:"Let’s go"}}]
+  }
 ]
 
 /* =====================================================================

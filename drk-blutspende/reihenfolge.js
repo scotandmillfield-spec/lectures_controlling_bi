@@ -17,7 +17,5 @@
    der Liste in TOPICS.
    ===================================================================== */
 const REIHENFOLGE = [
-  /* Noch leer. Sobald das erste Modul in TOPICS steht, kommt seine
-     Kennung hierhin. Fehlt sie, rutscht die Kachel ans Ende und die
-     Konsole sagt es beim Laden.                                     */
+  "tagesdashboard"     // Das Tagesdashboard
 ];

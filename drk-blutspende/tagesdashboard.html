@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Das Tagesdashboard · DRK-Blutspendedienst West</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#209CBD; --teal-dk:#166980; --teal-lt:#5FBBD3; --teal-xl:#E6F4F8;
+  --orange:#FF922B; --orange-xl:#FFF1E0;
+  --ochre:#B5852C; --ochre-xl:#F7EFDF;
+  --navy:#0F4C5C; --navy-xl:#E4EFF3;
+  --sand:#F0E0C3; --sand-xl:#FAF4E9;
+  --ink:#1D1D1F; --grey:#8A8A89; --grey-mid:#C9C9C7; --grey-xl:#EDEDEC;
+  --paper:#FFFFFF; --shell:#FBF8F2; --canvas:#F4F3F0;
+  --green:#2E9E6B; --red:#D9534F;
+  --sans:"Source Sans 3","Source Sans Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+  --shadow:0 1px 2px rgba(29,29,31,.05), 0 8px 24px -12px rgba(22,105,128,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--shell);color:var(--ink);font-family:var(--sans);font-size:1.25rem;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
+.masthead{padding:52px 0 26px;border-bottom:1px solid var(--grey-xl)}
+.eyebrow{font-family:var(--mono);font-size:1rem;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal-dk);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--grey-xl)}
+h1{font-size:clamp(2rem,4.6vw,3.1rem);font-weight:700;letter-spacing:-.026em;line-height:1.05;margin:0 0 14px;max-width:20ch}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{font-size:1.32rem;font-weight:300;color:#3d3d40;line-height:1.55;margin:0}
+.tabs{display:flex;gap:8px;margin:34px 0 0;flex-wrap:wrap}
+.tab{appearance:none;border:1px solid var(--grey-xl);background:var(--paper);
+  font-family:var(--sans);font-size:1.22rem;font-weight:600;color:var(--grey);
+  padding:13px 20px;border-radius:var(--r);cursor:pointer;display:flex;align-items:baseline;gap:10px;
+  transition:border-color .18s,color .18s,background .18s,transform .18s var(--ease)}
+.tab .num{font-family:var(--mono);font-size:1.03rem;letter-spacing:.06em;opacity:.7}
+.tab:hover{border-color:var(--teal);color:var(--teal-dk);transform:translateY(-1px)}
+.tab[aria-selected="true"]{background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.tab:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.panel{padding-top:28px}
+.panel[hidden]{display:none}
+.claim{font-size:clamp(1.5rem,2.35vw,1.72rem);font-weight:300;line-height:1.42;margin:0 0 26px;color:#2c2c2f}
+.claim b{font-weight:600;color:var(--teal-dk)}
+h2.sec{font-size:1.5rem;font-weight:600;letter-spacing:-.014em;margin:34px 0 4px}
+h2.sec:first-child{margin-top:0}
+p.sub{margin:0 0 18px;color:var(--grey);font-size:1.28rem;line-height:1.6}
+code,.mono{font-family:var(--mono);font-size:.86em}
+
+/* ---------- Schaltflaechen ---------- */
+.knopf{appearance:none;border:1px solid var(--teal-dk);background:var(--teal-dk);color:#fff;
+  font-family:var(--sans);font-size:1.19rem;font-weight:600;cursor:pointer;
+  padding:10px 16px;border-radius:8px;transition:.16s}
+.knopf:hover{background:var(--navy);border-color:var(--navy)}
+.knopf:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.knopf.leise{background:transparent;color:var(--teal-dk);border-color:var(--grey-mid);
+  font-size:1.14rem;padding:6px 12px}
+.knopf.leise:hover{border-color:var(--teal-dk);background:var(--teal-xl);color:var(--teal-dk)}
+.wsbar{display:flex;gap:12px 18px;flex-wrap:wrap;align-items:center;margin:0 0 16px}
+.wsbar>*{min-width:0}
+
+/* ---------- Kaesten ---------- */
+.karte{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:20px 22px;min-width:0}
+.info{background:var(--paper);border:1px solid var(--grey-xl);border-left:4px solid var(--teal);
+  border-radius:var(--r);padding:16px 20px;box-shadow:var(--shadow);font-size:1.25rem;line-height:1.6;color:#3d3d40}
+.info b{color:var(--ink)}
+.hinweis{font-size:1.18rem;color:var(--grey);margin:12px 0 0;line-height:1.5}
+.gut{color:var(--green)} .schlecht{color:var(--red)}
+
+/* ---------- Tabellen ---------- */
+.tblw{overflow-x:auto;max-width:100%;border:1px solid var(--grey-xl);border-radius:var(--r);
+  background:var(--paper);margin:14px 0 0}
+.tblw:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.tbl{border-collapse:collapse;width:100%;font-size:1.19rem}
+.tbl th{font-family:var(--mono);font-size:1.01rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--grey);font-weight:500;text-align:left;padding:10px 12px;border-bottom:1px solid var(--grey-xl);
+  white-space:nowrap;background:var(--canvas)}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--grey-xl);vertical-align:top;line-height:1.45}
+.tbl tr:last-child td{border-bottom:0}
+.tbl td.r,.tbl th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl td.b{font-weight:700;white-space:nowrap}
+.tbl td.id{font-family:var(--mono);font-size:1.12rem;white-space:nowrap}
+.sw-f{display:inline-block;width:15px;height:15px;border-radius:3px;border:1px solid var(--grey-mid);
+  vertical-align:-2px;margin-right:7px}
+
+/* ---------- Zwei-Knopf-Uebung ---------- */
+.ueb{display:grid;gap:10px;margin:14px 0 0}
+.ub{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);padding:14px 16px;
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 16px;align-items:center}
+.ub.ok{border-color:var(--green)}
+.ub.nok{border-color:var(--red)}
+.ub-t{min-width:0}
+.ub-t b{display:block;font-weight:600}
+.ub-t span{font-size:1.19rem;color:var(--grey);font-variant-numeric:tabular-nums}
+.ub-k{display:flex;gap:6px;flex-wrap:wrap}
+.ub-k button{appearance:none;cursor:pointer;font-family:var(--sans);font-size:1.18rem;font-weight:600;
+  border:1px solid var(--grey-mid);background:var(--paper);color:#3d3d40;padding:8px 14px;border-radius:7px}
+.ub-k button:hover:not(:disabled){border-color:var(--teal);color:var(--teal-dk)}
+.ub-k button:disabled{cursor:default;opacity:.55}
+.ub-k button[aria-pressed="true"]{opacity:1;background:var(--teal-dk);border-color:var(--teal-dk);color:#fff}
+.ub-k button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.ub-w{grid-column:1 / -1;margin:0;font-size:1.2rem;line-height:1.55;color:#3d3d40}
+
+/* ---------- Quiz ---------- */
+.qwrap{display:grid;gap:14px}
+.qcard{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px 20px}
+.qcard .qn{font-family:var(--mono);font-size:1.03rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin:0 0 7px}
+.qcard .qt{font-size:1.24rem;font-weight:600;line-height:1.4;margin:0 0 13px}
+.qopts{display:grid;gap:8px}
+.qopt{appearance:none;text-align:left;cursor:pointer;font-family:var(--sans);font-size:1.19rem;
+  border:1px solid var(--grey-xl);background:var(--paper);color:var(--ink);
+  padding:11px 14px;border-radius:8px;transition:.16s;line-height:1.4}
+.qopt:hover:not(:disabled){border-color:var(--teal);background:var(--teal-xl)}
+.qopt:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.qopt:disabled{cursor:default}
+.qopt.right{background:color-mix(in srgb, var(--green) 12%, var(--paper));border-color:var(--green);color:var(--green);font-weight:600}
+.qopt.wrong{background:color-mix(in srgb, var(--red) 12%, var(--paper));border-color:var(--red);color:var(--red);font-weight:600}
+.qfb{margin:13px 0 0;font-size:1.18rem;color:#3d3d40;line-height:1.5;
+  padding-top:11px;border-top:1px solid var(--grey-xl)}
+.qfb[hidden]{display:none}
+.qscore{background:var(--teal-dk);color:#fff;border-radius:var(--r);padding:18px 22px;
+  font-size:1.24rem;line-height:1.5}
+.qscore b{font-weight:700}
+
+/* ---------- Praxiseinstieg ---------- */
+.ck{display:grid;gap:11px;counter-reset:ck}
+.ckitem{background:var(--paper);border:1px solid var(--grey-xl);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px 18px 16px 60px;position:relative}
+.ckitem::before{counter-increment:ck;content:counter(ck,decimal-leading-zero);
+  position:absolute;left:18px;top:16px;font-family:var(--mono);font-size:1.25rem;font-weight:700;
+  color:var(--teal-dk)}
+.ckitem h3{margin:0 0 6px;font-size:1.24rem;font-weight:700;letter-spacing:-.01em}
+.ckitem p{margin:0 0 8px;font-size:1.2rem;color:#3d3d40;line-height:1.5}
+.ckitem p:last-child{margin-bottom:0}
+.ckitem .trap{font-size:1.18rem;color:var(--ochre);line-height:1.45}
+.ckitem .trap b{font-weight:700}
+
+/* ---------- Glossar ---------- */
+.gl-such{width:100%;max-width:420px;font-family:var(--sans);font-size:1.22rem;padding:10px 12px;
+  border:1px solid var(--grey-mid);border-radius:8px;margin:0 0 14px}
+.gl-such:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
+.gl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0}
+.gl-k{background:var(--paper);border:1px solid var(--grey-xl);border-radius:8px;padding:12px 14px;min-width:0}
+.gl-grp{display:block;font-family:var(--mono);font-size:1.01rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin-bottom:3px}
+.gl dt{font-weight:700;margin:0 0 4px}
+.gl dd{margin:0 0 10px;font-size:1.2rem;color:#3d3d40;line-height:1.5}
+.gl-bsp{display:block;margin-top:7px;padding-top:7px;border-top:1px solid var(--grey-xl);
+  font-family:var(--mono);font-size:1.1rem;line-height:1.5}
+.bk{display:block;font-family:var(--sans);font-size:1rem;letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:2px;color:var(--grey)}
+
+/* ---------- Auf- und zuklappbare Bloecke innerhalb einer Lektion ---------- */
+.blk{border-top:1px solid var(--grey-xl)}
+.blk:first-of-type{border-top:0}
+.blk h2.sec{margin:0}
+.blk-t{appearance:none;width:100%;background:transparent;border:0;cursor:pointer;
+  display:flex;align-items:center;gap:12px;text-align:left;padding:20px 0 18px;
+  font:inherit;color:inherit;letter-spacing:inherit;transition:color .16s}
+.blk-t:hover{color:var(--teal-dk)}
+.blk-t:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:4px}
+.blk-c{width:13px;height:13px;flex:none;color:var(--teal-dk);transition:transform .22s var(--ease)}
+.blk[data-open="true"] .blk-c{transform:rotate(90deg)}
+.blk-b{padding:0 0 28px}
+.blk-b[hidden]{display:none}
+@media print{
+  body{background:#fff}
+  .panel[hidden]{display:none!important}
+  .blk-b[hidden]{display:block!important}
+}
+
+/* ---------- Kernaussagen ---------- */
+.pointe{margin-top:34px;background:var(--orange);color:#fff;border-radius:var(--r);padding:26px 28px}
+.pointe .pk{font-family:var(--mono);font-size:.97rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin:0 0 10px}
+.pointe p{margin:0;font-size:clamp(1.4rem,2.1vw,1.62rem);font-weight:300;line-height:1.48}
+.pointe p b{font-weight:700}
+footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
+  border-top:1px solid var(--grey-xl);padding-top:20px}
+.build{font-family:var(--mono);font-size:.92em;letter-spacing:.02em;opacity:.85}
+
+/* ---------- Der Nachbau des Dashboards ----------
+   Die Flaeche traegt die Farben des Berichtsstandards als eigene
+   Eigenschaften. Sie stehen hier und nicht im :root, da der :root-Block
+   in allen Dateien gleich ist und diese Farben zum Gegenstand des
+   Moduls gehoeren. Die Werte stammen aus dem Abschnitt Standards der
+   Anwenderdokumentation.                                             */
+.db{--d-ist:#000000; --d-plan:#548235; --d-grenze:#ECB10E;
+    --d-pos:#84FD84; --d-neutral:#FEFE76; --d-neg:#FF9377;
+    --d-rahmen-pos:#2E7D32; --d-rahmen-neg:#C0392B;
+    position:relative;overflow:hidden;
+    background:var(--paper);border:1px solid var(--grey-mid);border-radius:var(--r);
+    box-shadow:var(--shadow);padding:14px 16px 18px;font-size:1.2rem;min-width:0}
+.db-kopf{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 22px;align-items:start;
+  padding-bottom:12px;border-bottom:1px solid var(--grey-xl)}
+.db-titel{min-width:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;cursor:help}
+.db-titel .t{font-weight:700;font-size:1.62rem;letter-spacing:-.01em}
+.db-titel .d{font-weight:700;font-size:1.62rem;font-variant-numeric:tabular-nums}
+.db-marke{display:flex;align-items:center;gap:9px;cursor:help}
+.db-marke .kreuz{width:34px;height:34px;flex:none}
+.db-marke .mt{font-weight:700;font-size:1.1rem;line-height:1.15}
+.db-marke .ms{display:block;font-weight:400;font-size:1.04rem;color:#3d3d40;
+  border-top:1px solid var(--ink);margin-top:3px;padding-top:3px}
+
+.db-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:14px 0}
+.db-kpi{border:2px solid var(--grey-mid);border-radius:6px;padding:10px 14px;text-align:center;
+  min-width:0;cursor:help;transition:box-shadow .15s}
+.db-kpi .k{display:block;font-size:1.16rem;line-height:1.3;overflow-wrap:anywhere}
+.db-kpi .w{display:block;font-size:1.5rem;font-weight:700;margin-top:5px;font-variant-numeric:tabular-nums}
+.db-kpi.pos{background:var(--d-pos);border-color:var(--d-rahmen-pos)}
+.db-kpi.neg{background:var(--d-neg);border-color:var(--d-rahmen-neg)}
+.db-kpi:hover,.db-kpi:focus-visible,.db-kpi.blink{outline:none;box-shadow:0 0 0 2px var(--teal)}
+
+.db-reihe{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.db-v{border:1px solid var(--grey-xl);border-radius:6px;padding:10px 12px 12px;min-width:0}
+.db-v h3{margin:0;font-size:1.22rem;font-weight:600;cursor:help;display:inline-block}
+.db-leg{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;font-size:1.08rem;color:#3d3d40;margin:2px 0 6px}
+.db-leg span{display:inline-flex;align-items:center;gap:6px;cursor:help}
+.sw{display:inline-block;width:11px;height:11px;border-radius:50%}
+.sw.ist{background:var(--d-ist)} .sw.plan{background:var(--d-plan)}
+.db-scroll{overflow-x:auto;padding-bottom:4px}
+.db-scroll:focus-visible{outline:2px solid var(--orange);outline-offset:2px;border-radius:4px}
+
+/* Saeulendiagramm: links die Achse, rechts je Kategorie eine Gruppe. */
+.sd{display:grid;grid-template-columns:52px minmax(0,1fr);gap:0;min-width:380px}
+.sd.breit{min-width:500px}
+/* Der Abstand nach oben nimmt die oberste Achsenbeschriftung auf und
+   laesst der Wertbeschriftung ueber der hoechsten Saeule ihren Platz. */
+.sd-y{position:relative;height:190px;margin-top:16px}
+.sd-y span{position:absolute;right:7px;transform:translateY(50%);font-size:1.02rem;color:#3d3d40;
+  white-space:nowrap;font-variant-numeric:tabular-nums}
+.sd-p{position:relative;height:190px;margin-top:16px;display:flex;align-items:flex-end;gap:8px;
+  border-bottom:1px solid var(--grey-mid)}
+.sd-l{position:absolute;left:0;right:0;border-top:1px dashed var(--grey-xl);pointer-events:none}
+.sd-l.grenze{border-top:2px solid var(--d-grenze)}
+.sd-g{flex:1 1 0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;min-width:46px;
+  position:relative;z-index:1}
+/* Die Blutgruppen brauchen weniger Platz als ein Datum, weshalb ihre
+   Spalten schmaler stehen duerfen und das Visual damit ohne Bildlauf
+   neben den Absatz passt.                                            */
+.sd.schmal .sd-g,.sd-x.schmal .z span{min-width:38px}
+.sd-paar{display:flex;align-items:flex-end;justify-content:center;gap:3px;height:100%}
+.sd-s{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;flex:1 1 0;
+  cursor:help;border-radius:3px 3px 0 0}
+.sd-s:hover,.sd-s:focus-visible,.sd-s.blink{outline:none;background:var(--teal-xl)}
+.sd-v{font-size:1.02rem;font-variant-numeric:tabular-nums;margin-bottom:2px;white-space:nowrap}
+.sd-b{width:100%;background:var(--d-ist);transition:height .5s var(--ease)}
+.sd-b.plan{background:var(--d-plan)}
+.sd-b.blau{background:var(--d-blau,#4472C4)}
+.sd-x{display:grid;grid-template-columns:52px minmax(0,1fr);min-width:380px}
+.sd-x.breit{min-width:500px}
+.sd-x .z{display:flex;gap:8px}
+.sd-x .z span{flex:1 1 0;min-width:46px;text-align:center;font-size:1.02rem;color:#3d3d40;
+  padding-top:5px;white-space:nowrap}
+
+/* Lagerreichweite: acht Blutgruppen links, Gesamt rechts daneben. */
+.lr{display:flex;gap:10px;align-items:flex-start}
+.lr>div{flex:none}
+.lr .gesamt{border-left:1px solid var(--grey-xl);padding-left:10px;min-width:80px}
+
+/* Matrix der Kuerzungsrate */
+.mx{border-collapse:collapse;width:100%;font-size:1.1rem;min-width:620px}
+.mx th{font-weight:400;color:#3d3d40;text-align:right;padding:5px 8px;border-bottom:1px solid var(--ink);
+  white-space:nowrap;cursor:help}
+.mx th:first-child{text-align:left}
+.mx td{padding:5px 8px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;
+  border-bottom:1px solid var(--grey-xl)}
+.mx td:first-child{text-align:left;border-right:1px solid var(--grey-mid);cursor:help}
+.mx tr:last-child td{border-bottom:0}
+.mx td.g,.mx th.g{font-weight:700}
+.mx td.minus{color:var(--d-neg2,#FF3300)}
+.mx tr.an td{background:var(--teal-xl)}
+
+/* Seite 2: Bestaende */
+.db2{display:grid;grid-template-columns:auto auto;gap:14px;justify-content:start;padding:4px 0 14px}
+.db-sl{border:1px solid var(--grey-mid);border-radius:10px;padding:10px 14px;min-width:200px;cursor:help}
+.db-sl .l{display:block;font-size:1.1rem;font-weight:600;margin-bottom:6px}
+.db-sl .w{display:block;background:var(--ink);color:#fff;text-align:center;padding:9px 12px;border-radius:3px;font-size:1.1rem}
+.db-sl .sel{display:flex;justify-content:space-between;gap:12px;border:1px solid var(--grey-mid);
+  border-radius:3px;padding:9px 12px;font-size:1.14rem;color:#3d3d40}
+.best{border-collapse:collapse;font-size:1.19rem;min-width:320px}
+.best th{font-size:1.06rem;font-weight:400;color:#3d3d40;text-align:right;padding:6px 10px;
+  border-bottom:1px solid var(--teal-lt);white-space:nowrap}
+.best th:first-child{text-align:left}
+.best td{padding:7px 10px;text-align:right;font-variant-numeric:tabular-nums;border-bottom:1px solid var(--grey-xl)}
+.best td:first-child{text-align:left}
+.best tr:nth-child(even) td{background:var(--canvas)}
+.best tr.g td{font-weight:700;border-top:1px solid var(--teal-lt);border-bottom:0;background:var(--paper)}
+
+/* ---------- Der Rundgang ---------- */
+.tour-leiste{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:0 0 12px}
+.tour-leiste .knopf{padding:8px 14px}
+.tour-leiste .schritt{appearance:none;cursor:pointer;border:1px solid var(--grey-mid);background:var(--paper);
+  color:var(--ink);width:36px;height:36px;border-radius:8px;font-size:1.31rem;line-height:1}
+.tour-leiste .schritt:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.tour-leiste .schritt:disabled{opacity:.4;cursor:default}
+.tour-stand{font-family:var(--mono);font-size:1.11rem;color:var(--grey)}
+.tour-punkte{display:flex;gap:5px}
+.tour-punkte span{width:8px;height:8px;border-radius:50%;background:var(--grey-mid);transition:background .3s}
+.tour-punkte span.an{background:var(--orange)}
+.tour-box{position:absolute;z-index:5;border:3px solid var(--orange);border-radius:8px;pointer-events:none;opacity:0;
+  box-shadow:0 0 0 3000px color-mix(in srgb, var(--paper) 80%, transparent);
+  transition:top .6s var(--ease),left .6s var(--ease),width .6s var(--ease),height .6s var(--ease),opacity .3s}
+.tour-text{position:absolute;z-index:6;background:var(--navy);color:#fff;border-radius:8px;padding:12px 16px;
+  font-size:1.21rem;line-height:1.5;box-shadow:0 8px 24px -8px rgba(0,0,0,.4);pointer-events:none;opacity:0;
+  transition:top .6s var(--ease),left .6s var(--ease),opacity .3s}
+.tour-text b{display:block;margin-bottom:4px}
+.tour-text .tz{display:block;font-family:var(--mono);font-size:1rem;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.7);margin-bottom:4px}
+.db.tour-an .tour-box,.db.tour-an .tour-text{opacity:1}
+
+/* ---------- Das schwebende Erlaeuterungsfeld ---------- */
+.tip{position:fixed;z-index:50;max-width:360px;background:var(--navy);color:#fff;border-radius:8px;padding:12px 14px;
+  font-size:1.18rem;line-height:1.45;box-shadow:0 8px 24px -8px rgba(0,0,0,.4);pointer-events:none;opacity:0;
+  transform:translateY(4px);transition:opacity .12s,transform .12s}
+.tip.an{opacity:1;transform:none}
+.tip b{display:block;font-size:1.22rem;margin-bottom:4px}
+.tip .was{display:block}
+.tip .bsp{display:block;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.25);
+  font-family:var(--mono);font-size:1.11rem;line-height:1.5}
+.tip .bk{color:rgba(255,255,255,.7)}
+.nachricht{margin-top:12px}
+.nachricht b,.nachricht .was,.nachricht .bsp{display:block}
+.nachricht .bsp{margin-top:8px;padding-top:8px;border-top:1px solid var(--grey-xl);font-family:var(--mono);font-size:1.17rem}
+[data-tip]:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.blink{animation:blink 1.4s var(--ease) 2}
+@keyframes blink{50%{box-shadow:0 0 0 3px var(--orange)}}
+
+@media (max-width:900px){
+  .db-reihe{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:760px){
+  .gl{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px 56px}
+  .db-kpis{grid-template-columns:minmax(0,1fr)}
+  .db-kopf{grid-template-columns:minmax(0,1fr)}
+  .db2{grid-template-columns:minmax(0,1fr)}
+  .ub{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">DRK-Blutspendedienst West · Modul 01 · DE</p>
+  <h1>Das <em>Tagesdashboard</em></h1>
+  <p class="lede">Der Bericht, der jeden Tag gegen 12 Uhr als PDF herausgeht, als Nachbau zum Anfassen. Fahr mit der Maus über ein Element oder tipp es an, dann erscheint seine Erläuterung aus der Anwenderdokumentation.</p>
+  <p class="lede" style="font-size:1.22rem;color:var(--grey);margin-top:14px">Die Werte sind die des Berichtsstands vom 12.03.2024 für die KW 11 (11.03. bis 17.03.2024), die Bestände auf Seite 2 die vom 13.05.2024. Sie stammen aus der Anwenderdokumentation für das Reporting des DRK-Blutspendedienst West, Stand 03.06.2024.</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Lektionen">
+  <button class="tab" role="tab" id="tab-a" aria-controls="p-a" aria-selected="true"><span class="num">01</span> Das Dashboard zum Ausprobieren</button>
+  <button class="tab" role="tab" id="tab-b" aria-controls="p-b" aria-selected="false" tabindex="-1"><span class="num">02</span> Die zweite Seite und die Filter</button>
+  <button class="tab" role="tab" id="tab-c" aria-controls="p-c" aria-selected="false" tabindex="-1"><span class="num">03</span> Das Glossar</button>
+  <button class="tab" role="tab" id="tab-d" aria-controls="p-d" aria-selected="false" tabindex="-1"><span class="num">04</span> Quiz</button>
+  <button class="tab" role="tab" id="tab-e" aria-controls="p-e" aria-selected="false" tabindex="-1"><span class="num">05</span> Der erste Schritt</button>
+</div>
+
+<!-- ==================== LEKTION 01 ==================== -->
+<section class="panel" id="p-a" role="tabpanel" aria-labelledby="tab-a">
+  <p class="claim">Das Tagesdashboard zeigt auf einer Seite <b>sechs Visualisierungen</b>, deren Datenstand der abgeschlossene Vortag ist, damit alle Zahlen vollständig vorliegen.</p>
+
+  <h2 class="sec">Der Nachbau der ersten Seite</h2>
+  <p class="sub">Jedes Element hat eine Erläuterung aus der Anwenderdokumentation. Der Rundgang führt einmal von oben nach unten durch den Bericht und gibt ihn danach frei, sodass Du ihn selbst erkundest.</p>
+
+  <div class="tour-leiste">
+    <button class="knopf" type="button" id="tourStart">Rundgang starten</button>
+    <button class="schritt" type="button" id="tourZurueck" aria-label="Vorheriger Bereich">&lsaquo;</button>
+    <button class="schritt" type="button" id="tourWeiter" aria-label="Nächster Bereich">&rsaquo;</button>
+    <span class="tour-punkte" id="tourPunkte" aria-hidden="true"></span>
+    <span class="tour-stand" id="tourStand" aria-live="polite"></span>
+  </div>
+
+  <div class="db" id="db">
+    <div class="db-kopf">
+      <div class="db-titel" data-tip="titel" tabindex="0">
+        <span class="t">Tagesdashboard</span><span class="d">12.03.2024</span>
+      </div>
+      <div class="db-marke" data-tip="marke" tabindex="0">
+        <svg class="kreuz" viewBox="0 0 30 30" aria-hidden="true">
+          <path d="M11 2 h8 v9 h9 v8 h-9 v9 h-8 v-9 H2 v-8 h9 z" fill="var(--red)"/>
+        </svg>
+        <span class="mt">Deutsches<br>Rotes Kreuz
+          <span class="ms">Blutspendedienst West</span></span>
+      </div>
+    </div>
+
+    <div class="db-kpis" id="dbKpis"></div>
+
+    <div class="db-v" id="vSpender">
+      <h3 data-tip="vSpender" tabindex="0">Erschienene Spender Mo-So</h3>
+      <div class="db-leg">
+        <span data-tip="legIst" tabindex="0"><i class="sw ist"></i>Ist</span>
+        <span data-tip="legPlan" tabindex="0"><i class="sw plan"></i>Plan</span>
+      </div>
+      <div class="db-scroll" tabindex="0" role="group" aria-label="Säulendiagramm Erschienene Spender je Wochentag, seitlich scrollbar">
+        <div class="sd breit" id="sdSpender"></div>
+        <div class="sd-x breit" id="sxSpender"><span></span><div class="z"></div></div>
+      </div>
+    </div>
+
+    <div class="db-reihe" style="margin-top:14px">
+      <div class="db-v" id="vAbsatz">
+        <h3 data-tip="vAbsatz" tabindex="0">Absatz EK</h3>
+        <div class="db-leg">
+          <span data-tip="legIst" tabindex="0"><i class="sw ist"></i>Ist</span>
+          <span data-tip="legPlan" tabindex="0"><i class="sw plan"></i>Plan</span>
+        </div>
+        <div class="db-scroll" tabindex="0" role="group" aria-label="Säulendiagramm Absatz EK je Wochentag, seitlich scrollbar">
+          <div class="sd breit" id="sdAbsatz"></div>
+          <div class="sd-x breit" id="sxAbsatz"><span></span><div class="z"></div></div>
+        </div>
+      </div>
+
+      <div class="db-v" id="vReichweite">
+        <h3 data-tip="vReichweite" tabindex="0">Lagerreichweite EK in Tagen</h3>
+        <div class="db-scroll" tabindex="0" role="group" aria-label="Säulendiagramm Lagerreichweite je Blutgruppe mit Grenzlinien bei 2 und 8 Tagen, seitlich scrollbar">
+          <div class="lr">
+            <div>
+              <div class="sd schmal" id="sdReich"></div>
+              <div class="sd-x schmal" id="sxReich"><span></span><div class="z"></div></div>
+            </div>
+            <div class="gesamt">
+              <div class="sd" id="sdReichG" style="grid-template-columns:minmax(0,1fr);min-width:0"></div>
+              <div class="sd-x" id="sxReichG" style="grid-template-columns:minmax(0,1fr);min-width:0"><div class="z"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="db-v" id="vKuerzung" style="margin-top:14px">
+      <h3 data-tip="vKuerzung" tabindex="0">Kürzungsrate Bestellung EK Vortag</h3>
+      <div class="db-scroll" tabindex="0" role="group" aria-label="Matrix Kürzungsrate der Bestellungen je Blutgruppe, seitlich scrollbar">
+        <table class="mx" id="mxKuerzung"></table>
+      </div>
+    </div>
+  </div>
+  <div class="info nachricht" id="nachricht" aria-live="polite">Fahr mit der Maus über ein Element oder tipp es an. Per Tastatur erreichst Du jedes Element mit der Tabulatortaste.</div>
+
+  <h2 class="sec">Warum am Montag die Vorwoche dasteht</h2>
+  <p>Die beiden Plan-Ist-Diagramme zeigen die Tage einer Kalenderwoche, deren Ist-Werte bis zum Vortag reichen. Ein Tag kommt also jeden Morgen dazu, während die Planwerte und die älteren Ist-Werte im Wochenverlauf unverändert stehen bleiben. Am Montag greift ein Sonderfall, da der Vortag dann in der Vorwoche liegt und deshalb die gesamte Vorwoche angezeigt wird.</p>
+  <p>Im Nachbau oben steht der 12.03.2024, also ein Dienstag, weshalb allein der Montag mit einem Ist-Wert besetzt ist und für Dienstag bis Sonntag der Plan ohne schwarze Säule danebensteht. Am Samstag und Sonntag plant die Spende-Organisation mit 166 und 647 Spendern, da an diesen Tagen kaum Spendetermine stattfinden.</p>
+
+  <h2 class="sec">Nachrechnen, was die Matrix ausweist</h2>
+  <p class="sub">Die Kürzungsrate entsteht als Rechnung aus zwei Zeilen der Matrix darüber. Wähl eine Blutgruppe, dann rechnet das Modul den Weg mit Dir nach.</p>
+  <div class="karte">
+    <div class="wsbar" id="rkWahl" role="group" aria-label="Blutgruppe für die Rechenprobe"></div>
+    <div id="rkErgebnis" aria-live="polite"></div>
+  </div>
+  <p class="hinweis">Power BI zeigt die Rate ohne Nachkommastelle, weshalb bei A − eine Rate von −2 % steht, obwohl die Rechnung −1,8 % ergibt. Wer die acht Prozentwerte der Matrix addiert, bekommt den Gesamtwert ohnehin nicht heraus, da jede Rate auf eine andere Bestellmenge bezogen ist.</p>
+
+  <h2 class="sec">Die Lagerreichweite gegen ihre Grenzen lesen</h2>
+  <p class="sub">Zwischen den beiden gelben Linien bei 2 und 8 Tagen liegt der Zielbereich, unterhalb dessen die Versorgung knapp wird und oberhalb dessen Präparate bis zum Verfall liegen bleiben können. Entscheide je Blutgruppe, ob ihre Reichweite darin liegt.</p>
+  <div class="ueb" id="lrUeb"></div>
+  <div class="wsbar" style="margin:14px 0 0">
+    <button class="knopf leise" type="button" id="lrNeu">Noch einmal</button>
+    <span class="hinweis" style="margin:0" id="lrStand"></span>
+  </div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Jede Zahl im Tagesdashboard gehört zu <b>einem bestimmten Tag</b>. Welcher das ist, entscheidet die Filterung der Visualisierung und nicht der Tag des Versands.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 02 ==================== -->
+<section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
+  <p class="claim">Die zweite Seite geht <b>nicht mit heraus</b>, da sie die Bestände an das Paul-Ehrlich-Institut meldet und deshalb zwar im Bericht vorhanden, im Versand aber ausgeblendet ist.</p>
+
+  <h2 class="sec">Der Nachbau der zweiten Seite</h2>
+  <p class="sub">Zwei Datenschnitte und eine Tabelle, mehr steht auf dieser Seite nicht. Die Werte sind die vom 13.05.2024, da die Anwenderdokumentation diese Seite mit einem anderen Stand abbildet als die erste.</p>
+  <div class="db" id="db2">
+    <div class="db-kopf">
+      <div class="db-titel"><span class="t">Aktuelle Bestände</span></div>
+      <div class="db-marke">
+        <svg class="kreuz" viewBox="0 0 30 30" aria-hidden="true">
+          <path d="M11 2 h8 v9 h9 v8 h-9 v9 h-8 v-9 H2 v-8 h9 z" fill="var(--red)"/>
+        </svg>
+        <span class="mt">Deutsches<br>Rotes Kreuz
+          <span class="ms">Blutspendedienst West</span></span>
+      </div>
+    </div>
+    <div class="db2">
+      <div class="db-sl"><span class="l">Ist / Plan</span><span class="w">Ist</span></div>
+      <div class="db-sl"><span class="l">Datum</span><span class="sel">13.05.2024 <span aria-hidden="true">⌄</span></span></div>
+    </div>
+    <div class="db-scroll" tabindex="0" role="group" aria-label="Tabelle der Bestände je Blutgruppe, seitlich scrollbar">
+      <table class="best" id="tbBestand"></table>
+    </div>
+  </div>
+  <p>Die beiden Datenschnitte sind Filter, die im Bericht selbst stehen, statt im Bereich Filter zu liegen. Über den linken wählst Du zwischen Ist- und Planbeständen, über den rechten den Tag, zu dem die Bestände gelten sollen. Wer eine Seite nicht mitschicken will, blendet sie in der Seitenanzeige über das Augensymbol aus, da ausgeblendete Seiten beim Export und bei einer Veröffentlichung unberücksichtigt bleiben.</p>
+
+  <h2 class="sec">Welche Filter an welcher Visualisierung hängen</h2>
+  <p class="sub">Ein Filter in Power BI wirkt auf eine einzelne Visualisierung, auf eine Berichtsseite oder auf den ganzen Bericht, weshalb dieselbe Größe an zwei Stellen verschieden aussehen kann. Die Tabelle nennt je Visualisierung des Tagesdashboards, was dort eingestellt ist.</p>
+  <div class="tblw" tabindex="0" role="group" aria-label="Filterungen je Visualisierung, seitlich scrollbar">
+    <table class="tbl" id="tbFilter"></table>
+  </div>
+  <p class="hinweis">Dynamisch heißt, dass der Filter das Datum selbst mitführt, während manuell bedeutet, dass jemand ihn vor dem Versand von Hand umstellt. Welche beiden Filter das im Tagesdashboard sind, steht in Lektion 05.</p>
+
+  <h2 class="sec">Wo eine Farbe eine Aussage ist</h2>
+  <p class="sub">Vier Stellen des Berichts färben sich nach ihrem Wert. Die Regel dahinter heißt in Power BI bedingte Formatierung und steht in den Formatierungseinstellungen der jeweiligen Visualisierung.</p>
+  <div class="tblw" tabindex="0" role="group" aria-label="Regeln der bedingten Formatierung, seitlich scrollbar">
+    <table class="tbl" id="tbFarben"></table>
+  </div>
+  <p>Die Hexadezimalwerte stehen im Abschnitt Standards der Anwenderdokumentation und gelten für alle drei Dashboards. Wer eine neue Visualisierung baut, nimmt sie von dort, damit die Berichte untereinander dieselbe Sprache sprechen.</p>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Eine Farbe im Bericht ist <b>eine Regel und keine Gestaltung</b>, weshalb Du sie in den Formatierungseinstellungen der Visualisierung nachlesen kannst.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 03 ==================== -->
+<section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
+  <p class="claim">Das Glossar führt jeden Begriff des Tagesdashboards auf, einschließlich der Abkürzungen, die in der Vorlage ohne Erklärung stehen. Mit <b>„Im Bericht zeigen“</b> springst Du an die Stelle, an der ein Begriff im Nachbau vorkommt.</p>
+
+  <h2 class="sec">Begriffe, Kennzahlen und Farben des Tagesdashboards</h2>
+  <p class="sub">Die Erläuterungen sind die der Anwenderdokumentation, und unter jedem Begriff steht der Wert, den er im Nachbau der ersten Lektion zeigt. <!-- sprache:ok, zwei Angaben zu derselben Liste --></p>
+  <input class="gl-such" id="glSuche" type="search" placeholder="Begriff suchen" aria-label="Glossar durchsuchen">
+  <dl class="gl" id="glListe"></dl>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Hinter jeder Abkürzung des Berichts steht eine Größe mit einer Einheit. <b>EK meint das Erythrozyten-Konzentrat</b>, das in Stück gezählt wird.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 04 ==================== -->
+<section class="panel" id="p-d" role="tabpanel" aria-labelledby="tab-d" hidden>
+  <p class="claim">Das Quiz fragt ab, was im Bericht steht und wie Du es liest, indem es fünf Fragen zufällig aus einem größeren Vorrat zieht. Beim nächsten Durchgang kommen andere fünf.</p>
+
+  <h2 class="sec">Fünf Fragen zum Lesen des Tagesdashboards</h2>
+  <p class="sub">Jede Antwort lässt sich im Nachbau der ersten Lektion ablesen oder aus ihm nachrechnen.</p>
+  <div class="wsbar">
+    <button class="knopf" id="qNew" type="button">Fünf neue Fragen</button>
+    <span class="hinweis" style="margin:0" id="qStand"></span>
+  </div>
+  <div class="qwrap" id="quiz"></div>
+  <div id="qResult" style="margin-top:16px"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Wer eine Frage nicht beantworten kann, findet die Stelle im Bericht über das Glossar, da <b>jede Zahl dort ihren festen Platz hat</b>.</p>
+  </div>
+</section>
+
+<!-- ==================== LEKTION 05 ==================== -->
+<section class="panel" id="p-e" role="tabpanel" aria-labelledby="tab-e" hidden>
+  <p class="claim">Vor jedem Versand sind <b>zwei Filter von Hand</b> zu setzen, während alles andere der Bericht selbst einstellt, weshalb der tägliche Lauf in wenigen Minuten erledigt ist.</p>
+
+  <h2 class="sec">Der tägliche Lauf, Schritt für Schritt</h2>
+  <p class="sub">Die Reihenfolge ist nicht beliebig, da das Aktualisieren der Daten rund dreißig Sekunden braucht und die Filter danach stehen bleiben.</p>
+  <div class="ck" id="ck"></div>
+
+  <div class="pointe">
+    <p class="pk">Die Pointe</p>
+    <p>Ein Bericht, dessen Filter nicht nachgezogen wurden, sieht richtig aus und <b>zeigt die Vorwoche</b>, weshalb der Blick auf das Datum im Titel zum Versand dazugehört.</p>
+  </div>
+</section>
+
+<footer>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.92</span>
+</footer>
+
+</div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s)
+  .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const MINUS = "−";
+const nz = n => n.toLocaleString("de-DE");
+/* Power BI rundet kaufmaennisch von der Null weg. Math.round allein
+   zoege eine negative Haelfte zur Null hin, weshalb hier das Vorzeichen
+   abgespalten wird. */
+const r0 = x => (x < 0 ? -1 : 1) * Math.round(Math.abs(x));
+const vz = (n, k = 0) => (n < 0 ? MINUS : "") + Math.abs(n).toLocaleString("de-DE",
+  {minimumFractionDigits:k, maximumFractionDigits:k});
+
+/* =====================================================================
+   1 . Die Zahlen des Berichtsstands vom 12.03.2024
+
+   Alle Werte stammen aus der Anwenderdokumentation fuer das Reporting
+   des DRK BSD West. Erfunden ist hier nichts.
+   ===================================================================== */
+const STAND = "12.03.2024", KW = "KW 11 2024";
+/* Wochentag, Datum, Spender Ist, Spender Plan, Absatz Ist, Absatz Plan */
+const TAGE = [
+  ["Mo","11.03.2024", 3242, 3282, 2095, 2639],
+  ["Di","12.03.2024", null, 3477, null, 2639],
+  ["Mi","13.03.2024", null, 3350, null, 2639],
+  ["Do","14.03.2024", null, 2954, null, 2639],
+  ["Fr","15.03.2024", null, 3150, null, 2639],
+  ["Sa","16.03.2024", null,  166, null,    0],
+  ["So","17.03.2024", null,  647, null,    0],
+];
+const REICH = [["A +",9.1],["A -",4.8],["AB+",22.1],["AB-",16.8],["B +",10.4],["B -",5.3],["0 +",7.2],["0 -",6.2]];
+const REICH_G = 8.2, GRENZE_U = 2, GRENZE_O = 8;
+/* Blutgruppe, Bestellmenge, Kuerzung der Bestellmenge */
+const KUERZ = [["A +",735,0],["A -",169,-3],["AB+",63,0],["AB-",13,0],
+               ["B +",167,0],["B -",42,-1],["0 +",697,-20],["0 -",241,-8]];
+const BEST = [["A +",9167],["A -",809],["AB+",1185],["AB-",292],
+              ["B +",1715],["B -",147],["0 +",7448],["0 -",1019]];
+const BEST_TAG = "13.05.2024";
+const KPIS = [
+  {id:"kpiSpender", k:"Erschienene Spender Prognose 2024 - Abw. zum Plan aktueller Monat", w:0},
+  {id:"kpiAbsatz",  k:"Absatz EK Prognose 2024 - Abw. zum Plan aktueller Monat", w:-6},
+];
+const SUM_BEST  = KUERZ.reduce((s,p) => s + p[1], 0);
+const SUM_KUERZ = KUERZ.reduce((s,p) => s + p[2], 0);
+const SUM_BESTAND = BEST.reduce((s,p) => s + p[1], 0);
+
+/* =====================================================================
+   2 . Die Erlaeuterungen
+
+   w ist die Erlaeuterung aus der Anwenderdokumentation, bsp der Wert,
+   den das Element im Nachbau oben zeigt.
+   ===================================================================== */
+const TIPS = {
+  titel:{t:"Titel und Datumsanzeige",
+    w:"Im Titel steht das aktuelle Datum, an dem der Bericht versendet wird. Die Visualisierung ist eine Karte mit einer dynamischen Filterung auf den aktuellen Tag.",
+    bsp:"Tagesdashboard " + STAND + "<br>Visualisierungstyp: Karte"},
+  marke:{t:"Absender des Berichts",
+    w:"Der Bericht geht vom DRK-Blutspendedienst West an ausgewählte Mitarbeitende, nämlich als PDF per E-Mail.",
+    bsp:"täglich gegen 12:00 Uhr"},
+  kpiSpender:{t:"Erschienene Spender Prognose (Jahr)",
+    w:"Die Karte ermittelt einen Prognosewert der erschienenen Spender für den laufenden Monat und setzt ihn mit dem Planwert des gesamten Monats der Spende-Organisation ins Verhältnis.",
+    bsp:"0 % · Hintergrund grün, da der Wert nicht unter null liegt"},
+  kpiAbsatz:{t:"Absatz EK Prognose (Jahr)",
+    w:"Die Karte rechnet den durchschnittlichen Absatz je Arbeitstag auf den laufenden Monat hoch und teilt ihn durch die geplante Absatzmenge. Eine Unterdeckung steht als negative Zahl, eine Überdeckung als positive.",
+    bsp:MINUS + "6 % · Hintergrund rot, da der Wert unter null liegt"},
+  vSpender:{t:"Erschienene Spender Mo-So",
+    w:"Das gruppierte Säulendiagramm stellt Ist und Plan bis zum Vortag dar, wobei es allein die Wochentage der Kalenderwoche zeigt, in der der Vortag liegt.",
+    bsp:"Ist am 11.03.2024: " + nz(3242) + "<br>Plan am 11.03.2024: " + nz(3282)},
+  vAbsatz:{t:"Absatz EK",
+    w:"Das Diagramm zeigt je Wochentag der aktuellen Woche den geplanten und den tatsächlichen Absatz an Erythrozyten-Konzentraten, womit sich die Abweichung Tag für Tag ablesen lässt.",
+    bsp:"Ist am 11.03.2024: " + nz(2095) + "<br>Plan am 11.03.2024: " + nz(2639)},
+  vReichweite:{t:"Lagerreichweite EK in Tagen",
+    w:"Die Lagerreichweite gibt die Zeit in Tagen wieder, für die der Lagerbestand veräußerbarer Erythrozyten-Konzentrate bei geplantem Abruf ausreicht. Sie steht je Blutgruppe und daneben als Gesamtwert, da sich der Bedarf zwischen den Blutgruppen nicht ausgleichen lässt.",
+    bsp:"Gesamt 8,2 Tage · Zielbereich 2 bis 8 Tage"},
+  vKuerzung:{t:"Kürzungsrate Bestellung EK Vortag",
+    w:"Die Matrix zeigt die Kürzungsrate, die Bestellmenge und die Kürzung der Bestellmenge, jeweils gruppiert nach Blutgruppen und als Gesamtzahl über alle acht. Gefiltert ist dynamisch der Vortag, da die Bestellungen eines laufenden Tages noch nicht vollständig vorliegen.",
+    bsp:"Gesamt: Bestellmenge " + nz(SUM_BEST) + " · Kürzung " + vz(SUM_KUERZ) + " · Rate " + vz(r0(SUM_KUERZ / SUM_BEST * 100)) + " %"},
+  legIst:{t:"Ist",
+    w:"Schwarz steht im gesamten Berichtswesen für das Ist, also für die tatsächlich eingetretene Größe.",
+    bsp:"Hexadezimalwert #000000"},
+  legPlan:{t:"Plan",
+    w:"Grün steht im gesamten Berichtswesen für den Plan, wobei geplante Spender die Anzahl an Spendern meinen, die zu einem Spendetermin erscheinen müsste, um die geplanten EK-Bedarfe zu decken.",
+    bsp:"Hexadezimalwert #548235"},
+  grenze:{t:"Grenzlinie",
+    w:"Die beiden Linien markieren die Unter- und die Obergrenze der Lagerreichweite. Dazwischen liegt der Bereich, in dem die Reichweite im Idealfall liegen sollte.",
+    bsp:"2 und 8 Tage · Hexadezimalwert #ECB10E"},
+  zRate:{t:"Kürzungsrate Bestellungen",
+    w:"Die Kürzungsrate gibt die Abweichung zwischen bestellter und gelieferter Menge in Prozent an, womit sie in einer Zahl sagt, wie gut der Bestand die Nachfrage einer Blutgruppe gedeckt hat.",
+    bsp:"Gesamt " + vz(r0(SUM_KUERZ / SUM_BEST * 100)) + " %"},
+  zMenge:{t:"Bestellmenge",
+    w:"Die von Kunden bestellte Menge an Erythrozyten-Konzentraten, die von der tatsächlich abgesetzten Menge abweichen kann, nämlich dann, wenn der Bestand die Bestellung nicht vollständig deckt.",
+    bsp:"Gesamt " + nz(SUM_BEST) + " Stück"},
+  zKuerz:{t:"Bestellmenge Kürzung",
+    w:"Die Abweichung zwischen tatsächlich abgesetzter und von Kunden bestellter Menge, aus der sich zusammen mit der Bestellmenge die Kürzungsrate darüber errechnet.",
+    bsp:"Gesamt " + vz(SUM_KUERZ) + " Stück"},
+};
+TAGE.forEach(([wt, d, si, sp, ai, ap], i) => {
+  TIPS["sp-" + i] = {t:"Erschienene Spender " + wt + ", " + d,
+    w:si == null
+      ? "Für diesen Tag liegt noch kein Ist-Wert vor, da der Bericht allein abgeschlossene Tage anzeigt, während der Planwert bereits feststeht und deshalb für die ganze Woche dasteht."
+      : "Der Ist-Wert dieses Tages ist abgeschlossen und ändert sich im weiteren Wochenverlauf nicht mehr.",
+    bsp:(si == null ? "" : "Ist " + nz(si) + "<br>") + "Plan " + nz(sp) +
+        (si == null ? "" : "<br>Abweichung " + vz(si - sp) + " (" + vz((si - sp) / sp * 100, 1) + " %)")};
+  TIPS["ab-" + i] = {t:"Absatz EK " + wt + ", " + d,
+    w:ai == null
+      ? "Für diesen Tag liegt noch kein Ist-Wert vor, weil der Bericht allein abgeschlossene Tage zeigt. Am Samstag und am Sonntag plant der Blutspendedienst ohnehin keinen Absatz, weshalb dort auch die grüne Säule bei null bleibt."
+      : "Die an diesem Tag abgesetzte Menge an Erythrozyten-Konzentraten, gegenübergestellt dem geplanten Bedarf, der sich aus den Bestellungen der Kunden ergibt.",
+    bsp:(ai == null ? "" : "Ist " + nz(ai) + "<br>") + "Plan " + nz(ap) +
+        (ai == null ? "" : "<br>Abweichung " + vz(ai - ap) + " (" + vz((ai - ap) / ap * 100, 1) + " %)")};
+});
+REICH.forEach(([bg, w], i) => {
+  const drin = w >= GRENZE_U && w <= GRENZE_O;
+  TIPS["lr-" + i] = {t:"Lagerreichweite " + bg,
+    w:drin ? "Diese Blutgruppe liegt im Zielbereich zwischen zwei und acht Tagen."
+           : (w > GRENZE_O ? "Diese Blutgruppe liegt über der Obergrenze von acht Tagen, weshalb ein Teil des Bestands zu verfallen droht."
+                           : "Diese Blutgruppe liegt unter der Untergrenze von zwei Tagen, weshalb die Versorgung knapp wird."),
+    bsp:vz(w, 1) + " Tage · Zielbereich 2 bis 8 Tage"};
+});
+TIPS["lr-g"] = {t:"Lagerreichweite Gesamt",
+  w:"Die Gesamtreichweite steht in einer eigenen Visualisierung neben den Blutgruppen, da ein Säulendiagramm in Power BI keinen Gesamtwert über alle Kategorien ausweisen kann.",
+  bsp:vz(REICH_G, 1) + " Tage"};
+KUERZ.forEach(([bg, m, k], i) => {
+  TIPS["kz-" + i] = {t:"Kürzung " + bg,
+    w:k === 0 ? "Bei dieser Blutgruppe wurde die Bestellung vollständig beliefert."
+              : "Bei dieser Blutgruppe konnte die Bestellung nicht vollständig beliefert werden.",
+    bsp:"Bestellmenge " + nz(m) + " · Kürzung " + vz(k) + "<br>Rate " + vz(r0(k / m * 100)) + " % (rechnerisch " + vz(k / m * 100, 1) + " %)"};
+});
+
+/* =====================================================================
+   3 . Der Nachbau: Saeulen, Matrix, Karten
+   ===================================================================== */
+/* Zeichnet ein Saeulendiagramm aus Wertepaaren in den Kasten id.
+   paare: [[labelKey, [[wert, klasse], ...], xText], ...]             */
+function sdZeichnen(id, xid, paare, max, ticks, einheit, grenzen){
+  const yh = ticks.map(t => `<span style="bottom:${t / max * 100}%">${einheit(t)}</span>`).join("");
+  const linien = ticks.map(t => `<div class="sd-l" style="bottom:${t / max * 100}%"></div>`).join("")
+    + (grenzen || []).map(g => `<div class="sd-l grenze" style="bottom:${g / max * 100}%"></div>`).join("");
+  const gruppen = paare.map(([key, werte]) => `<div class="sd-g">
+      <div class="sd-paar">${werte.map(([w, kl]) => w == null ? "" :
+        `<div class="sd-s" data-tip="${key}" tabindex="0">
+           <span class="sd-v">${einheit(w, true)}</span>
+           <div class="sd-b ${kl}" style="height:${Math.min(100, w / max * 100)}%"></div>
+         </div>`).join("")}</div>
+    </div>`).join("");
+  $(id).innerHTML = `<div class="sd-y">${yh}</div><div class="sd-p">${linien}${gruppen}</div>`;
+  if(xid) $(xid).querySelector(".z").innerHTML = paare.map(([, , x]) => `<span>${esc(x)}</span>`).join("");
+}
+const tsd = (w, voll) => voll ? nz(w) : (w / 1000) + " Tsd.";
+const tage = (w, voll) => voll ? vz(w, 1) : String(w);
+
+const kurz = d => d.slice(0, 6);
+sdZeichnen("sdSpender", "sxSpender",
+  TAGE.map(([wt, d, si, sp], i) => ["sp-" + i, [[si, "ist"], [sp, "plan"]], kurz(d)]),
+  4000, [0, 2000, 4000], tsd);
+sdZeichnen("sdAbsatz", "sxAbsatz",
+  TAGE.map(([wt, d, si, sp, ai, ap], i) => ["ab-" + i, [[ai, "ist"], [ap, "plan"]], kurz(d)]),
+  3000, [0, 1000, 2000, 3000], tsd);
+sdZeichnen("sdReich", "sxReich",
+  REICH.map(([bg, w], i) => ["lr-" + i, [[w, "blau"]], bg]),
+  23, [0, 5, 10, 15, 20], tage, [GRENZE_U, GRENZE_O]);
+sdZeichnen("sdReichG", "sxReichG",
+  [["lr-g", [[REICH_G, "blau"]], "Gesamt"]],
+  23, [0, 5, 10, 15, 20], tage, [GRENZE_U, GRENZE_O]);
+/* Die Saeule Gesamt steht in einem eigenen Visual. Die Achse dort
+   wiederholt die Beschriftung nicht, da sie direkt daneben steht. */
+$("sdReichG").querySelector(".sd-y")?.remove();
+
+$("dbKpis").innerHTML = KPIS.map(p =>
+  `<div class="db-kpi ${p.w < 0 ? "neg" : "pos"}" data-tip="${p.id}" tabindex="0">
+     <span class="k">${esc(p.k)}</span><span class="w">${vz(p.w)} %</span></div>`).join("");
+
+$("mxKuerzung").innerHTML =
+  `<thead><tr><th></th>${KUERZ.map(([bg]) => `<th>${esc(bg)}</th>`).join("")}<th class="g">Gesamt</th></tr></thead>
+   <tbody>
+     <tr><td data-tip="zRate" tabindex="0">Kürzungsrate Bestellungen</td>${
+       KUERZ.map(([, m, k], i) => {
+         const r = r0(k / m * 100);
+         return `<td class="${r < 0 ? "minus" : ""}" data-tip="kz-${i}" tabindex="0">${vz(r)} %</td>`;
+       }).join("")}<td class="g minus">${vz(r0(SUM_KUERZ / SUM_BEST * 100))} %</td></tr>
+     <tr><td data-tip="zMenge" tabindex="0">Bestellmenge</td>${
+       KUERZ.map(([, m]) => `<td>${nz(m)}</td>`).join("")}<td class="g">${nz(SUM_BEST)}</td></tr>
+     <tr><td data-tip="zKuerz" tabindex="0">Bestellmenge Kürzung</td>${
+       KUERZ.map(([, , k]) => `<td class="${k < 0 ? "minus" : ""}">${k === 0 ? "0" : vz(k)}</td>`).join("")
+       }<td class="g minus">${vz(SUM_KUERZ)}</td></tr>
+   </tbody>`;
+
+$("tbBestand").innerHTML =
+  `<thead><tr><th>Blutgruppen.Blutgruppenkürzel</th><th>Bestand</th></tr></thead>
+   <tbody>${BEST.map(([bg, w]) => `<tr><td>${esc(bg)}</td><td>${nz(w)}</td></tr>`).join("")}
+     <tr class="g"><td>Gesamt</td><td>${nz(SUM_BESTAND)}</td></tr></tbody>`;
+
+/* =====================================================================
+   4 . Das schwebende Erlaeuterungsfeld
+
+   Maus ueber pointerover und pointerout, mit Pruefung auf dasselbe
+   Element. Tastatur ueber focusin. Beruehrung ueber pointerdown.
+   ===================================================================== */
+const tip = $("tip"), db = $("db");
+let tipEl = null;
+function tipHtml(key){
+  const t = TIPS[key]; if(!t) return "";
+  return `<b>${esc(t.t)}</b><span class="was">${esc(t.w)}</span>` +
+    (t.bsp ? `<span class="bsp"><span class="bk">Im Bericht hier</span>${t.bsp}</span>` : "");
+}
+function tipZeigen(el){
+  const key = el.dataset.tip; if(!TIPS[key]) return;
+  tipEl = el;
+  tip.innerHTML = tipHtml(key);
+  tip.classList.add("an");
+  const r = el.getBoundingClientRect(), t = tip.getBoundingClientRect();
+  let x = r.left + r.width / 2 - t.width / 2, y = r.bottom + 8;
+  if(y + t.height > innerHeight - 8) y = r.top - t.height - 8;
+  x = Math.max(8, Math.min(x, innerWidth - t.width - 8));
+  tip.style.left = x + "px"; tip.style.top = Math.max(8, y) + "px";
+  $("nachricht").innerHTML = tipHtml(key);
+}
+function tipWeg(){ tipEl = null; tip.classList.remove("an"); }
+db.addEventListener("pointerover", e => {
+  if(e.pointerType === "touch") return;
+  const el = e.target.closest("[data-tip]"); if(el && el !== tipEl) tipZeigen(el);
+});
+db.addEventListener("pointerout", e => {
+  if(e.pointerType === "touch") return;
+  const from = e.target.closest("[data-tip]");
+  const to = e.relatedTarget?.closest?.("[data-tip]");
+  if(from && to !== from) tipWeg();
+});
+db.addEventListener("focusin", e => { const el = e.target.closest("[data-tip]"); if(el) tipZeigen(el); });
+db.addEventListener("focusout", tipWeg);
+document.addEventListener("pointerdown", e => {
+  if(e.pointerType !== "touch") return;
+  const el = e.target.closest("#db [data-tip]");
+  if(el){ if(el === tipEl) tipWeg(); else tipZeigen(el); } else tipWeg();
+});
+addEventListener("scroll", tipWeg, {passive:true});
+
+/* =====================================================================
+   5 . Der Rundgang durch die erste Seite
+   ===================================================================== */
+const TOUR = [
+  {sel:[".db-kopf"], t:"Titel und Datum",
+   x:"Oben steht, welcher Bericht vor Dir liegt und für welchen Tag er gilt. Das Datum ist eine eigene Karte, die sich dynamisch auf den aktuellen Tag filtert."},
+  {sel:[".db-kpis"], t:"Die beiden Prognosekarten",
+   x:"Beide Karten rechnen den laufenden Monat hoch und vergleichen ihn mit dem Plan. Grün heißt, dass der Wert nicht unter null liegt, rot heißt darunter."},
+  {sel:["#vSpender"], t:"Erschienene Spender Mo-So",
+   x:"Das Diagramm zeigt Ist und Plan je Wochentag der laufenden Kalenderwoche, wobei jeden Morgen ein Ist-Wert dazukommt und die älteren Werte unverändert stehen bleiben."},
+  {sel:["#vAbsatz"], t:"Absatz EK",
+   x:"Daneben läuft dieselbe Darstellung für den Absatz an Erythrozyten-Konzentraten, womit sich Spenderzahl und Absatz Tag für Tag nebeneinanderlegen lassen. Am Wochenende plant der Blutspendedienst keinen Absatz, weshalb dort null steht."},
+  {sel:["#vReichweite"], t:"Lagerreichweite EK in Tagen",
+   x:"Die Reichweite sagt, für wie viele Tage der Bestand bei geplantem Abruf reicht. Die beiden gelben Linien bei 2 und 8 Tagen grenzen den Zielbereich ein."},
+  {sel:["#vKuerzung"], t:"Kürzungsrate Bestellung EK Vortag",
+   x:"Die Matrix stellt der bestellten Menge die Kürzung gegenüber und rechnet daraus die Rate, die als einzige Zeile der Matrix errechnet und nicht erhoben wird. Negative Werte stehen in roter Schrift, was die bedingte Formatierung der Schriftfarbe besorgt."},
+  {sel:[".db-kpis","#vReichweite"], t:"Wie der Bericht zusammenhängt",
+   x:"Die Karten oben prognostizieren den Monat, während die Diagramme die laufende Woche zeigen. Die Reichweite sagt daneben, wie lange der Bestand noch reicht. Zusammen beantworten die drei Ebenen die Frage, ob der Tag Handlungsbedarf bringt."}
+];
+const TOUR_DAUER = 8000;
+const tourBox = document.createElement("div"), tourText = document.createElement("div");
+tourBox.className = "tour-box"; tourText.className = "tour-text";
+tourBox.setAttribute("aria-hidden", "true"); tourText.setAttribute("aria-hidden", "true");
+db.append(tourBox, tourText);
+let tourI = -1, tourLaeuft = false, tourUhr = null;
+$("tourPunkte").innerHTML = TOUR.map(() => "<span></span>").join("");
+
+function tourRahmen(sel){
+  const b = db.getBoundingClientRect();
+  let l = Infinity, o = Infinity, r = -Infinity, u = -Infinity;
+  sel.forEach(s => db.querySelectorAll(s).forEach(e => {
+    const q = e.getBoundingClientRect(); if(!q.width) return;
+    l = Math.min(l, q.left); o = Math.min(o, q.top); r = Math.max(r, q.right); u = Math.max(u, q.bottom);
+  }));
+  if(l === Infinity) return null;
+  return {x:Math.max(4, l - b.left - 6), y:Math.max(4, o - b.top - 6),
+          w:Math.min(db.clientWidth - 8, r - l + 12), h:u - o + 12};
+}
+function tourSetzen(){
+  if(tourI < 0) return;
+  const s = TOUR[tourI], r = tourRahmen(s.sel); if(!r) return;
+  Object.assign(tourBox.style, {left:r.x + "px", top:r.y + "px", width:r.w + "px", height:r.h + "px"});
+  tourText.innerHTML = `<span class="tz">Bereich ${tourI + 1} von ${TOUR.length}</span><b>${esc(s.t)}</b>${esc(s.x)}`;
+  const breite = Math.min(400, db.clientWidth - 24);
+  tourText.style.width = breite + "px";
+  const h = tourText.offsetHeight;
+  let y = r.y + r.h + 10;
+  if(y + h > db.clientHeight - 8) y = Math.max(8, r.y - h - 10);
+  tourText.style.top = y + "px";
+  tourText.style.left = Math.max(12, Math.min(r.x, db.clientWidth - breite - 12)) + "px";
+}
+function tourLeiste(){
+  $("tourStart").textContent = tourLaeuft ? "Pause" : (tourI < 0 ? "Rundgang starten" : "Weiterlaufen");
+  $("tourZurueck").disabled = tourI <= 0;
+  $("tourWeiter").disabled = tourI >= TOUR.length - 1;
+  $("tourStand").textContent = tourI < 0 ? "" : `${TOUR[tourI].t} · ${tourI + 1} von ${TOUR.length}`;
+  [...$("tourPunkte").children].forEach((p, i) => p.classList.toggle("an", i === tourI));
+}
+function tourInsBild(){
+  const b = db.getBoundingClientRect();
+  const oben = b.top + Math.min(parseFloat(tourBox.style.top), parseFloat(tourText.style.top));
+  const unten = b.top + Math.max(parseFloat(tourBox.style.top) + parseFloat(tourBox.style.height),
+                                 parseFloat(tourText.style.top) + tourText.offsetHeight);
+  if(oben >= 0 && unten <= innerHeight) return;
+  const ziel = scrollY + oben - Math.max(12, (innerHeight - (unten - oben)) / 2);
+  scrollTo({top:Math.max(0, ziel), behavior:matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+}
+function tourZeigen(i){
+  tourI = i; db.classList.add("tour-an"); tipWeg();
+  tourSetzen(); tourLeiste(); tourInsBild();
+  $("nachricht").innerHTML = `<b>${esc(TOUR[i].t)}</b><span class="was">${esc(TOUR[i].x)}</span>`;
+  clearTimeout(tourUhr);
+  if(tourLaeuft) tourUhr = setTimeout(() => i + 1 < TOUR.length ? tourZeigen(i + 1) : tourEnde(), TOUR_DAUER);
+}
+function tourEnde(){
+  clearTimeout(tourUhr); tourLaeuft = false; tourI = -1;
+  db.classList.remove("tour-an"); tourLeiste();
+  $("nachricht").innerHTML = "<b>Der Rundgang ist zu Ende.</b><span class=\"was\">Fahr jetzt selbst mit der Maus über ein Element oder tipp es an, dann erscheint seine Erläuterung.</span>";
+}
+$("tourStart").addEventListener("click", () => {
+  if(tourLaeuft){ tourLaeuft = false; clearTimeout(tourUhr); tourLeiste(); return; }
+  tourLaeuft = true; tourZeigen(tourI < 0 ? 0 : tourI);
+});
+$("tourWeiter").addEventListener("click", () => { if(tourI < TOUR.length - 1) tourZeigen(tourI + 1); });
+$("tourZurueck").addEventListener("click", () => { if(tourI > 0) tourZeigen(tourI - 1); });
+db.addEventListener("click", () => { if(tourI >= 0) tourEnde(); });
+addEventListener("resize", tourSetzen);
+if("IntersectionObserver" in window){
+  const beob = new IntersectionObserver(e => {
+    if(e.some(x => x.isIntersecting) && tourI < 0){ beob.disconnect(); tourLaeuft = true; tourZeigen(0); }
+  }, {threshold:0.15});
+  beob.observe(db);
+}
+tourLeiste();
+
+/* =====================================================================
+   6 . Rechenprobe zur Kuerzungsrate
+   ===================================================================== */
+let rkNr = 6;   /* 0 + ist der Fall mit der groessten Kuerzung */
+function rkZeichnen(){
+  $("rkWahl").innerHTML = KUERZ.map(([bg], i) =>
+    `<button class="knopf leise" type="button" data-rk="${i}" aria-pressed="${i === rkNr}"
+       style="${i === rkNr ? "background:var(--teal-dk);color:#fff;border-color:var(--teal-dk)" : ""}">${esc(bg)}</button>`).join("");
+  const [bg, m, k] = KUERZ[rkNr], roh = k / m * 100, ger = r0(roh);
+  $("rkErgebnis").innerHTML = `
+    <table class="tbl" style="border:0">
+      <tbody>
+        <tr><td>Bestellmenge der Blutgruppe ${esc(bg)}</td><td class="r b">${nz(m)}</td></tr>
+        <tr><td>Bestellmenge Kürzung</td><td class="r b">${k === 0 ? "0" : vz(k)}</td></tr>
+        <tr><td>Kürzung geteilt durch Bestellmenge</td><td class="r">${vz(k)} ÷ ${nz(m)} = ${vz(roh / 100, 4)}</td></tr>
+        <tr><td>als Prozentwert</td><td class="r">${vz(roh, 1)} %</td></tr>
+        <tr><td><b>gerundet, wie die Matrix ihn zeigt</b></td><td class="r b ${ger < 0 ? "schlecht" : ""}">${vz(ger)} %</td></tr>
+      </tbody>
+    </table>`;
+}
+$("rkWahl").addEventListener("click", e => {
+  const b = e.target.closest("[data-rk]"); if(!b) return;
+  rkNr = +b.dataset.rk; rkZeichnen();
+});
+rkZeichnen();
+
+/* =====================================================================
+   7 . Uebung zur Lagerreichweite
+   ===================================================================== */
+const LR_ALLE = REICH.concat([["Gesamt", REICH_G]]);
+let lrStand = [];
+const lrDrin = w => w >= GRENZE_U && w <= GRENZE_O;
+function lrNeu(){ lrStand = LR_ALLE.map(() => null); lrZeichnen(); }
+function lrZeichnen(){
+  $("lrUeb").innerHTML = LR_ALLE.map(([bg, w], i) => {
+    const soll = lrDrin(w), gew = lrStand[i];
+    const kl = gew === null ? "" : (gew === soll ? " ok" : " nok");
+    return `<div class="ub${kl}">
+      <div class="ub-t"><b>${esc(bg)}</b><span>${vz(w, 1)} Tage</span></div>
+      <div class="ub-k">
+        <button type="button" data-lr="${i}" data-w="1" aria-pressed="${gew === true}"${gew === null ? "" : " disabled"}>im Zielbereich</button>
+        <button type="button" data-lr="${i}" data-w="0" aria-pressed="${gew === false}"${gew === null ? "" : " disabled"}>außerhalb</button>
+      </div>
+      ${gew === null ? "" : `<p class="ub-w">${
+        gew === soll ? "<b class=\"gut\">Richtig.</b> " : "<b class=\"schlecht\">Daneben.</b> "}${
+        soll ? vz(w, 1) + " Tage liegen zwischen der Untergrenze von zwei und der Obergrenze von acht Tagen."
+             : (w > GRENZE_O
+                ? vz(w, 1) + " Tage liegen über der Obergrenze von acht Tagen. Ein so hoher Bestand bindet Präparate, die anderswo gebraucht werden und bis zum Verfall liegen bleiben können."
+                : vz(w, 1) + " Tage liegen unter der Untergrenze von zwei Tagen, weshalb die Versorgung dieser Blutgruppe knapp wird.")}</p>`}
+    </div>`;
+  }).join("");
+  const fertig = lrStand.filter(x => x !== null).length;
+  const treffer = lrStand.filter((x, i) => x !== null && x === lrDrin(LR_ALLE[i][1])).length;
+  $("lrStand").textContent = fertig === 0
+    ? LR_ALLE.length + " Säulen, entscheide je Säule"
+    : fertig + " von " + LR_ALLE.length + " entschieden · " + treffer + " richtig";
+}
+$("lrUeb").addEventListener("click", e => {
+  const b = e.target.closest("[data-lr]"); if(!b || b.disabled) return;
+  const i = +b.dataset.lr; if(lrStand[i] !== null) return;
+  lrStand[i] = b.dataset.w === "1"; lrZeichnen();
+});
+$("lrNeu").addEventListener("click", lrNeu);
+lrNeu();
+
+/* =====================================================================
+   8 . Die Filterungen je Visualisierung
+   Wortlaut aus der Anwenderdokumentation, Abschnitt Tagesdashboard.
+   ===================================================================== */
+const FILTER = [
+  ["Aktuelle Datumsanzeige", "Karte", [
+    ["Datum – Datum", "Dynamische Filterung des aktuellen Datums.", "dynamisch"]]],
+  ["Erschienene Spender Prognose (Jahr)", "Karte", [
+    ["Datum – Datum", "Dynamische Filterung auf den aktuellen Tag.", "dynamisch"]]],
+  ["Absatz EK Prognose (Jahr)", "Karte", [
+    ["Datum – Datum", "Dynamische Filterung des aktuellen Monats. Am 12.03.2024 müssen die Daten vom 01.03.2024 bis zum 31.03.2024 ausgewählt sein.", "dynamisch"]]],
+  ["Erschienene Spender Mo-So", "Säulendiagramm (gruppiert)", [
+    ["Datum – Datum", "Dynamische Filterung des aktuellen Kalenderjahres, damit die manuelle Wahl der Kalenderwoche übersichtlicher bleibt.", "dynamisch"],
+    ["Datum – Kalenderwoche_Bezeichnung", "Manuelle Filterung der aktuellen Kalenderwoche. Am 12.03.2024 muss „KW 11 2024“ ausgewählt sein.", "manuell"],
+    ["Spender – Wertart Spender", "Filterung auf das Wertfeld „Erschienene Spender“.", "fest"]]],
+  ["Absatz EK", "Säulendiagramm (gruppiert)", [
+    ["Datum – Datum", "Dynamische Filterung des aktuellen Jahres.", "dynamisch"],
+    ["Datum – Kalenderwoche_Bezeichnung", "Filterung auf die aktuelle Kalenderwoche.", "manuell"],
+    ["Vertrieb – Planalternative", "Filterung auf Ist und Plan.", "fest"]]],
+  ["Lagerreichweite EK in Tagen", "zusammengesetztes Säulendiagramm", [
+    ["Datum – Datum", "Dynamische Filterung auf den aktuellen Tag, in beiden Säulendiagrammen des zusammengesetzten Visuals.", "dynamisch"]]],
+  ["Kürzungsrate Bestellung EK Vortag", "Matrix", [
+    ["Bestand – Blutgruppenkürzel", "Filterung auf alle Felder außer „ohne“.", "fest"],
+    ["Datum – Datum", "Dynamische Filterung auf den Vortag. Am 12.03.2024 erscheinen die Daten vom 11.03.2024.", "dynamisch"]]],
+];
+$("tbFilter").innerHTML =
+  `<thead><tr><th>Visualisierung</th><th>Typ</th><th>Attribut</th><th>Filterung</th><th>Art</th></tr></thead>
+   <tbody>${FILTER.map(([v, typ, zeilen]) => zeilen.map(([a, f, art], i) =>
+     `<tr>${i === 0 ? `<td class="b" rowspan="${zeilen.length}">${esc(v)}</td>
+                       <td rowspan="${zeilen.length}">${esc(typ)}</td>` : ""}
+        <td class="id">${esc(a)}</td><td>${esc(f)}</td><td>${esc(art)}</td></tr>`).join("")).join("")}</tbody>`;
+
+const FARBEN = [
+  ["Erschienene Spender Prognose", "Hintergrund grün ab null Prozent, darunter rot.", "#84FD84 / #FF9377"],
+  ["Absatz EK Prognose", "Hintergrund grün ab null Prozent, darunter rot.", "#84FD84 / #FF9377"],
+  ["Kürzungsrate Bestellungen", "Negative Werte in roter Schrift, umgesetzt über die bedingte Formatierung der Schriftfarbe.", "#FF3300"],
+  ["Lagerreichweite EK in Tagen", "Zwei Grenzlinien bei zwei und acht Tagen. Werte dazwischen liegen im Zielbereich.", "#ECB10E"],
+  ["Ist in allen Diagrammen", "Die Ist-Säule steht im gesamten Berichtswesen in Schwarz.", "#000000"],
+  ["Plan in allen Diagrammen", "Die Plan-Säule steht im gesamten Berichtswesen in Grün.", "#548235"],
+];
+$("tbFarben").innerHTML =
+  `<thead><tr><th>Wo</th><th>Regel</th><th>Hexadezimalwert</th></tr></thead>
+   <tbody>${FARBEN.map(([w, r, h]) => `<tr><td class="b">${esc(w)}</td><td>${esc(r)}</td>
+     <td class="id">${h.split(" / ").map(x =>
+       `<span class="sw-f" style="background:${x}"></span>${esc(x)}`).join("<br>")}</td></tr>`).join("")}</tbody>`;
+
+/* =====================================================================
+   9 . Glossar
+   ort nennt den Schluessel des Elements im Nachbau, zu dem gesprungen wird.
+   ===================================================================== */
+const GLOSSAR = [
+  ["Kennzahl","Erschienene Spender Prognose (Jahr)","kpiSpender"],
+  ["Kennzahl","Absatz EK Prognose (Jahr)","kpiAbsatz"],
+  ["Kennzahl","Kürzungsrate Bestellungen","zRate"],
+  ["Kennzahl","Bestellmenge","zMenge"],
+  ["Kennzahl","Bestellmenge Kürzung","zKuerz"],
+  ["Diagramm","Erschienene Spender Mo-So","vSpender"],
+  ["Diagramm","Absatz EK","vAbsatz"],
+  ["Diagramm","Lagerreichweite EK in Tagen","vReichweite"],
+  ["Diagramm","Kürzungsrate Bestellung EK Vortag","vKuerzung"],
+  ["Farbe","Ist","legIst"],
+  ["Farbe","Plan","legPlan"],
+  ["Farbe","Grenzlinie","grenze"],
+  ["Bericht","Titel und Datumsanzeige","titel"],
+  ["Bericht","Absender","marke"],
+  ["Wert","Lagerreichweite Gesamt","lr-g"],
+  ["Wert","Erschienene Spender am 11.03.2024","sp-0"],
+  ["Wert","Absatz EK am 11.03.2024","ab-0"],
+];
+/* Begriffe ohne eigenen Platz im Bericht. Sie stehen in der Dokumentation
+   und gehoeren zum Verstaendnis, haben dort aber kein Element. */
+const GLOSSAR_OHNE = [
+  ["Begriff","EK","Erythrozyten-Konzentrat, das rote Blutkörperchen enthaltende Präparat. Es ist die Hauptgröße aller drei Dashboards und wird in Stück gezählt."],
+  ["Begriff","Erschienene Spender","Die tatsächlich zu einem Spendetermin erschienenen Spender. Geplante Spender sind dagegen die Anzahl, die erscheinen müsste, um die geplanten EK-Bedarfe zu decken."],
+  ["Begriff","Lagerreichweite","Die Zeit in Tagen, für die ein Lagerbestand veräußerbarer EKs bei geplantem Abruf ausreicht."],
+  ["Begriff","Plan SO","Der Planwert der Spende-Organisation für einen vollen Monat. Die Prognose der erschienenen Spender wird mit ihm ins Verhältnis gesetzt."],
+  ["Begriff","Karte","Der Visualisierungstyp für eine einzelne Zahl. Beide Prognosewerte und die Datumsanzeige sind Karten."],
+  ["Begriff","Matrix","Der Visualisierungstyp für eine Kreuztabelle. Die Kürzungsrate ist als Matrix gebaut."],
+  ["Begriff","Zusammengesetzte Visualisierung","Mehrere zu einem Element gruppierte Visuals. Ein einzelner Klick wählt sie nicht aus, weshalb mehrmals geklickt werden muss."],
+  ["Begriff","Bedingte Formatierung","Eine Regel, die Farbe oder Schrift vom Wert abhängig macht. Sie steht in den Formatierungseinstellungen der Visualisierung."],
+  ["Begriff","Datenschnitt","Ein Filter, der als Element im Bericht selbst steht. Auf Seite 2 sind Ist / Plan und Datum als Datenschnitte gebaut."],
+  ["Begriff","PEI","Das Paul-Ehrlich-Institut, an das die Bestände der zweiten Seite übermittelt werden."],
+];
+function glZeichnen(){
+  const s = $("glSuche").value.trim().toLowerCase();
+  const mit = GLOSSAR.filter(([g, t]) => !s || t.toLowerCase().includes(s) || g.toLowerCase().includes(s))
+    .map(([g, t, ort]) => {
+      const tp = TIPS[ort];
+      return `<div class="gl-k"><span class="gl-grp">${esc(g)}</span><dt>${esc(t)}</dt>
+        <dd>${esc(tp.w)}${tp.bsp ? `<span class="gl-bsp"><span class="bk">Im Bericht hier</span>${tp.bsp}</span>` : ""}</dd>
+        <button class="knopf leise" type="button" data-ort="${ort}">Im Bericht zeigen</button></div>`;
+    });
+  const ohne = GLOSSAR_OHNE.filter(([g, t, w]) => !s || t.toLowerCase().includes(s) || w.toLowerCase().includes(s))
+    .map(([g, t, w]) => `<div class="gl-k"><span class="gl-grp">${esc(g)}</span><dt>${esc(t)}</dt><dd>${esc(w)}</dd></div>`);
+  $("glListe").innerHTML = mit.concat(ohne).join("")
+    || `<div class="gl-k"><dt>Kein Treffer</dt><dd>Probier einen kürzeren Suchbegriff.</dd></div>`;
+}
+$("glSuche").addEventListener("input", glZeichnen);
+$("glListe").addEventListener("click", e => {
+  const b = e.target.closest("[data-ort]"); if(!b) return;
+  select(0);
+  const blk = $("p-a").querySelector(".blk");
+  if(blk && blk.dataset.open !== "true") blk.querySelector(".blk-t").click();
+  const el = db.querySelector(`[data-tip="${b.dataset.ort}"]`); if(!el) return;
+  el.scrollIntoView({block:"center", behavior:matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+  el.classList.remove("blink"); void el.offsetWidth; el.classList.add("blink");
+  setTimeout(() => el.focus({preventScroll:true}), 400);
+});
+glZeichnen();
+
+/* =====================================================================
+   10 . Quiz
+   Jede Antwort steht im Nachbau oder laesst sich aus ihm nachrechnen.
+   ===================================================================== */
+const FRAGEN = [
+  ["Von welchem Tag stammen die Daten, die das Tagesdashboard zeigt?",
+   ["Vom abgeschlossenen Vortag", "Vom laufenden Tag", "Vom Vortag der Vorwoche", "Vom letzten Werktag des Vormonats"], 0,
+   "Der Bericht zeigt den abgeschlossenen Vortag, damit die Daten vollständig vorliegen. Deshalb steht im Nachbau am 12.03.2024 allein für den 11.03.2024 ein Ist-Wert."],
+  ["Warum steht an Montagen die vorherige Kalenderwoche im Bericht?",
+   ["Weil der Vortag dann in der Vorwoche liegt", "Weil montags keine Daten geliefert werden",
+    "Weil der Plan montags noch nicht feststeht", "Weil der Bericht montags zweimal verschickt wird"], 0,
+   "Der Bericht zeigt stets den Vortag. An einem Montag ist das der Sonntag der Vorwoche, weshalb die gesamte Vorwoche mit ihren Wochentagen erscheint."],
+  ["Wofür steht die Abkürzung EK in diesem Bericht?",
+   ["Erythrozyten-Konzentrat", "Einkaufskonto", "Erstkontakt", "Eigenkapital"], 0,
+   "Das Erythrozyten-Konzentrat ist die Hauptgröße aller drei Dashboards. Es wird in Stück gezählt und bildet die Grundlage für Absatz, Bestand und Lagerreichweite."],
+  ["Wie viele Spender sind am 11.03.2024 erschienen?",
+   ["3.242", "3.282", "3.477", "2.095"], 0,
+   "Die schwarze Ist-Säule des Montags steht auf 3.242. Die 3.282 daneben sind der Planwert, die 2.095 gehören zum Absatz EK."],
+  ["Welche Abweichung zeigt die Karte Absatz EK Prognose (Jahr)?",
+   [MINUS + "6 %", "0 %", "+6 %", MINUS + "2 %"], 0,
+   "Die Karte steht auf " + MINUS + "6 % und hat deshalb einen roten Hintergrund. Eine Unterdeckung wird als negative Zahl ausgewiesen."],
+  ["Was bedeutet der grüne Hintergrund der Karte Erschienene Spender Prognose?",
+   ["Der Wert liegt nicht unter null Prozent", "Der Plan ist übertroffen",
+    "Die Daten sind aktuell", "Der Wert ist geprüft"], 0,
+   "Die bedingte Formatierung färbt den Hintergrund rot, sobald der Wert unter null Prozent liegt. Bei null Prozent bleibt er deshalb grün, ohne dass der Plan übertroffen wäre."],
+  ["Zwischen welchen Grenzen soll die Lagerreichweite der EKs liegen?",
+   ["2 und 8 Tagen", "0 und 10 Tagen", "5 und 15 Tagen", "1 und 4 Tagen"], 0,
+   "Die beiden gelben Linien markieren die Untergrenze von zwei und die Obergrenze von acht Tagen. Dazwischen liegt der Zielbereich."],
+  ["Welche Blutgruppe hat im Nachbau die höchste Lagerreichweite?",
+   ["AB+ mit 22,1 Tagen", "AB- mit 16,8 Tagen", "B + mit 10,4 Tagen", "A + mit 9,1 Tagen"], 0,
+   "AB+ liegt mit 22,1 Tagen weit über der Obergrenze. Ein so hoher Bestand bindet Präparate, die bis zum Verfall liegen bleiben können."],
+  ["Welche Blutgruppe liegt im Nachbau unter der Untergrenze von zwei Tagen?",
+   ["Keine", "A - mit 4,8 Tagen", "B - mit 5,3 Tagen", "0 - mit 6,2 Tagen"], 0,
+   "Keine der acht Blutgruppen liegt unter zwei Tagen. Die niedrigste ist A - mit 4,8 Tagen, die damit noch im Zielbereich liegt."],
+  ["Wie hoch ist die Gesamtreichweite über alle Blutgruppen?",
+   ["8,2 Tage", "9,1 Tage", "7,2 Tage", "10,4 Tage"], 0,
+   "Die Gesamtreichweite steht mit 8,2 Tagen in einer eigenen Säule rechts. Sie liegt damit knapp über der Obergrenze von acht Tagen."],
+  ["Warum steht die Gesamtreichweite in einer eigenen Visualisierung?",
+   ["Weil ein Säulendiagramm in Power BI keinen Gesamtwert über alle Kategorien ausweist",
+    "Weil sie aus einer anderen Datenquelle stammt",
+    "Weil sie anders gefiltert ist",
+    "Weil sie nur monatlich berechnet wird"], 0,
+   "Die Formateinstellungen für Säulendiagramme kennen keine Angabe des Gesamtwerts über alle Kategorien. Deshalb sind zwei Visuals zu einem zusammengesetzten Element gruppiert."],
+  ["Wie hoch ist die Bestellmenge über alle Blutgruppen am Vortag?",
+   [nz(SUM_BEST), nz(2095), nz(3242), nz(21782)], 0,
+   "Die Matrix weist in der Spalte Gesamt " + nz(SUM_BEST) + " Stück aus. Das ist die Summe der acht Blutgruppen."],
+  ["Wie entsteht die Kürzungsrate der Matrix rechnerisch?",
+   ["Kürzung geteilt durch Bestellmenge", "Bestellmenge geteilt durch Kürzung",
+    "Kürzung geteilt durch Absatz", "Bestellmenge minus Absatz"], 0,
+   "Die Rate gibt die Abweichung zwischen bestellter und gelieferter Menge in Prozent an. Bei 0 + sind das " + vz(-20) + " geteilt durch " + nz(697) + ", also " + vz(-20 / 697 * 100, 1) + " %."],
+  ["Warum ergibt die Summe der acht Prozentwerte in der Matrix nicht den Gesamtwert?",
+   ["Weil jede Rate auf eine andere Bestellmenge bezogen ist",
+    "Weil die Matrix falsch rechnet",
+    "Weil eine Blutgruppe fehlt",
+    "Weil die Werte aus verschiedenen Tagen stammen"], 0,
+   "Eine Rate ist ein Verhältnis und lässt sich nicht addieren. Der Gesamtwert entsteht aus der Gesamtkürzung geteilt durch die Gesamtbestellmenge, also " + vz(SUM_KUERZ) + " geteilt durch " + nz(SUM_BEST) + "."],
+  ["Die Matrix zeigt für A - eine Rate von " + MINUS + "2 %. Was ergibt die Rechnung genau?",
+   [vz(-3 / 169 * 100, 1) + " %", MINUS + "2,0 %", MINUS + "3,0 %", MINUS + "1,0 %"], 0,
+   "Drei gekürzte Stück bei einer Bestellmenge von 169 ergeben " + vz(-3 / 169 * 100, 1) + " %. Power BI zeigt die Rate ohne Nachkommastelle, weshalb dort " + MINUS + "2 % steht."],
+  ["Welche Farbe hat die Ist-Säule in allen Diagrammen des Berichtswesens?",
+   ["Schwarz", "Grün", "Blau", "Grau"], 0,
+   "Der Standard legt Schwarz für das Ist und Grün für den Plan fest. Grau ist für Vorjahreswerte vorgesehen, Blau für den Standardfall ohne eigene Bedeutung."],
+  ["Was zeigt die zweite Seite des Tagesdashboards?",
+   ["Die aktuellen Bestände je Blutgruppe", "Die Spenderentwicklung nach Kalenderwochen",
+    "Die Liquiditätslage", "Die Personalkostenquote"], 0,
+   "Die zweite Seite weist die Ist-Bestände aus, aufgeteilt nach Blutgruppen und als Gesamtzahl. Sie dient der Übermittlung an das Paul-Ehrlich-Institut."],
+  ["Warum geht die zweite Seite nicht mit dem PDF heraus?",
+   ["Sie ist in der Seitenanzeige ausgeblendet", "Sie hat keine Daten",
+    "Sie wird separat gedruckt", "Sie ist passwortgeschützt"], 0,
+   "Eine über das Augensymbol ausgeblendete Seite bleibt beim Export und bei einer Veröffentlichung unberücksichtigt. Im Bericht selbst ist sie weiterhin vorhanden."],
+  ["Welche beiden Filter sind vor dem täglichen Versand von Hand zu setzen?",
+   ["Die Kalenderwoche in Erschienene Spender Mo-So und in Absatz EK",
+    "Das Datum in beiden Prognosekarten",
+    "Die Blutgruppe in der Matrix und in der Lagerreichweite",
+    "Das Jahr auf allen Seiten des Berichts"], 0,
+   "Beide Diagramme filtern auf das Attribut Kalenderwoche_Bezeichnung, das sich nicht dynamisch setzen lässt. Alle übrigen Filter des Tagesdashboards laufen dynamisch mit."],
+  ["Wie lange dauert das Aktualisieren der Daten in Power BI Desktop?",
+   ["Rund 30 Sekunden", "Rund 5 Minuten", "Weniger als eine Sekunde", "Rund 10 Minuten"], 0,
+   "Der Button Aktualisieren steht im Menüband unter Start im Abschnitt Abfragen. Aktuelle Daten stehen ab etwa 12:00 Uhr bereit."],
+  ["Auf welchen Tag filtert die Matrix zur Kürzungsrate?",
+   ["Auf den Vortag", "Auf den aktuellen Tag", "Auf den letzten Freitag", "Auf den Monatsersten"], 0,
+   "Die Filterung ist dynamisch auf den Vortag gesetzt. Am 12.03.2024 erscheinen dort deshalb die Daten vom 11.03.2024."],
+  ["Was ist an der Visualisierung Lagerreichweite technisch besonders?",
+   ["Sie besteht aus zwei zu einem Element gruppierten Visuals",
+    "Sie lädt ihre Daten aus einer Excel-Datei",
+    "Sie stammt aus dem AppSource-Shop",
+    "Sie hat keine Filterung"], 0,
+   "Eine zusammengesetzte Visualisierung lässt sich mit einem einzelnen Klick nicht auswählen. Wer sie anfassen will, klickt mehrmals darauf."],
+  ["Wie viele EKs lagen am 13.05.2024 insgesamt auf Lager?",
+   [nz(SUM_BESTAND), nz(9167), nz(7448), nz(2127)], 0,
+   "Die Tabelle der zweiten Seite weist " + nz(SUM_BESTAND) + " Stück als Gesamtbestand aus. Die " + nz(9167) + " gehören allein zur Blutgruppe A +."],
+  ["Was planen die Kollegen für Samstag und Sonntag beim Absatz EK?",
+   ["Null", "Dieselbe Menge wie werktags", "Die Hälfte der Werktagsmenge", "Das steht nicht im Bericht"], 0,
+   "Für beide Tage steht der Plan auf null. Bei den Spendern plant die Spende-Organisation dagegen mit 166 und 647 Personen."],
+];
+let qAktuell = [];
+const QZAHL = 5;
+const mischen = a => {
+  a = a.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+function qZiehen(){
+  qAktuell = mischen(FRAGEN.map((f, i) => i)).slice(0, QZAHL)
+    .map(i => ({i, ord:mischen(FRAGEN[i][1].map((o, j) => j)), gewaehlt:null}));
+  qRender();
+}
+function qRender(){
+  $("quiz").innerHTML = qAktuell.map((q, n) => {
+    const [text, opts, richtig, begr] = FRAGEN[q.i];
+    return `<div class="qcard">
+      <p class="qn">Frage ${n + 1} von ${QZAHL}</p>
+      <p class="qt">${esc(text)}</p>
+      <div class="qopts">${q.ord.map(j => {
+        let kl = "";
+        if(q.gewaehlt !== null) kl = j === richtig ? " right" : (j === q.gewaehlt ? " wrong" : "");
+        return `<button class="qopt${kl}" type="button" data-q="${n}" data-o="${j}"${
+          q.gewaehlt !== null ? " disabled" : ""}>${esc(opts[j])}</button>`;
+      }).join("")}</div>
+      <p class="qfb"${q.gewaehlt === null ? " hidden" : ""}>${
+        q.gewaehlt === null ? "" :
+        (q.gewaehlt === richtig ? "<b class=\"gut\">Richtig.</b> " : "<b class=\"schlecht\">Daneben.</b> ") + begr}</p>
+    </div>`;
+  }).join("");
+  const fertig  = qAktuell.filter(q => q.gewaehlt !== null).length;
+  const treffer = qAktuell.filter(q => q.gewaehlt === FRAGEN[q.i][2]).length;
+  $("qStand").textContent = fertig === 0
+    ? QZAHL + " Fragen aus einem Vorrat von " + FRAGEN.length
+    : fertig + " von " + QZAHL + " beantwortet · " + treffer + " richtig";
+  $("qResult").innerHTML = fertig < QZAHL ? "" :
+    `<div class="qscore"><b>${treffer} von ${QZAHL} richtig.</b> Der Vorrat umfasst ${FRAGEN.length} Fragen,
+      weshalb ein zweiter Durchgang andere fünf zieht.</div>`;
+}
+$("quiz").addEventListener("click", e => {
+  const b = e.target.closest(".qopt"); if(!b || b.disabled) return;
+  const q = qAktuell[+b.dataset.q]; if(!q || q.gewaehlt !== null) return;
+  q.gewaehlt = +b.dataset.o; qRender();
+});
+$("qNew").addEventListener("click", qZiehen);
+qZiehen();
+
+/* =====================================================================
+   11 . Der Praxiseinstieg
+   ===================================================================== */
+const SCHRITTE = [
+  ["Öffne den produktiven Bericht aus dem Freigabe-Ordner",
+   "Die Verknüpfungen liegen unter <span class=\"mono\">C:\\Freigabe\\Geteilter Ordner (PROD und DEV)\\Dashboards\\Produktiv</span>, wo daneben auch die Anleitung für die Anpassungen am Tagesdashboard und am Wochendashboard steht.",
+   "Wer die Testversion mit dem Suffix <span class=\"mono\">_Test</span> öffnet, arbeitet auf den Daten des Testsystems und verschickt am Ende den falschen Stand."],
+  ["Aktualisiere die Daten und warte den Lauf ab",
+   "Der Button Aktualisieren steht im Menüband unter Start im Abschnitt Abfragen, wobei der Lauf rund dreißig Sekunden braucht, in denen der Bericht nicht zu bedienen ist.",
+   "Vor etwa 12:00 Uhr liegen die Daten des Vortags noch nicht vor. Eine Aktualisierung davor holt den Stand von vorgestern."],
+  ["Setz im Diagramm Erschienene Spender Mo-So die Kalenderwoche",
+   "Wähl die Visualisierung an und stell im Bereich Filter das Attribut <span class=\"mono\">Kalenderwoche_Bezeichnung</span> auf die laufende Woche.",
+   "An einem Montag ist es die Vorwoche, da der Bericht den Vortag zeigt. Genau an dieser Stelle entsteht der häufigste Fehler des täglichen Laufs, weil die Umstellung an einem Tag der Woche anders ausfällt als an den übrigen sechs."],
+  ["Setz dieselbe Kalenderwoche im Diagramm Absatz EK",
+   "Das zweite Diagramm hat denselben Filter und zieht nicht automatisch mit, weshalb beide Diagramme getrennt auf dieselbe Woche zu stellen sind.",
+   "Stehen zwei verschiedene Wochen nebeneinander, fällt das im PDF kaum auf, weil beide Diagramme dieselben Wochentage beschriften."],
+  ["Lies das Datum im Titel gegen den heutigen Tag",
+   "Die Datumsanzeige filtert dynamisch und ist damit die einzige Stelle, die immer stimmt. Sie ist deshalb die Probe darauf, ob die Daten wirklich frisch sind.",
+   "Zeigt der Titel heute und das Diagramm die Vorwoche, ist Schritt drei oder vier offen geblieben."],
+  ["Prüf, dass die zweite Seite ausgeblendet bleibt",
+   "In der Seitenanzeige unten steht das Augensymbol, über das sich eine Seite ausblenden lässt. Eine so ausgeblendete Seite bleibt beim Export in ein PDF und bei einer Veröffentlichung unberücksichtigt.",
+   "Die Bestände der zweiten Seite gehen an das Paul-Ehrlich-Institut und gehören nicht in den täglichen Verteiler."],
+  ["Exportiere den Bericht als PDF",
+   "Der Weg führt über Datei, dann Exportieren, dann In PDF exportieren. Der Bericht öffnet sich daraufhin als PDF im Browser und lässt sich über das Pfeilsymbol herunterladen, bevor er an den Verteiler geht.",
+   "Der Export nimmt den Stand, der gerade angezeigt wird, weshalb jemand, der die Filter danach noch einmal anfasst, ein PDF mit anderen Zahlen in der Hand hält als der Bericht sie zeigt."],
+  ["Verschick das PDF an den Verteiler",
+   "Der Versand erfolgt per E-Mail an die ausgewählten Mitarbeitenden, täglich gegen 12:00 Uhr, also zu der Zeit, zu der die Daten des Vortags vollständig vorliegen.",
+   "Wer den Verteiler ändert, prüft vorher das Berechtigungskonzept, da dort steht, wer welches Dashboard bekommen darf."],
+];
+$("ck").innerHTML = SCHRITTE.map(([t, p, q]) =>
+  `<div class="ckitem"><h3>${esc(t)}</h3><p>${p}</p>
+     <p class="trap"><b>Die Falle:</b> ${q}</p></div>`).join("");
+
+/* =====================================================================
+   12 . Lektionen
+   ===================================================================== */
+const tabs = [...document.querySelectorAll('[role="tab"]')], keys = ["a", "b", "c", "d", "e"];
+function select(i){
+  tabs.forEach((t, j) => {
+    const on = i === j;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    $("p-" + keys[j]).hidden = !on;
+  });
+  dispatchEvent(new Event("resize"));
+}
+tabs.forEach((t, i) => {
+  t.addEventListener("click", () => select(i));
+  t.addEventListener("keydown", e => {
+    const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if(!d) return; e.preventDefault();
+    const n = (i + d + tabs.length) % tabs.length; tabs[n].focus(); select(n);
+  });
+});
+select(0);
+
+/* =====================================================================
+   13 . Bloecke zum Auf- und Zuklappen
+   ===================================================================== */
+function makeBlocks(panel){
+  if(!panel) return 0;
+  const kinder = [...panel.children];
+  const istKopf = n => n.tagName === "H2" && n.classList.contains("sec");
+  const istEnde = n => n.classList.contains("pointe");
+  let i = 0, nr = 0;
+  while(i < kinder.length){
+    if(!istKopf(kinder[i])){ i++; continue; }
+    const h2 = kinder[i], inhalt = [];
+    let j = i + 1;
+    while(j < kinder.length && !istKopf(kinder[j]) && !istEnde(kinder[j])){ inhalt.push(kinder[j]); j++; }
+    nr++;
+    const bid = "blk-" + (panel.id || "p") + "-" + nr;
+    const wrap = document.createElement("section");
+    wrap.className = "blk"; wrap.dataset.open = "false";
+    panel.insertBefore(wrap, h2);
+    h2.innerHTML =
+      `<button class="blk-t" type="button" aria-expanded="false" aria-controls="${bid}">
+         <svg class="blk-c" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2 L8.5 6 L4.5 10"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+         <span>${h2.innerHTML}</span>
+       </button>`;
+    wrap.appendChild(h2);
+    const body = document.createElement("div");
+    body.className = "blk-b"; body.id = bid; body.hidden = true;
+    inhalt.forEach(n => body.appendChild(n));
+    wrap.appendChild(body);
+    i = j;
+  }
+  if(nr) panel.addEventListener("click", e => {
+    const b = e.target.closest(".blk-t"); if(!b) return;
+    const wrap = b.closest(".blk"), body = document.getElementById(b.getAttribute("aria-controls"));
+    const offen = wrap.dataset.open === "true";
+    wrap.dataset.open = String(!offen);
+    b.setAttribute("aria-expanded", String(!offen));
+    body.hidden = offen;
+    if(!offen) dispatchEvent(new Event("resize"));
+  });
+  return nr;
+}
+document.querySelectorAll(".panel").forEach(makeBlocks);
+</script>
+</body>
+</html>
