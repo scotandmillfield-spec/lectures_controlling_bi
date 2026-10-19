@@ -548,6 +548,9 @@ im Pull Request nachfragen statt sie zu ergänzen.
 Wer an einem Modul dieses Falls arbeitet, liest ihn statt `PROJECT-CANON.md`; beide Kanons
 werden nie gemischt.
 
+`KANON-DRK.md` gilt für den DRK-Blutspendedienst West und damit für alles in
+`drk-blutspende/`. Auch er wird mit keinem anderen Kanon gemischt.
+
 Besonders leicht zu übersehen:
 
 - Personen haben **keine Nachnamen**. Sofia, Nguyen, Alex, Anna, Jonas, Klara, Elif.
@@ -608,6 +611,25 @@ Wer eine Zahl dieses Falls ändern will, ändert sie in der Vorlage und erzeugt 
 - **Die Rechercheunterlagen zum Unternehmen bleiben getrennt lesbar.** Lektion 01 gibt sie
   wieder, ohne eine Zahl aus dem Abschluss zu nennen, weil keine der vier Quellen eine enthält.
 
+**[gesetzt] Der DRK-Blutspendedienst West ist der Fall des Einstiegs `drk-blutspende/`.** Er
+steht in `KANON-DRK.md`, dessen Quelle die Anwenderdokumentation für das Reporting des DRK BSD
+West ist (Controlling Innovations Center GmbH, Stand 03.06.2024). Jede Zahl, jeder Begriff und
+jede Farbe der Module dieses Einstiegs stammt von dort.
+
+- **Der Fall ist das Berichtswesen selbst.** Gegenstand sind drei Power-BI-Berichte, die täglich,
+  wöchentlich und monatlich als PDF herausgehen. Ein Modul baut einen Bericht nach und erklärt
+  ihn Element für Element, statt über ihn zu reden.
+- **Keine Personennamen.** Die Vorlage nennt Rollen, weshalb die Module es genauso halten.
+- **Die Farben des Berichts stehen am Nachbau und nicht im `:root`.** Ein Modul dieses Einstiegs
+  bringt die Hexadezimalwerte des DRK-Standards als eigene Eigenschaften an der Fläche des
+  Nachbaus mit (`.db{--d-ist:…}`). Der `:root`-Block bleibt in allen Dateien gleich, und eine
+  Farbe steht weiterhin nirgends direkt in einer Regel. Gegenstand des Moduls sind diese Farben
+  trotzdem, da eine Farbe im Bericht eine Regel ist.
+- **Die Schriftgrößen der Vorlage gelten dort und nicht hier.** Der Standard setzt
+  Achsenbeschriftungen auf 9pt. Für die Module gilt weiterhin die Untergrenze von 15px, weshalb
+  eine Achse im Nachbau kürzer beschriftet sein kann als im Original.
+- **Die Module sind durchgehend deutsch** und auf der Kachel mit `DE` gekennzeichnet.
+
 `vorlesung/supply-chain-controlling.html` gehört zum Thema Supply Chain und arbeitet mit vier Vorlieferanten und eigenen
 Beispielzahlen. Der Grund: Sofias Betrieb hat keine benannten Lieferanten, und der
 Kanon soll nicht um welche erweitert werden, nur damit ein Portfolio vier Punkte bekommt —
@@ -639,7 +661,7 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.91`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.92`.
 Keine Quellenverzeichnisse, keine Legenden, keine Beschreibung des Falls und kein Hinweis
 darauf, woher eine Abbildung stammt. Sie steht in jeder ausgelieferten Datei gleich, im Markup
 als `<footer>` und auf den zweisprachigen Seiten als Eintrag `footer` im `UI`-Wörterbuch. Dort
@@ -648,7 +670,7 @@ ist sie ein einfacher String, weil ein Name und eine Nummer in beiden Sprachen d
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.91</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.92</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
@@ -677,6 +699,7 @@ index.html                       die Weiche — nur für die Entwicklung
 CLAUDE.md                        diese Datei
 PROJECT-CANON.md                 Namen, Zahlen, Festlegungen des Falls um Sofia
 KANON-VERBAND.md                 dasselbe für den zweiten Fall, den Caritasverband
+KANON-DRK.md                     dasselbe für den DRK-Blutspendedienst West
 STILPROBE.md                     wie Maik schreibt, gemessen an seinem Buchtext
 
 vorlesung/                       der Stoff für die Lehrveranstaltungen
@@ -774,9 +797,13 @@ PR #88 bereit, bevor sein erstes Modul geschrieben ist, da die Startseite ohne M
 können muss und der Weg über die vier Schritte oben sonst mitten in der inhaltlichen Arbeit
 liegt.
 
-- **`TOPICS` und `PATHS` sind leer.** Die Startseite zeigt deshalb weder Werkzeugleiste noch
-  Lernpfadzeile, sondern allein einen Satz, der sagt, dass das erste Modul entsteht. Beide
-  Leisten erscheinen von selbst wieder, sobald ein Eintrag in `TOPICS` steht.
+- **[erledigt] Das erste Modul steht.** `tagesdashboard.html` baut die erste Seite des
+  Tagesdashboards nach, mit einer Erläuterung an jedem Element, einem Rundgang, den Filterungen
+  je Visualisierung, einem Glossar und einem Quiz zum Ablesen. `PATHS` bleibt leer, solange es
+  ein einziges Modul ist.
+- **Die Startseite läuft auch ohne Modul.** Sind `TOPICS` und `PATHS` leer, zeigt sie weder
+  Werkzeugleiste noch Lernpfadzeile, sondern allein einen Satz dazu. Beide Leisten erscheinen
+  von selbst wieder, sobald ein Eintrag in `TOPICS` steht.
 - **Zwei Stellen mussten dafür nachgezogen werden**, beide in `drk-blutspende/index.html`. Die
   Zählzeile bleibt leer, solange `TOPICS` leer ist („0 Module“ ist keine Auskunft), und der
   Kasten darunter unterscheidet jetzt zwei Fälle: ein Filter ohne Treffer (`UI.empty`) und ein
