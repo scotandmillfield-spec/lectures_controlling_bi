@@ -1,38 +1,42 @@
-# DRK-Blutspendedienst West — Kanon des Berichtswesens
+# Blutspendedienst — Kanon des Berichtswesens
 
-Dieser Kanon gilt für die Module in `drk-blutspende/`. Seine Quelle ist die
-**Anwenderdokumentation für das Reporting des DRK Blutspendedienst West**, erstellt von der
-Controlling Innovations Center GmbH, Dortmund, Stand 03.06.2024, Version 1.0. Alles hier steht
-dort; erfunden ist nichts. Wer eine Zahl ändern will, ändert sie in der Vorlage und zieht sie
-hier nach.
+Dieser Kanon gilt für die Module in `drk-blutspende/`.
+
+**Sämtliche Zahlen, Standorte, Pfade und Systemnamen dieses Kanons sind erfunden.** Sie bilden
+den Aufbau, die Rechenwege und die Formatierungsregeln eines Berichtswesens ab, wie es ein
+Blutspendedienst führt, ohne Betriebsdaten eines Auftraggebers zu zeigen. Die Vorlage, aus der
+die Struktur stammt, liegt außerhalb dieses Repositorys und wird hier nicht wiedergegeben.
+Wer eine Zahl ändern will, ändert sie hier und zieht sie im Modul nach, damit beide Stellen
+zusammenpassen.
 
 `PROJECT-CANON.md` (Sofia) und `KANON-VERBAND.md` (der Verband) gelten hier nicht. Die drei
 Kanons werden nie gemischt.
 
 ## 1. Die Organisation
 
-Der DRK-Blutspendedienst West gewinnt Blutspenden, stellt daraus Präparate her und setzt sie bei
-Kunden ab. Das Berichtswesen läuft in **Microsoft Power BI Desktop**; die Integration in den
-Power BI Service ist für weitere Entwicklungen vorgesehen.
+Der Blutspendedienst gewinnt Blutspenden, stellt daraus Präparate her und setzt sie bei Kunden
+ab. Das Berichtswesen läuft in **Microsoft Power BI Desktop**; die Integration in den Power BI
+Service ist für weitere Entwicklungen vorgesehen.
 
-- **Keine Personennamen.** Die Dokumentation nennt Rollen (Controlling, Berichtsversender,
-  Mitarbeitende), nicht Personen. Die Module halten es genauso.
-- **Vier Standorte**, die in den Berichten als Zentren erscheinen: **Münster, Breitscheid,
-  Bad Kreuznach, Hagen**. Im Monatsdashboard stehen sie abgekürzt als MS, BS, KH, HA.
-- **Zwei Server.** `DRKDW01` ist die produktive Umgebung, `DRKDW02` das Entwicklungs- und
-  Testsystem. Die Rohdaten stammen aus SAP und stehen täglich ab etwa 12:00 Uhr bereit.
+- **Keine Personennamen und keine Eigennamen.** Genannt werden Rollen (Controlling,
+  Berichtsversender, Mitarbeitende), nicht Personen, sowie Funktionen, nicht Orte.
+- **Vier Standorte**, die in den Berichten als Zentren erscheinen: **Zentrum Nord, Zentrum Süd,
+  Zentrum Ost, Zentrum West**. Im Monatsdashboard stehen sie abgekürzt als N, S, O, W.
+- **Zwei Server.** Der **Produktivserver** führt die ausgelieferten Berichte, der **Testserver**
+  das Entwicklungs- und Testsystem. Die Rohdaten stammen aus dem ERP-System und stehen täglich
+  ab etwa 12:30 Uhr bereit.
 
 ## 2. Die drei Dashboards
 
 | Bericht | Takt | Datenstand | Seiten |
 |---|---|---|---|
-| Tagesdashboard | täglich, gegen 12:00 Uhr | abgeschlossener Vortag | 2, davon eine ausgeblendet |
-| Wochendashboard | wöchentlich, montags gegen 12:00 Uhr | abgeschlossene Vorwoche | 2 |
+| Tagesdashboard | täglich, gegen 13:00 Uhr | abgeschlossener Vortag | 2, davon eine ausgeblendet |
+| Wochendashboard | wöchentlich, montags gegen 13:00 Uhr | abgeschlossene Vorwoche | 2 |
 | Monatsdashboard | monatlich, zu Monatsbeginn | Vormonat | 2 |
 
 Jeder Bericht geht als **PDF per E-Mail** an ausgewählte Mitarbeitende. Die Verknüpfungen liegen
-unter `C:\Freigabe\Geteilter Ordner (PROD und DEV)\Dashboards\Produktiv`, die manuell gepflegten
-Daten unter `\\DRKDW01\Freigabe\Daten Dashboards`.
+unter `L:\Berichtswesen\Dashboards\Produktiv`, die manuell gepflegten Daten unter
+`L:\Berichtswesen\Daten Dashboards`.
 
 ## 3. Begriffe
 
@@ -45,7 +49,8 @@ Daten unter `\\DRKDW01\Freigabe\Daten Dashboards`.
 - **Kürzungsrate Bestellungen** — die Abweichung zwischen bestellter und gelieferter Menge in
   Prozent.
 - **Bestellmenge Kürzung** — die Abweichung zwischen tatsächlich abgesetzter und bestellter Menge.
-- **PEI** — das Paul-Ehrlich-Institut, an das die Bestände gemeldet werden.
+- **Bundesoberbehörde** — die für Blutprodukte zuständige Behörde, an die die Bestände gemeldet
+  werden.
 - Weitere Produktgruppen des Monatsdashboards: **PTK** (Pool-Thrombozytenkonzentrate), **ATK**
   (Apherese-Thrombozytenkonzentrate), **Lyo** (LyoPlas), **Q-GFP** (gefrorenes Frischplasma),
   **Frakt. plasma**.
@@ -82,102 +87,127 @@ Darstellungsformen übereinstimmen.
 **Die Schriftgrößen gelten für Power BI, nicht für die Module.** Dort gilt die Untergrenze von
 15px aus `CLAUDE.md`, weil eine mit 9pt gesetzte Achsenbeschriftung am Beamer unlesbar ist.
 
-## 5. Feste Zahlen — Tagesdashboard, Stand 12.03.2024 **[gesetzt]**
+## 5. Feste Zahlen — Tagesdashboard, Stand 11.02.2026 **[gesetzt]**
 
-Berichtsstand 12.03.2024, Kalenderwoche 11 (11.03. bis 17.03.2024). Grundlage von
-`drk-blutspende/tagesdashboard.html`.
+Berichtsstand 11.02.2026, ein Mittwoch, Kalenderwoche 07 (09.02. bis 15.02.2026). Grundlage von
+`drk-blutspende/tagesdashboard.html`; wer dort eine Zahl ändert, ändert sie auch hier.
 
-- **Erschienene Spender Prognose 2024, Abw. zum Plan aktueller Monat: 0 %** (Hintergrund grün)
-- **Absatz EK Prognose 2024, Abw. zum Plan aktueller Monat: −6 %** (Hintergrund rot)
+- **Erschienene Spender Prognose 2026, Abw. zum Plan aktueller Monat: −3 %** (Hintergrund rot)
+- **Absatz EK Prognose 2026, Abw. zum Plan aktueller Monat: 0 %** (Hintergrund grün)
+
+Die zweite Karte steht bei null Prozent auf Grün, da die bedingte Formatierung erst unterhalb von
+null auf Rot umschlägt. Dieser Fall ist Absicht, weil er im Modul abgefragt wird.
 
 ### Erschienene Spender Mo-So
 
-| | 11.03. | 12.03. | 13.03. | 14.03. | 15.03. | 16.03. | 17.03. |
+| | Mo 09.02. | Di 10.02. | Mi 11.02. | Do 12.02. | Fr 13.02. | Sa 14.02. | So 15.02. |
 |---|---|---|---|---|---|---|---|
-| Ist | 3.242 | | | | | | |
-| Plan | 3.282 | 3.477 | 3.350 | 2.954 | 3.150 | 166 | 647 |
+| Ist | 2.868 | 3.104 | | | | | |
+| Plan | 2.950 | 2.980 | 3.210 | 3.060 | 2.740 | 210 | 580 |
 
 ### Absatz EK
 
-| | 11.03. | 12.03. | 13.03. | 14.03. | 15.03. | 16.03. | 17.03. |
+| | Mo 09.02. | Di 10.02. | Mi 11.02. | Do 12.02. | Fr 13.02. | Sa 14.02. | So 15.02. |
 |---|---|---|---|---|---|---|---|
-| Ist | 2.095 | | | | | | |
-| Plan | 2.639 | 2.639 | 2.639 | 2.639 | 2.639 | 0 | 0 |
+| Ist | 1.902 | 2.140 | | | | | |
+| Plan | 2.280 | 2.280 | 2.280 | 2.280 | 2.280 | 0 | 0 |
+
+**Zwei Ist-Tage sind Absicht.** Der Bericht zeigt den abgeschlossenen Vortag, weshalb an einem
+Mittwoch Montag und Dienstag einen Ist-Wert haben. Daran lässt sich zeigen, dass mit jedem
+Morgen eine schwarze Säule hinzukommt.
 
 ### Lagerreichweite EK in Tagen
 
-A + 9,1 · A − 4,8 · AB+ 22,1 · AB− 16,8 · B + 10,4 · B − 5,3 · 0 + 7,2 · 0 − 6,2 ·
-**Gesamt 8,2**. Grenzlinien bei **2 und 8 Tagen**.
+A + 11,6 · A − 5,2 · AB+ 19,4 · AB− 14,7 · B + 8,1 · B − 2,6 · 0 + 6,5 · 0 − 4,3 ·
+**Gesamt 7,8**. Grenzlinien bei **3 und 9 Tagen**.
 
-### Kürzungsrate Bestellung EK Vortag (11.03.2024)
+Fünf der neun Säulen liegen im Zielbereich (A −, B +, 0 +, 0 − und der Gesamtwert). **B − liegt
+mit 2,6 Tagen unter der Untergrenze**, AB+, AB− und A + liegen über der Obergrenze. Beide Fälle
+kommen vor, damit das Modul beide Richtungen abfragen kann.
+
+### Kürzungsrate Bestellung EK Vortag (10.02.2026)
 
 | | A + | A − | AB+ | AB− | B + | B − | 0 + | 0 − | Gesamt |
 |---|---|---|---|---|---|---|---|---|---|
-| Bestellmenge | 735 | 169 | 63 | 13 | 167 | 42 | 697 | 241 | **2.127** |
-| Bestellmenge Kürzung | 0 | −3 | 0 | 0 | 0 | −1 | −20 | −8 | **−32** |
-| Kürzungsrate | 0 % | −2 % | 0 % | 0 % | 0 % | −2 % | −3 % | −3 % | **−2 %** |
+| Bestellmenge | 812 | 143 | 71 | 18 | 154 | 37 | 738 | 219 | **2.192** |
+| Bestellmenge Kürzung | 0 | −4 | 0 | 0 | −2 | −3 | −26 | −5 | **−40** |
+| Kürzungsrate | 0 % | −3 % | 0 % | 0 % | −1 % | −8 % | −4 % | −2 % | **−2 %** |
 
 **Die Rate ist gerechnet und nicht erhoben.** Sie ergibt sich aus Kürzung geteilt durch
-Bestellmenge und wird ohne Nachkommastelle gezeigt, weshalb bei A − eine Rate von −2 % steht,
-obwohl die Rechnung −1,8 % ergibt. Die Prozentwerte lassen sich deshalb nicht addieren.
+Bestellmenge und wird ohne Nachkommastelle gezeigt, weshalb bei B + eine Rate von −1 % steht,
+obwohl die Rechnung −1,3 % ergibt, und bei A − eine Rate von −3 %, obwohl −2,8 % herauskommt.
+Der Gesamtwert von −2 % entsteht aus −40 geteilt durch 2.192, also aus −1,8 %. Die Prozentwerte
+lassen sich deshalb nicht addieren.
 
-### Bestände, Seite 2, Stand 13.05.2024
+### Bestände, Seite 2, Stand 14.04.2026
 
-A + 9.167 · A − 809 · AB+ 1.185 · AB− 292 · B + 1.715 · B − 147 · 0 + 7.448 · 0 − 1.019 ·
-**Gesamt 21.782**.
+A + 8.421 · A − 936 · AB+ 1.074 · AB− 265 · B + 1.583 · B − 212 · 0 + 6.907 · 0 − 1.148 ·
+**Gesamt 20.546**.
 
-## 6. Feste Zahlen — Wochendashboard, KW 20/2024
+Der Stand weicht von dem der ersten Seite ab, da diese Seite unabhängig vom täglichen Versand
+abgerufen wird. Eine Rechnung, die Bestände und Reichweiten beider Seiten verbindet, ist deshalb
+ausgeschlossen.
 
-Noch nicht in ein Modul übernommen. Die Werte stehen hier, damit sie beim Bau nicht erneut aus
-der Vorlage gelesen werden müssen.
+## 6. Feste Zahlen — Wochendashboard, KW 08/2026
 
-- Liquiditätslage aktuell **41,4 Mio. €**, Hochrechnung **36,0 Mio. €**, beide grün. Die Schwelle
-  für die bedingte Formatierung liegt bei **17.890.000 €**.
-- Kürzungsquote bestellte EK **−8 %** (rot)
-- Prognose Bestand EK Reichweite am Ende der KW: KW 21 **7,4** · KW 22 **6,9** · KW 25 **7,9** ·
-  KW 29 **9,6**
-- Erschienene Spender letzte 7 Tage: Ist **15.250**, Plan **17.645** (Tacho von 14.000 bis 21.000)
-- Verteilung nach Zentren, Ist gegen Plan: Bad Kreuznach **4,1 / 4,9 Tsd.** · Münster
-  **4,0 / 4,8 Tsd.** · Breitscheid **4,0 / 4,5 Tsd.** · Hagen **3,1 / 3,4 Tsd.**
-- Seite 2: Erschienene Spender abgelaufene KW **3.258**, Absatz EK abgelaufene KW **2.541**
-- Notizentext der Vorlage: Absatz EK arbeitstäglich **3.012**, rund 5 % über Plan (**2.872**);
-  erschienene Spender arbeitstäglich **3.050**, rund 14 % unter der Planzahl SO (**3.529**);
-  EK-Reichweite am Ende der KW voraussichtlich rund **7,4 Tage**
+Noch nicht in ein Modul übernommen. Die Werte stehen hier, damit sie beim Bau feststehen und
+nicht beim Schreiben erfunden werden.
 
-Die Säulen der Reichweiteprognose sind bedingt formatiert: 3 bis 5 Tage `#00DE00`, 2,5 bis 2,9
-und 5,1 bis 7 `#F0F08C`, 2 bis 2,4 und 7,1 bis 8 `#FFFF05`, 1,5 bis 1,9 und 8,1 bis unter 10
-`#FFC000`, unter 1,5 und ab 10 `#FF3300`.
+- Liquiditätslage aktuell **38,6 Mio. €**, Hochrechnung **33,2 Mio. €**, beide grün. Die Schwelle
+  für die bedingte Formatierung liegt bei **16.450.000 €**.
+- Kürzungsquote bestellte EK **−7 %** (rot)
+- Prognose Bestand EK Reichweite am Ende der KW: KW 09 **6,8** · KW 10 **7,3** · KW 13 **8,4** ·
+  KW 17 **10,2**
+- Erschienene Spender letzte 7 Tage: Ist **14.780**, Plan **16.920** (Tacho von 13.000 bis 20.000)
+- Verteilung nach Zentren, Ist gegen Plan: Zentrum Nord **4,3 / 5,0 Tsd.** · Zentrum Süd
+  **3,8 / 4,6 Tsd.** · Zentrum Ost **3,6 / 4,2 Tsd.** · Zentrum West **3,1 / 3,1 Tsd.**
+- Seite 2: Erschienene Spender abgelaufene KW **3.106**, Absatz EK abgelaufene KW **2.418**
+- Notizentext: Absatz EK arbeitstäglich **2.884**, rund 4 % über Plan (**2.770**); erschienene
+  Spender arbeitstäglich **2.956**, rund 13 % unter der Planzahl SO (**3.398**); EK-Reichweite am
+  Ende der KW voraussichtlich rund **6,8 Tage**
 
-## 7. Feste Zahlen — Monatsdashboard, Januar 2024
+Die vier Zentren summieren sich auf 14,78 Tsd. im Ist und 16,92 Tsd. im Plan, also auf die
+beiden Werte der Tachonadel, sodass sich die Visualisierungen gegeneinander prüfen lassen.
+
+Die Säulen der Reichweiteprognose sind bedingt formatiert: 4 bis 7 Tage `#00DE00`, 3,5 bis 3,9
+und 7,1 bis 8 `#F0F08C`, 3,0 bis 3,4 und 8,1 bis 9 `#FFFF05`, 2,0 bis 2,9 und 9,1 bis unter 11
+`#FFC000`, unter 2,0 und ab 11 `#FF3300`.
+
+## 7. Feste Zahlen — Monatsdashboard, Januar 2026
 
 Noch nicht in ein Modul übernommen.
 
-- Liquiditätslage aktuell **31,3 Mio.** (grün), Hochrechnung **30,0 Mio.** (grün)
-- Fremdzukauf EK in Stück **0** (grau), Verwurf/Absatz EK **3 %** (rot)
-- Abweichung vom Stellenplan (VZÄ) **−23** (grün), Personalkostenquote **46 %** (gelb)
-- Krankenquote bis 6 Wochen **8 %** (rot), über 6 Wochen **2 %** (gelb)
-- Erschienene Spender **70.221** gegen Plan **77.988** (Tacho von 68.000 bis 88.000),
-  Planabweichung **−10 %** bzw. **−7.767**
-- Planabw. Spender nach Standort: BS **−6 %** · HA **−11 %** · KH **−14 %** · MS **−11 %**
-- Planabw. Absatz nach Produktgruppe: EK **−8 %** · PTK **−8 %** · ATK **−16 %** · Lyo **+30 %** ·
-  Q-GFP **+8 %** · Frakt. plasma **−12 %**
-- Ergebnisentwicklung 2024 in TEUR, kumuliert. Ist Januar **1.512**.
-  Plan: 1.173 · 1.315 · 1.502 · 1.876 · 2.083 · 2.324 · 2.632 · 2.908 · 2.963 · 3.340 · 3.438 ·
-  2.871. Fortgeschrittene Planung: 1.512 · 1.654 · 1.841 · 2.215 · 2.422 · 2.663 · 2.971 · 3.247 ·
-  3.302 · 3.679 · 3.777 · 3.211.
+- Liquiditätslage aktuell **29,4 Mio.** (grün), Hochrechnung **27,8 Mio.** (grün)
+- Fremdzukauf EK in Stück **0** (grau), Verwurf/Absatz EK **4 %** (rot)
+- Abweichung vom Stellenplan (VZÄ) **−19** (grün), Personalkostenquote **48 %** (gelb)
+- Krankenquote bis 6 Wochen **6 %** (rot), über 6 Wochen **3 %** (rot)
+- Erschienene Spender **66.480** gegen Plan **74.300** (Tacho von 64.000 bis 84.000),
+  Planabweichung **−11 %** bzw. **−7.820**
+- Planabw. Spender nach Standort: N **−8 %** · O **−13 %** · S **−12 %** · W **−9 %**
+- Planabw. Absatz nach Produktgruppe: EK **−9 %** · PTK **−6 %** · ATK **−14 %** · Lyo **+26 %** ·
+  Q-GFP **+11 %** · Frakt. plasma **−15 %**
+- Ergebnisentwicklung 2026 in TEUR, kumuliert. Ist Januar **1.384**.
+  Plan: 1.096 · 1.248 · 1.427 · 1.790 · 1.994 · 2.231 · 2.518 · 2.786 · 2.841 · 3.205 · 3.302 ·
+  2.748. Fortgeschrittene Planung: 1.384 · 1.536 · 1.715 · 2.078 · 2.282 · 2.519 · 2.806 ·
+  3.074 · 3.129 · 3.493 · 3.590 · 3.036.
 
-Schwellen der bedingten Formatierung: Liquidität **17.890.000 €**, Verwurf/Absatz **10.000**,
-Personalkostenquote grün bis 45 %, gelb 45 bis 50 %, rot ab 50 %; Krankenquote bis 6 Wochen grün
+Die fortgeschrittene Planung liegt durchgehend 288 TEUR über dem Plan, da sie den Januarvorsprung
+des Ist fortschreibt. Der Dezemberwert fällt in beiden Reihen gegenüber dem November ab, weil die
+kumulierte Reihe den Jahresabschlussbuchungen folgt.
+
+Schwellen der bedingten Formatierung: Liquidität **16.450.000 €**, Verwurf/Absatz **12.000**,
+Personalkostenquote grün bis 44 %, gelb 44 bis 49 %, rot ab 49 %; Krankenquote bis 6 Wochen grün
 bis 4 %, gelb 4 bis 6 %, rot ab 6 %; Krankenquote über 6 Wochen grün bis 2 %, gelb 2 bis 3 %, rot
 ab 3 %.
 
-## 8. Was die Vorlage nicht hergibt
+## 8. Was dieser Kanon nicht hergibt
 
-- **Keine Zeitreihe des Tagesdashboards.** Die Vorlage zeigt einen einzigen Berichtsstand. Eine
-  Übung, die mehrere Tage durchspielt, braucht Zahlen, die es nicht gibt.
+- **Keine Zeitreihe des Tagesdashboards über mehrere Berichtsstände.** Festgelegt ist ein
+  einziger Stand. Eine Übung, die mehrere Tage durchspielt, braucht Zahlen, die hier nicht
+  stehen, weshalb sie erst nach einer Erweiterung dieses Kanons entstehen kann.
 - **Keine Zahlen hinter den Liniendiagrammen** der Spender- und Absatzentwicklung nach
-  Kalenderwochen. Ablesbar sind allein die Größenordnung und der Verlauf.
+  Kalenderwochen. Festgelegt sind allein die Größenordnung und der Verlauf.
 - **Keine Angaben zu Kunden, Preisen und Kosten.** Das Berichtswesen deckt Spender, Absatz,
   Bestand, Liquidität und Personal ab, nicht die Kalkulation.
-- **Kein Berichts- und kein Berechtigungskonzept.** Beide werden in der Vorlage erwähnt und liegen
-  nicht bei.
+- **Kein Berichts- und kein Berechtigungskonzept.** Beide werden in den Modulen erwähnt und sind
+  hier nicht ausformuliert.
