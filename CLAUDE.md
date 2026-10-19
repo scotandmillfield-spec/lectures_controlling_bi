@@ -548,7 +548,7 @@ im Pull Request nachfragen statt sie zu ergänzen.
 Wer an einem Modul dieses Falls arbeitet, liest ihn statt `PROJECT-CANON.md`; beide Kanons
 werden nie gemischt.
 
-`KANON-DRK.md` gilt für den DRK-Blutspendedienst West und damit für alles in
+`KANON-DRK.md` gilt für den Blutspendedienst und damit für alles in
 `drk-blutspende/`. Auch er wird mit keinem anderen Kanon gemischt.
 
 Besonders leicht zu übersehen:
@@ -611,21 +611,31 @@ Wer eine Zahl dieses Falls ändern will, ändert sie in der Vorlage und erzeugt 
 - **Die Rechercheunterlagen zum Unternehmen bleiben getrennt lesbar.** Lektion 01 gibt sie
   wieder, ohne eine Zahl aus dem Abschluss zu nennen, weil keine der vier Quellen eine enthält.
 
-**[gesetzt] Der DRK-Blutspendedienst West ist der Fall des Einstiegs `drk-blutspende/`.** Er
-steht in `KANON-DRK.md`, dessen Quelle die Anwenderdokumentation für das Reporting des DRK BSD
-West ist (Controlling Innovations Center GmbH, Stand 03.06.2024). Jede Zahl, jeder Begriff und
-jede Farbe der Module dieses Einstiegs stammt von dort.
+**[gesetzt] Das Berichtswesen eines Blutspendedienstes ist der Fall des Einstiegs
+`drk-blutspende/`.** Er steht in `KANON-DRK.md`, und zwar vollständig: Jede Zahl, jeder Begriff
+und jede Farbe der Module dieses Einstiegs steht dort.
+
+- **Sämtliche Zahlen dieses Falls sind erfunden.** Der Aufbau einer solchen Berichtsreihe geht
+  auf eine Anwenderdokumentation zurück, die außerhalb dieses Repositorys liegt und hier nicht
+  wiedergegeben wird. Übernommen sind die Struktur, die Rechenwege und die Formatierungsregeln,
+  während Zahlen, Standorte, Pfade und Systemnamen ersetzt sind. Jedes Modul sagt das im
+  zweiten Vorspann, und die Kachel sagt es im letzten Satz.
+- **Die erfundenen Zahlen sind didaktisch gesetzt.** Zwei Ist-Tage statt einem zeigen, dass mit
+  jedem Morgen eine Säule hinzukommt, eine Blutgruppe unter und drei über dem Zielbereich machen
+  beide Richtungen abfragbar, und die Rundung der Kürzungsrate bleibt an zwei Stellen sichtbar.
+  Wer eine Zahl ändert, prüft deshalb, welche Frage damit verschwindet.
 
 - **Der Fall ist das Berichtswesen selbst.** Gegenstand sind drei Power-BI-Berichte, die täglich,
   wöchentlich und monatlich als PDF herausgehen. Ein Modul baut einen Bericht nach und erklärt
   ihn Element für Element, statt über ihn zu reden.
-- **Keine Personennamen.** Die Vorlage nennt Rollen, weshalb die Module es genauso halten.
+- **Keine Personennamen und keine Eigennamen.** Genannt werden Rollen, nicht Personen, sowie
+  Funktionen, nicht Orte.
 - **Die Farben des Berichts stehen am Nachbau und nicht im `:root`.** Ein Modul dieses Einstiegs
-  bringt die Hexadezimalwerte des DRK-Standards als eigene Eigenschaften an der Fläche des
+  bringt die Hexadezimalwerte des Berichtsstandards als eigene Eigenschaften an der Fläche des
   Nachbaus mit (`.db{--d-ist:…}`). Der `:root`-Block bleibt in allen Dateien gleich, und eine
   Farbe steht weiterhin nirgends direkt in einer Regel. Gegenstand des Moduls sind diese Farben
   trotzdem, da eine Farbe im Bericht eine Regel ist.
-- **Die Schriftgrößen der Vorlage gelten dort und nicht hier.** Der Standard setzt
+- **Die Schriftgrößen des Berichtsstandards gelten dort und nicht hier.** Der Standard setzt
   Achsenbeschriftungen auf 9pt. Für die Module gilt weiterhin die Untergrenze von 15px, weshalb
   eine Achse im Nachbau kürzer beschriftet sein kann als im Original.
 - **Die Module sind durchgehend deutsch** und auf der Kachel mit `DE` gekennzeichnet.
@@ -661,7 +671,7 @@ Abbildungen werden **eigenständig neu aufgebaut** und nie reproduziert.
 Quellenangabe (`Horváth 2020, S. 129`) oder als Hinweis im Satz („nach Diederichs 2023“). Das
 ist Zitieren, kein Etikettieren, und bleibt erwünscht.
 
-**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.92`.
+**Die Fußzeile ist eine Zeile:** `Copyright Prof. Dr. Maik Drozdzynski, 2026 · build 0.0.93`.
 Keine Quellenverzeichnisse, keine Legenden, keine Beschreibung des Falls und kein Hinweis
 darauf, woher eine Abbildung stammt. Sie steht in jeder ausgelieferten Datei gleich, im Markup
 als `<footer>` und auf den zweisprachigen Seiten als Eintrag `footer` im `UI`-Wörterbuch. Dort
@@ -670,7 +680,7 @@ ist sie ein einfacher String, weil ein Name und eine Nummer in beiden Sprachen d
 ### Die Buildnummer
 
 Sie steht als Letztes in der Fußzeile jeder ausgelieferten Datei, in der Monospace:
-`<span class='build'>build 0.0.92</span>`. Die einfachen Anführungszeichen sind Absicht — auf
+`<span class='build'>build 0.0.93</span>`. Die einfachen Anführungszeichen sind Absicht — auf
 den drei zweisprachigen Seiten steht die Fußzeile als JavaScript-String in doppelten, und ein
 `class="…"` zerrisse ihn.
 
@@ -699,7 +709,7 @@ index.html                       die Weiche — nur für die Entwicklung
 CLAUDE.md                        diese Datei
 PROJECT-CANON.md                 Namen, Zahlen, Festlegungen des Falls um Sofia
 KANON-VERBAND.md                 dasselbe für den zweiten Fall, den Caritasverband
-KANON-DRK.md                     dasselbe für den DRK-Blutspendedienst West
+KANON-DRK.md                     dasselbe für den Blutspendedienst
 STILPROBE.md                     wie Maik schreibt, gemessen an seinem Buchtext
 
 vorlesung/                       der Stoff für die Lehrveranstaltungen
@@ -811,10 +821,9 @@ liegt.
   bringt, kopiert diese beiden Stellen; dringend ist das nicht, da dort überall Module stehen.
 - **`.toolbar[hidden]{display:none}` ist nötig**, weil `display:flex` ein bloßes `hidden`
   schlägt. `.pathrow` hat dieselbe Regel aus demselben Grund.
-- **Der Fall ist noch nicht festgelegt.** Es gibt keine Kanondatei für den
-  DRK-Blutspendedienst, weil noch keine Vorlage vorliegt. Sie entsteht mit dem ersten Modul,
-  aus dem, was Maik liefert, und nicht vorher. Bis dahin steht in diesem Bereich keine Zahl und
-  kein Sachverhalt über die Organisation.
+- **[erledigt] Der Fall steht in `KANON-DRK.md`.** Die Datei ist mit dem ersten Modul
+  entstanden und hält die erfundenen Zahlen aller drei Dashboards fest, auch die der beiden noch
+  nicht gebauten. Wer eine Zahl in einem Modul ändert, zieht sie dort nach.
 
 **[gesetzt] Eine Startseite führt keine Anleitung.** Der Abschnitt „Ein neues Modul
 aufnehmen" ist aus allen Startseiten heraus, samt Dateibaum, Codeblöcken und den Einträgen

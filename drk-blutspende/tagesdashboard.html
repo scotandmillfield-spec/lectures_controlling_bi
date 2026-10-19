@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Das Tagesdashboard · DRK-Blutspendedienst West</title>
+<title>Das Tagesdashboard · Blutspendedienst</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -189,8 +189,8 @@ footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
    Die Flaeche traegt die Farben des Berichtsstandards als eigene
    Eigenschaften. Sie stehen hier und nicht im :root, da der :root-Block
    in allen Dateien gleich ist und diese Farben zum Gegenstand des
-   Moduls gehoeren. Die Werte stammen aus dem Abschnitt Standards der
-   Anwenderdokumentation.                                             */
+   Moduls gehoeren. Die Werte stammen aus dem Berichtsstandard und
+   stehen in KANON-DRK.md.                                           */
 .db{--d-ist:#000000; --d-plan:#548235; --d-grenze:#ECB10E;
     --d-pos:#84FD84; --d-neutral:#FEFE76; --d-neg:#FF9377;
     --d-rahmen-pos:#2E7D32; --d-rahmen-neg:#C0392B;
@@ -203,7 +203,7 @@ footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
 .db-titel .t{font-weight:700;font-size:1.62rem;letter-spacing:-.01em}
 .db-titel .d{font-weight:700;font-size:1.62rem;font-variant-numeric:tabular-nums}
 .db-marke{display:flex;align-items:center;gap:9px;cursor:help}
-.db-marke .kreuz{width:34px;height:34px;flex:none}
+.db-marke .zeichen{width:30px;height:34px;flex:none}
 .db-marke .mt{font-weight:700;font-size:1.1rem;line-height:1.15}
 .db-marke .ms{display:block;font-weight:400;font-size:1.04rem;color:#3d3d40;
   border-top:1px solid var(--ink);margin-top:3px;padding-top:3px}
@@ -352,10 +352,10 @@ footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
 <div class="wrap">
 
 <header class="masthead">
-  <p class="eyebrow">DRK-Blutspendedienst West · Modul 01 · DE</p>
+  <p class="eyebrow">Blutspendedienst · Modul 01 · DE</p>
   <h1>Das <em>Tagesdashboard</em></h1>
-  <p class="lede">Der Bericht, der jeden Tag gegen 12 Uhr als PDF herausgeht, als Nachbau zum Anfassen. Fahr mit der Maus über ein Element oder tipp es an, dann erscheint seine Erläuterung aus der Anwenderdokumentation.</p>
-  <p class="lede" style="font-size:1.22rem;color:var(--grey);margin-top:14px">Die Werte sind die des Berichtsstands vom 12.03.2024 für die KW 11 (11.03. bis 17.03.2024), die Bestände auf Seite 2 die vom 13.05.2024. Sie stammen aus der Anwenderdokumentation für das Reporting des DRK-Blutspendedienst West, Stand 03.06.2024.</p>
+  <p class="lede">Dieses Modul baut den Bericht nach, der jeden Tag gegen 13 Uhr als PDF herausgeht, sodass Du jedes seiner Elemente anfassen kannst. Fahr mit der Maus über eines davon oder tipp es an, dann erscheint seine Erläuterung.</p>
+  <p class="lede" style="font-size:1.22rem;color:var(--grey);margin-top:14px"><b>Alle Zahlen dieses Moduls sind erfunden.</b> Sie bilden den Aufbau und die Rechenwege eines solchen Berichts ab, ohne Betriebsdaten eines Auftraggebers zu zeigen. Berichtsstand ist der 11.02.2026 für die KW 07 (09.02. bis 15.02.2026), während die Bestände auf Seite 2 zum 14.04.2026 stehen.</p>
 </header>
 
 <div class="tabs" role="tablist" aria-label="Lektionen">
@@ -371,7 +371,7 @@ footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
   <p class="claim">Das Tagesdashboard zeigt auf einer Seite <b>sechs Visualisierungen</b>, deren Datenstand der abgeschlossene Vortag ist, damit alle Zahlen vollständig vorliegen.</p>
 
   <h2 class="sec">Der Nachbau der ersten Seite</h2>
-  <p class="sub">Jedes Element hat eine Erläuterung aus der Anwenderdokumentation. Der Rundgang führt einmal von oben nach unten durch den Bericht und gibt ihn danach frei, sodass Du ihn selbst erkundest.</p>
+  <p class="sub">Jedes Element hat eine Erläuterung, die sagt, was es zeigt und wie es gefiltert ist. Der Rundgang führt einmal von oben nach unten durch den Bericht und gibt ihn danach frei, sodass Du ihn selbst erkundest.</p>
 
   <div class="tour-leiste">
     <button class="knopf" type="button" id="tourStart">Rundgang starten</button>
@@ -384,14 +384,14 @@ footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
   <div class="db" id="db">
     <div class="db-kopf">
       <div class="db-titel" data-tip="titel" tabindex="0">
-        <span class="t">Tagesdashboard</span><span class="d">12.03.2024</span>
+        <span class="t">Tagesdashboard</span><span class="d">11.02.2026</span>
       </div>
       <div class="db-marke" data-tip="marke" tabindex="0">
-        <svg class="kreuz" viewBox="0 0 30 30" aria-hidden="true">
-          <path d="M11 2 h8 v9 h9 v8 h-9 v9 h-8 v-9 H2 v-8 h9 z" fill="var(--red)"/>
+        <svg class="zeichen" viewBox="0 0 26 30" aria-hidden="true">
+          <path d="M13 1 C13 1 24 14 24 20 a11 11 0 0 1 -22 0 C2 14 13 1 13 1 z" fill="var(--red)"/>
         </svg>
-        <span class="mt">Deutsches<br>Rotes Kreuz
-          <span class="ms">Blutspendedienst West</span></span>
+        <span class="mt">Blutspendedienst
+          <span class="ms">Berichtswesen</span></span>
       </div>
     </div>
 
@@ -424,7 +424,7 @@ footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
 
       <div class="db-v" id="vReichweite">
         <h3 data-tip="vReichweite" tabindex="0">Lagerreichweite EK in Tagen</h3>
-        <div class="db-scroll" tabindex="0" role="group" aria-label="Säulendiagramm Lagerreichweite je Blutgruppe mit Grenzlinien bei 2 und 8 Tagen, seitlich scrollbar">
+        <div class="db-scroll" tabindex="0" role="group" aria-label="Säulendiagramm Lagerreichweite je Blutgruppe mit Grenzlinien bei 3 und 9 Tagen, seitlich scrollbar">
           <div class="lr">
             <div>
               <div class="sd schmal" id="sdReich"></div>
@@ -450,7 +450,7 @@ footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
 
   <h2 class="sec">Warum am Montag die Vorwoche dasteht</h2>
   <p>Die beiden Plan-Ist-Diagramme zeigen die Tage einer Kalenderwoche, deren Ist-Werte bis zum Vortag reichen. Ein Tag kommt also jeden Morgen dazu, während die Planwerte und die älteren Ist-Werte im Wochenverlauf unverändert stehen bleiben. Am Montag greift ein Sonderfall, da der Vortag dann in der Vorwoche liegt und deshalb die gesamte Vorwoche angezeigt wird.</p>
-  <p>Im Nachbau oben steht der 12.03.2024, also ein Dienstag, weshalb allein der Montag mit einem Ist-Wert besetzt ist und für Dienstag bis Sonntag der Plan ohne schwarze Säule danebensteht. Am Samstag und Sonntag plant die Spende-Organisation mit 166 und 647 Spendern, da an diesen Tagen kaum Spendetermine stattfinden.</p>
+  <p>Im Nachbau oben steht der 11.02.2026, also ein Mittwoch, weshalb Montag und Dienstag einen Ist-Wert haben und für Mittwoch bis Sonntag der Plan ohne schwarze Säule danebensteht. Am Samstag und Sonntag plant die Spende-Organisation mit 210 und 580 Spendern, da an diesen Tagen kaum Spendetermine stattfinden.</p>
 
   <h2 class="sec">Nachrechnen, was die Matrix ausweist</h2>
   <p class="sub">Die Kürzungsrate entsteht als Rechnung aus zwei Zeilen der Matrix darüber. Wähl eine Blutgruppe, dann rechnet das Modul den Weg mit Dir nach.</p>
@@ -458,10 +458,10 @@ footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
     <div class="wsbar" id="rkWahl" role="group" aria-label="Blutgruppe für die Rechenprobe"></div>
     <div id="rkErgebnis" aria-live="polite"></div>
   </div>
-  <p class="hinweis">Power BI zeigt die Rate ohne Nachkommastelle, weshalb bei A − eine Rate von −2 % steht, obwohl die Rechnung −1,8 % ergibt. Wer die acht Prozentwerte der Matrix addiert, bekommt den Gesamtwert ohnehin nicht heraus, da jede Rate auf eine andere Bestellmenge bezogen ist.</p>
+  <p class="hinweis">Power BI zeigt die Rate ohne Nachkommastelle, weshalb bei B + eine Rate von −1 % steht, obwohl die Rechnung −1,3 % ergibt. Wer die acht Prozentwerte der Matrix addiert, bekommt den Gesamtwert ohnehin nicht heraus, da jede Rate auf eine andere Bestellmenge bezogen ist.</p>
 
   <h2 class="sec">Die Lagerreichweite gegen ihre Grenzen lesen</h2>
-  <p class="sub">Zwischen den beiden gelben Linien bei 2 und 8 Tagen liegt der Zielbereich, unterhalb dessen die Versorgung knapp wird und oberhalb dessen Präparate bis zum Verfall liegen bleiben können. Entscheide je Blutgruppe, ob ihre Reichweite darin liegt.</p>
+  <p class="sub">Zwischen den beiden gelben Linien bei 3 und 9 Tagen liegt der Zielbereich, unterhalb dessen die Versorgung knapp wird und oberhalb dessen Präparate bis zum Verfall liegen bleiben können. Entscheide je Blutgruppe, ob ihre Reichweite darin liegt.</p>
   <div class="ueb" id="lrUeb"></div>
   <div class="wsbar" style="margin:14px 0 0">
     <button class="knopf leise" type="button" id="lrNeu">Noch einmal</button>
@@ -476,24 +476,24 @@ footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
 
 <!-- ==================== LEKTION 02 ==================== -->
 <section class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b" hidden>
-  <p class="claim">Die zweite Seite geht <b>nicht mit heraus</b>, da sie die Bestände an das Paul-Ehrlich-Institut meldet und deshalb zwar im Bericht vorhanden, im Versand aber ausgeblendet ist.</p>
+  <p class="claim">Die zweite Seite geht <b>nicht mit heraus</b>, da sie die Bestände an die zuständige Bundesoberbehörde meldet und deshalb zwar im Bericht vorhanden, im Versand aber ausgeblendet ist.</p>
 
   <h2 class="sec">Der Nachbau der zweiten Seite</h2>
-  <p class="sub">Zwei Datenschnitte und eine Tabelle, mehr steht auf dieser Seite nicht. Die Werte sind die vom 13.05.2024, da die Anwenderdokumentation diese Seite mit einem anderen Stand abbildet als die erste.</p>
+  <p class="sub">Zwei Datenschnitte und eine Tabelle, mehr steht auf dieser Seite nicht. Die Werte stehen zum 14.04.2026, also zu einem anderen Stand als die erste Seite, weil diese Seite unabhängig vom täglichen Versand abgerufen wird.</p>
   <div class="db" id="db2">
     <div class="db-kopf">
       <div class="db-titel"><span class="t">Aktuelle Bestände</span></div>
       <div class="db-marke">
-        <svg class="kreuz" viewBox="0 0 30 30" aria-hidden="true">
-          <path d="M11 2 h8 v9 h9 v8 h-9 v9 h-8 v-9 H2 v-8 h9 z" fill="var(--red)"/>
+        <svg class="zeichen" viewBox="0 0 26 30" aria-hidden="true">
+          <path d="M13 1 C13 1 24 14 24 20 a11 11 0 0 1 -22 0 C2 14 13 1 13 1 z" fill="var(--red)"/>
         </svg>
-        <span class="mt">Deutsches<br>Rotes Kreuz
-          <span class="ms">Blutspendedienst West</span></span>
+        <span class="mt">Blutspendedienst
+          <span class="ms">Berichtswesen</span></span>
       </div>
     </div>
     <div class="db2">
       <div class="db-sl"><span class="l">Ist / Plan</span><span class="w">Ist</span></div>
-      <div class="db-sl"><span class="l">Datum</span><span class="sel">13.05.2024 <span aria-hidden="true">⌄</span></span></div>
+      <div class="db-sl"><span class="l">Datum</span><span class="sel">14.04.2026 <span aria-hidden="true">⌄</span></span></div>
     </div>
     <div class="db-scroll" tabindex="0" role="group" aria-label="Tabelle der Bestände je Blutgruppe, seitlich scrollbar">
       <table class="best" id="tbBestand"></table>
@@ -513,7 +513,7 @@ footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
   <div class="tblw" tabindex="0" role="group" aria-label="Regeln der bedingten Formatierung, seitlich scrollbar">
     <table class="tbl" id="tbFarben"></table>
   </div>
-  <p>Die Hexadezimalwerte stehen im Abschnitt Standards der Anwenderdokumentation und gelten für alle drei Dashboards. Wer eine neue Visualisierung baut, nimmt sie von dort, damit die Berichte untereinander dieselbe Sprache sprechen.</p>
+  <p>Die Hexadezimalwerte stehen im Berichtsstandard und gelten für alle drei Dashboards. Wer eine neue Visualisierung baut, nimmt sie von dort, damit die Berichte untereinander dieselbe Sprache sprechen.</p>
 
   <div class="pointe">
     <p class="pk">Die Pointe</p>
@@ -523,10 +523,10 @@ footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
 
 <!-- ==================== LEKTION 03 ==================== -->
 <section class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
-  <p class="claim">Das Glossar führt jeden Begriff des Tagesdashboards auf, einschließlich der Abkürzungen, die in der Vorlage ohne Erklärung stehen. Mit <b>„Im Bericht zeigen“</b> springst Du an die Stelle, an der ein Begriff im Nachbau vorkommt.</p>
+  <p class="claim">Das Glossar führt jeden Begriff des Tagesdashboards auf, einschließlich der Abkürzungen, die im Bericht selbst ohne Erklärung stehen. Mit <b>„Im Bericht zeigen“</b> springst Du an die Stelle, an der ein Begriff im Nachbau vorkommt.</p>
 
   <h2 class="sec">Begriffe, Kennzahlen und Farben des Tagesdashboards</h2>
-  <p class="sub">Die Erläuterungen sind die der Anwenderdokumentation, und unter jedem Begriff steht der Wert, den er im Nachbau der ersten Lektion zeigt. <!-- sprache:ok, zwei Angaben zu derselben Liste --></p>
+  <p class="sub">Zu jedem Begriff steht die Erläuterung des Berichtswesens, darunter der Wert, den er im Nachbau der ersten Lektion zeigt.</p>
   <input class="gl-such" id="glSuche" type="search" placeholder="Begriff suchen" aria-label="Glossar durchsuchen">
   <dl class="gl" id="glListe"></dl>
 
@@ -560,7 +560,7 @@ footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
   <p class="claim">Vor jedem Versand sind <b>zwei Filter von Hand</b> zu setzen, während alles andere der Bericht selbst einstellt, weshalb der tägliche Lauf in wenigen Minuten erledigt ist.</p>
 
   <h2 class="sec">Der tägliche Lauf, Schritt für Schritt</h2>
-  <p class="sub">Die Reihenfolge ist nicht beliebig, da das Aktualisieren der Daten rund dreißig Sekunden braucht und die Filter danach stehen bleiben.</p>
+  <p class="sub">Die Reihenfolge ist nicht beliebig, da das Aktualisieren der Daten rund eine Minute braucht und die Filter danach stehen bleiben.</p>
   <div class="ck" id="ck"></div>
 
   <div class="pointe">
@@ -570,7 +570,7 @@ footer{margin-top:36px;font-size:1.16rem;color:var(--grey);line-height:1.6;
 </section>
 
 <footer>
-Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.92</span>
+Copyright Prof. Dr. Maik Drozdzynski, 2026 · <span class='build'>build 0.0.93</span>
 </footer>
 
 </div>
@@ -591,33 +591,34 @@ const vz = (n, k = 0) => (n < 0 ? MINUS : "") + Math.abs(n).toLocaleString("de-D
   {minimumFractionDigits:k, maximumFractionDigits:k});
 
 /* =====================================================================
-   1 . Die Zahlen des Berichtsstands vom 12.03.2024
+   1 . Die Zahlen des Berichtsstands vom 11.02.2026
 
-   Alle Werte stammen aus der Anwenderdokumentation fuer das Reporting
-   des DRK BSD West. Erfunden ist hier nichts.
+   Saemtliche Werte sind erfunden und in KANON-DRK.md festgehalten. Sie
+   bilden Aufbau und Rechenwege eines solchen Berichts ab, ohne
+   Betriebsdaten eines Auftraggebers zu zeigen.
    ===================================================================== */
-const STAND = "12.03.2024", KW = "KW 11 2024";
+const STAND = "11.02.2026", KW = "KW 07 2026";
 /* Wochentag, Datum, Spender Ist, Spender Plan, Absatz Ist, Absatz Plan */
 const TAGE = [
-  ["Mo","11.03.2024", 3242, 3282, 2095, 2639],
-  ["Di","12.03.2024", null, 3477, null, 2639],
-  ["Mi","13.03.2024", null, 3350, null, 2639],
-  ["Do","14.03.2024", null, 2954, null, 2639],
-  ["Fr","15.03.2024", null, 3150, null, 2639],
-  ["Sa","16.03.2024", null,  166, null,    0],
-  ["So","17.03.2024", null,  647, null,    0],
+  ["Mo","09.02.2026", 2868, 2950, 1902, 2280],
+  ["Di","10.02.2026", 3104, 2980, 2140, 2280],
+  ["Mi","11.02.2026", null, 3210, null, 2280],
+  ["Do","12.02.2026", null, 3060, null, 2280],
+  ["Fr","13.02.2026", null, 2740, null, 2280],
+  ["Sa","14.02.2026", null,  210, null,    0],
+  ["So","15.02.2026", null,  580, null,    0],
 ];
-const REICH = [["A +",9.1],["A -",4.8],["AB+",22.1],["AB-",16.8],["B +",10.4],["B -",5.3],["0 +",7.2],["0 -",6.2]];
-const REICH_G = 8.2, GRENZE_U = 2, GRENZE_O = 8;
+const REICH = [["A +",11.6],["A -",5.2],["AB+",19.4],["AB-",14.7],["B +",8.1],["B -",2.6],["0 +",6.5],["0 -",4.3]];
+const REICH_G = 7.8, GRENZE_U = 3, GRENZE_O = 9;
 /* Blutgruppe, Bestellmenge, Kuerzung der Bestellmenge */
-const KUERZ = [["A +",735,0],["A -",169,-3],["AB+",63,0],["AB-",13,0],
-               ["B +",167,0],["B -",42,-1],["0 +",697,-20],["0 -",241,-8]];
-const BEST = [["A +",9167],["A -",809],["AB+",1185],["AB-",292],
-              ["B +",1715],["B -",147],["0 +",7448],["0 -",1019]];
-const BEST_TAG = "13.05.2024";
+const KUERZ = [["A +",812,0],["A -",143,-4],["AB+",71,0],["AB-",18,0],
+               ["B +",154,-2],["B -",37,-3],["0 +",738,-26],["0 -",219,-5]];
+const BEST = [["A +",8421],["A -",936],["AB+",1074],["AB-",265],
+              ["B +",1583],["B -",212],["0 +",6907],["0 -",1148]];
+const BEST_TAG = "14.04.2026";
 const KPIS = [
-  {id:"kpiSpender", k:"Erschienene Spender Prognose 2024 - Abw. zum Plan aktueller Monat", w:0},
-  {id:"kpiAbsatz",  k:"Absatz EK Prognose 2024 - Abw. zum Plan aktueller Monat", w:-6},
+  {id:"kpiSpender", k:"Erschienene Spender Prognose 2026 - Abw. zum Plan aktueller Monat", w:-3},
+  {id:"kpiAbsatz",  k:"Absatz EK Prognose 2026 - Abw. zum Plan aktueller Monat", w:0},
 ];
 const SUM_BEST  = KUERZ.reduce((s,p) => s + p[1], 0);
 const SUM_KUERZ = KUERZ.reduce((s,p) => s + p[2], 0);
@@ -626,7 +627,7 @@ const SUM_BESTAND = BEST.reduce((s,p) => s + p[1], 0);
 /* =====================================================================
    2 . Die Erlaeuterungen
 
-   w ist die Erlaeuterung aus der Anwenderdokumentation, bsp der Wert,
+   w ist die Erlaeuterung des Elements, bsp der Wert,
    den das Element im Nachbau oben zeigt.
    ===================================================================== */
 const TIPS = {
@@ -634,23 +635,23 @@ const TIPS = {
     w:"Im Titel steht das aktuelle Datum, an dem der Bericht versendet wird. Die Visualisierung ist eine Karte mit einer dynamischen Filterung auf den aktuellen Tag.",
     bsp:"Tagesdashboard " + STAND + "<br>Visualisierungstyp: Karte"},
   marke:{t:"Absender des Berichts",
-    w:"Der Bericht geht vom DRK-Blutspendedienst West an ausgewählte Mitarbeitende, nämlich als PDF per E-Mail.",
-    bsp:"täglich gegen 12:00 Uhr"},
+    w:"Der Bericht geht vom Blutspendedienst an ausgewählte Mitarbeitende, nämlich als PDF per E-Mail.",
+    bsp:"täglich gegen 13:00 Uhr"},
   kpiSpender:{t:"Erschienene Spender Prognose (Jahr)",
     w:"Die Karte ermittelt einen Prognosewert der erschienenen Spender für den laufenden Monat und setzt ihn mit dem Planwert des gesamten Monats der Spende-Organisation ins Verhältnis.",
-    bsp:"0 % · Hintergrund grün, da der Wert nicht unter null liegt"},
+    bsp:"−3 % · Hintergrund rot, da der Wert unter null liegt"},
   kpiAbsatz:{t:"Absatz EK Prognose (Jahr)",
     w:"Die Karte rechnet den durchschnittlichen Absatz je Arbeitstag auf den laufenden Monat hoch und teilt ihn durch die geplante Absatzmenge. Eine Unterdeckung steht als negative Zahl, eine Überdeckung als positive.",
-    bsp:MINUS + "6 % · Hintergrund rot, da der Wert unter null liegt"},
+    bsp:"0 % · Hintergrund grün, da der Wert nicht unter null liegt"},
   vSpender:{t:"Erschienene Spender Mo-So",
     w:"Das gruppierte Säulendiagramm stellt Ist und Plan bis zum Vortag dar, wobei es allein die Wochentage der Kalenderwoche zeigt, in der der Vortag liegt.",
-    bsp:"Ist am 11.03.2024: " + nz(3242) + "<br>Plan am 11.03.2024: " + nz(3282)},
+    bsp:"Ist am 10.02.2026: " + nz(3104) + "<br>Plan am 10.02.2026: " + nz(2980)},
   vAbsatz:{t:"Absatz EK",
     w:"Das Diagramm zeigt je Wochentag der aktuellen Woche den geplanten und den tatsächlichen Absatz an Erythrozyten-Konzentraten, womit sich die Abweichung Tag für Tag ablesen lässt.",
-    bsp:"Ist am 11.03.2024: " + nz(2095) + "<br>Plan am 11.03.2024: " + nz(2639)},
+    bsp:"Ist am 10.02.2026: " + nz(2140) + "<br>Plan am 10.02.2026: " + nz(2280)},
   vReichweite:{t:"Lagerreichweite EK in Tagen",
     w:"Die Lagerreichweite gibt die Zeit in Tagen wieder, für die der Lagerbestand veräußerbarer Erythrozyten-Konzentrate bei geplantem Abruf ausreicht. Sie steht je Blutgruppe und daneben als Gesamtwert, da sich der Bedarf zwischen den Blutgruppen nicht ausgleichen lässt.",
-    bsp:"Gesamt 8,2 Tage · Zielbereich 2 bis 8 Tage"},
+    bsp:"Gesamt 7,8 Tage · Zielbereich 3 bis 9 Tage"},
   vKuerzung:{t:"Kürzungsrate Bestellung EK Vortag",
     w:"Die Matrix zeigt die Kürzungsrate, die Bestellmenge und die Kürzung der Bestellmenge, jeweils gruppiert nach Blutgruppen und als Gesamtzahl über alle acht. Gefiltert ist dynamisch der Vortag, da die Bestellungen eines laufenden Tages noch nicht vollständig vorliegen.",
     bsp:"Gesamt: Bestellmenge " + nz(SUM_BEST) + " · Kürzung " + vz(SUM_KUERZ) + " · Rate " + vz(r0(SUM_KUERZ / SUM_BEST * 100)) + " %"},
@@ -662,7 +663,7 @@ const TIPS = {
     bsp:"Hexadezimalwert #548235"},
   grenze:{t:"Grenzlinie",
     w:"Die beiden Linien markieren die Unter- und die Obergrenze der Lagerreichweite. Dazwischen liegt der Bereich, in dem die Reichweite im Idealfall liegen sollte.",
-    bsp:"2 und 8 Tage · Hexadezimalwert #ECB10E"},
+    bsp:"3 und 9 Tage · Hexadezimalwert #ECB10E"},
   zRate:{t:"Kürzungsrate Bestellungen",
     w:"Die Kürzungsrate gibt die Abweichung zwischen bestellter und gelieferter Menge in Prozent an, womit sie in einer Zahl sagt, wie gut der Bestand die Nachfrage einer Blutgruppe gedeckt hat.",
     bsp:"Gesamt " + vz(r0(SUM_KUERZ / SUM_BEST * 100)) + " %"},
@@ -690,10 +691,10 @@ TAGE.forEach(([wt, d, si, sp, ai, ap], i) => {
 REICH.forEach(([bg, w], i) => {
   const drin = w >= GRENZE_U && w <= GRENZE_O;
   TIPS["lr-" + i] = {t:"Lagerreichweite " + bg,
-    w:drin ? "Diese Blutgruppe liegt im Zielbereich zwischen zwei und acht Tagen."
-           : (w > GRENZE_O ? "Diese Blutgruppe liegt über der Obergrenze von acht Tagen, weshalb ein Teil des Bestands zu verfallen droht."
-                           : "Diese Blutgruppe liegt unter der Untergrenze von zwei Tagen, weshalb die Versorgung knapp wird."),
-    bsp:vz(w, 1) + " Tage · Zielbereich 2 bis 8 Tage"};
+    w:drin ? "Diese Blutgruppe liegt im Zielbereich zwischen drei und neun Tagen."
+           : (w > GRENZE_O ? "Diese Blutgruppe liegt über der Obergrenze von neun Tagen, weshalb ein Teil des Bestands bis zum Verfall liegen bleiben kann."
+                           : "Diese Blutgruppe liegt unter der Untergrenze von drei Tagen, weshalb die Versorgung knapp wird."),
+    bsp:vz(w, 1) + " Tage · Zielbereich 3 bis 9 Tage"};
 });
 TIPS["lr-g"] = {t:"Lagerreichweite Gesamt",
   w:"Die Gesamtreichweite steht in einer eigenen Visualisierung neben den Blutgruppen, da ein Säulendiagramm in Power BI keinen Gesamtwert über alle Kategorien ausweisen kann.",
@@ -826,7 +827,7 @@ const TOUR = [
   {sel:["#vAbsatz"], t:"Absatz EK",
    x:"Daneben läuft dieselbe Darstellung für den Absatz an Erythrozyten-Konzentraten, womit sich Spenderzahl und Absatz Tag für Tag nebeneinanderlegen lassen. Am Wochenende plant der Blutspendedienst keinen Absatz, weshalb dort null steht."},
   {sel:["#vReichweite"], t:"Lagerreichweite EK in Tagen",
-   x:"Die Reichweite sagt, für wie viele Tage der Bestand bei geplantem Abruf reicht. Die beiden gelben Linien bei 2 und 8 Tagen grenzen den Zielbereich ein."},
+   x:"Die Reichweite sagt, für wie viele Tage der Bestand bei geplantem Abruf reicht. Die beiden gelben Linien bei 3 und 9 Tagen grenzen den Zielbereich ein."},
   {sel:["#vKuerzung"], t:"Kürzungsrate Bestellung EK Vortag",
    x:"Die Matrix stellt der bestellten Menge die Kürzung gegenüber und rechnet daraus die Rate, die als einzige Zeile der Matrix errechnet und nicht erhoben wird. Negative Werte stehen in roter Schrift, was die bedingte Formatierung der Schriftfarbe besorgt."},
   {sel:[".db-kpis","#vReichweite"], t:"Wie der Bericht zusammenhängt",
@@ -953,10 +954,10 @@ function lrZeichnen(){
       </div>
       ${gew === null ? "" : `<p class="ub-w">${
         gew === soll ? "<b class=\"gut\">Richtig.</b> " : "<b class=\"schlecht\">Daneben.</b> "}${
-        soll ? vz(w, 1) + " Tage liegen zwischen der Untergrenze von zwei und der Obergrenze von acht Tagen."
+        soll ? vz(w, 1) + " Tage liegen zwischen der Untergrenze von drei und der Obergrenze von neun Tagen."
              : (w > GRENZE_O
-                ? vz(w, 1) + " Tage liegen über der Obergrenze von acht Tagen. Ein so hoher Bestand bindet Präparate, die anderswo gebraucht werden und bis zum Verfall liegen bleiben können."
-                : vz(w, 1) + " Tage liegen unter der Untergrenze von zwei Tagen, weshalb die Versorgung dieser Blutgruppe knapp wird.")}</p>`}
+                ? vz(w, 1) + " Tage liegen über der Obergrenze von neun Tagen. Ein so hoher Bestand bindet Präparate, die anderswo gebraucht werden und bis zum Verfall liegen bleiben können."
+                : vz(w, 1) + " Tage liegen unter der Untergrenze von drei Tagen, weshalb die Versorgung dieser Blutgruppe knapp wird.")}</p>`}
     </div>`;
   }).join("");
   const fertig = lrStand.filter(x => x !== null).length;
@@ -975,7 +976,7 @@ lrNeu();
 
 /* =====================================================================
    8 . Die Filterungen je Visualisierung
-   Wortlaut aus der Anwenderdokumentation, Abschnitt Tagesdashboard.
+   Festgehalten in KANON-DRK.md, Abschnitt Tagesdashboard.
    ===================================================================== */
 const FILTER = [
   ["Aktuelle Datumsanzeige", "Karte", [
@@ -983,10 +984,10 @@ const FILTER = [
   ["Erschienene Spender Prognose (Jahr)", "Karte", [
     ["Datum – Datum", "Dynamische Filterung auf den aktuellen Tag.", "dynamisch"]]],
   ["Absatz EK Prognose (Jahr)", "Karte", [
-    ["Datum – Datum", "Dynamische Filterung des aktuellen Monats. Am 12.03.2024 müssen die Daten vom 01.03.2024 bis zum 31.03.2024 ausgewählt sein.", "dynamisch"]]],
+    ["Datum – Datum", "Dynamische Filterung des aktuellen Monats. Am 11.02.2026 müssen die Daten vom 01.02.2026 bis zum 28.02.2026 ausgewählt sein.", "dynamisch"]]],
   ["Erschienene Spender Mo-So", "Säulendiagramm (gruppiert)", [
     ["Datum – Datum", "Dynamische Filterung des aktuellen Kalenderjahres, damit die manuelle Wahl der Kalenderwoche übersichtlicher bleibt.", "dynamisch"],
-    ["Datum – Kalenderwoche_Bezeichnung", "Manuelle Filterung der aktuellen Kalenderwoche. Am 12.03.2024 muss „KW 11 2024“ ausgewählt sein.", "manuell"],
+    ["Datum – Kalenderwoche_Bezeichnung", "Manuelle Filterung der aktuellen Kalenderwoche. Am 11.02.2026 muss „KW 07 2026“ ausgewählt sein.", "manuell"],
     ["Spender – Wertart Spender", "Filterung auf das Wertfeld „Erschienene Spender“.", "fest"]]],
   ["Absatz EK", "Säulendiagramm (gruppiert)", [
     ["Datum – Datum", "Dynamische Filterung des aktuellen Jahres.", "dynamisch"],
@@ -996,7 +997,7 @@ const FILTER = [
     ["Datum – Datum", "Dynamische Filterung auf den aktuellen Tag, in beiden Säulendiagrammen des zusammengesetzten Visuals.", "dynamisch"]]],
   ["Kürzungsrate Bestellung EK Vortag", "Matrix", [
     ["Bestand – Blutgruppenkürzel", "Filterung auf alle Felder außer „ohne“.", "fest"],
-    ["Datum – Datum", "Dynamische Filterung auf den Vortag. Am 12.03.2024 erscheinen die Daten vom 11.03.2024.", "dynamisch"]]],
+    ["Datum – Datum", "Dynamische Filterung auf den Vortag. Am 11.02.2026 erscheinen die Daten vom 10.02.2026.", "dynamisch"]]],
 ];
 $("tbFilter").innerHTML =
   `<thead><tr><th>Visualisierung</th><th>Typ</th><th>Attribut</th><th>Filterung</th><th>Art</th></tr></thead>
@@ -1009,7 +1010,7 @@ const FARBEN = [
   ["Erschienene Spender Prognose", "Hintergrund grün ab null Prozent, darunter rot.", "#84FD84 / #FF9377"],
   ["Absatz EK Prognose", "Hintergrund grün ab null Prozent, darunter rot.", "#84FD84 / #FF9377"],
   ["Kürzungsrate Bestellungen", "Negative Werte in roter Schrift, umgesetzt über die bedingte Formatierung der Schriftfarbe.", "#FF3300"],
-  ["Lagerreichweite EK in Tagen", "Zwei Grenzlinien bei zwei und acht Tagen. Werte dazwischen liegen im Zielbereich.", "#ECB10E"],
+  ["Lagerreichweite EK in Tagen", "Zwei Grenzlinien bei drei und neun Tagen. Werte dazwischen liegen im Zielbereich.", "#ECB10E"],
   ["Ist in allen Diagrammen", "Die Ist-Säule steht im gesamten Berichtswesen in Schwarz.", "#000000"],
   ["Plan in allen Diagrammen", "Die Plan-Säule steht im gesamten Berichtswesen in Grün.", "#548235"],
 ];
@@ -1039,10 +1040,10 @@ const GLOSSAR = [
   ["Bericht","Titel und Datumsanzeige","titel"],
   ["Bericht","Absender","marke"],
   ["Wert","Lagerreichweite Gesamt","lr-g"],
-  ["Wert","Erschienene Spender am 11.03.2024","sp-0"],
-  ["Wert","Absatz EK am 11.03.2024","ab-0"],
+  ["Wert","Erschienene Spender am 10.02.2026","sp-1"],
+  ["Wert","Absatz EK am 10.02.2026","ab-1"],
 ];
-/* Begriffe ohne eigenen Platz im Bericht. Sie stehen in der Dokumentation
+/* Begriffe ohne eigenen Platz im Bericht. Sie stehen im Berichtswesen
    und gehoeren zum Verstaendnis, haben dort aber kein Element. */
 const GLOSSAR_OHNE = [
   ["Begriff","EK","Erythrozyten-Konzentrat, das rote Blutkörperchen enthaltende Präparat. Es ist die Hauptgröße aller drei Dashboards und wird in Stück gezählt."],
@@ -1054,7 +1055,7 @@ const GLOSSAR_OHNE = [
   ["Begriff","Zusammengesetzte Visualisierung","Mehrere zu einem Element gruppierte Visuals. Ein einzelner Klick wählt sie nicht aus, weshalb mehrmals geklickt werden muss."],
   ["Begriff","Bedingte Formatierung","Eine Regel, die Farbe oder Schrift vom Wert abhängig macht. Sie steht in den Formatierungseinstellungen der Visualisierung."],
   ["Begriff","Datenschnitt","Ein Filter, der als Element im Bericht selbst steht. Auf Seite 2 sind Ist / Plan und Datum als Datenschnitte gebaut."],
-  ["Begriff","PEI","Das Paul-Ehrlich-Institut, an das die Bestände der zweiten Seite übermittelt werden."],
+  ["Begriff","Bundesoberbehörde","Die für Blutprodukte zuständige Bundesoberbehörde, an die die Bestände der zweiten Seite gemeldet werden."],
 ];
 function glZeichnen(){
   const s = $("glSuche").value.trim().toLowerCase();
@@ -1090,7 +1091,7 @@ glZeichnen();
 const FRAGEN = [
   ["Von welchem Tag stammen die Daten, die das Tagesdashboard zeigt?",
    ["Vom abgeschlossenen Vortag", "Vom laufenden Tag", "Vom Vortag der Vorwoche", "Vom letzten Werktag des Vormonats"], 0,
-   "Der Bericht zeigt den abgeschlossenen Vortag, damit die Daten vollständig vorliegen. Deshalb steht im Nachbau am 12.03.2024 allein für den 11.03.2024 ein Ist-Wert."],
+   "Der Bericht zeigt den abgeschlossenen Vortag, damit die Daten vollständig vorliegen. Deshalb reichen die Ist-Säulen im Nachbau am 11.02.2026 bis zum 10.02.2026, während für den laufenden Mittwoch allein der Plan dasteht."],
   ["Warum steht an Montagen die vorherige Kalenderwoche im Bericht?",
    ["Weil der Vortag dann in der Vorwoche liegt", "Weil montags keine Daten geliefert werden",
     "Weil der Plan montags noch nicht feststeht", "Weil der Bericht montags zweimal verschickt wird"], 0,
@@ -1098,28 +1099,28 @@ const FRAGEN = [
   ["Wofür steht die Abkürzung EK in diesem Bericht?",
    ["Erythrozyten-Konzentrat", "Einkaufskonto", "Erstkontakt", "Eigenkapital"], 0,
    "Das Erythrozyten-Konzentrat ist die Hauptgröße aller drei Dashboards. Es wird in Stück gezählt und bildet die Grundlage für Absatz, Bestand und Lagerreichweite."],
-  ["Wie viele Spender sind am 11.03.2024 erschienen?",
-   ["3.242", "3.282", "3.477", "2.095"], 0,
-   "Die schwarze Ist-Säule des Montags steht auf 3.242. Die 3.282 daneben sind der Planwert, die 2.095 gehören zum Absatz EK."],
-  ["Welche Abweichung zeigt die Karte Absatz EK Prognose (Jahr)?",
-   [MINUS + "6 %", "0 %", "+6 %", MINUS + "2 %"], 0,
-   "Die Karte steht auf " + MINUS + "6 % und hat deshalb einen roten Hintergrund. Eine Unterdeckung wird als negative Zahl ausgewiesen."],
-  ["Was bedeutet der grüne Hintergrund der Karte Erschienene Spender Prognose?",
+  ["Wie viele Spender sind am Dienstag, dem 10.02.2026, erschienen?",
+   [nz(3104), nz(2980), nz(2868), nz(2140)], 0,
+   "Die schwarze Ist-Säule des Dienstags steht auf " + nz(3104) + ". Die " + nz(2980) + " daneben sind der Planwert, während die " + nz(2868) + " zum Montag gehören."],
+  ["Welche Abweichung zeigt die Karte Erschienene Spender Prognose (Jahr)?",
+   [MINUS + "3 %", "0 %", "+3 %", MINUS + "6 %"], 0,
+   "Die Karte steht auf " + MINUS + "3 % und hat deshalb einen roten Hintergrund. Eine Unterdeckung wird als negative Zahl ausgewiesen."],
+  ["Was bedeutet der grüne Hintergrund der Karte Absatz EK Prognose?",
    ["Der Wert liegt nicht unter null Prozent", "Der Plan ist übertroffen",
     "Die Daten sind aktuell", "Der Wert ist geprüft"], 0,
    "Die bedingte Formatierung färbt den Hintergrund rot, sobald der Wert unter null Prozent liegt. Bei null Prozent bleibt er deshalb grün, ohne dass der Plan übertroffen wäre."],
   ["Zwischen welchen Grenzen soll die Lagerreichweite der EKs liegen?",
-   ["2 und 8 Tagen", "0 und 10 Tagen", "5 und 15 Tagen", "1 und 4 Tagen"], 0,
-   "Die beiden gelben Linien markieren die Untergrenze von zwei und die Obergrenze von acht Tagen. Dazwischen liegt der Zielbereich."],
+   ["3 und 9 Tagen", "0 und 10 Tagen", "5 und 15 Tagen", "1 und 4 Tagen"], 0,
+   "Die beiden gelben Linien markieren die Untergrenze von drei und die Obergrenze von neun Tagen. Dazwischen liegt der Zielbereich."],
   ["Welche Blutgruppe hat im Nachbau die höchste Lagerreichweite?",
-   ["AB+ mit 22,1 Tagen", "AB- mit 16,8 Tagen", "B + mit 10,4 Tagen", "A + mit 9,1 Tagen"], 0,
-   "AB+ liegt mit 22,1 Tagen weit über der Obergrenze. Ein so hoher Bestand bindet Präparate, die bis zum Verfall liegen bleiben können."],
-  ["Welche Blutgruppe liegt im Nachbau unter der Untergrenze von zwei Tagen?",
-   ["Keine", "A - mit 4,8 Tagen", "B - mit 5,3 Tagen", "0 - mit 6,2 Tagen"], 0,
-   "Keine der acht Blutgruppen liegt unter zwei Tagen. Die niedrigste ist A - mit 4,8 Tagen, die damit noch im Zielbereich liegt."],
+   ["AB+ mit 19,4 Tagen", "AB- mit 14,7 Tagen", "A + mit 11,6 Tagen", "B + mit 8,1 Tagen"], 0,
+   "AB+ liegt mit 19,4 Tagen weit über der Obergrenze. Ein so hoher Bestand bindet Präparate, die bis zum Verfall liegen bleiben können."],
+  ["Welche Blutgruppe liegt im Nachbau unter der Untergrenze von drei Tagen?",
+   ["B - mit 2,6 Tagen", "0 - mit 4,3 Tagen", "A - mit 5,2 Tagen", "Keine"], 0,
+   "B - liegt mit 2,6 Tagen unter der Untergrenze, weshalb die Versorgung dieser Blutgruppe knapp wird. Die nächstniedrige ist 0 - mit 4,3 Tagen, die damit im Zielbereich liegt."],
   ["Wie hoch ist die Gesamtreichweite über alle Blutgruppen?",
-   ["8,2 Tage", "9,1 Tage", "7,2 Tage", "10,4 Tage"], 0,
-   "Die Gesamtreichweite steht mit 8,2 Tagen in einer eigenen Säule rechts. Sie liegt damit knapp über der Obergrenze von acht Tagen."],
+   ["7,8 Tage", "8,1 Tage", "6,5 Tage", "11,6 Tage"], 0,
+   "Die Gesamtreichweite steht mit 7,8 Tagen in einer eigenen Säule rechts. Sie liegt damit knapp unter der Obergrenze von neun Tagen."],
   ["Warum steht die Gesamtreichweite in einer eigenen Visualisierung?",
    ["Weil ein Säulendiagramm in Power BI keinen Gesamtwert über alle Kategorien ausweist",
     "Weil sie aus einer anderen Datenquelle stammt",
@@ -1127,28 +1128,28 @@ const FRAGEN = [
     "Weil sie nur monatlich berechnet wird"], 0,
    "Die Formateinstellungen für Säulendiagramme kennen keine Angabe des Gesamtwerts über alle Kategorien. Deshalb sind zwei Visuals zu einem zusammengesetzten Element gruppiert."],
   ["Wie hoch ist die Bestellmenge über alle Blutgruppen am Vortag?",
-   [nz(SUM_BEST), nz(2095), nz(3242), nz(21782)], 0,
+   [nz(SUM_BEST), nz(2140), nz(3104), nz(2232)], 0,
    "Die Matrix weist in der Spalte Gesamt " + nz(SUM_BEST) + " Stück aus. Das ist die Summe der acht Blutgruppen."],
   ["Wie entsteht die Kürzungsrate der Matrix rechnerisch?",
    ["Kürzung geteilt durch Bestellmenge", "Bestellmenge geteilt durch Kürzung",
     "Kürzung geteilt durch Absatz", "Bestellmenge minus Absatz"], 0,
-   "Die Rate gibt die Abweichung zwischen bestellter und gelieferter Menge in Prozent an. Bei 0 + sind das " + vz(-20) + " geteilt durch " + nz(697) + ", also " + vz(-20 / 697 * 100, 1) + " %."],
+   "Die Rate gibt die Abweichung zwischen bestellter und gelieferter Menge in Prozent an. Bei 0 + sind das " + vz(-26) + " geteilt durch " + nz(738) + ", also " + vz(-26 / 738 * 100, 1) + " %."],
   ["Warum ergibt die Summe der acht Prozentwerte in der Matrix nicht den Gesamtwert?",
    ["Weil jede Rate auf eine andere Bestellmenge bezogen ist",
     "Weil die Matrix falsch rechnet",
     "Weil eine Blutgruppe fehlt",
     "Weil die Werte aus verschiedenen Tagen stammen"], 0,
    "Eine Rate ist ein Verhältnis und lässt sich nicht addieren. Der Gesamtwert entsteht aus der Gesamtkürzung geteilt durch die Gesamtbestellmenge, also " + vz(SUM_KUERZ) + " geteilt durch " + nz(SUM_BEST) + "."],
-  ["Die Matrix zeigt für A - eine Rate von " + MINUS + "2 %. Was ergibt die Rechnung genau?",
-   [vz(-3 / 169 * 100, 1) + " %", MINUS + "2,0 %", MINUS + "3,0 %", MINUS + "1,0 %"], 0,
-   "Drei gekürzte Stück bei einer Bestellmenge von 169 ergeben " + vz(-3 / 169 * 100, 1) + " %. Power BI zeigt die Rate ohne Nachkommastelle, weshalb dort " + MINUS + "2 % steht."],
+  ["Die Matrix zeigt für A - eine Rate von " + MINUS + "3 %. Was ergibt die Rechnung genau?",
+   [vz(-4 / 143 * 100, 1) + " %", MINUS + "3,0 %", MINUS + "2,0 %", MINUS + "4,0 %"], 0,
+   "Vier gekürzte Stück bei einer Bestellmenge von " + nz(143) + " ergeben " + vz(-4 / 143 * 100, 1) + " %. Power BI zeigt die Rate ohne Nachkommastelle, weshalb dort " + MINUS + "3 % steht."],
   ["Welche Farbe hat die Ist-Säule in allen Diagrammen des Berichtswesens?",
    ["Schwarz", "Grün", "Blau", "Grau"], 0,
    "Der Standard legt Schwarz für das Ist und Grün für den Plan fest. Grau ist für Vorjahreswerte vorgesehen, Blau für den Standardfall ohne eigene Bedeutung."],
   ["Was zeigt die zweite Seite des Tagesdashboards?",
    ["Die aktuellen Bestände je Blutgruppe", "Die Spenderentwicklung nach Kalenderwochen",
     "Die Liquiditätslage", "Die Personalkostenquote"], 0,
-   "Die zweite Seite weist die Ist-Bestände aus, aufgeteilt nach Blutgruppen und als Gesamtzahl. Sie dient der Übermittlung an das Paul-Ehrlich-Institut."],
+   "Die zweite Seite weist die Ist-Bestände aus, aufgeteilt nach Blutgruppen und als Gesamtzahl. Sie dient der Meldung an die zuständige Bundesoberbehörde."],
   ["Warum geht die zweite Seite nicht mit dem PDF heraus?",
    ["Sie ist in der Seitenanzeige ausgeblendet", "Sie hat keine Daten",
     "Sie wird separat gedruckt", "Sie ist passwortgeschützt"], 0,
@@ -1160,23 +1161,23 @@ const FRAGEN = [
     "Das Jahr auf allen Seiten des Berichts"], 0,
    "Beide Diagramme filtern auf das Attribut Kalenderwoche_Bezeichnung, das sich nicht dynamisch setzen lässt. Alle übrigen Filter des Tagesdashboards laufen dynamisch mit."],
   ["Wie lange dauert das Aktualisieren der Daten in Power BI Desktop?",
-   ["Rund 30 Sekunden", "Rund 5 Minuten", "Weniger als eine Sekunde", "Rund 10 Minuten"], 0,
-   "Der Button Aktualisieren steht im Menüband unter Start im Abschnitt Abfragen. Aktuelle Daten stehen ab etwa 12:00 Uhr bereit."],
+   ["Rund eine Minute", "Rund fünf Minuten", "Weniger als eine Sekunde", "Rund zehn Minuten"], 0,
+   "Der Button Aktualisieren steht im Menüband unter Start im Abschnitt Abfragen. Aktuelle Daten stehen ab etwa 12:30 Uhr bereit."],
   ["Auf welchen Tag filtert die Matrix zur Kürzungsrate?",
    ["Auf den Vortag", "Auf den aktuellen Tag", "Auf den letzten Freitag", "Auf den Monatsersten"], 0,
-   "Die Filterung ist dynamisch auf den Vortag gesetzt. Am 12.03.2024 erscheinen dort deshalb die Daten vom 11.03.2024."],
+   "Die Filterung ist dynamisch auf den Vortag gesetzt. Am 11.02.2026 erscheinen dort deshalb die Daten vom 10.02.2026."],
   ["Was ist an der Visualisierung Lagerreichweite technisch besonders?",
    ["Sie besteht aus zwei zu einem Element gruppierten Visuals",
     "Sie lädt ihre Daten aus einer Excel-Datei",
     "Sie stammt aus dem AppSource-Shop",
     "Sie hat keine Filterung"], 0,
    "Eine zusammengesetzte Visualisierung lässt sich mit einem einzelnen Klick nicht auswählen. Wer sie anfassen will, klickt mehrmals darauf."],
-  ["Wie viele EKs lagen am 13.05.2024 insgesamt auf Lager?",
-   [nz(SUM_BESTAND), nz(9167), nz(7448), nz(2127)], 0,
-   "Die Tabelle der zweiten Seite weist " + nz(SUM_BESTAND) + " Stück als Gesamtbestand aus. Die " + nz(9167) + " gehören allein zur Blutgruppe A +."],
-  ["Was planen die Kollegen für Samstag und Sonntag beim Absatz EK?",
+  ["Wie viele EKs lagen am 14.04.2026 insgesamt auf Lager?",
+   [nz(SUM_BESTAND), nz(8421), nz(6907), nz(1583)], 0,
+   "Die Tabelle der zweiten Seite weist " + nz(SUM_BESTAND) + " Stück als Gesamtbestand aus. Die " + nz(8421) + " gehören allein zur Blutgruppe A +."],
+  ["Was sieht der Plan für Samstag und Sonntag beim Absatz EK vor?",
    ["Null", "Dieselbe Menge wie werktags", "Die Hälfte der Werktagsmenge", "Das steht nicht im Bericht"], 0,
-   "Für beide Tage steht der Plan auf null. Bei den Spendern plant die Spende-Organisation dagegen mit 166 und 647 Personen."],
+   "Für beide Tage steht der Plan auf null. Bei den Spendern plant die Spende-Organisation dagegen mit " + nz(210) + " und " + nz(580) + " Personen."],
 ];
 let qAktuell = [];
 const QZAHL = 5;
@@ -1231,12 +1232,12 @@ qZiehen();
    11 . Der Praxiseinstieg
    ===================================================================== */
 const SCHRITTE = [
-  ["Öffne den produktiven Bericht aus dem Freigabe-Ordner",
-   "Die Verknüpfungen liegen unter <span class=\"mono\">C:\\Freigabe\\Geteilter Ordner (PROD und DEV)\\Dashboards\\Produktiv</span>, wo daneben auch die Anleitung für die Anpassungen am Tagesdashboard und am Wochendashboard steht.",
+  ["Öffne den produktiven Bericht aus dem Berichtsordner",
+   "Die Verknüpfungen liegen unter <span class=\"mono\">L:\\Berichtswesen\\Dashboards\\Produktiv</span>, wo daneben auch die Anleitung für die Anpassungen am Tagesdashboard und am Wochendashboard steht.",
    "Wer die Testversion mit dem Suffix <span class=\"mono\">_Test</span> öffnet, arbeitet auf den Daten des Testsystems und verschickt am Ende den falschen Stand."],
   ["Aktualisiere die Daten und warte den Lauf ab",
-   "Der Button Aktualisieren steht im Menüband unter Start im Abschnitt Abfragen, wobei der Lauf rund dreißig Sekunden braucht, in denen der Bericht nicht zu bedienen ist.",
-   "Vor etwa 12:00 Uhr liegen die Daten des Vortags noch nicht vor. Eine Aktualisierung davor holt den Stand von vorgestern."],
+   "Der Button Aktualisieren steht im Menüband unter Start im Abschnitt Abfragen, wobei der Lauf rund eine Minute braucht, in der der Bericht nicht zu bedienen ist.",
+   "Vor etwa 12:30 Uhr liegen die Daten des Vortags noch nicht vor. Eine Aktualisierung davor holt den Stand von vorgestern."],
   ["Setz im Diagramm Erschienene Spender Mo-So die Kalenderwoche",
    "Wähl die Visualisierung an und stell im Bereich Filter das Attribut <span class=\"mono\">Kalenderwoche_Bezeichnung</span> auf die laufende Woche.",
    "An einem Montag ist es die Vorwoche, da der Bericht den Vortag zeigt. Genau an dieser Stelle entsteht der häufigste Fehler des täglichen Laufs, weil die Umstellung an einem Tag der Woche anders ausfällt als an den übrigen sechs."],
@@ -1248,12 +1249,12 @@ const SCHRITTE = [
    "Zeigt der Titel heute und das Diagramm die Vorwoche, ist Schritt drei oder vier offen geblieben."],
   ["Prüf, dass die zweite Seite ausgeblendet bleibt",
    "In der Seitenanzeige unten steht das Augensymbol, über das sich eine Seite ausblenden lässt. Eine so ausgeblendete Seite bleibt beim Export in ein PDF und bei einer Veröffentlichung unberücksichtigt.",
-   "Die Bestände der zweiten Seite gehen an das Paul-Ehrlich-Institut und gehören nicht in den täglichen Verteiler."],
+   "Die Bestände der zweiten Seite gehen an die zuständige Bundesoberbehörde und gehören nicht in den täglichen Verteiler."],
   ["Exportiere den Bericht als PDF",
    "Der Weg führt über Datei, dann Exportieren, dann In PDF exportieren. Der Bericht öffnet sich daraufhin als PDF im Browser und lässt sich über das Pfeilsymbol herunterladen, bevor er an den Verteiler geht.",
    "Der Export nimmt den Stand, der gerade angezeigt wird, weshalb jemand, der die Filter danach noch einmal anfasst, ein PDF mit anderen Zahlen in der Hand hält als der Bericht sie zeigt."],
   ["Verschick das PDF an den Verteiler",
-   "Der Versand erfolgt per E-Mail an die ausgewählten Mitarbeitenden, täglich gegen 12:00 Uhr, also zu der Zeit, zu der die Daten des Vortags vollständig vorliegen.",
+   "Der Versand erfolgt per E-Mail an die ausgewählten Mitarbeitenden, täglich gegen 13:00 Uhr, also zu der Zeit, zu der die Daten des Vortags vollständig vorliegen.",
    "Wer den Verteiler ändert, prüft vorher das Berechtigungskonzept, da dort steht, wer welches Dashboard bekommen darf."],
 ];
 $("ck").innerHTML = SCHRITTE.map(([t, p, q]) =>
